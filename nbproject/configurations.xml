@@ -2,12 +2,16 @@
 <configurationDescriptor version="97">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="Headers" displayName="Headers" projectFiles="true">
+      <itemPath>Headers/Flash.hpp</itemPath>
       <itemPath>Headers/Game.hpp</itemPath>
+      <itemPath>Headers/Heal.hpp</itemPath>
       <itemPath>Headers/Hechizo.hpp</itemPath>
       <itemPath>Headers/Player.hpp</itemPath>
       <itemPath>Headers/StringHelpers.hpp</itemPath>
       <itemPath>Headers/StringHelpers.inl</itemPath>
       <itemPath>Headers/hFireBasic.hpp</itemPath>
+      <itemPath>Headers/hRayBasic.hpp</itemPath>
+      <itemPath>Headers/hWaterBasic.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -16,10 +20,14 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>Flash.cpp</itemPath>
       <itemPath>Game.cpp</itemPath>
+      <itemPath>Heal.cpp</itemPath>
       <itemPath>Hechizo.cpp</itemPath>
       <itemPath>Player.cpp</itemPath>
       <itemPath>hFireBasic.cpp</itemPath>
+      <itemPath>hRayBasic.cpp</itemPath>
+      <itemPath>hWaterBasic.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -49,6 +57,7 @@
         <ccTool>
           <incDir>
             <pElem>include</pElem>
+            <pElem>Headers</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
@@ -64,9 +73,15 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="Flash.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="Game.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="Headers/Flash.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/Game.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/Heal.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Hechizo.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -78,11 +93,21 @@
       </item>
       <item path="Headers/hFireBasic.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/hRayBasic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/hWaterBasic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Heal.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="Hechizo.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Player.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="hFireBasic.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="hRayBasic.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="hWaterBasic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -107,9 +132,15 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="Flash.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="Game.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="Headers/Flash.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/Game.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/Heal.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Hechizo.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -121,11 +152,21 @@
       </item>
       <item path="Headers/hFireBasic.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/hRayBasic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/hWaterBasic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Heal.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="Hechizo.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Player.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="hFireBasic.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="hRayBasic.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="hWaterBasic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -5,21 +5,20 @@
  */
 
 /* 
- * File:   hFireBasic.cpp
+ * File:   hRayBasic.cpp
  * Author: tonir
  * 
- * Created on 22 de febrero de 2016, 12:45
+ * Created on 22 de febrero de 2016, 23:05
  */
 
-#include "../Headers/hFireBasic.hpp"
+#include "../Headers/hRayBasic.hpp"
 
-hFireBasic::hFireBasic() {
+hRayBasic::hRayBasic() {
 }
 
-hFireBasic::hFireBasic(const hFireBasic& orig) {
-    
+hRayBasic::hRayBasic(const hRayBasic& orig) {
 }
 
-hFireBasic::~hFireBasic() {
+hRayBasic::~hRayBasic() {
 }
 

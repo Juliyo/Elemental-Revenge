@@ -5,21 +5,20 @@
  */
 
 /* 
- * File:   hFireBasic.cpp
+ * File:   Flash.cpp
  * Author: tonir
  * 
- * Created on 22 de febrero de 2016, 12:45
+ * Created on 22 de febrero de 2016, 23:20
  */
 
-#include "../Headers/hFireBasic.hpp"
+#include "../Headers/Flash.hpp"
 
-hFireBasic::hFireBasic() {
+Flash::Flash() {
 }
 
-hFireBasic::hFireBasic(const hFireBasic& orig) {
-    
+Flash::Flash(const Flash& orig) {
 }
 
-hFireBasic::~hFireBasic() {
+Flash::~Flash() {
 }
 

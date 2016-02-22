@@ -5,21 +5,20 @@
  */
 
 /* 
- * File:   hFireBasic.cpp
+ * File:   Heal.cpp
  * Author: tonir
  * 
- * Created on 22 de febrero de 2016, 12:45
+ * Created on 22 de febrero de 2016, 23:15
  */
 
-#include "../Headers/hFireBasic.hpp"
+#include "../Headers/Heal.hpp"
 
-hFireBasic::hFireBasic() {
+Heal::Heal() {
 }
 
-hFireBasic::hFireBasic(const hFireBasic& orig) {
-    
+Heal::Heal(const Heal& orig) {
 }
 
-hFireBasic::~hFireBasic() {
+Heal::~Heal() {
 }
 

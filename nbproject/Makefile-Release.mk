@@ -35,10 +35,14 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/Flash.o \
 	${OBJECTDIR}/Game.o \
+	${OBJECTDIR}/Heal.o \
 	${OBJECTDIR}/Hechizo.o \
 	${OBJECTDIR}/Player.o \
 	${OBJECTDIR}/hFireBasic.o \
+	${OBJECTDIR}/hRayBasic.o \
+	${OBJECTDIR}/hWaterBasic.o \
 	${OBJECTDIR}/main.o
 
 
@@ -66,10 +70,20 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/elemental-revenge.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/elemental-revenge ${OBJECTFILES} ${LDLIBSOPTIONS}
 
+${OBJECTDIR}/Flash.o: Flash.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Flash.o Flash.cpp
+
 ${OBJECTDIR}/Game.o: Game.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Game.o Game.cpp
+
+${OBJECTDIR}/Heal.o: Heal.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Heal.o Heal.cpp
 
 ${OBJECTDIR}/Hechizo.o: Hechizo.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -85,6 +99,16 @@ ${OBJECTDIR}/hFireBasic.o: hFireBasic.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/hFireBasic.o hFireBasic.cpp
+
+${OBJECTDIR}/hRayBasic.o: hRayBasic.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/hRayBasic.o hRayBasic.cpp
+
+${OBJECTDIR}/hWaterBasic.o: hWaterBasic.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/hWaterBasic.o hWaterBasic.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}

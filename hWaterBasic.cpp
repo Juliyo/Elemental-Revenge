@@ -5,21 +5,20 @@
  */
 
 /* 
- * File:   hFireBasic.cpp
+ * File:   hWaterBasic.cpp
  * Author: tonir
  * 
- * Created on 22 de febrero de 2016, 12:45
+ * Created on 22 de febrero de 2016, 23:06
  */
 
-#include "../Headers/hFireBasic.hpp"
+#include "../Headers/hWaterBasic.hpp"
 
-hFireBasic::hFireBasic() {
+hWaterBasic::hWaterBasic() {
 }
 
-hFireBasic::hFireBasic(const hFireBasic& orig) {
-    
+hWaterBasic::hWaterBasic(const hWaterBasic& orig) {
 }
 
-hFireBasic::~hFireBasic() {
+hWaterBasic::~hWaterBasic() {
 }
 

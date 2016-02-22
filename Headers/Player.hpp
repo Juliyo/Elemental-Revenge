@@ -28,7 +28,6 @@ public:
 private:
     float   mVelocidad;
     int     mVida;
-    
 };
 
 #endif /* PLAYER_HPP */
