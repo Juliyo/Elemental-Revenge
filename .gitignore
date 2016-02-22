@@ -22,3 +22,4 @@
 # Executables
 *.out
 *.app
+nbproject/private/private.xml
