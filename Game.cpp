@@ -10,13 +10,15 @@
 #include "Headers/Player.hpp"
 
 
-const float Game::PlayerSpeed = 100.f;
+//const float Game::PlayerSpeed = 100.f;
 const sf::Time Game::TimePerFrame = sf::seconds(1.f / 60.f);
 
 Game::Game()
 : mWindow(sf::VideoMode(1280, 720), "SFML Application", sf::Style::Close)
-, mPlayer()
+, mWorldView(mWindow.getDefaultView())
+, mPlayer(150.f)
 , mFont()
+, mFondo()
 , mStatisticsText()
 , mStatisticsUpdateTime()
 , mStatisticsNumFrames(0)
@@ -24,12 +26,21 @@ Game::Game()
 , mIsMovingDown(false)
 , mIsMovingRight(false)
 , mIsMovingLeft(false) {
-
+    mWindow.setFramerateLimit(60);
+    mWorldView.zoom(0.5f);
     mPlayer.mTexture.loadFromFile("resources/Textures/character.png");
     mPlayer.mSprite.setTexture(mPlayer.mTexture);
     mPlayer.mSprite.setTextureRect(sf::IntRect(0, 0, 31, 46));
     mPlayer.mSprite.setPosition(100, 100);
 
+    
+    if (!mFondoT.loadFromFile("resources/Textures/grasstext.png")) {
+        //Error
+    }
+    mFondoT.setRepeated(true);
+    mFondo.setTextureRect(sf::IntRect(0, 0,2000,2000));
+    mFondo.setTexture(mFondoT);
+    
     mFont.loadFromFile("resources/Fonts/Sansation.ttf");
     mStatisticsText.setFont(mFont);
     mStatisticsText.setPosition(5.f, 5.f);
@@ -74,23 +85,37 @@ void Game::processEvents() {
 }
 
 void Game::update(sf::Time elapsedTime) {
+    updatePlayer(elapsedTime);
+    updateView(elapsedTime);
+}
+void Game::updatePlayer(sf::Time elapsedTime){
     sf::Vector2f movement(0.f, 0.f);
     if (mIsMovingUp)
-        movement.y -= PlayerSpeed;
+        movement.y -= mPlayer.getVelocidad();
     if (mIsMovingDown)
-        movement.y += PlayerSpeed;
+        movement.y += mPlayer.getVelocidad();
     if (mIsMovingLeft)
-        movement.x -= PlayerSpeed;
+        movement.x -= mPlayer.getVelocidad();
     if (mIsMovingRight)
-        movement.x += PlayerSpeed;
+        movement.x += mPlayer.getVelocidad();
 
     mPlayer.mSprite.move(movement * elapsedTime.asSeconds());
 }
-
+void Game::updateView(sf::Time elapsedTime){
+    sf::Vector2f mousePosition= mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
+    float x=(mousePosition.x+mPlayer.mSprite.getPosition().x)/2;
+    float y=(mousePosition.y+mPlayer.mSprite.getPosition().y)/2;
+    mWorldView.setCenter(x,y); 
+    mWindow.setView(mWorldView);
+}
 void Game::render() {
     mWindow.clear();
+    mWindow.draw(mFondo);
     mWindow.draw(mPlayer.mSprite);
+    //
     mWindow.draw(mStatisticsText);
+    
+    
     mWindow.display();
 }
 

@@ -17,6 +17,7 @@
 #include <SFML/Graphics.hpp>
 #include "../Headers/Player.hpp"
 
+
 class Game : private sf::NonCopyable
 {
 	public:
@@ -27,6 +28,8 @@ class Game : private sf::NonCopyable
 	private:
 		void					processEvents();
 		void					update(sf::Time elapsedTime);
+                void                                    updatePlayer(sf::Time elapsedTime);
+                void                                    updateView(sf::Time elapsedTime);
 		void					render();
 
 		void					updateStatistics(sf::Time elapsedTime);	
@@ -38,12 +41,15 @@ class Game : private sf::NonCopyable
 		static const sf::Time           TimePerFrame;
 
 		sf::RenderWindow                        mWindow;
-		sf::Texture				mTexture;
 		Player                                  mPlayer;
 		sf::Font				mFont;
 		sf::Text				mStatisticsText;
 		sf::Time				mStatisticsUpdateTime;
-
+                sf::View                                mWorldView;
+                sf::FloatRect                           mWorldBounds;
+                sf::Vector2f                            mSpawnPosition;
+                sf::Sprite                              mFondo;
+                sf::Texture                             mFondoT;
 		std::size_t				mStatisticsNumFrames;
 		bool					mIsMovingUp;
 		bool					mIsMovingDown;

@@ -16,9 +16,11 @@
 #include <SFML/Graphics.hpp>
 class Player{
 public:
-    Player();
+    Player(float velocidad);
     int         getVida();
     void        setVida(int vidaNueva);
+    float       getVelocidad();
+    void        setVelocidad(float velocidad);
     
     sf::Texture mTexture;
     sf::Sprite  mSprite;
