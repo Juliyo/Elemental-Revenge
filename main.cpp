@@ -11,11 +11,11 @@
  * Created on 19 de febrero de 2016, 16:47
  */
 
-#include <../Game.hpp>
+#include <../Headers/Game.hpp>
 
 int main()
 {
-	Game game;
-        //hola
+    Game game;
+    //hola
     game.run();
 }

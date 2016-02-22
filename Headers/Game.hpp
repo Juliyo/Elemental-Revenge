@@ -15,7 +15,7 @@
 #define GAME_HPP
 
 #include <SFML/Graphics.hpp>
-
+#include "../Headers/Player.hpp"
 
 class Game : private sf::NonCopyable
 {
@@ -39,7 +39,7 @@ class Game : private sf::NonCopyable
 
 		sf::RenderWindow                        mWindow;
 		sf::Texture				mTexture;
-		sf::Sprite				mPlayer;
+		Player                                  mPlayer;
 		sf::Font				mFont;
 		sf::Text				mStatisticsText;
 		sf::Time				mStatisticsUpdateTime;

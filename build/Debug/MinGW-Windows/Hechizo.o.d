@@ -1,6 +1,6 @@
-build/Debug/MinGW-Windows/Game.o: Game.cpp include/../Headers/Game.hpp \
- include/SFML/Graphics.hpp include/SFML/Window.hpp \
- include/SFML/System.hpp include/SFML/Config.hpp \
+build/Debug/MinGW-Windows/Hechizo.o: Hechizo.cpp \
+ include/../Headers/Hechizo.hpp include/SFML/Graphics.hpp \
+ include/SFML/Window.hpp include/SFML/System.hpp include/SFML/Config.hpp \
  include/SFML/System/Clock.hpp include/SFML/System/Export.hpp \
  include/SFML/System/Time.hpp include/SFML/System/Err.hpp \
  include/SFML/System/FileInputStream.hpp \
@@ -35,12 +35,9 @@ build/Debug/MinGW-Windows/Game.o: Game.cpp include/../Headers/Game.hpp \
  include/SFML/Graphics/RenderTarget.hpp include/SFML/Graphics/View.hpp \
  include/SFML/Graphics/RenderTexture.hpp \
  include/SFML/Graphics/RenderWindow.hpp include/SFML/Graphics/Shader.hpp \
- include/SFML/Graphics/Sprite.hpp include/SFML/Graphics/Text.hpp \
- include/../Headers/../Headers/Player.hpp \
- include/../Headers/StringHelpers.hpp \
- include/../Headers/StringHelpers.inl Headers/Player.hpp
+ include/SFML/Graphics/Sprite.hpp include/SFML/Graphics/Text.hpp
 
-include/../Headers/Game.hpp:
+include/../Headers/Hechizo.hpp:
 
 include/SFML/Graphics.hpp:
 
@@ -179,11 +176,3 @@ include/SFML/Graphics/Shader.hpp:
 include/SFML/Graphics/Sprite.hpp:
 
 include/SFML/Graphics/Text.hpp:
-
-include/../Headers/../Headers/Player.hpp:
-
-include/../Headers/StringHelpers.hpp:
-
-include/../Headers/StringHelpers.inl:
-
-Headers/Player.hpp:

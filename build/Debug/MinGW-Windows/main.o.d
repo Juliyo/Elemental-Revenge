@@ -1,4 +1,4 @@
-build/Debug/MinGW-Windows/main.o: main.cpp include/../Game.hpp \
+build/Debug/MinGW-Windows/main.o: main.cpp include/../Headers/Game.hpp \
  include/SFML/Graphics.hpp include/SFML/Window.hpp \
  include/SFML/System.hpp include/SFML/Config.hpp \
  include/SFML/System/Clock.hpp include/SFML/System/Export.hpp \
@@ -35,9 +35,10 @@ build/Debug/MinGW-Windows/main.o: main.cpp include/../Game.hpp \
  include/SFML/Graphics/RenderTarget.hpp include/SFML/Graphics/View.hpp \
  include/SFML/Graphics/RenderTexture.hpp \
  include/SFML/Graphics/RenderWindow.hpp include/SFML/Graphics/Shader.hpp \
- include/SFML/Graphics/Sprite.hpp include/SFML/Graphics/Text.hpp
+ include/SFML/Graphics/Sprite.hpp include/SFML/Graphics/Text.hpp \
+ include/../Headers/../Headers/Player.hpp
 
-include/../Game.hpp:
+include/../Headers/Game.hpp:
 
 include/SFML/Graphics.hpp:
 
@@ -176,3 +177,5 @@ include/SFML/Graphics/Shader.hpp:
 include/SFML/Graphics/Sprite.hpp:
 
 include/SFML/Graphics/Text.hpp:
+
+include/../Headers/../Headers/Player.hpp:

@@ -20,7 +20,7 @@
 template <typename T>
 std::string toString(const T& value);
 
-#include <../StringHelpers.inl>
+#include <../Headers/StringHelpers.inl>
 
 
 #endif /* STRINGHELPERS_HPP */
