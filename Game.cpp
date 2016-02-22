@@ -24,15 +24,15 @@ Game::Game()
 , mIsMovingRight(false)
 , mIsMovingLeft(false)
 {
-	if (!mTexture.loadFromFile("Media/Textures/Eagle.png"))
+	if (!mTexture.loadFromFile("resources/Textures/character.png"))
 	{
 		// Handle loading error
 	}
 
 	mPlayer.setTexture(mTexture);
 	mPlayer.setPosition(100.f, 100.f);
-	
-	mFont.loadFromFile("Media/Sansation.ttf");
+	mPlayer.setTextureRect(sf::IntRect(0, 0, 31, 46));
+	mFont.loadFromFile("resources/Fonts/Sansation.ttf");
 	mStatisticsText.setFont(mFont);
 	mStatisticsText.setPosition(5.f, 5.f);
 	mStatisticsText.setCharacterSize(10);

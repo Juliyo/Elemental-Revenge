@@ -20,7 +20,7 @@
 class Game : private sf::NonCopyable
 {
 	public:
-								Game();
+							Game();
 		void					run();
 		
 
@@ -35,9 +35,9 @@ class Game : private sf::NonCopyable
 
 	private:
 		static const float		PlayerSpeed;
-		static const sf::Time	TimePerFrame;
+		static const sf::Time           TimePerFrame;
 
-		sf::RenderWindow		mWindow;
+		sf::RenderWindow                        mWindow;
 		sf::Texture				mTexture;
 		sf::Sprite				mPlayer;
 		sf::Font				mFont;
