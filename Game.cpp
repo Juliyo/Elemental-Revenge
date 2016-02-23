@@ -6,8 +6,8 @@
 
 #include <../Headers/Game.hpp>
 #include <../Headers/StringHelpers.hpp>
-
 #include "Headers/Player.hpp"
+
 
 
 //const float Game::PlayerSpeed = 100.f;
@@ -17,6 +17,7 @@ Game::Game()
 : mWindow(sf::VideoMode(1280, 720), "SFML Application", sf::Style::Close)
 , mWorldView(mWindow.getDefaultView())
 , mPlayer(150.f)
+,hFuegoBasico()
 , mFont()
 , mFondo()
 , mStatisticsText()
@@ -32,6 +33,7 @@ Game::Game()
     mPlayer.mSprite.setTexture(mPlayer.mTexture);
     mPlayer.mSprite.setTextureRect(sf::IntRect(0, 0, 31, 46));
     mPlayer.mSprite.setPosition(100, 100);
+    mPlayer.mSprite.setOrigin(5, 46/2);
 
     
     if (!mFondoT.loadFromFile("resources/Textures/grasstext.png")) {
@@ -67,6 +69,9 @@ void Game::run() {
 }
 
 void Game::processEvents() {
+    
+    
+    
     sf::Event event;
     while (mWindow.pollEvent(event)) {
         switch (event.type) {
@@ -78,15 +83,29 @@ void Game::processEvents() {
                 handlePlayerInput(event.key.code, false);
                 break;
 
+            case sf::Event::MouseButtonReleased:
+            {
+                hFuegoBasico.hSprite.setPosition(mPlayer.mSprite.getPosition());
+                sf::Vector2f mousePosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
+                float angleShot = atan2(mousePosition.y - hFuegoBasico.hSprite.getPosition().y,
+                      mousePosition.x - hFuegoBasico.hSprite.getPosition().x);
+                hFuegoBasico.angleshot2 = angleShot; //so it goes in a straight line
+            }
+                break;
+                
             case sf::Event::Closed:
                 mWindow.close();
                 break;
+            
         }
+        
+
     }
 }
 
 void Game::update(sf::Time elapsedTime) {
     updatePlayer(elapsedTime);
+    updateHechizo(elapsedTime);
     updateView(elapsedTime);
 }
 void Game::updatePlayer(sf::Time elapsedTime){
@@ -101,7 +120,19 @@ void Game::updatePlayer(sf::Time elapsedTime){
         movement.x += mPlayer.getVelocidad();
 
     mPlayer.mSprite.move(movement * elapsedTime.asSeconds());
+
+    
 }
+void Game::updateHechizo(sf::Time elapsedTime){
+ sf::Vector2f movement(800*cos(hFuegoBasico.angleshot2) * 1.0f,800*sin(hFuegoBasico.angleshot2) * 1.0f);
+         hFuegoBasico.hSprite.move(movement * elapsedTime.asSeconds());
+   // hFuegoBasico.hSprite.move(10*cos(hFuegoBasico.angleshot2) * 1.0f, 0);
+    //hFuegoBasico.hSprite.move(0, 10*sin(hFuegoBasico.angleshot2) * 1.0f);
+    
+}
+
+
+
 void Game::updateView(sf::Time elapsedTime){
     sf::Vector2f mousePosition= mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
     float x=((mousePosition.x)/4.5+mPlayer.mSprite.getPosition().x);
@@ -113,8 +144,10 @@ void Game::updateView(sf::Time elapsedTime){
 void Game::render() {
     mWindow.clear();
     mWindow.draw(mFondo);
-    mWindow.draw(mPlayer.mSprite);
+    
     //
+    mWindow.draw(hFuegoBasico.hSprite);
+    mWindow.draw(mPlayer.mSprite);
     mWindow.draw(mStatisticsText);
     
     

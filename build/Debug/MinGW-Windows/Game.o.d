@@ -37,6 +37,8 @@ build/Debug/MinGW-Windows/Game.o: Game.cpp include/../Headers/Game.hpp \
  include/SFML/Graphics/RenderWindow.hpp include/SFML/Graphics/Shader.hpp \
  include/SFML/Graphics/Sprite.hpp include/SFML/Graphics/Text.hpp \
  include/../Headers/../Headers/Player.hpp \
+ include/../Headers/../Headers/hFireBasic.hpp \
+ include/../Headers/../Headers/../Headers/Hechizo.hpp \
  include/../Headers/StringHelpers.hpp \
  include/../Headers/StringHelpers.inl Headers/Player.hpp
 
@@ -181,6 +183,10 @@ include/SFML/Graphics/Sprite.hpp:
 include/SFML/Graphics/Text.hpp:
 
 include/../Headers/../Headers/Player.hpp:
+
+include/../Headers/../Headers/hFireBasic.hpp:
+
+include/../Headers/../Headers/../Headers/Hechizo.hpp:
 
 include/../Headers/StringHelpers.hpp:
 
