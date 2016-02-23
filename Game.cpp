@@ -107,16 +107,14 @@ void Game::processEvents() {
             {
                 if(contFuego==20){
                     contFuego=0;
-                    for(int i=0;i<20;i++){
-                        hFuegoBasico[i].hSprite.setRotation(0);
-                    }
                 }
+                //hFuegoBasico[contFuego].hSprite.setRotation(0);
                 hFuegoBasico[contFuego].hSprite.setPosition(mPlayer.mSprite.getPosition());
                 sf::Vector2f mousePosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
                 float angleShot = atan2(mousePosition.y - hFuegoBasico[contFuego].hSprite.getPosition().y,
                         mousePosition.x - hFuegoBasico[contFuego].hSprite.getPosition().x);
                 hFuegoBasico[contFuego].angleshot2 = angleShot; //so it goes in a straight line
-                hFuegoBasico[contFuego].hSprite.rotate(angleShot*180/3.14);
+                hFuegoBasico[contFuego].hSprite.setRotation(angleShot*180/3.14);
                 contFuego++;
             }
                 break;
