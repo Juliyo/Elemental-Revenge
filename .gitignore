@@ -24,3 +24,4 @@
 *.app
 nbproject/private/private.xml
 *.mk
+nbproject/private/configurations.xml
