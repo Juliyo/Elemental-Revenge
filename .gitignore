@@ -24,3 +24,7 @@
 *.app
 nbproject/private/private.xml
 *.mk
+nbproject/private/configurations.xml
+nbproject/private/private.xml
+build/Debug/MinGW-Windows/Game.o.d
+build/Debug/MinGW-Windows/Game.o.d

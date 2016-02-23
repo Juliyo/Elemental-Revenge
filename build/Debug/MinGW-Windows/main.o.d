@@ -36,9 +36,7 @@ build/Debug/MinGW-Windows/main.o: main.cpp include/../Headers/Game.hpp \
  include/SFML/Graphics/RenderTexture.hpp \
  include/SFML/Graphics/RenderWindow.hpp include/SFML/Graphics/Shader.hpp \
  include/SFML/Graphics/Sprite.hpp include/SFML/Graphics/Text.hpp \
- include/../Headers/../Headers/Player.hpp \
- include/../Headers/../Headers/hFireBasic.hpp \
- include/../Headers/../Headers/../Headers/Hechizo.hpp
+ include/../Headers/../Headers/Player.hpp
 
 include/../Headers/Game.hpp:
 
@@ -181,7 +179,3 @@ include/SFML/Graphics/Sprite.hpp:
 include/SFML/Graphics/Text.hpp:
 
 include/../Headers/../Headers/Player.hpp:
-
-include/../Headers/../Headers/hFireBasic.hpp:
-
-include/../Headers/../Headers/../Headers/Hechizo.hpp:

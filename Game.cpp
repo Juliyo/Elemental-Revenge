@@ -6,6 +6,13 @@
 
 #include <../Headers/Game.hpp>
 #include <../Headers/StringHelpers.hpp>
+#include <iostream>
+#include <cmath>
+//SOLO EN WINDOWS
+#ifdef _WIN32
+#include <Windows.h>
+#endif
+
 #include "Headers/Player.hpp"
 
 
@@ -34,6 +41,16 @@ Game::Game()
     mPlayer.mSprite.setTexture(mPlayer.mTexture);
     mPlayer.mSprite.setTextureRect(sf::IntRect(0, 0, 31, 46));
     mPlayer.mSprite.setPosition(100, 100);
+
+    //  mWindow.setMouseCursorVisible(false);
+
+#ifdef _WIN32
+    HWND handler = mWindow.getSystemHandle();
+    RECT rWindow;
+    GetWindowRect(handler, &rWindow);
+    ClipCursor(&rWindow);
+#endif
+
     mPlayer.mSprite.setOrigin(5, 46 / 2);
 
 
@@ -149,8 +166,63 @@ void Game::updateView(sf::Time elapsedTime) {
     float x = ((mousePosition.x) / 4.5 + mPlayer.mSprite.getPosition().x);
     float y = ((mousePosition.y) / 4.5 + mPlayer.mSprite.getPosition().y);
 
+
     mWorldView.setCenter(x, y);
     mWindow.setView(mWorldView);
+    /*
+    if(jX-rX>300 || jX-rX<-300){
+    
+    if(jX-rX>0){
+        aux1=50;
+        std::cout<<rX;
+    }else{
+        aux1=-50;
+    }
+    }*/
+    /*
+    direccion.x = (rX - mPlayer.mSprite.getPosition().x);
+    direccion.y = (rY - mPlayer.mSprite.getPosition().y);
+    
+    float distancia = sqrt(pow(direccion.x,2) + pow(direccion.y,2));
+    float x =( rX/2 + mPlayer.mSprite.getPosition().x);
+
+        float y = ((mousePosition.y) + mPlayer.mSprite.getPosition().y) / 2;
+        x = rX - mPlayer.mSprite.getPosition().x;
+        if(x>= 300){
+            x =300;
+        }else{
+            x = (rX - mPlayer.mSprite.getPosition().x)/2;
+        }
+     */
+
+
+
+
+
+    /*float aux1;
+    float aux2;
+
+        if (mPlayer.mSprite.getPosition().x - rX > -300) {
+
+    
+    if (mPlayer.mSprite.getPosition().x - rX > 0) {
+        aux1 = 50;
+                std::cout<<"Hola";
+
+    } else {
+        aux1 = -50;
+    }
+    
+        }
+    
+    /*
+    if(mPlayer.mSprite.getPosition().x - rX<=70 && mPlayer.mSprite.getPosition().x - rX>=-70){
+        aux1 = 1;
+        std::cout<<"Hola";
+    }*/
+
+
+    
 }
 
 void Game::render() {
