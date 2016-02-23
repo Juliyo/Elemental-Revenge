@@ -30,3 +30,6 @@ nbproject/private/private2.xml
 build/Debug/MinGW-Windows/main.o.d
 build/Debug/MinGW-Windows/Game.o.d
 
+build/Debug/MinGW-Windows/Game.o.d
+*.d
+nbproject/Makefile-Debug.mk

@@ -83,47 +83,47 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/elemental-revenge.exe: ${OBJECTFILES}
 ${OBJECTDIR}/Flash.o: Flash.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -IHeaders -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Flash.o Flash.cpp
+	$(COMPILE.cc) -g -Iinclude -IHeaders -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Flash.o Flash.cpp
 
 ${OBJECTDIR}/Game.o: Game.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -IHeaders -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Game.o Game.cpp
+	$(COMPILE.cc) -g -Iinclude -IHeaders -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Game.o Game.cpp
 
 ${OBJECTDIR}/Heal.o: Heal.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -IHeaders -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Heal.o Heal.cpp
+	$(COMPILE.cc) -g -Iinclude -IHeaders -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Heal.o Heal.cpp
 
 ${OBJECTDIR}/Hechizo.o: Hechizo.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -IHeaders -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Hechizo.o Hechizo.cpp
+	$(COMPILE.cc) -g -Iinclude -IHeaders -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Hechizo.o Hechizo.cpp
 
 ${OBJECTDIR}/Player.o: Player.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -IHeaders -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Player.o Player.cpp
+	$(COMPILE.cc) -g -Iinclude -IHeaders -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Player.o Player.cpp
 
 ${OBJECTDIR}/hFireBasic.o: hFireBasic.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -IHeaders -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/hFireBasic.o hFireBasic.cpp
+	$(COMPILE.cc) -g -Iinclude -IHeaders -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/hFireBasic.o hFireBasic.cpp
 
 ${OBJECTDIR}/hRayBasic.o: hRayBasic.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -IHeaders -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/hRayBasic.o hRayBasic.cpp
+	$(COMPILE.cc) -g -Iinclude -IHeaders -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/hRayBasic.o hRayBasic.cpp
 
 ${OBJECTDIR}/hWaterBasic.o: hWaterBasic.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -IHeaders -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/hWaterBasic.o hWaterBasic.cpp
+	$(COMPILE.cc) -g -Iinclude -IHeaders -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/hWaterBasic.o hWaterBasic.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -IHeaders -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -Iinclude -IHeaders -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
