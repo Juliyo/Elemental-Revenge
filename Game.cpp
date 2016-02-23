@@ -21,7 +21,7 @@
 const sf::Time Game::TimePerFrame = sf::seconds(1.f / 60.f);
 
 Game::Game()
-: mWindow(sf::VideoMode(1280, 720), "SFML Application", sf::Style::Fullscreen)
+: mWindow(sf::VideoMode(1280, 720), "SFML Application", sf::Style::Close)
 , mWorldView(mWindow.getDefaultView())
 , mPlayer(150.f)
 , hFuegoBasico()
