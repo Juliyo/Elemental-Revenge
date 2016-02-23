@@ -16,15 +16,16 @@
 hFireBasic::hFireBasic() {
     
     
-    if(!hTexture.loadFromFile("resources/Textures/bolaFuego.png")){
+    if(!hTexture.loadFromFile("resources/Textures/bolaFuego5.png")){
         
         //comentario error
         exit(0);
     }
     hSprite.setTexture(hTexture);
-    hSprite.setTextureRect(sf::IntRect(0, 0, 100, 81));
-    hSprite.setScale(0.2,0.2);
+    //hSprite.setTextureRect(sf::IntRect(0, 0, 79,42));
+    hSprite.setScale(1,1);
     hSprite.setPosition(-10000, -10000);
+    hSprite.setOrigin(0,42/2);
     
 }
 

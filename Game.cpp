@@ -85,16 +85,21 @@ void Game::processEvents() {
                 break;
 
             case sf::Event::MouseButtonReleased:
-
-
-
-
+            {
+                if(contFuego==20){
+                    contFuego=0;
+                    for(int i=0;i<20;i++){
+                        hFuegoBasico[i].hSprite.setRotation(0);
+                    }
+                }
                 hFuegoBasico[contFuego].hSprite.setPosition(mPlayer.mSprite.getPosition());
                 sf::Vector2f mousePosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
                 float angleShot = atan2(mousePosition.y - hFuegoBasico[contFuego].hSprite.getPosition().y,
                         mousePosition.x - hFuegoBasico[contFuego].hSprite.getPosition().x);
                 hFuegoBasico[contFuego].angleshot2 = angleShot; //so it goes in a straight line
+                hFuegoBasico[contFuego].hSprite.rotate(angleShot*180/3.14);
                 contFuego++;
+            }
                 break;
 
             case sf::Event::Closed:
@@ -132,8 +137,9 @@ void Game::updatePlayer(sf::Time elapsedTime) {
 void Game::updateHechizo(sf::Time elapsedTime) {
     int i;
     for (int i = 0; i < 20; i++) {
-        sf::Vector2f movement(800 * cos(hFuegoBasico[i].angleshot2) * 1.0f, 800 * sin(hFuegoBasico[i].angleshot2) * 1.0f);
+        sf::Vector2f movement(200 * cos(hFuegoBasico[i].angleshot2) * 1.0f, 200 * sin(hFuegoBasico[i].angleshot2) * 1.0f);
         hFuegoBasico[i].hSprite.move(movement * elapsedTime.asSeconds());
+        //hFuegoBasico[i].hSprite.rotate(25.f);
     }
 
 }
@@ -153,7 +159,7 @@ void Game::render() {
 
     //
     for(int i=0;i<20;i++){
-            mWindow.draw( hFuegoBasico[contFuego].hSprite);
+        mWindow.draw(hFuegoBasico[i].hSprite);
     }
 
     mWindow.draw(mPlayer.mSprite);
