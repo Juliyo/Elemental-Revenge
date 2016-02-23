@@ -170,6 +170,7 @@ void Game::updateHechizo(sf::Time elapsedTime) {
 void Game::updateView(sf::Time elapsedTime) {
     sf::Vector2f mousePosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
 
+
     /*float x = (((mousePosition.x) /2)-mWorldView.getCenter().x + mPlayer.mSprite.getPosition().x);
     float y = (((mousePosition.y) / 2)-mWorldView.getCenter().y + mPlayer.mSprite.getPosition().y);*/
     //float x = (mPlayer.mSprite.getPosition().x + ((mousePosition.x-mPlayer.mSprite.getPosition().x)/2)-mWorldView.getCenter().x);
@@ -178,6 +179,7 @@ void Game::updateView(sf::Time elapsedTime) {
     float camera_y = (mousePosition.y + mPlayer.mSprite.getPosition().y*6)/7;
     float x = (mWorldView.getCenter().x+0.1*(camera_x-mWorldView.getCenter().x));//Lo mismo que la funcion lerp
     float y = (mWorldView.getCenter().y+0.1*(camera_y-mWorldView.getCenter().y));
+
 
     mWorldView.setCenter(x, y);
     mWindow.setView(mWorldView);
