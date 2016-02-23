@@ -40,10 +40,11 @@ Game::Game()
     mFondoT.setRepeated(true);
     mFondo.setTextureRect(sf::IntRect(0, 0,2000,2000));
     mFondo.setTexture(mFondoT);
+    mFondo.setPosition(0,0);
     
     mFont.loadFromFile("resources/Fonts/Sansation.ttf");
     mStatisticsText.setFont(mFont);
-    mStatisticsText.setPosition(5.f, 5.f);
+    mStatisticsText.setPosition(mWindow.getSize().x, mWindow.getSize().y);
     mStatisticsText.setCharacterSize(10);
 }
 
@@ -103,8 +104,9 @@ void Game::updatePlayer(sf::Time elapsedTime){
 }
 void Game::updateView(sf::Time elapsedTime){
     sf::Vector2f mousePosition= mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
-    float x=(mousePosition.x+mPlayer.mSprite.getPosition().x)/2;
-    float y=(mousePosition.y+mPlayer.mSprite.getPosition().y)/2;
+    float x=((mousePosition.x)/4.5+mPlayer.mSprite.getPosition().x);
+    float y=((mousePosition.y)/4.5+mPlayer.mSprite.getPosition().y);
+    
     mWorldView.setCenter(x,y); 
     mWindow.setView(mWorldView);
 }
