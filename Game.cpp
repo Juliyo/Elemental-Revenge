@@ -36,7 +36,9 @@ Game::Game()
 , mIsMovingLeft(false)
 , contFuego(0) {
     mWindow.setFramerateLimit(60);
+    mWindow.setVerticalSyncEnabled(true);
     mWorldView.zoom(0.5f);
+    mWorldView.setViewport(sf::FloatRect(0.15f, 0.f, 0.7f, 1.f));
     mPlayer.mTexture.loadFromFile("resources/Textures/character.png");
     mPlayer.mSprite.setTexture(mPlayer.mTexture);
     mPlayer.mSprite.setTextureRect(sf::IntRect(0, 0, 31, 46));
@@ -130,11 +132,19 @@ void Game::processEvents() {
 }
 
 void Game::update(sf::Time elapsedTime) {
+    updateView(elapsedTime);
     updatePlayer(elapsedTime);
     updateHechizo(elapsedTime);
-    updateView(elapsedTime);
+    
 }
-
+sf::Vector2f Game::normalize(const sf::Vector2f& source)
+{
+    float length = sqrt((source.x * source.x) + (source.y * source.y));
+    if (length != 0)
+        return sf::Vector2f(source.x / length, source.y / length);
+    else
+        return source;
+}
 void Game::updatePlayer(sf::Time elapsedTime) {
     sf::Vector2f movement(0.f, 0.f);
     if (mIsMovingUp)
@@ -145,6 +155,8 @@ void Game::updatePlayer(sf::Time elapsedTime) {
         movement.x -= mPlayer.getVelocidad();
     if (mIsMovingRight)
         movement.x += mPlayer.getVelocidad();
+    
+        movement=normalize(movement)*mPlayer.getVelocidad();
 
     mPlayer.mSprite.move(movement * elapsedTime.asSeconds());
 
@@ -167,9 +179,9 @@ void Game::updateView(sf::Time elapsedTime) {
     float y = (((mousePosition.y) / 2)-mWorldView.getCenter().y + mPlayer.mSprite.getPosition().y);*/
     //float x = (mPlayer.mSprite.getPosition().x + ((mousePosition.x-mPlayer.mSprite.getPosition().x)/2)-mWorldView.getCenter().x);
     //float y = (mPlayer.mSprite.getPosition().y + ((mousePosition.y-mPlayer.mSprite.getPosition().y)/2)-mWorldView.getCenter().y);
-    float camera_x = (mousePosition.x + (mPlayer.mSprite.getPosition().x*6))/7;
+    float camera_x = (mousePosition.x + (mPlayer.mSprite.getPosition().x*6))/7;//Media dando prioridad al jugador
     float camera_y = (mousePosition.y + mPlayer.mSprite.getPosition().y*6)/7;
-    float x = (mWorldView.getCenter().x+0.1*(camera_x-mWorldView.getCenter().x));
+    float x = (mWorldView.getCenter().x+0.1*(camera_x-mWorldView.getCenter().x));//Lo mismo que la funcion lerp
     float y = (mWorldView.getCenter().y+0.1*(camera_y-mWorldView.getCenter().y));
     mWorldView.setCenter(x, y);
     mWindow.setView(mWorldView);

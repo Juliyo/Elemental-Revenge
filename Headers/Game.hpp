@@ -34,6 +34,7 @@ class Game : private sf::NonCopyable
                 void                                    updatePlayer(sf::Time elapsedTime);
                 void                                    updateHechizo(sf::Time elapsedTime);
                 void                                    updateView(sf::Time elapsedTime);
+                sf::Vector2f                            normalize(const sf::Vector2f& source);
 		void					render();
 
 		void					updateStatistics(sf::Time elapsedTime);	
