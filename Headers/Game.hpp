@@ -55,11 +55,13 @@ class Game : private sf::NonCopyable
                 sf::Sprite                              mFondo;
                 sf::Texture                             mFondoT;
 		std::size_t				mStatisticsNumFrames;
-                hFireBasic                              hFuegoBasico;
+                hFireBasic                              hFuegoBasico[20];
 		bool					mIsMovingUp;
 		bool					mIsMovingDown;
 		bool					mIsMovingRight;
 		bool					mIsMovingLeft;
+                int                                     contFuego;
+                
 };
 
 

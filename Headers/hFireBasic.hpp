@@ -22,6 +22,7 @@ public:
     hFireBasic();
     hFireBasic(const hFireBasic& orig);
     virtual ~hFireBasic();
+  
 private:
     void cast();
 };
