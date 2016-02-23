@@ -22,3 +22,7 @@ hRayBasic::hRayBasic(const hRayBasic& orig) {
 hRayBasic::~hRayBasic() {
 }
 
+void hRayBasic::cast(){
+    
+}
+

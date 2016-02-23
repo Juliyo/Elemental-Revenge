@@ -12,6 +12,7 @@
  */
 
 #include "../Headers/Heal.hpp"
+#include "Flash.hpp"
 
 Heal::Heal() {
 }
@@ -20,5 +21,9 @@ Heal::Heal(const Heal& orig) {
 }
 
 Heal::~Heal() {
+}
+
+void Heal::cast(){
+    
 }
 

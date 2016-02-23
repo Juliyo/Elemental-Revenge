@@ -23,3 +23,7 @@ hFireBasic::hFireBasic(const hFireBasic& orig) {
 hFireBasic::~hFireBasic() {
 }
 
+void hFireBasic::cast(){
+    
+}
+

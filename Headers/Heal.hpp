@@ -23,7 +23,7 @@ public:
     Heal(const Heal& orig);
     virtual ~Heal();
 private:
-
+    void cast();
 };
 
 #endif /* HEAL_HPP */

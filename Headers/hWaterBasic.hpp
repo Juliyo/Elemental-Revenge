@@ -23,7 +23,7 @@ public:
     hWaterBasic(const hWaterBasic& orig);
     virtual ~hWaterBasic();
 private:
-
+    void cast();
 };
 
 #endif /* HWATERBASIC_HPP */

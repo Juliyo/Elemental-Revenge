@@ -23,7 +23,7 @@ public:
     hRayBasic(const hRayBasic& orig);
     virtual ~hRayBasic();
 private:
-
+    void cast();
 };
 
 #endif /* HRAYBASIC_HPP */

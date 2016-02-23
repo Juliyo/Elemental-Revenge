@@ -23,7 +23,7 @@ public:
     Flash(const Flash& orig);
     virtual ~Flash();
 private:
-
+    void cast();
 };
 
 #endif /* FLASH_HPP */

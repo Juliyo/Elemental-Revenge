@@ -21,4 +21,7 @@ Flash::Flash(const Flash& orig) {
 
 Flash::~Flash() {
 }
+void Flash::cast(){
+    
+}
 

@@ -21,4 +21,7 @@ hWaterBasic::hWaterBasic(const hWaterBasic& orig) {
 
 hWaterBasic::~hWaterBasic() {
 }
+void hWaterBasic::cast(){
+    
+}
 

@@ -29,10 +29,12 @@ public:
     void setCD(float cd);
     void setLevel(int lvl);
     int getLevel();
+    
 private:
     float hCd;
     float hDamage;
     int hLVL;
+    void cast();
 };
 
 #endif /* HECHIZO_HPP */
