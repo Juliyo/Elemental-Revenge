@@ -21,7 +21,7 @@
 const sf::Time Game::TimePerFrame = sf::seconds(1.f / 60.f);
 
 Game::Game()
-: mWindow(sf::VideoMode(1280, 720), "SFML Application", sf::Style::Close)
+: mWindow(sf::VideoMode(1280, 720), "SFML Application", sf::Style::Fullscreen)
 , mWorldView(mWindow.getDefaultView())
 , mPlayer(150.f)
 , hFuegoBasico()
@@ -163,12 +163,17 @@ void Game::updateHechizo(sf::Time elapsedTime) {
 
 void Game::updateView(sf::Time elapsedTime) {
     sf::Vector2f mousePosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
-    float x = ((mousePosition.x) / 4.5 + mPlayer.mSprite.getPosition().x);
-    float y = ((mousePosition.y) / 4.5 + mPlayer.mSprite.getPosition().y);
-
-
+    /*float x = (((mousePosition.x) /2)-mWorldView.getCenter().x + mPlayer.mSprite.getPosition().x);
+    float y = (((mousePosition.y) / 2)-mWorldView.getCenter().y + mPlayer.mSprite.getPosition().y);*/
+    //float x = (mPlayer.mSprite.getPosition().x + ((mousePosition.x-mPlayer.mSprite.getPosition().x)/2)-mWorldView.getCenter().x);
+    //float y = (mPlayer.mSprite.getPosition().y + ((mousePosition.y-mPlayer.mSprite.getPosition().y)/2)-mWorldView.getCenter().y);
+    float camera_x = (mousePosition.x + (mPlayer.mSprite.getPosition().x*6))/7;
+    float camera_y = (mousePosition.y + mPlayer.mSprite.getPosition().y*6)/7;
+    float x = (mWorldView.getCenter().x+0.1*(camera_x-mWorldView.getCenter().x));
+    float y = (mWorldView.getCenter().y+0.1*(camera_y-mWorldView.getCenter().y));
     mWorldView.setCenter(x, y);
     mWindow.setView(mWorldView);
+    
     /*
     if(jX-rX>300 || jX-rX<-300){
     
