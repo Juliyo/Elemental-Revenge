@@ -21,7 +21,7 @@
 const sf::Time Game::TimePerFrame = sf::seconds(1.f / 60.f);
 
 Game::Game()
-: mWindow(sf::VideoMode(1280, 720), "SFML Application", sf::Style::Close)
+: mWindow(sf::VideoMode(1280, 720), "SFML Application", sf::Style::Fullscreen)
 , mWorldView(mWindow.getDefaultView())
 , mPlayer(150.f)
 , hFuegoBasico()
@@ -38,7 +38,7 @@ Game::Game()
     mWindow.setFramerateLimit(60);
     mWindow.setVerticalSyncEnabled(true);
     mWorldView.zoom(0.5f);
-    mWorldView.setViewport(sf::FloatRect(0.15f, 0.f, 0.7f, 1.f));
+    //mWorldView.setViewport(sf::FloatRect(0.15f, 0.f, 0.7f, 1.f));
     mPlayer.mTexture.loadFromFile("resources/Textures/character.png");
     mPlayer.mSprite.setTexture(mPlayer.mTexture);
     mPlayer.mSprite.setTextureRect(sf::IntRect(0, 0, 31, 46));
@@ -104,16 +104,21 @@ void Game::processEvents() {
                 break;
 
             case sf::Event::MouseButtonReleased:
-
-
-
-
+            {
+                if(contFuego==20){
+                    contFuego=0;
+                    for(int i=0;i<20;i++){
+                        hFuegoBasico[i].hSprite.setRotation(0);
+                    }
+                }
                 hFuegoBasico[contFuego].hSprite.setPosition(mPlayer.mSprite.getPosition());
                 sf::Vector2f mousePosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
                 float angleShot = atan2(mousePosition.y - hFuegoBasico[contFuego].hSprite.getPosition().y,
                         mousePosition.x - hFuegoBasico[contFuego].hSprite.getPosition().x);
                 hFuegoBasico[contFuego].angleshot2 = angleShot; //so it goes in a straight line
+                hFuegoBasico[contFuego].hSprite.rotate(angleShot*180/3.14);
                 contFuego++;
+            }
                 break;
 
             case sf::Event::Closed:
@@ -161,16 +166,15 @@ void Game::updatePlayer(sf::Time elapsedTime) {
 void Game::updateHechizo(sf::Time elapsedTime) {
     int i;
     for (int i = 0; i < 20; i++) {
-        sf::Vector2f movement(800 * cos(hFuegoBasico[i].angleshot2) * 1.0f, 800 * sin(hFuegoBasico[i].angleshot2) * 1.0f);
+        sf::Vector2f movement(200 * cos(hFuegoBasico[i].angleshot2) * 1.0f, 200 * sin(hFuegoBasico[i].angleshot2) * 1.0f);
         hFuegoBasico[i].hSprite.move(movement * elapsedTime.asSeconds());
+        //hFuegoBasico[i].hSprite.rotate(25.f);
     }
 
 }
 
 void Game::updateView(sf::Time elapsedTime) {
     sf::Vector2f mousePosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
-
-
     /*float x = (((mousePosition.x) /2)-mWorldView.getCenter().x + mPlayer.mSprite.getPosition().x);
     float y = (((mousePosition.y) / 2)-mWorldView.getCenter().y + mPlayer.mSprite.getPosition().y);*/
     //float x = (mPlayer.mSprite.getPosition().x + ((mousePosition.x-mPlayer.mSprite.getPosition().x)/2)-mWorldView.getCenter().x);
@@ -179,10 +183,9 @@ void Game::updateView(sf::Time elapsedTime) {
     float camera_y = (mousePosition.y + mPlayer.mSprite.getPosition().y*6)/7;
     float x = (mWorldView.getCenter().x+0.1*(camera_x-mWorldView.getCenter().x));//Lo mismo que la funcion lerp
     float y = (mWorldView.getCenter().y+0.1*(camera_y-mWorldView.getCenter().y));
-
-
     mWorldView.setCenter(x, y);
     mWindow.setView(mWorldView);
+    
     /*
     if(jX-rX>300 || jX-rX<-300){
     
@@ -245,7 +248,7 @@ void Game::render() {
 
     //
     for(int i=0;i<20;i++){
-            mWindow.draw( hFuegoBasico[contFuego].hSprite);
+        mWindow.draw(hFuegoBasico[i].hSprite);
     }
 
     mWindow.draw(mPlayer.mSprite);
