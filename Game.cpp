@@ -16,6 +16,7 @@
 #include "Headers/Player.hpp"
 
 
+
 //const float Game::PlayerSpeed = 100.f;
 const sf::Time Game::TimePerFrame = sf::seconds(1.f / 60.f);
 
@@ -23,6 +24,7 @@ Game::Game()
 : mWindow(sf::VideoMode(1280, 720), "SFML Application", sf::Style::Close)
 , mWorldView(mWindow.getDefaultView())
 , mPlayer(150.f)
+, hFuegoBasico()
 , mFont()
 , mFondo()
 , mStatisticsText()
@@ -31,13 +33,15 @@ Game::Game()
 , mIsMovingUp(false)
 , mIsMovingDown(false)
 , mIsMovingRight(false)
-, mIsMovingLeft(false) {
+, mIsMovingLeft(false)
+, contFuego(0) {
     mWindow.setFramerateLimit(60);
     mWorldView.zoom(0.5f);
     mPlayer.mTexture.loadFromFile("resources/Textures/character.png");
     mPlayer.mSprite.setTexture(mPlayer.mTexture);
     mPlayer.mSprite.setTextureRect(sf::IntRect(0, 0, 31, 46));
     mPlayer.mSprite.setPosition(100, 100);
+
     //  mWindow.setMouseCursorVisible(false);
 
 #ifdef _WIN32
@@ -46,6 +50,10 @@ Game::Game()
     GetWindowRect(handler, &rWindow);
     ClipCursor(&rWindow);
 #endif
+
+    mPlayer.mSprite.setOrigin(5, 46 / 2);
+
+
     if (!mFondoT.loadFromFile("resources/Textures/grasstext.png")) {
         //Error
     }
@@ -79,6 +87,9 @@ void Game::run() {
 }
 
 void Game::processEvents() {
+
+
+
     sf::Event event;
     while (mWindow.pollEvent(event)) {
         switch (event.type) {
@@ -90,15 +101,32 @@ void Game::processEvents() {
                 handlePlayerInput(event.key.code, false);
                 break;
 
+            case sf::Event::MouseButtonReleased:
+
+
+
+
+                hFuegoBasico[contFuego].hSprite.setPosition(mPlayer.mSprite.getPosition());
+                sf::Vector2f mousePosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
+                float angleShot = atan2(mousePosition.y - hFuegoBasico[contFuego].hSprite.getPosition().y,
+                        mousePosition.x - hFuegoBasico[contFuego].hSprite.getPosition().x);
+                hFuegoBasico[contFuego].angleshot2 = angleShot; //so it goes in a straight line
+                contFuego++;
+                break;
+
             case sf::Event::Closed:
                 mWindow.close();
                 break;
+
         }
+
+
     }
 }
 
 void Game::update(sf::Time elapsedTime) {
     updatePlayer(elapsedTime);
+    updateHechizo(elapsedTime);
     updateView(elapsedTime);
 }
 
@@ -114,19 +142,25 @@ void Game::updatePlayer(sf::Time elapsedTime) {
         movement.x += mPlayer.getVelocidad();
 
     mPlayer.mSprite.move(movement * elapsedTime.asSeconds());
+
+
+}
+
+void Game::updateHechizo(sf::Time elapsedTime) {
+    int i;
+    for (int i = 0; i < 20; i++) {
+        sf::Vector2f movement(800 * cos(hFuegoBasico[i].angleshot2) * 1.0f, 800 * sin(hFuegoBasico[i].angleshot2) * 1.0f);
+        hFuegoBasico[i].hSprite.move(movement * elapsedTime.asSeconds());
+    }
+
 }
 
 void Game::updateView(sf::Time elapsedTime) {
     sf::Vector2f mousePosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
-    float rX = (mousePosition.x);
-    float rY = (mousePosition.y);
-    float jX = mPlayer.mSprite.getPosition().x;
-    float jY = mPlayer.mSprite.getPosition().y;
+    float x = ((mousePosition.x) / 4.5 + mPlayer.mSprite.getPosition().x);
+    float y = ((mousePosition.y) / 4.5 + mPlayer.mSprite.getPosition().y);
 
-    float aux1 = 0;
-    float x = (rX + mPlayer.mSprite.getPosition().x) / 2;
-    float y = ((mousePosition.y) + mPlayer.mSprite.getPosition().y) / 2;
-    
+
     mWorldView.setCenter(x, y);
     mWindow.setView(mWorldView);
     /*
@@ -188,8 +222,13 @@ void Game::updateView(sf::Time elapsedTime) {
 void Game::render() {
     mWindow.clear();
     mWindow.draw(mFondo);
-    mWindow.draw(mPlayer.mSprite);
+
     //
+    for(int i=0;i<20;i++){
+            mWindow.draw( hFuegoBasico[contFuego].hSprite);
+    }
+
+    mWindow.draw(mPlayer.mSprite);
     mWindow.draw(mStatisticsText);
 
 

@@ -14,6 +14,18 @@
 #include "../Headers/hFireBasic.hpp"
 
 hFireBasic::hFireBasic() {
+    
+    
+    if(!hTexture.loadFromFile("resources/Textures/bolaFuego.png")){
+        
+        //comentario error
+        exit(0);
+    }
+    hSprite.setTexture(hTexture);
+    hSprite.setTextureRect(sf::IntRect(0, 0, 100, 81));
+    hSprite.setScale(0.2,0.2);
+    hSprite.setPosition(-10000, -10000);
+    
 }
 
 hFireBasic::hFireBasic(const hFireBasic& orig) {

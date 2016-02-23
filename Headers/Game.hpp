@@ -15,7 +15,10 @@
 #define GAME_HPP
 
 #include <SFML/Graphics.hpp>
+#include<SFML/Window/Mouse.hpp>
 #include "../Headers/Player.hpp"
+#include "../Headers/hFireBasic.hpp"
+#include <cmath>
 
 
 class Game : private sf::NonCopyable
@@ -29,6 +32,7 @@ class Game : private sf::NonCopyable
 		void					processEvents();
 		void					update(sf::Time elapsedTime);
                 void                                    updatePlayer(sf::Time elapsedTime);
+                void                                    updateHechizo(sf::Time elapsedTime);
                 void                                    updateView(sf::Time elapsedTime);
 		void					render();
 
@@ -51,10 +55,13 @@ class Game : private sf::NonCopyable
                 sf::Sprite                              mFondo;
                 sf::Texture                             mFondoT;
 		std::size_t				mStatisticsNumFrames;
+                hFireBasic                              hFuegoBasico[20];
 		bool					mIsMovingUp;
 		bool					mIsMovingDown;
 		bool					mIsMovingRight;
 		bool					mIsMovingLeft;
+                int                                     contFuego;
+                
 };
 
 

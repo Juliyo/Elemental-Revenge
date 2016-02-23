@@ -23,6 +23,8 @@ public:
     virtual ~Hechizo();
     sf::Sprite hSprite;
     sf::Texture hTexture;
+    float angleshot2=0.0f;
+
     float getDamage();
     void setDamage(float dmg);
     float getCD();
