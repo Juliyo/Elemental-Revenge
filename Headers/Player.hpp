@@ -1,34 +1,34 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /* 
- * File:   Player.hpp
- * Author: tonir
+ * File:   Player.h
+ * Author: linuxero
  *
- * Created on 22 de febrero de 2016, 11:32
+ * Created on March 5, 2014, 7:43 AM
  */
 
 #ifndef PLAYER_HPP
-#define PLAYER_HPP
-#include <SFML/Graphics.hpp>
-class Player{
+#define	PLAYER_HPP
+
+#include "PhysicsState.hpp"
+#include "Render.hpp"
+
+class Player {
 public:
-    Player(float velocidad);
-    int         getVida();
-    void        setVida(int vidaNueva);
-    float       getVelocidad();
-    void        setVelocidad(float velocidad);
-    
-    sf::Texture mTexture;
-    sf::Sprite  mSprite;
-    
+	Player();
+	Player(const Player& orig);
+	virtual ~Player();
+	
+	void Inicializar(float posX, float posY, float speedX=0.f, float speedY=0.f, float maxSpeedX=1000.f, float maxSpeedY=1000.f);
+	void Update(sf::Vector2f velocity, sf::Time elapsedTime);
+	void Draw(sf::RenderWindow& window);
+	void DrawWithInterpolation(sf::RenderWindow& window, float interpolation);
+        float getVelocidad();
+	
 private:
-    float   mVelocidad;
-    int     mVida;
+	Render			renderState;
+	PhysicsState            physicsState;
+        sf::Texture             texturaPlayer;
+        float                   velocity=200.f;
 };
 
-#endif /* PLAYER_HPP */
+#endif	/* PLAYER_H */
 

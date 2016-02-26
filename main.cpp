@@ -1,21 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/* 
- * File:   main.cpp
- * Author: julio
+/*********************************************
  *
- * Created on 19 de febrero de 2016, 16:47
- */
+ *      PROYECTO/PLANTILLA SFML
+ * 
+ * Proyecto que podemos Clonar / Importar para
+ * realizar los ejecutables de FV
+ * 
+ * Proporciona:
+ *      - Firme estructura dividida por funcionalidad
+ *      - Control de tiempo y frames
+ *      - Movimiento del Sprite
+ *		- Utiliza contenedores de recursos genéricos
+ *  
+ *********************************************/
 
-#include <../Headers/Game.hpp>
+#include "../Headers/Game.hpp"
 
-int main()
+int main(int, char const**)
 {
     Game game;
-    //hola
     game.run();
 }

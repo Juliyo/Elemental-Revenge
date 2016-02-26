@@ -7,11 +7,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/UA/FV/Elemental-Revenge/Headers/hFireBasic.hpp</file>
-            <file>file:/D:/UA/FV/Elemental-Revenge/Headers/Hechizo.hpp</file>
-            <file>file:/D:/UA/FV/Elemental-Revenge/Headers/Game.hpp</file>
-            <file>file:/D:/UA/FV/Elemental-Revenge/Headers/Flash.hpp</file>
-            <file>file:/D:/UA/FV/Elemental-Revenge/Game.cpp</file>
+            <file>file:/C:/Users/Julio/Documents/NetBeansProjects/Elemental-Revenge/Headers/ResourceHolder.hpp</file>
+            <file>file:/C:/Users/Julio/Documents/NetBeansProjects/Elemental-Revenge/Render.cpp</file>
+            <file>file:/C:/Users/Julio/Documents/NetBeansProjects/Elemental-Revenge/Headers/StringHelpers.hpp</file>
         </group>
     </open-files>
 </project-private>
