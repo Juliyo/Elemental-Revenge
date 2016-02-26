@@ -42,26 +42,25 @@ class Game : private sf::NonCopyable
 		
 
 	private:
-		static const float		PlayerSpeed;
-		static const sf::Time           TimePerFrame;
+                static const sf::Time	timePerFrame;
 
-		sf::RenderWindow                        mWindow;
-		Player                                  mPlayer;
-		sf::Font				mFont;
-		sf::Text				mStatisticsText;
-		sf::Time				mStatisticsUpdateTime;
-                sf::View                                mWorldView;
-                sf::FloatRect                           mWorldBounds;
-                sf::Vector2f                            mSpawnPosition;
-                sf::Sprite                              mFondo;
-                sf::Texture                             mFondoT;
-		std::size_t				mStatisticsNumFrames;
-                hFireBasic                              hFuegoBasico[20];
-		bool					mIsMovingUp;
-		bool					mIsMovingDown;
-		bool					mIsMovingRight;
-		bool					mIsMovingLeft;
-                int                                     contFuego;
+                //Graficos
+                sf::RenderWindow		window;
+                Player				player;
+
+                //Estadisticas
+                sf::Text			mStatisticsText;
+
+
+                float                           interpolation;
+
+                //Eventos
+                bool			isMovingUp;
+                bool			isMovingDown;
+                bool			isMovingRight;
+                bool			isMovingLeft;
+                bool			firstTime;
+                bool			isInterpolating;
                 
 };
 
