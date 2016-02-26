@@ -19,6 +19,7 @@
 #include "../Headers/Player.hpp"
 #include "../Headers/hFireBasic.hpp"
 #include <cmath>
+#include "../Headers/WorldState.hpp"
 
 
 class Game : private sf::NonCopyable
@@ -30,7 +31,8 @@ class Game : private sf::NonCopyable
 
 	private:
 		void					processEvents();
-		void					update(sf::Time elapsedTime);
+                WorldState                              updateGameStateSTICK(sf::Time timeElapsed,WorldState &lastState);
+                void                                    renderWithInterpolation(WorldState &lastState, WorldState &newState, float percentTick);
                 void                                    updatePlayer(sf::Time elapsedTime);
                 void                                    updateHechizo(sf::Time elapsedTime);
                 void                                    updateView(sf::Time elapsedTime);
@@ -44,7 +46,9 @@ class Game : private sf::NonCopyable
 	private:
 		static const float		PlayerSpeed;
 		static const sf::Time           TimePerFrame;
-
+                
+                sf::Clock                               clock;
+                sf::Clock                               updateClock;               
 		sf::RenderWindow                        mWindow;
 		Player                                  mPlayer;
 		sf::Font				mFont;

@@ -40,6 +40,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Heal.o \
 	${OBJECTDIR}/Hechizo.o \
 	${OBJECTDIR}/Player.o \
+	${OBJECTDIR}/WorldState.o \
 	${OBJECTDIR}/hFireBasic.o \
 	${OBJECTDIR}/hRayBasic.o \
 	${OBJECTDIR}/hWaterBasic.o \
@@ -104,6 +105,11 @@ ${OBJECTDIR}/Player.o: Player.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Iinclude -IHeaders -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Player.o Player.cpp
+
+${OBJECTDIR}/WorldState.o: WorldState.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -IHeaders -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/WorldState.o WorldState.cpp
 
 ${OBJECTDIR}/hFireBasic.o: hFireBasic.cpp 
 	${MKDIR} -p ${OBJECTDIR}

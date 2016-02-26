@@ -14,11 +14,8 @@
 #endif
 
 #include "Headers/Player.hpp"
-
-
-
-//const float Game::PlayerSpeed = 100.f;
-const sf::Time Game::TimePerFrame = sf::seconds(1.f / 60.f);
+#include "../Headers/WorldState.hpp"
+#define kUpdateTimePS 1000/15
 
 Game::Game()
 : mWindow(sf::VideoMode(1280, 720), "SFML Application", sf::Style::Close)
@@ -71,27 +68,25 @@ Game::Game()
 }
 
 void Game::run() {
-    sf::Clock clock;
-    sf::Time timeSinceLastUpdate = sf::Time::Zero;
+    int tecla;
+    sf::Time timeElapsed;
+    WorldState newState;
+    WorldState lastState;
+    
     while (mWindow.isOpen()) {
-        sf::Time elapsedTime = clock.restart();
-        timeSinceLastUpdate += elapsedTime;
-        while (timeSinceLastUpdate > TimePerFrame) {
-            timeSinceLastUpdate -= TimePerFrame;
-
-            processEvents();
-            update(TimePerFrame);
+        processEvents();
+        if(updateClock.getElapsedTime().asMilliseconds() > kUpdateTimePS){
+            lastState = newState;
+            timeElapsed=updateClock.restart();
+            newState=updateGameStateSTICK(timeElapsed,lastState);
         }
+        float percentTick= std::min(1.f,(float)updateClock.getElapsedTime().asSeconds()/kUpdateTimePS);
+        renderWithInterpolation(lastState,newState,percentTick);
 
-        updateStatistics(elapsedTime);
-        render();
     }
 }
 
 void Game::processEvents() {
-
-
-
     sf::Event event;
     while (mWindow.pollEvent(event)) {
         switch (event.type) {
@@ -101,22 +96,6 @@ void Game::processEvents() {
 
             case sf::Event::KeyReleased:
                 handlePlayerInput(event.key.code, false);
-                break;
-
-            case sf::Event::MouseButtonReleased:
-            {
-                if(contFuego==20){
-                    contFuego=0;
-                }
-                //hFuegoBasico[contFuego].hSprite.setRotation(0);
-                hFuegoBasico[contFuego].hSprite.setPosition(mPlayer.mSprite.getPosition());
-                sf::Vector2f mousePosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
-                float angleShot = atan2(mousePosition.y - hFuegoBasico[contFuego].hSprite.getPosition().y,
-                        mousePosition.x - hFuegoBasico[contFuego].hSprite.getPosition().x);
-                hFuegoBasico[contFuego].angleshot2 = angleShot; //so it goes in a straight line
-                hFuegoBasico[contFuego].hSprite.setRotation(angleShot*180/3.14);
-                contFuego++;
-            }
                 break;
 
             case sf::Event::Closed:
@@ -129,20 +108,27 @@ void Game::processEvents() {
     }
 }
 
-void Game::update(sf::Time elapsedTime) {
-    updateView(elapsedTime);
-    updatePlayer(elapsedTime);
-    updateHechizo(elapsedTime);
+WorldState Game::updateGameStateSTICK( sf::Time timeElapsed, WorldState &lastState) {
     
+    sf::Vector2f movement(0.f, 0.f);
+    WorldState aState;
+    if (mIsMovingUp)
+        movement.y -= mPlayer.getVelocidad();
+    if (mIsMovingDown)
+        movement.y += mPlayer.getVelocidad();
+    if (mIsMovingLeft)
+        movement.x -= mPlayer.getVelocidad();
+    if (mIsMovingRight)
+        movement.x += mPlayer.getVelocidad();
+    int a;
+        //movement=normalize(movement)*mPlayer.getVelocidad();
+
+    //mPlayer.mSprite.move(movement * timeElapsed.asSeconds());
+    aState.jugadorX=mPlayer.mSprite.getPosition().x+movement.x * timeElapsed.asSeconds();
+    aState.jugadorY=mPlayer.mSprite.getPosition().y+movement.y * timeElapsed.asSeconds();
+    return aState;
 }
-sf::Vector2f Game::normalize(const sf::Vector2f& source)
-{
-    float length = sqrt((source.x * source.x) + (source.y * source.y));
-    if (length != 0)
-        return sf::Vector2f(source.x / length, source.y / length);
-    else
-        return source;
-}
+
 void Game::updatePlayer(sf::Time elapsedTime) {
     sf::Vector2f movement(0.f, 0.f);
     if (mIsMovingUp)
@@ -154,104 +140,21 @@ void Game::updatePlayer(sf::Time elapsedTime) {
     if (mIsMovingRight)
         movement.x += mPlayer.getVelocidad();
     
-        movement=normalize(movement)*mPlayer.getVelocidad();
+        //movement=normalize(movement)*mPlayer.getVelocidad();
 
     mPlayer.mSprite.move(movement * elapsedTime.asSeconds());
 
 
 }
 
-void Game::updateHechizo(sf::Time elapsedTime) {
-    int i;
-    for (int i = 0; i < 20; i++) {
-        sf::Vector2f movement(200 * cos(hFuegoBasico[i].angleshot2) * 1.0f, 200 * sin(hFuegoBasico[i].angleshot2) * 1.0f);
-        hFuegoBasico[i].hSprite.move(movement * elapsedTime.asSeconds());
-        //hFuegoBasico[i].hSprite.rotate(25.f);
-    }
-
-}
-
-void Game::updateView(sf::Time elapsedTime) {
-    sf::Vector2f mousePosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
-    /*float x = (((mousePosition.x) /2)-mWorldView.getCenter().x + mPlayer.mSprite.getPosition().x);
-    float y = (((mousePosition.y) / 2)-mWorldView.getCenter().y + mPlayer.mSprite.getPosition().y);*/
-    //float x = (mPlayer.mSprite.getPosition().x + ((mousePosition.x-mPlayer.mSprite.getPosition().x)/2)-mWorldView.getCenter().x);
-    //float y = (mPlayer.mSprite.getPosition().y + ((mousePosition.y-mPlayer.mSprite.getPosition().y)/2)-mWorldView.getCenter().y);
-    float camera_x = (mousePosition.x + (mPlayer.mSprite.getPosition().x*6))/7;//Media dando prioridad al jugador
-    float camera_y = (mousePosition.y + mPlayer.mSprite.getPosition().y*6)/7;
-    float x = (mWorldView.getCenter().x+0.1*(camera_x-mWorldView.getCenter().x));//Lo mismo que la funcion lerp
-    float y = (mWorldView.getCenter().y+0.1*(camera_y-mWorldView.getCenter().y));
-    mWorldView.setCenter(x, y);
-    mWindow.setView(mWorldView);
-    
-    /*
-    if(jX-rX>300 || jX-rX<-300){
-    
-    if(jX-rX>0){
-        aux1=50;
-        std::cout<<rX;
-    }else{
-        aux1=-50;
-    }
-    }*/
-    /*
-    direccion.x = (rX - mPlayer.mSprite.getPosition().x);
-    direccion.y = (rY - mPlayer.mSprite.getPosition().y);
-    
-    float distancia = sqrt(pow(direccion.x,2) + pow(direccion.y,2));
-    float x =( rX/2 + mPlayer.mSprite.getPosition().x);
-
-        float y = ((mousePosition.y) + mPlayer.mSprite.getPosition().y) / 2;
-        x = rX - mPlayer.mSprite.getPosition().x;
-        if(x>= 300){
-            x =300;
-        }else{
-            x = (rX - mPlayer.mSprite.getPosition().x)/2;
-        }
-     */
-
-
-
-
-
-    /*float aux1;
-    float aux2;
-
-        if (mPlayer.mSprite.getPosition().x - rX > -300) {
-
-    
-    if (mPlayer.mSprite.getPosition().x - rX > 0) {
-        aux1 = 50;
-                std::cout<<"Hola";
-
-    } else {
-        aux1 = -50;
-    }
-    
-        }
-    
-    /*
-    if(mPlayer.mSprite.getPosition().x - rX<=70 && mPlayer.mSprite.getPosition().x - rX>=-70){
-        aux1 = 1;
-        std::cout<<"Hola";
-    }*/
-
-
-    
-}
-
-void Game::render() {
+void Game::renderWithInterpolation(WorldState &lastState, WorldState &newState, float percentTick) {
     mWindow.clear();
     mWindow.draw(mFondo);
 
-    //
-    for(int i=0;i<20;i++){
-        mWindow.draw(hFuegoBasico[i].hSprite);
-    }
-
+    float jugadorX = lastState.jugadorX * (1-percentTick) + newState.jugadorX * percentTick;
+    float jugadorY = lastState.jugadorY * (1-percentTick) + newState.jugadorY * percentTick;
+    mPlayer.mSprite.setPosition(jugadorX,jugadorY);
     mWindow.draw(mPlayer.mSprite);
-    mWindow.draw(mStatisticsText);
-
 
     mWindow.display();
 }
@@ -279,4 +182,5 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         mIsMovingLeft = isPressed;
     else if (key == sf::Keyboard::D)
         mIsMovingRight = isPressed;
+    
 }

@@ -25,6 +25,8 @@
       <itemPath>Heal.cpp</itemPath>
       <itemPath>Hechizo.cpp</itemPath>
       <itemPath>Player.cpp</itemPath>
+      <itemPath>WorldState.cpp</itemPath>
+      <itemPath>Headers/WorldState.hpp</itemPath>
       <itemPath>hFireBasic.cpp</itemPath>
       <itemPath>hRayBasic.cpp</itemPath>
       <itemPath>hWaterBasic.cpp</itemPath>
@@ -92,6 +94,8 @@
       </item>
       <item path="Headers/StringHelpers.inl" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/WorldState.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/hFireBasic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/hRayBasic.hpp" ex="false" tool="3" flavor2="0">
@@ -103,6 +107,8 @@
       <item path="Hechizo.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Player.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="WorldState.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="hFireBasic.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -151,6 +157,8 @@
       </item>
       <item path="Headers/StringHelpers.inl" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/WorldState.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/hFireBasic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/hRayBasic.hpp" ex="false" tool="3" flavor2="0">
@@ -162,6 +170,8 @@
       <item path="Hechizo.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Player.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="WorldState.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="hFireBasic.cpp" ex="false" tool="1" flavor2="0">
       </item>
