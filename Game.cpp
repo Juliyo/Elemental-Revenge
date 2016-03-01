@@ -11,7 +11,7 @@ const float segStatistics = 0.5f; //segundos de refresco de las estadisticas
 
 /************ CONSTRUCTOR **************/
 Game::Game()
-: mWindow(sf::VideoMode(ancho, alto, 24), "TITULO APLICACION", sf::Style::Close)
+: mWindow(sf::VideoMode(ancho, alto, 24), "Hito 1 - Interpolacion y camara", sf::Style::Close)
 , mWorldView(mWindow.getDefaultView())
 , contFonts()
 , texturaFondo()
@@ -24,8 +24,8 @@ Game::Game()
 , isMovingLeft(false)
 , firstTime(true)
 , isInterpolating(false) {
-    //mWindow.setVerticalSyncEnabled(true); //Para evitar cortes en los refrescos
     mWindow.setFramerateLimit(60); //Establecemos maximo real de procesamiento (aunque trabajamos con 60)
+    mWindow.setVerticalSyncEnabled(true);
     mWorldView.zoom(0.5f);
     // Cargamos RECURSOS. Utilizamos los contenedores genericos
     try {
@@ -128,7 +128,7 @@ void Game::render(float interpolation) //Dibuja
     else
         player.Draw(mWindow);
     
-    mWindow.draw(mStatisticsText);
+   // mWindow.draw(mStatisticsText);
     mWindow.display();
 }
 
@@ -157,13 +157,13 @@ void Game::processEvents() //Captura y procesa eventos
 // Realiza las operaciones correspondientes a cada Evento
 
 void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
-    if (key == sf::Keyboard::Up) //Traslaciones
+    if (key == sf::Keyboard::W) //Traslaciones
         isMovingUp = isPressed;
-    else if (key == sf::Keyboard::Down)
+    else if (key == sf::Keyboard::S)
         isMovingDown = isPressed;
-    else if (key == sf::Keyboard::Left)
+    else if (key == sf::Keyboard::A)
         isMovingLeft = isPressed;
-    else if (key == sf::Keyboard::Right)
+    else if (key == sf::Keyboard::D)
         isMovingRight = isPressed;
 
 
