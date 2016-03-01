@@ -18,7 +18,7 @@ private:
     void			update(sf::Time elapsedTime);
     void			render(float interpolation);
     void			handlePlayerInput(sf::Keyboard::Key key, bool isPressed);  // Maneja eventos
-    
+    void                        updateView();
     
 private:
     static const sf::Time	timePerFrame;
@@ -31,6 +31,7 @@ private:
     
     //Graficos
     sf::RenderWindow		mWindow;
+    sf::View                    mWorldView;
     Player			player;
     
     //Estadisticas

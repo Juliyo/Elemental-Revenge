@@ -43,3 +43,6 @@ void Player::DrawWithInterpolation(sf::RenderWindow& window, float interpolation
 float Player::getVelocidad(){
     return velocity;
 }
+sf::Vector2f Player::getPosition(){
+    return renderState.GetSprite().getPosition();
+}

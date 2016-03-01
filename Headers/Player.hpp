@@ -22,6 +22,7 @@ public:
 	void Draw(sf::RenderWindow& window);
 	void DrawWithInterpolation(sf::RenderWindow& window, float interpolation);
         float getVelocidad();
+        sf::Vector2f getPosition();
 	
 private:
 	Render			renderState;

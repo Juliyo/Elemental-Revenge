@@ -56,8 +56,8 @@ void PhysicsState::Update(sf::Time elapsedTime)
 	/*  COLISIONES  */
 	
 	posPrev = posNew;
-	posNew.x += speed.x * elapsedTime.asSeconds();
-	posNew.y += speed.y * elapsedTime.asSeconds();
+        posNew += speed * elapsedTime.asSeconds();
+        
 }
 
 
