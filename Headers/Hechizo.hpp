@@ -23,6 +23,7 @@ public:
     virtual ~Hechizo();
     sf::Sprite hSprite;
     sf::Texture hTexture;
+    sf::Clock tiempoCast;
     float angleshot2=0.0f;
 
     float getDamage();
@@ -32,6 +33,7 @@ public:
     void setLevel(int lvl);
     int getLevel();
     bool dibujar;
+    
     
 private:
     float hCd;

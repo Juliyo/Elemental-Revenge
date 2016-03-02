@@ -23,7 +23,8 @@ public:
     hWaterBasic(const hWaterBasic& orig);
     virtual ~hWaterBasic();
     void cast(sf::Vector2f , sf::RenderWindow *mWindow);
-
+    
+    void setDibujar(bool NuevoDibujar);
     
 };
 

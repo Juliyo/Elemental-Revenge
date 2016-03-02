@@ -21,6 +21,7 @@ Hechizo::Hechizo() {
     hDamage = 1;
     hLVL = 0;
     dibujar=false;
+    sf::Clock tiempoCast;
 }
 
 Hechizo::Hechizo(const Hechizo& orig) {

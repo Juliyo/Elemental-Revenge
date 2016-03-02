@@ -26,7 +26,7 @@ if(!hTexture.loadFromFile("resources/Textures/bolaFuego.png")){
    }
    hSprite.setTexture(hTexture);
    hSprite.setTextureRect(sf::IntRect(0, 0, 100, 81));
-   hSprite.setScale(0.2,0.2);
+   hSprite.setScale(0.5,0.5);
    hSprite.setPosition(-10000, -10000);
 }
 
@@ -41,12 +41,16 @@ void hWaterBasic::cast(sf::Vector2f posicion, sf::RenderWindow *mWindow ){
     
     sf::Vector2f mousePosition = mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow));
    // sf::Vector2f playerposition = player->getPosition();
-    hSprite.setPosition(posicion);
+    hSprite.setPosition(posicion.x+20,posicion.y+35);
     float angleShot = atan2(mousePosition.y - posicion.y, mousePosition.x - posicion.x);
     angleshot2 = angleShot;
     hSprite.setRotation(angleShot*180/3.14);
+    tiempoCast.restart();
     dibujar=true;
     std::cout <<"ENTRA";
                
 }
 
+void hWaterBasic::setDibujar(bool NuevoDibujar){
+    dibujar=NuevoDibujar;
+}

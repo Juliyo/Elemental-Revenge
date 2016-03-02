@@ -120,14 +120,19 @@ void Game::updateView(){
 }
 void Game::render(float interpolation) //Dibuja
 {
+    
     mWindow.clear();
     updateView();
    // mWindow.draw(spriteFondo);
     
     if(player.hAguaBasico.dibujar==true){
+        if(player.hAguaBasico.tiempoCast.getElapsedTime().asSeconds()<0.5){
         mWindow.draw(player.hAguaBasico.hSprite);
             std::cout <<"ENTRA2";
-
+    }
+        else{
+            player.hAguaBasico.setDibujar(false);
+        }
     }
     
     //LLAMAR AL DRAW DEL PLAYER
