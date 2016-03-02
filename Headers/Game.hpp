@@ -33,6 +33,7 @@ private:
     sf::RenderWindow		mWindow;
     sf::View                    mWorldView;
     Player			player;
+    Player			enemigo;
     
     //Estadisticas
     sf::Text			mStatisticsText;

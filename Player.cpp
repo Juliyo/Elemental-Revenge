@@ -47,5 +47,8 @@ sf::Vector2f Player::getPosition(){
     return renderState.GetSprite().getPosition();
 }
 
+sf::Sprite Player::getSprite(){
+    return renderState.GetSprite();
+}
 
 

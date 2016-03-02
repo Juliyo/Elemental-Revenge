@@ -26,6 +26,7 @@ public:
         float getVelocidad();
         sf::Vector2f getPosition();
         hWaterBasic  hAguaBasico;
+        sf::Sprite getSprite();
 
          
 	

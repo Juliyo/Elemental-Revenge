@@ -19,6 +19,7 @@ Game::Game()
 , spriteFondo()
 , mStatisticsText()
 , player()
+ ,enemigo()
 , isMovingUp(false)
 , isMovingDown(false)
 , isMovingRight(false)
@@ -47,6 +48,7 @@ Game::Game()
 #endif
     //Configuramos Items
     player.Inicializar(200.f, 250.f);
+    enemigo.Inicializar(300.f, 350.f);
 
     mStatisticsText.setFont(contFonts);
     mStatisticsText.setPosition(5.f, 5.f);
@@ -105,6 +107,12 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
         player.Update(movement, elapsedTime);
 
     }
+    if(player.hAguaBasico.hSprite.getGlobalBounds().intersects(enemigo.getSprite().getGlobalBounds())){
+        sf::Vector2f movement(0.f, 0.f);
+        movement.x=-10;
+        movement.y=10;
+        enemigo.Update(movement,elapsedTime);
+    }
 
     firstTime = false;
 }
@@ -140,6 +148,8 @@ void Game::render(float interpolation) //Dibuja
         player.DrawWithInterpolation(mWindow, interpolation);
     else
         player.Draw(mWindow);
+    
+    enemigo.Draw(mWindow);
 
     // mWindow.draw(mStatisticsText);
     mWindow.display();
