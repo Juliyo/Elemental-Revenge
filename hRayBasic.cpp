@@ -39,6 +39,7 @@ void hRayBasic::cast(sf::Vector2f posicion, sf::RenderWindow *mWindow) {
     //hSprite.setPosition(posicion);
     float angleShot = atan2(mousePosition.y - posicion.y, mousePosition.x - posicion.x);
     angleshot2 = angleShot; //so it goes in a straight line
+    
     renderState.GetSprite().setRotation((angleShot * 180 / 3.14)+90);
    
 }

@@ -49,7 +49,10 @@ void PhysicsState::SetMaxSpeed(sf::Vector2f maxSpeed)
 	this->maxSpeed = maxSpeed;
 }
 
-
+void PhysicsState::SetAngle(float angleP, float angleN){
+    anglePrev = angleP;
+    angleNew = angleN;
+}
 void PhysicsState::Update(sf::Time elapsedTime)
 {
 
@@ -59,6 +62,16 @@ void PhysicsState::Update(sf::Time elapsedTime)
         posNew += speed * elapsedTime.asSeconds();
         
 }
+void PhysicsState::Update(sf::Time elapsedTime)
+{
+
+	/*  COLISIONES  */
+	
+	posPrev = posNew;
+        posNew += speed * elapsedTime.asSeconds();
+        
+}
+
 
 
 /*

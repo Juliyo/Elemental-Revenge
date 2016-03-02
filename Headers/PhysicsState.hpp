@@ -27,7 +27,7 @@ public:
 	void SetSpeed(sf::Vector2f speed);
 	void SetPosition(float pos_x, float pos_y);
 	void SetPosition(sf::Vector2f pos);
-        void SetAngle(float angle);
+        void SetAngle(float angleP, float angleN);
 	void SetMaxSpeed(float speed_x, float speed_y);
 	void SetMaxSpeed(sf::Vector2f maxSpeed);
 	void Update(sf::Time elapsedTime);
