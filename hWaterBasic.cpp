@@ -14,16 +14,11 @@
 #include "../Headers/hWaterBasic.hpp"
 #ifdef _WIN32
 #include <Windows.h>
+#include <iostream>
 #endif
 
 hWaterBasic::hWaterBasic() {
-}
-
-hWaterBasic::hWaterBasic(const hWaterBasic& orig) {
-}
-
-hWaterBasic::~hWaterBasic() {
-    
+        
 if(!hTexture.loadFromFile("resources/Textures/bolaFuego.png")){
        
        //comentario error
@@ -33,6 +28,13 @@ if(!hTexture.loadFromFile("resources/Textures/bolaFuego.png")){
    hSprite.setTextureRect(sf::IntRect(0, 0, 100, 81));
    hSprite.setScale(0.2,0.2);
    hSprite.setPosition(-10000, -10000);
+}
+
+hWaterBasic::hWaterBasic(const hWaterBasic& orig) {
+}
+
+hWaterBasic::~hWaterBasic() {
+
     
 }
 void hWaterBasic::cast(sf::Vector2f posicion, sf::RenderWindow *mWindow ){
@@ -43,6 +45,8 @@ void hWaterBasic::cast(sf::Vector2f posicion, sf::RenderWindow *mWindow ){
     float angleShot = atan2(mousePosition.y - posicion.y, mousePosition.x - posicion.x);
     angleshot2 = angleShot;
     hSprite.setRotation(angleShot*180/3.14);
+    dibujar=true;
+    std::cout <<"ENTRA";
                
 }
 

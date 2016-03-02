@@ -20,6 +20,7 @@ Hechizo::Hechizo() {
     hCd = 0;
     hDamage = 1;
     hLVL = 0;
+    dibujar=false;
 }
 
 Hechizo::Hechizo(const Hechizo& orig) {

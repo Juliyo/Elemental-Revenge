@@ -122,7 +122,14 @@ void Game::render(float interpolation) //Dibuja
 {
     mWindow.clear();
     updateView();
-    mWindow.draw(spriteFondo);
+   // mWindow.draw(spriteFondo);
+    
+    if(player.hAguaBasico.dibujar==true){
+        mWindow.draw(player.hAguaBasico.hSprite);
+            std::cout <<"ENTRA2";
+
+    }
+    
     //LLAMAR AL DRAW DEL PLAYER
     if (isInterpolating)
         player.DrawWithInterpolation(mWindow, interpolation);
@@ -185,3 +192,4 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
             mStatisticsText.setString("Interpolacion Desactivada (X)");
     }
 }
+

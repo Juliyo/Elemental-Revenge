@@ -31,6 +31,7 @@ public:
     void setCD(float cd);
     void setLevel(int lvl);
     int getLevel();
+    bool dibujar;
     
 private:
     float hCd;
