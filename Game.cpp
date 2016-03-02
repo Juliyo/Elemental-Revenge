@@ -21,7 +21,7 @@
 const sf::Time Game::TimePerFrame = sf::seconds(1.f / 60.f);
 
 Game::Game()
-: mWindow(sf::VideoMode(1280, 720), "SFML Application", sf::Style::Close)
+: mWindow(sf::VideoMode(1280, 720), "Hito 1 - Hechizo fuego VIEJO - Rama: A ELIMINAR! (HechizoFuegoViejo)", sf::Style::Close)
 , mWorldView(mWindow.getDefaultView())
 , mPlayer(150.f)
 , hFuegoBasico()
