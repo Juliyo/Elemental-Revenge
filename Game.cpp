@@ -11,7 +11,7 @@ const float segStatistics = 0.5f; //segundos de refresco de las estadisticas
 
 /************ CONSTRUCTOR **************/
 Game::Game()
-: mWindow(sf::VideoMode(ancho, alto, 24), "Hito 1 - Interpolacion y camara", sf::Style::Close)
+: mWindow(sf::VideoMode(ancho, alto, 24), "Hito 1 - Hechizo Fuego - Rama: HechizoFuego", sf::Style::Close)
 , mWorldView(mWindow.getDefaultView())
 , contFonts()
 , texturaFondo()
