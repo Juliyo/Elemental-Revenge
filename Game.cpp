@@ -123,11 +123,19 @@ void Game::render(float interpolation) //Dibuja
     mWindow.clear();
     updateView();
     mWindow.draw(spriteFondo);
+    //mWindow.draw();
     //LLAMAR AL DRAW DEL PLAYER
     if (isInterpolating)
         player.DrawWithInterpolation(mWindow, interpolation);
     else
         player.Draw(mWindow);
+    
+    
+    if(player.hAguaBasico.agua==true){
+//printf("ENTRO\n");
+        mWindow.draw(player.hAguaBasico.hSprite);
+    }
+    
     
    // mWindow.draw(mStatisticsText);
     mWindow.display();
