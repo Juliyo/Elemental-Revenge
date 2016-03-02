@@ -8,6 +8,7 @@
 #ifndef PLAYER_HPP
 #define	PLAYER_HPP
 
+#include "../Headers/hWaterBasic.hpp"
 #include "PhysicsState.hpp"
 #include "Render.hpp"
 
@@ -23,6 +24,9 @@ public:
 	void DrawWithInterpolation(sf::RenderWindow& window, float interpolation);
         float getVelocidad();
         sf::Vector2f getPosition();
+        hWaterBasic  hAguaBasico;
+
+         
 	
 private:
 	Render			renderState;

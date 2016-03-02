@@ -46,3 +46,4 @@ float Player::getVelocidad(){
 sf::Vector2f Player::getPosition(){
     return renderState.GetSprite().getPosition();
 }
+

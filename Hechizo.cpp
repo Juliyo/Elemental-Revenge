@@ -14,6 +14,9 @@
 #include "../Headers/Hechizo.hpp"
 
 Hechizo::Hechizo() {
+   sf::Sprite hSprite;
+   sf::Texture hTexture;
+   float angleshot2=0.0f;
     hCd = 0;
     hDamage = 1;
     hLVL = 0;

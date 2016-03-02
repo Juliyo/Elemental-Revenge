@@ -37,5 +37,7 @@ hFireBasic::~hFireBasic() {
 
 void hFireBasic::cast(){
     
+    
+
 }
 

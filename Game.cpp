@@ -1,4 +1,5 @@
 #include "Game.hpp"
+#include "hWaterBasic.hpp"
 //SOLO EN WINDOWS
 #ifdef _WIN32
 #include <Windows.h>
@@ -147,6 +148,13 @@ void Game::processEvents() //Captura y procesa eventos
                 handlePlayerInput(event.key.code, false);
                 break;
 
+             case sf::Event::MouseButtonReleased:
+                 //sf::Vector2f mousePosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
+                // sf::Vector2f playerposition = player.getPosition();
+                 player.hAguaBasico.cast(player, &mWindow);
+                 
+                 break;
+                 
             case sf::Event::Closed:
                 mWindow.close();
                 break;
