@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "Player.hPP"
+#include "Player.hpp"
 
 class Game : private sf::NonCopyable
 {

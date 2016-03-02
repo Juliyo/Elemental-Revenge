@@ -14,7 +14,7 @@
 #ifndef HWATERBASIC_HPP
 #define HWATERBASIC_HPP
 #include "Player.hpp"
-#include "../Headers/Hechizo.hpp"
+#include "Hechizo.hpp"
 
 
 class hWaterBasic:public Hechizo {
@@ -22,7 +22,7 @@ public:
     hWaterBasic();
     hWaterBasic(const hWaterBasic& orig);
     virtual ~hWaterBasic();
-    void cast(Player player, sf::RenderWindow* mWindow);
+    void cast(sf::Vector2f , sf::RenderWindow *mWindow);
 
     
 };

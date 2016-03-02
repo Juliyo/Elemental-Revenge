@@ -8,7 +8,8 @@
 #ifndef PLAYER_HPP
 #define	PLAYER_HPP
 
-#include "../Headers/hWaterBasic.hpp"
+
+#include "hWaterBasic.hpp"
 #include "PhysicsState.hpp"
 #include "Render.hpp"
 
@@ -24,7 +25,7 @@ public:
 	void DrawWithInterpolation(sf::RenderWindow& window, float interpolation);
         float getVelocidad();
         sf::Vector2f getPosition();
-        hWaterBasic  hAguaBasico;
+        hWaterBasic gethAguaBasico();
 
          
 	
@@ -33,6 +34,7 @@ private:
 	PhysicsState            physicsState;
         sf::Texture             texturaPlayer;
         float                   velocity=200.f;
+        hWaterBasic  hAguaBasico;
 };
 
 #endif	/* PLAYER_H */

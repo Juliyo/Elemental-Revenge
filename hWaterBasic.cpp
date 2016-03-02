@@ -35,12 +35,12 @@ if(!hTexture.loadFromFile("resources/Textures/bolaFuego.png")){
    hSprite.setPosition(-10000, -10000);
     
 }
-void hWaterBasic::cast(Player player, sf::RenderWindow* mWindow ){
+void hWaterBasic::cast(sf::Vector2f posicion, sf::RenderWindow *mWindow ){
     
-    sf::Vector2f mousePosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
-    sf::Vector2f playerposition = player.getPosition();
-    hSprite.setPosition(playerposition);
-    float angleShot = atan2(mousePosition.y - playerposition.y, mousePosition.x - playerposition.x);
+    sf::Vector2f mousePosition = mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow));
+   // sf::Vector2f playerposition = player->getPosition();
+    hSprite.setPosition(posicion);
+    float angleShot = atan2(mousePosition.y - posicion.y, mousePosition.x - posicion.x);
     angleshot2 = angleShot;
     hSprite.setRotation(angleShot*180/3.14);
                
