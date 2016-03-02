@@ -5,9 +5,10 @@
  * Created on March 5, 2014, 7:43 AM
  */
 
-#include "Player.hpp"
+#include "../Headers/Player.hpp"
 
 Player::Player(): renderState(), physicsState() {
+    hRayoBasico = new hRayBasic();
 }
 
 Player::Player(const Player& orig) {
@@ -21,6 +22,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
 	renderState.SetTexture(texturaPlayer);
         sf::IntRect rect(0, 0, 31, 46);
         renderState.SetTextureRect(rect);
+        renderState.SetOrigin(31/2,46/2);
 	physicsState.SetPosition(posX, posY);
 	physicsState.SetSpeed(speedX, speedY);
 	physicsState.SetMaxSpeed(maxSpeedX, maxSpeedY);
@@ -37,7 +39,6 @@ void Player::Draw(sf::RenderWindow& window){
 }
 
 void Player::DrawWithInterpolation(sf::RenderWindow& window, float interpolation){
-
 	renderState.Draw(window, physicsState.GetPreviousPosition(), physicsState.GetPosition(), interpolation);
 }
 float Player::getVelocidad(){
@@ -45,4 +46,7 @@ float Player::getVelocidad(){
 }
 sf::Vector2f Player::getPosition(){
     return renderState.GetSprite().getPosition();
+}
+PhysicsState* Player::getPhysics() {
+    return &physicsState;
 }

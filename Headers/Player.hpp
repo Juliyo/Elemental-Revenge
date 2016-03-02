@@ -10,6 +10,7 @@
 
 #include "PhysicsState.hpp"
 #include "Render.hpp"
+#include "hRayBasic.hpp"
 
 class Player {
 public:
@@ -21,14 +22,18 @@ public:
 	void Update(sf::Vector2f velocity, sf::Time elapsedTime);
 	void Draw(sf::RenderWindow& window);
 	void DrawWithInterpolation(sf::RenderWindow& window, float interpolation);
+        PhysicsState* getPhysics();
         float getVelocidad();
         sf::Vector2f getPosition();
+        
+        hRayBasic*              hRayoBasico;
 	
 private:
 	Render			renderState;
 	PhysicsState            physicsState;
         sf::Texture             texturaPlayer;
         float                   velocity=200.f;
+        
 };
 
 #endif	/* PLAYER_H */

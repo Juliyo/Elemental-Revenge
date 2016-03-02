@@ -21,11 +21,13 @@ public:
 	sf::Vector2f GetNextPosition(sf::Time elapsedTime) const;
 	sf::Vector2f GetSpeed() const { return speed; }
 	sf::Vector2f GetMaxSpeed() const { return maxSpeed; }
-	
+	float        GetPreviousAngle() const { return anglePrev; }
+        float        GetNextPosition() const { return angleNew; }
 	void SetSpeed(float vel_x, float vel_y);
 	void SetSpeed(sf::Vector2f speed);
 	void SetPosition(float pos_x, float pos_y);
 	void SetPosition(sf::Vector2f pos);
+        void SetAngle(float angle);
 	void SetMaxSpeed(float speed_x, float speed_y);
 	void SetMaxSpeed(sf::Vector2f maxSpeed);
 	void Update(sf::Time elapsedTime);
@@ -41,6 +43,8 @@ private:
 	sf::Vector2f posNew;
 	sf::Vector2f speed;
 	sf::Vector2f maxSpeed;
+        float        anglePrev;
+        float        angleNew;
 	
 	
 	/*sf::Vector2f previousvelocity_;

@@ -28,6 +28,9 @@ void Render::SetTexture(sf::Texture &tex)
 void Render::SetTextureRect(sf::IntRect rect){
     sprite.setTextureRect(rect);
 }
+void Render::SetOrigin(float x,float y){
+    sprite.setOrigin(x,y);
+}
 
 
 

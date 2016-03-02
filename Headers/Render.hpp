@@ -20,6 +20,7 @@ public:
 	
 	void SetTexture(sf::Texture &tex);
         void SetTextureRect(sf::IntRect rect);
+        void SetOrigin(float x, float y);
 	void Draw(sf::RenderWindow &window, const sf::Vector2f &posPrev, const sf::Vector2f &posNew, float interpolation);
 	sf::Sprite &GetSprite() { return sprite; }
 	sf::Vector2f GetRenderPosition() const { return renderPos; }

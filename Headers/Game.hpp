@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "Player.hPP"
+#include "Player.hpp"
 
 class Game : private sf::NonCopyable
 {
@@ -17,7 +17,8 @@ private:
     void			processEvents();  // Captura y procesa eventos
     void			update(sf::Time elapsedTime);
     void			render(float interpolation);
-    void			handlePlayerInput(sf::Keyboard::Key key, bool isPressed);  // Maneja eventos
+    void			handlePlayerInput(sf::Keyboard::Key key, bool isPressed);  // Maneja eventos teclado
+    void			handleHechizoInput(sf::Mouse::Button button, bool isPressed);  // Maneja eventos raton
     void                        updateView();
     
 private:
@@ -32,7 +33,7 @@ private:
     //Graficos
     sf::RenderWindow		mWindow;
     sf::View                    mWorldView;
-    Player			player;
+    Player*			player;
     
     //Estadisticas
     sf::Text			mStatisticsText;
@@ -44,6 +45,7 @@ private:
     bool			isMovingDown;
     bool			isMovingRight;
     bool			isMovingLeft;
+    bool                        isShooting;
     bool			firstTime;
     bool			isInterpolating;
 };
