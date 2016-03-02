@@ -38,7 +38,7 @@ Game::Game()
     }
     texturaFondo.setRepeated(true);
     spriteFondo.setTexture(texturaFondo);
-    spriteFondo.setTextureRect(sf::IntRect(0,0,2000,2000));
+    spriteFondo.setTextureRect(sf::IntRect(0, 0, 2000, 2000));
 #ifdef _WIN32
     HWND handler = mWindow.getSystemHandle();
     RECT rWindow;
@@ -90,7 +90,7 @@ void Game::run() //Metodo principal
 
 void Game::update(sf::Time elapsedTime) //Actualiza la fisica
 {
-    
+
     if (!firstTime) {
         sf::Vector2f movement(0.f, 0.f);
         if (isMovingUp)
@@ -101,47 +101,47 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
             movement.x -= player.getVelocidad();
         if (isMovingRight)
             movement.x += player.getVelocidad();
-        
+
         player.Update(movement, elapsedTime);
-        
+
     }
 
     firstTime = false;
 }
-void Game::updateView(){
-     sf::Vector2f mousePosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
-    float camera_x = (mousePosition.x + (player.getPosition().x*6))/7;//Media dando prioridad al jugador
-    float camera_y = (mousePosition.y + player.getPosition().y*6)/7;
-    float x = (mWorldView.getCenter().x+0.1*(camera_x-mWorldView.getCenter().x));//Lo mismo que la funcion lerp
-    float y = (mWorldView.getCenter().y+0.1*(camera_y-mWorldView.getCenter().y));
+
+void Game::updateView() {
+    sf::Vector2f mousePosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
+    float camera_x = (mousePosition.x + (player.getPosition().x * 6)) / 7; //Media dando prioridad al jugador
+    float camera_y = (mousePosition.y + player.getPosition().y * 6) / 7;
+    float x = (mWorldView.getCenter().x + 0.1 * (camera_x - mWorldView.getCenter().x)); //Lo mismo que la funcion lerp
+    float y = (mWorldView.getCenter().y + 0.1 * (camera_y - mWorldView.getCenter().y));
     mWorldView.setCenter(x, y);
     mWindow.setView(mWorldView);
-    mStatisticsText.setPosition(mWindow.getPosition().x,mWindow.getPosition().y);
+    mStatisticsText.setPosition(mWindow.getPosition().x, mWindow.getPosition().y);
 }
+
 void Game::render(float interpolation) //Dibuja
 {
-    
+
     mWindow.clear();
     updateView();
-   // mWindow.draw(spriteFondo);
-    
-    if(player.hAguaBasico.dibujar==true){
-        if(player.hAguaBasico.tiempoCast.getElapsedTime().asSeconds()<0.5){
-        mWindow.draw(player.hAguaBasico.hSprite);
-            std::cout <<"ENTRA2";
-    }
-        else{
+    mWindow.draw(spriteFondo);
+
+    if (player.hAguaBasico.dibujar == true) {
+        if (player.hAguaBasico.tiempoCast.getElapsedTime().asSeconds() < 0.5) {
+            mWindow.draw(player.hAguaBasico.hSprite);
+        } else {
             player.hAguaBasico.setDibujar(false);
         }
     }
-    
+
     //LLAMAR AL DRAW DEL PLAYER
     if (isInterpolating)
         player.DrawWithInterpolation(mWindow, interpolation);
     else
         player.Draw(mWindow);
-    
-   // mWindow.draw(mStatisticsText);
+
+    // mWindow.draw(mStatisticsText);
     mWindow.display();
 }
 
@@ -160,14 +160,15 @@ void Game::processEvents() //Captura y procesa eventos
                 handlePlayerInput(event.key.code, false);
                 break;
 
-             case sf::Event::MouseButtonReleased:
-                 //sf::Vector2f mousePosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
+            case sf::Event::MouseButtonReleased:
+                //sf::Vector2f mousePosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
                 // sf::Vector2f playerposition = player.getPosition();
-                 player.hAguaBasico.cast(sf::Vector2f (player.getPosition()), &mWindow);
                 
-                
-                 break;
-                 
+                player.hAguaBasico.cast(sf::Vector2f(player.getPosition()), &mWindow);
+
+
+                break;
+
             case sf::Event::Closed:
                 mWindow.close();
                 break;

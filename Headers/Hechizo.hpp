@@ -24,7 +24,9 @@ public:
     sf::Sprite hSprite;
     sf::Texture hTexture;
     sf::Clock tiempoCast;
+    sf::Clock clockCd;
     float angleshot2=0.0f;
+    bool primerCast;
 
     float getDamage();
     void setDamage(float dmg);

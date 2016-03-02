@@ -28,6 +28,7 @@ if(!hTexture.loadFromFile("resources/Textures/bolaFuego.png")){
    hSprite.setTextureRect(sf::IntRect(0, 0, 100, 81));
    hSprite.setScale(0.5,0.5);
    hSprite.setPosition(-10000, -10000);
+   clockCd.restart();
 }
 
 hWaterBasic::hWaterBasic(const hWaterBasic& orig) {
@@ -39,6 +40,10 @@ hWaterBasic::~hWaterBasic() {
 }
 void hWaterBasic::cast(sf::Vector2f posicion, sf::RenderWindow *mWindow ){
     
+    
+    if(clockCd.getElapsedTime().asSeconds()>5 || primerCast==true){
+        primerCast=false;
+        clockCd.restart();
     sf::Vector2f mousePosition = mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow));
    // sf::Vector2f playerposition = player->getPosition();
     hSprite.setPosition(posicion.x+20,posicion.y+35);
@@ -48,6 +53,7 @@ void hWaterBasic::cast(sf::Vector2f posicion, sf::RenderWindow *mWindow ){
     tiempoCast.restart();
     dibujar=true;
     std::cout <<"ENTRA";
+    }
                
 }
 
