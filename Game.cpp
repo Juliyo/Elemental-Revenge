@@ -151,7 +151,7 @@ void Game::processEvents() //Captura y procesa eventos
              case sf::Event::MouseButtonReleased:
                  //sf::Vector2f mousePosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
                 // sf::Vector2f playerposition = player.getPosition();
-                 player.gethAguaBasico().cast(sf::Vector2f (player.getPosition()), &mWindow);
+                 player.hAguaBasico.cast(sf::Vector2f (player.getPosition()), &mWindow);
                 
                 
                  break;

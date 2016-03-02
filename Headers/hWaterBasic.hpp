@@ -13,7 +13,7 @@
 
 #ifndef HWATERBASIC_HPP
 #define HWATERBASIC_HPP
-#include "Player.hpp"
+
 #include "Hechizo.hpp"
 
 

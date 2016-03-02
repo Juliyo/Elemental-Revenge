@@ -47,7 +47,5 @@ sf::Vector2f Player::getPosition(){
     return renderState.GetSprite().getPosition();
 }
 
-hWaterBasic  Player::gethAguaBasico(){
-    return hAguaBasico;
-}
+
 
