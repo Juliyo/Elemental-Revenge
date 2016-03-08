@@ -25,8 +25,8 @@ public:
         void Draw(sf::RenderWindow &window, const sf::Vector2f &posPrev, const sf::Vector2f &posNew, float *anglePrev, float *angleNew, float interpolation);
 	sf::Sprite &GetSprite() { return sprite; }
 	sf::Vector2f GetRenderPosition() const { return renderPos; }
-        
-private:
+        float GetRenderAngle() { return renderAngle; }
+protected:
 	sf::Sprite		sprite;
 	sf::Vector2f            renderPos;
         float                   renderAngle;

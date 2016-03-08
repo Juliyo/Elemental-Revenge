@@ -19,7 +19,7 @@
 #include "Render.hpp"
 #include "PhysicsState.hpp"
 
-class Hechizo {
+class Hechizo : public Render, public PhysicsState {
 public:
     Hechizo();
     Hechizo(const Hechizo& orig);
@@ -28,7 +28,7 @@ public:
     sf::Texture hTexture;
     float angleshot2=0.0f;
     
-    void Draw(sf::RenderWindow& window);
+    //void Draw(sf::RenderWindow& window);
     void DrawWithInterpolation(sf::RenderWindow& window, float interpolation, PhysicsState *physicsState);
     float getDamage();
     void setDamage(float dmg);
@@ -42,7 +42,7 @@ protected:
     float hCd;
     float hDamage;
     int hLVL;
-    Render renderState;
+    //Render renderState;
 private:
     
     //PhysicsState physicsState;

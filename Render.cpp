@@ -6,7 +6,7 @@
  */
 
 #include "Render.hpp"
-
+#include <math.h>
 Render::Render() : sprite(), renderPos() {
 }
 
@@ -42,9 +42,13 @@ void Render::Draw(sf::RenderWindow& window, const sf::Vector2f& posPrev, const s
     renderPos = sf::Vector2f(
             posPrev.x + ((posNew.x - posPrev.x) * interpolation),
             posPrev.y + ((posNew.y - posPrev.y) * interpolation));
-
-    renderAngle = anglePrev + (angleNew - anglePrev) * interpolation;
+    float shortest_angle=((((int)(*angleNew - *anglePrev) % 360) + 540) % 360) - 180;
+    renderAngle = *anglePrev + (shortest_angle) * interpolation;
     
+    
+    std::cout<<"renderAngle: "<<renderAngle<<std::endl;
+    std::cout<<"angleNew: "<<*angleNew<<std::endl;
+    std::cout<<"anglePrev: "<<*anglePrev<<std::endl;
     sprite.setPosition(renderPos.x, renderPos.y);
     sprite.setRotation(renderAngle);
     window.draw(sprite);

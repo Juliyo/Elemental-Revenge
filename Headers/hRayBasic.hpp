@@ -24,6 +24,8 @@ public:
     hRayBasic(const hRayBasic& orig);
     virtual ~hRayBasic();
     void cast(sf::Vector2f vector, sf::RenderWindow *w);
+    void DrawWithInterpolation(sf::RenderWindow& window, float interpolation, PhysicsState *physicsState);
+    //void cast(sf::Vector2f vector, sf::RenderWindow *w);
 private:
     
 };

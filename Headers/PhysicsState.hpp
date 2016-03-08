@@ -38,7 +38,7 @@ public:
 	void SetAcceleration(float acc_x, float acc_y);
 	 */
 	
-private:
+protected:
 	sf::Vector2f posPrev;
 	sf::Vector2f posNew;
 	sf::Vector2f speed;

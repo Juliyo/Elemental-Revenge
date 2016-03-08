@@ -125,7 +125,7 @@ void Game::updateView(){
 void Game::render(float interpolation) //Dibuja
 {
     mWindow.clear();
-    
+    updateView();
     mWindow.draw(spriteFondo);
     if(player->hRayoBasico->draw == true){
         player -> hRayoBasico->DrawWithInterpolation(mWindow,interpolation,player->getPhysics());
@@ -135,7 +135,7 @@ void Game::render(float interpolation) //Dibuja
         player->DrawWithInterpolation(mWindow, interpolation);
     else
         player->Draw(mWindow);
-    updateView();
+    
    // mWindow.draw(mStatisticsText);
     mWindow.display();
 }

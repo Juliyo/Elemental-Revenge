@@ -15,12 +15,13 @@
 #include "../Headers/Player.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Mouse.hpp>
+#include <math.h>
 hRayBasic::hRayBasic() {
     draw = false;
     hTexture.loadFromFile("resources/Textures/rayo.png");
-    renderState.SetTexture(hTexture);
-    renderState.SetTextureRect(sf::IntRect(0,0,67,233));
-    renderState.SetOrigin(41,223);
+    SetTexture(hTexture);
+    SetTextureRect(sf::IntRect(0,0,67,233));
+    SetOrigin(41,223);
     /*hSprite.setTexture(hTexture);
     hSprite.setTextureRect(sf::IntRect(0,0,67,233));
     hSprite.setOrigin(41,223);*/
@@ -38,9 +39,15 @@ void hRayBasic::cast(sf::Vector2f posicion, sf::RenderWindow *mWindow) {
     sf::Vector2f mousePosition = mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow));
     //hSprite.setPosition(posicion);
     float angleShot = atan2(mousePosition.y - posicion.y, mousePosition.x - posicion.x);
+    angleShot = (angleShot * 180 / 3.14)+90;
+    SetAngle(angleshot2, angleShot);
+    
     angleshot2 = angleShot; //so it goes in a straight line
     
-    renderState.GetSprite().setRotation((angleShot * 180 / 3.14)+90);
+    //GetSprite().setRotation((angleShot * 180 / 3.14)+90);
    
+}
+void hRayBasic::DrawWithInterpolation(sf::RenderWindow& window, float interpolation, PhysicsState *physicsState){
+	Draw(window, physicsState->GetPreviousPosition(), physicsState->GetPosition() , &anglePrev, &angleNew, interpolation);
 }
 
