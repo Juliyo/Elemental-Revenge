@@ -5,6 +5,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Player.hpp"
+#include "Enemigo.hpp"
 
 class Game : private sf::NonCopyable
 {
@@ -33,7 +34,7 @@ private:
     sf::RenderWindow		mWindow;
     sf::View                    mWorldView;
     Player			player;
-    Player			enemigo;
+    Enemigo			enemigo;
     
     //Estadisticas
     sf::Text			mStatisticsText;

@@ -38,7 +38,7 @@ hWaterBasic::~hWaterBasic() {
 
     
 }
-void hWaterBasic::cast(sf::Vector2f posicion, sf::RenderWindow *mWindow ){
+void hWaterBasic::cast(sf::Vector2f posicion, sf::RenderWindow *mWindow, Enemigo *enemigo ){
     
     
     if(clockCd.getElapsedTime().asSeconds()>5 || primerCast==true){

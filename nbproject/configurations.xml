@@ -2,6 +2,7 @@
 <configurationDescriptor version="97">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="Headers" displayName="Headers" projectFiles="true">
+      <itemPath>Headers/Enemigo.hpp</itemPath>
       <itemPath>Headers/Flash.hpp</itemPath>
       <itemPath>Headers/Game.hpp</itemPath>
       <itemPath>Headers/Heal.hpp</itemPath>
@@ -22,6 +23,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>Enemigo.cpp</itemPath>
       <itemPath>Flash.cpp</itemPath>
       <itemPath>Game.cpp</itemPath>
       <itemPath>Heal.cpp</itemPath>
@@ -78,9 +80,13 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="Enemigo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="Flash.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Game.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Headers/Enemigo.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Flash.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -145,9 +151,13 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="Enemigo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="Flash.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Game.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Headers/Enemigo.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Flash.hpp" ex="false" tool="3" flavor2="0">
       </item>

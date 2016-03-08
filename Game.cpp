@@ -134,7 +134,9 @@ void Game::render(float interpolation) //Dibuja
     mWindow.clear();
     updateView();
     mWindow.draw(spriteFondo);
-
+    
+    
+    
     if (player.hAguaBasico.dibujar == true) {
         if (player.hAguaBasico.tiempoCast.getElapsedTime().asSeconds() < 0.5) {
             mWindow.draw(player.hAguaBasico.hSprite);
@@ -174,7 +176,7 @@ void Game::processEvents() //Captura y procesa eventos
                 //sf::Vector2f mousePosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
                 // sf::Vector2f playerposition = player.getPosition();
                 
-                player.hAguaBasico.cast(sf::Vector2f(player.getPosition()), &mWindow);
+                player.hAguaBasico.cast(sf::Vector2f(player.getPosition()), &mWindow, &enemigo);
 
 
                 break;

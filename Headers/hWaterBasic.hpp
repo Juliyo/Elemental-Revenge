@@ -15,14 +15,14 @@
 #define HWATERBASIC_HPP
 
 #include "Hechizo.hpp"
-
+#include "Enemigo.hpp"
 
 class hWaterBasic:public Hechizo {
 public:
     hWaterBasic();
     hWaterBasic(const hWaterBasic& orig);
     virtual ~hWaterBasic();
-    void cast(sf::Vector2f , sf::RenderWindow *mWindow);
+    void cast(sf::Vector2f , sf::RenderWindow *mWindow, Enemigo *enemigo);
     
     void setDibujar(bool NuevoDibujar);
     
