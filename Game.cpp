@@ -109,8 +109,8 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
     }
     if(player.hAguaBasico.hSprite.getGlobalBounds().intersects(enemigo.getSprite().getGlobalBounds())){
         sf::Vector2f movement(0.f, 0.f);
-        movement.x=-10;
-        movement.y=10;
+        movement.x=(200 * cos(player.hAguaBasico.angleshot2) * 1.0f);
+        movement.y=(200 * sin(player.hAguaBasico.angleshot2) * 1.0f);
         enemigo.Update(movement,elapsedTime);
     }
 
@@ -139,6 +139,7 @@ void Game::render(float interpolation) //Dibuja
     
     if (player.hAguaBasico.dibujar == true) {
         if (player.hAguaBasico.tiempoCast.getElapsedTime().asSeconds() < 0.5) {
+            player.hAguaBasico.hSprite.setPosition(player.getPosition().x+20,player.getPosition().y+35);
             mWindow.draw(player.hAguaBasico.hSprite);
         } else {
             player.hAguaBasico.setDibujar(false);
