@@ -92,7 +92,9 @@ void Game::run() //Metodo principal
 
 void Game::update(sf::Time elapsedTime) //Actualiza la fisica
 {
-
+    
+    
+    
     if (!firstTime) {
         sf::Vector2f movement(0.f, 0.f);
         if (isMovingUp)
@@ -108,12 +110,25 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
 
     }
     if(player.hAguaBasico.hSprite.getGlobalBounds().intersects(enemigo.getSprite().getGlobalBounds())){
-        sf::Vector2f movement(0.f, 0.f);
+        enemigo.empujado=true;
+        enemigo.tiempoempujado.restart();
+        /* sf::Vector2f movement(0.f, 0.f);
         movement.x=(200 * cos(player.hAguaBasico.angleshot2) * 1.0f);
         movement.y=(200 * sin(player.hAguaBasico.angleshot2) * 1.0f);
+        enemigo.Update(movement,elapsedTime);*/
+    }
+    
+    if(enemigo.empujado==true){
+        sf::Vector2f movement(0.f, 0.f);
+        movement.x=300*(cos(player.hAguaBasico.angleshot2) * 1.0f);
+        movement.y=300*(sin(player.hAguaBasico.angleshot2) * 1.0f);
         enemigo.Update(movement,elapsedTime);
     }
-
+    
+    if( enemigo.tiempoempujado.getElapsedTime().asSeconds()>0.5){
+        enemigo.empujado=false;
+    }
+    
     firstTime = false;
 }
 

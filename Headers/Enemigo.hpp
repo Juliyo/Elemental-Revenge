@@ -30,6 +30,8 @@ public:
         float getVelocidad();
         sf::Vector2f getPosition();
         sf::Sprite getSprite();
+        bool empujado;
+        sf::Clock tiempoempujado;
 
          
 	

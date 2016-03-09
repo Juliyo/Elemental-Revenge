@@ -31,6 +31,7 @@ void Enemigo::Inicializar(float posX, float posY, float speedX, float speedY, fl
 	physicsState.SetPosition(posX, posY);
 	physicsState.SetSpeed(speedX, speedY);
 	physicsState.SetMaxSpeed(maxSpeedX, maxSpeedY);
+        empujado=false;
 }
 
 
