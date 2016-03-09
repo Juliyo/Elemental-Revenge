@@ -23,10 +23,11 @@ Enemigo::~Enemigo() {
 }
 
 void Enemigo::Inicializar(float posX, float posY, float speedX, float speedY, float maxSpeedX, float maxSpeedY){
-        texturaEnemigo.loadFromFile("resources/Textures/character.png");
+        texturaEnemigo.loadFromFile("resources/Textures/ninja.png");
 	renderState.SetTexture(texturaEnemigo);
-        sf::IntRect rect(0, 0, 31, 46);
+        sf::IntRect rect(0, 0, 96, 96);
         renderState.SetTextureRect(rect);
+        renderState.GetSprite().setScale(0.5,0.5);
 	physicsState.SetPosition(posX, posY);
 	physicsState.SetSpeed(speedX, speedY);
 	physicsState.SetMaxSpeed(maxSpeedX, maxSpeedY);
