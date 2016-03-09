@@ -48,7 +48,9 @@ Game::Game()
 #endif
     //Configuramos Items
     player.Inicializar(200.f, 250.f);
-    enemigo.Inicializar(300.f, 350.f);
+    
+    enemigo[0].Inicializar(300.f, 350.f);
+    enemigo[1].Inicializar(350.f, 450.f);
 
     mStatisticsText.setFont(contFonts);
     mStatisticsText.setPosition(5.f, 5.f);
@@ -109,24 +111,44 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
         player.Update(movement, elapsedTime);
 
     }
-    if(player.hAguaBasico.hSprite.getGlobalBounds().intersects(enemigo.getSprite().getGlobalBounds())){
-        enemigo.empujado=true;
-        enemigo.tiempoempujado.restart();
+    if(player.hAguaBasico.hSprite.getGlobalBounds().intersects(enemigo[0].getSprite().getGlobalBounds())){
+        enemigo[0].empujado=true;
+        enemigo[0].tiempoempujado.restart();
         /* sf::Vector2f movement(0.f, 0.f);
         movement.x=(200 * cos(player.hAguaBasico.angleshot2) * 1.0f);
         movement.y=(200 * sin(player.hAguaBasico.angleshot2) * 1.0f);
         enemigo.Update(movement,elapsedTime);*/
     }
     
-    if(enemigo.empujado==true){
+    if(enemigo[0].empujado==true){
         sf::Vector2f movement(0.f, 0.f);
         movement.x=300*(cos(player.hAguaBasico.angleshot2) * 1.0f);
         movement.y=300*(sin(player.hAguaBasico.angleshot2) * 1.0f);
-        enemigo.Update(movement,elapsedTime);
+        enemigo[0].Update(movement,elapsedTime);
     }
     
-    if( enemigo.tiempoempujado.getElapsedTime().asSeconds()>0.5){
-        enemigo.empujado=false;
+    if( enemigo[0].tiempoempujado.getElapsedTime().asSeconds()>0.5){
+        enemigo[0].empujado=false;
+    }
+    
+        if(player.hAguaBasico.hSprite.getGlobalBounds().intersects(enemigo[1].getSprite().getGlobalBounds())){
+        enemigo[1].empujado=true;
+        enemigo[1].tiempoempujado.restart();
+        /* sf::Vector2f movement(0.f, 0.f);
+        movement.x=(200 * cos(player.hAguaBasico.angleshot2) * 1.0f);
+        movement.y=(200 * sin(player.hAguaBasico.angleshot2) * 1.0f);
+        enemigo.Update(movement,elapsedTime);*/
+    }
+    
+    if(enemigo[1].empujado==true){
+        sf::Vector2f movement(0.f, 0.f);
+        movement.x=300*(cos(player.hAguaBasico.angleshot2) * 1.0f);
+        movement.y=300*(sin(player.hAguaBasico.angleshot2) * 1.0f);
+        enemigo[1].Update(movement,elapsedTime);
+    }
+    
+    if( enemigo[1].tiempoempujado.getElapsedTime().asSeconds()>0.5){
+        enemigo[1].empujado=false;
     }
     
     firstTime = false;
@@ -167,7 +189,8 @@ void Game::render(float interpolation) //Dibuja
     else
         player.Draw(mWindow);
     
-    enemigo.Draw(mWindow);
+    enemigo[0].Draw(mWindow);
+    enemigo[1].Draw(mWindow);
 
     // mWindow.draw(mStatisticsText);
     mWindow.display();
@@ -192,7 +215,7 @@ void Game::processEvents() //Captura y procesa eventos
                 //sf::Vector2f mousePosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
                 // sf::Vector2f playerposition = player.getPosition();
                 
-                player.hAguaBasico.cast(sf::Vector2f(player.getPosition()), &mWindow, &enemigo);
+                player.hAguaBasico.cast(sf::Vector2f(player.getPosition()), &mWindow);
 
 
                 break;
