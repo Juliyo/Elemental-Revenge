@@ -1,4 +1,5 @@
 #include "Game.hpp"
+#include <cmath>
 //SOLO EN WINDOWS
 #ifdef _WIN32
 #include <Windows.h>
@@ -54,6 +55,7 @@ Game::Game()
     
     mouseSprite.setTexture(mouseTexture);
     mouseSprite.setScale(0.2,0.2);
+    mouseSprite.setPosition(20,20);
 #ifdef _WIN32
     HWND handler = mWindow.getSystemHandle();
     RECT rWindow;
@@ -126,19 +128,25 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
     firstTime = false;
 }
 void Game::updateView(){
-     sf::Vector2f mousePosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
-     
-    
-     
+    sf::Vector2f mousePosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
     float camera_x = (mousePosition.x + (player.getPosition().x*6))/7;//Media dando prioridad al jugador
     float camera_y = (mousePosition.y + player.getPosition().y*6)/7;
     float x = (mWorldView.getCenter().x+0.1*(camera_x-mWorldView.getCenter().x));//Lo mismo que la funcion lerp
     float y = (mWorldView.getCenter().y+0.1*(camera_y-mWorldView.getCenter().y));
     mWorldView.setCenter(x, y);
     mWorldView.setSize(640, 480);
-    std::cout<<"Posicion Raton: "<<mousePosition.x<<", "<<mousePosition.y<<std::endl;
-    std::cout<<"Posicion Sprite: "<<mouseSprite.getPosition().x<<", "<<mouseSprite.getPosition().y<<std::endl;
-    mouseSprite.setPosition(mousePosition.x, mousePosition.y);
+    
+    sf::FloatRect viewBounds(mWorldView.getCenter() - mWorldView.getSize() / 2.f, mWorldView.getSize());
+
+    sf::Vector2f position = mousePosition;
+    position.x = std::max(position.x, 0.125f * viewBounds.left);
+    position.x = std::min(position.x, 0.875f * viewBounds.left + viewBounds.width);
+    position.y = std::max(position.y, 0.f );
+    position.y = std::min(position.y, (float)alto);
+    
+    mouseSprite.setPosition(position);
+    
+    
     
     mStatisticsText.setPosition(mWindow.getPosition().x,mWindow.getPosition().y);
     mWindow.setView(getLetterboxView(mWorldView,ancho,alto));
@@ -147,8 +155,11 @@ void Game::render(float interpolation) //Dibuja
 {
     mWindow.clear();
     
+    //Pillamos la view anterior, activamos la del fondo, dibujamos el fondo y volvemos al estado anterior
+    sf::View previa = mWindow.getView();
     mWindow.setView(mBackgroundView);
     mWindow.draw(spriteRelleno);
+    mWindow.setView(previa);
     
     updateView();
     mWindow.draw(spriteFondo);
@@ -241,16 +252,18 @@ sf::View Game::getLetterboxView(sf::View view, int windowWidth, int windowHeight
 
     if (horizontalSpacing) {
         sizeX = viewRatio / windowRatio;
-        //std::cout<<"SizeX: "<<sizeX<<std::endl;
+        
         posX = (1 - sizeX) / 2.0;
-    }
-
-    else {
+    } else {
         sizeY = windowRatio / viewRatio;
         posY = (1 - sizeY) / 2.0;
     }
 
     view.setViewport( sf::FloatRect(posX, posY, sizeX, sizeY) );
-
+    std::cout<<"PosX: "<<posX<<std::endl;
+    std::cout<<"PosY: "<<posY<<std::endl;
+    std::cout<<"SizeX: "<<sizeX<<std::endl;
+    std::cout<<"SizeY: "<<sizeY<<std::endl;
+    std::cout<<std::endl;
     return view;
 }
