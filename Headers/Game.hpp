@@ -19,6 +19,7 @@ private:
     void			render(float interpolation);
     void			handlePlayerInput(sf::Keyboard::Key key, bool isPressed);  // Maneja eventos
     void                        updateView();
+    sf::View                    getLetterboxView(sf::View view, int windowWidth, int windowHeight);
     
 private:
     static const sf::Time	timePerFrame;
@@ -27,11 +28,16 @@ private:
     //Recursos
     sf::Texture                 texturaFondo;
     sf::Sprite                  spriteFondo;
+    sf::Texture                 texturaRelleno;
+    sf::Sprite                  spriteRelleno;
     sf::Font                    contFonts;
+    sf::Texture                 mouseTexture;
+    sf::Sprite                  mouseSprite;
     
     //Graficos
     sf::RenderWindow		mWindow;
     sf::View                    mWorldView;
+    sf::View                    mBackgroundView;
     Player			player;
     
     //Estadisticas
