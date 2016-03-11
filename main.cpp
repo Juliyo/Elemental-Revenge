@@ -2,6 +2,7 @@
 
 int main(int, char const**)
 {
-    Game game;
-    game.run();
+    Game *game = new Game();
+    game->run();
+    delete game;
 }

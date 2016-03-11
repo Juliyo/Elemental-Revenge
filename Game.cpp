@@ -7,7 +7,7 @@
 
 /************ VARIABLES GLOBALES ************/
 const sf::Time Game::timePerFrame = sf::seconds(1.f / 15.f);
-const int ancho = 1280, alto = 720;
+int ancho = 1280, alto = 720;
 const float segStatistics = 0.5f; //segundos de refresco de las estadisticas
 
 /************ CONSTRUCTOR **************/
@@ -56,6 +56,7 @@ Game::Game()
     mouseSprite.setTexture(mouseTexture);
     mouseSprite.setScale(0.2,0.2);
     mouseSprite.setPosition(20,20);
+    mouseSprite.setOrigin(64,64);
 #ifdef _WIN32
     HWND handler = mWindow.getSystemHandle();
     RECT rWindow;
@@ -128,13 +129,8 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
     firstTime = false;
 }
 void Game::updateView(){
+    
     sf::Vector2f mousePosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
-    float camera_x = (mousePosition.x + (player.getPosition().x*6))/7;//Media dando prioridad al jugador
-    float camera_y = (mousePosition.y + player.getPosition().y*6)/7;
-    float x = (mWorldView.getCenter().x+0.1*(camera_x-mWorldView.getCenter().x));//Lo mismo que la funcion lerp
-    float y = (mWorldView.getCenter().y+0.1*(camera_y-mWorldView.getCenter().y));
-    mWorldView.setCenter(x, y);
-    mWorldView.setSize(640, 480);
     
     sf::FloatRect viewBounds(mWorldView.getCenter() - mWorldView.getSize() / 2.f, mWorldView.getSize());
 
@@ -147,8 +143,16 @@ void Game::updateView(){
     mouseSprite.setPosition(position);
     
     
+    float camera_x = (mouseSprite.getPosition().x + (player.getPosition().x*6))/7;//Media dando prioridad al jugador
+    float camera_y = (mouseSprite.getPosition().y + player.getPosition().y*6)/7;
+    float x = (mWorldView.getCenter().x+0.1*(camera_x-mWorldView.getCenter().x));//Lo mismo que la funcion lerp
+    float y = (mWorldView.getCenter().y+0.1*(camera_y-mWorldView.getCenter().y));
+    mWorldView.setCenter(x, y);
+    mWorldView.setSize(640, 480);
     
-    mStatisticsText.setPosition(mWindow.getPosition().x,mWindow.getPosition().y);
+    
+    
+    
     mWindow.setView(getLetterboxView(mWorldView,ancho,alto));
 }
 void Game::render(float interpolation) //Dibuja
@@ -201,6 +205,9 @@ void Game::processEvents() //Captura y procesa eventos
                     GetWindowRect(handler, &rWindow);
                     ClipCursor(&rWindow);
                 #endif
+                    mWindow.setView(getLetterboxView(mWorldView,event.size.width,event.size.height));
+                    ancho = event.size.width;
+                    alto = event.size.height;
                     break;
         }
         

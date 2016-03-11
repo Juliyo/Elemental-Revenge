@@ -18,6 +18,7 @@ Player::~Player() {
 
 void Player::Inicializar(float posX, float posY, float speedX, float speedY, float maxSpeedX, float maxSpeedY){
         texturaPlayer.loadFromFile("resources/Textures/character.png");
+        texturaPlayer.setSmooth(true);
 	renderState.SetTexture(texturaPlayer);
         sf::IntRect rect(0, 0, 31, 46);
         renderState.SetTextureRect(rect);
