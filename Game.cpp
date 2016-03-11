@@ -148,6 +148,9 @@ void Game::render(float interpolation,sf::Time elapsedTime) //Dibuja
     mWindow.clear();
     updateView();
     mWindow.draw(spriteFondo);
+    
+        //mWindow.draw(player->hRayoAvanzado->hSprite);
+
     if(player->hRayoBasico->draw == true){
         player->hRayoBasico->PlayAnimation(player->hRayoBasico-> animation,elapsedTime);
         if(player->hRayoBasico->tiempoCast.getElapsedTime().asSeconds()<10.0f){
@@ -225,4 +228,8 @@ void Game::handleHechizoInput(sf::Mouse::Button button, bool isPressed){
     if(button == sf::Mouse::Button::Left){
         isShooting = isPressed;
     }
+    if(button == sf::Mouse::Button::Right){
+        player->hRayoAvanzado->cast(sf::Vector2f(player->getPosition()),&mWindow);
+    }
 }
+

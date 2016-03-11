@@ -11,6 +11,7 @@
 #include "PhysicsState.hpp"
 #include "Render.hpp"
 #include "hRayBasic.hpp"
+#include "hRayAdvanced.hpp"
 
 class Player {
 public:
@@ -27,6 +28,8 @@ public:
         sf::Vector2f getPosition();
         
         hRayBasic*              hRayoBasico;
+        hRayAdvanced*           hRayoAvanzado;
+
 	
 private:
 	Render			renderState;
