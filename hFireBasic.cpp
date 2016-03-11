@@ -41,9 +41,7 @@ void hFireBasic::cast(sf::Vector2f posicion, sf::RenderWindow *mWindow ){
     
     
     
-     if(contFuego==20){
-                    contFuego=0;
-                }
+    
                 //hFuegoBasico[contFuego].hSprite.setRotation(0);
                 hSprite.setPosition(posicion);
     sf::Vector2f mousePosition = mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow));
@@ -51,7 +49,6 @@ void hFireBasic::cast(sf::Vector2f posicion, sf::RenderWindow *mWindow ){
                         mousePosition.x - hSprite.getPosition().x);
                 angleshot2 = angleShot; //so it goes in a straight line
                 hSprite.setRotation(angleShot*180/3.14);
-                contFuego++;
 
 }
 

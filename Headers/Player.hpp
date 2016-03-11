@@ -27,8 +27,9 @@ public:
         float getVelocidad();
         sf::Vector2f getPosition();
         hWaterBasic  hAguaBasico;
-        hFireBasic   hFuegoBasico;
+        hFireBasic   hFuegoBasico[50];
         sf::Sprite getSprite();
+        int                     contFuego=0;
 
          
 	

@@ -112,6 +112,16 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
         player.Update(movement, elapsedTime);
 
     }
+    sf::Vector2f movement2(0.f, 0.f);
+    
+    
+    for(int aux=0; aux<=49;aux++){
+
+    movement2.x=(40*cos(player.hFuegoBasico[aux].angleshot2) * 1.0f);
+    movement2.y=(40*sin(player.hFuegoBasico[aux].angleshot2) * 1.0f);
+    
+    player.hFuegoBasico[aux].hSprite.move(movement2);
+    }
     if(player.hAguaBasico.hSprite.getGlobalBounds().intersects(enemigo[0].getSprite().getGlobalBounds())){
         enemigo[0].empujado=true;
         enemigo[0].tiempoempujado.restart();
@@ -173,7 +183,11 @@ void Game::render(float interpolation) //Dibuja
     updateView();
     mWindow.draw(spriteFondo);
     
+    for(int aux=0; aux<=49;aux++){
     
+    mWindow.draw(player.hFuegoBasico[aux].hSprite);
+    
+    }
     
     if (player.hAguaBasico.dibujar == true) {
         if (player.hAguaBasico.tiempoCast.getElapsedTime().asSeconds() < 0.5) {
@@ -216,9 +230,14 @@ void Game::processEvents() //Captura y procesa eventos
                 //sf::Vector2f mousePosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
                 // sf::Vector2f playerposition = player.getPosition();
                 
-                player.hFuegoBasico.cast(sf::Vector2f(player.getPosition()), &mWindow);
-
-
+                
+                if(player.contFuego==49){
+                    player.contFuego=0;
+                }
+                
+                player.hFuegoBasico[player.contFuego].cast(sf::Vector2f(player.getPosition()), &mWindow);
+                player.contFuego++;
+                
                 break;
 
             case sf::Event::Closed:

@@ -25,7 +25,6 @@ public:
     void cast(sf::Vector2f , sf::RenderWindow *mWindow);
   
 private:
-   int                                     contFuego;
 };
 
 #endif /* HFIREBASIC_HPP */
