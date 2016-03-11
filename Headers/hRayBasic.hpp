@@ -18,6 +18,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Mouse.hpp>
 
+
 class hRayBasic:public Hechizo {
 public:
     hRayBasic();
@@ -25,9 +26,12 @@ public:
     virtual ~hRayBasic();
     void cast(sf::Vector2f vector, sf::RenderWindow *w);
     void DrawWithInterpolation(sf::RenderWindow& window, float interpolation, PhysicsState *physicsState);
+    
+    sf::Clock tiempoCast;
+    float angleshot2=0.0f;
     //void cast(sf::Vector2f vector, sf::RenderWindow *w);
 private:
-    
+
 };
 
 #endif /* HRAYBASIC_HPP */

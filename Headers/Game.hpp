@@ -16,7 +16,7 @@ public:
 private:
     void			processEvents();  // Captura y procesa eventos
     void			update(sf::Time elapsedTime);
-    void			render(float interpolation);
+    void			render(float interpolation,sf::Time elapsedTime);
     void			handlePlayerInput(sf::Keyboard::Key key, bool isPressed);  // Maneja eventos teclado
     void			handleHechizoInput(sf::Mouse::Button button, bool isPressed);  // Maneja eventos raton
     void                        updateView();

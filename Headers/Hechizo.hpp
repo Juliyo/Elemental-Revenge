@@ -18,7 +18,7 @@
 
 #include "Render.hpp"
 #include "PhysicsState.hpp"
-
+#include "Animation.hpp"
 class Hechizo : public Render, public PhysicsState {
 public:
     Hechizo();
@@ -37,6 +37,7 @@ public:
     void setLevel(int lvl);
     int getLevel();
     bool draw;
+    Animation animation;
     
 protected:
     float hCd;
@@ -44,7 +45,7 @@ protected:
     int hLVL;
     //Render renderState;
 private:
-    
+      
     //PhysicsState physicsState;
 };
 

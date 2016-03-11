@@ -22,7 +22,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
 	renderState.SetTexture(texturaPlayer);
         sf::IntRect rect(0, 0, 31, 46);
         renderState.SetTextureRect(rect);
-        renderState.SetOrigin(31/2,46/2);
+        //renderState.SetOrigin(31/2,46/2);
 	physicsState.SetPosition(posX, posY);
 	physicsState.SetSpeed(speedX, speedY);
 	physicsState.SetMaxSpeed(maxSpeedX, maxSpeedY);

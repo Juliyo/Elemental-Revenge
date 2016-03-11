@@ -82,7 +82,7 @@ void Game::run() //Metodo principal
 
         interpolation = (float) std::min(1.f, timeSinceLastUpdate.asSeconds() / timePerFrame.asSeconds());
 
-        render(interpolation);
+        render(interpolation,elapsedTime);
     }
 }
 
@@ -108,6 +108,8 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
         }else{
             player->hRayoBasico->draw=false;
         }
+        
+        
     }
 
     firstTime = false;
@@ -122,14 +124,28 @@ void Game::updateView(){
     mWindow.setView(mWorldView);
     mStatisticsText.setPosition(mWindow.getPosition().x,mWindow.getPosition().y);
 }
-void Game::render(float interpolation) //Dibuja
+void Game::render(float interpolation,sf::Time elapsedTime) //Dibuja
 {
     mWindow.clear();
     updateView();
     mWindow.draw(spriteFondo);
     if(player->hRayoBasico->draw == true){
-        player -> hRayoBasico->DrawWithInterpolation(mWindow,interpolation,player->getPhysics());
+        player->hRayoBasico->PlayAnimation(player->hRayoBasico-> animation,elapsedTime);
+        if(player->hRayoBasico->tiempoCast.getElapsedTime().asSeconds()<2.0f){
+            player->hRayoBasico->DrawWithInterpolation(mWindow,interpolation,player->getPhysics());
+        }
+        else{
+            player->hRayoBasico->draw=false;
+        }
+        
+        
+       // player -> hRayoBasico->DrawWithInterpolation(mWindow,interpolation,player->getPhysics());
     }
+    else{
+        player->hRayoBasico->StopAnimation();
+    }
+    
+    
     //LLAMAR AL DRAW DEL PLAYER
     if (isInterpolating)
         player->DrawWithInterpolation(mWindow, interpolation);

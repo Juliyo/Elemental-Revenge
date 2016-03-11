@@ -18,10 +18,30 @@
 #include <math.h>
 hRayBasic::hRayBasic() {
     draw = false;
-    hTexture.loadFromFile("resources/Textures/rayo.png");
-    SetTexture(hTexture);
-    SetTextureRect(sf::IntRect(0,0,67,233));
-    SetOrigin(41,223);
+    
+    
+    if(!hTexture.loadFromFile("resources/Textures/rayo.png")){
+       
+       //comentario error
+       exit(0);
+   }
+  // hSprite.setTexture(hTexture);
+    //SetPosition()
+    animation.setSpriteSheet(hTexture);
+    animation.addFrame(sf::IntRect(0,0,67,233));
+    animation.addFrame(sf::IntRect(0,0,134,233));
+    animation.addFrame(sf::IntRect(0,0,201,233));
+    animation.addFrame(sf::IntRect(0,0,268,233));
+    animation.addFrame(sf::IntRect(0,0,335,233));
+    animation.addFrame(sf::IntRect(0,0,402,233));
+    animation.addFrame(sf::IntRect(0,0,469,233));
+    animation.addFrame(sf::IntRect(0,0,536,233));
+
+    InicializarAnimatedSprite(sf::seconds(0.5f/8),true,false);
+//    SetOrigin(41,223);
+    
+    
+    
     /*hSprite.setTexture(hTexture);
     hSprite.setTextureRect(sf::IntRect(0,0,67,233));
     hSprite.setOrigin(41,223);*/
@@ -32,6 +52,7 @@ hRayBasic::hRayBasic(const hRayBasic& orig) {
 }
 
 hRayBasic::~hRayBasic() {
+    
 }
 
 void hRayBasic::cast(sf::Vector2f posicion, sf::RenderWindow *mWindow) {
@@ -39,6 +60,8 @@ void hRayBasic::cast(sf::Vector2f posicion, sf::RenderWindow *mWindow) {
     sf::Vector2f mousePosition = mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow));
     //hSprite.setPosition(posicion);
     float angleShot = atan2(mousePosition.y - posicion.y, mousePosition.x - posicion.x);
+    
+    tiempoCast.restart();
     angleShot = (angleShot * 180 / 3.14)+90;
     SetAngle(angleshot2, angleShot);
     
@@ -48,6 +71,6 @@ void hRayBasic::cast(sf::Vector2f posicion, sf::RenderWindow *mWindow) {
    
 }
 void hRayBasic::DrawWithInterpolation(sf::RenderWindow& window, float interpolation, PhysicsState *physicsState){
-	Draw(window, physicsState->GetPreviousPosition(), physicsState->GetPosition() , &anglePrev, &angleNew, interpolation);
+	DrawAnimation(window, physicsState->GetPreviousPosition(), physicsState->GetPosition() , interpolation, &anglePrev, &angleNew);
 }
 

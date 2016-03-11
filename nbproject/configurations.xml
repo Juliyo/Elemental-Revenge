@@ -2,6 +2,8 @@
 <configurationDescriptor version="97">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="Headers" displayName="Headers" projectFiles="true">
+      <itemPath>Headers/AnimatedSprite.hpp</itemPath>
+      <itemPath>Headers/Animation.hpp</itemPath>
       <itemPath>Headers/Game.hpp</itemPath>
       <itemPath>Headers/Hechizo.hpp</itemPath>
       <itemPath>Headers/PhysicsState.hpp</itemPath>
@@ -18,6 +20,8 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>AnimatedSprite.cpp</itemPath>
+      <itemPath>Animation.cpp</itemPath>
       <itemPath>Game.cpp</itemPath>
       <itemPath>Hechizo.cpp</itemPath>
       <itemPath>PhysicsState.cpp</itemPath>
@@ -70,7 +74,15 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="AnimatedSprite.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Animation.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="Game.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Headers/AnimatedSprite.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/Animation.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Game.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -121,7 +133,15 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="AnimatedSprite.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Animation.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="Game.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Headers/AnimatedSprite.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/Animation.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Game.hpp" ex="false" tool="3" flavor2="0">
       </item>
