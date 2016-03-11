@@ -10,6 +10,7 @@
 
 
 #include "hWaterBasic.hpp"
+#include "hFireBasic.hpp"
 #include "PhysicsState.hpp"
 #include "Render.hpp"
 
@@ -26,6 +27,7 @@ public:
         float getVelocidad();
         sf::Vector2f getPosition();
         hWaterBasic  hAguaBasico;
+        hFireBasic   hFuegoBasico;
         sf::Sprite getSprite();
 
          

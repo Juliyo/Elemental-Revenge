@@ -37,7 +37,7 @@ hFireBasic::~hFireBasic() {
 
 void hFireBasic::cast(){
     
-    
+    printf("lanzo el fuego");
 
 }
 

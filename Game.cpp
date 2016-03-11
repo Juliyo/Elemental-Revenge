@@ -1,5 +1,6 @@
 #include "../Headers/Game.hpp"
 #include "hWaterBasic.hpp"
+#include "hFireBasic.hpp"
 //SOLO EN WINDOWS
 #ifdef _WIN32
 #include <Windows.h>
@@ -215,7 +216,7 @@ void Game::processEvents() //Captura y procesa eventos
                 //sf::Vector2f mousePosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
                 // sf::Vector2f playerposition = player.getPosition();
                 
-                player.hAguaBasico.cast(sf::Vector2f(player.getPosition()), &mWindow);
+                player.hFuegoBasico.cast();
 
 
                 break;

@@ -22,9 +22,10 @@ public:
     hFireBasic();
     hFireBasic(const hFireBasic& orig);
     virtual ~hFireBasic();
+     void cast();
   
 private:
-    void cast();
+   
 };
 
 #endif /* HFIREBASIC_HPP */
