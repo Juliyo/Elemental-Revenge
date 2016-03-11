@@ -135,6 +135,7 @@ void Game::render(float interpolation,sf::Time elapsedTime) //Dibuja
             player->hRayoBasico->DrawWithInterpolation(mWindow,interpolation,player->getPhysics());
         }
         else{
+            player->hRayoBasico->tiempoCast.restart();
             player->hRayoBasico->draw=false;
         }
         

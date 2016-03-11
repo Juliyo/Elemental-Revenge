@@ -28,17 +28,17 @@ hRayBasic::hRayBasic() {
   // hSprite.setTexture(hTexture);
     //SetPosition()
     animation.setSpriteSheet(hTexture);
-    animation.addFrame(sf::IntRect(0,0,67,233));
-    animation.addFrame(sf::IntRect(0,0,134,233));
-    animation.addFrame(sf::IntRect(0,0,201,233));
-    animation.addFrame(sf::IntRect(0,0,268,233));
-    animation.addFrame(sf::IntRect(0,0,335,233));
-    animation.addFrame(sf::IntRect(0,0,402,233));
-    animation.addFrame(sf::IntRect(0,0,469,233));
-    animation.addFrame(sf::IntRect(0,0,536,233));
+    animation.addFrame(sf::IntRect(0,0,64,233));
+    animation.addFrame(sf::IntRect(64,0,64,233));
+    animation.addFrame(sf::IntRect(128,0,64,233));
+    animation.addFrame(sf::IntRect(192,0,64,233));
+    animation.addFrame(sf::IntRect(256,0,64,233));
+    animation.addFrame(sf::IntRect(320,0,64,233));
+    animation.addFrame(sf::IntRect(384,0,64,233));
+    animation.addFrame(sf::IntRect(448,0,64,233));
 
     InicializarAnimatedSprite(sf::seconds(0.5f/8),true,false);
-//    SetOrigin(41,223);
+   
     
     
     
@@ -56,19 +56,24 @@ hRayBasic::~hRayBasic() {
 }
 
 void hRayBasic::cast(sf::Vector2f posicion, sf::RenderWindow *mWindow) {
+    
+    if(tiempoCd.getElapsedTime().asSeconds()>2||primerCast==true){
+     primerCast=false;
+     tiempoCd.restart();
     draw=true;
     sf::Vector2f mousePosition = mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow));
     //hSprite.setPosition(posicion);
     float angleShot = atan2(mousePosition.y - posicion.y, mousePosition.x - posicion.x);
     
-    tiempoCast.restart();
+    
     angleShot = (angleShot * 180 / 3.14)+90;
     SetAngle(angleshot2, angleShot);
+    SetOriginAnimatedSprite(64/2,233);
     
     angleshot2 = angleShot; //so it goes in a straight line
     
     //GetSprite().setRotation((angleShot * 180 / 3.14)+90);
-   
+    }
 }
 void hRayBasic::DrawWithInterpolation(sf::RenderWindow& window, float interpolation, PhysicsState *physicsState){
 	DrawAnimation(window, physicsState->GetPreviousPosition(), physicsState->GetPosition() , interpolation, &anglePrev, &angleNew);

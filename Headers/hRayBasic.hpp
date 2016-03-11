@@ -28,6 +28,7 @@ public:
     void DrawWithInterpolation(sf::RenderWindow& window, float interpolation, PhysicsState *physicsState);
     
     sf::Clock tiempoCast;
+    sf::Clock tiempoCd;
     float angleshot2=0.0f;
     //void cast(sf::Vector2f vector, sf::RenderWindow *w);
 private:

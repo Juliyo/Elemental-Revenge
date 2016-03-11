@@ -84,7 +84,7 @@ void Render::DrawAnimation(sf::RenderWindow &window, const sf::Vector2f &posPrev
          std::cout<<"renderAngle: "<<renderAngle<<std::endl;
     std::cout<<"angleNew: "<<*angleNew<<std::endl;
     std::cout<<"anglePrev: "<<*anglePrev<<std::endl;
-    animatedSprite.setPosition(renderPos.x, renderPos.y);
+    animatedSprite.setPosition(renderPos.x+20, renderPos.y+25);
     animatedSprite.setRotation(renderAngle);
     window.draw(animatedSprite);
 }

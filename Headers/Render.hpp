@@ -29,7 +29,8 @@ public:
         void Draw(sf::RenderWindow &window, const sf::Vector2f &posPrev, const sf::Vector2f &posNew, float *anglePrev, float *angleNew, float interpolation);
         void DrawAnimation(sf::RenderWindow &window, const sf::Vector2f &posPrev, const sf::Vector2f &posNew, float interpolation);
          void DrawAnimation(sf::RenderWindow &window, const sf::Vector2f &posPrev, const sf::Vector2f &posNew, float interpolation, float *anglePrev, float *angleNew);
-        void SetOrigin(float x,float y){animatedSprite.setOrigin(x,y);};
+        void SetOriginAnimatedSprite(float x,float y){animatedSprite.setOrigin(x,y);};
+        void SetOrigin(float x,float y){sprite.setOrigin(x,y);};
         void SetRotation(float angle){ animatedSprite.setRotation(angle); };
         void SetScale(float x, float y){ animatedSprite.setScale(x,y); };
 	sf::Sprite &GetSprite() { return sprite; }

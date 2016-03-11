@@ -37,7 +37,9 @@ public:
     void setLevel(int lvl);
     int getLevel();
     bool draw;
+    bool primerCast=true;
     Animation animation;
+    
     
 protected:
     float hCd;
