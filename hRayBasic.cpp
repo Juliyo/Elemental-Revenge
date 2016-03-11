@@ -38,14 +38,9 @@ hRayBasic::hRayBasic() {
     animation.addFrame(sf::IntRect(448,0,64,233));
 
     InicializarAnimatedSprite(sf::seconds(0.5f/8),true,false);
-   
+    SetOriginAnimatedSprite(41,233);
     
     
-    
-    /*hSprite.setTexture(hTexture);
-    hSprite.setTextureRect(sf::IntRect(0,0,67,233));
-    hSprite.setOrigin(41,223);*/
-   // hSprite.rotate(-90.f);
 }
 
 hRayBasic::hRayBasic(const hRayBasic& orig) {
@@ -66,7 +61,7 @@ void hRayBasic::cast(sf::Vector2f posicion, sf::RenderWindow *mWindow) {
     
     angleShot = (angleShot * 180 / 3.14)+90;
     SetAngle(angleshot2, angleShot);
-    SetOriginAnimatedSprite(64/2,233);
+    
     
     angleshot2 = angleShot; //so it goes in a straight line
     

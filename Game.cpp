@@ -37,6 +37,7 @@ Game::Game()
         exit(0);
     }
     texturaFondo.setRepeated(true);
+    texturaFondo.setSmooth(true);
     spriteFondo.setTexture(texturaFondo);
     spriteFondo.setTextureRect(sf::IntRect(0,0,2000,2000));
 #ifdef _WIN32
@@ -83,7 +84,7 @@ void Game::run() //Metodo principal
 
         interpolation = (float) std::min(1.f, timeSinceLastUpdate.asSeconds() / timePerFrame.asSeconds());
 
-        render(interpolation,elapsedTime);
+        render(interpolation,elapsedTime);      //Elapsed time lo usamos para animaciones
     }
 }
 
@@ -104,7 +105,8 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
             movement.x += player -> getVelocidad();
         
         player -> Update(movement, elapsedTime);
-        if(player->hRayoBasico->tiempoCast.getElapsedTime().asSeconds()>2.0f && aux==true){
+        
+        if(player->hRayoBasico->tiempoCast.getElapsedTime().asSeconds()>10.0f && aux==true){
             isShooting=false;
         }
 
@@ -148,24 +150,15 @@ void Game::render(float interpolation,sf::Time elapsedTime) //Dibuja
     mWindow.draw(spriteFondo);
     if(player->hRayoBasico->draw == true){
         player->hRayoBasico->PlayAnimation(player->hRayoBasico-> animation,elapsedTime);
-        if(player->hRayoBasico->tiempoCast.getElapsedTime().asSeconds()<2.0f){
+        if(player->hRayoBasico->tiempoCast.getElapsedTime().asSeconds()<10.0f){
             player->hRayoBasico->DrawWithInterpolation(mWindow,interpolation,player->getPhysics());
-        }
-        else{
-            //player->hRayoBasico->tiempoCast.restart();
+        }else{
             player->hRayoBasico->draw=false;
-            
         }
-        
-        
-       // player -> hRayoBasico->DrawWithInterpolation(mWindow,interpolation,player->getPhysics());
     }
     else{
         player->hRayoBasico->StopAnimation();
-        //player->hRayoBasico->tiempoCd.restart();
-         
     }
-    
     
     //LLAMAR AL DRAW DEL PLAYER
     if (isInterpolating)
