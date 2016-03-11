@@ -22,6 +22,7 @@ Game::Game()
 , isMovingRight(false)
 , isMovingLeft(false)
 , isShooting(false)
+,aux(false)
 , firstTime(true)
 , isInterpolating(false) {
     mWindow.setFramerateLimit(60); //Establecemos maximo real de procesamiento (aunque trabajamos con 60)
@@ -103,9 +104,25 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
             movement.x += player -> getVelocidad();
         
         player -> Update(movement, elapsedTime);
-        if(isShooting){
+        if(player->hRayoBasico->tiempoCast.getElapsedTime().asSeconds()>2.0f && aux==true){
+            isShooting=false;
+        }
+
+        if(isShooting  && player->hRayoBasico->tiempoCd.getElapsedTime().asSeconds()>4.0f){
+           
+            if(aux==false){
+                player->hRayoBasico->tiempoCast.restart();
+                 std::cout<<"Inicio de Casteo"<<std::endl;
+                aux=true;
+            }
             player->hRayoBasico->cast(sf::Vector2f(player->getPosition()),&mWindow);
+           
         }else{
+            if(aux==true ){
+                player->hRayoBasico->tiempoCd.restart();
+                std::cout<<"Inicio den CD"<<std::endl;
+                aux=false;
+            }
             player->hRayoBasico->draw=false;
         }
         
@@ -135,8 +152,9 @@ void Game::render(float interpolation,sf::Time elapsedTime) //Dibuja
             player->hRayoBasico->DrawWithInterpolation(mWindow,interpolation,player->getPhysics());
         }
         else{
-            player->hRayoBasico->tiempoCast.restart();
+            //player->hRayoBasico->tiempoCast.restart();
             player->hRayoBasico->draw=false;
+            
         }
         
         
@@ -144,6 +162,8 @@ void Game::render(float interpolation,sf::Time elapsedTime) //Dibuja
     }
     else{
         player->hRayoBasico->StopAnimation();
+        //player->hRayoBasico->tiempoCd.restart();
+         
     }
     
     

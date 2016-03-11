@@ -81,9 +81,9 @@ void Render::DrawAnimation(sf::RenderWindow &window, const sf::Vector2f &posPrev
     float shortest_angle=((((int)(*angleNew - *anglePrev) % 360) + 540) % 360) - 180;
      renderAngle = *anglePrev + (shortest_angle) * interpolation;
      
-         std::cout<<"renderAngle: "<<renderAngle<<std::endl;
-    std::cout<<"angleNew: "<<*angleNew<<std::endl;
-    std::cout<<"anglePrev: "<<*anglePrev<<std::endl;
+        // std::cout<<"renderAngle: "<<renderAngle<<std::endl;
+    //std::cout<<"angleNew: "<<*angleNew<<std::endl;
+   // std::cout<<"anglePrev: "<<*anglePrev<<std::endl;
     animatedSprite.setPosition(renderPos.x+20, renderPos.y+25);
     animatedSprite.setRotation(renderAngle);
     window.draw(animatedSprite);

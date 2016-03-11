@@ -57,9 +57,7 @@ hRayBasic::~hRayBasic() {
 
 void hRayBasic::cast(sf::Vector2f posicion, sf::RenderWindow *mWindow) {
     
-    if(tiempoCd.getElapsedTime().asSeconds()>2||primerCast==true){
-     primerCast=false;
-     tiempoCd.restart();
+
     draw=true;
     sf::Vector2f mousePosition = mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow));
     //hSprite.setPosition(posicion);
@@ -73,7 +71,7 @@ void hRayBasic::cast(sf::Vector2f posicion, sf::RenderWindow *mWindow) {
     angleshot2 = angleShot; //so it goes in a straight line
     
     //GetSprite().setRotation((angleShot * 180 / 3.14)+90);
-    }
+    
 }
 void hRayBasic::DrawWithInterpolation(sf::RenderWindow& window, float interpolation, PhysicsState *physicsState){
 	DrawAnimation(window, physicsState->GetPreviousPosition(), physicsState->GetPosition() , interpolation, &anglePrev, &angleNew);

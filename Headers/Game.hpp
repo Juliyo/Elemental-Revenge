@@ -48,6 +48,7 @@ private:
     bool                        isShooting;
     bool			firstTime;
     bool			isInterpolating;
+    bool                        aux;
 };
 
 
