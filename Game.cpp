@@ -27,10 +27,8 @@ Game::Game()
 , isInterpolating(false) {
     mWindow.setFramerateLimit(60); //Establecemos maximo real de procesamiento (aunque trabajamos con 60)
     mWindow.setVerticalSyncEnabled(true);
-    //mWindow.setMouseCursorVisible(false);
 
     mWorldView.zoom(0.5f);
-    // Cargamos RECURSOS. Utilizamos los contenedores genericos
     try {
         texturaFondo.loadFromFile("resources/Textures/grasstext.png");
         contFonts.loadFromFile("resources/Fonts/Sansation.ttf");
@@ -66,13 +64,7 @@ Game::Game()
     //Configuramos Items
     player.Inicializar(200.f, 250.f);
 
-    mStatisticsText.setFont(contFonts);
-    mStatisticsText.setPosition(5.f, 5.f);
-    mStatisticsText.setCharacterSize(13);
-    mStatisticsText.setColor(sf::Color::Black);
-    mStatisticsText.setString("Interpolacion Desactivada (X)");
-    
-    //sf::View letterBox = getLetterboxView(mWindow.getView(),ancho,alto);
+
 }
 
 /**************  METODOS PRINCIPALES **************/
@@ -82,26 +74,20 @@ void Game::run() //Metodo principal
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero; //Tiempo desde el ultimo cambio de frame
 
-
     while (mWindow.isOpen()) {
         sf::Time elapsedTime = clock.restart(); //Actualizamos variables de tiempo
         timeSinceLastUpdate += elapsedTime;
-
         processEvents();
-
-
         //Llevamos control en las actualizaciones por frame
         while (timeSinceLastUpdate > timePerFrame) // 15 veces/segundo
         {
             timeSinceLastUpdate -= timePerFrame;
-
             //Realizamos actualizaciones
             update(timePerFrame);
 
         }
 
         interpolation = (float) std::min(1.f, timeSinceLastUpdate.asSeconds() / timePerFrame.asSeconds());
-
         render(interpolation);
     }
 }
@@ -131,17 +117,15 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
 void Game::updateView(){
     
     sf::Vector2f mousePosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
-    
     sf::FloatRect viewBounds(mWorldView.getCenter() - mWorldView.getSize() / 2.f, mWorldView.getSize());
 
     sf::Vector2f position = mousePosition;
-    position.x = std::max(position.x, 0.125f * viewBounds.left);
-    position.x = std::min(position.x, 0.875f * viewBounds.left + viewBounds.width);
-    position.y = std::max(position.y, 0.f );
-    position.y = std::min(position.y, (float)alto);
+    position.x = std::max(position.x, viewBounds.left);
+    position.x = std::min(position.x, viewBounds.width + viewBounds.left);
+    position.y = std::max(position.y,viewBounds.top );
+    position.y = std::min(position.y, viewBounds.height + viewBounds.top );
     
     mouseSprite.setPosition(position);
-    
     
     float camera_x = (mouseSprite.getPosition().x + (player.getPosition().x*6))/7;//Media dando prioridad al jugador
     float camera_y = (mouseSprite.getPosition().y + player.getPosition().y*6)/7;
@@ -149,10 +133,7 @@ void Game::updateView(){
     float y = (mWorldView.getCenter().y+0.1*(camera_y-mWorldView.getCenter().y));
     mWorldView.setCenter(x, y);
     mWorldView.setSize(640, 480);
-    
-    
-    
-    
+
     mWindow.setView(getLetterboxView(mWorldView,ancho,alto));
 }
 void Game::render(float interpolation) //Dibuja
@@ -229,11 +210,6 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
 
     else if (key == sf::Keyboard::X && isPressed) {
         isInterpolating = !isInterpolating;
-
-        if (isInterpolating)
-            mStatisticsText.setString("Interpolacion Activada (X)");
-        else
-            mStatisticsText.setString("Interpolacion Desactivada (X)");
     }
 }
 
@@ -267,10 +243,5 @@ sf::View Game::getLetterboxView(sf::View view, int windowWidth, int windowHeight
     }
 
     view.setViewport( sf::FloatRect(posX, posY, sizeX, sizeY) );
-    std::cout<<"PosX: "<<posX<<std::endl;
-    std::cout<<"PosY: "<<posY<<std::endl;
-    std::cout<<"SizeX: "<<sizeX<<std::endl;
-    std::cout<<"SizeY: "<<sizeY<<std::endl;
-    std::cout<<std::endl;
     return view;
 }

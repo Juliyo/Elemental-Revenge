@@ -38,6 +38,7 @@ private:
     sf::RenderWindow		mWindow;
     sf::View                    mWorldView;
     sf::View                    mBackgroundView;
+    sf::View                    mHud;
     Player			player;
     
     //Estadisticas
