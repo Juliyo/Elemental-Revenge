@@ -94,10 +94,7 @@ void Game::run() //Metodo principal
 /***************  METODOS DE FISICA Y DISPLAY  *************/
 
 void Game::update(sf::Time elapsedTime) //Actualiza la fisica
-{
-    
-    
-    
+{      
     if (!firstTime) {
         sf::Vector2f movement(0.f, 0.f);
         if (isMovingUp)
