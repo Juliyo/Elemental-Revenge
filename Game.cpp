@@ -106,24 +106,25 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
         
         player -> Update(movement, elapsedTime);
         
-        if(player->hRayoBasico->tiempoCast.getElapsedTime().asSeconds()>10.0f && aux==true){
+        if(player->hRayoBasico->tiempoCast.getElapsedTime().asSeconds()>2.0f && aux==true){
             isShooting=false;
+            player->hRayoBasico->primerCast=false;
         }
 
-        if(isShooting  && player->hRayoBasico->tiempoCd.getElapsedTime().asSeconds()>4.0f){
-           
-            if(aux==false){
+        if((isShooting  && player->hRayoBasico->tiempoCd.getElapsedTime().asSeconds()>4.0f)|| (isShooting && player->hRayoBasico->primerCast==true)){//Entra si dispara y el tiempo de enfriamiento ha pasado
+            
+            if(aux==false){//si es la primera vez que pulsa el boton
                 player->hRayoBasico->tiempoCast.restart();
                  std::cout<<"Inicio de Casteo"<<std::endl;
-                aux=true;
+                aux=true;//no entra mas aqui para no hacer restart del cast
             }
-            player->hRayoBasico->cast(sf::Vector2f(player->getPosition()),&mWindow);
+            player->hRayoBasico->cast(sf::Vector2f(player->getPosition()),&mWindow);//siempre que entra aqui pintas
            
-        }else{
-            if(aux==true ){
+        }else{//entras si no disparas o si no ha pasado el tiempo de enfriamiento
+            if(aux==true ){//entras si acabas de soltar el raton
                 player->hRayoBasico->tiempoCd.restart();
                 std::cout<<"Inicio den CD"<<std::endl;
-                aux=false;
+                aux=false;//no entra mas aqui para no hacer restart dl cd
             }
             player->hRayoBasico->draw=false;
         }
