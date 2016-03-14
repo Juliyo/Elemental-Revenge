@@ -56,6 +56,14 @@ void Render::DrawAnimation(sf::RenderWindow &window, const sf::Vector2f &posPrev
 	animatedSprite.setPosition(renderPos.x, renderPos.y);
 	window.draw(animatedSprite);
 }
+//Renderizar sprites animados sin interpolación
+void Render::DrawAnimationWithOut(sf::RenderWindow &window, const sf::Vector2f &pos)
+{
+	renderPos = sf::Vector2f(pos);
+
+	animatedSprite.setPosition(renderPos.x, renderPos.y);
+	window.draw(animatedSprite);
+}
 //Renderizar sprites sin animar con interpolación en rotación
 void Render::Draw(sf::RenderWindow& window, const sf::Vector2f& posPrev, const sf::Vector2f& posNew, float* anglePrev, float* angleNew, float interpolation) {
     renderPos = sf::Vector2f(

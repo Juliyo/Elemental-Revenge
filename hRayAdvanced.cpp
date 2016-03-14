@@ -17,18 +17,31 @@
 #include <SFML/Window/Mouse.hpp>
 #include <math.h>
 hRayAdvanced::hRayAdvanced() {
-    
+    draw=false;
        
     if(!hTexture.loadFromFile("resources/Textures/rayo.png")){
         
         //comentario error
         exit(0);
     }
+    /*
     hSprite.setTexture(hTexture);
     hSprite.setTextureRect(sf::IntRect(0, 0, 100, 81));
     hSprite.setScale(2,2);
     hSprite.setPosition(0, 0);
-    hSprite.setOrigin(100/2,81/2);
+    hSprite.setOrigin(100/2,81/2);*/
+    animation.setSpriteSheet(hTexture);
+    animation.addFrame(sf::IntRect(0,0,64,233));
+    animation.addFrame(sf::IntRect(64,0,64,233));
+    animation.addFrame(sf::IntRect(128,0,64,233));
+    animation.addFrame(sf::IntRect(192,0,64,233));
+    animation.addFrame(sf::IntRect(256,0,64,233));
+    animation.addFrame(sf::IntRect(320,0,64,233));
+    animation.addFrame(sf::IntRect(384,0,64,233));
+    animation.addFrame(sf::IntRect(448,0,64,233));
+
+    InicializarAnimatedSprite(sf::seconds(0.5f/8),true,false);
+    SetOriginAnimatedSprite(41,233);
     
 }
 
@@ -48,7 +61,10 @@ void hRayAdvanced::cast(sf::Vector2f posicion, sf::RenderWindow *mWindow) {
         tiempoCast.restart();
         tiempoCd.restart();
     }
-
+ 
 
    
+}
+void hRayAdvanced::DrawWithOutInterpolation(sf::RenderWindow& window){
+	DrawAnimationWithOut(window,hSprite.getPosition() );
 }

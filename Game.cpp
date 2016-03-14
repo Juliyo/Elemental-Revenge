@@ -178,13 +178,16 @@ void Game::render(float interpolation,sf::Time elapsedTime) //Dibuja
     }
     else{
          player->hRayoAvanzado->draw=false;
+         player->hRayoAvanzado->StopAnimation();
     }
     if(player->hRayoAvanzado->draw == true){
        // printf("xsamanxjsnajcakcnansnkaknjsnankjnsjc \n");
         //player->hRayoAvanzado->DrawWithInterpolation(mWindow,interpolation,player->hRayoAvanzado->getPhysics());
         //mWindow.draw(player->hRayoAvanzado->hSprite);
         //player->hRayoAvanzado->hSprite
-        mWindow.draw(player->hRayoAvanzado->hSprite);
+        player->hRayoAvanzado->PlayAnimation(player->hRayoAvanzado-> animation,elapsedTime);
+        player->hRayoAvanzado->DrawWithOutInterpolation(mWindow);
+        //mWindow.draw(player->hRayoAvanzado->hSprite);
     }
     
     

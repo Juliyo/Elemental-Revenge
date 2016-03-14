@@ -30,6 +30,7 @@ public:
     
     //void Draw(sf::RenderWindow& window);
     void DrawWithInterpolation(sf::RenderWindow& window, float interpolation, PhysicsState *physicsState);
+    
     float getDamage();
     void setDamage(float dmg);
     float getCD();

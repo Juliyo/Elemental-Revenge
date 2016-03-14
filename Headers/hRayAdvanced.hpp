@@ -27,7 +27,7 @@ public:
     void cast(sf::Vector2f vector, sf::RenderWindow *w);
     sf::Clock tiempoCast;
     sf::Clock tiempoCd;
-
+void DrawWithOutInterpolation(sf::RenderWindow &window);
 private:
 
 };

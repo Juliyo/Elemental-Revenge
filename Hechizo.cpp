@@ -63,6 +63,7 @@ void Hechizo::setLevel(int lvl) {
 void Hechizo::DrawWithInterpolation(sf::RenderWindow& window, float interpolation, PhysicsState *physicsState){
 	Draw(window, physicsState->GetPreviousPosition(), physicsState->GetPosition(), interpolation);
 }
+
     PhysicsState* Hechizo::getPhysics(){
         return &physicsState;
     }
