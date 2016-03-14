@@ -128,7 +128,11 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
             }
             player->hRayoBasico->draw=false;
         }
+        //avanzado
         
+            if(!sf::Mouse::isButtonPressed(sf::Mouse::Button::Right)){
+player->hRayoAvanzado->draw=false;
+    }
         
     }
 
@@ -169,6 +173,20 @@ void Game::render(float interpolation,sf::Time elapsedTime) //Dibuja
         player->DrawWithInterpolation(mWindow, interpolation);
     else
         player->Draw(mWindow);
+    if(player->hRayoAvanzado->tiempoCast.getElapsedTime().asSeconds()<0.5){
+        player->hRayoAvanzado->draw=true;
+    }
+    else{
+         player->hRayoAvanzado->draw=false;
+    }
+    if(player->hRayoAvanzado->draw == true){
+       // printf("xsamanxjsnajcakcnansnkaknjsnankjnsjc \n");
+        //player->hRayoAvanzado->DrawWithInterpolation(mWindow,interpolation,player->hRayoAvanzado->getPhysics());
+        //mWindow.draw(player->hRayoAvanzado->hSprite);
+        //player->hRayoAvanzado->hSprite
+        mWindow.draw(player->hRayoAvanzado->hSprite);
+    }
+    
     
    // mWindow.draw(mStatisticsText);
     mWindow.display();
@@ -229,8 +247,9 @@ void Game::handleHechizoInput(sf::Mouse::Button button, bool isPressed){
     if(button == sf::Mouse::Button::Left){
         isShooting = isPressed;
     }
-    if(button == sf::Mouse::Button::Right){
+    if(button == sf::Mouse::Button::Right && isPressed==false){
         player->hRayoAvanzado->cast(sf::Vector2f(player->getPosition()),&mWindow);
+        
     }
-}
 
+}

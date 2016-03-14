@@ -9,6 +9,7 @@
 
 Player::Player(): renderState(), physicsState() {
     hRayoBasico = new hRayBasic();
+    hRayoAvanzado = new hRayAdvanced();
 }
 
 Player::Player(const Player& orig) {

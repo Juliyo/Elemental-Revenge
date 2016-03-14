@@ -36,6 +36,7 @@ public:
     void setCD(float cd);
     void setLevel(int lvl);
     int getLevel();
+    PhysicsState* getPhysics();
     bool draw;
     bool primerCast=true;
     Animation animation;
@@ -45,6 +46,7 @@ protected:
     float hCd;
     float hDamage;
     int hLVL;
+    PhysicsState physicsState;
     //Render renderState;
 private:
       

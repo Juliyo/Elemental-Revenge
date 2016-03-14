@@ -25,6 +25,8 @@ public:
     hRayAdvanced(const hRayAdvanced& orig);
     virtual ~hRayAdvanced();
     void cast(sf::Vector2f vector, sf::RenderWindow *w);
+    sf::Clock tiempoCast;
+    sf::Clock tiempoCd;
 
 private:
 

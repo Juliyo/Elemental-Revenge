@@ -26,9 +26,9 @@ hRayAdvanced::hRayAdvanced() {
     }
     hSprite.setTexture(hTexture);
     hSprite.setTextureRect(sf::IntRect(0, 0, 100, 81));
-    hSprite.setScale(0.2,0.2);
-    hSprite.setPosition(-10000, -10000);
-    
+    hSprite.setScale(2,2);
+    hSprite.setPosition(0, 0);
+    hSprite.setOrigin(100/2,81/2);
     
 }
 
@@ -39,26 +39,16 @@ hRayAdvanced::~hRayAdvanced() {
 }
 
 void hRayAdvanced::cast(sf::Vector2f posicion, sf::RenderWindow *mWindow) {
-    printf("Entra en el rayo B");
-        
-    sf::Vector2f mousePosition = mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow));
 
-    //hSprite.setPosition(mousePosition);
+    if(tiempoCd.getElapsedTime().asSeconds()>3 || primerCast){
+        primerCast=false;
+        draw=true;
+        sf::Vector2f mousePosition = mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow));
+        hSprite.setPosition(mousePosition);
+        tiempoCast.restart();
+        tiempoCd.restart();
+    }
+
+
    
-    SetPosition(mousePosition);
-    /*
-    draw=true;
-    sf::Vector2f mousePosition = mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow));
-    //hSprite.setPosition(posicion);
-    float angleShot = atan2(mousePosition.y - posicion.y, mousePosition.x - posicion.x);
-    
-    
-    angleShot = (angleShot * 180 / 3.14)+90;
-    SetAngle(angleshot2, angleShot);
-    
-    
-    angleshot2 = angleShot; //so it goes in a straight line
-    */
-    //GetSprite().setRotation((angleShot * 180 / 3.14)+90);
-    
 }
