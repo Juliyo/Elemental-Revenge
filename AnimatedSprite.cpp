@@ -62,7 +62,7 @@ void AnimatedSprite::pause()
 void AnimatedSprite::stop()
 {
     m_isPaused = true;
-    m_currentFrame = 0;
+    m_currentFrame = 1;
     setFrame(m_currentFrame);
 }
 
@@ -162,7 +162,7 @@ void AnimatedSprite::update(sf::Time deltaTime)
             else
             {
                 // animation has ended
-                m_currentFrame = 0; // reset to start
+                m_currentFrame = 1; // reset to start
 
                 if (!m_isLooped)
                 {

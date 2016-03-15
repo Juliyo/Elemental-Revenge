@@ -165,7 +165,7 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
 
 
     if (!isMovingDown && !isMovingLeft && !isMovingRight && !isMovingUp) {
-        //player -> StopAnimation();
+        player -> StopAnimation();
     }
     player -> UpdateAnimation(elapsedTime);
 
