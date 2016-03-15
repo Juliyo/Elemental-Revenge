@@ -23,7 +23,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationLeft = new Animation();
     walkingAnimationRight = new Animation();
     walkingAnimationUp = new Animation();
-    
+    hud = new Hud();
             
     if(!texturaPlayer.loadFromFile("resources/Textures/player.png")){
        std::cout<<"Error cargando la textura: "<<"resources/Textures/player.png"<<std::endl;
@@ -85,6 +85,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     SetPosition(posX, posY);
     SetSpeed(speedX, speedY);
     SetMaxSpeed(maxSpeedX, maxSpeedY);
+    
 }
 
 void Player::Update(sf::Vector2f velocity, sf::Time elapsedTime) {

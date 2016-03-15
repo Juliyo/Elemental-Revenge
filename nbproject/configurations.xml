@@ -22,6 +22,7 @@
       <itemPath>AnimatedSprite.cpp</itemPath>
       <itemPath>Animation.cpp</itemPath>
       <itemPath>Game.cpp</itemPath>
+      <itemPath>Hud.cpp</itemPath>
       <itemPath>PhysicsState.cpp</itemPath>
       <itemPath>Player.cpp</itemPath>
       <itemPath>Render.cpp</itemPath>
@@ -39,6 +40,7 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>Headers/Hud.hpp</itemPath>
   </logicalFolder>
   <sourceRootList>
     <Elem>Headers</Elem>
@@ -84,6 +86,8 @@
       </item>
       <item path="Headers/Game.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/Hud.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/PhysicsState.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Player.hpp" ex="false" tool="3" flavor2="0">
@@ -95,6 +99,8 @@
       <item path="Headers/StringHelpers.inl" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Util.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Hud.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="PhysicsState.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -139,6 +145,8 @@
       </item>
       <item path="Headers/Game.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/Hud.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/PhysicsState.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Player.hpp" ex="false" tool="3" flavor2="0">
@@ -150,6 +158,8 @@
       <item path="Headers/StringHelpers.inl" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Util.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Hud.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="PhysicsState.cpp" ex="false" tool="1" flavor2="0">
       </item>

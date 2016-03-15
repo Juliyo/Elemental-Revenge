@@ -171,7 +171,14 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
 
 
     player -> DrawWithInterpolation(mWindow, interpolation);
+    
+    previa = mWindow.getView();
 
+    mWindow.setView(getLetterboxView(mHud, ancho, alto, 640, 480));
+    player -> hud->renderHud(&mWindow);
+    mWindow.setView(previa);
+
+    
     mWindow.draw(mouseSprite);
     // mWindow.draw(mStatisticsText);
     mWindow.display();

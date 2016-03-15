@@ -11,6 +11,7 @@
 #include "PhysicsState.hpp"
 #include "Render.hpp"
 #include "Animation.hpp"
+#include "Hud.hpp"
 
 class Player : public Render, PhysicsState{
 public:
@@ -31,11 +32,11 @@ public:
         Animation               *walkingAnimationLeft;
         Animation               *walkingAnimationRight;
         Animation               *walkingAnimationUp;
-	
+	Hud                     *hud;
 private:
         sf::Texture             texturaPlayer;
         float                   velocity=200.f;
-        
+        int                     vida=15;
 };
 
 #endif	/* PLAYER_H */
