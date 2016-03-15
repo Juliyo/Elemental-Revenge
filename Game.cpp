@@ -261,7 +261,6 @@ void Game::UpdatePlayerAnimation(){
         player -> currentAnimation = &player -> walkingAnimationLeft;
         cuadrante = 4;
     }
-    std::cout<<"X, Y: "<<x<<", "<<y<<std::endl;
 }
 
 
