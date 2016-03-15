@@ -165,7 +165,7 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
 
 
     if (!isMovingDown && !isMovingLeft && !isMovingRight && !isMovingUp) {
-        player -> StopAnimation();
+        //player -> StopAnimation();
     }
     player -> UpdateAnimation(elapsedTime);
 
@@ -232,11 +232,29 @@ void Game::processEvents() //Captura y procesa eventos
 }
 
 void Game::UpdatePlayerAnimation(){
-    sf::Vector2f mousePosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
-
-    float angleShot = atan2(mousePosition.y - player -> GetRenderPosition().y, mousePosition.x - player -> GetRenderPosition().x);
+    //sf::Vector2f distancia(mouseSprite.getPosition().y - player -> GetRenderPosition().y, mouseSprite.getPosition().x - player -> GetRenderPosition().x);
+    int cuadrante = 1;
+    // 1 -> Arriba
+    // 2 -> Abajo
+    // 3 -> Derecha
+    // 4 -> Izquierda
+    int x = mouseSprite.getPosition().x - player -> getPosition().x;
+    int y = mouseSprite.getPosition().y - player -> getPosition().y;
     
-    std::cout<<angleShot*180/M_PI<<std::endl;
+    if(abs(y) > abs(x) && y <= 0){
+        cuadrante = 1;
+        player -> currentAnimation = &player -> walkingAnimationUp;
+    }else if(abs(y) > abs(x) && y > 0){
+        player -> currentAnimation = &player -> walkingAnimationDown;
+        cuadrante = 2;
+    }else if(abs(x) > abs(y) && x > 0){
+        player -> currentAnimation = &player -> walkingAnimationRight;
+        cuadrante = 3;
+    }else{
+        player -> currentAnimation = &player -> walkingAnimationLeft;
+        cuadrante = 4;
+    }
+    std::cout<<"X, Y: "<<x<<", "<<y<<std::endl;
 }
 
 

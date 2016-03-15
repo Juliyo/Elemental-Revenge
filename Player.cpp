@@ -40,7 +40,8 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationDown->addFrame(sf::IntRect(320, 640, 64, 64));
     walkingAnimationDown->addFrame(sf::IntRect(384, 640, 64, 64));
     walkingAnimationDown->addFrame(sf::IntRect(448, 640, 64, 64));
-    //walkingAnimationDown.addFrame(sf::IntRect(512, 704, 64, 64));
+    walkingAnimationDown->addFrame(sf::IntRect(512, 640, 64, 64));
+    walkingAnimationDown->addFrame(sf::IntRect(0, 640, 64, 64));
     
     walkingAnimationLeft->setSpriteSheet(texturaPlayer);
     walkingAnimationLeft->addFrame(sf::IntRect(0, 576, 64, 64));
@@ -51,9 +52,11 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationLeft->addFrame(sf::IntRect(320, 576, 64, 64));
     walkingAnimationLeft->addFrame(sf::IntRect(384, 576, 64, 64));
     walkingAnimationLeft->addFrame(sf::IntRect(448, 576, 64, 64));
-    //walkingAnimationLeft->addFrame(sf::IntRect(512, 704, 64, 64));
+    walkingAnimationLeft->addFrame(sf::IntRect(512, 576, 64, 64));
+    // walkingAnimationLeft->addFrame(sf::IntRect(0, 576, 64, 64));
     
     walkingAnimationRight->setSpriteSheet(texturaPlayer);
+    walkingAnimationRight->addFrame(sf::IntRect(512, 704, 64, 64));
     walkingAnimationRight->addFrame(sf::IntRect(0, 704, 64, 64));
     walkingAnimationRight->addFrame(sf::IntRect(64, 704, 64, 64));
     walkingAnimationRight->addFrame(sf::IntRect(128, 704, 64, 64));
@@ -62,7 +65,8 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationRight->addFrame(sf::IntRect(320, 704, 64, 64));
     walkingAnimationRight->addFrame(sf::IntRect(384, 704, 64, 64));
     walkingAnimationRight->addFrame(sf::IntRect(448, 704, 64, 64));
-    //walkingAnimationRight->addFrame(sf::IntRect(512, 768, 64, 64));
+    walkingAnimationRight->addFrame(sf::IntRect(512, 704, 64, 64));
+
     
     walkingAnimationUp->setSpriteSheet(texturaPlayer);
     walkingAnimationUp->addFrame(sf::IntRect(0, 512, 64, 64));
@@ -73,7 +77,8 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationUp->addFrame(sf::IntRect(320, 512, 64, 64));
     walkingAnimationUp->addFrame(sf::IntRect(384, 512, 64, 64));
     walkingAnimationUp->addFrame(sf::IntRect(448, 512, 64, 64));
-    //walkingAnimationUp->addFrame(sf::IntRect(512, 576, 64, 64));
+  //  walkingAnimationUp->addFrame(sf::IntRect(512, 512, 64, 64));
+  //  walkingAnimationUp->addFrame(sf::IntRect(0, 512, 64, 64));
     
     currentAnimation = &walkingAnimationDown;
     InicializarAnimatedSprite(sf::seconds(0.1f), true, false);
