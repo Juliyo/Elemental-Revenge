@@ -117,7 +117,10 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
         }
 
         player -> Update(movement, elapsedTime);
-
+        
+    }
+    if(isHealing){
+        player->heal();
     }
 
     firstTime = false;
@@ -158,12 +161,22 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
 
     updateView();
     mWindow.draw(spriteFondo);
-
+    
+    player->hHeal->PlayAnimation(player->hHeal->animacion);
+    
+    if(player->hHeal->dibujar == true){
+        player->hHeal->UpdateAnimation(elapsedTime);
+        if(player->hHeal->tiempoCast.getElapsedTime().asSeconds() < 5.f){
+            player->hHeal->DrawWithInterpolation(mWindow,interpolation,player->GetPreviousPosition(),player->GetPosition());
+        }
+    }else{
+        player->hHeal->StopAnimation();
+    }
     UpdatePlayerAnimation();
+    
+    player -> PlayAnimation(*player -> currentAnimation);
 
-    player -> PlayAnimation(**player -> currentAnimation);
-
-
+    
     if (!isMovingDown && !isMovingLeft && !isMovingRight && !isMovingUp) {
         player -> StopAnimation();
     }
@@ -289,7 +302,10 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         isMovingRight = isPressed;
     } else if (key == sf::Keyboard::X && isPressed) {
         isInterpolating = !isInterpolating;
-    } 
+    } else if (key == sf::Keyboard::R)
+        isHealing = isPressed;
+    else if (key == sf::Keyboard::T)//  QUITAR - SOLO PARA DEBUG
+        player->restaVida(1); //        QUITAR - SOLO PARA DEBUG
 }
 
 sf::View Game::getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight) {

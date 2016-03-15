@@ -5,6 +5,9 @@
       <itemPath>Headers/AnimatedSprite.hpp</itemPath>
       <itemPath>Headers/Animation.hpp</itemPath>
       <itemPath>Headers/Game.hpp</itemPath>
+      <itemPath>Headers/Heal.hpp</itemPath>
+      <itemPath>Headers/Hechizo.hpp</itemPath>
+      <itemPath>Headers/Hud.hpp</itemPath>
       <itemPath>Headers/PhysicsState.hpp</itemPath>
       <itemPath>Headers/Player.hpp</itemPath>
       <itemPath>Headers/Render.hpp</itemPath>
@@ -22,6 +25,8 @@
       <itemPath>AnimatedSprite.cpp</itemPath>
       <itemPath>Animation.cpp</itemPath>
       <itemPath>Game.cpp</itemPath>
+      <itemPath>Heal.cpp</itemPath>
+      <itemPath>Hechizo.cpp</itemPath>
       <itemPath>Hud.cpp</itemPath>
       <itemPath>PhysicsState.cpp</itemPath>
       <itemPath>Player.cpp</itemPath>
@@ -40,7 +45,6 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
-    <itemPath>Headers/Hud.hpp</itemPath>
   </logicalFolder>
   <sourceRootList>
     <Elem>Headers</Elem>
@@ -86,6 +90,10 @@
       </item>
       <item path="Headers/Game.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/Heal.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/Hechizo.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/Hud.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/PhysicsState.hpp" ex="false" tool="3" flavor2="0">
@@ -99,6 +107,10 @@
       <item path="Headers/StringHelpers.inl" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Util.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Heal.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Hechizo.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Hud.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -145,6 +157,10 @@
       </item>
       <item path="Headers/Game.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/Heal.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/Hechizo.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/Hud.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/PhysicsState.hpp" ex="false" tool="3" flavor2="0">
@@ -158,6 +174,10 @@
       <item path="Headers/StringHelpers.inl" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Util.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Heal.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Hechizo.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Hud.cpp" ex="false" tool="1" flavor2="0">
       </item>

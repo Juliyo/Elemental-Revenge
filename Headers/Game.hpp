@@ -55,6 +55,8 @@ private:
     bool                        noKeyWasPressed = true;
     bool			firstTime;
     bool			isInterpolating;
+    
+    bool                        isHealing = false;
 };
 
 

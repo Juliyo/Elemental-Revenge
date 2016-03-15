@@ -25,8 +25,8 @@ void Render::SetTextureRect(sf::IntRect rect) {
     sprite.setTextureRect(rect);
 }
 
-void Render::PlayAnimation(Animation animation) {
-    animatedSprite.play(animation);
+void Render::PlayAnimation(Animation *animation) {
+    animatedSprite.play(*animation);
 }
 
 void Render::UpdateAnimation(sf::Time elapsedTime) {

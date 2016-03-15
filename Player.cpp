@@ -24,13 +24,14 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationRight = new Animation();
     walkingAnimationUp = new Animation();
     hud = new Hud();
-            
-    if(!texturaPlayer.loadFromFile("resources/Textures/player.png")){
-       std::cout<<"Error cargando la textura: "<<"resources/Textures/player.png"<<std::endl;
-       exit(0);
+    hHeal = new Heal();
+
+    if (!texturaPlayer.loadFromFile("resources/Textures/player.png")) {
+        std::cout << "Error cargando la textura: " << "resources/Textures/player.png" << std::endl;
+        exit(0);
     }
     texturaPlayer.setSmooth(true);
-    
+
     walkingAnimationDown->setSpriteSheet(texturaPlayer);
     walkingAnimationDown->addFrame(sf::IntRect(512, 640, 64, 64));
     walkingAnimationDown->addFrame(sf::IntRect(0, 640, 64, 64));
@@ -42,8 +43,8 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationDown->addFrame(sf::IntRect(384, 640, 64, 64));
     walkingAnimationDown->addFrame(sf::IntRect(448, 640, 64, 64));
     walkingAnimationDown->addFrame(sf::IntRect(512, 640, 64, 64));
-   
-    
+
+
     walkingAnimationLeft->setSpriteSheet(texturaPlayer);
     walkingAnimationLeft->addFrame(sf::IntRect(512, 576, 64, 64));
     walkingAnimationLeft->addFrame(sf::IntRect(0, 576, 64, 64));
@@ -55,7 +56,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationLeft->addFrame(sf::IntRect(384, 576, 64, 64));
     walkingAnimationLeft->addFrame(sf::IntRect(448, 576, 64, 64));
     walkingAnimationLeft->addFrame(sf::IntRect(512, 576, 64, 64));
-    
+
     walkingAnimationRight->setSpriteSheet(texturaPlayer);
     walkingAnimationRight->addFrame(sf::IntRect(512, 704, 64, 64));
     walkingAnimationRight->addFrame(sf::IntRect(0, 704, 64, 64));
@@ -66,8 +67,8 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationRight->addFrame(sf::IntRect(320, 704, 64, 64));
     walkingAnimationRight->addFrame(sf::IntRect(384, 704, 64, 64));
     walkingAnimationRight->addFrame(sf::IntRect(448, 704, 64, 64));
-    
-    
+
+
     walkingAnimationUp->setSpriteSheet(texturaPlayer);
     walkingAnimationUp->addFrame(sf::IntRect(512, 512, 64, 64));
     walkingAnimationUp->addFrame(sf::IntRect(0, 512, 64, 64));
@@ -79,13 +80,13 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationUp->addFrame(sf::IntRect(384, 512, 64, 64));
     walkingAnimationUp->addFrame(sf::IntRect(448, 512, 64, 64));
     walkingAnimationUp->addFrame(sf::IntRect(512, 512, 64, 64));
-    
+
     currentAnimation = &walkingAnimationDown;
     InicializarAnimatedSprite(sf::seconds(0.075f), true, false);
     SetPosition(posX, posY);
     SetSpeed(speedX, speedY);
     SetMaxSpeed(maxSpeedX, maxSpeedY);
-    
+
 }
 
 void Player::Update(sf::Vector2f velocity, sf::Time elapsedTime) {
@@ -107,6 +108,37 @@ void Player::DrawWithInterpolation(sf::RenderWindow& window, float interpolation
 float Player::getVelocidad() {
     return velocity;
 }
+
 sf::Vector2f Player::getPosition() {
     return GetSpriteAnimated().getPosition();
 }
+
+int Player::getVida() {
+    return vida;
+}
+
+int Player::restaVida(int a) {
+
+    if (invulnerable.getElapsedTime().asSeconds() > 3) {
+        //std::cout <<"Resto vidas";
+        vida -= a;
+        hud->updateHud(vida);
+        invulnerable.restart();
+    }
+
+
+    return vida;
+}
+
+void Player::heal() {
+    if (hHeal->cast()) {
+        //std::cout <<"Sumo vidas";
+        vida += 2;
+        if (vida > 15) {
+            vida = 15;
+
+        }
+        hud->updateHud(vida);
+    }
+}
+

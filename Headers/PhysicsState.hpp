@@ -16,8 +16,8 @@ public:
 	PhysicsState(const PhysicsState& orig);
 	virtual ~PhysicsState();
 	
-	sf::Vector2f GetPreviousPosition() const { return posPrev; }
-	sf::Vector2f GetPosition() const { return posNew; }
+	sf::Vector2f GetPreviousPosition() { return posPrev; }
+	sf::Vector2f GetPosition() { return posNew; }
 	sf::Vector2f GetNextPosition(sf::Time elapsedTime) const;
 	sf::Vector2f GetSpeed() const { return speed; }
 	sf::Vector2f GetMaxSpeed() const { return maxSpeed; }

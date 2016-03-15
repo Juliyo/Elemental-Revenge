@@ -20,7 +20,7 @@ public:
 	
 	void SetTexture(sf::Texture &tex);
         void SetTextureRect(sf::IntRect rect);
-	void PlayAnimation(Animation animation);
+	void PlayAnimation(Animation *animation);
         void UpdateAnimation(sf::Time elapsedTime);
         void StopAnimation();
         void InicializarAnimatedSprite(sf::Time seconds,bool a,bool b){ animatedSprite=AnimatedSprite(seconds,a,b); };

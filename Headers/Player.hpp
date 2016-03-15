@@ -1,10 +1,3 @@
-/* 
- * File:   Player.h
- * Author: linuxero
- *
- * Created on March 5, 2014, 7:43 AM
- */
-
 #ifndef PLAYER_HPP
 #define	PLAYER_HPP
 
@@ -12,8 +5,9 @@
 #include "Render.hpp"
 #include "Animation.hpp"
 #include "Hud.hpp"
+#include "Heal.hpp"
 
-class Player : public Render, PhysicsState{
+class Player : public Render,public PhysicsState{
 public:
 	Player();
 	Player(const Player& orig);
@@ -33,10 +27,15 @@ public:
         Animation               *walkingAnimationRight;
         Animation               *walkingAnimationUp;
 	Hud                     *hud;
+        Heal                    *hHeal;
+        int                     getVida();
+        int                     restaVida(int a);
+        void                    heal();
 private:
         sf::Texture             texturaPlayer;
         float                   velocity=200.f;
         int                     vida=15;
+        sf::Clock               invulnerable;
 };
 
 #endif	/* PLAYER_H */
