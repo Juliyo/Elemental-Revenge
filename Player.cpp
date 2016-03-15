@@ -23,6 +23,11 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationLeft = new Animation();
     walkingAnimationRight = new Animation();
     walkingAnimationUp = new Animation();
+    healingAnimationDown = new Animation();
+    healingAnimationLeft = new Animation();
+    healingAnimationRight = new Animation();
+    healingAnimationUp = new Animation();
+    
     hud = new Hud();
     hHeal = new Heal();
 
@@ -80,6 +85,48 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationUp->addFrame(sf::IntRect(384, 512, 64, 64));
     walkingAnimationUp->addFrame(sf::IntRect(448, 512, 64, 64));
     walkingAnimationUp->addFrame(sf::IntRect(512, 512, 64, 64));
+    
+    healingAnimationDown->setSpriteSheet(texturaPlayer);
+    healingAnimationDown->addFrame(sf::IntRect(384, 128, 64, 64));
+    healingAnimationDown->addFrame(sf::IntRect(0, 128, 64, 64));
+    healingAnimationDown->addFrame(sf::IntRect(64, 128, 64, 64));
+    healingAnimationDown->addFrame(sf::IntRect(128, 128, 64, 64));
+    healingAnimationDown->addFrame(sf::IntRect(192, 128, 64, 64));
+    healingAnimationDown->addFrame(sf::IntRect(256, 128, 64, 64));
+    healingAnimationDown->addFrame(sf::IntRect(320, 128, 64, 64));
+    healingAnimationDown->addFrame(sf::IntRect(384, 128, 64, 64));
+
+
+    healingAnimationLeft->setSpriteSheet(texturaPlayer);
+    healingAnimationLeft->addFrame(sf::IntRect(384, 64, 64, 64));
+    healingAnimationLeft->addFrame(sf::IntRect(0, 64, 64, 64));
+    healingAnimationLeft->addFrame(sf::IntRect(64, 64, 64, 64));
+    healingAnimationLeft->addFrame(sf::IntRect(128, 64, 64, 64));
+    healingAnimationLeft->addFrame(sf::IntRect(192, 64, 64, 64));
+    healingAnimationLeft->addFrame(sf::IntRect(256, 64, 64, 64));
+    healingAnimationLeft->addFrame(sf::IntRect(320, 64, 64, 64));
+    healingAnimationLeft->addFrame(sf::IntRect(384, 64, 64, 64));
+
+    healingAnimationRight->setSpriteSheet(texturaPlayer);
+    healingAnimationRight->addFrame(sf::IntRect(384, 192, 64, 64));
+    healingAnimationRight->addFrame(sf::IntRect(0, 192, 64, 64));
+    healingAnimationRight->addFrame(sf::IntRect(64, 192, 64, 64));
+    healingAnimationRight->addFrame(sf::IntRect(128, 192, 64, 64));
+    healingAnimationRight->addFrame(sf::IntRect(192, 192, 64, 64));
+    healingAnimationRight->addFrame(sf::IntRect(256, 192, 64, 64));
+    healingAnimationRight->addFrame(sf::IntRect(320, 192, 64, 64));
+    healingAnimationRight->addFrame(sf::IntRect(384, 192, 64, 64));
+
+
+    healingAnimationUp->setSpriteSheet(texturaPlayer);
+    healingAnimationUp->addFrame(sf::IntRect(384, 0, 64, 64));
+    healingAnimationUp->addFrame(sf::IntRect(0, 0, 64, 64));
+    healingAnimationUp->addFrame(sf::IntRect(64, 0, 64, 64));
+    healingAnimationUp->addFrame(sf::IntRect(128, 0, 64, 64));
+    healingAnimationUp->addFrame(sf::IntRect(192, 0, 64, 64));
+    healingAnimationUp->addFrame(sf::IntRect(256, 0, 64, 64));
+    healingAnimationUp->addFrame(sf::IntRect(320, 0, 64, 64));
+    healingAnimationUp->addFrame(sf::IntRect(384, 0, 64, 64));
 
     currentAnimation = &walkingAnimationDown;
     InicializarAnimatedSprite(sf::seconds(0.075f), true, false);

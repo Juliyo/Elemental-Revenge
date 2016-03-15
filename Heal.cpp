@@ -47,9 +47,11 @@ Heal::Heal() {
     animacion->addFrame(sf::IntRect(768,768,256,256));
     animacion->addFrame(sf::IntRect(1024,768,256,256));
    
-    InicializarAnimatedSprite(sf::seconds(0.05f),true,false);
-    SetOriginAnimatedSprite(128,128);
+    InicializarAnimatedSprite(sf::seconds(0.025f),true,false);
+    SetOriginAnimatedSprite(70,100);
+    SetScale(0.5f,0.5f);
     
+    setCD(5.f);
 }
 
 Heal::Heal(const Heal& orig) {
@@ -59,7 +61,7 @@ Heal::~Heal() {
 }
 
 bool Heal::cast() {
-    if (primerCast == true || clockCd.getElapsedTime().asSeconds() > 5) {
+    if (primerCast == true || clockCd.getElapsedTime().asSeconds() > getCD()) {
         primerCast = false;
         clockCd.restart();
         tiempoCast.restart();

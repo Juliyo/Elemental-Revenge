@@ -48,6 +48,7 @@ private:
     float                       interpolation;
 	
     //Eventos
+    int                         cuadrante;
     bool			isMovingUp;
     bool			isMovingDown;
     bool			isMovingRight;
@@ -55,8 +56,8 @@ private:
     bool                        noKeyWasPressed = true;
     bool			firstTime;
     bool			isInterpolating;
-    
     bool                        isHealing = false;
+    bool                        cantMove=false;
 };
 
 

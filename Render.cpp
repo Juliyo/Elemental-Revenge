@@ -39,6 +39,12 @@ void Render::StopAnimation() {
     //}
 
 }
+void Render::SetFrameTime(sf::Time time) {
+    //if(&animatedSprite!=NULL){
+    animatedSprite.setFrameTime(time);
+    //}
+
+}
 
 void Render::Draw(sf::RenderWindow &window, const sf::Vector2f &posPrev, const sf::Vector2f &posNew, float interpolation) {
     renderPos = sf::Vector2f(

@@ -22,10 +22,17 @@ public:
         Animation** getAnimation(){ return currentAnimation; };
         
         Animation               **currentAnimation;
+        //Animaciones de andar
         Animation               *walkingAnimationDown;
         Animation               *walkingAnimationLeft;
         Animation               *walkingAnimationRight;
         Animation               *walkingAnimationUp;
+        //Animaciones spellcast
+        Animation               *healingAnimationDown;
+        Animation               *healingAnimationLeft;
+        Animation               *healingAnimationRight;
+        Animation               *healingAnimationUp;
+        
 	Hud                     *hud;
         Heal                    *hHeal;
         int                     getVida();

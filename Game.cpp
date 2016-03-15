@@ -100,24 +100,27 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
 
     if (!firstTime) {
         sf::Vector2f movement(0.f, 0.f);
-        if (isMovingUp) {
-            movement.y -= player -> getVelocidad();
-            //noKeyWasPressed = false;
+        if (!cantMove) { //Si algo nos lo impide no nos movemos
+            if (isMovingUp) {
+                movement.y -= player -> getVelocidad();
+                //noKeyWasPressed = false;
+            }
+            if (isMovingDown) {
+                movement.y += player -> getVelocidad();
+                //noKeyWasPressed = false;
+            }
+            if (isMovingLeft) {
+                movement.x -= player -> getVelocidad();
+            }
+            if (isMovingRight) {
+                movement.x += player -> getVelocidad();
+                // noKeyWasPressed = false;
+            }
         }
-        if (isMovingDown) {
-            movement.y += player -> getVelocidad();
-            //noKeyWasPressed = false;
-        }
-        if (isMovingLeft) {
-            movement.x -= player -> getVelocidad();
-        }
-        if (isMovingRight) {
-            movement.x += player -> getVelocidad();
-            // noKeyWasPressed = false;
-        }
-
         player -> Update(movement, elapsedTime);
         
+
+
     }
     if(isHealing){
         player->heal();
@@ -162,22 +165,50 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
     updateView();
     mWindow.draw(spriteFondo);
     
+    UpdatePlayerAnimation();
+    
     player->hHeal->PlayAnimation(player->hHeal->animacion);
     
     if(player->hHeal->dibujar == true){
+        //Bloqueamos la movilidad mientras se castea
+        cantMove = true;
+        //Cambiamos el frameTime de la animacion
+        player->SetFrameTime(sf::seconds(0.125f));
+        //Vemos en que cuadrante estamos
+        switch(cuadrante){
+            case 1:
+                player -> currentAnimation = &player -> healingAnimationUp;
+                break;
+            case 2:
+                player -> currentAnimation = &player -> healingAnimationDown;
+                break;
+            case 3:
+                player -> currentAnimation = &player -> healingAnimationRight;
+                break;
+            case 4:
+                player -> currentAnimation = &player -> healingAnimationLeft;
+                break;
+        }
         player->hHeal->UpdateAnimation(elapsedTime);
-        if(player->hHeal->tiempoCast.getElapsedTime().asSeconds() < 5.f){
+        if(player->hHeal->tiempoCast.getElapsedTime().asSeconds() < 1.f){
             player->hHeal->DrawWithInterpolation(mWindow,interpolation,player->GetPreviousPosition(),player->GetPosition());
+        }else{
+            player->hHeal->dibujar=false;
         }
     }else{
+        //UpdatePlayerAnimation();  //Puede ser necesario llamar a esto
+        //Devolvemos el Frametime al original
+        player->SetFrameTime(sf::seconds(0.075f));
+        //Volvemos a permitir el movimiento
+        cantMove = false;
         player->hHeal->StopAnimation();
     }
-    UpdatePlayerAnimation();
+    
     
     player -> PlayAnimation(*player -> currentAnimation);
 
     
-    if (!isMovingDown && !isMovingLeft && !isMovingRight && !isMovingUp) {
+    if (!isMovingDown && !isMovingLeft && !isMovingRight && !isMovingUp && player->hHeal->dibujar == false) {
         player -> StopAnimation();
     }
     player -> UpdateAnimation(elapsedTime);
@@ -253,7 +284,7 @@ void Game::processEvents() //Captura y procesa eventos
 
 void Game::UpdatePlayerAnimation(){
     //sf::Vector2f distancia(mouseSprite.getPosition().y - player -> GetRenderPosition().y, mouseSprite.getPosition().x - player -> GetRenderPosition().x);
-    int cuadrante = 1;
+    cuadrante = 1;
     // 1 -> Arriba
     // 2 -> Abajo
     // 3 -> Derecha
