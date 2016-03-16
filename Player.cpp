@@ -166,7 +166,7 @@ int Player::getVida() {
 
 int Player::restaVida(int a) {
 
-    if (invulnerable.getElapsedTime().asSeconds() > 3) {
+    if (invulnerable.getElapsedTime().asSeconds() > 0.5f && (vida-a) >= 0) {
         //std::cout <<"Resto vidas";
         vida -= a;
         hud->updateHud(vida);
