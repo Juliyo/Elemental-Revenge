@@ -20,7 +20,7 @@ public:
 	
 	void SetTexture(sf::Texture &tex);
         void SetTextureRect(sf::IntRect rect);
-	void PlayAnimation(Animation animation);
+	void PlayAnimation(Animation *animation);
         void UpdateAnimation(sf::Time elapsedTime);
         void StopAnimation();
         void InicializarAnimatedSprite(sf::Time seconds,bool a,bool b){ animatedSprite=AnimatedSprite(seconds,a,b); };
@@ -30,6 +30,7 @@ public:
         void SetOriginAnimatedSprite(float x,float y){ animatedSprite.setOrigin(x,y); };
         void SetAngle(float angle){ animatedSprite.setRotation(angle); };
         void SetScale(float x, float y){ animatedSprite.setScale(x,y); };
+        void DrawWithout(sf::RenderWindow &window,sf::Vector2f pos);
 	sf::Sprite &GetSprite() { return sprite; }
         AnimatedSprite &GetSpriteAnimated() { return animatedSprite; }
 	sf::Vector2f GetRenderPosition() const { return renderPos; }

@@ -14,7 +14,7 @@
 #include "Hud.hpp"
 #include "Flash.hpp"
 
-class Player : public Render, PhysicsState{
+class Player : public Render,public PhysicsState{
 public:
 	Player();
 	Player(const Player& orig);
@@ -34,6 +34,7 @@ public:
         Animation               *walkingAnimationLeft;
         Animation               *walkingAnimationRight;
         Animation               *walkingAnimationUp;
+        
 	Hud                     *hud;
         Flash                   *flash;
         bool                    isFlashing=false;

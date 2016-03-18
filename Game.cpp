@@ -5,7 +5,7 @@
 #ifdef _WIN32
 #include <Windows.h>
 #endif
-# define M_PI          3.141592653589793238462643383279502884 /* pi */
+#define M_PI          3.141592653589793238462643383279502884 /* pi */
 /************ VARIABLES GLOBALES ************/
 const sf::Time Game::timePerFrame = sf::seconds(1.f / 15.f);
 int ancho = 1280, alto = 720;
@@ -115,12 +115,13 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
             movement.x += player -> getVelocidad();
             // noKeyWasPressed = false;
         }
-        if(player->isFlashing){
-            sf::Vector2f prueba=player->flash->cast(sf::Vector2f(player->getPosition()), &mWindow);
+
+
+        player -> Update(movement, elapsedTime);
+        if (player->isFlashing) {
+            sf::Vector2f prueba = player->flash->cast(sf::Vector2f(player->getPosition()), &mWindow);
             player->Colocar(prueba);
         }
-        player -> Update(movement, elapsedTime);
-
     }
 
     firstTime = false;
@@ -164,7 +165,7 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
 
     UpdatePlayerAnimation();
 
-    player -> PlayAnimation(**player -> currentAnimation);
+    player -> PlayAnimation(*player -> currentAnimation);
 
 
     if (!isMovingDown && !isMovingLeft && !isMovingRight && !isMovingUp) {
@@ -172,16 +173,29 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
     }
     player -> UpdateAnimation(elapsedTime);
 
+    player->flash->PlayAnimation(player->flash->flashingAnimation);
+
+    if (player->flash->dibujar == true) {
+        player->flash->UpdateAnimation(elapsedTime);
+        if (player->flash->tiempoCast.getElapsedTime().asSeconds() < 1.f) {
+            player->flash->Draw(mWindow);
+            
+        } else {
+            player->flash->dibujar = false;
+        }
+    } else {
+        player->flash->StopAnimation();
+    }
 
     player -> DrawWithInterpolation(mWindow, interpolation);
-    
+
     previa = mWindow.getView();
 
     mWindow.setView(getLetterboxView(mHud, ancho, alto, 640, 480));
     player -> hud->renderHud(&mWindow);
     mWindow.setView(previa);
 
-    
+
     mWindow.draw(mouseSprite);
     // mWindow.draw(mStatisticsText);
     mWindow.display();
@@ -218,10 +232,10 @@ void Game::processEvents() //Captura y procesa eventos
                 alto = event.size.height;
                 break;
         }
-        
+
     }
-    
-/*Capturamos eventos del teclado directamente*//*
+
+    /*Capturamos eventos del teclado directamente*//*
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
         player -> currentAnimation = &player -> walkingAnimationUp;
         noKeyWasPressed = false;
@@ -241,7 +255,7 @@ void Game::processEvents() //Captura y procesa eventos
 
 }
 
-void Game::UpdatePlayerAnimation(){
+void Game::UpdatePlayerAnimation() {
     //sf::Vector2f distancia(mouseSprite.getPosition().y - player -> GetRenderPosition().y, mouseSprite.getPosition().x - player -> GetRenderPosition().x);
     int cuadrante = 1;
     // 1 -> Arriba
@@ -250,17 +264,17 @@ void Game::UpdatePlayerAnimation(){
     // 4 -> Izquierda
     int x = mouseSprite.getPosition().x - player -> getPosition().x;
     int y = mouseSprite.getPosition().y - player -> getPosition().y;
-    
-    if(abs(y) > abs(x) && y <= 0){
+
+    if (abs(y) > abs(x) && y <= 0) {
         cuadrante = 1;
         player -> currentAnimation = &player -> walkingAnimationUp;
-    }else if(abs(y) > abs(x) && y > 0){
+    } else if (abs(y) > abs(x) && y > 0) {
         player -> currentAnimation = &player -> walkingAnimationDown;
         cuadrante = 2;
-    }else if(abs(x) > abs(y) && x > 0){
+    } else if (abs(x) > abs(y) && x > 0) {
         player -> currentAnimation = &player -> walkingAnimationRight;
         cuadrante = 3;
-    }else{
+    } else {
         player -> currentAnimation = &player -> walkingAnimationLeft;
         cuadrante = 4;
     }
@@ -282,9 +296,9 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
     } else if(key == sf::Keyboard::D && isPressed) {
         player -> currentAnimation = &player -> walkingAnimationRight;
         isMovingRight = isPressed;
-    } else */if (key == sf::Keyboard::W) {        //Esto lo hago para que cuando no estes presionando cambia a false
+    } else */if (key == sf::Keyboard::W) { //Esto lo hago para que cuando no estes presionando cambia a false
         isMovingUp = isPressed;
-    }else if (key == sf::Keyboard::S) {
+    } else if (key == sf::Keyboard::S) {
         isMovingDown = isPressed;
     } else if (key == sf::Keyboard::A) {
         isMovingLeft = isPressed;
@@ -293,7 +307,7 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
     } else if (key == sf::Keyboard::X && isPressed) {
         isInterpolating = !isInterpolating;
     } else if (key == sf::Keyboard::E)
-        player->isFlashing=isPressed;
+        player->isFlashing = isPressed;
 }
 
 sf::View Game::getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight) {

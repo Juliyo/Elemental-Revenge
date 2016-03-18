@@ -25,8 +25,8 @@ void Render::SetTextureRect(sf::IntRect rect) {
     sprite.setTextureRect(rect);
 }
 
-void Render::PlayAnimation(Animation animation) {
-    animatedSprite.play(animation);
+void Render::PlayAnimation(Animation *animation) {
+    animatedSprite.play(*animation);
 }
 
 void Render::UpdateAnimation(sf::Time elapsedTime) {
@@ -54,5 +54,10 @@ void Render::DrawAnimation(sf::RenderWindow &window, const sf::Vector2f &posPrev
             posPrev.x + ((posNew.x - posPrev.x) * interpolation),
             posPrev.y + ((posNew.y - posPrev.y) * interpolation));
     animatedSprite.setPosition(renderPos.x, renderPos.y);
+    window.draw(animatedSprite);
+}
+
+void Render::DrawWithout(sf::RenderWindow& window, sf::Vector2f pos) {
+    animatedSprite.setPosition(pos.x, pos.y);
     window.draw(animatedSprite);
 }

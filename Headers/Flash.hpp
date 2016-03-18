@@ -15,15 +15,16 @@
 #define FLASH_HPP
 
 #include "../Headers/Hechizo.hpp"
+#include "../Headers/Animation.hpp"
 
-
-class Flash:public Hechizo {
+class Flash : public Hechizo {
 public:
     Flash();
     Flash(const Flash& orig);
     virtual ~Flash();
-    
-        sf::Vector2f cast(sf::Vector2f , sf::RenderWindow *mWindow);
+    void Draw(sf::RenderWindow& window);
+    sf::Vector2f cast(sf::Vector2f, sf::RenderWindow *mWindow);
+    Animation *flashingAnimation;
 
 private:
 };
