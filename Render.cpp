@@ -25,8 +25,8 @@ void Render::SetTextureRect(sf::IntRect rect) {
     sprite.setTextureRect(rect);
 }
 
-void Render::PlayAnimation(Animation animation) {
-    animatedSprite.play(animation);
+void Render::PlayAnimation(Animation *animation) {
+    animatedSprite.play(*animation);
 }
 
 void Render::UpdateAnimation(sf::Time elapsedTime) {
@@ -39,6 +39,15 @@ void Render::StopAnimation() {
     //}
 
 }
+
+void Render::SetFrame(sf::Time time) {
+    animatedSprite.setFrameTime(time);
+
+}
+
+sf::FloatRect Render::GetGlobalBounds() {
+        return  animatedSprite.getGlobalBounds();
+};
 
 void Render::Draw(sf::RenderWindow &window, const sf::Vector2f &posPrev, const sf::Vector2f &posNew, float interpolation) {
     renderPos = sf::Vector2f(

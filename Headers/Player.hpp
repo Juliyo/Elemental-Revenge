@@ -12,6 +12,8 @@
 #include "Render.hpp"
 #include "Animation.hpp"
 #include "Hud.hpp"
+#include "hWaterAdvanced.hpp"
+#include "hWaterBasic.hpp"
 
 class Player : public Render, PhysicsState{
 public:
@@ -24,15 +26,24 @@ public:
 	void Draw(sf::RenderWindow& window);
 	void DrawWithInterpolation(sf::RenderWindow& window, float interpolation);
         float getVelocidad();
+        void UpdatePlayerAnimation(int x, int y);
         sf::Vector2f getPosition();
         Animation** getAnimation(){ return currentAnimation; };
+        
+        hWaterBasic  *hAguaBasico;
+        hWaterAdvanced  *hAguaAvanzado;
         
         Animation               **currentAnimation;
         Animation               *walkingAnimationDown;
         Animation               *walkingAnimationLeft;
         Animation               *walkingAnimationRight;
         Animation               *walkingAnimationUp;
+        Animation               *castingAnimationUp;
+        Animation               *castingAnimationDown;
+        Animation               *castingAnimationRight;
+        Animation               *castingAnimationLeft;
 	Hud                     *hud;
+        int                     cuadrante;
 private:
         sf::Texture             texturaPlayer;
         float                   velocity=200.f;

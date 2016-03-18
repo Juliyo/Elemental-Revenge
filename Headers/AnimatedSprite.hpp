@@ -42,6 +42,7 @@ public:
     void setFrameTime(sf::Time time);
     void play();
     void play(const Animation& animation);
+    
     void pause();
     void stop();
     void setLooped(bool looped);

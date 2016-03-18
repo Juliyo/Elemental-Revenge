@@ -62,7 +62,7 @@ void AnimatedSprite::pause()
 void AnimatedSprite::stop()
 {
     m_isPaused = true;
-    m_currentFrame = 1;
+    m_currentFrame = 0;
     setFrame(m_currentFrame);
 }
 
@@ -99,6 +99,7 @@ sf::FloatRect AnimatedSprite::getGlobalBounds() const
 {
     return getTransform().transformRect(getLocalBounds());
 }
+
 
 bool AnimatedSprite::isLooped() const
 {
@@ -162,7 +163,7 @@ void AnimatedSprite::update(sf::Time deltaTime)
             else
             {
                 // animation has ended
-                m_currentFrame = 1; // reset to start
+                m_currentFrame = 0; // reset to start
 
                 if (!m_isLooped)
                 {
@@ -187,17 +188,4 @@ void AnimatedSprite::draw(sf::RenderTarget& target, sf::RenderStates states) con
     }
 }
 
-const sf::Texture* Animation::getSpriteSheet() const
-{
-    return m_texture;
-}
 
-std::size_t Animation::getSize() const
-{
-    return m_frames.size();
-}
-
-const sf::IntRect& Animation::getFrame(std::size_t n) const
-{
-    return m_frames[n];
-}

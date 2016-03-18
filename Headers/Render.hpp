@@ -20,9 +20,10 @@ public:
 	
 	void SetTexture(sf::Texture &tex);
         void SetTextureRect(sf::IntRect rect);
-	void PlayAnimation(Animation animation);
+	void PlayAnimation(Animation *animation);
         void UpdateAnimation(sf::Time elapsedTime);
         void StopAnimation();
+        void SetFrame(sf::Time time);
         void InicializarAnimatedSprite(sf::Time seconds,bool a,bool b){ animatedSprite=AnimatedSprite(seconds,a,b); };
 	void Draw(sf::RenderWindow &window, const sf::Vector2f &posPrev, const sf::Vector2f &posNew, float interpolation);
         void DrawAnimation(sf::RenderWindow &window, const sf::Vector2f &posPrev, const sf::Vector2f &posNew, float interpolation);
@@ -33,6 +34,7 @@ public:
 	sf::Sprite &GetSprite() { return sprite; }
         AnimatedSprite &GetSpriteAnimated() { return animatedSprite; }
 	sf::Vector2f GetRenderPosition() const { return renderPos; }
+        sf::FloatRect GetGlobalBounds();
 
 private:
         AnimatedSprite		animatedSprite;

@@ -23,7 +23,13 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationLeft = new Animation();
     walkingAnimationRight = new Animation();
     walkingAnimationUp = new Animation();
+    castingAnimationUp= new Animation();
+    castingAnimationDown= new Animation();
+    castingAnimationRight= new Animation();
+    castingAnimationLeft= new Animation();
     hud = new Hud();
+    hAguaAvanzado = new hWaterAdvanced();
+    hAguaBasico = new hWaterBasic();
             
     if(!texturaPlayer.loadFromFile("resources/Textures/player.png")){
        std::cout<<"Error cargando la textura: "<<"resources/Textures/player.png"<<std::endl;
@@ -80,12 +86,62 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationUp->addFrame(sf::IntRect(448, 512, 64, 64));
     walkingAnimationUp->addFrame(sf::IntRect(512, 512, 64, 64));
     
+    //casteo
+    castingAnimationUp->setSpriteSheet(texturaPlayer);
+    castingAnimationUp->addFrame(sf::IntRect(448, 256, 64, 64));
+    castingAnimationUp->addFrame(sf::IntRect(0, 256, 64, 64));
+    castingAnimationUp->addFrame(sf::IntRect(64, 256, 64, 64));
+    castingAnimationUp->addFrame(sf::IntRect(128, 256, 64, 64));
+    castingAnimationUp->addFrame(sf::IntRect(192, 256, 64, 64));
+    castingAnimationUp->addFrame(sf::IntRect(256, 256, 64, 64));
+    castingAnimationUp->addFrame(sf::IntRect(320, 256, 64, 64));
+    castingAnimationUp->addFrame(sf::IntRect(384, 256, 64, 64));
+    castingAnimationUp->addFrame(sf::IntRect(448, 256, 64, 64));
+  
+    
+    
+    castingAnimationDown->setSpriteSheet(texturaPlayer);
+    castingAnimationDown->addFrame(sf::IntRect(448, 384, 64, 64));
+    castingAnimationDown->addFrame(sf::IntRect(0, 384, 64, 64));
+    castingAnimationDown->addFrame(sf::IntRect(64, 384, 64, 64));
+    castingAnimationDown->addFrame(sf::IntRect(128, 384, 64, 64));
+    castingAnimationDown->addFrame(sf::IntRect(192, 384, 64, 64));
+    castingAnimationDown->addFrame(sf::IntRect(256, 384, 64, 64));
+    castingAnimationDown->addFrame(sf::IntRect(320, 384, 64, 64));
+    castingAnimationDown->addFrame(sf::IntRect(384, 384, 64, 64));
+    castingAnimationDown->addFrame(sf::IntRect(448, 384, 64, 64));
+    
+    
+    castingAnimationRight->setSpriteSheet(texturaPlayer);
+    castingAnimationRight->addFrame(sf::IntRect(448, 448, 64, 64));
+    castingAnimationRight->addFrame(sf::IntRect(0, 448, 64, 64));
+    castingAnimationRight->addFrame(sf::IntRect(64, 448, 64, 64));
+    castingAnimationRight->addFrame(sf::IntRect(128, 448, 64, 64));
+    castingAnimationRight->addFrame(sf::IntRect(192, 448, 64, 64));
+    castingAnimationRight->addFrame(sf::IntRect(256, 448, 64, 64));
+    castingAnimationRight->addFrame(sf::IntRect(320, 448, 64, 64));
+    castingAnimationRight->addFrame(sf::IntRect(384, 448, 64, 64));
+    castingAnimationRight->addFrame(sf::IntRect(448, 448, 64, 64));
+    
+    
+    castingAnimationLeft->setSpriteSheet(texturaPlayer);
+    castingAnimationLeft->addFrame(sf::IntRect(448, 320, 64, 64));
+    castingAnimationLeft->addFrame(sf::IntRect(0, 320, 64, 64));
+    castingAnimationLeft->addFrame(sf::IntRect(64, 320, 64, 64));
+    castingAnimationLeft->addFrame(sf::IntRect(128, 320, 64, 64));
+    castingAnimationLeft->addFrame(sf::IntRect(192, 320, 64, 64));
+    castingAnimationLeft->addFrame(sf::IntRect(256, 320, 64, 64));
+    castingAnimationLeft->addFrame(sf::IntRect(320, 320, 64, 64));
+    castingAnimationLeft->addFrame(sf::IntRect(384, 320, 64, 64));
+    castingAnimationLeft->addFrame(sf::IntRect(448, 320, 64, 64));
+    
+    
     currentAnimation = &walkingAnimationDown;
     InicializarAnimatedSprite(sf::seconds(0.075f), true, false);
     SetPosition(posX, posY);
     SetSpeed(speedX, speedY);
     SetMaxSpeed(maxSpeedX, maxSpeedY);
-    
+    SetOriginAnimatedSprite(32,38);
 }
 
 void Player::Update(sf::Vector2f velocity, sf::Time elapsedTime) {
@@ -109,4 +165,28 @@ float Player::getVelocidad() {
 }
 sf::Vector2f Player::getPosition() {
     return GetSpriteAnimated().getPosition();
+}
+
+void Player::UpdatePlayerAnimation(int x,int y) {
+    //sf::Vector2f distancia(mouseSprite.getPosition().y - player -> GetRenderPosition().y, mouseSprite.getPosition().x - player -> GetRenderPosition().x);
+   
+    // 1 -> Arriba
+    // 2 -> Abajo
+    // 3 -> Derecha
+    // 4 -> Izquierda
+
+
+    if (abs(y) > abs(x) && y <= 0) {
+        cuadrante = 1;
+        currentAnimation = &walkingAnimationUp;
+    } else if (abs(y) > abs(x) && y > 0) {
+        currentAnimation = &walkingAnimationDown;
+        cuadrante = 2;
+    } else if (abs(x) > abs(y) && x > 0) {
+        currentAnimation = &walkingAnimationRight;
+        cuadrante = 3;
+    } else {
+        currentAnimation = &walkingAnimationLeft;
+        cuadrante = 4;
+    }
 }

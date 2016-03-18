@@ -5,7 +5,7 @@
 #ifdef _WIN32
 #include <Windows.h>
 #endif
-# define M_PI          3.141592653589793238462643383279502884 /* pi */
+#define M_PI          3.141592653589793238462643383279502884 /* pi */
 /************ VARIABLES GLOBALES ************/
 const sf::Time Game::timePerFrame = sf::seconds(1.f / 15.f);
 int ancho = 1280, alto = 720;
@@ -65,7 +65,8 @@ Game::Game()
     player = new Player();
     player -> Inicializar(200.f, 250.f);
 
-
+    enemigo[0].Inicializar(300.f, 350.f);
+    enemigo[1].Inicializar(350.f, 450.f);
 }
 
 /**************  METODOS PRINCIPALES **************/
@@ -97,9 +98,9 @@ void Game::run() //Metodo principal
 
 void Game::update(sf::Time elapsedTime) //Actualiza la fisica
 {
-
+    sf::Vector2f movement(0.f, 0.f);
     if (!firstTime) {
-        sf::Vector2f movement(0.f, 0.f);
+
         if (isMovingUp) {
             movement.y -= player -> getVelocidad();
             //noKeyWasPressed = false;
@@ -119,6 +120,72 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
         player -> Update(movement, elapsedTime);
 
     }
+    if (aguaBasicCast) {
+        player->hAguaBasico->cast(sf::Vector2f(player->getPosition()), &mWindow);
+    }
+    if (player -> hAguaBasico->tiempoCast.getElapsedTime().asSeconds() < 0.5f && player -> hAguaBasico->dibujar == true) {
+        player -> hAguaBasico->Update(movement, elapsedTime);
+
+        if (player->hAguaBasico->GetGlobalBounds().intersects(enemigo[0].getSprite().getGlobalBounds())) {
+            enemigo[0].empujado = true;
+            enemigo[0].tiempoempujado.restart();
+        }
+
+        if (enemigo[0].empujado == true) {
+            sf::Vector2f movement(0.f, 0.f);
+            movement.x = 300 * (cos(player->hAguaBasico->angleshot2) * 1.0f);
+            movement.y = 300 * (sin(player->hAguaBasico->angleshot2) * 1.0f);
+            enemigo[0].Update(movement, elapsedTime);
+        }
+
+        if (enemigo[0].tiempoempujado.getElapsedTime().asSeconds() > 0.5) {
+            enemigo[0].empujado = false;
+        }
+
+        if (player->hAguaBasico->GetGlobalBounds().intersects(enemigo[1].getSprite().getGlobalBounds())) {
+            enemigo[1].empujado = true;
+            enemigo[1].tiempoempujado.restart();
+        }
+
+        if (enemigo[1].empujado == true) {
+            sf::Vector2f movement(0.f, 0.f);
+            movement.x = 300 * (cos(player->hAguaBasico->angleshot2) * 1.0f);
+            movement.y = 300 * (sin(player->hAguaBasico->angleshot2) * 1.0f);
+            enemigo[1].Update(movement, elapsedTime);
+        }
+
+        if (enemigo[1].tiempoempujado.getElapsedTime().asSeconds() > 0.5) {
+            enemigo[1].empujado = false;
+        }
+
+    }
+
+    sf::Vector2f movement2(0.f, 0.f);
+    if (aguaAdvancedCast) { //onMouseButtonRealeased
+        player -> hAguaAvanzado->cast(sf::Vector2f(player -> getPosition()), &mWindow);
+    }
+    if (player -> hAguaAvanzado->tiempoCast.getElapsedTime().asSeconds() < 2.5 && player -> hAguaAvanzado->dibujar == true) {
+        movement2.x = (40 * cos(player -> hAguaAvanzado->angleshot2) * 11.0f);
+        movement2.y = (40 * sin(player -> hAguaAvanzado->angleshot2) * 11.0f);
+        player -> hAguaAvanzado->UpdateHechizo(movement2, elapsedTime);
+
+        if (player->hAguaAvanzado->GetGlobalBounds().intersects(enemigo[0].getSprite().getGlobalBounds())) {
+            enemigo[0].empujado2 = true;
+            enemigo[0].tiempoempujado.restart();
+        }
+
+        if (enemigo[0].empujado2 == true) {
+            sf::Vector2f movement(0.f, 0.f);
+            movement.x = 300 * (cos(player->hAguaAvanzado->angleshot2) * 1.0f);
+            movement.y = 300 * (sin(player->hAguaAvanzado->angleshot2) * 1.0f);
+            enemigo[0].Update(movement, elapsedTime);
+        }
+
+        if (enemigo[0].tiempoempujado.getElapsedTime().asSeconds() > 0.5) {
+            enemigo[0].empujado2 = false;
+        }
+    }
+
 
     firstTime = false;
 }
@@ -159,9 +226,69 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
     updateView();
     mWindow.draw(spriteFondo);
 
-    UpdatePlayerAnimation();
+    
+    int x = mouseSprite.getPosition().x - player -> getPosition().x;
+    int y = mouseSprite.getPosition().y - player -> getPosition().y;
+    player ->UpdatePlayerAnimation(x,y);
+    player -> hAguaAvanzado->PlayAnimation(*player -> hAguaAvanzado-> currentAnimation); //Current animation es un puntero a puntero
+    if (player -> hAguaAvanzado->dibujar == true) {
+        player->SetFrame(sf::seconds(0.125f));
+        //switch
+        switch(player->cuadrante){
+            case 1:
+                player->currentAnimation=&player->castingAnimationUp;
+                break;
+                case 2:
+                player->currentAnimation=&player->castingAnimationDown;
+                break;
+                case 3:
+                player->currentAnimation=&player->castingAnimationRight;
+                break;
+                case 4:
+                player->currentAnimation=&player->castingAnimationLeft;
+                break;
+        }
+        
+        
+        
+        player -> hAguaAvanzado -> UpdateAnimation(elapsedTime);
+        if (player -> hAguaAvanzado->tiempoCast.getElapsedTime().asSeconds() < 2.5) {
+            player -> hAguaAvanzado->DrawWithInterpolation(mWindow, interpolation);
+        } else {
+            player -> hAguaAvanzado->setDibujar(false);
+        }
+    }
+    player->hAguaBasico->PlayAnimation(player->hAguaBasico->animation);
+    if (player->hAguaBasico->dibujar == true) {
+        player->SetFrame(sf::seconds(0.125f));
+        //switch
+        switch(player->cuadrante){
+            case 1:
+                player->currentAnimation=&player->castingAnimationUp;
+                break;
+                case 2:
+                player->currentAnimation=&player->castingAnimationDown;
+                break;
+                case 3:
+                player->currentAnimation=&player->castingAnimationRight;
+                break;
+                case 4:
+                player->currentAnimation=&player->castingAnimationLeft;
+                break;
+        }
+        player -> hAguaBasico -> UpdateAnimation(elapsedTime);
+        if (player->hAguaBasico->tiempoCast.getElapsedTime().asSeconds() < 0.5f) {
+            player->hAguaBasico->DrawWithInterpolation(mWindow, interpolation);
+        } else {
+            player->hAguaBasico->setDibujar(false);
+        }
 
-    player -> PlayAnimation(**player -> currentAnimation);
+    } else {
+        player->SetFrame(sf::seconds(0.075f));
+        player->hAguaBasico->StopAnimation();
+    }
+
+    player -> PlayAnimation(*player -> currentAnimation);
 
 
     if (!isMovingDown && !isMovingLeft && !isMovingRight && !isMovingUp) {
@@ -171,14 +298,14 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
 
 
     player -> DrawWithInterpolation(mWindow, interpolation);
-    
+
     previa = mWindow.getView();
 
     mWindow.setView(getLetterboxView(mHud, ancho, alto, 640, 480));
     player -> hud->renderHud(&mWindow);
     mWindow.setView(previa);
 
-    
+
     mWindow.draw(mouseSprite);
     // mWindow.draw(mStatisticsText);
     mWindow.display();
@@ -198,6 +325,12 @@ void Game::processEvents() //Captura y procesa eventos
             case sf::Event::KeyReleased:
                 handlePlayerInput(event.key.code, false);
                 break;
+            case sf::Event::MouseButtonPressed:
+                handleMouseInput(event.mouseButton.button, true);
+                break;
+            case sf::Event::MouseButtonReleased:
+                handleMouseInput(event.mouseButton.button, false);
+                break;
 
             case sf::Event::Closed:
                 mWindow.close();
@@ -215,10 +348,10 @@ void Game::processEvents() //Captura y procesa eventos
                 alto = event.size.height;
                 break;
         }
-        
+
     }
-    
-/*Capturamos eventos del teclado directamente*//*
+
+    /*Capturamos eventos del teclado directamente*//*
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
         player -> currentAnimation = &player -> walkingAnimationUp;
         noKeyWasPressed = false;
@@ -238,30 +371,7 @@ void Game::processEvents() //Captura y procesa eventos
 
 }
 
-void Game::UpdatePlayerAnimation(){
-    //sf::Vector2f distancia(mouseSprite.getPosition().y - player -> GetRenderPosition().y, mouseSprite.getPosition().x - player -> GetRenderPosition().x);
-    int cuadrante = 1;
-    // 1 -> Arriba
-    // 2 -> Abajo
-    // 3 -> Derecha
-    // 4 -> Izquierda
-    int x = mouseSprite.getPosition().x - player -> getPosition().x;
-    int y = mouseSprite.getPosition().y - player -> getPosition().y;
-    
-    if(abs(y) > abs(x) && y <= 0){
-        cuadrante = 1;
-        player -> currentAnimation = &player -> walkingAnimationUp;
-    }else if(abs(y) > abs(x) && y > 0){
-        player -> currentAnimation = &player -> walkingAnimationDown;
-        cuadrante = 2;
-    }else if(abs(x) > abs(y) && x > 0){
-        player -> currentAnimation = &player -> walkingAnimationRight;
-        cuadrante = 3;
-    }else{
-        player -> currentAnimation = &player -> walkingAnimationLeft;
-        cuadrante = 4;
-    }
-}
+
 
 
 // Realiza las operaciones correspondientes a cada Evento
@@ -279,9 +389,9 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
     } else if(key == sf::Keyboard::D && isPressed) {
         player -> currentAnimation = &player -> walkingAnimationRight;
         isMovingRight = isPressed;
-    } else */if (key == sf::Keyboard::W) {        //Esto lo hago para que cuando no estes presionando cambia a false
+    } else */if (key == sf::Keyboard::W) { //Esto lo hago para que cuando no estes presionando cambia a false
         isMovingUp = isPressed;
-    }else if (key == sf::Keyboard::S) {
+    } else if (key == sf::Keyboard::S) {
         isMovingDown = isPressed;
     } else if (key == sf::Keyboard::A) {
         isMovingLeft = isPressed;
@@ -289,7 +399,7 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         isMovingRight = isPressed;
     } else if (key == sf::Keyboard::X && isPressed) {
         isInterpolating = !isInterpolating;
-    } 
+    }
 }
 
 sf::View Game::getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight) {
@@ -323,4 +433,12 @@ sf::View Game::getLetterboxView(sf::View view, int windowWidth, int windowHeight
 
     view.setViewport(sf::FloatRect(posX, posY, sizeX, sizeY));
     return view;
+}
+void Game::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
+    if (button == sf::Mouse::Left) //Traslaciones
+        aguaBasicCast = isPressed;
+    //player.hAguaBasico.cast(sf::Vector2f(player.getPosition()), &mWindow);
+    if (button == sf::Mouse::Right) //Traslaciones
+        aguaAdvancedCast = isPressed;
+
 }

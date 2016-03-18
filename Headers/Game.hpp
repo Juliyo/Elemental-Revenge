@@ -5,7 +5,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Player.hpp"
-
+#include "Enemigo.hpp"
 class Game : private sf::NonCopyable
 {
 public:
@@ -18,6 +18,8 @@ private:
     void			update(sf::Time elapsedTime);
     void			render(float interpolation, sf::Time elapsedTime);
     void			handlePlayerInput(sf::Keyboard::Key key, bool isPressed);  // Maneja eventos
+    void			handleMouseInput(sf::Mouse::Button button, bool isPressed);  // Maneja eventos
+    
     void                        updateView();
     void                        UpdatePlayerAnimation();
     sf::View                    getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight);
@@ -41,6 +43,7 @@ private:
     sf::View                    mBackgroundView;
     sf::View                    mHud;
     Player			*player;
+    Enemigo			enemigo[20];
     
     //Estadisticas
     sf::Text			mStatisticsText;
@@ -52,6 +55,9 @@ private:
     bool			isMovingDown;
     bool			isMovingRight;
     bool			isMovingLeft;
+    bool                        aguaAdvancedCast = false;
+    bool                        aguaBasicCast = false;
+    
     bool                        noKeyWasPressed = true;
     bool			firstTime;
     bool			isInterpolating;

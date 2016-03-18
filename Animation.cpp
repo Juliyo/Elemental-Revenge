@@ -22,7 +22,7 @@
 ////////////////////////////////////////////////////////////
 
 #include "../Headers/Animation.hpp"
-
+#include <iostream>
 Animation::Animation() : m_texture(NULL)
 {
 
@@ -38,7 +38,7 @@ void Animation::setSpriteSheet(const sf::Texture& texture)
     m_texture = &texture;
 }
 
-/*const sf::Texture* Animation::getSpriteSheet() const
+const sf::Texture* Animation::getSpriteSheet() const
 {
     return m_texture;
 }
@@ -50,5 +50,6 @@ std::size_t Animation::getSize() const
 
 const sf::IntRect& Animation::getFrame(std::size_t n) const
 {
+    int gola = m_frames.size();
     return m_frames[n];
-}*/
+}
