@@ -65,6 +65,10 @@ Game::Game()
     player = new Player();
     player -> Inicializar(200.f, 250.f);
 
+    
+    mapa = new Cargar();
+    mapa->leerMapa();
+
 
 }
 
@@ -74,7 +78,9 @@ void Game::run() //Metodo principal
 {
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero; //Tiempo desde el ultimo cambio de frame
-
+    
+    
+    
     while (mWindow.isOpen()) {
         sf::Time elapsedTime = clock.restart(); //Actualizamos variables de tiempo
         timeSinceLastUpdate += elapsedTime;
@@ -98,6 +104,8 @@ void Game::run() //Metodo principal
 void Game::update(sf::Time elapsedTime) //Actualiza la fisica
 {
 
+    
+    
     if (!firstTime) {
         sf::Vector2f movement(0.f, 0.f);
         if (isMovingUp) {
@@ -149,7 +157,12 @@ void Game::updateView() {
 void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
 {
     mWindow.clear();
-
+ 
+    mapa->dibuja(mWindow);
+    
+    mWindow.draw(mapa->fondo);
+    
+    
     //Pillamos la view anterior, activamos la del fondo, dibujamos el fondo y volvemos al estado anterior
     sf::View previa = mWindow.getView();
     mWindow.setView(mBackgroundView);
@@ -157,7 +170,7 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
     mWindow.setView(previa);
 
     updateView();
-    mWindow.draw(spriteFondo);
+   // mWindow.draw(spriteFondo);
 
     UpdatePlayerAnimation();
 

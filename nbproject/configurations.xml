@@ -4,6 +4,7 @@
     <logicalFolder name="Headers" displayName="Headers" projectFiles="true">
       <itemPath>Headers/AnimatedSprite.hpp</itemPath>
       <itemPath>Headers/Animation.hpp</itemPath>
+      <itemPath>Headers/Cargar.h</itemPath>
       <itemPath>Headers/Game.hpp</itemPath>
       <itemPath>Headers/PhysicsState.hpp</itemPath>
       <itemPath>Headers/Player.hpp</itemPath>
@@ -11,6 +12,8 @@
       <itemPath>Headers/StringHelpers.hpp</itemPath>
       <itemPath>Headers/StringHelpers.inl</itemPath>
       <itemPath>Headers/Util.hpp</itemPath>
+      <itemPath>Headers/tinystr.h</itemPath>
+      <itemPath>Headers/tinyxml.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -21,6 +24,7 @@
                    projectFiles="true">
       <itemPath>AnimatedSprite.cpp</itemPath>
       <itemPath>Animation.cpp</itemPath>
+      <itemPath>Cargar.cpp</itemPath>
       <itemPath>Game.cpp</itemPath>
       <itemPath>Hud.cpp</itemPath>
       <itemPath>PhysicsState.cpp</itemPath>
@@ -28,6 +32,10 @@
       <itemPath>Render.cpp</itemPath>
       <itemPath>Util.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
+      <itemPath>tinystr.cpp</itemPath>
+      <itemPath>tinyxml.cpp</itemPath>
+      <itemPath>tinyxmlerror.cpp</itemPath>
+      <itemPath>tinyxmlparser.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -78,11 +86,15 @@
       </item>
       <item path="Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="Cargar.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="Game.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Headers/AnimatedSprite.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Animation.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/Cargar.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Game.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -100,6 +112,10 @@
       </item>
       <item path="Headers/Util.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/tinystr.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/tinyxml.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Hud.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="PhysicsState.cpp" ex="false" tool="1" flavor2="0">
@@ -111,6 +127,14 @@
       <item path="Util.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tinystr.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tinyxml.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tinyxmlerror.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tinyxmlparser.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -137,11 +161,15 @@
       </item>
       <item path="Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="Cargar.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="Game.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Headers/AnimatedSprite.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Animation.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/Cargar.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Game.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -159,6 +187,10 @@
       </item>
       <item path="Headers/Util.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/tinystr.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/tinyxml.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Hud.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="PhysicsState.cpp" ex="false" tool="1" flavor2="0">
@@ -170,6 +202,14 @@
       <item path="Util.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tinystr.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tinyxml.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tinyxmlerror.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tinyxmlparser.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
   </confs>
