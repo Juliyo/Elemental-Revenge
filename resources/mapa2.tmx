@@ -3,7 +3,7 @@
  <tileset firstgid="1" name="arboles" tilewidth="32" tileheight="32" tilecount="144" columns="16">
   <image source="arboles.png" width="512" height="289"/>
  </tileset>
- <tileset firstgid="2" name="5k2i52" tilewidth="32" tileheight="32" tilecount="300" columns="20">
+ <tileset firstgid="145" name="5k2i52" tilewidth="32" tileheight="32" tilecount="300" columns="20">
   <image source="5k2i52.png" width="640" height="480"/>
  </tileset>
  <layer name="Capa de Patrones 1" width="50" height="50">
@@ -2510,6 +2510,7 @@
    <tile gid="167"/>
   </data>
  </layer>
+ <objectgroup name="Capa de Objetos 1"/>
  <layer name="Capa de patrones 2" width="50" height="50">
   <data>
    <tile gid="15"/>

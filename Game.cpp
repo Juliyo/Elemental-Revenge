@@ -30,7 +30,7 @@ Game::Game()
     mWindow.setMouseCursorVisible(false);
     mWorldView.zoom(0.5f);
     try {
-        texturaFondo.loadFromFile("resources/Textures/grasstext.png");
+        texturaFondo.loadFromFile("resources/background.png");
         contFonts.loadFromFile("resources/Fonts/Sansation.ttf");
         texturaRelleno.loadFromFile("resources/Textures/background.png");
         mouseTexture.loadFromFile("resources/Textures/mouse.png");
@@ -158,9 +158,7 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
 {
     mWindow.clear();
  
-    mapa->dibuja(mWindow);
     
-    mWindow.draw(mapa->fondo);
     
     
     //Pillamos la view anterior, activamos la del fondo, dibujamos el fondo y volvemos al estado anterior
@@ -168,9 +166,10 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
     mWindow.setView(mBackgroundView);
     mWindow.draw(spriteRelleno);
     mWindow.setView(previa);
+mapa->dibuja(mWindow);
 
     updateView();
-   // mWindow.draw(spriteFondo);
+    //mWindow.draw(spriteFondo);
 
     UpdatePlayerAnimation();
 
@@ -190,7 +189,8 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
     mWindow.setView(getLetterboxView(mHud, ancho, alto, 640, 480));
     player -> hud->renderHud(&mWindow);
     mWindow.setView(previa);
-
+    
+  //  mWindow.draw(mapa->fondo);
     
     mWindow.draw(mouseSprite);
     // mWindow.draw(mStatisticsText);

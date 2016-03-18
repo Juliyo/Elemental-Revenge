@@ -26,15 +26,17 @@ public:
 private:
     int ***_tilemap;
     int _numLayers=0;
+    int _numTilesets=0;
     int _height;
     int _width;
     int _tileHeigth;
     int _tileWidth;
     sf::Sprite ****_tilemapSprite;
-    sf::Texture _tilesetTexture;
+    sf::Texture *_tilesetTexture;
+    sf::Texture prueba[];
     sf::Sprite *_tilesetSprite;
     sf::Sprite te;
-
+    std::vector<sf::String*> filenameVector;
     sf::VertexArray m_vertices;
     sf::Texture m_tileset;
 
