@@ -15,7 +15,7 @@
 #include "hRayAdvanced.hpp"
 #include "hRayBasic.hpp"
 
-class Player : public Render, PhysicsState{
+class Player : public Render, public PhysicsState{
 public:
 	Player();
 	Player(const Player& orig);

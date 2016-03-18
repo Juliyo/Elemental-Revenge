@@ -88,7 +88,7 @@ void Render::DrawAnimation(sf::RenderWindow &window, const sf::Vector2f &posPrev
     float shortest_angle=((((int)(*angleNew - *anglePrev) % 360) + 540) % 360) - 180;   //Calculamos el angulo más corto en el caso de que
                                                                                         //pasemos de 0 a 360ª
      renderAngle = *anglePrev + (shortest_angle) * interpolation;
-
+    
     animatedSprite.setPosition(renderPos.x, renderPos.y);
     animatedSprite.setRotation(renderAngle);
     window.draw(animatedSprite);

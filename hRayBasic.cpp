@@ -70,6 +70,6 @@ void hRayBasic::cast(sf::Vector2f posicion, sf::RenderWindow *mWindow) {
     //GetSprite().setRotation((angleShot * 180 / 3.14)+90);
     
 }
-void hRayBasic::DrawWithInterpolation(sf::RenderWindow& window, float interpolation, PhysicsState *physicsState){
-	DrawAnimation(window, physicsState->GetPreviousPosition(), physicsState->GetPosition() , interpolation, &anglePrev, &angleNew);
+void hRayBasic::DrawWithInterpolation(sf::RenderWindow& window, float interpolation, const sf::Vector2f &posPrev, const sf::Vector2f &posNew){
+	DrawAnimation(window,posPrev, posNew , interpolation, &anglePrev, &angleNew);
 }

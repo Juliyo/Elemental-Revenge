@@ -25,7 +25,7 @@ public:
     hRayBasic(const hRayBasic& orig);
     virtual ~hRayBasic();
     void cast(sf::Vector2f vector, sf::RenderWindow *w);
-    void DrawWithInterpolation(sf::RenderWindow& window, float interpolation, PhysicsState *physicsState);
+    void DrawWithInterpolation(sf::RenderWindow& window, float interpolation, const sf::Vector2f &posPrev, const sf::Vector2f &posNew );
     
     sf::Clock tiempoCast;
     sf::Clock tiempoCd;

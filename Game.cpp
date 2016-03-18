@@ -236,7 +236,8 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
         
         player -> hRayoBasico -> UpdateAnimation(elapsedTime);
         if (player->hRayoBasico->tiempoCast.getElapsedTime().asSeconds() < 3.0f) {
-            player->hRayoBasico->DrawWithInterpolation(mWindow, interpolation,player->getPhysics());
+            printf("Posicion del animation:%f-%f\n",player->getPhysics()->GetPosition().x,player->getPhysics()->GetPosition().y);
+            player->hRayoBasico->DrawWithInterpolation(mWindow, interpolation,player->GetPreviousPosition(),player->GetPosition());
         } else {
             player->hRayoBasico->draw=false;
         }
