@@ -177,7 +177,7 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
 
     if (player->flash->dibujar == true) {
         player->flash->UpdateAnimation(elapsedTime);
-        if (player->flash->tiempoCast.getElapsedTime().asSeconds() < 1.f) {
+        if (player->flash->tiempoCast.getElapsedTime().asSeconds() < 0.5f) {
             player->flash->Draw(mWindow);
             
         } else {

@@ -40,7 +40,7 @@ Flash::Flash() {
     flashingAnimation->addFrame(sf::IntRect(185*3, 326, 185, 163));
     flashingAnimation->addFrame(sf::IntRect(185*4, 326, 185, 163));
     
-    InicializarAnimatedSprite(sf::seconds(0.15f),true,false);
+    InicializarAnimatedSprite(sf::seconds(0.05f),true,false);
     SetOriginAnimatedSprite(99,82);
     SetScale(0.7f,0.7f);
 }
