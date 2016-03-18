@@ -43,7 +43,7 @@ void Cargar::leerMapa(){
     /*ANADIDO*/
 
     TiXmlDocument doc;
-    doc.LoadFile("resources/mapa2.tmx");
+    doc.LoadFile("resources/mapafinal.tmx");
     TiXmlElement* map = doc.FirstChildElement("map");
 
     map->QueryIntAttribute("width",&_width);
@@ -59,52 +59,22 @@ void Cargar::leerMapa(){
         img=img->NextSiblingElement("tileset");
     }
     
-                TiXmlElement *layer = map->FirstChildElement("layer");
-
-    
-    TiXmlElement *ejemplo = map->FirstChildElement("tileset");
-    while(ejemplo){
-        _numTilesets++;
-        
-        ejemplo= ejemplo->NextSiblingElement("tileset");
-    }  
-    
     string filename;
-    string filename2;
-            img = map->FirstChildElement("tileset");
 
+    img = map->FirstChildElement("tileset");
     
-            std::cout<<_numTilesets;
-    for(int i=0; i<_numTilesets;i++){
+    while(img){
+        filename=(string)img->FirstChildElement("image")->Attribute("source");
+        img=img->NextSiblingElement("tileset");
+    }  
 
-    //while(img){
-        if(img){
-            
-            if(i==1){
-                filename=(string)img->FirstChildElement("image")->Attribute("source");
-                    filenameVector.push_back(new sf::String(filename));
-
-            }else{
-                filename2=(string)img->FirstChildElement("image")->Attribute("source");
-                filenameVector.push_back(new sf::String(filename2));
-            }
-            img=img->NextSiblingElement("tileset");
-              //  printf("FDSFSA\n");
-        
-    //}  
-        }
-
-
+    _tilesetTexture.loadFromFile(filename);
     TiXmlElement *layer = map->FirstChildElement("layer");
-
-    _tilesetTexture=new sf::Texture[_numTilesets];
-
-    _tilesetTexture[i].loadFromFile(filename);
     while(layer){
         _numLayers++;
         layer= layer->NextSiblingElement("layer");
     }  
-            }
+    
     //Reserva de memoria para saber el numnero de capas y el tamaño 
     _tilemap=new int**[_numLayers];
     for(int i=0; i<_numLayers; i++){
@@ -159,27 +129,22 @@ void Cargar::leerMapa(){
     
     //falta el corte
   
-    for(int i=0; i<_numTilesets;i++){
-    
-    int columns = _tilesetTexture[i].getSize().x / _tileWidth;
-    int rows = _tilesetTexture[i].getSize().y / _tileHeigth;
+    int columns = _tilesetTexture.getSize().x / _tileWidth;
+    int rows = _tilesetTexture.getSize().y / _tileHeigth;
     
     cout<<columns<<" "<<rows<<endl; 
 
     _tilesetSprite =new sf::Sprite[columns*rows];     
-    //int t=0;
-    
-        for(int t=0; t<_numLayers; t++){
-
+    int t=0;
     for(int y=0; y<rows; y++){
         for(int x=0; x<columns;x++){
-              _tilesetSprite[t].setTexture(_tilesetTexture[i]);
+              _tilesetSprite[t].setTexture(_tilesetTexture);
               //_tilesetSprite[t].setTextureRect(sf::IntRect(left,top,width,height));//ojo si hay dos imagenes
               _tilesetSprite[t].setTextureRect(sf::IntRect(x*_tileWidth,y*_tileHeigth,_tileWidth,_tileHeigth));
               t++;
         }
     }
-        }
+    
     cout<<"nostas"<<endl;
     /**
     for(int y=0; y<t; y++)
@@ -206,7 +171,7 @@ void Cargar::leerMapa(){
                 }
                 else if(gid>0){   
 
-                    _tilemapSprite[l][y][x]=new sf::Sprite(_tilesetTexture[i],_tilesetSprite[gid].getTextureRect());
+                    _tilemapSprite[l][y][x]=new sf::Sprite(_tilesetTexture,_tilesetSprite[gid].getTextureRect());
                     _tilemapSprite[l][y][x]->setPosition(x*_tileWidth,y*_tileHeigth);
                 }
                 else{
@@ -214,8 +179,6 @@ void Cargar::leerMapa(){
                 }
             }
         }
-    }
-    
     }
       
     /////////////////////Resumen
@@ -229,11 +192,6 @@ void Cargar::leerMapa(){
     cout<<"Nombre del tileset= "<<filename[0]<<endl;
     cout<<"Nombre del tileset= "<<filename[1]<<endl;
     cout<<endl;
-            std::cout<< "joddddddddd"<<std::endl;
-    std::cout<< filename<<std::endl;
-
-    std::cout<< filename2<<std::endl;
-
      
      /**
     cout<<"Gid de las capas"<<endl;
@@ -275,4 +233,8 @@ void Cargar::dibuja(sf::RenderWindow& window){
         }
     }
 
+}
+
+sf::Sprite Cargar::getMapa(){
+    return ****_tilemapSprite;
 }

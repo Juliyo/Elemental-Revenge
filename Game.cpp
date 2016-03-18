@@ -103,8 +103,26 @@ void Game::run() //Metodo principal
 
 void Game::update(sf::Time elapsedTime) //Actualiza la fisica
 {
-
     
+    
+     for(int t=0; t<mapa->_numLayers; t++){
+        for(int y=0; y<mapa->_height; y++){
+            for(int x=0; x<mapa->_width; x++){
+                if(mapa->_tilemapSprite[t][y][x]!=NULL){
+                   
+                    if(player->GetSpriteAnimated().getGlobalBounds().intersects(mapa->fondo.getGlobalBounds())){
+        std::cout<<"CHOCA";
+    }
+                }
+            }
+        }
+    }
+     
+    /*
+    if(player->GetSpriteAnimated().getGlobalBounds().intersects(mapa->fondo.getGlobalBounds())){
+        std::cout<<"CHOCA";
+    }
+    */
     
     if (!firstTime) {
         sf::Vector2f movement(0.f, 0.f);
