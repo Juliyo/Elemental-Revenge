@@ -135,7 +135,7 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
         }
         //avanzado
         
-            if(!sf::Mouse::isButtonPressed(sf::Mouse::Button::Right)){
+            if(!sf::Mouse::isButtonPressed(sf::Mouse::Button::Right)&& player->hRayoAvanzado->tiempoCast.getElapsedTime().asSeconds()>1){
 player->hRayoAvanzado->draw=false;
     }
         
@@ -214,8 +214,8 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
             player -> hRayoAvanzado->draw=false;
         }
     }
-    player->hRayoAvanzado->PlayAnimation(*player->hRayoAvanzado->currentAnimation);
-    if (player->hRayoAvanzado->draw == true) {
+    player->hRayoBasico->PlayAnimation(*player->hRayoBasico->currentAnimation);
+    if (player->hRayoBasico->draw == true) {
         player->SetFrame(sf::seconds(0.125f));
         //switch
         switch(player->cuadrante){
@@ -232,8 +232,10 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
                 player->currentAnimation=&player->castingAnimationLeft;
                 break;
         }
+        
+        
         player -> hRayoBasico -> UpdateAnimation(elapsedTime);
-        if (player->hRayoBasico->tiempoCast.getElapsedTime().asSeconds() < 0.5f) {
+        if (player->hRayoBasico->tiempoCast.getElapsedTime().asSeconds() < 3.0f) {
             player->hRayoBasico->DrawWithInterpolation(mWindow, interpolation,player->getPhysics());
         } else {
             player->hRayoBasico->draw=false;

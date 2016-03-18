@@ -19,6 +19,7 @@
 hRayBasic::hRayBasic() {
     draw = false;
     animation = new Animation();
+    animationDurante = new Animation();
     
     if(!hTexture.loadFromFile("resources/Textures/rayo.png")){
        
@@ -27,16 +28,17 @@ hRayBasic::hRayBasic() {
    }
   // hSprite.setTexture(hTexture);
     //SetPosition()
-     animation->setSpriteSheet(hTexture);
-     animation->addFrame(sf::IntRect(0,0,64,233));
-     animation->addFrame(sf::IntRect(64,0,64,233));
-     animation->addFrame(sf::IntRect(128,0,64,233));
-     animation->addFrame(sf::IntRect(192,0,64,233));
-     animation->addFrame(sf::IntRect(256,0,64,233));
-     animation->addFrame(sf::IntRect(320,0,64,233));
-     animation->addFrame(sf::IntRect(384,0,64,233));
-     animation->addFrame(sf::IntRect(448,0,64,233));
-
+     animationDurante->setSpriteSheet(hTexture);
+     animationDurante->addFrame(sf::IntRect(0,0,64,233));
+     animationDurante->addFrame(sf::IntRect(64,0,64,233));
+     animationDurante->addFrame(sf::IntRect(128,0,64,233));
+     animationDurante->addFrame(sf::IntRect(192,0,64,233));
+     animationDurante->addFrame(sf::IntRect(256,0,64,233));
+     animationDurante->addFrame(sf::IntRect(320,0,64,233));
+     animationDurante->addFrame(sf::IntRect(384,0,64,233));
+     animationDurante->addFrame(sf::IntRect(448,0,64,233));
+     
+    currentAnimation = &animationDurante;
     InicializarAnimatedSprite(sf::seconds(0.5f/8),true,false);
     SetOriginAnimatedSprite(41,233);
     

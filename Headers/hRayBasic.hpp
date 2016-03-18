@@ -31,9 +31,11 @@ public:
     sf::Clock tiempoCd;
     float angleshot2=0.0f;
     Animation *animation;
+    Animation **currentAnimation;
+    Animation *animationDurante;
     //void cast(sf::Vector2f vector, sf::RenderWindow *w);
 private:
-
+    
 };
 
 #endif /* HRAYBASIC_HPP */
