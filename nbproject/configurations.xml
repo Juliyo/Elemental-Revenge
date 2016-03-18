@@ -23,6 +23,8 @@
                    projectFiles="true">
       <itemPath>AnimatedSprite.cpp</itemPath>
       <itemPath>Animation.cpp</itemPath>
+      <itemPath>Flash.cpp</itemPath>
+      <itemPath>Headers/Flash.hpp</itemPath>
       <itemPath>Game.cpp</itemPath>
       <itemPath>Hechizo.cpp</itemPath>
       <itemPath>Hud.cpp</itemPath>
@@ -80,11 +82,15 @@
       </item>
       <item path="Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="Flash.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="Game.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Headers/AnimatedSprite.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Animation.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/Flash.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Game.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -143,11 +149,15 @@
       </item>
       <item path="Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="Flash.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="Game.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Headers/AnimatedSprite.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Animation.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/Flash.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Game.hpp" ex="false" tool="3" flavor2="0">
       </item>

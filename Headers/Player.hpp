@@ -24,6 +24,7 @@ public:
 	void Draw(sf::RenderWindow& window);
 	void DrawWithInterpolation(sf::RenderWindow& window, float interpolation);
         float getVelocidad();
+        void Colocar(sf::Vector2f NuevaPosicion);
         sf::Vector2f getPosition();
         Animation** getAnimation(){ return currentAnimation; };
         
@@ -33,6 +34,7 @@ public:
         Animation               *walkingAnimationRight;
         Animation               *walkingAnimationUp;
 	Hud                     *hud;
+        Flash                   *flash;
 private:
         sf::Texture             texturaPlayer;
         float                   velocity=200.f;
