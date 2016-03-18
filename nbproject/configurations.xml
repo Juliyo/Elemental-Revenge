@@ -5,6 +5,7 @@
       <itemPath>Headers/AnimatedSprite.hpp</itemPath>
       <itemPath>Headers/Animation.hpp</itemPath>
       <itemPath>Headers/Game.hpp</itemPath>
+      <itemPath>Headers/Hechizo.hpp</itemPath>
       <itemPath>Headers/Hud.hpp</itemPath>
       <itemPath>Headers/PhysicsState.hpp</itemPath>
       <itemPath>Headers/Player.hpp</itemPath>
@@ -24,7 +25,6 @@
       <itemPath>Animation.cpp</itemPath>
       <itemPath>Game.cpp</itemPath>
       <itemPath>Hechizo.cpp</itemPath>
-      <itemPath>Headers/Hechizo.hpp</itemPath>
       <itemPath>Hud.cpp</itemPath>
       <itemPath>PhysicsState.cpp</itemPath>
       <itemPath>Player.cpp</itemPath>
