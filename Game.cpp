@@ -96,6 +96,7 @@ void Game::run() //Metodo principal
 
         interpolation = (float) std::min(1.f, timeSinceLastUpdate.asSeconds() / timePerFrame.asSeconds());
         render(interpolation, elapsedTime);
+
     }
 }
 
@@ -105,19 +106,8 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
 {
     
     
-     for(int t=0; t<mapa->_numLayers; t++){
-        for(int y=0; y<mapa->_height; y++){
-            for(int x=0; x<mapa->_width; x++){
-                if(mapa->_tilemapSprite[t][y][x]!=NULL){
-                   
-                    if(player->GetSpriteAnimated().getGlobalBounds().intersects(mapa->fondo.getGlobalBounds())){
-        std::cout<<"CHOCA";
-    }
-                }
-            }
-        }
-    }
      
+    
     /*
     if(player->GetSpriteAnimated().getGlobalBounds().intersects(mapa->fondo.getGlobalBounds())){
         std::cout<<"CHOCA";
@@ -147,6 +137,8 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
     }
 
     firstTime = false;
+    
+    
 }
 
 void Game::updateView() {
@@ -176,8 +168,8 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
 {
     mWindow.clear();
  
-    
-    
+        
+
     
     //Pillamos la view anterior, activamos la del fondo, dibujamos el fondo y volvemos al estado anterior
     sf::View previa = mWindow.getView();
@@ -190,7 +182,8 @@ mapa->dibuja(mWindow);
     //mWindow.draw(spriteFondo);
 
     UpdatePlayerAnimation();
-
+     
+    
     player -> PlayAnimation(**player -> currentAnimation);
 
 
@@ -199,9 +192,24 @@ mapa->dibuja(mWindow);
     }
     player -> UpdateAnimation(elapsedTime);
 
+for(int t=0; t<mapa->_numLayers; t++){
+        for(int y=0; y<mapa->_height; y++){
 
+            for(int x=0; x<mapa->_width; x++){
+
+                if(mapa->_tilemapSprite[t][y][x]!=NULL){
+                   
+                    mapa->_tilemapSprite[t][y][x]->getGlobalBounds();
+                    player->GetSpriteAnimated().getGlobalBounds();
+                    
+                    if(player->GetSpriteAnimated().getGlobalBounds().intersects(mapa->_tilemapSprite[t][y][x]->getGlobalBounds())){
+                        std::cout<<"ZIZU";
+                    }
+                }
+            }
+        }
+    }
     player -> DrawWithInterpolation(mWindow, interpolation);
-    
     previa = mWindow.getView();
 
     mWindow.setView(getLetterboxView(mHud, ancho, alto, 640, 480));
@@ -212,6 +220,8 @@ mapa->dibuja(mWindow);
     
     mWindow.draw(mouseSprite);
     // mWindow.draw(mStatisticsText);
+
+    
     mWindow.display();
 }
 

@@ -33,6 +33,7 @@ public:
         Animation               *walkingAnimationRight;
         Animation               *walkingAnimationUp;
 	Hud                     *hud;
+
 private:
         sf::Texture             texturaPlayer;
         float                   velocity=200.f;

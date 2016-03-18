@@ -12,7 +12,7 @@ class Game : private sf::NonCopyable
 public:
     Game();
     void			run();
-    
+
     
 private:
     void			processEvents();  // Captura y procesa eventos
@@ -22,7 +22,6 @@ private:
     void                        updateView();
     void                        UpdatePlayerAnimation();
     sf::View                    getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight);
-    
 private:
     static const sf::Time	timePerFrame;
 	
@@ -56,6 +55,7 @@ private:
     bool                        noKeyWasPressed = true;
     bool			firstTime;
     bool			isInterpolating;
+    
 };
 
 
