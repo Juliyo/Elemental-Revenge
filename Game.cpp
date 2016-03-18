@@ -13,7 +13,7 @@ const float segStatistics = 0.5f; //segundos de refresco de las estadisticas
 
 /************ CONSTRUCTOR **************/
 Game::Game()
-: mWindow(sf::VideoMode(ancho, alto), "Hito 1 - Interpolacion y camara - LETTERBOX", sf::Style::Default)
+: mWindow(sf::VideoMode(ancho, alto), "Hito 1 - Interpolacion y camara - Rama: Flash-Entregable", sf::Style::Default)
 , mWorldView(mWindow.getDefaultView())
 , contFonts()
 , texturaFondo()
@@ -115,7 +115,10 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
             movement.x += player -> getVelocidad();
             // noKeyWasPressed = false;
         }
-
+        if(player->isFlashing){
+            sf::Vector2f prueba=player->flash->cast(sf::Vector2f(player->getPosition()), &mWindow);
+            player->Colocar(prueba);
+        }
         player -> Update(movement, elapsedTime);
 
     }
@@ -289,7 +292,8 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         isMovingRight = isPressed;
     } else if (key == sf::Keyboard::X && isPressed) {
         isInterpolating = !isInterpolating;
-    } 
+    } else if (key == sf::Keyboard::E)
+        player->isFlashing=isPressed;
 }
 
 sf::View Game::getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight) {

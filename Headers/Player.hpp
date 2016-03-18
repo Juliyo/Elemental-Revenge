@@ -12,6 +12,7 @@
 #include "Render.hpp"
 #include "Animation.hpp"
 #include "Hud.hpp"
+#include "Flash.hpp"
 
 class Player : public Render, PhysicsState{
 public:
@@ -35,6 +36,7 @@ public:
         Animation               *walkingAnimationUp;
 	Hud                     *hud;
         Flash                   *flash;
+        bool                    isFlashing=false;
 private:
         sf::Texture             texturaPlayer;
         float                   velocity=200.f;

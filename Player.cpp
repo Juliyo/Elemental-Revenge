@@ -23,13 +23,15 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationLeft = new Animation();
     walkingAnimationRight = new Animation();
     walkingAnimationUp = new Animation();
+    flash = new Flash();
     hud = new Hud();
-            
-    if(!texturaPlayer.loadFromFile("resources/Textures/player.png")){
-       std::cout<<"Error cargando la textura: "<<"resources/Textures/player.png"<<std::endl;
-       exit(0);
+
+    if (!texturaPlayer.loadFromFile("resources/Textures/player.png")) {
+        std::cout << "Error cargando la textura: " << "resources/Textures/player.png" << std::endl;
+        exit(0);
     }
     texturaPlayer.setSmooth(true);
+    
     
     walkingAnimationDown->setSpriteSheet(texturaPlayer);
     walkingAnimationDown->addFrame(sf::IntRect(512, 640, 64, 64));
@@ -42,8 +44,8 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationDown->addFrame(sf::IntRect(384, 640, 64, 64));
     walkingAnimationDown->addFrame(sf::IntRect(448, 640, 64, 64));
     walkingAnimationDown->addFrame(sf::IntRect(512, 640, 64, 64));
-   
-    
+
+
     walkingAnimationLeft->setSpriteSheet(texturaPlayer);
     walkingAnimationLeft->addFrame(sf::IntRect(512, 576, 64, 64));
     walkingAnimationLeft->addFrame(sf::IntRect(0, 576, 64, 64));
@@ -55,7 +57,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationLeft->addFrame(sf::IntRect(384, 576, 64, 64));
     walkingAnimationLeft->addFrame(sf::IntRect(448, 576, 64, 64));
     walkingAnimationLeft->addFrame(sf::IntRect(512, 576, 64, 64));
-    
+
     walkingAnimationRight->setSpriteSheet(texturaPlayer);
     walkingAnimationRight->addFrame(sf::IntRect(512, 704, 64, 64));
     walkingAnimationRight->addFrame(sf::IntRect(0, 704, 64, 64));
@@ -66,8 +68,8 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationRight->addFrame(sf::IntRect(320, 704, 64, 64));
     walkingAnimationRight->addFrame(sf::IntRect(384, 704, 64, 64));
     walkingAnimationRight->addFrame(sf::IntRect(448, 704, 64, 64));
-    
-    
+
+
     walkingAnimationUp->setSpriteSheet(texturaPlayer);
     walkingAnimationUp->addFrame(sf::IntRect(512, 512, 64, 64));
     walkingAnimationUp->addFrame(sf::IntRect(0, 512, 64, 64));
@@ -79,13 +81,13 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationUp->addFrame(sf::IntRect(384, 512, 64, 64));
     walkingAnimationUp->addFrame(sf::IntRect(448, 512, 64, 64));
     walkingAnimationUp->addFrame(sf::IntRect(512, 512, 64, 64));
-    
+
     currentAnimation = &walkingAnimationDown;
     InicializarAnimatedSprite(sf::seconds(0.075f), true, false);
     SetPosition(posX, posY);
     SetSpeed(speedX, speedY);
     SetMaxSpeed(maxSpeedX, maxSpeedY);
-    
+    SetOriginAnimatedSprite(16,16);
 }
 
 void Player::Update(sf::Vector2f velocity, sf::Time elapsedTime) {
@@ -107,6 +109,11 @@ void Player::DrawWithInterpolation(sf::RenderWindow& window, float interpolation
 float Player::getVelocidad() {
     return velocity;
 }
+
 sf::Vector2f Player::getPosition() {
     return GetSpriteAnimated().getPosition();
+}
+
+void Player::Colocar(sf::Vector2f NuevaPosicion) {
+    SetPosition(NuevaPosicion);
 }

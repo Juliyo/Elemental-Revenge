@@ -24,7 +24,6 @@ private:
     
 private:
     static const sf::Time	timePerFrame;
-	
     
     //Recursos
     sf::Texture                 texturaFondo;

@@ -31,9 +31,6 @@ sf::Vector2f Flash::cast(sf::Vector2f posicion, sf::RenderWindow *mWindow) {
 
         clockCd.restart();
         sf::Vector2f vectorFinal;
-
-
-
         sf::Vector2f mousePosition = mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow));
         // sf::Vector2f playerposition = player->getPosition();
 
@@ -41,58 +38,36 @@ sf::Vector2f Flash::cast(sf::Vector2f posicion, sf::RenderWindow *mWindow) {
         angleshot2 = angleShot;
 
         if (mousePosition.x > posicion.x) {
-
             if (abs(mousePosition.x) - abs(posicion.x) < 100 && abs(mousePosition.x) - abs(posicion.x) > 0) {
                 vectorFinal.x = mousePosition.x;
-
             }
             else {
-
-
                 vectorFinal.x = 100 * (cos(angleshot2) * 1.0f) + posicion.x;
             }
-
         } else {
-
             if (abs(mousePosition.x) - abs(posicion.x) > 100 && abs(mousePosition.y) - abs(posicion.y) > 100) {
                 vectorFinal.x = mousePosition.x;
-
             }
             else {
-
                 vectorFinal.x = 100 * (cos(angleshot2) * 1.0f) + posicion.x;
             }
-
         }
-
         if (mousePosition.y > posicion.y) {
-
             if (abs(mousePosition.y) - abs(posicion.y) < 100) {
                 vectorFinal.y = mousePosition.y;
-
             }
             else {
-
                 vectorFinal.y = 100 * (sin(angleshot2) * 1.0f) + posicion.y;
             }
-
-
         }
         else {
-
             if (abs(posicion.y) - abs(mousePosition.y) < 100) {
                 vectorFinal.y = mousePosition.y;
-
             }
             else {
-
                 vectorFinal.y = 100 * (sin(angleshot2) * 1.0f) + posicion.y;
             }
-
         }
-
-        printf("SI");
-
         return vectorFinal;
 
     }
