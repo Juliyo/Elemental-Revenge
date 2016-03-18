@@ -67,3 +67,7 @@ void PhysicsState::SetAcceleration(float acc_x, float acc_y)
 	acceleration_ = sf::Vector2f(acc_x, acc_y);
 }
  * */
+void PhysicsState::SetAngle(float angleP, float angleN){
+    anglePrev = angleP;
+    angleNew = angleN;
+}

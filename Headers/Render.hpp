@@ -26,10 +26,14 @@ public:
         void SetFrame(sf::Time time);
         void InicializarAnimatedSprite(sf::Time seconds,bool a,bool b){ animatedSprite=AnimatedSprite(seconds,a,b); };
 	void Draw(sf::RenderWindow &window, const sf::Vector2f &posPrev, const sf::Vector2f &posNew, float interpolation);
-        void DrawAnimation(sf::RenderWindow &window, const sf::Vector2f &posPrev, const sf::Vector2f &posNew, float interpolation);
+        void DrawAnimation(sf::RenderWindow &window, const sf::Vector2f &posPrev, const sf::Vector2f &posNew, float interpolation); 
+        void Draw(sf::RenderWindow &window, const sf::Vector2f &posPrev, const sf::Vector2f &posNew, float *anglePrev, float *angleNew, float interpolation);
+        void DrawAnimation(sf::RenderWindow &window, const sf::Vector2f &posPrev, const sf::Vector2f &posNew, float interpolation, float *anglePrev, float *angleNew);
+        void DrawAnimationWithOut(sf::RenderWindow &window, const sf::Vector2f &pos);
+        
         void SetOrigin(float x,float y){sprite.setOrigin(x,y);};
         void SetOriginAnimatedSprite(float x,float y){ animatedSprite.setOrigin(x,y); };
-        void SetAngle(float angle){ animatedSprite.setRotation(angle); };
+        void SetRotation(float angle){ animatedSprite.setRotation(angle); };
         void SetScale(float x, float y){ animatedSprite.setScale(x,y); };
 	sf::Sprite &GetSprite() { return sprite; }
         AnimatedSprite &GetSpriteAnimated() { return animatedSprite; }
@@ -40,6 +44,8 @@ private:
         AnimatedSprite		animatedSprite;
 	sf::Sprite		sprite;
 	sf::Vector2f            renderPos;
+        float                   renderAngle;
+	
 };
 
 #endif	/* RENDER_H */

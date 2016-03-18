@@ -15,23 +15,21 @@
 #define HECHIZO_HPP
 
 #include <SFML/Graphics.hpp>
-#include "PhysicsState.hpp"
-#include "Render.hpp"
-#include "Animation.hpp"
-#include "AnimatedSprite.hpp"
 
-class Hechizo:public Render,public PhysicsState {
+#include "Render.hpp"
+#include "PhysicsState.hpp"
+#include "Animation.hpp"
+class Hechizo : public Render, public PhysicsState {
 public:
     Hechizo();
     Hechizo(const Hechizo& orig);
     virtual ~Hechizo();
     sf::Sprite hSprite;
     sf::Texture hTexture;
-    sf::Clock tiempoCast;
-    sf::Clock clockCd;
     float angleshot2=0.0f;
-    bool primerCast;
     
+    //void Draw(sf::RenderWindow& window);
+    void DrawWithInterpolation(sf::RenderWindow& window, float interpolation, PhysicsState *physicsState);
     
     float getDamage();
     void setDamage(float dmg);
@@ -39,15 +37,23 @@ public:
     void setCD(float cd);
     void setLevel(int lvl);
     int getLevel();
+    PhysicsState* getPhysics();
+    bool draw;
     bool dibujar;
+    bool primerCast=true;
+    Animation animation;
     
     
-private:
+protected:
     float hCd;
     float hDamage;
     int hLVL;
-    void cast();
+    PhysicsState physicsState;
+    //Render renderState;
+private:
+      
+    //PhysicsState physicsState;
 };
 
+    
 #endif /* HECHIZO_HPP */
-

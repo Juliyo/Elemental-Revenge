@@ -55,12 +55,14 @@ private:
     bool			isMovingDown;
     bool			isMovingRight;
     bool			isMovingLeft;
-    bool                        aguaAdvancedCast = false;
-    bool                        aguaBasicCast = false;
+    bool                        rayoAdvancedCast = false;
+    bool                        rayoBasicCast = false;
     
     bool                        noKeyWasPressed = true;
     bool			firstTime;
     bool			isInterpolating;
+    bool                        isShooting;
+    bool                        aux;
 };
 
 

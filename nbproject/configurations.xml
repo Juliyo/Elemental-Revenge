@@ -13,8 +13,8 @@
       <itemPath>Headers/StringHelpers.hpp</itemPath>
       <itemPath>Headers/StringHelpers.inl</itemPath>
       <itemPath>Headers/Util.hpp</itemPath>
-      <itemPath>Headers/hWaterAdvanced.hpp</itemPath>
-      <itemPath>Headers/hWaterBasic.hpp</itemPath>
+      <itemPath>Headers/hRayAdvanced.hpp</itemPath>
+      <itemPath>Headers/hRayBasic.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -33,8 +33,8 @@
       <itemPath>Player.cpp</itemPath>
       <itemPath>Render.cpp</itemPath>
       <itemPath>Util.cpp</itemPath>
-      <itemPath>hWaterAdvanced.cpp</itemPath>
-      <itemPath>hWaterBasic.cpp</itemPath>
+      <itemPath>hRayAdvanced.cpp</itemPath>
+      <itemPath>hRayBasic.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -114,9 +114,9 @@
       </item>
       <item path="Headers/Util.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="Headers/hWaterAdvanced.hpp" ex="false" tool="3" flavor2="0">
+      <item path="Headers/hRayAdvanced.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="Headers/hWaterBasic.hpp" ex="false" tool="3" flavor2="0">
+      <item path="Headers/hRayBasic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Hechizo.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -130,9 +130,9 @@
       </item>
       <item path="Util.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="hWaterAdvanced.cpp" ex="false" tool="1" flavor2="0">
+      <item path="hRayAdvanced.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="hWaterBasic.cpp" ex="false" tool="1" flavor2="0">
+      <item path="hRayBasic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -189,9 +189,9 @@
       </item>
       <item path="Headers/Util.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="Headers/hWaterAdvanced.hpp" ex="false" tool="3" flavor2="0">
+      <item path="Headers/hRayAdvanced.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="Headers/hWaterBasic.hpp" ex="false" tool="3" flavor2="0">
+      <item path="Headers/hRayBasic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Hechizo.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -205,9 +205,9 @@
       </item>
       <item path="Util.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="hWaterAdvanced.cpp" ex="false" tool="1" flavor2="0">
+      <item path="hRayAdvanced.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="hWaterBasic.cpp" ex="false" tool="1" flavor2="0">
+      <item path="hRayBasic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
