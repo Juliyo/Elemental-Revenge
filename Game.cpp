@@ -13,7 +13,7 @@ const float segStatistics = 0.5f; //segundos de refresco de las estadisticas
 
 /************ CONSTRUCTOR **************/
 Game::Game()
-: mWindow(sf::VideoMode(ancho, alto), "Hito 1 - Interpolacion y camara - LETTERBOX", sf::Style::Default)
+: mWindow(sf::VideoMode(ancho, alto), "Hito 1 - Rama - Fuego Entregable", sf::Style::Default)
 , mWorldView(mWindow.getDefaultView())
 , contFonts()
 , texturaFondo()
@@ -27,7 +27,7 @@ Game::Game()
 , isInterpolating(false) {
     mWindow.setFramerateLimit(60); //Establecemos maximo real de procesamiento (aunque trabajamos con 60)
     mWindow.setVerticalSyncEnabled(true);
-
+    mWindow.setMouseCursorVisible(false);
     mWorldView.zoom(0.5f);
     try {
         texturaFondo.loadFromFile("resources/Textures/grasstext.png");
@@ -64,8 +64,6 @@ Game::Game()
     //Configuramos Items
     player = new Player();
     player -> Inicializar(200.f, 250.f);
-
-
 }
 
 /**************  METODOS PRINCIPALES **************/
