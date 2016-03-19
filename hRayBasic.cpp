@@ -34,7 +34,7 @@ hRayBasic::hRayBasic() {
      
      
      
-     //PrimeraAnimacion->addFrame(sf::IntRect(0,445,89,445));
+     animationDurante->addFrame(sf::IntRect(0,445,89,445));
      PrimeraAnimacion->addFrame(sf::IntRect(0,0,89,445));
      PrimeraAnimacion->addFrame(sf::IntRect(0,445,89,445));
      PrimeraAnimacion->addFrame(sf::IntRect(0,890,89,445));
