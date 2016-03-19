@@ -13,7 +13,7 @@ const float segStatistics = 0.5f; //segundos de refresco de las estadisticas
 
 /************ CONSTRUCTOR **************/
 Game::Game()
-: mWindow(sf::VideoMode(ancho, alto), "Hito 1 - Interpolacion y camara - LETTERBOX", sf::Style::Default)
+: mWindow(sf::VideoMode(ancho, alto), "Hito 1 - Rama - Rayo Entregable", sf::Style::Default)
 , mWorldView(mWindow.getDefaultView())
 , contFonts()
 , texturaFondo()
