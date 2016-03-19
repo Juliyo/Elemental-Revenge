@@ -120,7 +120,9 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
         player -> Update(movement, elapsedTime);
         if (player->isFlashing) {
             sf::Vector2f prueba = player->flash->cast(sf::Vector2f(player->getPosition()), &mWindow);
-            player->Colocar(prueba);
+            if(prueba.x != player->getPosition().x && prueba.y != player->getPosition().y){
+                player->Colocar(prueba);
+            }
         }
     }
 
@@ -197,7 +199,6 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
 
 
     mWindow.draw(mouseSprite);
-    // mWindow.draw(mStatisticsText);
     mWindow.display();
 }
 
@@ -235,28 +236,9 @@ void Game::processEvents() //Captura y procesa eventos
 
     }
 
-    /*Capturamos eventos del teclado directamente*//*
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-        player -> currentAnimation = &player -> walkingAnimationUp;
-        noKeyWasPressed = false;
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-        player -> currentAnimation = &player -> walkingAnimationDown;
-        noKeyWasPressed = false;
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-        player -> currentAnimation = &player -> walkingAnimationLeft;
-        noKeyWasPressed = false;
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-        player -> currentAnimation = &player -> walkingAnimationRight;
-        noKeyWasPressed = false;
-    }*/
-
 }
 
 void Game::UpdatePlayerAnimation() {
-    //sf::Vector2f distancia(mouseSprite.getPosition().y - player -> GetRenderPosition().y, mouseSprite.getPosition().x - player -> GetRenderPosition().x);
     int cuadrante = 1;
     // 1 -> Arriba
     // 2 -> Abajo
@@ -284,19 +266,7 @@ void Game::UpdatePlayerAnimation() {
 // Realiza las operaciones correspondientes a cada Evento
 
 void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
-    /*if(key == sf::Keyboard::W && isPressed) {
-        player -> currentAnimation = &player -> walkingAnimationUp;
-        isMovingUp = isPressed;
-    } else if(key == sf::Keyboard::S && isPressed) {
-        player -> currentAnimation = &player -> walkingAnimationDown;
-        isMovingDown = isPressed;
-    } else if(key == sf::Keyboard::A && isPressed) {
-        player -> currentAnimation = &player -> walkingAnimationLeft;
-        isMovingLeft = isPressed;
-    } else if(key == sf::Keyboard::D && isPressed) {
-        player -> currentAnimation = &player -> walkingAnimationRight;
-        isMovingRight = isPressed;
-    } else */if (key == sf::Keyboard::W) { //Esto lo hago para que cuando no estes presionando cambia a false
+    if (key == sf::Keyboard::W) { //Esto lo hago para que cuando no estes presionando cambia a false
         isMovingUp = isPressed;
     } else if (key == sf::Keyboard::S) {
         isMovingDown = isPressed;
