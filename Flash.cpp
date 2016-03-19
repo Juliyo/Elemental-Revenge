@@ -14,35 +14,35 @@
 #include "../Headers/Flash.hpp"
 
 Flash::Flash() {
-    if (!hTexture.loadFromFile("resources/Textures/FlashSpriteSheet.png")) {
-        std::cout << "No se ha podido cargar FlashSpriteSheet.png" << std::endl;
+    if (!hTexture.loadFromFile("resources/Textures/flash1.png")) {
+        std::cout << "No se ha podido cargar flash1.png" << std::endl;
         exit(0);
     }
     dibujar=false;
     flashingAnimation = new Animation();
     flashingAnimation->setSpriteSheet(hTexture);
     
-    flashingAnimation->addFrame(sf::IntRect(0, 0, 185, 163));
-    flashingAnimation->addFrame(sf::IntRect(185, 0, 185, 163));
-    flashingAnimation->addFrame(sf::IntRect(185*2, 0, 185, 163));
-    flashingAnimation->addFrame(sf::IntRect(185*3, 0, 185, 163));
-    flashingAnimation->addFrame(sf::IntRect(185*4, 0, 185, 163));
+    flashingAnimation->addFrame(sf::IntRect(0, 0, 375, 211));
+    flashingAnimation->addFrame(sf::IntRect(375, 0, 375, 211));
+    flashingAnimation->addFrame(sf::IntRect(375*2, 0, 375, 211));
+    flashingAnimation->addFrame(sf::IntRect(375*3, 0, 375, 211));
+    flashingAnimation->addFrame(sf::IntRect(375*4, 0, 375, 211));
     
-    flashingAnimation->addFrame(sf::IntRect(0, 163, 185, 163));
-    flashingAnimation->addFrame(sf::IntRect(185, 163, 185, 163));
-    flashingAnimation->addFrame(sf::IntRect(185*2, 163, 185, 163));
-    flashingAnimation->addFrame(sf::IntRect(185*3, 163, 185, 163));
-    flashingAnimation->addFrame(sf::IntRect(185*4, 163, 185, 163));
+    flashingAnimation->addFrame(sf::IntRect(0, 211, 375, 211));
+    flashingAnimation->addFrame(sf::IntRect(375, 211, 375, 211));
+    flashingAnimation->addFrame(sf::IntRect(375*2, 211, 375, 211));
+    flashingAnimation->addFrame(sf::IntRect(375*3, 211, 375, 211));
+    flashingAnimation->addFrame(sf::IntRect(375*4, 211, 375, 211));
     
-    flashingAnimation->addFrame(sf::IntRect(0, 326, 185, 163));
-    flashingAnimation->addFrame(sf::IntRect(185, 326, 185, 163));
-    flashingAnimation->addFrame(sf::IntRect(185*2, 326, 185, 163));
-    flashingAnimation->addFrame(sf::IntRect(185*3, 326, 185, 163));
-    flashingAnimation->addFrame(sf::IntRect(185*4, 326, 185, 163));
+    flashingAnimation->addFrame(sf::IntRect(0, 211*2, 375, 211));
+    flashingAnimation->addFrame(sf::IntRect(375, 211*2, 375, 211));
+    flashingAnimation->addFrame(sf::IntRect(375*2, 211*2, 375, 211));
+    flashingAnimation->addFrame(sf::IntRect(375*3, 211*2, 375, 211));
+    flashingAnimation->addFrame(sf::IntRect(375*4, 211*2, 375, 211));
     
     InicializarAnimatedSprite(sf::seconds(0.05f),true,false);
-    SetOriginAnimatedSprite(99,82);
-    SetScale(0.7f,0.7f);
+    SetOriginAnimatedSprite(375/2,211/2);
+    SetScale(0.3f,0.3f);
 }
 
 Flash::Flash(const Flash& orig) {
