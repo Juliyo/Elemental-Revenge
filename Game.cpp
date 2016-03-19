@@ -97,7 +97,6 @@ void Game::run() //Metodo principal
 
 void Game::update(sf::Time elapsedTime) //Actualiza la fisica
 {
-    printf("entro en update");
     if (!firstTime) {
         sf::Vector2f movement(0.f, 0.f);
         if (isMovingUp) {
@@ -116,38 +115,43 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
             // noKeyWasPressed = false;
         }
         player -> Update(movement, elapsedTime);
-        
-        }
-        firstTime = false;
-        
-        sf::Vector2f movement2(0.f, 0.f);
-        if (fuegoBasicCast) {
-            if (player->contFuego == 49) {
-                player->contFuego = 0;
-            }
-            if (player->clockCDFire.getElapsedTime().asSeconds() > 0.35 || player->primercastFuego == true) {
-                player->primercastFuego = false;
-                player->clockCDFire.restart();
-                player->hFuegoBasico[player->contFuego].cast(sf::Vector2f(player->getPosition()), &mWindow);
-            }
-            player->contFuego++;
-        }
-        
-        for (int aux = 0; aux <= 49; aux++) {
-            movement2.x = (40 * cos(player->hFuegoBasico[aux].angleshot2) * 10.0f);
-            movement2.y = (40 * sin(player->hFuegoBasico[aux].angleshot2) * 10.0f);
-            player->hFuegoBasico[aux].Update2(movement2, elapsedTime);
 
+    }
+    firstTime = false;
+
+    sf::Vector2f movement2(0.f, 0.f);
+    if (fuegoBasicCast) {
+        if (player->contFuego == 49) {
+            player->contFuego = 0;
         }
-        
-    
+        if (player->clockCDFire.getElapsedTime().asSeconds() > player->CDFire || player->primercastFuego == true) {
+            player->primercastFuego = false;
+            player->clockCDFire.restart();
+            player->hFuegoBasico[player->contFuego].cast(sf::Vector2f(player->getPosition()), &mWindow);
+            player->castFire.restart();
+        }
+        player->contFuego++;
+    }
+
+    for (int aux = 0; aux <= 49; aux++) {
+        movement2.x = (40 * cos(player->hFuegoBasico[aux].angleshot2) * 10.0f);
+        movement2.y = (40 * sin(player->hFuegoBasico[aux].angleshot2) * 10.0f);
+        player->hFuegoBasico[aux].Update2(movement2, elapsedTime);
+
+    }
+
+
     if (fuegoAdvancedCast) {
-        if (player->hFuegoAvanzado->clockCd.getElapsedTime().asSeconds() > 4 || player->hFuegoAvanzado->primerCast == true) {
+        if (player->hFuegoAvanzado->clockCd.getElapsedTime().asSeconds() > player->hFuegoAvanzado->getCD() || player->hFuegoAvanzado->primerCast == true) {
             player->hFuegoAvanzado->primerCast = false;
             player->hFuegoAvanzado->tiempoCast.restart();
             player->hFuegoAvanzado->clockCd.restart();
             player->hFuegoAvanzado->lanzado = true;
+            player->castFire2.restart();
 
+            player->hFuegoAvanzado->actualSize.x = 0.3;
+            player->hFuegoAvanzado->actualSize.y = 0.3;
+            player->hFuegoAvanzado->SetScale(0.3,0.3);
             player->hFuegoAvanzado->cast(sf::Vector2f(player->getPosition()), &mWindow);
         }
     }
@@ -196,8 +200,12 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
     UpdatePlayerAnimation();
 
 
-    if (player->hFuegoAvanzado->tiempoCast.getElapsedTime().asSeconds() < 2 && player->hFuegoAvanzado->lanzado == true) {
-        player->hFuegoAvanzado->DrawWithInterpolation(mWindow, interpolation, player->GetPreviousPosition(),player->GetPosition());
+    if (player->hFuegoAvanzado->tiempoCast.getElapsedTime().asSeconds() < player->hFuegoAvanzado->getCast() && player->hFuegoAvanzado->lanzado == true) {
+        if (player->hFuegoAvanzado->tiempoCast.getElapsedTime().asSeconds() > 0.4) {
+            player->hFuegoAvanzado->SetScale(player->hFuegoAvanzado->actualSize.x, player->hFuegoAvanzado->actualSize.y);
+
+        }
+        player->hFuegoAvanzado->DrawWithInterpolation(mWindow, interpolation, player->GetPreviousPosition(), player->GetPosition());
     }
     for (int aux = 0; aux <= 49; aux++) {
         player->hFuegoBasico[aux].PlayAnimation(player->hFuegoBasico[aux].animationInicio);
@@ -206,14 +214,55 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
 
     }
 
+    if (player->castFire.getElapsedTime().asSeconds() < 0.45f) {
+        player->SetFrameTime(sf::seconds(0.075f));
+        //switch
+        switch (cuadrante) {
+            case 1:
+                player->currentAnimation = &player->fuegoAnimationUp;
+                break;
+            case 2:
+                player->currentAnimation = &player->fuegoAnimationDown;
+                break;
+            case 3:
+                player->currentAnimation = &player->fuegoAnimationRight;
+                break;
+            case 4:
+                player->currentAnimation = &player->fuegoAnimationLeft;
+                break;
+        }
+    } else {
+        player->SetFrameTime(sf::seconds(0.075f));
+    }
 
-
-
+    if (player->castFire2.getElapsedTime().asSeconds() < 0.4f) {
+        player->SetFrameTime(sf::seconds(0.05f));
+        player->hFuegoAvanzado->SetScale(player->hFuegoAvanzado->actualSize.x * 1.1, player->hFuegoAvanzado->actualSize.y * 1.1);
+        player->hFuegoAvanzado->actualSize.x *= 1.05;
+        player->hFuegoAvanzado->actualSize.y *= 1.05;
+        //switch
+        switch (cuadrante) {
+            case 1:
+                player->currentAnimation = &player->fuego2AnimationUp;
+                break;
+            case 2:
+                player->currentAnimation = &player->fuego2AnimationDown;
+                break;
+            case 3:
+                player->currentAnimation = &player->fuego2AnimationRight;
+                break;
+            case 4:
+                player->currentAnimation = &player->fuego2AnimationLeft;
+                break;
+        }
+    } else {
+        player->SetFrameTime(sf::seconds(0.075f));
+    }
 
     player -> PlayAnimation(*player -> currentAnimation);
 
 
-    if (!isMovingDown && !isMovingLeft && !isMovingRight && !isMovingUp && player->hHeal->dibujar == false) {
+    if (!isMovingDown && !isMovingLeft && !isMovingRight && !isMovingUp && player->castFire.getElapsedTime().asSeconds() > 0.45f && player->castFire2.getElapsedTime().asSeconds() > 0.4f) {
         player -> StopAnimation();
     }
     player -> UpdateAnimation(elapsedTime);
@@ -353,6 +402,7 @@ sf::View Game::getLetterboxView(sf::View view, int windowWidth, int windowHeight
     view.setViewport(sf::FloatRect(posX, posY, sizeX, sizeY));
     return view;
 }
+
 void Game::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
     if (button == sf::Mouse::Left) {//Traslaciones
         fuegoBasicCast = isPressed;

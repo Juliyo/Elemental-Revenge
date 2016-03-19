@@ -24,11 +24,14 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationLeft = new Animation();
     walkingAnimationRight = new Animation();
     walkingAnimationUp = new Animation();
-    healingAnimationDown = new Animation();
-    healingAnimationLeft = new Animation();
-    healingAnimationRight = new Animation();
-    healingAnimationUp = new Animation();
-    
+    fuegoAnimationDown = new Animation();
+    fuegoAnimationLeft = new Animation();
+    fuegoAnimationRight = new Animation();
+    fuegoAnimationUp = new Animation();
+    fuego2AnimationDown = new Animation();
+    fuego2AnimationLeft = new Animation();
+    fuego2AnimationRight = new Animation();
+    fuego2AnimationUp = new Animation();
     
     hud = new Hud();
     hHeal = new Heal();
@@ -90,48 +93,92 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationUp->addFrame(sf::IntRect(448, 512, 64, 64));
     walkingAnimationUp->addFrame(sf::IntRect(512, 512, 64, 64));
     
-    healingAnimationDown->setSpriteSheet(texturaPlayer);
-    healingAnimationDown->addFrame(sf::IntRect(384, 128, 64, 64));
-    healingAnimationDown->addFrame(sf::IntRect(0, 128, 64, 64));
-    healingAnimationDown->addFrame(sf::IntRect(64, 128, 64, 64));
-    healingAnimationDown->addFrame(sf::IntRect(128, 128, 64, 64));
-    healingAnimationDown->addFrame(sf::IntRect(192, 128, 64, 64));
-    healingAnimationDown->addFrame(sf::IntRect(256, 128, 64, 64));
-    healingAnimationDown->addFrame(sf::IntRect(320, 128, 64, 64));
-    healingAnimationDown->addFrame(sf::IntRect(384, 128, 64, 64));
+   
+    fuegoAnimationUp->setSpriteSheet(texturaPlayer);
+    //fuegoAnimationUp->addFrame(sf::IntRect(320, 768, 64, 64));
+    fuegoAnimationUp->addFrame(sf::IntRect(0, 768, 64, 64));
+    fuegoAnimationUp->addFrame(sf::IntRect(64, 768, 64, 64));
+    fuegoAnimationUp->addFrame(sf::IntRect(128, 768, 64, 64));
+    fuegoAnimationUp->addFrame(sf::IntRect(192, 768, 64, 64));
+    fuegoAnimationUp->addFrame(sf::IntRect(256, 768, 64, 64));
+    fuegoAnimationUp->addFrame(sf::IntRect(320, 768, 64, 64));
+  
+  
+    
+    
+    fuegoAnimationDown->setSpriteSheet(texturaPlayer);
+    //fuegoAnimationDown->addFrame(sf::IntRect(320, 896, 64, 64));
+    fuegoAnimationDown->addFrame(sf::IntRect(0, 896, 64, 64));
+    fuegoAnimationDown->addFrame(sf::IntRect(64, 896, 64, 64));
+    fuegoAnimationDown->addFrame(sf::IntRect(128, 896, 64, 64));
+    fuegoAnimationDown->addFrame(sf::IntRect(192, 896, 64, 64));
+    fuegoAnimationDown->addFrame(sf::IntRect(256, 896, 64, 64));
+    fuegoAnimationDown->addFrame(sf::IntRect(320, 896, 64, 64));
+ 
+    
+    
+    fuegoAnimationRight->setSpriteSheet(texturaPlayer);
+    //fuegoAnimationRight->addFrame(sf::IntRect(320, 960, 64, 64));
+    fuegoAnimationRight->addFrame(sf::IntRect(0, 960, 64, 64));
+    fuegoAnimationRight->addFrame(sf::IntRect(64, 960, 64, 64));
+    fuegoAnimationRight->addFrame(sf::IntRect(128, 960, 64, 64));
+    fuegoAnimationRight->addFrame(sf::IntRect(192, 960, 64, 64));
+    fuegoAnimationRight->addFrame(sf::IntRect(256, 960, 64, 64));
+    fuegoAnimationRight->addFrame(sf::IntRect(320, 960, 64, 64));
+  
+    
+    
+    fuegoAnimationLeft->setSpriteSheet(texturaPlayer);
+    //fuegoAnimationLeft->addFrame(sf::IntRect(320, 832, 64, 64));
+    fuegoAnimationLeft->addFrame(sf::IntRect(0, 832, 64, 64));
+    fuegoAnimationLeft->addFrame(sf::IntRect(64, 832, 64, 64));
+    fuegoAnimationLeft->addFrame(sf::IntRect(128, 832, 64, 64));
+    fuegoAnimationLeft->addFrame(sf::IntRect(192, 832, 64, 64));
+    fuegoAnimationLeft->addFrame(sf::IntRect(256, 832, 64, 64));
+    fuegoAnimationLeft->addFrame(sf::IntRect(320, 832, 64, 64));
+
+    fuego2AnimationDown->setSpriteSheet(texturaPlayer);
+    fuego2AnimationDown->addFrame(sf::IntRect(384, 128, 64, 64));
+    fuego2AnimationDown->addFrame(sf::IntRect(0, 128, 64, 64));
+    fuego2AnimationDown->addFrame(sf::IntRect(64, 128, 64, 64));
+    fuego2AnimationDown->addFrame(sf::IntRect(128, 128, 64, 64));
+    fuego2AnimationDown->addFrame(sf::IntRect(192, 128, 64, 64));
+    fuego2AnimationDown->addFrame(sf::IntRect(256, 128, 64, 64));
+    fuego2AnimationDown->addFrame(sf::IntRect(320, 128, 64, 64));
+    fuego2AnimationDown->addFrame(sf::IntRect(384, 128, 64, 64));
 
 
-    healingAnimationLeft->setSpriteSheet(texturaPlayer);
-    healingAnimationLeft->addFrame(sf::IntRect(384, 64, 64, 64));
-    healingAnimationLeft->addFrame(sf::IntRect(0, 64, 64, 64));
-    healingAnimationLeft->addFrame(sf::IntRect(64, 64, 64, 64));
-    healingAnimationLeft->addFrame(sf::IntRect(128, 64, 64, 64));
-    healingAnimationLeft->addFrame(sf::IntRect(192, 64, 64, 64));
-    healingAnimationLeft->addFrame(sf::IntRect(256, 64, 64, 64));
-    healingAnimationLeft->addFrame(sf::IntRect(320, 64, 64, 64));
-    healingAnimationLeft->addFrame(sf::IntRect(384, 64, 64, 64));
+    fuego2AnimationLeft->setSpriteSheet(texturaPlayer);
+    fuego2AnimationLeft->addFrame(sf::IntRect(384, 64, 64, 64));
+    fuego2AnimationLeft->addFrame(sf::IntRect(0, 64, 64, 64));
+    fuego2AnimationLeft->addFrame(sf::IntRect(64, 64, 64, 64));
+    fuego2AnimationLeft->addFrame(sf::IntRect(128, 64, 64, 64));
+    fuego2AnimationLeft->addFrame(sf::IntRect(192, 64, 64, 64));
+    fuego2AnimationLeft->addFrame(sf::IntRect(256, 64, 64, 64));
+    fuego2AnimationLeft->addFrame(sf::IntRect(320, 64, 64, 64));
+    fuego2AnimationLeft->addFrame(sf::IntRect(384, 64, 64, 64));
 
-    healingAnimationRight->setSpriteSheet(texturaPlayer);
-    healingAnimationRight->addFrame(sf::IntRect(384, 192, 64, 64));
-    healingAnimationRight->addFrame(sf::IntRect(0, 192, 64, 64));
-    healingAnimationRight->addFrame(sf::IntRect(64, 192, 64, 64));
-    healingAnimationRight->addFrame(sf::IntRect(128, 192, 64, 64));
-    healingAnimationRight->addFrame(sf::IntRect(192, 192, 64, 64));
-    healingAnimationRight->addFrame(sf::IntRect(256, 192, 64, 64));
-    healingAnimationRight->addFrame(sf::IntRect(320, 192, 64, 64));
-    healingAnimationRight->addFrame(sf::IntRect(384, 192, 64, 64));
+    fuego2AnimationRight->setSpriteSheet(texturaPlayer);
+    fuego2AnimationRight->addFrame(sf::IntRect(384, 192, 64, 64));
+    fuego2AnimationRight->addFrame(sf::IntRect(0, 192, 64, 64));
+    fuego2AnimationRight->addFrame(sf::IntRect(64, 192, 64, 64));
+    fuego2AnimationRight->addFrame(sf::IntRect(128, 192, 64, 64));
+    fuego2AnimationRight->addFrame(sf::IntRect(192, 192, 64, 64));
+    fuego2AnimationRight->addFrame(sf::IntRect(256, 192, 64, 64));
+    fuego2AnimationRight->addFrame(sf::IntRect(320, 192, 64, 64));
+    fuego2AnimationRight->addFrame(sf::IntRect(384, 192, 64, 64));
 
 
-    healingAnimationUp->setSpriteSheet(texturaPlayer);
-    healingAnimationUp->addFrame(sf::IntRect(384, 0, 64, 64));
-    healingAnimationUp->addFrame(sf::IntRect(0, 0, 64, 64));
-    healingAnimationUp->addFrame(sf::IntRect(64, 0, 64, 64));
-    healingAnimationUp->addFrame(sf::IntRect(128, 0, 64, 64));
-    healingAnimationUp->addFrame(sf::IntRect(192, 0, 64, 64));
-    healingAnimationUp->addFrame(sf::IntRect(256, 0, 64, 64));
-    healingAnimationUp->addFrame(sf::IntRect(320, 0, 64, 64));
-    healingAnimationUp->addFrame(sf::IntRect(384, 0, 64, 64));
-
+    fuego2AnimationUp->setSpriteSheet(texturaPlayer);
+    fuego2AnimationUp->addFrame(sf::IntRect(384, 0, 64, 64));
+    fuego2AnimationUp->addFrame(sf::IntRect(0, 0, 64, 64));
+    fuego2AnimationUp->addFrame(sf::IntRect(64, 0, 64, 64));
+    fuego2AnimationUp->addFrame(sf::IntRect(128, 0, 64, 64));
+    fuego2AnimationUp->addFrame(sf::IntRect(192, 0, 64, 64));
+    fuego2AnimationUp->addFrame(sf::IntRect(256, 0, 64, 64));
+    fuego2AnimationUp->addFrame(sf::IntRect(320, 0, 64, 64));
+    fuego2AnimationUp->addFrame(sf::IntRect(384, 0, 64, 64));
+    
     currentAnimation = &walkingAnimationDown;
     InicializarAnimatedSprite(sf::seconds(0.075f), true, false);
     SetPosition(posX, posY);

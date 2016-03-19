@@ -37,6 +37,8 @@ public:
     void setDamage(float dmg);
     float getCD();
     void setCD(float cd);
+    float getCast();
+    void setCast(float cast);
     void setLevel(int lvl);
     int getLevel();
     bool dibujar;
@@ -44,6 +46,7 @@ public:
     
 private:
     float hCd;
+    float hCast;
     float hDamage;
     int hLVL;
     void cast();

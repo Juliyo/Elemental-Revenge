@@ -29,11 +29,16 @@ public:
         Animation               *walkingAnimationLeft;
         Animation               *walkingAnimationRight;
         Animation               *walkingAnimationUp;
-        //Animaciones spellcast
-        Animation               *healingAnimationDown;
-        Animation               *healingAnimationLeft;
-        Animation               *healingAnimationRight;
-        Animation               *healingAnimationUp;
+        //Animaciones fuego1
+        Animation               *fuegoAnimationDown;
+        Animation               *fuegoAnimationLeft;
+        Animation               *fuegoAnimationRight;
+        Animation               *fuegoAnimationUp;
+        //Animaciones fuego2
+        Animation               *fuego2AnimationDown;
+        Animation               *fuego2AnimationLeft;
+        Animation               *fuego2AnimationRight;
+        Animation               *fuego2AnimationUp;
         
 	Hud                     *hud;
         Heal                    *hHeal;
@@ -42,6 +47,9 @@ public:
         hFireAdvanced           *hFuegoAvanzado;
         hFireBasic              *hFuegoBasico;
         sf::Clock               clockCDFire;    //Variable de clase para el cd
+        float                   CDFire=0.35f;
+        sf::Clock               castFire;    //Variable de clase para el casteo
+        sf::Clock               castFire2;    //Variable de clase para el casteo
         bool                    primercastFuego;    //Variable de clase para el primer casteo
         int                     getVida();
         int                     restaVida(int a);

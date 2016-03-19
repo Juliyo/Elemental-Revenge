@@ -14,7 +14,7 @@
 #ifndef HFIREADVANCED_HPP
 #define HFIREADVANCED_HPP
 
-#include "../Headers/Hechizo.hpp"
+#include "Hechizo.hpp"
 
 
 
@@ -27,6 +27,7 @@ public:
     void cast(sf::Vector2f , sf::RenderWindow *mWindow);
     void DrawWithInterpolation(sf::RenderWindow& window, float interpolation, const sf::Vector2f &posPrev, const sf::Vector2f &posNew);
     bool lanzado=false;
+    sf::Vector2f actualSize;
 
 private:
 
