@@ -42,6 +42,7 @@ private:
     sf::View                    mHud;
     Player			*player;
     Cargar                      *mapa;
+    Cargar                      *mapa2;
     //Estadisticas
     sf::Text			mStatisticsText;
     

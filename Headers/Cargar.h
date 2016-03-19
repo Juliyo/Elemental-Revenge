@@ -21,6 +21,7 @@ public:
     Cargar(const Cargar& orig);
     virtual ~Cargar();
     void leerMapa();
+    void leerMapa2();
     void dibuja(sf::RenderWindow &window);
     sf::Sprite  fondo;
     sf::Sprite  getMapa();

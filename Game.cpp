@@ -63,12 +63,14 @@ Game::Game()
 #endif
     //Configuramos Items
     player = new Player();
-    player -> Inicializar(-200.f, -250.f);
+    player -> Inicializar(1600.f, 1800.f);
 
     
     mapa = new Cargar();
     mapa->leerMapa();
-
+    
+    mapa2 = new Cargar();
+    mapa2->leerMapa2();
 
 }
 
@@ -108,32 +110,89 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
     
      
     
-    /*
-    if(player->GetSpriteAnimated().getGlobalBounds().intersects(mapa->fondo.getGlobalBounds())){
+    
+   /* if(player->GetSpriteAnimated().getGlobalBounds().intersects(mapa->fondo.getGlobalBounds())){
         std::cout<<"CHOCA";
-    }
-    */
+    }*/
+    
+
+   
     
     if (!firstTime) {
         sf::Vector2f movement(0.f, 0.f);
         if (isMovingUp) {
             movement.y -= player -> getVelocidad();
             //noKeyWasPressed = false;
+            
+            for(int t=0; t<mapa->_numLayers; t++){
+        for(int y=0; y<mapa->_height; y++){
+            for(int x=0; x<mapa->_width; x++){
+                if(mapa->_tilemapSprite[t][y][x]!=NULL){  
+                    if(mapa->_tilemapSprite[t][y][x]->getGlobalBounds().contains(player->GetRenderPosition().x,player->GetRenderPosition().y-20)){
+            movement.y += player -> getVelocidad();
+                    }
+                }
+            }
+        }
+    }
+            
         }
         if (isMovingDown) {
             movement.y += player -> getVelocidad();
             //noKeyWasPressed = false;
+            
+        for(int t=0; t<mapa->_numLayers; t++){
+        for(int y=0; y<mapa->_height; y++){
+            for(int x=0; x<mapa->_width; x++){
+                if(mapa->_tilemapSprite[t][y][x]!=NULL){  
+                    if(mapa->_tilemapSprite[t][y][x]->getGlobalBounds().contains(player->GetRenderPosition().x,player->GetRenderPosition().y+20)){
+                        movement.y -= player -> getVelocidad();
+                    }
+                }
+            }
+        }
+    }
+            
         }
         if (isMovingLeft) {
             movement.x -= player -> getVelocidad();
+            
+            
+            for(int t=0; t<mapa->_numLayers; t++){
+        for(int y=0; y<mapa->_height; y++){
+            for(int x=0; x<mapa->_width; x++){
+                if(mapa->_tilemapSprite[t][y][x]!=NULL){  
+                    if(mapa->_tilemapSprite[t][y][x]->getGlobalBounds().contains(player->GetRenderPosition().x-20,player->GetRenderPosition().y)){
+                        movement.x += player -> getVelocidad();
+                    }
+                }
+            }
+        }
+    }
+            
         }
         if (isMovingRight) {
             movement.x += player -> getVelocidad();
             // noKeyWasPressed = false;
+            
+            for(int t=0; t<mapa->_numLayers; t++){
+        for(int y=0; y<mapa->_height; y++){
+            for(int x=0; x<mapa->_width; x++){
+                if(mapa->_tilemapSprite[t][y][x]!=NULL){  
+                    if(mapa->_tilemapSprite[t][y][x]->getGlobalBounds().contains(player->GetRenderPosition().x+20,player->GetRenderPosition().y)){
+                        movement.x -= player -> getVelocidad();
+                    }
+                }
+            }
+        }
+    }
+            
         }
 
         player -> Update(movement, elapsedTime);
-
+        
+                
+        
     }
 
     firstTime = false;
@@ -176,8 +235,9 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
     mWindow.setView(mBackgroundView);
     mWindow.draw(spriteRelleno);
     mWindow.setView(previa);
-mapa->dibuja(mWindow);
+    mapa2->dibuja(mWindow);
 
+mapa->dibuja(mWindow);
     updateView();
     //mWindow.draw(spriteFondo);
 
@@ -203,7 +263,7 @@ for(int t=0; t<mapa->_numLayers; t++){
                     player->GetSpriteAnimated().getGlobalBounds();
                     
                     if(player->GetSpriteAnimated().getGlobalBounds().intersects(mapa->_tilemapSprite[t][y][x]->getGlobalBounds())){
-                        //std::cout<<"ZIZU";
+                        std::cout<<"ZIZU";
                     }
                 }
             }
