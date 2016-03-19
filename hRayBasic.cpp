@@ -21,7 +21,8 @@ hRayBasic::hRayBasic() {
     animation = new Animation();
     animationDurante = new Animation();
     PrimeraAnimacion  = new Animation();
-    setCD(3);
+    setCD(4);
+    setCast(3);
     if(!hTexture.loadFromFile("resources/Textures/RayoSpriteSheet.png")){
        
        //comentario error
@@ -34,7 +35,8 @@ hRayBasic::hRayBasic() {
      
      
      
-     animationDurante->addFrame(sf::IntRect(0,445,89,445));
+    animationDurante->addFrame(sf::IntRect(0,445,89,445));
+     
      PrimeraAnimacion->addFrame(sf::IntRect(0,0,89,445));
      PrimeraAnimacion->addFrame(sf::IntRect(0,445,89,445));
      PrimeraAnimacion->addFrame(sf::IntRect(0,890,89,445));
@@ -46,6 +48,8 @@ hRayBasic::hRayBasic() {
      PrimeraAnimacion->addFrame(sf::IntRect(89*2,0,89,445));
      PrimeraAnimacion->addFrame(sf::IntRect(89*2,445,89,445));
      PrimeraAnimacion->addFrame(sf::IntRect(89*2,890,89,445));
+     
+     //PrimeraAnimacion->addFrame(sf::IntRect(0,0,89,445));
     
      
      
@@ -82,7 +86,7 @@ hRayBasic::hRayBasic() {
      
      
      
-    currentAnimation = &animationDurante;
+    currentAnimation = &PrimeraAnimacion;
     InicializarAnimatedSprite(sf::seconds(0.5f/8),true,false);
     SetOriginAnimatedSprite(40,-30);
     

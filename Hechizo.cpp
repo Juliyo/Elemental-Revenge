@@ -39,6 +39,9 @@ float Hechizo::getDamage() {
 float Hechizo::getCD() {
     return hCd;
 }
+float Hechizo::getCast() {
+    return hCast;
+}
 
 int Hechizo::getLevel() {
     return hLVL;
@@ -49,7 +52,11 @@ void Hechizo::setCD(float cd) {
         hCd = cd;
     }
 }
-
+void Hechizo::setCast(float cast) {
+    if (cast >= 0) {
+        hCast = cast;
+    }
+}
 void Hechizo::setDamage(float dmg) {
     if (dmg > 0) {
         hDamage = dmg;

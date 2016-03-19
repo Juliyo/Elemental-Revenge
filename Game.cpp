@@ -111,12 +111,12 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
         
         player -> Update(movement, elapsedTime);
         
-        if(player->hRayoBasico->tiempoCast.getElapsedTime().asSeconds()>player->hRayoBasico->getCD() && aux==true){
+        if(player->hRayoBasico->tiempoCast.getElapsedTime().asSeconds()>player->hRayoBasico->getCast() && aux==true){
             isShooting=false;
             player->hRayoBasico->primerCast=false;
         }
 
-        if((isShooting  && player->hRayoBasico->tiempoCd.getElapsedTime().asSeconds()>4.0f)|| (isShooting && player->hRayoBasico->primerCast==true)){//Entra si dispara y el tiempo de enfriamiento ha pasado
+        if((isShooting  && player->hRayoBasico->tiempoCd.getElapsedTime().asSeconds()>player->hRayoBasico->getCD())|| (isShooting && player->hRayoBasico->primerCast==true)){//Entra si dispara y el tiempo de enfriamiento ha pasado
             
             if(aux==false){//si es la primera vez que pulsa el boton
                 player->hRayoBasico->tiempoCast.restart();
@@ -135,7 +135,7 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
         }
         //avanzado
         
-            if(!sf::Mouse::isButtonPressed(sf::Mouse::Button::Right)&& player->hRayoAvanzado->tiempoCast.getElapsedTime().asSeconds()>1){
+            if(!sf::Mouse::isButtonPressed(sf::Mouse::Button::Right)&& player->hRayoAvanzado->tiempoCast.getElapsedTime().asSeconds()>player->hRayoBasico->getCast()){
 player->hRayoAvanzado->draw=false;
     }
         
@@ -208,7 +208,7 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
         
         
         player -> hRayoAvanzado -> UpdateAnimation(elapsedTime);
-        if (player -> hRayoAvanzado->tiempoCast.getElapsedTime().asSeconds() < 3) {
+        if (player -> hRayoAvanzado->tiempoCast.getElapsedTime().asSeconds() < player -> hRayoAvanzado->getCast()) {
             player -> hRayoAvanzado->DrawWithOutInterpolation(mWindow);
         } else {
             player -> hRayoAvanzado->draw=false;
@@ -251,7 +251,7 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
             
             player->hRayoBasico->DrawWithInterpolation(mWindow, interpolation,player->GetPreviousPosition(),player->GetPosition());
         } else {
-            printf("ENTROOOOOOOOOOOOOOO \n");
+            
             player->hRayoBasico->draw=false;
         }
 
@@ -264,7 +264,7 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
     player -> PlayAnimation(*player -> currentAnimation);
 
 
-    if (!isMovingDown && !isMovingLeft && !isMovingRight && !isMovingUp) {
+    if ((!isMovingDown && !isMovingLeft && !isMovingRight && !isMovingUp) || player->hRayoBasico->draw==true) {
         player -> StopAnimation();
     }
     player -> UpdateAnimation(elapsedTime);

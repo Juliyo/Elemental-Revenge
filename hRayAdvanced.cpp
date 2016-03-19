@@ -19,6 +19,8 @@
 hRayAdvanced::hRayAdvanced() {
     draw=false;
     animationDurante = new Animation();
+    setCast(1);
+    setCD(3);
     if(!hTexture.loadFromFile("resources/Textures/rayo.png")){
         
         //comentario error
@@ -55,7 +57,7 @@ hRayAdvanced::~hRayAdvanced() {
 
 void hRayAdvanced::cast(sf::Vector2f posicion, sf::RenderWindow *mWindow) {
 
-    if(tiempoCd.getElapsedTime().asSeconds()>3 || primerCast){
+    if(tiempoCd.getElapsedTime().asSeconds()>hCast || primerCast){
         primerCast=false;
         draw=true;
         sf::Vector2f mousePosition = mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow));

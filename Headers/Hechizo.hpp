@@ -34,7 +34,9 @@ public:
     float getDamage();
     void setDamage(float dmg);
     float getCD();
-    void setCD(float cd);
+    void setCD(float cast);
+    float getCast();
+    void setCast(float cast);
     void setLevel(int lvl);
     int getLevel();
     PhysicsState* getPhysics();
@@ -46,6 +48,7 @@ public:
     
 protected:
     float hCd;
+    float hCast;
     float hDamage;
     int hLVL;
     PhysicsState physicsState;
