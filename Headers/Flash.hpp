@@ -19,14 +19,18 @@
 
 class Flash : public Hechizo {
 public:
-    Flash();
+    Flash(int animation);
     Flash(const Flash& orig);
     virtual ~Flash();
     void Draw(sf::RenderWindow& window);
+    void DrawWithInterpolation(sf::RenderWindow& window, float interpolation, const sf::Vector2f &posPrev, const sf::Vector2f &posNew);
     sf::Vector2f cast(sf::Vector2f, sf::RenderWindow *mWindow);
+    void cast2(sf::Clock *clockCD2);
     Animation *flashingAnimation;
-
+    Animation *flashingAnimation2;
+    
 private:
+    sf::Texture hTexture2;
 };
 
 #endif /* FLASH_HPP */

@@ -23,7 +23,8 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationLeft = new Animation();
     walkingAnimationRight = new Animation();
     walkingAnimationUp = new Animation();
-    flash = new Flash();
+    flash = new Flash(1);//Animacion que aparece en la posicion que deja el jugador
+    flash2 = new Flash(2);//Animacion que aparece a la posicion en que se ha movido el jugador
     hud = new Hud();
 
     if (!texturaPlayer.loadFromFile("resources/Textures/player.png")) {

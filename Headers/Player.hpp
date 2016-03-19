@@ -37,6 +37,7 @@ public:
         
 	Hud                     *hud;
         Flash                   *flash;
+        Flash                   *flash2;
         bool                    isFlashing=false;
 private:
         sf::Texture             texturaPlayer;

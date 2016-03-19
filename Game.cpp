@@ -119,10 +119,14 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
 
         player -> Update(movement, elapsedTime);
         if (player->isFlashing) {
+            //Como el player se ha movido 'casteamos' la animacion del otro flash
+            player->flash2->cast2(&player->flash->clockCd);
             sf::Vector2f prueba = player->flash->cast(sf::Vector2f(player->getPosition()), &mWindow);
             if(prueba.x != player->getPosition().x && prueba.y != player->getPosition().y){
                 player->Colocar(prueba);
             }
+            
+            
         }
     }
 
@@ -175,22 +179,36 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
     }
     player -> UpdateAnimation(elapsedTime);
 
-    player->flash->PlayAnimation(player->flash->flashingAnimation);
-
+    
+    //no hago play animation todo el rato porque no interesa ya que no haremos un getGlobalBounds del flash
     if (player->flash->dibujar == true) {
+        player->flash->PlayAnimation(player->flash->flashingAnimation);
         player->flash->UpdateAnimation(elapsedTime);
         if (player->flash->tiempoCast.getElapsedTime().asSeconds() < 0.5f) {
             player->flash->Draw(mWindow);
-            
         } else {
             player->flash->dibujar = false;
         }
     } else {
         player->flash->StopAnimation();
     }
+    
 
     player -> DrawWithInterpolation(mWindow, interpolation);
 
+    //no hago play animation todo el rato porque no interesa ya que no haremos un getGlobalBounds del flash
+    if(player->flash2->dibujar == true){
+        player->flash2->PlayAnimation(player->flash2->flashingAnimation2);
+        player->flash2->UpdateAnimation(elapsedTime);
+        if (player->flash2->tiempoCast.getElapsedTime().asSeconds() < 0.5f) {
+            player->flash2->DrawWithInterpolation(mWindow, interpolation,player->GetPreviousPosition(),player->GetPosition());
+        } else {
+            player->flash2->dibujar = false;
+        }
+    } else {
+        player->flash2->StopAnimation();
+    }
+    
     previa = mWindow.getView();
 
     mWindow.setView(getLetterboxView(mHud, ancho, alto, 640, 480));
