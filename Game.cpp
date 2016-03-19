@@ -63,7 +63,7 @@ Game::Game()
 #endif
     //Configuramos Items
     player = new Player();
-    player -> Inicializar(200.f, 250.f);
+    player -> Inicializar(-200.f, -250.f);
 
     
     mapa = new Cargar();
@@ -191,7 +191,7 @@ mapa->dibuja(mWindow);
         player -> StopAnimation();
     }
     player -> UpdateAnimation(elapsedTime);
-
+/*
 for(int t=0; t<mapa->_numLayers; t++){
         for(int y=0; y<mapa->_height; y++){
 
@@ -203,12 +203,12 @@ for(int t=0; t<mapa->_numLayers; t++){
                     player->GetSpriteAnimated().getGlobalBounds();
                     
                     if(player->GetSpriteAnimated().getGlobalBounds().intersects(mapa->_tilemapSprite[t][y][x]->getGlobalBounds())){
-                        std::cout<<"ZIZU";
+                        //std::cout<<"ZIZU";
                     }
                 }
             }
         }
-    }
+    }*/
     player -> DrawWithInterpolation(mWindow, interpolation);
     previa = mWindow.getView();
 
