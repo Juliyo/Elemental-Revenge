@@ -33,6 +33,7 @@ public:
     Animation *animation;
     Animation **currentAnimation;
     Animation *animationDurante;
+    Animation *PrimeraAnimacion;
     //void cast(sf::Vector2f vector, sf::RenderWindow *w);
 private:
     

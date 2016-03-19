@@ -111,7 +111,7 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
         
         player -> Update(movement, elapsedTime);
         
-        if(player->hRayoBasico->tiempoCast.getElapsedTime().asSeconds()>2.0f && aux==true){
+        if(player->hRayoBasico->tiempoCast.getElapsedTime().asSeconds()>player->hRayoBasico->getCD() && aux==true){
             isShooting=false;
             player->hRayoBasico->primerCast=false;
         }
@@ -236,9 +236,22 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
         
         player -> hRayoBasico -> UpdateAnimation(elapsedTime);
         if (player->hRayoBasico->tiempoCast.getElapsedTime().asSeconds() < 3.0f) {
-            printf("Posicion del animation:%f-%f\n",player->getPhysics()->GetPosition().x,player->getPhysics()->GetPosition().y);
+            //printf("Posicion del animation:%f-%f\n",player->getPhysics()->GetPosition().x,player->getPhysics()->GetPosition().y);
+                            player->hRayoBasico->SetFrame(sf::seconds(0.075f));
+                player->hRayoBasico->currentAnimation=&player->hRayoBasico->animationDurante;
+               
+            if(player->hRayoBasico->tiempoCast.getElapsedTime().asSeconds() < 1.0f){
+                
+                
+                player->hRayoBasico->SetFrame(sf::seconds(0.125f));
+                player->hRayoBasico->currentAnimation=&player->hRayoBasico->PrimeraAnimacion;
+                
+            }
+
+            
             player->hRayoBasico->DrawWithInterpolation(mWindow, interpolation,player->GetPreviousPosition(),player->GetPosition());
         } else {
+            printf("ENTROOOOOOOOOOOOOOO \n");
             player->hRayoBasico->draw=false;
         }
 
@@ -246,7 +259,8 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
         player->SetFrame(sf::seconds(0.075f));
         player->hRayoBasico->StopAnimation();
     }
-
+ //printf("%f",player->hRayoBasico->tiempoCast.getElapsedTime().asSeconds());
+                printf(" %d \n",player->hRayoBasico->draw);
     player -> PlayAnimation(*player -> currentAnimation);
 
 

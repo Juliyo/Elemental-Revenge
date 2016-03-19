@@ -20,27 +20,71 @@ hRayBasic::hRayBasic() {
     draw = false;
     animation = new Animation();
     animationDurante = new Animation();
-    
-    if(!hTexture.loadFromFile("resources/Textures/rayo.png")){
+    PrimeraAnimacion  = new Animation();
+    setCD(3);
+    if(!hTexture.loadFromFile("resources/Textures/RayoSpriteSheet.png")){
        
        //comentario error
        exit(0);
    }
   // hSprite.setTexture(hTexture);
     //SetPosition()
+     PrimeraAnimacion->setSpriteSheet(hTexture);
      animationDurante->setSpriteSheet(hTexture);
-     animationDurante->addFrame(sf::IntRect(0,0,64,233));
-     animationDurante->addFrame(sf::IntRect(64,0,64,233));
-     animationDurante->addFrame(sf::IntRect(128,0,64,233));
-     animationDurante->addFrame(sf::IntRect(192,0,64,233));
-     animationDurante->addFrame(sf::IntRect(256,0,64,233));
-     animationDurante->addFrame(sf::IntRect(320,0,64,233));
-     animationDurante->addFrame(sf::IntRect(384,0,64,233));
-     animationDurante->addFrame(sf::IntRect(448,0,64,233));
+     
+     
+     
+     //PrimeraAnimacion->addFrame(sf::IntRect(0,445,89,445));
+     PrimeraAnimacion->addFrame(sf::IntRect(0,0,89,445));
+     PrimeraAnimacion->addFrame(sf::IntRect(0,445,89,445));
+     PrimeraAnimacion->addFrame(sf::IntRect(0,890,89,445));
+     
+     PrimeraAnimacion->addFrame(sf::IntRect(89,0,89,445));
+     PrimeraAnimacion->addFrame(sf::IntRect(89,445,89,445));
+     PrimeraAnimacion->addFrame(sf::IntRect(89,890,89,445));
+     
+     PrimeraAnimacion->addFrame(sf::IntRect(89*2,0,89,445));
+     PrimeraAnimacion->addFrame(sf::IntRect(89*2,445,89,445));
+     PrimeraAnimacion->addFrame(sf::IntRect(89*2,890,89,445));
+    
+     
+     
+
+     animationDurante->addFrame(sf::IntRect(89*3,0,89,445));
+     animationDurante->addFrame(sf::IntRect(89*3,445,89,445));
+     animationDurante->addFrame(sf::IntRect(89*3,890,89,445));
+     
+     animationDurante->addFrame(sf::IntRect(89*4,0,89,445));
+     animationDurante->addFrame(sf::IntRect(89*4,445,89,445));
+     animationDurante->addFrame(sf::IntRect(89*4,890,89,445));
+     
+     animationDurante->addFrame(sf::IntRect(89*5,0,89,445));
+     animationDurante->addFrame(sf::IntRect(89*5,445,89,445));
+     animationDurante->addFrame(sf::IntRect(89*5,890,89,445));
+     
+     animationDurante->addFrame(sf::IntRect(89*6,0,89,445));
+     animationDurante->addFrame(sf::IntRect(89*6,445,89,445));
+     animationDurante->addFrame(sf::IntRect(89*6,890,89,445));
+     
+     animationDurante->addFrame(sf::IntRect(89*7,0,89,445));
+     animationDurante->addFrame(sf::IntRect(89*7,445,89,445));
+     animationDurante->addFrame(sf::IntRect(89*7,890,89,445));
+     
+     animationDurante->addFrame(sf::IntRect(89*8,0,89,445));
+     animationDurante->addFrame(sf::IntRect(89*8,445,89,445));
+     animationDurante->addFrame(sf::IntRect(89*8,890,89,445));
+     
+     animationDurante->addFrame(sf::IntRect(89*9,0,89,445));
+     animationDurante->addFrame(sf::IntRect(89*9,445,89,445));
+     animationDurante->addFrame(sf::IntRect(89*9,890,89,445));
+     
+     
+     
+     
      
     currentAnimation = &animationDurante;
     InicializarAnimatedSprite(sf::seconds(0.5f/8),true,false);
-    SetOriginAnimatedSprite(41,233);
+    SetOriginAnimatedSprite(40,-30);
     
     
 }
@@ -56,12 +100,13 @@ void hRayBasic::cast(sf::Vector2f posicion, sf::RenderWindow *mWindow) {
     
 
     draw=true;
+    
     sf::Vector2f mousePosition = mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow));
     //hSprite.setPosition(posicion);
     float angleShot = atan2(mousePosition.y - posicion.y, mousePosition.x - posicion.x);
     
     
-    angleShot = (angleShot * 180 / 3.14)+90;
+    angleShot = (angleShot * 180 / 3.14)+270;
     SetAngle(angleshot2, angleShot);
     
     
