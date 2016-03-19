@@ -6,6 +6,8 @@
 #include "Animation.hpp"
 #include "Hud.hpp"
 #include "Heal.hpp"
+#include "hFireBasic.hpp"
+#include "hFireAdvanced.hpp"
 
 class Player : public Render,public PhysicsState{
 public:
@@ -35,6 +37,12 @@ public:
         
 	Hud                     *hud;
         Heal                    *hHeal;
+        
+        int                     contFuego=0;
+        hFireAdvanced           *hFuegoAvanzado;
+        hFireBasic              *hFuegoBasico;
+        sf::Clock               clockCDFire;    //Variable de clase para el cd
+        bool                    primercastFuego;    //Variable de clase para el primer casteo
         int                     getVida();
         int                     restaVida(int a);
         void                    heal();

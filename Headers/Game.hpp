@@ -18,6 +18,7 @@ private:
     void			update(sf::Time elapsedTime);
     void			render(float interpolation, sf::Time elapsedTime);
     void			handlePlayerInput(sf::Keyboard::Key key, bool isPressed);  // Maneja eventos
+     void			handleMouseInput(sf::Mouse::Button button, bool isPressed); // Maneja eventos
     void                        updateView();
     void                        UpdatePlayerAnimation();
     sf::View                    getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight);
@@ -58,6 +59,8 @@ private:
     bool			isInterpolating;
     bool                        isHealing = false;
     bool                        cantMove=false;
+    bool                        fuegoBasicCast=false;
+    bool                        fuegoAdvancedCast=false;
 };
 
 

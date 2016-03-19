@@ -9,6 +9,7 @@
 #include "Util.hpp"
 
 Player::Player() {
+    
 }
 
 Player::Player(const Player& orig) {
@@ -28,8 +29,11 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     healingAnimationRight = new Animation();
     healingAnimationUp = new Animation();
     
+    
     hud = new Hud();
     hHeal = new Heal();
+    hFuegoAvanzado= new hFireAdvanced();
+    hFuegoBasico= new hFireBasic();
 
     if (!texturaPlayer.loadFromFile("resources/Textures/player.png")) {
         std::cout << "Error cargando la textura: " << "resources/Textures/player.png" << std::endl;
@@ -133,7 +137,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     SetPosition(posX, posY);
     SetSpeed(speedX, speedY);
     SetMaxSpeed(maxSpeedX, maxSpeedY);
-
+    SetOriginAnimation(32,32);
 }
 
 void Player::Update(sf::Vector2f velocity, sf::Time elapsedTime) {

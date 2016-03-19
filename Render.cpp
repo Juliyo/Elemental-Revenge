@@ -62,3 +62,14 @@ void Render::DrawAnimation(sf::RenderWindow &window, const sf::Vector2f &posPrev
     animatedSprite.setPosition(renderPos.x, renderPos.y);
     window.draw(animatedSprite);
 }
+void Render::Draw90(sf::RenderWindow &window, const sf::Vector2f &posPrev, const sf::Vector2f &posNew, float interpolation)
+{
+	renderPos = sf::Vector2f(
+		posPrev.x + ((posNew.x - posPrev.x) * interpolation),
+		posPrev.y + ((posNew.y - posPrev.y) * interpolation));
+
+	sprite.setPosition(renderPos.x, renderPos.y);
+        sprite.rotate(25);
+        
+	window.draw(sprite);
+}

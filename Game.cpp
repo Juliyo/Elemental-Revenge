@@ -5,7 +5,7 @@
 #ifdef _WIN32
 #include <Windows.h>
 #endif
-# define M_PI          3.141592653589793238462643383279502884 /* pi */
+#define M_PI          3.141592653589793238462643383279502884 /* pi */
 /************ VARIABLES GLOBALES ************/
 const sf::Time Game::timePerFrame = sf::seconds(1.f / 15.f);
 int ancho = 1280, alto = 720;
@@ -97,36 +97,65 @@ void Game::run() //Metodo principal
 
 void Game::update(sf::Time elapsedTime) //Actualiza la fisica
 {
-
+    printf("entro en update");
     if (!firstTime) {
         sf::Vector2f movement(0.f, 0.f);
-        if (!cantMove) { //Si algo nos lo impide no nos movemos
-            if (isMovingUp) {
-                movement.y -= player -> getVelocidad();
-                //noKeyWasPressed = false;
-            }
-            if (isMovingDown) {
-                movement.y += player -> getVelocidad();
-                //noKeyWasPressed = false;
-            }
-            if (isMovingLeft) {
-                movement.x -= player -> getVelocidad();
-            }
-            if (isMovingRight) {
-                movement.x += player -> getVelocidad();
-                // noKeyWasPressed = false;
-            }
+        if (isMovingUp) {
+            movement.y -= player -> getVelocidad();
+            //noKeyWasPressed = false;
+        }
+        if (isMovingDown) {
+            movement.y += player -> getVelocidad();
+            //noKeyWasPressed = false;
+        }
+        if (isMovingLeft) {
+            movement.x -= player -> getVelocidad();
+        }
+        if (isMovingRight) {
+            movement.x += player -> getVelocidad();
+            // noKeyWasPressed = false;
         }
         player -> Update(movement, elapsedTime);
         
+        }
+        firstTime = false;
+        
+        sf::Vector2f movement2(0.f, 0.f);
+        if (fuegoBasicCast) {
+            if (player->contFuego == 49) {
+                player->contFuego = 0;
+            }
+            if (player->clockCDFire.getElapsedTime().asSeconds() > 0.35 || player->primercastFuego == true) {
+                player->primercastFuego = false;
+                player->clockCDFire.restart();
+                player->hFuegoBasico[player->contFuego].cast(sf::Vector2f(player->getPosition()), &mWindow);
+            }
+            player->contFuego++;
+        }
+        
+        for (int aux = 0; aux <= 5; aux++) {
 
+            movement2.x = (40 * cos(player->hFuegoBasico[aux].angleshot2) * 10.0f);
+            movement2.y = (40 * sin(player->hFuegoBasico[aux].angleshot2) * 10.0f);
+            player->hFuegoBasico[aux].Update2(movement2, elapsedTime);
 
+        }
+        
+    
+    if (fuegoAdvancedCast) {
+        if (player->hFuegoAvanzado->clockCd.getElapsedTime().asSeconds() > 4 || player->hFuegoAvanzado->primerCast == true) {
+            player->hFuegoAvanzado->primerCast = false;
+            player->hFuegoAvanzado->tiempoCast.restart();
+            player->hFuegoAvanzado->clockCd.restart();
+            player->hFuegoAvanzado->lanzado = true;
+
+            player->hFuegoAvanzado->cast(sf::Vector2f(player->getPosition()), &mWindow);
+        }
     }
-    if(isHealing){
-        player->heal();
+    if (player->hFuegoAvanzado->lanzado == true) {
+        player->hFuegoAvanzado->cast(sf::Vector2f(player->getPosition()), &mWindow);
     }
 
-    firstTime = false;
 }
 
 void Game::updateView() {
@@ -164,50 +193,27 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
 
     updateView();
     mWindow.draw(spriteFondo);
-    
+
     UpdatePlayerAnimation();
-    
-    player->hHeal->PlayAnimation(player->hHeal->animacion);
-    
-    if(player->hHeal->dibujar == true){
-        //Bloqueamos la movilidad mientras se castea
-        cantMove = true;
-        //Cambiamos el frameTime de la animacion
-        player->SetFrameTime(sf::seconds(0.125f));
-        //Vemos en que cuadrante estamos
-        switch(cuadrante){
-            case 1:
-                player -> currentAnimation = &player -> healingAnimationUp;
-                break;
-            case 2:
-                player -> currentAnimation = &player -> healingAnimationDown;
-                break;
-            case 3:
-                player -> currentAnimation = &player -> healingAnimationRight;
-                break;
-            case 4:
-                player -> currentAnimation = &player -> healingAnimationLeft;
-                break;
-        }
-        player->hHeal->UpdateAnimation(elapsedTime);
-        if(player->hHeal->tiempoCast.getElapsedTime().asSeconds() < 1.f){
-            player->hHeal->DrawWithInterpolation(mWindow,interpolation,player->GetPreviousPosition(),player->GetPosition());
-        }else{
-            player->hHeal->dibujar=false;
-        }
-    }else{
-        //UpdatePlayerAnimation();  //Puede ser necesario llamar a esto
-        //Devolvemos el Frametime al original
-        player->SetFrameTime(sf::seconds(0.075f));
-        //Volvemos a permitir el movimiento
-        cantMove = false;
-        player->hHeal->StopAnimation();
+
+
+    if (player->hFuegoAvanzado->tiempoCast.getElapsedTime().asSeconds() < 2 && player->hFuegoAvanzado->lanzado == true) {
+        player->hFuegoAvanzado->DrawWithInterpolation(mWindow, interpolation, player->GetPreviousPosition(),player->GetPosition());
     }
-    
-    
+    for (int aux = 0; aux <= 5; aux++) {
+        player->hFuegoBasico[aux].PlayAnimation(player->hFuegoBasico[aux].animationInicio);
+        player->hFuegoBasico[aux].UpdateAnimation(elapsedTime);
+        player->hFuegoBasico[aux].DrawAnimation(mWindow, player->hFuegoBasico[aux].GetPreviousPosition(), player->hFuegoBasico[aux].GetPosition(), interpolation);
+
+    }
+
+
+
+
+
     player -> PlayAnimation(*player -> currentAnimation);
 
-    
+
     if (!isMovingDown && !isMovingLeft && !isMovingRight && !isMovingUp && player->hHeal->dibujar == false) {
         player -> StopAnimation();
     }
@@ -215,14 +221,14 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
 
 
     player -> DrawWithInterpolation(mWindow, interpolation);
-    
+
     previa = mWindow.getView();
 
     mWindow.setView(getLetterboxView(mHud, ancho, alto, 640, 480));
     player -> hud->renderHud(&mWindow);
     mWindow.setView(previa);
 
-    
+
     mWindow.draw(mouseSprite);
     // mWindow.draw(mStatisticsText);
     mWindow.display();
@@ -242,6 +248,12 @@ void Game::processEvents() //Captura y procesa eventos
             case sf::Event::KeyReleased:
                 handlePlayerInput(event.key.code, false);
                 break;
+            case sf::Event::MouseButtonReleased:
+                handleMouseInput(event.mouseButton.button, false);
+                break;
+            case sf::Event::MouseButtonPressed:
+                handleMouseInput(event.mouseButton.button, true);
+                break;
 
             case sf::Event::Closed:
                 mWindow.close();
@@ -259,30 +271,12 @@ void Game::processEvents() //Captura y procesa eventos
                 alto = event.size.height;
                 break;
         }
-        
+
     }
-    
-/*Capturamos eventos del teclado directamente*//*
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-        player -> currentAnimation = &player -> walkingAnimationUp;
-        noKeyWasPressed = false;
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-        player -> currentAnimation = &player -> walkingAnimationDown;
-        noKeyWasPressed = false;
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-        player -> currentAnimation = &player -> walkingAnimationLeft;
-        noKeyWasPressed = false;
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-        player -> currentAnimation = &player -> walkingAnimationRight;
-        noKeyWasPressed = false;
-    }*/
 
 }
 
-void Game::UpdatePlayerAnimation(){
+void Game::UpdatePlayerAnimation() {
     //sf::Vector2f distancia(mouseSprite.getPosition().y - player -> GetRenderPosition().y, mouseSprite.getPosition().x - player -> GetRenderPosition().x);
     cuadrante = 1;
     // 1 -> Arriba
@@ -291,17 +285,17 @@ void Game::UpdatePlayerAnimation(){
     // 4 -> Izquierda
     int x = mouseSprite.getPosition().x - player -> getPosition().x;
     int y = mouseSprite.getPosition().y - player -> getPosition().y;
-    
-    if(abs(y) > abs(x) && y <= 0){
+
+    if (abs(y) > abs(x) && y <= 0) {
         cuadrante = 1;
         player -> currentAnimation = &player -> walkingAnimationUp;
-    }else if(abs(y) > abs(x) && y > 0){
+    } else if (abs(y) > abs(x) && y > 0) {
         player -> currentAnimation = &player -> walkingAnimationDown;
         cuadrante = 2;
-    }else if(abs(x) > abs(y) && x > 0){
+    } else if (abs(x) > abs(y) && x > 0) {
         player -> currentAnimation = &player -> walkingAnimationRight;
         cuadrante = 3;
-    }else{
+    } else {
         player -> currentAnimation = &player -> walkingAnimationLeft;
         cuadrante = 4;
     }
@@ -311,21 +305,10 @@ void Game::UpdatePlayerAnimation(){
 // Realiza las operaciones correspondientes a cada Evento
 
 void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
-    /*if(key == sf::Keyboard::W && isPressed) {
-        player -> currentAnimation = &player -> walkingAnimationUp;
+
+    if (key == sf::Keyboard::W) { //Esto lo hago para que cuando no estes presionando cambia a false
         isMovingUp = isPressed;
-    } else if(key == sf::Keyboard::S && isPressed) {
-        player -> currentAnimation = &player -> walkingAnimationDown;
-        isMovingDown = isPressed;
-    } else if(key == sf::Keyboard::A && isPressed) {
-        player -> currentAnimation = &player -> walkingAnimationLeft;
-        isMovingLeft = isPressed;
-    } else if(key == sf::Keyboard::D && isPressed) {
-        player -> currentAnimation = &player -> walkingAnimationRight;
-        isMovingRight = isPressed;
-    } else */if (key == sf::Keyboard::W) {        //Esto lo hago para que cuando no estes presionando cambia a false
-        isMovingUp = isPressed;
-    }else if (key == sf::Keyboard::S) {
+    } else if (key == sf::Keyboard::S) {
         isMovingDown = isPressed;
     } else if (key == sf::Keyboard::A) {
         isMovingLeft = isPressed;
@@ -370,4 +353,12 @@ sf::View Game::getLetterboxView(sf::View view, int windowWidth, int windowHeight
 
     view.setViewport(sf::FloatRect(posX, posY, sizeX, sizeY));
     return view;
+}
+void Game::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
+    if (button == sf::Mouse::Left) {//Traslaciones
+        fuegoBasicCast = isPressed;
+    }
+    if (button == sf::Mouse::Right) { //Traslaciones
+        fuegoAdvancedCast = isPressed;
+    }
 }
