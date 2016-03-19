@@ -33,7 +33,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     hud = new Hud();
     hHeal = new Heal();
     hFuegoAvanzado= new hFireAdvanced();
-    hFuegoBasico= new hFireBasic();
+    hFuegoBasico = new hFireBasic[50];
 
     if (!texturaPlayer.loadFromFile("resources/Textures/player.png")) {
         std::cout << "Error cargando la textura: " << "resources/Textures/player.png" << std::endl;

@@ -133,8 +133,7 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
             player->contFuego++;
         }
         
-        for (int aux = 0; aux <= 5; aux++) {
-
+        for (int aux = 0; aux <= 49; aux++) {
             movement2.x = (40 * cos(player->hFuegoBasico[aux].angleshot2) * 10.0f);
             movement2.y = (40 * sin(player->hFuegoBasico[aux].angleshot2) * 10.0f);
             player->hFuegoBasico[aux].Update2(movement2, elapsedTime);
@@ -200,7 +199,7 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
     if (player->hFuegoAvanzado->tiempoCast.getElapsedTime().asSeconds() < 2 && player->hFuegoAvanzado->lanzado == true) {
         player->hFuegoAvanzado->DrawWithInterpolation(mWindow, interpolation, player->GetPreviousPosition(),player->GetPosition());
     }
-    for (int aux = 0; aux <= 5; aux++) {
+    for (int aux = 0; aux <= 49; aux++) {
         player->hFuegoBasico[aux].PlayAnimation(player->hFuegoBasico[aux].animationInicio);
         player->hFuegoBasico[aux].UpdateAnimation(elapsedTime);
         player->hFuegoBasico[aux].DrawAnimation(mWindow, player->hFuegoBasico[aux].GetPreviousPosition(), player->hFuegoBasico[aux].GetPosition(), interpolation);
