@@ -57,7 +57,7 @@ hRayAdvanced::~hRayAdvanced() {
 
 void hRayAdvanced::cast(sf::Vector2f posicion, sf::RenderWindow *mWindow) {
 
-    if(tiempoCd.getElapsedTime().asSeconds()>hCast || primerCast){
+    if(tiempoCd.getElapsedTime().asSeconds()>hCd || primerCast){
         primerCast=false;
         draw=true;
         sf::Vector2f mousePosition = mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow));

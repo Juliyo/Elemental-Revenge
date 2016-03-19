@@ -69,4 +69,40 @@ void Hechizo::setLevel(int lvl) {
     }
 }
 
+void Hechizo::aumentaLVL(int lvl, float cd, float cast, float dmg) {
+    if (lvl >= 0) {
+        hLVL = lvl;
+    }
+    if (cast >= 0) {
+        hCast = cast;
+    }
+    if (cd >= 0) {
+        hCd = cd;
+    }
+        if (dmg > 0) {
+        hDamage = dmg;
+    }
+}
+
+void Hechizo::aumentaLVL() {
+    int i=0;
+    if(i==0){
+            printf("Subo de nivel \n");
+    
+        hLVL += 1;
+    
+    
+        hCast += 0.5;
+    
+    
+        hCd -= 0.5;
+    
+       
+        hDamage += 2;
+    printf("nivel %d \n",hLVL);
+    i++;
+    }
+
+}
+
 

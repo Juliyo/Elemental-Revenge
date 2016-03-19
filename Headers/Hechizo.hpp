@@ -38,6 +38,8 @@ public:
     float getCast();
     void setCast(float cast);
     void setLevel(int lvl);
+    void aumentaLVL(int lvl, float cd, float cast, float dmg);
+    void aumentaLVL();
     int getLevel();
     PhysicsState* getPhysics();
     bool draw;

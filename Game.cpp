@@ -117,10 +117,10 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
         }
 
         if((isShooting  && player->hRayoBasico->tiempoCd.getElapsedTime().asSeconds()>player->hRayoBasico->getCD())|| (isShooting && player->hRayoBasico->primerCast==true)){//Entra si dispara y el tiempo de enfriamiento ha pasado
-            
+            player->hRayoBasico->primerCast=false;
             if(aux==false){//si es la primera vez que pulsa el boton
                 player->hRayoBasico->tiempoCast.restart();
-                 std::cout<<"Inicio de Casteo"<<std::endl;
+                 
                 aux=true;//no entra mas aqui para no hacer restart del cast
             }
             player->hRayoBasico->cast(sf::Vector2f(player->getPosition()),&mWindow);//siempre que entra aqui pintas
@@ -128,7 +128,7 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
         }else{//entras si no disparas o si no ha pasado el tiempo de enfriamiento
             if(aux==true ){//entras si acabas de soltar el raton
                 player->hRayoBasico->tiempoCd.restart();
-                std::cout<<"Inicio den CD"<<std::endl;
+               // std::cout<<"Inicio den CD"<<std::endl;
                 aux=false;//no entra mas aqui para no hacer restart dl cd
             }
             player->hRayoBasico->draw=false;
@@ -188,6 +188,7 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
     player ->UpdatePlayerAnimation(x,y);
     player -> hRayoAvanzado->PlayAnimation(*player -> hRayoAvanzado-> currentAnimation); //Current animation es un puntero a puntero
     if (player -> hRayoAvanzado->draw == true) {
+        
         player->SetFrame(sf::seconds(0.125f));
         //switch
         switch(player->cuadrante){
@@ -235,7 +236,7 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
         
         
         player -> hRayoBasico -> UpdateAnimation(elapsedTime);
-        if (player->hRayoBasico->tiempoCast.getElapsedTime().asSeconds() < 3.0f) {
+        if (player->hRayoBasico->tiempoCast.getElapsedTime().asSeconds() < player->hRayoBasico->getCast()) {
             //printf("Posicion del animation:%f-%f\n",player->getPhysics()->GetPosition().x,player->getPhysics()->GetPosition().y);
                             player->hRayoBasico->SetFrame(sf::seconds(0.075f));
                 player->hRayoBasico->currentAnimation=&player->hRayoBasico->animationDurante;
@@ -260,7 +261,7 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
         player->hRayoBasico->StopAnimation();
     }
  //printf("%f",player->hRayoBasico->tiempoCast.getElapsedTime().asSeconds());
-                printf(" %d \n",player->hRayoBasico->draw);
+                
     player -> PlayAnimation(*player -> currentAnimation);
 
 
@@ -370,7 +371,14 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         isMovingLeft = isPressed;
     } else if (key == sf::Keyboard::D) {
         isMovingRight = isPressed;
-    } else if (key == sf::Keyboard::X && isPressed) {
+    }    
+    else if (key == sf::Keyboard::R && isPressed) {
+        player->hRayoBasico->aumentaLVL();
+    } 
+    else if (key == sf::Keyboard::T && isPressed) {
+        player->hRayoAvanzado->aumentaLVL();
+    } 
+    else if (key == sf::Keyboard::X && isPressed) {
         isInterpolating = !isInterpolating;
     }
 }
