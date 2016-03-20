@@ -5,28 +5,29 @@
  */
 
 /* 
- * File:   Cargar.h
- * Author: alfon
+ * File:   Map.hpp
+ * Author: USUARIO
  *
- * Created on 16 de marzo de 2016, 13:33
+ * Created on 20 de marzo de 2016, 17:32
  */
 
-#ifndef CARGAR_H
-#define	CARGAR_H
+#ifndef MAP_HPP
+#define MAP_HPP
+
 #include <SFML/Graphics.hpp>
 
-class Cargar {
+class Map {
 public:
-    Cargar();
-    Cargar(const Cargar& orig);
-    virtual ~Cargar();
+    Map();
+    Map(const Map& orig);
+    virtual ~Map();
     void leerMapa();
     void leerMapa2();
     void dibuja(sf::RenderWindow &window);
     sf::Sprite  fondo;
-    sf::Sprite  getMapa();
-        int _numLayers=0;
- int ***_tilemap;
+    sf::Sprite  getMap();
+    int _numLayers=0;
+    int ***_tilemap;
     int _height;
     int _width;
     int _tileHeigth;
@@ -40,12 +41,12 @@ private:
     sf::VertexArray m_vertices;
     sf::Texture m_tileset;
 
-    /*ANADIDO*/
-    sf::Texture fond;
-     
-     /*ANADIDO*/
+
 
 };
 
-#endif	/* CARGAR_H */
+
+
+
+#endif /* MAP_HPP */
 

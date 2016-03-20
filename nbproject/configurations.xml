@@ -4,8 +4,8 @@
     <logicalFolder name="Headers" displayName="Headers" projectFiles="true">
       <itemPath>Headers/AnimatedSprite.hpp</itemPath>
       <itemPath>Headers/Animation.hpp</itemPath>
-      <itemPath>Headers/Cargar.h</itemPath>
       <itemPath>Headers/Game.hpp</itemPath>
+      <itemPath>Headers/Map.hpp</itemPath>
       <itemPath>Headers/PhysicsState.hpp</itemPath>
       <itemPath>Headers/Player.hpp</itemPath>
       <itemPath>Headers/Render.hpp</itemPath>
@@ -24,9 +24,9 @@
                    projectFiles="true">
       <itemPath>AnimatedSprite.cpp</itemPath>
       <itemPath>Animation.cpp</itemPath>
-      <itemPath>Cargar.cpp</itemPath>
       <itemPath>Game.cpp</itemPath>
       <itemPath>Hud.cpp</itemPath>
+      <itemPath>Map.cpp</itemPath>
       <itemPath>PhysicsState.cpp</itemPath>
       <itemPath>Player.cpp</itemPath>
       <itemPath>Render.cpp</itemPath>
@@ -86,19 +86,17 @@
       </item>
       <item path="Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Cargar.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="Game.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Headers/AnimatedSprite.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Animation.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="Headers/Cargar.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Headers/Game.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Hud.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/Map.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/PhysicsState.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -117,6 +115,8 @@
       <item path="Headers/tinyxml.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Hud.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Map.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="PhysicsState.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -161,19 +161,17 @@
       </item>
       <item path="Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Cargar.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="Game.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Headers/AnimatedSprite.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Animation.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="Headers/Cargar.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Headers/Game.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Hud.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/Map.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/PhysicsState.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -192,6 +190,8 @@
       <item path="Headers/tinyxml.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Hud.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Map.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="PhysicsState.cpp" ex="false" tool="1" flavor2="0">
       </item>

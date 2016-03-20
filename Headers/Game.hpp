@@ -5,7 +5,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Player.hpp"
-#include <Cargar.h>
+#include <Map.hpp>
 
 class Game : private sf::NonCopyable
 {
@@ -41,8 +41,8 @@ private:
     sf::View                    mBackgroundView;
     sf::View                    mHud;
     Player			*player;
-    Cargar                      *mapa;
-    Cargar                      *mapa2;
+    Map                         *mapa;
+    Map                         *mapa2;
     //Estadisticas
     sf::Text			mStatisticsText;
     

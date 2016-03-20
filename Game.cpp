@@ -66,10 +66,10 @@ Game::Game()
     player -> Inicializar(1600.f, 1800.f);
 
     
-    mapa = new Cargar();
+    mapa = new Map();
     mapa->leerMapa();
     
-    mapa2 = new Cargar();
+    mapa2 = new Map();
     mapa2->leerMapa2();
 
 }
@@ -237,7 +237,6 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
     mWindow.setView(previa);
     mapa2->dibuja(mWindow);
 
-mapa->dibuja(mWindow);
     updateView();
     //mWindow.draw(spriteFondo);
 
@@ -271,6 +270,7 @@ for(int t=0; t<mapa->_numLayers; t++){
     }*/
     player -> DrawWithInterpolation(mWindow, interpolation);
     previa = mWindow.getView();
+    mapa->dibuja(mWindow);
 
     mWindow.setView(getLetterboxView(mHud, ancho, alto, 640, 480));
     player -> hud->renderHud(&mWindow);

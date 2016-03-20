@@ -1,11 +1,18 @@
-/* 
- * File:   Cargar.cpp
- * Author: alfon
- * 
- * Created on 17 de marzo de 2016, 21:25
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 
-#include "Cargar.h"
+/* 
+ * File:   Map.cpp
+ * Author: USUARIO
+ * 
+ * Created on 20 de marzo de 2016, 17:32
+ */
+
+#include "Map.hpp"
+
 #include "tinystr.h"
 #include "tinyxml.h"
 #include <iostream>
@@ -14,15 +21,15 @@
 
 using namespace std;
 
-Cargar::Cargar() {
+Map::Map() {
     
     
 }
 
-Cargar::Cargar(const Cargar& orig) {
+Map::Map(const Map& orig) {
 }
 
-Cargar::~Cargar() {
+Map::~Map() {
     for(int l=0; l<_numLayers; l++){
         for(int y=0; y<_height; y++){
             delete[] _tilemap[l][y];
@@ -32,15 +39,8 @@ Cargar::~Cargar() {
     delete[] _tilemap;
 }
 
-void Cargar::leerMapa(){
-    /*
-    if(!fond.loadFromFile("resources/backgroundcesed.png")){
-        std::cerr << "Error cargando la imagen fondooo.png";
-        exit(0);
-    }
-    
-    fondo.setTexture(fond);
-*/
+void Map::leerMapa(){
+
     TiXmlDocument doc;
     doc.LoadFile("resources/mapafinal2.tmx");
     TiXmlElement* map = doc.FirstChildElement("map");
@@ -50,7 +50,6 @@ void Cargar::leerMapa(){
     map->QueryIntAttribute("tilewidth",&_tileWidth);
     map->QueryIntAttribute("tileheight",&_tileHeigth);
     
-    //Leemos las diferentes imagenes que nos sirven para hacer el rect de las texturas
     TiXmlElement *img = map->FirstChildElement("tileset");
     int numTil=0;
     while(img){
@@ -74,7 +73,6 @@ void Cargar::leerMapa(){
         layer= layer->NextSiblingElement("layer");
     }  
     
-    //Reserva de memoria para saber el numnero de capas y el tamaño 
     _tilemap=new int**[_numLayers];
     for(int i=0; i<_numLayers; i++){
         _tilemap[i]=new int*[_height];
@@ -109,7 +107,6 @@ void Cargar::leerMapa(){
         j++;
     }
       
-       //Reserva de memoria para los sprites
     _tilemapSprite=new sf::Sprite***[_numLayers];
       
     for(int l=0; l<_numLayers; l++){
@@ -123,50 +120,30 @@ void Cargar::leerMapa(){
                 _tilemapSprite[l][y][x]=new sf::Sprite();
             }
         }
-    } 
-    sf::Texture aux;  
-    
-    //falta el corte
+    }     
   
     int columns = _tilesetTexture.getSize().x / _tileWidth;
     int rows = _tilesetTexture.getSize().y / _tileHeigth;
     
-    cout<<columns<<" "<<rows<<endl; 
 
     _tilesetSprite =new sf::Sprite[columns*rows];     
     int t=0;
     for(int y=0; y<rows; y++){
         for(int x=0; x<columns;x++){
               _tilesetSprite[t].setTexture(_tilesetTexture);
-              //_tilesetSprite[t].setTextureRect(sf::IntRect(left,top,width,height));//ojo si hay dos imagenes
               _tilesetSprite[t].setTextureRect(sf::IntRect(x*_tileWidth,y*_tileHeigth,_tileWidth,_tileHeigth));
               t++;
         }
     }
     
-    cout<<"nostas"<<endl;
-    /**
-    for(int y=0; y<t; y++)
-    {
-     cout<<_tilesetSprite[y].getTextureRect().left<<" ";
-     cout<<_tilesetSprite[y].getTextureRect().top<<" ";
-      cout<<_tilesetSprite[y].getTextureRect().width<<" ";
-       cout<<_tilesetSprite[y].getTextureRect().height<<endl;
-    }**/
-    
-    //cout<<t<<endl;
-   
-    //asignacion sprite
+
       
     for(int l=0; l<_numLayers; l++){
         for(int y=0; y<_height; y++){
             for(int x=0; x<_width;x++){
                 int gid=_tilemap[l][y][x]-1;
                 if(gid>=rows*columns){
-                    cout<<gid<<endl;
-                    cout<<rows<<endl;
-                    cout<<columns<<endl;
-                    cout<<"Error aaaa"<<endl;
+                    std::cout<<"ERROR\n";
                 }
                 else if(gid>0){   
 
@@ -180,48 +157,13 @@ void Cargar::leerMapa(){
         }
     }
       
-    /////////////////////Resumen
-    cout<<endl;
-    cout<<"Resumen:"<<endl;
-    cout<<"Heigth= "<<_height<<endl;
-    cout<<"Width= "<<_width<<endl;
-    cout<<"TileWidth= "<<_tileWidth<<endl;
-    cout<<"TileHeigth= "<<_tileHeigth<<endl;
-    cout<<"Numero de capas= "<<_numLayers<<endl;
-    cout<<"Nombre del tileset= "<<filename[0]<<endl;
-    cout<<"Nombre del tileset= "<<filename[1]<<endl;
-    cout<<endl;
-     
-     /**
-    cout<<"Gid de las capas"<<endl;
-   for(int l=0; l<_numLayers; l++)
-    {
-       cout<<name[l]<<endl;
-        for(int y=0; y<_height; y++)
-        {
-            for(int x=0; x<_width;x++)
-            {    
-                cout<<_tilemap[l][y][x]<<" ";
-
-                if(x==_width-1)
-                {
-                    cout<<endl;
-                }
-            }
-        }
-   }**/
 }
 
 
-void Cargar::dibuja(sf::RenderWindow& window){
-    /*ANADIDO*/
-    //window.draw(fondo);
-    //sf::View view=window.getView();
+void Map::dibuja(sf::RenderWindow& window){
 
-    //fondo.setPosition(view.getCenter().x-fond.getSize().x/2,view.getCenter().y-fond.getSize().y/2);
     window.draw(fondo);
     
-    /*ANADIDO*/
     for(int t=0; t<_numLayers; t++){
         for(int y=0; y<_height; y++){
             for(int x=0; x<_width; x++){
@@ -234,18 +176,12 @@ void Cargar::dibuja(sf::RenderWindow& window){
 
 }
 
-sf::Sprite Cargar::getMapa(){
+sf::Sprite Map::getMap(){
     return ****_tilemapSprite;
 }
 
-void Cargar::leerMapa2(){
-       /*ANADIDO*/
-    /*if(!fond.loadFromFile("resources/backgroundcesed.png")){
-        std::cerr << "Error cargando la imagen fondooo.png";
-        exit(0);
-    }
-    
-    fondo.setTexture(fond);*/
+void Map::leerMapa2(){
+
 
     TiXmlDocument doc;
     doc.LoadFile("resources/background.tmx");
@@ -256,7 +192,6 @@ void Cargar::leerMapa2(){
     map->QueryIntAttribute("tilewidth",&_tileWidth);
     map->QueryIntAttribute("tileheight",&_tileHeigth);
     
-    //Leemos las diferentes imagenes que nos sirven para hacer el rect de las texturas
     TiXmlElement *img = map->FirstChildElement("tileset");
     int numTil=0;
     while(img){
@@ -280,7 +215,6 @@ void Cargar::leerMapa2(){
         layer= layer->NextSiblingElement("layer");
     }  
     
-    //Reserva de memoria para saber el numnero de capas y el tamaño 
     _tilemap=new int**[_numLayers];
     for(int i=0; i<_numLayers; i++){
         _tilemap[i]=new int*[_height];
@@ -315,7 +249,6 @@ void Cargar::leerMapa2(){
         j++;
     }
       
-       //Reserva de memoria para los sprites
     _tilemapSprite=new sf::Sprite***[_numLayers];
       
     for(int l=0; l<_numLayers; l++){
@@ -330,49 +263,29 @@ void Cargar::leerMapa2(){
             }
         }
     } 
-    sf::Texture aux;  
-    
-    //falta el corte
   
     int columns = _tilesetTexture.getSize().x / _tileWidth;
     int rows = _tilesetTexture.getSize().y / _tileHeigth;
     
-    cout<<columns<<" "<<rows<<endl; 
 
+   
     _tilesetSprite =new sf::Sprite[columns*rows];     
     int t=0;
     for(int y=0; y<rows; y++){
         for(int x=0; x<columns;x++){
               _tilesetSprite[t].setTexture(_tilesetTexture);
-              //_tilesetSprite[t].setTextureRect(sf::IntRect(left,top,width,height));//ojo si hay dos imagenes
               _tilesetSprite[t].setTextureRect(sf::IntRect(x*_tileWidth,y*_tileHeigth,_tileWidth,_tileHeigth));
               t++;
         }
     }
     
-    cout<<"nostas"<<endl;
-    /**
-    for(int y=0; y<t; y++)
-    {
-     cout<<_tilesetSprite[y].getTextureRect().left<<" ";
-     cout<<_tilesetSprite[y].getTextureRect().top<<" ";
-      cout<<_tilesetSprite[y].getTextureRect().width<<" ";
-       cout<<_tilesetSprite[y].getTextureRect().height<<endl;
-    }**/
-    
-    //cout<<t<<endl;
-   
-    //asignacion sprite
       
     for(int l=0; l<_numLayers; l++){
         for(int y=0; y<_height; y++){
             for(int x=0; x<_width;x++){
                 int gid=_tilemap[l][y][x]-1;
                 if(gid>=rows*columns){
-                    cout<<gid<<endl;
-                    cout<<rows<<endl;
-                    cout<<columns<<endl;
-                    cout<<"Error aaaa"<<endl;
+                    std::cout<<"ERROR\n";
                 }
                 else if(gid>0){   
 
@@ -385,35 +298,5 @@ void Cargar::leerMapa2(){
             }
         }
     }
-      
-    /////////////////////Resumen
-    cout<<endl;
-    cout<<"Resumen:"<<endl;
-    cout<<"Heigth= "<<_height<<endl;
-    cout<<"Width= "<<_width<<endl;
-    cout<<"TileWidth= "<<_tileWidth<<endl;
-    cout<<"TileHeigth= "<<_tileHeigth<<endl;
-    cout<<"Numero de capas= "<<_numLayers<<endl;
-    cout<<"Nombre del tileset= "<<filename[0]<<endl;
-    cout<<"Nombre del tileset= "<<filename[1]<<endl;
-    cout<<endl;
      
-     /**
-    cout<<"Gid de las capas"<<endl;
-   for(int l=0; l<_numLayers; l++)
-    {
-       cout<<name[l]<<endl;
-        for(int y=0; y<_height; y++)
-        {
-            for(int x=0; x<_width;x++)
-            {    
-                cout<<_tilemap[l][y][x]<<" ";
-
-                if(x==_width-1)
-                {
-                    cout<<endl;
-                }
-            }
-        }
-   }**/
 }
