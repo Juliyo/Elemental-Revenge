@@ -30,7 +30,7 @@ Game::Game()
     mWindow.setMouseCursorVisible(false);
     mWorldView.zoom(0.5f);
     try {
-        texturaFondo.loadFromFile("resources/background.png");
+        //texturaFondo.loadFromFile("resources/background.png");
         contFonts.loadFromFile("resources/Fonts/Sansation.ttf");
         texturaRelleno.loadFromFile("resources/Textures/background.png");
         mouseTexture.loadFromFile("resources/Textures/mouse.png");
@@ -81,7 +81,7 @@ void Game::run() //Metodo principal
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero; //Tiempo desde el ultimo cambio de frame
     
-    
+
     
     while (mWindow.isOpen()) {
         sf::Time elapsedTime = clock.restart(); //Actualizamos variables de tiempo
@@ -109,7 +109,6 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
     
     
      
-    
     
    /* if(player->GetSpriteAnimated().getGlobalBounds().intersects(mapa->fondo.getGlobalBounds())){
         std::cout<<"CHOCA";
@@ -262,7 +261,7 @@ for(int t=0; t<mapa->_numLayers; t++){
                     player->GetSpriteAnimated().getGlobalBounds();
                     
                     if(player->GetSpriteAnimated().getGlobalBounds().intersects(mapa->_tilemapSprite[t][y][x]->getGlobalBounds())){
-                        std::cout<<"ZIZU";
+                        std::cout<<"ENTRA";
                     }
                 }
             }
