@@ -123,11 +123,11 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
             movement.y -= player -> getVelocidad();
             //noKeyWasPressed = false;
             
-            for(int t=0; t<mapa->_numLayers; t++){
+            for(int l=0; l<mapa->_numLayers; l++){
         for(int y=0; y<mapa->_height; y++){
             for(int x=0; x<mapa->_width; x++){
-                if(mapa->_tilemapSprite[t][y][x]!=NULL){  
-                    if(mapa->_tilemapSprite[t][y][x]->getGlobalBounds().contains(player->GetRenderPosition().x,player->GetRenderPosition().y-20)){
+                if(mapa->_tilemapSprite[l][y][x]!=NULL){  
+                    if(mapa->_tilemapSprite[l][y][x]->getGlobalBounds().contains(player->GetRenderPosition().x,player->GetRenderPosition().y-20)){
             movement.y += player -> getVelocidad();
                     }
                 }
@@ -140,11 +140,11 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
             movement.y += player -> getVelocidad();
             //noKeyWasPressed = false;
             
-        for(int t=0; t<mapa->_numLayers; t++){
+        for(int l=0; l<mapa->_numLayers; l++){
         for(int y=0; y<mapa->_height; y++){
             for(int x=0; x<mapa->_width; x++){
-                if(mapa->_tilemapSprite[t][y][x]!=NULL){  
-                    if(mapa->_tilemapSprite[t][y][x]->getGlobalBounds().contains(player->GetRenderPosition().x,player->GetRenderPosition().y+20)){
+                if(mapa->_tilemapSprite[l][y][x]!=NULL){  
+                    if(mapa->_tilemapSprite[l][y][x]->getGlobalBounds().contains(player->GetRenderPosition().x,player->GetRenderPosition().y+20)){
                         movement.y -= player -> getVelocidad();
                     }
                 }
@@ -157,11 +157,11 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
             movement.x -= player -> getVelocidad();
             
             
-            for(int t=0; t<mapa->_numLayers; t++){
+            for(int l=0; l<mapa->_numLayers; l++){
         for(int y=0; y<mapa->_height; y++){
             for(int x=0; x<mapa->_width; x++){
-                if(mapa->_tilemapSprite[t][y][x]!=NULL){  
-                    if(mapa->_tilemapSprite[t][y][x]->getGlobalBounds().contains(player->GetRenderPosition().x-20,player->GetRenderPosition().y)){
+                if(mapa->_tilemapSprite[l][y][x]!=NULL){  
+                    if(mapa->_tilemapSprite[l][y][x]->getGlobalBounds().contains(player->GetRenderPosition().x-20,player->GetRenderPosition().y)){
                         movement.x += player -> getVelocidad();
                     }
                 }
@@ -174,11 +174,11 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
             movement.x += player -> getVelocidad();
             // noKeyWasPressed = false;
             
-            for(int t=0; t<mapa->_numLayers; t++){
+            for(int l=0; l<mapa->_numLayers; l++){
         for(int y=0; y<mapa->_height; y++){
             for(int x=0; x<mapa->_width; x++){
-                if(mapa->_tilemapSprite[t][y][x]!=NULL){  
-                    if(mapa->_tilemapSprite[t][y][x]->getGlobalBounds().contains(player->GetRenderPosition().x+20,player->GetRenderPosition().y)){
+                if(mapa->_tilemapSprite[l][y][x]!=NULL){  
+                    if(mapa->_tilemapSprite[l][y][x]->getGlobalBounds().contains(player->GetRenderPosition().x+20,player->GetRenderPosition().y)){
                         movement.x -= player -> getVelocidad();
                     }
                 }
@@ -250,17 +250,17 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
     }
     player -> UpdateAnimation(elapsedTime);
 /*
-for(int t=0; t<mapa->_numLayers; t++){
+for(int l=0; l<mapa->_numLayers; l++){
         for(int y=0; y<mapa->_height; y++){
 
             for(int x=0; x<mapa->_width; x++){
 
-                if(mapa->_tilemapSprite[t][y][x]!=NULL){
+                if(mapa->_tilemapSprite[l][y][x]!=NULL){
                    
-                    mapa->_tilemapSprite[t][y][x]->getGlobalBounds();
+                    mapa->_tilemapSprite[l][y][x]->getGlobalBounds();
                     player->GetSpriteAnimated().getGlobalBounds();
                     
-                    if(player->GetSpriteAnimated().getGlobalBounds().intersects(mapa->_tilemapSprite[t][y][x]->getGlobalBounds())){
+                    if(player->GetSpriteAnimated().getGlobalBounds().intersects(mapa->_tilemapSprite[l][y][x]->getGlobalBounds())){
                         std::cout<<"ENTRA";
                     }
                 }

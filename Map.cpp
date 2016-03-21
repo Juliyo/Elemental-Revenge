@@ -162,13 +162,12 @@ void Map::leerMapa(){
 
 void Map::dibuja(sf::RenderWindow& window){
 
-    window.draw(fondo);
     
-    for(int t=0; t<_numLayers; t++){
+    for(int l=0; l<_numLayers; l++){
         for(int y=0; y<_height; y++){
             for(int x=0; x<_width; x++){
-                if(_tilemapSprite[t][y][x]!=NULL){
-                    window.draw(*(_tilemapSprite[t][y][x]));
+                if(_tilemapSprite[l][y][x]!=NULL){
+                    window.draw(*(_tilemapSprite[l][y][x]));
                 }
             }
         }
@@ -270,12 +269,12 @@ void Map::leerMapa2(){
 
    
     _tilesetSprite =new sf::Sprite[columns*rows];     
-    int t=0;
+    int s=0;
     for(int y=0; y<rows; y++){
         for(int x=0; x<columns;x++){
-              _tilesetSprite[t].setTexture(_tilesetTexture);
-              _tilesetSprite[t].setTextureRect(sf::IntRect(x*_tileWidth,y*_tileHeigth,_tileWidth,_tileHeigth));
-              t++;
+              _tilesetSprite[s].setTexture(_tilesetTexture);
+              _tilesetSprite[s].setTextureRect(sf::IntRect(x*_tileWidth,y*_tileHeigth,_tileWidth,_tileHeigth));
+              s++;
         }
     }
     

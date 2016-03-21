@@ -24,7 +24,6 @@ public:
     void leerMapa();
     void leerMapa2();
     void dibuja(sf::RenderWindow &window);
-    sf::Sprite  fondo;
     sf::Sprite  getMap();
     int _numLayers=0;
     int ***_tilemap;
@@ -38,8 +37,7 @@ public:
 private:
    
 
-    sf::VertexArray m_vertices;
-    sf::Texture m_tileset;
+
 
 
 
