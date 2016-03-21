@@ -189,8 +189,9 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
     player -> hRayoAvanzado->PlayAnimation(*player -> hRayoAvanzado-> currentAnimation); //Current animation es un puntero a puntero
     if (player -> hRayoAvanzado->draw == true) {
         
-        player->SetFrame(sf::seconds(0.125f));
-        //switch
+        player->SetFrame(sf::seconds(0.3f));
+        if(player -> hRayoAvanzado->tiempoCast.getElapsedTime().asSeconds()<0.3){
+                //switch
         switch(player->cuadrante){
             case 1:
                 player->currentAnimation=&player->castingAnimationUp;
@@ -205,12 +206,15 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
                 player->currentAnimation=&player->castingAnimationLeft;
                 break;
         }
+            }
+        
         
         
         
         player -> hRayoAvanzado -> UpdateAnimation(elapsedTime);
         if (player -> hRayoAvanzado->tiempoCast.getElapsedTime().asSeconds() < player -> hRayoAvanzado->getCast()) {
             player -> hRayoAvanzado->DrawWithOutInterpolation(mWindow);
+            
         } else {
             player -> hRayoAvanzado->draw=false;
         }
@@ -420,6 +424,7 @@ void Game::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
         isShooting = isPressed;
     }
     if(button == sf::Mouse::Button::Right && isPressed==false){
+        
         player->hRayoAvanzado->cast(sf::Vector2f(player->getPosition()),&mWindow);
         
     }
