@@ -24,7 +24,7 @@ public:
     virtual ~hWaterBasic();
     void cast(sf::Vector2f , sf::RenderWindow *mWindow);
     void DrawWithInterpolation(sf::RenderWindow& window, float interpolation);
-    void Update(sf::Vector2f velocity, sf::Time elapsedTime);
+    void Update(sf::Vector2f velocity, sf::Time elapsedTime, float playerV);
     void setDibujar(bool NuevoDibujar);
     
     Animation *animation;

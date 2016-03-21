@@ -124,7 +124,7 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
         player->hAguaBasico->cast(sf::Vector2f(player->getPosition()), &mWindow);
     }
     if (player -> hAguaBasico->tiempoCast.getElapsedTime().asSeconds() < 0.5f && player -> hAguaBasico->dibujar == true) {
-        player -> hAguaBasico->Update(movement, elapsedTime);
+        player -> hAguaBasico->Update(movement, elapsedTime,player->getVelocidad());
 
         if (player->hAguaBasico->GetGlobalBounds().intersects(enemigo[0].getSprite().getGlobalBounds())) {
             enemigo[0].empujado = true;
@@ -305,7 +305,9 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
     player -> hud->renderHud(&mWindow);
     mWindow.setView(previa);
 
-
+    enemigo[0].Draw(mWindow);
+    enemigo[1].Draw(mWindow);
+    
     mWindow.draw(mouseSprite);
     // mWindow.draw(mStatisticsText);
     mWindow.display();

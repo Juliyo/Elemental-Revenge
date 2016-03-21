@@ -17,6 +17,7 @@
 #include <iostream>
 #include "../Headers/AnimatedSprite.hpp"
 #include "../Headers/Animation.hpp"
+#include "Headers/Util.hpp"
 #endif
 
 hWaterBasic::hWaterBasic() {
@@ -94,8 +95,10 @@ void hWaterBasic::DrawWithInterpolation(sf::RenderWindow& window, float interpol
     DrawAnimation(window, GetPreviousPosition(), GetPosition(), interpolation);
 }
 
-void hWaterBasic::Update(sf::Vector2f velocity, sf::Time elapsedTime) {
-    SetSpeed(velocity);
+void hWaterBasic::Update(sf::Vector2f velocity, sf::Time elapsedTime, float playerV) {
+    /**Hay que normalizar la velocidad**/
+    sf::Vector2f nVelocity = Util::Normalize(velocity);
+    SetSpeed(nVelocity*playerV);
     PhysicsState::Update(elapsedTime);
 }
 
