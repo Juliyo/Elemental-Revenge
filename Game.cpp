@@ -63,7 +63,7 @@ Game::Game()
 #endif
     //Configuramos Items
     player = new Player();
-    player -> Inicializar(1600.f, 1800.f);
+    player -> Inicializar(1500.f, 1800.f);
 
     
     mapa = new Map();
