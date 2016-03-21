@@ -190,7 +190,7 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
     if (player -> hRayoAvanzado->draw == true) {
         
         player->SetFrame(sf::seconds(0.3f));
-        if(player -> hRayoAvanzado->tiempoCast.getElapsedTime().asSeconds()<0.3){
+        if(player -> hRayoAvanzado->tiempoCast.getElapsedTime().asSeconds()<0.2){
                 //switch
         switch(player->cuadrante){
             case 1:
