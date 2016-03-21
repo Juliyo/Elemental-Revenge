@@ -27,7 +27,7 @@ Game::Game()
 , isInterpolating(false) {
     mWindow.setFramerateLimit(60); //Establecemos maximo real de procesamiento (aunque trabajamos con 60)
     mWindow.setVerticalSyncEnabled(true);
-
+    mWindow.setMouseCursorVisible(false);
     mWorldView.zoom(0.5f);
     try {
         texturaFondo.loadFromFile("resources/Textures/grasstext.png");
