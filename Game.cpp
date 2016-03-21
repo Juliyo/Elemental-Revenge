@@ -212,7 +212,6 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
 
         }
     } else {
-        player->StopAnimation();
         player->hRayoAvanzado->StopAnimation();
     }
     player->hRayoBasico->PlayAnimation(*player->hRayoBasico->currentAnimation);
