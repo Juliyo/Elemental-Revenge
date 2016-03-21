@@ -33,19 +33,51 @@ hRayAdvanced::hRayAdvanced() {
     hSprite.setPosition(0, 0);
     hSprite.setOrigin(100/2,81/2);*/
     animationDurante->setSpriteSheet(hTexture);
-    animationDurante->addFrame(sf::IntRect(0,0,64,233));
-    animationDurante->addFrame(sf::IntRect(64,0,64,233));
-    animationDurante->addFrame(sf::IntRect(128,0,64,233));
-    animationDurante->addFrame(sf::IntRect(192,0,64,233));
-    animationDurante->addFrame(sf::IntRect(256,0,64,233));
-    animationDurante->addFrame(sf::IntRect(320,0,64,233));
-    animationDurante->addFrame(sf::IntRect(384,0,64,233));
-    animationDurante->addFrame(sf::IntRect(448,0,64,233));
+    
+    animationDurante->addFrame(sf::IntRect(0,0,960,582));
+    animationDurante->addFrame(sf::IntRect(960,0,960,582));
+    animationDurante->addFrame(sf::IntRect(960*2,0,960,582));
+    animationDurante->addFrame(sf::IntRect(960*3,0,960,582));
+    animationDurante->addFrame(sf::IntRect(960*4,0,960,582));
+    
+    animationDurante->addFrame(sf::IntRect(0,582,960,582));
+    animationDurante->addFrame(sf::IntRect(960,582,960,582));
+    animationDurante->addFrame(sf::IntRect(960*2,582,960,582));
+    animationDurante->addFrame(sf::IntRect(960*3,582,960,582));
+    animationDurante->addFrame(sf::IntRect(960*4,582,960,582));
+    
+    
+    animationDurante->addFrame(sf::IntRect(0,582*2,960,582));
+    animationDurante->addFrame(sf::IntRect(960,582*2,960,582));
+    animationDurante->addFrame(sf::IntRect(960*2,582*2,960,582));
+    animationDurante->addFrame(sf::IntRect(960*3,582*2,960,582));
+    animationDurante->addFrame(sf::IntRect(960*4,582*2,960,582));
+    
+    animationDurante->addFrame(sf::IntRect(0,582*3,960,582));
+    animationDurante->addFrame(sf::IntRect(960,582*3,960,582));
+    animationDurante->addFrame(sf::IntRect(960*2,582*3,960,582));
+    animationDurante->addFrame(sf::IntRect(960*3,582*3,960,582));
+    animationDurante->addFrame(sf::IntRect(960*4,582*3,960,582));
+    
+    animationDurante->addFrame(sf::IntRect(0,582*4,960,582));
+    animationDurante->addFrame(sf::IntRect(960,582*4,960,582));
+    animationDurante->addFrame(sf::IntRect(960*2,582*4,960,582));
+    animationDurante->addFrame(sf::IntRect(960*3,582*4,960,582));
+    animationDurante->addFrame(sf::IntRect(960*4,582*4,960,582));
+    
+    animationDurante->addFrame(sf::IntRect(0,582*5,960,582));
+    animationDurante->addFrame(sf::IntRect(960,582*5,960,582));
+    animationDurante->addFrame(sf::IntRect(960*2,582*5,960,582));
+    animationDurante->addFrame(sf::IntRect(960*3,582*5,960,582));
+    animationDurante->addFrame(sf::IntRect(960*4,582*5,960,582));
+    
+    
 
     
     currentAnimation = &animationDurante;
-    InicializarAnimatedSprite(sf::seconds(0.5f/8),true,false);
-    SetOriginAnimatedSprite(41,233);
+    InicializarAnimatedSprite(sf::seconds(1.f/29),true,false);
+    SetScale(0.6f,0.6f);
+    SetOriginAnimatedSprite(480,291);
     
 }
 
