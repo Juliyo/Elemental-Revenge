@@ -77,7 +77,7 @@ hRayAdvanced::hRayAdvanced() {
     currentAnimation = &animationDurante;
     InicializarAnimatedSprite(sf::seconds(1.f/29),true,false);
     SetScale(0.6f,0.6f);
-    SetOriginAnimatedSprite(480,291);
+    SetOriginAnimatedSprite(475,392);
     
 }
 
