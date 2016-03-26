@@ -2,12 +2,17 @@
 <configurationDescriptor version="97">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="Headers" displayName="Headers" projectFiles="true">
+      <itemPath>Headers/AnimatedSprite.hpp</itemPath>
       <itemPath>Headers/Game.hpp</itemPath>
+      <itemPath>Headers/Keyboard.hpp</itemPath>
+      <itemPath>Headers/Mouse.hpp</itemPath>
       <itemPath>Headers/PhysicsState.hpp</itemPath>
       <itemPath>Headers/Player.hpp</itemPath>
       <itemPath>Headers/Render.hpp</itemPath>
       <itemPath>Headers/StringHelpers.hpp</itemPath>
       <itemPath>Headers/StringHelpers.inl</itemPath>
+      <itemPath>Headers/Texture.hpp</itemPath>
+      <itemPath>Headers/Window.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -16,10 +21,17 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>AnimatedSprite.cpp</itemPath>
+      <itemPath>Evento.cpp</itemPath>
+      <itemPath>Headers/Evento.hpp</itemPath>
       <itemPath>Game.cpp</itemPath>
+      <itemPath>Keyboard.cpp</itemPath>
+      <itemPath>Mouse.cpp</itemPath>
       <itemPath>PhysicsState.cpp</itemPath>
       <itemPath>Player.cpp</itemPath>
       <itemPath>Render.cpp</itemPath>
+      <itemPath>Texture.cpp</itemPath>
+      <itemPath>Window.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -66,9 +78,21 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="AnimatedSprite.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Evento.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="Game.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="Headers/AnimatedSprite.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/Evento.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/Game.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/Keyboard.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/Mouse.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/PhysicsState.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -80,11 +104,23 @@
       </item>
       <item path="Headers/StringHelpers.inl" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/Texture.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/Window.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Keyboard.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Mouse.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="PhysicsState.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Player.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Render.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Texture.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Window.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -109,9 +145,21 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="AnimatedSprite.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Evento.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="Game.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="Headers/AnimatedSprite.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/Evento.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/Game.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/Keyboard.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/Mouse.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/PhysicsState.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -123,11 +171,23 @@
       </item>
       <item path="Headers/StringHelpers.inl" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/Texture.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/Window.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Keyboard.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Mouse.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="PhysicsState.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Player.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Render.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Texture.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Window.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
