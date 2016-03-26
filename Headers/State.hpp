@@ -1,40 +1,31 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
-#ifndef __GAME_HPP__
-#define __GAME_HPP__
+/* 
+ * File:   State.hpp
+ * Author: joselu
+ *
+ * Created on 26 de marzo de 2016, 19:49
+ */
+
+#ifndef STATE_HPP
+#define STATE_HPP
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Player.hpp"
 #include "Enemigo.hpp"
-#include "State.hpp"
-#include "InGame.hpp"
-#include "Transition.hpp"
 
-class Game : private sf::NonCopyable
-{
+
+class State {
 public:
-    Game();
-    void			run();
-    
-    
-private:
-    void			processEvents();  // Captura y procesa eventos
-    void			update(sf::Time elapsedTime);
-    void			render(float interpolation, sf::Time elapsedTime);
-    void			handlePlayerInput(sf::Keyboard::Key key, bool isPressed);  // Maneja eventos
-    void			handleMouseInput(sf::Mouse::Button button, bool isPressed);  // Maneja eventos
-    
-    void                        updateView();
-    void                        UpdatePlayerAnimation();
-    sf::View                    getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight);
-    
-    void SetState(int nuevoEstado);
-    
-private:
-    static const sf::Time	timePerFrame;
-	
-    
-    //Recursos
+    State();
+    State(const State& orig);
+    virtual ~State();
+protected:
     sf::Texture                 texturaFondo;
     sf::Sprite                  spriteFondo;
     sf::Texture                 texturaRelleno;
@@ -51,10 +42,6 @@ private:
     Player			*player;
     Enemigo			enemigo[20];
     
-    int                         EstadoActual=1;
-    
-    InGame                      *EstadoInGame;
-    Transition                  *EstadoTransition;
     //Estadisticas
     sf::Text			mStatisticsText;
     
@@ -75,8 +62,5 @@ private:
     bool                        aux;
 };
 
-
-
-#endif
-
+#endif /* STATE_HPP */
 

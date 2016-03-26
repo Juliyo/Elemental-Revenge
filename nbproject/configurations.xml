@@ -114,15 +114,21 @@
       </item>
       <item path="Headers/Hud.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/InGame.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/PhysicsState.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Player.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Render.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/State.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/StringHelpers.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/StringHelpers.inl" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/Transition.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Util.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -134,11 +140,17 @@
       </item>
       <item path="Hud.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="InGame.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="PhysicsState.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Player.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Render.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="State.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Transition.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Util.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -189,15 +201,21 @@
       </item>
       <item path="Headers/Hud.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/InGame.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/PhysicsState.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Player.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Render.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/State.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/StringHelpers.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/StringHelpers.inl" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/Transition.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Util.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -209,11 +227,17 @@
       </item>
       <item path="Hud.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="InGame.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="PhysicsState.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Player.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Render.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="State.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Transition.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Util.cpp" ex="false" tool="1" flavor2="0">
       </item>
