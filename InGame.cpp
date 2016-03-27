@@ -15,7 +15,7 @@
 #include "Game.hpp"
 
 InGame::InGame() {
-        player = new Player();
+    player = new Player();
     player -> Inicializar(200.f, 250.f);
 }
 
@@ -77,4 +77,8 @@ void InGame::Update(sf::Time elapsedTime){
     firstTime = false;
     
     
+}
+
+void InGame::render(float interpolation, sf::Time elapsedTime){
+   
 }

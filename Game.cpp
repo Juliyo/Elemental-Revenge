@@ -1,6 +1,7 @@
 #include "Game.hpp"
-#include "InGame.hpp"
-#include "Transition.hpp"
+
+#include "SFML/System.hpp"
+
 #include <cmath>
 #include <math.h>
 //SOLO EN WINDOWS
@@ -70,7 +71,7 @@ Game::Game()
     enemigo[0].Inicializar(300.f, 350.f);
     enemigo[1].Inicializar(350.f, 450.f);
     
-    EstadoInGame=new InGame();
+    EstadoInGame=new InGame();   
     EstadoTransition=new Transition();
 }
 
@@ -138,119 +139,18 @@ void Game::updateView() {
 
 void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
 {
-    mWindow.clear();
-
-    //Pillamos la view anterior, activamos la del fondo, dibujamos el fondo y volvemos al estado anterior
-    sf::View previa = mWindow.getView();
-    mWindow.setView(mBackgroundView);
-    mWindow.draw(spriteRelleno);
-    mWindow.setView(previa);
-
-    updateView();
-    mWindow.draw(spriteFondo);
-
-
-    int x = mouseSprite.getPosition().x - player -> getPosition().x;
-    int y = mouseSprite.getPosition().y - player -> getPosition().y;
-    player ->UpdatePlayerAnimation(x, y);
-    player -> hRayoAvanzado->PlayAnimation(*player -> hRayoAvanzado-> currentAnimation); //Current animation es un puntero a puntero
-    if (player -> hRayoAvanzado->draw == true) {
-
-        //player->SetFrame(sf::seconds(0.3f));
-        if (player -> hRayoAvanzado->tiempoCast.getElapsedTime().asSeconds() < player->hRayoAvanzado->getCast()) {
-            //switch
-            switch (player->cuadrante) {
-                case 1:
-                    player->currentAnimation = &player->castingAnimationUp;
-                    break;
-                case 2:
-                    player->currentAnimation = &player->castingAnimationDown;
-                    break;
-                case 3:
-                    player->currentAnimation = &player->castingAnimationRight;
-                    break;
-                case 4:
-                    player->currentAnimation = &player->castingAnimationLeft;
-                    break;
-            }
-        }
-        player -> hRayoAvanzado -> UpdateAnimation(elapsedTime);
-        if (player -> hRayoAvanzado->tiempoCast.getElapsedTime().asSeconds() < player -> hRayoAvanzado->getCast()) {
-            player -> hRayoAvanzado->DrawWithOutInterpolation(mWindow);
-
-        }
-    } else {
-        player->hRayoAvanzado->StopAnimation();
+    
+        if(EstadoActual==1){
+        EstadoInGame->render(interpolation, elapsedTime);
+        printf("PATATA");
     }
-    player->hRayoBasico->PlayAnimation(*player->hRayoBasico->currentAnimation);
-    if (player->hRayoBasico->draw == true) {
-        player->SetFrame(sf::seconds(0.125f));
-        //switch
-        switch (player->cuadrante) {
-            case 1:
-                player->currentAnimation = &player->castingAnimationUp;
-                break;
-            case 2:
-                player->currentAnimation = &player->castingAnimationDown;
-                break;
-            case 3:
-                player->currentAnimation = &player->castingAnimationRight;
-                break;
-            case 4:
-                player->currentAnimation = &player->castingAnimationLeft;
-                break;
-        }
-
-
-        player -> hRayoBasico -> UpdateAnimation(elapsedTime);
-        if (player->hRayoBasico->tiempoCast.getElapsedTime().asSeconds() < player->hRayoBasico->getCast()) {
-            //printf("Posicion del animation:%f-%f\n",player->getPhysics()->GetPosition().x,player->getPhysics()->GetPosition().y);
-            player->hRayoBasico->SetFrame(sf::seconds(0.075f));
-            player->hRayoBasico->currentAnimation = &player->hRayoBasico->animationDurante;
-
-            if (player->hRayoBasico->tiempoCast.getElapsedTime().asSeconds() < 1.0f) {
-
-
-                player->hRayoBasico->SetFrame(sf::seconds(0.125f));
-                player->hRayoBasico->currentAnimation = &player->hRayoBasico->PrimeraAnimacion;
-
-            }
-
-
-            player->hRayoBasico->DrawWithInterpolation(mWindow, interpolation, player->GetPreviousPosition(), player->GetPosition());
-        } else {
-
-            player->hRayoBasico->draw = false;
-        }
-
-    } else {
-        player->SetFrame(sf::seconds(0.075f));
-        player->hRayoBasico->StopAnimation();
+    else{
+        EstadoTransition->Update(elapsedTime);
     }
-    //printf("%f",player->hRayoBasico->tiempoCast.getElapsedTime().asSeconds());
-
-    player -> PlayAnimation(*player -> currentAnimation);
-
-
-    if ((!isMovingDown && !isMovingLeft && !isMovingRight && !isMovingUp) || player->hRayoBasico->draw == true) {
-        player -> StopAnimation();
-    }
-    player -> UpdateAnimation(elapsedTime);
-
-
-    player -> DrawWithInterpolation(mWindow, interpolation);
-
-    previa = mWindow.getView();
-
-    mWindow.setView(getLetterboxView(mHud, ancho, alto, 640, 480));
-    player -> hud->renderHud(&mWindow);
-    mWindow.setView(previa);
-
-
-    mWindow.draw(mouseSprite);
-    // mWindow.draw(mStatisticsText);
-    mWindow.display();
 }
+    
+    
+
 
 void Game::SetState(int nuevoEstado){
     EstadoActual=nuevoEstado;

@@ -7,11 +7,14 @@
       <itemPath>Headers/Enemigo.hpp</itemPath>
       <itemPath>Headers/Game.hpp</itemPath>
       <itemPath>Headers/Hechizo.hpp</itemPath>
+      <itemPath>Headers/InGame.hpp</itemPath>
       <itemPath>Headers/PhysicsState.hpp</itemPath>
       <itemPath>Headers/Player.hpp</itemPath>
       <itemPath>Headers/Render.hpp</itemPath>
+      <itemPath>Headers/State.hpp</itemPath>
       <itemPath>Headers/StringHelpers.hpp</itemPath>
       <itemPath>Headers/StringHelpers.inl</itemPath>
+      <itemPath>Headers/Transition.hpp</itemPath>
       <itemPath>Headers/Util.hpp</itemPath>
       <itemPath>Headers/hRayAdvanced.hpp</itemPath>
       <itemPath>Headers/hRayBasic.hpp</itemPath>
@@ -29,9 +32,12 @@
       <itemPath>Game.cpp</itemPath>
       <itemPath>Hechizo.cpp</itemPath>
       <itemPath>Hud.cpp</itemPath>
+      <itemPath>InGame.cpp</itemPath>
       <itemPath>PhysicsState.cpp</itemPath>
       <itemPath>Player.cpp</itemPath>
       <itemPath>Render.cpp</itemPath>
+      <itemPath>State.cpp</itemPath>
+      <itemPath>Transition.cpp</itemPath>
       <itemPath>Util.cpp</itemPath>
       <itemPath>hRayAdvanced.cpp</itemPath>
       <itemPath>hRayBasic.cpp</itemPath>
