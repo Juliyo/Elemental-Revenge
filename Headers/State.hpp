@@ -18,48 +18,16 @@
 #include <SFML/Graphics.hpp>
 #include "Player.hpp"
 #include "Enemigo.hpp"
-
+#include <SFML/Window.hpp>
 
 class State {
 public:
     State();
     State(const State& orig);
     virtual ~State();
-protected:
-    sf::Texture                 texturaFondo;
-    sf::Sprite                  spriteFondo;
-    sf::Texture                 texturaRelleno;
-    sf::Sprite                  spriteRelleno;
-    sf::Font                    contFonts;
-    sf::Texture                 mouseTexture;
-    sf::Sprite                  mouseSprite;
     
-    //Graficos
-    sf::RenderWindow		mWindow;
-    sf::View                    mWorldView;
-    sf::View                    mBackgroundView;
-    sf::View                    mHud;
-    Player			*player;
-    Enemigo			enemigo[20];
-    
-    //Estadisticas
-    sf::Text			mStatisticsText;
-    
-    float                       interpolation;
-	
-    //Eventos
-    bool			isMovingUp;
-    bool			isMovingDown;
-    bool			isMovingRight;
-    bool			isMovingLeft;
-    bool                        rayoAdvancedCast = false;
-    bool                        rayoBasicCast = false;
-    
-    bool                        noKeyWasPressed = true;
-    bool			firstTime;
-    bool			isInterpolating;
-    bool                        isShooting;
-    bool                        aux;
+    bool             EstadoActivo=false;
+
 };
 
 #endif /* STATE_HPP */

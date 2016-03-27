@@ -16,7 +16,7 @@
 
 #include "State.hpp"
 #include "SFML/System.hpp"
-
+#include "Window.hpp"
 
 class InGame:public State {
 public:
@@ -32,12 +32,46 @@ public:
     
     void			render(float interpolation, sf::Time elapsedTime);
 
-    
+    sf::View                    getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight);
     void			processEvents();  // Captura y procesa eventos
-
+    
+    void                        updateView();
     
 private:
+    Window &ref = * Window::Instance();
+    sf::RenderWindow            *mWindow;
     
+    Player			*player;
+    Enemigo			enemigo[20];
+    
+    //Graficos
+    sf::View                    mWorldView;
+    sf::View                    mBackgroundView;
+    sf::View                    mHud;
+    
+    //Recursos
+    sf::Texture                 texturaFondo;
+    sf::Sprite                  spriteFondo;
+    sf::Texture                 texturaRelleno;
+    sf::Sprite                  spriteRelleno;
+    sf::Font                    contFonts;
+    sf::Texture                 mouseTexture;
+    sf::Sprite                  mouseSprite;
+    
+    
+    //Eventos
+    bool			isMovingUp;
+    bool			isMovingDown;
+    bool			isMovingRight;
+    bool			isMovingLeft;
+    bool                        rayoAdvancedCast = false;
+    bool                        rayoBasicCast = false;
+    
+    bool                        noKeyWasPressed = true;
+    bool			firstTime;
+    bool			isInterpolating;
+    bool                        isShooting;
+    bool                        aux;
 };
 
 #endif /* INGAME_HPP */

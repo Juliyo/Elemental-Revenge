@@ -26,6 +26,6 @@ int main(int, char const**)
 {
     info();
     Game *game = new Game();
-    game->run();
+    *game -> run();
     delete game;
 }

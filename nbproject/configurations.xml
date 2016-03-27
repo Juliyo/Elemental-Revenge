@@ -7,6 +7,7 @@
       <itemPath>Headers/Enemigo.hpp</itemPath>
       <itemPath>Headers/Game.hpp</itemPath>
       <itemPath>Headers/Hechizo.hpp</itemPath>
+      <itemPath>Headers/Hud.hpp</itemPath>
       <itemPath>Headers/InGame.hpp</itemPath>
       <itemPath>Headers/PhysicsState.hpp</itemPath>
       <itemPath>Headers/Player.hpp</itemPath>
@@ -16,6 +17,7 @@
       <itemPath>Headers/StringHelpers.inl</itemPath>
       <itemPath>Headers/Transition.hpp</itemPath>
       <itemPath>Headers/Util.hpp</itemPath>
+      <itemPath>Headers/Window.hpp</itemPath>
       <itemPath>Headers/hRayAdvanced.hpp</itemPath>
       <itemPath>Headers/hRayBasic.hpp</itemPath>
     </logicalFolder>
@@ -39,6 +41,7 @@
       <itemPath>State.cpp</itemPath>
       <itemPath>Transition.cpp</itemPath>
       <itemPath>Util.cpp</itemPath>
+      <itemPath>Window.cpp</itemPath>
       <itemPath>hRayAdvanced.cpp</itemPath>
       <itemPath>hRayBasic.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
@@ -65,9 +68,32 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
-    <itemPath>Headers/Hud.hpp</itemPath>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
   </logicalFolder>
   <sourceRootList>
+    <Elem>Headers</Elem>
+    <Elem>Headers</Elem>
     <Elem>Headers</Elem>
     <Elem>Headers</Elem>
   </sourceRootList>
@@ -138,6 +164,8 @@
       </item>
       <item path="Headers/Util.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/Window.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/hRayAdvanced.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/hRayBasic.hpp" ex="false" tool="3" flavor2="0">
@@ -159,6 +187,8 @@
       <item path="Transition.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Util.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Window.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="hRayAdvanced.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -225,6 +255,8 @@
       </item>
       <item path="Headers/Util.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/Window.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/hRayAdvanced.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/hRayBasic.hpp" ex="false" tool="3" flavor2="0">
@@ -246,6 +278,8 @@
       <item path="Transition.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Util.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Window.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="hRayAdvanced.cpp" ex="false" tool="1" flavor2="0">
       </item>

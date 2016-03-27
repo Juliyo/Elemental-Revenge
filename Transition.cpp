@@ -14,6 +14,8 @@
 #include "Transition.hpp"
 
 Transition::Transition() {
+    //Estado de Ingame
+    EstadoActivo = true;
 }
 
 Transition::Transition(const Transition& orig) {
