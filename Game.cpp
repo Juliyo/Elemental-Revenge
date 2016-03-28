@@ -16,23 +16,16 @@ const float segStatistics = 0.5f; //segundos de refresco de las estadisticas
 /************ CONSTRUCTOR **************/
 Game::Game(){
     
-    Window *p1 = Window::Instance();
+    Window *p1 = Window::Instance();    //Singleton
     Window *p2 = p1->Instance();
-    Window &ref = * Window::Instance();
+    Window &ref = * Window::Instance(); //Asi coges la referencia a la Window
+    
     mWindow = ref.GetWindow();
     
     mWindow->setFramerateLimit(60); //Establecemos maximo real de procesamiento (aunque trabajamos con 60)
     mWindow->setVerticalSyncEnabled(true);
     mWindow->setMouseCursorVisible(false);
-    
-    
-
-    //Configuramos Items
-   /* player = new Player();
-    player -> Inicializar(200.f, 250.f);
-
-    enemigo[0].Inicializar(300.f, 350.f);
-    enemigo[1].Inicializar(350.f, 450.f);*/
+   
     
     EstadoInGame=new InGame();   
     EstadoTransition=new Transition();
@@ -69,7 +62,6 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
 {
     if(EstadoInGame->EstadoActivo){
         EstadoInGame->Update(elapsedTime);
-        printf("ZIMU");
     }
     
     if(EstadoTransition->EstadoActivo){
@@ -83,9 +75,7 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
 {
     if(EstadoInGame->EstadoActivo){
         EstadoInGame->render(interpolation, elapsedTime);
-        printf("ZIMU");
     }
-    
     if(EstadoTransition->EstadoActivo){
         //EstadoTransition->render(interpolation, elapsedTime);
     }
@@ -98,26 +88,29 @@ void Game::processEvents() //Captura y procesa eventos
     sf::Event event;
     while (mWindow->pollEvent(event)) {
         switch (event.type) {
-            case sf::Event::KeyPressed:
-                handlePlayerInput(event.key.code, true);
-                break;
             case sf::Event::KeyReleased:
                 handlePlayerInput(event.key.code, false);
                 break;
             case sf::Event::Closed:
                 mWindow->close();
                 break;
-                
         }
-
+        if(EstadoInGame->EstadoActivo){
+            EstadoInGame->processEvents(event);
+        
+        }
+        if(EstadoTransition->EstadoActivo){
+            //EstadoTransition->
+        }
     }
-
+    
+    
 }
 void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
     if (key == sf::Keyboard::M) { //Esto lo hago para que cuando no estes presionando cambia a false
-        EstadoInGame->EstadoActivo=isPressed;
-    } else if (key == sf::Keyboard::N) {
-        EstadoTransition->EstadoActivo=isPressed;
-    } 
+        EstadoInGame->EstadoActivo=false;
+    } else if(key == sf::Keyboard::N){
+        EstadoInGame->EstadoActivo=true;
+    }
 }
 

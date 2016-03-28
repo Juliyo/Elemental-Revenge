@@ -24,10 +24,10 @@ Window* Window::Instance(){
 Window::Window() {
     ancho=1280;
     alto=720;
-    mWindow = sf::RenderWindow(sf::VideoMode(ancho, alto), "Hito 2 - Rama - Transicion", sf::Style::Default);
+    mWindow = new sf::RenderWindow(sf::VideoMode(ancho, alto), "Hito 2 - Rama - Transicion", sf::Style::Default);
 }
 sf::RenderWindow* Window::GetWindow(){
-    return &mWindow;
+    return mWindow;
 }
 
 

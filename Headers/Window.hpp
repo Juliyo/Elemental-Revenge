@@ -21,14 +21,14 @@ public:
     sf::RenderWindow* GetWindow();
     int ancho;
     int alto;
+    
 protected:
     Window();
     Window(const Window &);
     Window &operator= (const Window &);
 private:
     static Window* pinstance;
-    sf::RenderWindow mWindow;
-    
+    sf::RenderWindow *mWindow;
 };
 
 #endif /* WINDOW_HPP */

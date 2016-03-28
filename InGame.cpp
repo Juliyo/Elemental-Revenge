@@ -53,9 +53,7 @@ InGame::InGame() {
     player = new Player();
     player -> Inicializar(200.f, 250.f);
     
-    
     mWindow = ref.GetWindow();
-    
     
     mWorldView = mWindow->getDefaultView();
     mWorldView.zoom(0.5f);
@@ -124,16 +122,128 @@ void InGame::Update(sf::Time elapsedTime){
 
     firstTime = false;
     
-    
 }
 
 void InGame::render(float interpolation, sf::Time elapsedTime){
-   
+    
+    mWindow->clear();
+
+    //Pillamos la view anterior, activamos la del fondo, dibujamos el fondo y volvemos al estado anterior
+    sf::View previa = mWindow->getView();
+    mWindow->setView(mBackgroundView);
+    mWindow->draw(spriteRelleno);
+    mWindow->setView(previa);
+
+    updateView();
+    mWindow->draw(spriteFondo);
+
+
+    int x = mouseSprite.getPosition().x - player -> getPosition().x;
+    int y = mouseSprite.getPosition().y - player -> getPosition().y;
+    player ->UpdatePlayerAnimation(x, y);
+    player -> hRayoAvanzado->PlayAnimation(*player -> hRayoAvanzado-> currentAnimation); //Current animation es un puntero a puntero
+    if (player -> hRayoAvanzado->draw == true) {
+
+        //player->SetFrame(sf::seconds(0.3f));
+        if (player -> hRayoAvanzado->tiempoCast.getElapsedTime().asSeconds() < player->hRayoAvanzado->getCast()) {
+            //switch
+            switch (player->cuadrante) {
+                case 1:
+                    player->currentAnimation = &player->castingAnimationUp;
+                    break;
+                case 2:
+                    player->currentAnimation = &player->castingAnimationDown;
+                    break;
+                case 3:
+                    player->currentAnimation = &player->castingAnimationRight;
+                    break;
+                case 4:
+                    player->currentAnimation = &player->castingAnimationLeft;
+                    break;
+            }
+        }
+        player -> hRayoAvanzado -> UpdateAnimation(elapsedTime);
+        if (player -> hRayoAvanzado->tiempoCast.getElapsedTime().asSeconds() < player -> hRayoAvanzado->getCast()) {
+            player -> hRayoAvanzado->DrawWithOutInterpolation(*mWindow);
+
+        }
+    } else {
+        player->hRayoAvanzado->StopAnimation();
+    }
+    player->hRayoBasico->PlayAnimation(*player->hRayoBasico->currentAnimation);
+    if (player->hRayoBasico->draw == true) {
+        player->SetFrame(sf::seconds(0.125f));
+        //switch
+        switch (player->cuadrante) {
+            case 1:
+                player->currentAnimation = &player->castingAnimationUp;
+                break;
+            case 2:
+                player->currentAnimation = &player->castingAnimationDown;
+                break;
+            case 3:
+                player->currentAnimation = &player->castingAnimationRight;
+                break;
+            case 4:
+                player->currentAnimation = &player->castingAnimationLeft;
+                break;
+        }
+
+
+        player -> hRayoBasico -> UpdateAnimation(elapsedTime);
+        if (player->hRayoBasico->tiempoCast.getElapsedTime().asSeconds() < player->hRayoBasico->getCast()) {
+            //printf("Posicion del animation:%f-%f\n",player->getPhysics()->GetPosition().x,player->getPhysics()->GetPosition().y);
+            player->hRayoBasico->SetFrame(sf::seconds(0.075f));
+            player->hRayoBasico->currentAnimation = &player->hRayoBasico->animationDurante;
+
+            if (player->hRayoBasico->tiempoCast.getElapsedTime().asSeconds() < 1.0f) {
+
+
+                player->hRayoBasico->SetFrame(sf::seconds(0.125f));
+                player->hRayoBasico->currentAnimation = &player->hRayoBasico->PrimeraAnimacion;
+
+            }
+
+
+            player->hRayoBasico->DrawWithInterpolation(*mWindow, interpolation, player->GetPreviousPosition(), player->GetPosition());
+        } else {
+
+            player->hRayoBasico->draw = false;
+        }
+
+    } else {
+        player->SetFrame(sf::seconds(0.075f));
+        player->hRayoBasico->StopAnimation();
+    }
+    //printf("%f",player->hRayoBasico->tiempoCast.getElapsedTime().asSeconds());
+
+    player -> PlayAnimation(*player -> currentAnimation);
+
+
+    if ((!isMovingDown && !isMovingLeft && !isMovingRight && !isMovingUp) || player->hRayoBasico->draw == true) {
+        player -> StopAnimation();
+    }
+    player -> UpdateAnimation(elapsedTime);
+
+
+    player -> DrawWithInterpolation(*mWindow, interpolation);
+
+    previa = mWindow->getView();
+
+    mWindow->setView(getLetterboxView(mHud, ref.ancho, ref.alto, 640, 480));
+    player -> hud->renderHud(mWindow);
+    mWindow->setView(previa);
+
+
+    mWindow->draw(mouseSprite);
+    // mWindow.draw(mStatisticsText);
+    mWindow->display();
 }
 
 void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
     if (key == sf::Keyboard::W) { //Esto lo hago para que cuando no estes presionando cambia a false
         isMovingUp = isPressed;
+        std::cout<<"Entro"<<std::endl;
     } else if (key == sf::Keyboard::S) {
         isMovingDown = isPressed;
     } else if (key == sf::Keyboard::A) {
@@ -154,9 +264,9 @@ void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
 
 /************** EVENTOS ****************/
 
-void InGame::processEvents() //Captura y procesa eventos
+void InGame::processEvents(sf::Event event) //Captura y procesa eventos
 {
-    sf::Event event;
+    
     while (mWindow->pollEvent(event)) {
         switch (event.type) {
             case sf::Event::KeyPressed:
