@@ -5,7 +5,9 @@
 
 #include <cmath>
 #include <math.h>
-
+#ifdef _WIN32
+#include <Windows.h>
+#endif
 #define M_PI          3.141592653589793238462643383279502884 /* pi */
 /************ VARIABLES GLOBALES ************/
 const sf::Time Game::timePerFrame = sf::seconds(1.f / 15.f);
@@ -29,6 +31,13 @@ Game::Game(){
     
     EstadoInGame=new InGame();   
     EstadoTransition=new Transition();
+    
+    #ifdef _WIN32
+    HWND handler = mWindow->getSystemHandle();
+    RECT rWindow;
+    GetWindowRect(handler, &rWindow);
+    ClipCursor(&rWindow);
+#endif
 }
 
 /**************  METODOS PRINCIPALES **************/
@@ -85,32 +94,63 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
 
 void Game::processEvents() //Captura y procesa eventos
 {
+   
     sf::Event event;
     while (mWindow->pollEvent(event)) {
         switch (event.type) {
+            case sf::Event::KeyPressed:
+                handlePlayerInput(event.key.code, true);
+                EstadoInGame->handlePlayerInput(event.key.code, true);
+                
+                break;
+
             case sf::Event::KeyReleased:
+                    EstadoInGame->handlePlayerInput(event.key.code, false);
+
                 handlePlayerInput(event.key.code, false);
                 break;
+            case sf::Event::MouseButtonPressed:
+                    EstadoInGame->handleMouseInput(event.mouseButton.button, true);
+
+
+                break;
+            case sf::Event::MouseButtonReleased:
+                    EstadoInGame->handleMouseInput(event.mouseButton.button, false);
+
+
+                break;
+
             case sf::Event::Closed:
                 mWindow->close();
                 break;
+
+            case sf::Event::Resized:
+#ifdef _WIN32
+                HWND handler = mWindow->getSystemHandle();
+                RECT rWindow;
+                GetWindowRect(handler, &rWindow);
+                ClipCursor(&rWindow);
+#endif
+                mWindow->setView(EstadoInGame->getLetterboxView( EstadoInGame->mWorldView, event.size.width, event.size.height, 640, 480));
+                EstadoInGame->ref.ancho = event.size.width;
+                EstadoInGame->ref.alto = event.size.height;
+                break;
         }
-        if(EstadoInGame->EstadoActivo){
-            EstadoInGame->processEvents(event);
-        
-        }
-        if(EstadoTransition->EstadoActivo){
-            //EstadoTransition->
-        }
+
     }
+
     
     
 }
 void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
     if (key == sf::Keyboard::M) { //Esto lo hago para que cuando no estes presionando cambia a false
         EstadoInGame->EstadoActivo=false;
+        EstadoTransition->EstadoActivo=true;
     } else if(key == sf::Keyboard::N){
+        EstadoTransition->EstadoActivo=false;
         EstadoInGame->EstadoActivo=true;
     }
+    
+    
 }
 

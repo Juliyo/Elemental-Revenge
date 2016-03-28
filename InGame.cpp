@@ -14,9 +14,7 @@
 #include "InGame.hpp"
 #include "Window.hpp"
 //SOLO EN WINDOWS
-#ifdef _WIN32
-#include <Windows.h>
-#endif
+
 
 InGame::InGame() {
     
@@ -57,12 +55,7 @@ InGame::InGame() {
     
     mWorldView = mWindow->getDefaultView();
     mWorldView.zoom(0.5f);
-#ifdef _WIN32
-    HWND handler = mWindow->getSystemHandle();
-    RECT rWindow;
-    GetWindowRect(handler, &rWindow);
-    ClipCursor(&rWindow);
-#endif
+
 }
 
 InGame::InGame(const InGame& orig) {
@@ -241,9 +234,9 @@ void InGame::render(float interpolation, sf::Time elapsedTime){
 }
 
 void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
+    
     if (key == sf::Keyboard::W) { //Esto lo hago para que cuando no estes presionando cambia a false
         isMovingUp = isPressed;
-        std::cout<<"Entro"<<std::endl;
     } else if (key == sf::Keyboard::S) {
         isMovingDown = isPressed;
     } else if (key == sf::Keyboard::A) {
@@ -263,14 +256,15 @@ void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
 }
 
 /************** EVENTOS ****************/
-
-void InGame::processEvents(sf::Event event) //Captura y procesa eventos
+/*
+void InGame::processEvents() //Captura y procesa eventos
 {
-    
+    sf::Event event;
     while (mWindow->pollEvent(event)) {
         switch (event.type) {
             case sf::Event::KeyPressed:
                 handlePlayerInput(event.key.code, true);
+                
                 break;
 
             case sf::Event::KeyReleased:
@@ -302,7 +296,9 @@ void InGame::processEvents(sf::Event event) //Captura y procesa eventos
 
     }
 
-}
+}*/
+
+
 void InGame::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
     if (button == sf::Mouse::Button::Left) {
         isShooting = isPressed;
