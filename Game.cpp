@@ -111,11 +111,13 @@ void Game::processEvents() //Captura y procesa eventos
                 break;
             case sf::Event::MouseButtonPressed:
                     EstadoInGame->handleMouseInput(event.mouseButton.button, true);
+                    EstadoTransition->handleMouseInput(event.mouseButton.button, true);
 
 
                 break;
             case sf::Event::MouseButtonReleased:
                     EstadoInGame->handleMouseInput(event.mouseButton.button, false);
+                    EstadoTransition->handleMouseInput(event.mouseButton.button, false);
 
 
                 break;

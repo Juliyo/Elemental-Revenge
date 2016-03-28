@@ -19,7 +19,9 @@ Transition::Transition() {
     EstadoActivo = false;
     
      try {
-        texturaFondo.loadFromFile("resources/Textures/grasstext.png");
+        texturaFondo.loadFromFile("resources/Textures/asesinatoMaestro.png");
+        texturaOpcionA.loadFromFile("resources/Textures/colgante.png");
+        texturaOpcionB.loadFromFile("resources/Textures/simbolo.png");
         contFonts.loadFromFile("resources/Fonts/Sansation.ttf");
         texturaRelleno.loadFromFile("resources/Textures/background.png");
         mouseTexture.loadFromFile("resources/Textures/mouse.png");
@@ -29,17 +31,28 @@ Transition::Transition() {
     }
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
-    texturaFondo.setSmooth(true);
-    texturaFondo.setRepeated(true);
+
     spriteFondo.setTexture(texturaFondo);
+    spriteOpcionA.setTexture(texturaOpcionA);
+    spriteOpcionB.setTexture(texturaOpcionB);
 
     texturaRelleno.setSmooth(true);
     texturaRelleno.setRepeated(1);
     spriteRelleno.setTexture(texturaRelleno);
     spriteRelleno.setTextureRect(sf::IntRect(0, 0, 1024, 2048));
     spriteRelleno.setScale(1, 2);
-    spriteFondo.setTextureRect(sf::IntRect(0, 0, 2000, 2000));
+    //spriteFondo.setTextureRect(sf::IntRect(0, 0, 2000, 2000));
+    spriteFondo.setOrigin(320,240);
+    spriteFondo.setPosition(640,360);
     
+    spriteOpcionA.setScale(0.6,0.6);
+    spriteOpcionA.setOrigin(0,0);
+    spriteOpcionA.setPosition(400,450);    
+    
+    spriteOpcionB.setScale(0.6,0.6);
+    spriteOpcionB.setOrigin(0,0);
+    spriteOpcionB.setPosition(800,450);
+
     
     mouseSprite.setTexture(mouseTexture);
     mouseSprite.setScale(0.2, 0.2);
@@ -63,6 +76,8 @@ Transition::~Transition() {
 
 void Transition::Update(sf::Time elapsedTime){
     
+    
+    
 }
 
 
@@ -79,6 +94,8 @@ void Transition::render(float interpolation, sf::Time elapsedTime){
 
     updateView();
     mWindow->draw(spriteFondo);
+    mWindow->draw(spriteOpcionA);
+    mWindow->draw(spriteOpcionB);
 
     previa = mWindow->getView();
 
@@ -142,4 +159,15 @@ void Transition::updateView() {
     mWorldView.setSize(640, 480);
 
     mWindow->setView(getLetterboxView(mWorldView, ref.ancho, ref.alto, 640, 480));
+}
+
+void Transition::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
+    if (button == sf::Mouse::Button::Left) {
+        if(isPressed){
+            if(spriteOpcionA.getGlobalBounds().contains(mouseSprite.getPosition())){
+                printf("FDSAF");
+            }
+        }
+    }
+
 }

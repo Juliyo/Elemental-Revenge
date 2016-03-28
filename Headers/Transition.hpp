@@ -36,7 +36,7 @@ public:
         Window &ref = * Window::Instance();
 
     
-        sf::View                    mWorldView;
+    sf::View                    mWorldView;
     sf::View                    mBackgroundView;
     sf::View                    mHud;
 private:
@@ -45,13 +45,17 @@ private:
     //Recursos
     sf::Texture                 texturaFondo;
     sf::Sprite                  spriteFondo;
+    sf::Sprite                  spriteOpcionA;
+    sf::Sprite                  spriteOpcionB;
     sf::Texture                 texturaRelleno;
+    sf::Texture                 texturaOpcionA;
+    sf::Texture                 texturaOpcionB;
     sf::Sprite                  spriteRelleno;
     sf::Font                    contFonts;
     sf::Texture                 mouseTexture;
     sf::Sprite                  mouseSprite;
     
-    
+    bool                        pulsado=false;
 
 };
 
