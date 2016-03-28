@@ -13,8 +13,11 @@
 
 #include "Transition.hpp"
 #include "Window.hpp"
+#include "btree.hpp"
+
 
 Transition::Transition() {
+    
     //Estado de Ingame
     EstadoActivo = false;
     
@@ -29,16 +32,16 @@ Transition::Transition() {
     }
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
-    texturaFondo.setSmooth(true);
+   /* texturaFondo.setSmooth(true);
     texturaFondo.setRepeated(true);
-    spriteFondo.setTexture(texturaFondo);
+    spriteFondo.setTexture(texturaFondo);*/
 
     texturaRelleno.setSmooth(true);
     texturaRelleno.setRepeated(1);
     spriteRelleno.setTexture(texturaRelleno);
     spriteRelleno.setTextureRect(sf::IntRect(0, 0, 1024, 2048));
     spriteRelleno.setScale(1, 2);
-    spriteFondo.setTextureRect(sf::IntRect(0, 0, 2000, 2000));
+    //spriteFondo.setTextureRect(sf::IntRect(0, 0, 2000, 2000));
     
     
     mouseSprite.setTexture(mouseTexture);
@@ -52,6 +55,22 @@ Transition::Transition() {
     mWorldView = mWindow->getDefaultView();
     mWorldView.zoom(0.5f);
     
+    /*TiXmlDocument doc;
+    doc.LoadFile("resources/mapafinal2.tmx");
+    TiXmlElement* map = doc.FirstChildElement("map");*/
+    
+    arbol = new btree();
+    std::string pregunta = "Tu maestro ha sido asesinado y las únicas pistas son un símbolo en una hoja de papel y un amuleto, ¿qué pista debes seguir?";
+    std::string r1 = "sdf";
+    std::string r2 = "sdf";
+    arbol->insert(1,pregunta,r1,r2);
+    
+    
+    textoPregunta.setFont(contFonts);
+    textoPregunta.setColor(sf::Color::Red);
+    textoPregunta.setPosition(200,200);
+    std::cout<<arbol->search(1)->pregunta<<std::endl;
+    textoPregunta.setString(arbol->search(1)->pregunta);
 }
 
 Transition::Transition(const Transition& orig) {
@@ -79,13 +98,14 @@ void Transition::render(float interpolation, sf::Time elapsedTime){
 
     updateView();
     mWindow->draw(spriteFondo);
-
+    mWindow->draw(textoPregunta);
+    
     previa = mWindow->getView();
 
     mWindow->setView(getLetterboxView(mHud, ref.ancho, ref.alto, 640, 480));
     mWindow->setView(previa);
 
-
+    
     mWindow->draw(mouseSprite);
     // mWindow.draw(mStatisticsText);
     mWindow->display();

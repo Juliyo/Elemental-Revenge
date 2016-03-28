@@ -16,42 +16,46 @@
 
 #include "State.hpp"
 #include "Window.hpp"
+#include "btree.hpp"
 
-class Transition:public State {
+class Transition : public State {
 public:
     Transition();
     Transition(const Transition& orig);
     virtual ~Transition();
-    
-   void Update(sf::Time elapsedTime);
-    
-    void			handlePlayerInput(sf::Keyboard::Key key, bool isPressed);  // Maneja eventos
-    void			handleMouseInput(sf::Mouse::Button button, bool isPressed);  // Maneja eventos
-    
-    void			render(float interpolation, sf::Time elapsedTime);
 
-    sf::View                    getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight);
-    
-    void                        updateView();
-        Window &ref = * Window::Instance();
+    void Update(sf::Time elapsedTime);
 
-    
-        sf::View                    mWorldView;
-    sf::View                    mBackgroundView;
-    sf::View                    mHud;
+    void handlePlayerInput(sf::Keyboard::Key key, bool isPressed); // Maneja eventos
+    void handleMouseInput(sf::Mouse::Button button, bool isPressed); // Maneja eventos
+
+    void render(float interpolation, sf::Time elapsedTime);
+
+    sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight);
+
+    void updateView();
+    Window &ref = *Window::Instance();
+
+
+    sf::View mWorldView;
+    sf::View mBackgroundView;
+    sf::View mHud;
 private:
-    sf::RenderWindow            *mWindow;
+    sf::RenderWindow *mWindow;
 
     //Recursos
-    sf::Texture                 texturaFondo;
-    sf::Sprite                  spriteFondo;
-    sf::Texture                 texturaRelleno;
-    sf::Sprite                  spriteRelleno;
-    sf::Font                    contFonts;
-    sf::Texture                 mouseTexture;
-    sf::Sprite                  mouseSprite;
+    sf::Texture texturaFondo;
+    sf::Sprite spriteFondo;
+    sf::Texture texturaRelleno;
+    sf::Sprite spriteRelleno;
+    sf::Font contFonts;
+    sf::Texture mouseTexture;
+    sf::Sprite mouseSprite;
     
-    
+    sf::Text textoPregunta;
+    sf::Text textoRespuesta1;
+    sf::Text textoRespuesta2;
+    btree *arbol;
 
 };
 

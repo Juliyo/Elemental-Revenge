@@ -18,8 +18,11 @@
       <itemPath>Headers/Transition.hpp</itemPath>
       <itemPath>Headers/Util.hpp</itemPath>
       <itemPath>Headers/Window.hpp</itemPath>
+      <itemPath>Headers/btree.hpp</itemPath>
       <itemPath>Headers/hRayAdvanced.hpp</itemPath>
       <itemPath>Headers/hRayBasic.hpp</itemPath>
+      <itemPath>Headers/tinystr.h</itemPath>
+      <itemPath>Headers/tinyxml.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -42,9 +45,14 @@
       <itemPath>Transition.cpp</itemPath>
       <itemPath>Util.cpp</itemPath>
       <itemPath>Window.cpp</itemPath>
+      <itemPath>btree.cpp</itemPath>
       <itemPath>hRayAdvanced.cpp</itemPath>
       <itemPath>hRayBasic.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
+      <itemPath>tinystr.cpp</itemPath>
+      <itemPath>tinyxml.cpp</itemPath>
+      <itemPath>tinyxmlerror.cpp</itemPath>
+      <itemPath>tinyxmlparser.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -166,9 +174,15 @@
       </item>
       <item path="Headers/Window.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/btree.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/hRayAdvanced.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/hRayBasic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/tinystr.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/tinyxml.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Hechizo.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -190,11 +204,21 @@
       </item>
       <item path="Window.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="btree.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="hRayAdvanced.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="hRayBasic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tinystr.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tinyxml.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tinyxmlerror.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tinyxmlparser.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -257,9 +281,15 @@
       </item>
       <item path="Headers/Window.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/btree.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/hRayAdvanced.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/hRayBasic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/tinystr.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/tinyxml.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Hechizo.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -281,11 +311,21 @@
       </item>
       <item path="Window.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="btree.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="hRayAdvanced.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="hRayBasic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tinystr.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tinyxml.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tinyxmlerror.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tinyxmlparser.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
   </confs>
