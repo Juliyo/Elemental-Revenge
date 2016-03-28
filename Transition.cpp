@@ -15,6 +15,8 @@
 #include "Window.hpp"
 #include "btree.hpp"
 
+#include "tinystr.h"
+#include "tinyxml.h"
 
 Transition::Transition() {
     
@@ -68,21 +70,30 @@ Transition::Transition() {
     mWorldView = mWindow->getDefaultView();
     mWorldView.zoom(0.5f);
     
-    /*TiXmlDocument doc;
-    doc.LoadFile("resources/mapafinal2.tmx");
-    TiXmlElement* map = doc.FirstChildElement("map");*/
+    TiXmlDocument doc;
+    doc.LoadFile("resources/historia.xml");
+    TiXmlElement* pregunta1 = doc.FirstChildElement("pregunta");
+    
+    TiXmlElement* respuesta1 = doc.FirstChildElement("respuesta1");
+    TiXmlElement* respuesta2 = doc.FirstChildElement("respuesta2");
+
     
     arbol = new btree();
     std::string pregunta = "Tu maestro ha sido asesinado y las únicas pistas son un símbolo en una hoja de papel y un amuleto, ¿qué pista debes seguir?";
     std::string r1 = "sdf";
     std::string r2 = "sdf";
-    arbol->insert(1,pregunta,r1,r2);
+    arbol->insert(1,pregunta1->GetText(),respuesta1->GetText(),respuesta2->GetText());
+    
+   // for(int i=0; i<6; i++){
+        pregunta1=pregunta1->NextSiblingElement("pregunta");
+   // }
+        printf(pregunta1->GetText());
     
     
     textoPregunta.setFont(contFonts);
     textoPregunta.setColor(sf::Color::Red);
     textoPregunta.setPosition(200,200);
-    std::cout<<arbol->search(1)->pregunta<<std::endl;
+   // std::cout<<arbol->search(1)->pregunta<<std::endl;
     textoPregunta.setString(arbol->search(1)->pregunta);
 }
 

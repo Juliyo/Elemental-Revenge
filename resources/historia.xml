@@ -8,3 +8,20 @@ Encuentras un marco con una foto de tu maestro de joven, la chica y otro joven, 
 <respuesta2>
 Decides investigar sobre el significado del símbolo en la biblioteca de tu maestro. Ves un libro que tiene ese símbolo, tras horas de investigación encuentras el significado: es de unos asesinos expertos en fuego. En él se menciona una guarida en las montañas del norte. Encaminas tu marcha hacia ella. Leyéndolo mejoras tu habilidad con el fuego (+1 fuego).
 </respuesta2>
+
+<pregunta>
+Investigas en la casa en búsqueda de más pistas sobre la muerte de tu maestro, la casa es antigua, oscura y está ya corroída por la humedad.
+Entras y encuentras unas escaleras que no sabes a dónde te llevan y que no te inspiran mucha confianza ¿Qué haces?
+</pregunta>
+
+<respuesta1>
+Buscando pistas del asesinato por la casa encuentras un antiguo diario, en la última página se puede leer el nombre de Myrine, Xa’NoHart y Luj’Chöl, estos nombres se repiten por todo el diario y cuentan muchos enfrentamientos entre estos dos últimos debido al amor que compartían con Myrine.
+El diario acaba súbitamente en un momento en el cual la tensión entre ellos dos está en su punto más alto.
+Te apoyas en una palanca que resulta ser una trampa y caes de repente en un sótano infestado de peligros (-2 de vida por la caída)
+(El diario pertenece a Myrine, que es la chica del amuleto, la conexión elemental con el amuleto aumenta y tienes +1 en agua)
+</respuesta1>
+
+<respuesta2>
+Bajas por las escaleras y llegas a lo que parece ser el sótano donde intentas activar el interruptor que enciende el generador de luz. En el intento recibes un chispazo y recurres a tus habilidades mágicas para neutralizar la fuerza(+1 al rayo). Sigues avanzando y encuentras una sala repleta de enemigos, por sus palabras descubres que son los asesinos de tu maestro.
+
+</respuesta2>
