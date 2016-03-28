@@ -40,22 +40,30 @@ public:
     sf::View mWorldView;
     sf::View mBackgroundView;
     sf::View mHud;
+
 private:
     sf::RenderWindow *mWindow;
 
     //Recursos
-    sf::Texture texturaFondo;
-    sf::Sprite spriteFondo;
-    sf::Texture texturaRelleno;
-    sf::Sprite spriteRelleno;
-    sf::Font contFonts;
-    sf::Texture mouseTexture;
-    sf::Sprite mouseSprite;
+    sf::Texture                 texturaFondo;
+    sf::Sprite                  spriteFondo;
+    sf::Sprite                  spriteOpcionA;
+    sf::Sprite                  spriteOpcionB;
+    sf::Texture                 texturaRelleno;
+    sf::Texture                 texturaOpcionA;
+    sf::Texture                 texturaOpcionB;
+    sf::Sprite                  spriteRelleno;
+    sf::Font                    contFonts;
+    sf::Texture                 mouseTexture;
+    sf::Sprite                  mouseSprite;
     
     sf::Text textoPregunta;
     sf::Text textoRespuesta1;
     sf::Text textoRespuesta2;
     btree *arbol;
+    
+    bool                        pulsado=false;
+
 
 };
 
