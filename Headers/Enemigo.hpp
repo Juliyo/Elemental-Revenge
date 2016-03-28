@@ -33,6 +33,10 @@ public:
         bool empujado;
         bool empujado2;
         sf::Clock tiempoempujado;
+        float top,bot,left,right;
+        void updateBounding();
+        bool chamuscao;
+        bool chamuscaoB;
 
          
 	

@@ -51,6 +51,11 @@ InGame::InGame() {
     player = new Player();
     player -> Inicializar(200.f, 250.f);
     
+    
+    enemigo[0].Inicializar(300.f, 450.f);
+    enemigo[1].Inicializar(300.f, 250.f);
+     enemigo[2].Inicializar(305.f, 255.f);
+    
     mWindow = ref.GetWindow();
     
     mWorldView = mWindow->getDefaultView();
@@ -109,11 +114,45 @@ void InGame::Update(sf::Time elapsedTime){
         if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && player->hRayoAvanzado->tiempoCast.getElapsedTime().asSeconds() > player->hRayoBasico->getCast()) {
             player->hRayoAvanzado->draw = false;
             player->hRayoAvanzado->StopAnimation();
+            for(int i=0;i<3;i++){
+                enemigo[i].chamuscao=false;
+            }
         }
 
     }
 
     firstTime = false;
+        for(int j=0;j<3;j++){
+          enemigo[j].updateBounding();
+        }
+    if(player->hRayoAvanzado->draw == true){
+ 
+        player->hRayoAvanzado->updateBounding();
+        for(int h=0;h<3;h++){
+                     if(player->hRayoAvanzado->colision(&enemigo[h]) && enemigo[h].chamuscao==false){
+             enemigo[h].chamuscao=true;
+             printf("HAY COLISION del AVANZADO con enemigo %d!!!\n",h);
+         }
+        }
+
+    }
+        if(player->hRayoBasico->draw == true){
+
+        player->hRayoBasico->updateBounding();
+        for(int h=0;h<3;h++){
+                     if(player->hRayoBasico->colision(&enemigo[h]) && enemigo[h].chamuscaoB==false){
+             enemigo[h].chamuscaoB=true;
+             printf("HAY COLISION del BASICO con enemigo %d!!!\n",h);
+         }
+        }
+
+    }else{
+                       for(int i=0;i<3;i++){
+                enemigo[i].chamuscaoB=false;
+            } 
+    }
+    
+    
     
 }
 
@@ -220,7 +259,9 @@ void InGame::render(float interpolation, sf::Time elapsedTime){
 
 
     player -> DrawWithInterpolation(*mWindow, interpolation);
-
+    enemigo[0].Draw(*mWindow);
+    enemigo[1].Draw(*mWindow);
+    enemigo[2].Draw(*mWindow);
     previa = mWindow->getView();
 
     mWindow->setView(getLetterboxView(mHud, ref.ancho, ref.alto, 640, 480));

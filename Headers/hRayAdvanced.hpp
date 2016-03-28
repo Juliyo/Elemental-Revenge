@@ -15,6 +15,7 @@
 #define HRAYADVANCED_HPP
 
 #include "../Headers/Hechizo.hpp"
+#include "../Headers/Enemigo.hpp"
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Mouse.hpp>
@@ -27,10 +28,13 @@ public:
     void cast(sf::Vector2f vector, sf::RenderWindow *w);
     sf::Clock tiempoCast;
     sf::Clock tiempoCd;
+    float left,right,top,bot;
     
 void DrawWithOutInterpolation(sf::RenderWindow &window);
     Animation **currentAnimation;
     Animation *animationDurante;
+void updateBounding();
+bool colision(Enemigo *enemigo);
 private:
 
 };

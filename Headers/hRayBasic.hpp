@@ -17,7 +17,7 @@
 #include "../Headers/Hechizo.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Mouse.hpp>
-
+#include "../Headers/Enemigo.hpp"
 
 class hRayBasic:public Hechizo {
 public:
@@ -34,6 +34,9 @@ public:
     Animation **currentAnimation;
     Animation *animationDurante;
     Animation *PrimeraAnimacion;
+    void updateBounding();
+bool colision(Enemigo *enemigo);
+float left,right,top,bot;
     //void cast(sf::Vector2f vector, sf::RenderWindow *w);
 private:
     

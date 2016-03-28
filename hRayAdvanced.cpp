@@ -13,6 +13,7 @@
 
 #include "../Headers/hRayAdvanced.hpp"
 #include "../Headers/Player.hpp"
+#include "Enemigo.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Mouse.hpp>
 #include <math.h>
@@ -79,6 +80,7 @@ hRayAdvanced::hRayAdvanced() {
     SetScale(0.6f,0.6f);
     SetOriginAnimatedSprite(475,392);
     
+    
 }
 
 hRayAdvanced::hRayAdvanced(const hRayAdvanced& orig) {
@@ -103,4 +105,20 @@ void hRayAdvanced::cast(sf::Vector2f posicion, sf::RenderWindow *mWindow) {
 }
 void hRayAdvanced::DrawWithOutInterpolation(sf::RenderWindow& window){
 	DrawAnimationWithOut(window,hSprite.getPosition() );
+}
+
+void hRayAdvanced::updateBounding(){
+
+    //GetSpriteAnimated()->getGlobalBounds();
+       bot=GetSpriteAnimated().getGlobalBounds().top+ GetSpriteAnimated().getGlobalBounds().height-60;
+       top=GetSpriteAnimated().getGlobalBounds().top+180;
+       right=GetSpriteAnimated().getGlobalBounds().left+ GetSpriteAnimated().getGlobalBounds().width-210;
+       left=GetSpriteAnimated().getGlobalBounds().left+210;
+       
+}
+bool hRayAdvanced::colision(Enemigo *e){
+    if(right<e->left || left>e->right || top>e->bot || bot<e->top){
+        return false;
+    }
+    return true;
 }

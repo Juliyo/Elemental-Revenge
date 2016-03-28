@@ -33,12 +33,15 @@ void Enemigo::Inicializar(float posX, float posY, float speedX, float speedY, fl
 	physicsState.SetMaxSpeed(maxSpeedX, maxSpeedY);
         empujado=false;
         empujado2=false;
+        chamuscao=false;
+        chamuscaoB=false;
 }
 
 
 void Enemigo::Update(sf::Vector2f velocity, sf::Time elapsedTime){
 	physicsState.SetSpeed(velocity);
 	physicsState.Update(elapsedTime);
+        
 }
 
 void Enemigo::Draw(sf::RenderWindow& window){
@@ -61,3 +64,12 @@ sf::Sprite Enemigo::getSprite(){
     return renderState.GetSprite();
 }
 
+void Enemigo::updateBounding(){
+//renderState.GetSprite().getGlobalBounds();
+   
+       bot=renderState.GetSprite().getGlobalBounds().top+ renderState.GetSprite().getGlobalBounds().height;
+       top=renderState.GetSprite().getGlobalBounds().top;
+       right=renderState.GetSprite().getGlobalBounds().left+ renderState.GetSprite().getGlobalBounds().width;
+       left=renderState.GetSprite().getGlobalBounds().left;
+       
+}

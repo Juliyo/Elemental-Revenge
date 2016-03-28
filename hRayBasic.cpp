@@ -122,3 +122,19 @@ void hRayBasic::cast(sf::Vector2f posicion, sf::RenderWindow *mWindow) {
 void hRayBasic::DrawWithInterpolation(sf::RenderWindow& window, float interpolation, const sf::Vector2f &posPrev, const sf::Vector2f &posNew){
 	DrawAnimation(window,posPrev, posNew , interpolation, &anglePrev, &angleNew);
 }
+
+void hRayBasic::updateBounding(){
+
+    //GetSpriteAnimated()->getGlobalBounds();
+       bot=GetSpriteAnimated().getGlobalBounds().top+ GetSpriteAnimated().getGlobalBounds().height-110;
+       top=GetSpriteAnimated().getGlobalBounds().top+100;
+       right=GetSpriteAnimated().getGlobalBounds().left+ GetSpriteAnimated().getGlobalBounds().width;
+       left=GetSpriteAnimated().getGlobalBounds().left;
+       
+}
+bool hRayBasic::colision(Enemigo *e){
+    if(right<e->left || left>e->right || top>e->bot || bot<e->top){
+        return false;
+    }
+    return true;
+}
