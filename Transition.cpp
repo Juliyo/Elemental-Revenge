@@ -12,10 +12,46 @@
  */
 
 #include "Transition.hpp"
+#include "Window.hpp"
 
 Transition::Transition() {
     //Estado de Ingame
-    EstadoActivo = true;
+    EstadoActivo = false;
+    
+     try {
+        texturaFondo.loadFromFile("resources/Textures/grasstext.png");
+        contFonts.loadFromFile("resources/Fonts/Sansation.ttf");
+        texturaRelleno.loadFromFile("resources/Textures/background.png");
+        mouseTexture.loadFromFile("resources/Textures/mouse.png");
+    } catch (std::runtime_error& e) {
+        std::cout << "Excepcion: " << e.what() << std::endl;
+        exit(0);
+    }
+    sf::ContextSettings settings;
+    settings.antialiasingLevel = 8;
+    texturaFondo.setSmooth(true);
+    texturaFondo.setRepeated(true);
+    spriteFondo.setTexture(texturaFondo);
+
+    texturaRelleno.setSmooth(true);
+    texturaRelleno.setRepeated(1);
+    spriteRelleno.setTexture(texturaRelleno);
+    spriteRelleno.setTextureRect(sf::IntRect(0, 0, 1024, 2048));
+    spriteRelleno.setScale(1, 2);
+    spriteFondo.setTextureRect(sf::IntRect(0, 0, 2000, 2000));
+    
+    
+    mouseSprite.setTexture(mouseTexture);
+    mouseSprite.setScale(0.2, 0.2);
+    mouseSprite.setPosition(20, 20);
+    mouseSprite.setOrigin(64, 64);
+
+    
+    mWindow = ref.GetWindow();
+    
+    mWorldView = mWindow->getDefaultView();
+    mWorldView.zoom(0.5f);
+    
 }
 
 Transition::Transition(const Transition& orig) {
@@ -27,4 +63,83 @@ Transition::~Transition() {
 
 void Transition::Update(sf::Time elapsedTime){
     
+}
+
+
+
+void Transition::render(float interpolation, sf::Time elapsedTime){
+    
+    mWindow->clear();
+
+    //Pillamos la view anterior, activamos la del fondo, dibujamos el fondo y volvemos al estado anterior
+    sf::View previa = mWindow->getView();
+    mWindow->setView(mBackgroundView);
+    mWindow->draw(spriteRelleno);
+    mWindow->setView(previa);
+
+    updateView();
+    mWindow->draw(spriteFondo);
+
+    previa = mWindow->getView();
+
+    mWindow->setView(getLetterboxView(mHud, ref.ancho, ref.alto, 640, 480));
+    mWindow->setView(previa);
+
+
+    mWindow->draw(mouseSprite);
+    // mWindow.draw(mStatisticsText);
+    mWindow->display();
+}
+
+
+sf::View Transition::getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight) {
+
+    // Compares the aspect ratio of the window to the aspect ratio of the view,
+    // and sets the view's viewport accordingly in order to archieve a letterbox effect.
+    // A new view (with a new viewport set) is returned.
+
+    float windowRatio = windowWidth / (float) windowHeight;
+    float viewRatio = viewRatioWidth / (float) viewRatioHeight;
+    float sizeX = 1;
+    float sizeY = 1;
+    float posX = 0;
+    float posY = 0;
+
+    bool horizontalSpacing = true;
+    if (windowRatio < viewRatio)
+        horizontalSpacing = false;
+
+    // If horizontalSpacing is true, the black bars will appear on the left and right side.
+    // Otherwise, the black bars will appear on the top and bottom.
+
+    if (horizontalSpacing) {
+        sizeX = viewRatio / windowRatio;
+
+        posX = (1 - sizeX) / 2.0;
+    } else {
+        sizeY = windowRatio / viewRatio;
+        posY = (1 - sizeY) / 2.0;
+    }
+
+    view.setViewport(sf::FloatRect(posX, posY, sizeX, sizeY));
+    return view;
+}
+
+
+void Transition::updateView() {
+
+    sf::Vector2f mousePosition = mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow));
+    sf::FloatRect viewBounds(mWorldView.getCenter() - mWorldView.getSize() / 2.f, mWorldView.getSize());
+
+    sf::Vector2f position = mousePosition;
+    position.x = std::max(position.x, viewBounds.left);
+    position.x = std::min(position.x, viewBounds.width + viewBounds.left);
+    position.y = std::max(position.y, viewBounds.top);
+    position.y = std::min(position.y, viewBounds.height + viewBounds.top);
+
+    mouseSprite.setPosition(position);
+
+    mWorldView.setSize(640, 480);
+
+    mWindow->setView(getLetterboxView(mWorldView, ref.ancho, ref.alto, 640, 480));
 }

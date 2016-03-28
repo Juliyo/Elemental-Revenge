@@ -86,7 +86,7 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
         EstadoInGame->render(interpolation, elapsedTime);
     }
     if(EstadoTransition->EstadoActivo){
-        //EstadoTransition->render(interpolation, elapsedTime);
+        EstadoTransition->render(interpolation, elapsedTime);
     }
 }
 
