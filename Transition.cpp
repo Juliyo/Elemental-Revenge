@@ -14,7 +14,8 @@
 #include "Transition.hpp"
 #include "Window.hpp"
 #include "btree.hpp"
-
+#include <iostream>
+#include <string>
 #include "tinystr.h"
 #include "tinyxml.h"
 
@@ -73,28 +74,42 @@ Transition::Transition() {
     TiXmlDocument doc;
     doc.LoadFile("resources/historia.xml");
     TiXmlElement* pregunta1 = doc.FirstChildElement("pregunta");
-    
     TiXmlElement* respuesta1 = doc.FirstChildElement("respuesta1");
     TiXmlElement* respuesta2 = doc.FirstChildElement("respuesta2");
-
+    
+    std::string p1=pregunta1->GetText();
+    std::string r1=respuesta1->GetText();
+    std::string r2=respuesta2->GetText();
+    int key;
+    pregunta1->Attribute( "id", &key );
+    int c=0;
+    std::string torep="\n";
+    for ( std::string::iterator it=p1.begin(); it!=p1.end(); ++it){
+        if(*it=='%'){
+            p1=p1.replace(c,1,torep);
+        }
+        c++;
+    }
     
     arbol = new btree();
-    std::string pregunta = "Tu maestro ha sido asesinado y las únicas pistas son un símbolo en una hoja de papel y un amuleto, ¿qué pista debes seguir?";
-    std::string r1 = "sdf";
-    std::string r2 = "sdf";
-    arbol->insert(1,pregunta1->GetText(),respuesta1->GetText(),respuesta2->GetText());
+    arbol->insert(key,p1,respuesta1->GetText(),respuesta2->GetText());
     
-   // for(int i=0; i<6; i++){
-        pregunta1=pregunta1->NextSiblingElement("pregunta");
-   // }
-        printf(pregunta1->GetText());
+    for(int i=0; i<6; i++){
+       pregunta1=pregunta1->NextSiblingElement("pregunta");
+       respuesta1=respuesta1->NextSiblingElement("pregunta");
+       respuesta2=respuesta2->NextSiblingElement("pregunta");
+       pregunta1->Attribute( "id", &key );
+       arbol->insert(key,pregunta1->GetText(),respuesta1->GetText(),respuesta2->GetText());
+    }
+        
     
     
     textoPregunta.setFont(contFonts);
     textoPregunta.setColor(sf::Color::Red);
-    textoPregunta.setPosition(200,200);
+    textoPregunta.setPosition(320,320);
+    textoPregunta.setScale(0.5f,0.5f);
    // std::cout<<arbol->search(1)->pregunta<<std::endl;
-    textoPregunta.setString(arbol->search(1)->pregunta);
+    textoPregunta.setString(arbol->search(4)->pregunta);
 }
 
 Transition::Transition(const Transition& orig) {

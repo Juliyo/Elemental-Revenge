@@ -1,5 +1,5 @@
-<pregunta>
-Tu maestro ha sido asesinado y las únicas pistas son un símbolo en una hoja de papel y un amuleto, ¿qué pista debes seguir?
+<pregunta id="4">
+Tu maestro ha sido asesinado y las únicas pistas son %un símbolo en una hoja de papel y un amuleto, %¿qué pista debes seguir?
 </pregunta>
 <respuesta1>
 El amuleto contiene una foto de una mujer joven, te suena de algo y buscas por la casa porque crees que ya la has visto en algún sitio.
@@ -9,7 +9,7 @@ Encuentras un marco con una foto de tu maestro de joven, la chica y otro joven, 
 Decides investigar sobre el significado del símbolo en la biblioteca de tu maestro. Ves un libro que tiene ese símbolo, tras horas de investigación encuentras el significado: es de unos asesinos expertos en fuego. En él se menciona una guarida en las montañas del norte. Encaminas tu marcha hacia ella. Leyéndolo mejoras tu habilidad con el fuego (+1 fuego).
 </respuesta2>
 
-<pregunta>
+<pregunta id="2">
 Investigas en la casa en búsqueda de más pistas sobre la muerte de tu maestro, la casa es antigua, oscura y está ya corroída por la humedad.
 Entras y encuentras unas escaleras que no sabes a dónde te llevan y que no te inspiran mucha confianza ¿Qué haces?
 </pregunta>
@@ -23,5 +23,74 @@ Te apoyas en una palanca que resulta ser una trampa y caes de repente en un sót
 
 <respuesta2>
 Bajas por las escaleras y llegas a lo que parece ser el sótano donde intentas activar el interruptor que enciende el generador de luz. En el intento recibes un chispazo y recurres a tus habilidades mágicas para neutralizar la fuerza(+1 al rayo). Sigues avanzando y encuentras una sala repleta de enemigos, por sus palabras descubres que son los asesinos de tu maestro.
+</respuesta2>
 
+<pregunta id="6">
+Estás ante la entrada de la guarida de los asesinos expertos en el fuego. Se te presentan dos opciones para entrar:
+</pregunta>
+
+<respuesta1>
+Intentas destrozar la puerta invocando un hechizo de rayo. Tu 
+inexperiencia con el rayo hace que necesites varios intentos para 
+lograrlo. Este ejercicio te sirve como práctica para mejorar el rayo.
+</respuesta1>
+
+<respuesta2>
+Te cuelas en la guarida sigilosamente. Ya dentro, ves a un 
+grupo de asesinos recibiendo una clase de fuego por un maestro. 
+Prestas atención y aumentas tu conocimiento en fuego. Al terminar 
+la clase te descubren...
+</respuesta2>
+
+<pregunta id="1">
+Tras acabar con los enemigos vuelves a repasar el diario, y encuentras la dirección de la mansión del chico desconocido, Luj’Chöl, decides ir a preguntar.
+Al llegar ahí encuentras que está defendida por un número impresionante de bandidos, sabes que si intentas entrar habrá un enfrentamiento, sin embargo encuentras un camino para entrar por las alcantarillas, ¿qué camino decides tomar?
+
+</pregunta>
+
+<respuesta1>
+Entras sigilosamente, pero te detectan y empieza el combate. (Por conveniencias del guión te mejoras el rayo).
+</respuesta1>
+
+<respuesta2>
+Tu determinación a la hora de afrontar este problema aumenta tu fiereza y tu control sobre el fuego.(+1 al fuego)
+</respuesta2>
+
+<pregunta id="3">
+Tras acabar con los enemigos decides interrogar a uno, habla enseguida y te confiesa que son asesinos profesionales contratados por un gran mago para que le ayude a matar a tu maestro. Te dice la dirección de la casa del mago y te diriges hacia ella. 
+Uno de los asesinos está muy malherido por el combate y seguramente no sobreviva.  ¿Lo curas o lo dejas a su suerte?
+
+</pregunta>
+
+<respuesta1>
+Al curarlo con tus habilidades curativas acuáticas tu control sobre el agua aumenta un nivel. Tras asegurarte que su vida no corre peligro te diriges a la mansión del mago asesino. Al llegar ahí te das cuenta que los asesinos de la mansión han avisado de tu llegada y comienza el combate.
+</respuesta1>
+
+<respuesta2>
+Te diriges directamente a la mansión del mago, una vez ahí te das cuenta de que estaban avisados de tu llegada, pero al salir inmediatamente hacia ahí llegas a tiempo y no están del todo preparados, empieza el combate(+1 al rayo por tu frialdad al dejar a un hombre herido a su suerte).
+</respuesta2>
+
+<pregunta id="5">
+El maestro de los asesinos sale de su escondite y entonces decides interrogarlo para saber dónde está la casa del asesino de tu maestro.
+</pregunta>
+
+<respuesta1>
+Consigues la información y te marchas hacia la casa de Luj’Chöl. Aumentas tu poder de agua por tu acto de buena fé.
+</respuesta1>
+
+<respuesta2>
+Consigues la información y te marchas hacia la casa de Luj’Chöl. Aumenta tu ira y por ello mejoras el hechizo de rayo.
+</respuesta2>
+<pregunta id="7">
+Registras toda la guarida y encuentras una sala con el mismo símbolo que había en la hoja que encontraste junto al cuerpo de tu maestro. 
+Entras en ella y te encuentras con una persona....
+</pregunta>
+
+<respuesta1>
+Como es un experto en el arte del fuego, te enseña todos sus trucos.
+Antes de marcharte te dice el lugar donde se esconde Luj’Chöl.
+</respuesta1>
+
+<respuesta2>
+Tu ira aumenta y gracias a eso aprendes rayo. En esa estancia encuentras la dirección del malvado Luj’Chöl.
 </respuesta2>
