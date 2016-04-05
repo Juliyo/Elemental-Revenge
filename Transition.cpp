@@ -92,6 +92,9 @@ Transition::Transition() {
     }
     
     arbol = new btree();
+    /*char ch = 202;
+    std::string hola = "ch boludo";
+    hola.push_back(233);*/
     arbol->insert(key,p1,respuesta1->GetText(),respuesta2->GetText());
     
     for(int i=0; i<6; i++){
