@@ -190,6 +190,18 @@
       </item>
       <item path="InGame.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="Motor/Motor2D.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Motor/Motor2D.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Motor/Reloj.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Motor/Reloj.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Motor/Sprite.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Motor/Sprite.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="PhysicsState.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Player.cpp" ex="false" tool="1" flavor2="0">
@@ -296,6 +308,18 @@
       <item path="Hud.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="InGame.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Motor/Motor2D.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Motor/Motor2D.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Motor/Reloj.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Motor/Reloj.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Motor/Sprite.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Motor/Sprite.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="PhysicsState.cpp" ex="false" tool="1" flavor2="0">
       </item>
