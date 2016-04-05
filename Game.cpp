@@ -5,7 +5,7 @@
 #ifdef _WIN32
 #include <Windows.h>
 #endif
-# define M_PI          3.141592653589793238462643383279502884 /* pi */
+#define M_PI          3.141592653589793238462643383279502884 /* pi */
 /************ VARIABLES GLOBALES ************/
 const sf::Time Game::timePerFrame = sf::seconds(1.f / 15.f);
 int ancho = 1280, alto = 720;
@@ -65,12 +65,12 @@ Game::Game()
     player = new Player();
     player -> Inicializar(1500.f, 1800.f);
 
-    
+
     mapa = new Map();
     mapa->leerMapa();
-    
-    mapa2 = new Map();
-    mapa2->leerMapa2();
+
+    //mapa2 = new Map();
+    //mapa2->leerMapa2();
 
 }
 
@@ -80,9 +80,9 @@ void Game::run() //Metodo principal
 {
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero; //Tiempo desde el ultimo cambio de frame
-    
 
-    
+
+
     while (mWindow.isOpen()) {
         sf::Time elapsedTime = clock.restart(); //Actualizamos variables de tiempo
         timeSinceLastUpdate += elapsedTime;
@@ -106,97 +106,97 @@ void Game::run() //Metodo principal
 
 void Game::update(sf::Time elapsedTime) //Actualiza la fisica
 {
-    
-    
-     
-    
-   /* if(player->GetSpriteAnimated().getGlobalBounds().intersects(mapa->fondo.getGlobalBounds())){
-        std::cout<<"CHOCA";
-    }*/
-    
 
-   
-    
+
+
+
+    /* if(player->GetSpriteAnimated().getGlobalBounds().intersects(mapa->fondo.getGlobalBounds())){
+         std::cout<<"CHOCA";
+     }*/
+
+
+
+
     if (!firstTime) {
         sf::Vector2f movement(0.f, 0.f);
         if (isMovingUp) {
             movement.y -= player -> getVelocidad();
             //noKeyWasPressed = false;
-            
-            for(int l=0; l<mapa->_numLayers; l++){
-        for(int y=0; y<mapa->_height; y++){
-            for(int x=0; x<mapa->_width; x++){
-                if(mapa->_tilemapSprite[l][y][x]!=NULL){  
-                    if(mapa->_tilemapSprite[l][y][x]->getGlobalBounds().contains(player->GetRenderPosition().x,player->GetRenderPosition().y-20)){
-            movement.y += player -> getVelocidad();
+
+            for (int l = 0; l < mapa->_numLayers; l++) {
+                for (int y = 0; y < mapa->_height; y++) {
+                    for (int x = 0; x < mapa->_width; x++) {
+                        if (mapa->_tilemapSprite[l][y][x] != NULL) {
+                            if (mapa->_tilemapSprite[l][y][x]->getGlobalBounds().contains(player->GetRenderPosition().x, player->GetRenderPosition().y - 20)) {
+                                movement.y += player -> getVelocidad();
+                            }
+                        }
                     }
                 }
             }
-        }
-    }
-            
+
         }
         if (isMovingDown) {
             movement.y += player -> getVelocidad();
             //noKeyWasPressed = false;
-            
-        for(int l=0; l<mapa->_numLayers; l++){
-        for(int y=0; y<mapa->_height; y++){
-            for(int x=0; x<mapa->_width; x++){
-                if(mapa->_tilemapSprite[l][y][x]!=NULL){  
-                    if(mapa->_tilemapSprite[l][y][x]->getGlobalBounds().contains(player->GetRenderPosition().x,player->GetRenderPosition().y+20)){
-                        movement.y -= player -> getVelocidad();
+
+            for (int l = 0; l < mapa->_numLayers; l++) {
+                for (int y = 0; y < mapa->_height; y++) {
+                    for (int x = 0; x < mapa->_width; x++) {
+                        if (mapa->_tilemapSprite[l][y][x] != NULL) {
+                            if (mapa->_tilemapSprite[l][y][x]->getGlobalBounds().contains(player->GetRenderPosition().x, player->GetRenderPosition().y + 20)) {
+                                movement.y -= player -> getVelocidad();
+                            }
+                        }
                     }
                 }
             }
-        }
-    }
-            
+
         }
         if (isMovingLeft) {
             movement.x -= player -> getVelocidad();
-            
-            
-            for(int l=0; l<mapa->_numLayers; l++){
-        for(int y=0; y<mapa->_height; y++){
-            for(int x=0; x<mapa->_width; x++){
-                if(mapa->_tilemapSprite[l][y][x]!=NULL){  
-                    if(mapa->_tilemapSprite[l][y][x]->getGlobalBounds().contains(player->GetRenderPosition().x-20,player->GetRenderPosition().y)){
-                        movement.x += player -> getVelocidad();
+
+
+            for (int l = 0; l < mapa->_numLayers; l++) {
+                for (int y = 0; y < mapa->_height; y++) {
+                    for (int x = 0; x < mapa->_width; x++) {
+                        if (mapa->_tilemapSprite[l][y][x] != NULL) {
+                            if (mapa->_tilemapSprite[l][y][x]->getGlobalBounds().contains(player->GetRenderPosition().x - 20, player->GetRenderPosition().y)) {
+                                movement.x += player -> getVelocidad();
+                            }
+                        }
                     }
                 }
             }
-        }
-    }
-            
+
         }
         if (isMovingRight) {
             movement.x += player -> getVelocidad();
             // noKeyWasPressed = false;
-            
-            for(int l=0; l<mapa->_numLayers; l++){
-        for(int y=0; y<mapa->_height; y++){
-            for(int x=0; x<mapa->_width; x++){
-                if(mapa->_tilemapSprite[l][y][x]!=NULL){  
-                    if(mapa->_tilemapSprite[l][y][x]->getGlobalBounds().contains(player->GetRenderPosition().x+20,player->GetRenderPosition().y)){
-                        movement.x -= player -> getVelocidad();
+
+            for (int l = 0; l < mapa->_numLayers; l++) {
+                for (int y = 0; y < mapa->_height; y++) {
+                    for (int x = 0; x < mapa->_width; x++) {
+                        if (mapa->_tilemapSprite[l][y][x] != NULL) {
+                            if (mapa->_tilemapSprite[l][y][x]->getGlobalBounds().contains(player->GetRenderPosition().x + 20, player->GetRenderPosition().y)) {
+                                movement.x -= player -> getVelocidad();
+                            }
+                        }
                     }
                 }
             }
-        }
-    }
-            
+
         }
 
         player -> Update(movement, elapsedTime);
-        
-                
-        
+
+
+
     }
 
     firstTime = false;
-    
-    
+
+
 }
 
 void Game::updateView() {
@@ -225,23 +225,23 @@ void Game::updateView() {
 void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
 {
     mWindow.clear();
- 
-        
 
-    
+
+
+
     //Pillamos la view anterior, activamos la del fondo, dibujamos el fondo y volvemos al estado anterior
     sf::View previa = mWindow.getView();
     mWindow.setView(mBackgroundView);
     mWindow.draw(spriteRelleno);
     mWindow.setView(previa);
-    mapa2->dibuja(mWindow);
+    //mapa2->dibuja(mWindow);
 
     updateView();
     //mWindow.draw(spriteFondo);
 
     UpdatePlayerAnimation();
-     
-    
+
+
     player -> PlayAnimation(**player -> currentAnimation);
 
 
@@ -249,24 +249,24 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
         player -> StopAnimation();
     }
     player -> UpdateAnimation(elapsedTime);
-/*
-for(int l=0; l<mapa->_numLayers; l++){
-        for(int y=0; y<mapa->_height; y++){
+    /*
+    for(int l=0; l<mapa->_numLayers; l++){
+            for(int y=0; y<mapa->_height; y++){
 
-            for(int x=0; x<mapa->_width; x++){
+                for(int x=0; x<mapa->_width; x++){
 
-                if(mapa->_tilemapSprite[l][y][x]!=NULL){
+                    if(mapa->_tilemapSprite[l][y][x]!=NULL){
                    
-                    mapa->_tilemapSprite[l][y][x]->getGlobalBounds();
-                    player->GetSpriteAnimated().getGlobalBounds();
+                        mapa->_tilemapSprite[l][y][x]->getGlobalBounds();
+                        player->GetSpriteAnimated().getGlobalBounds();
                     
-                    if(player->GetSpriteAnimated().getGlobalBounds().intersects(mapa->_tilemapSprite[l][y][x]->getGlobalBounds())){
-                        std::cout<<"ENTRA";
+                        if(player->GetSpriteAnimated().getGlobalBounds().intersects(mapa->_tilemapSprite[l][y][x]->getGlobalBounds())){
+                            std::cout<<"ENTRA";
+                        }
                     }
                 }
             }
-        }
-    }*/
+        }*/
     player -> DrawWithInterpolation(mWindow, interpolation);
     previa = mWindow.getView();
     mapa->dibuja(mWindow);
@@ -274,13 +274,13 @@ for(int l=0; l<mapa->_numLayers; l++){
     mWindow.setView(getLetterboxView(mHud, ancho, alto, 640, 480));
     player -> hud->renderHud(&mWindow);
     mWindow.setView(previa);
-    
-  //  mWindow.draw(mapa->fondo);
-    
+
+    //  mWindow.draw(mapa->fondo);
+
     mWindow.draw(mouseSprite);
     // mWindow.draw(mStatisticsText);
 
-    
+
     mWindow.display();
 }
 
@@ -315,10 +315,10 @@ void Game::processEvents() //Captura y procesa eventos
                 alto = event.size.height;
                 break;
         }
-        
+
     }
-    
-/*Capturamos eventos del teclado directamente*//*
+
+    /*Capturamos eventos del teclado directamente*//*
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
         player -> currentAnimation = &player -> walkingAnimationUp;
         noKeyWasPressed = false;
@@ -338,7 +338,7 @@ void Game::processEvents() //Captura y procesa eventos
 
 }
 
-void Game::UpdatePlayerAnimation(){
+void Game::UpdatePlayerAnimation() {
     //sf::Vector2f distancia(mouseSprite.getPosition().y - player -> GetRenderPosition().y, mouseSprite.getPosition().x - player -> GetRenderPosition().x);
     int cuadrante = 1;
     // 1 -> Arriba
@@ -347,17 +347,17 @@ void Game::UpdatePlayerAnimation(){
     // 4 -> Izquierda
     int x = mouseSprite.getPosition().x - player -> getPosition().x;
     int y = mouseSprite.getPosition().y - player -> getPosition().y;
-    
-    if(abs(y) > abs(x) && y <= 0){
+
+    if (abs(y) > abs(x) && y <= 0) {
         cuadrante = 1;
         player -> currentAnimation = &player -> walkingAnimationUp;
-    }else if(abs(y) > abs(x) && y > 0){
+    } else if (abs(y) > abs(x) && y > 0) {
         player -> currentAnimation = &player -> walkingAnimationDown;
         cuadrante = 2;
-    }else if(abs(x) > abs(y) && x > 0){
+    } else if (abs(x) > abs(y) && x > 0) {
         player -> currentAnimation = &player -> walkingAnimationRight;
         cuadrante = 3;
-    }else{
+    } else {
         player -> currentAnimation = &player -> walkingAnimationLeft;
         cuadrante = 4;
     }
@@ -379,9 +379,9 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
     } else if(key == sf::Keyboard::D && isPressed) {
         player -> currentAnimation = &player -> walkingAnimationRight;
         isMovingRight = isPressed;
-    } else */if (key == sf::Keyboard::W) {        //Esto lo hago para que cuando no estes presionando cambia a false
+    } else */if (key == sf::Keyboard::W) { //Esto lo hago para que cuando no estes presionando cambia a false
         isMovingUp = isPressed;
-    }else if (key == sf::Keyboard::S) {
+    } else if (key == sf::Keyboard::S) {
         isMovingDown = isPressed;
     } else if (key == sf::Keyboard::A) {
         isMovingLeft = isPressed;
@@ -389,7 +389,7 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         isMovingRight = isPressed;
     } else if (key == sf::Keyboard::X && isPressed) {
         isInterpolating = !isInterpolating;
-    } 
+    }
 }
 
 sf::View Game::getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight) {
