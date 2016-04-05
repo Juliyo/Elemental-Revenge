@@ -66,8 +66,8 @@ Game::Game()
     player -> Inicializar(1500.f, 1800.f);
 
     
-    mapa = new Map();
-    mapa->leerMapa();
+   // mapa = new Map();
+    //mapa->leerMapa();
     
     mapa2 = new Map();
     mapa2->leerMapa2();
@@ -123,68 +123,27 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
             movement.y -= player -> getVelocidad();
             //noKeyWasPressed = false;
             
-            for(int l=0; l<mapa->_numLayers; l++){
-        for(int y=0; y<mapa->_height; y++){
-            for(int x=0; x<mapa->_width; x++){
-                if(mapa->_tilemapSprite[l][y][x]!=NULL){  
-                    if(mapa->_tilemapSprite[l][y][x]->getGlobalBounds().contains(player->GetRenderPosition().x,player->GetRenderPosition().y-20)){
-            movement.y += player -> getVelocidad();
-                    }
-                }
-            }
-        }
-    }
+
             
         }
         if (isMovingDown) {
             movement.y += player -> getVelocidad();
             //noKeyWasPressed = false;
             
-        for(int l=0; l<mapa->_numLayers; l++){
-        for(int y=0; y<mapa->_height; y++){
-            for(int x=0; x<mapa->_width; x++){
-                if(mapa->_tilemapSprite[l][y][x]!=NULL){  
-                    if(mapa->_tilemapSprite[l][y][x]->getGlobalBounds().contains(player->GetRenderPosition().x,player->GetRenderPosition().y+20)){
-                        movement.y -= player -> getVelocidad();
-                    }
-                }
-            }
-        }
-    }
-            
+   
         }
         if (isMovingLeft) {
             movement.x -= player -> getVelocidad();
             
             
-            for(int l=0; l<mapa->_numLayers; l++){
-        for(int y=0; y<mapa->_height; y++){
-            for(int x=0; x<mapa->_width; x++){
-                if(mapa->_tilemapSprite[l][y][x]!=NULL){  
-                    if(mapa->_tilemapSprite[l][y][x]->getGlobalBounds().contains(player->GetRenderPosition().x-20,player->GetRenderPosition().y)){
-                        movement.x += player -> getVelocidad();
-                    }
-                }
-            }
-        }
-    }
+
             
         }
         if (isMovingRight) {
             movement.x += player -> getVelocidad();
             // noKeyWasPressed = false;
             
-            for(int l=0; l<mapa->_numLayers; l++){
-        for(int y=0; y<mapa->_height; y++){
-            for(int x=0; x<mapa->_width; x++){
-                if(mapa->_tilemapSprite[l][y][x]!=NULL){  
-                    if(mapa->_tilemapSprite[l][y][x]->getGlobalBounds().contains(player->GetRenderPosition().x+20,player->GetRenderPosition().y)){
-                        movement.x -= player -> getVelocidad();
-                    }
-                }
-            }
-        }
-    }
+
             
         }
 
@@ -269,7 +228,7 @@ for(int l=0; l<mapa->_numLayers; l++){
     }*/
     player -> DrawWithInterpolation(mWindow, interpolation);
     previa = mWindow.getView();
-    mapa->dibuja(mWindow);
+    //mapa->dibuja(mWindow);
 
     mWindow.setView(getLetterboxView(mHud, ancho, alto, 640, 480));
     player -> hud->renderHud(&mWindow);

@@ -183,7 +183,7 @@ void Map::leerMapa2(){
 
 
     TiXmlDocument doc;
-    doc.LoadFile("resources/background.tmx");
+    doc.LoadFile("resources/mansionV2.tmx");
     TiXmlElement* map = doc.FirstChildElement("map");
 
     map->QueryIntAttribute("width",&_width);
