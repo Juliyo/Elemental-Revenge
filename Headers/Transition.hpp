@@ -46,23 +46,31 @@ private:
 
     //Recursos
     sf::Texture                 texturaFondo;
-    sf::Sprite                  spriteFondo;
+    sf::Sprite                  pregunta;
     sf::Sprite                  spriteOpcionA;
     sf::Sprite                  spriteOpcionB;
+    sf::Texture                 texPregunta;
     sf::Texture                 texturaRelleno;
     sf::Texture                 texturaOpcionA;
     sf::Texture                 texturaOpcionB;
     sf::Sprite                  spriteRelleno;
+    sf::Sprite                  spriteFondo;
     sf::Font                    contFonts;
     sf::Texture                 mouseTexture;
     sf::Sprite                  mouseSprite;
+    sf::Texture                 cruzeta;
+    sf::Sprite                  cruzeta1;
+    sf::Sprite                  cruzeta2;
     
     sf::Text textoPregunta;
     sf::Text textoRespuesta1;
     sf::Text textoRespuesta2;
     btree *arbol;
     
-    bool                        pulsado=false;
+    bool isPointOverSprite(const sf::Vector2f Position, const sf::Sprite &Sprite);
+    
+    bool                        pulsado = false;
+    bool                        Bcruzeta = false;
 
 
 };
