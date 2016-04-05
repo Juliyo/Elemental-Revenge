@@ -62,9 +62,9 @@ private:
     sf::Sprite                  cruzeta1;
     sf::Sprite                  cruzeta2;
     
-    sf::Text textoPregunta;
-    sf::Text textoRespuesta1;
-    sf::Text textoRespuesta2;
+    AnimatedSprite *animatedSprite;
+    Animation *animation;
+    sf::Texture pend;
     btree *arbol;
     
     bool isPointOverSprite(const sf::Vector2f Position, const sf::Sprite &Sprite);

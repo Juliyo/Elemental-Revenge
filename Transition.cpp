@@ -21,50 +21,55 @@
 
 Transition::Transition() {
     
+    //Reserva memoria
+    //animatedSprite = new AnimatedSprite();
+    animation = new Animation();
+    
     //Estado de Ingame
     EstadoActivo = false;
-    
+
+    //Referenciamos la ventana Singleton
     mWindow = ref.GetWindow();
-    
+
+    //Vista
     mWorldView = mWindow->getDefaultView();
     mWorldView.zoom(0.5f);
-    
-    
+
+    //Carga XML
     TiXmlDocument doc;
     doc.LoadFile("resources/historia.xml");
     TiXmlElement* pregunta1 = doc.FirstChildElement("pregunta");
     TiXmlElement* respuesta1 = doc.FirstChildElement("respuesta1");
     TiXmlElement* respuesta2 = doc.FirstChildElement("respuesta2");
-    
-    std::string p1=pregunta1->GetText();
-    std::string r1=respuesta1->GetText();
-    std::string r2=respuesta2->GetText();
+
+    std::string p1 = pregunta1->GetText();
+    std::string r1 = respuesta1->GetText();
+    std::string r2 = respuesta2->GetText();
     int key;
-    pregunta1->Attribute( "id", &key );
-    int c=0;
-    std::string torep="\n";
-    for ( std::string::iterator it=p1.begin(); it!=p1.end(); ++it){
-        if(*it=='%'){
-            p1=p1.replace(c,1,torep);
+    pregunta1->Attribute("id", &key);
+    int c = 0;
+    std::string torep = "\n";
+    for (std::string::iterator it = p1.begin(); it != p1.end(); ++it) {
+        if (*it == '%') {
+            p1 = p1.replace(c, 1, torep);
         }
         c++;
     }
-    
+
     arbol = new btree();
-    /*char ch = 202;
-    std::string hola = "ch boludo";
-    hola.push_back(233);*/
-    arbol->insert(key,p1,respuesta1->GetText(),respuesta2->GetText());
-    
-    for(int i=0; i<6; i++){
-       pregunta1=pregunta1->NextSiblingElement("pregunta");
-       respuesta1=respuesta1->NextSiblingElement("pregunta");
-       respuesta2=respuesta2->NextSiblingElement("pregunta");
-       pregunta1->Attribute( "id", &key );
-       arbol->insert(key,pregunta1->GetText(),respuesta1->GetText(),respuesta2->GetText());
+    arbol->insert(key, p1, respuesta1->GetText(), respuesta2->GetText());
+
+    for (int i = 0; i < 6; i++) {
+        pregunta1 = pregunta1->NextSiblingElement("pregunta");
+        respuesta1 = respuesta1->NextSiblingElement("pregunta");
+        respuesta2 = respuesta2->NextSiblingElement("pregunta");
+        pregunta1->Attribute("id", &key);
+        arbol->insert(key, pregunta1->GetText(), respuesta1->GetText(), respuesta2->GetText());
     }
-    
-     try {
+
+
+    //Carga texturas
+    try {
         texPregunta.loadFromFile(arbol->search(4)->pregunta);
         texturaOpcionA.loadFromFile("resources/UI Elements/colgante.png");
         texturaOpcionB.loadFromFile("resources/UI Elements/amuleto.png");
@@ -72,56 +77,106 @@ Transition::Transition() {
         texturaFondo.loadFromFile("resources/Textures/fondo.png");
         mouseTexture.loadFromFile("resources/Textures/mouse.png");
         cruzeta.loadFromFile("resources/UI Elements/cruzetas.png");
+        pend.loadFromFile("resources/Textures/pend.png");
     } catch (std::runtime_error& e) {
         std::cout << "Excepcion: " << e.what() << std::endl;
         exit(0);
     }
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
-    
+
     texturaFondo.setSmooth(true);
     texturaFondo.setRepeated(1);
     spriteFondo.setTexture(texturaFondo);
     spriteFondo.setTextureRect(sf::IntRect(0, 0, 2000, 2000));
-    
-    pregunta.setTexture(texPregunta);
-    spriteOpcionA.setTexture(texturaOpcionA);
-    spriteOpcionB.setTexture(texturaOpcionB);
 
-   
-    
     spriteRelleno.setTexture(texturaRelleno);
     spriteRelleno.setTextureRect(sf::IntRect(0, 0, 1024, 2048));
     spriteRelleno.setScale(1, 2);
-    
-    pregunta.setScale(0.6,0.6);
-    pregunta.setOrigin(texPregunta.getSize().x/2,texPregunta.getSize().y/2);
-    pregunta.setPosition(mWindow->getSize().x/2,mWindow->getSize().y/2-100);
-    
-    spriteOpcionA.setScale(0.8,0.8);
-    spriteOpcionA.setOrigin(texturaOpcionA.getSize().x/2,texturaOpcionA.getSize().y/2);
-    
-    spriteOpcionA.setPosition(500,450);
-    spriteOpcionA.setTextureRect(sf::IntRect(0,0,144,62));
-    
-    spriteOpcionB.setScale(0.8,0.8);
-    spriteOpcionB.setOrigin(texturaOpcionB.getSize().x/2,texturaOpcionB.getSize().y/2);
-    spriteOpcionB.setPosition(800,450);
-    spriteOpcionB.setTextureRect(sf::IntRect(0,0,144,62));
 
+    pregunta.setTexture(texPregunta);
+    pregunta.setScale(0.35, 0.35);
+    pregunta.setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
+    pregunta.setPosition(mWindow->getSize().x / 2, mWindow->getSize().y / 2 - 100);
     
+    spriteOpcionA.setTexture(texturaOpcionA);
+    spriteOpcionA.setScale(0.5, 0.5);
+    spriteOpcionA.setOrigin(texturaOpcionA.getSize().x / 2, texturaOpcionA.getSize().y / 2);
+    spriteOpcionA.setPosition(500, 450);
+    spriteOpcionA.setTextureRect(sf::IntRect(0, 0, 258, 97));
+    
+    spriteOpcionB.setTexture(texturaOpcionB);
+    spriteOpcionB.setScale(0.5, 0.5);
+    spriteOpcionB.setOrigin(texturaOpcionB.getSize().x / 2, texturaOpcionB.getSize().y / 2);
+    spriteOpcionB.setPosition(800, 450);
+    spriteOpcionB.setTextureRect(sf::IntRect(0, 0, 258, 97));
+
     mouseSprite.setTexture(mouseTexture);
     mouseSprite.setScale(0.2, 0.2);
     mouseSprite.setPosition(20, 20);
     mouseSprite.setOrigin(64, 64);
 
     cruzeta1.setTexture(cruzeta);
-    cruzeta1.setOrigin(cruzeta.getSize().x/2,cruzeta.getSize().y/2);
-    cruzeta1.setScale(0.25,0.25);
+    cruzeta1.setOrigin(cruzeta.getSize().x / 2, cruzeta.getSize().y / 2);
+    cruzeta1.setScale(0.25, 0.25);
+
+    animation->setSpriteSheet(pend);
     
+    animation->addFrame(sf::IntRect(0,0,447,335));
+    animation->addFrame(sf::IntRect(447,0,447,335));
+    animation->addFrame(sf::IntRect(447*2,0,447,335));
+    animation->addFrame(sf::IntRect(447*3,0,447,335));
+    animation->addFrame(sf::IntRect(447*4,0,447,335));
+    animation->addFrame(sf::IntRect(447*5,0,447,335));
+    animation->addFrame(sf::IntRect(447*6,0,447,335));
+    animation->addFrame(sf::IntRect(447*7,0,447,335));
+    animation->addFrame(sf::IntRect(447*8,0,447,335));
     
+    animation->addFrame(sf::IntRect(0,335,447,335));
+    animation->addFrame(sf::IntRect(447,335,447,335));
+    animation->addFrame(sf::IntRect(447*2,335,447,335));
+    animation->addFrame(sf::IntRect(447*3,335,447,335));
+    animation->addFrame(sf::IntRect(447*4,335,447,335));
+    animation->addFrame(sf::IntRect(447*5,335,447,335));
+    animation->addFrame(sf::IntRect(447*6,335,447,335));
+    animation->addFrame(sf::IntRect(447*7,335,447,335));
+    animation->addFrame(sf::IntRect(447*8,335,447,335));
     
-        
+    animation->addFrame(sf::IntRect(0,335*2,447,335));
+    animation->addFrame(sf::IntRect(447,335*2,447,335));
+    animation->addFrame(sf::IntRect(447*2,335*2,447,335));
+    animation->addFrame(sf::IntRect(447*3,335*2,447,335));
+    animation->addFrame(sf::IntRect(447*4,335*2,447,335));
+    animation->addFrame(sf::IntRect(447*5,335*2,447,335));
+    animation->addFrame(sf::IntRect(447*6,335*2,447,335));
+    animation->addFrame(sf::IntRect(447*7,335*2,447,335));
+    animation->addFrame(sf::IntRect(447*8,335*2,447,335));
+    
+    animation->addFrame(sf::IntRect(0,335*3,447,335));
+    animation->addFrame(sf::IntRect(447,335*3,447,335));
+    animation->addFrame(sf::IntRect(447*2,335*3,447,335));
+    animation->addFrame(sf::IntRect(447*3,335*3,447,335));
+    animation->addFrame(sf::IntRect(447*4,335*3,447,335));
+    animation->addFrame(sf::IntRect(447*5,335*3,447,335));
+    animation->addFrame(sf::IntRect(447*6,335*3,447,335));
+    animation->addFrame(sf::IntRect(447*7,335*3,447,335));
+    animation->addFrame(sf::IntRect(447*8,335*3,447,335));
+    
+    animation->addFrame(sf::IntRect(0,335*4,447,335));
+    animation->addFrame(sf::IntRect(447,335*4,447,335));
+    animation->addFrame(sf::IntRect(447*2,335*4,447,335));
+    animation->addFrame(sf::IntRect(447*3,335*4,447,335));
+    animation->addFrame(sf::IntRect(447*4,335*4,447,335));
+    animation->addFrame(sf::IntRect(447*5,335*4,447,335));
+    animation->addFrame(sf::IntRect(447*6,335*4,447,335));
+    animation->addFrame(sf::IntRect(447*7,335*4,447,335));
+    //animation->addFrame(sf::IntRect(447*8,335*4,447,335));
+    animation->addFrame(sf::IntRect(447*7,335*4,447,335));
+    
+    animatedSprite = new AnimatedSprite(sf::seconds(0.06), true, false);
+    animatedSprite->setPosition(315,100);
+    animatedSprite->scale(1.5,1.5);
+
 
 }
 
@@ -131,29 +186,27 @@ Transition::Transition(const Transition& orig) {
 Transition::~Transition() {
 }
 
-
-void Transition::Update(sf::Time elapsedTime){
+void Transition::Update(sf::Time elapsedTime) {
     sf::Vector2f mousePosition = mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow));
-    if(isPointOverSprite(mousePosition, spriteOpcionA)){
+    if (isPointOverSprite(mousePosition, spriteOpcionA)) {
         cruzeta1.setPosition(spriteOpcionA.getPosition());
-        Bcruzeta=true;
-    }else if(isPointOverSprite(mousePosition, spriteOpcionB)){
+        Bcruzeta = true;
+    } else if (isPointOverSprite(mousePosition, spriteOpcionB)) {
         cruzeta1.setPosition(spriteOpcionB.getPosition());
-        Bcruzeta=true;
-    }else{
-        Bcruzeta=false;
+        Bcruzeta = true;
+    } else {
+        Bcruzeta = false;
     }
-    
+
 }
 
-bool Transition::isPointOverSprite(const sf::Vector2f Position, const sf::Sprite &Sprite)
-{
-	return	(Position.x > Sprite.getPosition().x - Sprite.getLocalBounds().width/2) && (Position.x < Sprite.getPosition().x + Sprite.getLocalBounds().width/2 ) && 
-			(Position.y > Sprite.getPosition().y - Sprite.getLocalBounds().height/2) && (Position.y < Sprite.getPosition().y + Sprite.getLocalBounds().height/2 );
+bool Transition::isPointOverSprite(const sf::Vector2f Position, const sf::Sprite &Sprite) {
+    return (Position.x > Sprite.getPosition().x - Sprite.getLocalBounds().width / 2) && (Position.x < Sprite.getPosition().x + Sprite.getLocalBounds().width / 2) &&
+            (Position.y > Sprite.getPosition().y - Sprite.getLocalBounds().height / 2) && (Position.y < Sprite.getPosition().y + Sprite.getLocalBounds().height / 2);
 }
 
-void Transition::render(float interpolation, sf::Time elapsedTime){
-    
+void Transition::render(float interpolation, sf::Time elapsedTime) {
+
     mWindow->clear();
 
     //Pillamos la view anterior, activamos la del fondo, dibujamos el fondo y volvemos al estado anterior
@@ -163,13 +216,15 @@ void Transition::render(float interpolation, sf::Time elapsedTime){
     mWindow->setView(previa);
 
     updateView();
-    mWindow->draw(spriteFondo);
+    animatedSprite->play(*animation);
+    animatedSprite->update(elapsedTime);
+    mWindow->draw(*animatedSprite);
     mWindow->draw(pregunta);
 
-    mWindow->draw(textoPregunta);
+    
     mWindow->draw(spriteOpcionA);
     mWindow->draw(spriteOpcionB);
-    if(Bcruzeta){
+    if (Bcruzeta) {
         mWindow->draw(cruzeta1);
     }
 
@@ -178,12 +233,11 @@ void Transition::render(float interpolation, sf::Time elapsedTime){
     mWindow->setView(getLetterboxView(mHud, ref.ancho, ref.alto, 640, 480));
     mWindow->setView(previa);
 
-    
+
     mWindow->draw(mouseSprite);
     // mWindow.draw(mStatisticsText);
     mWindow->display();
 }
-
 
 sf::View Transition::getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight) {
 
@@ -218,7 +272,6 @@ sf::View Transition::getLetterboxView(sf::View view, int windowWidth, int window
     return view;
 }
 
-
 void Transition::updateView() {
 
     sf::Vector2f mousePosition = mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow));
@@ -239,8 +292,8 @@ void Transition::updateView() {
 
 void Transition::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
     if (button == sf::Mouse::Button::Left) {
-        if(isPressed){
-            if(spriteOpcionA.getGlobalBounds().contains(mouseSprite.getPosition())){
+        if (isPressed) {
+            if (spriteOpcionA.getGlobalBounds().contains(mouseSprite.getPosition())) {
                 printf("FDSAF");
             }
         }
