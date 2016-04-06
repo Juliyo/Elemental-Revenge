@@ -100,7 +100,7 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
 
         mWindow->clear();
 
-    EstadoMenu->draw(*mWindow);
+    EstadoMenu->draw();
     
     mWindow->display();
         }
@@ -123,7 +123,7 @@ void Game::processEvents() //Captura y procesa eventos
             case sf::Event::KeyPressed:
                 handlePlayerInput(event.key.code, true);
                 EstadoInGame->handlePlayerInput(event.key.code, true);
-                EstadoMenu->handlePlayerInput(event.key.code, true, *mWindow);
+                EstadoMenu->handlePlayerInput(event.key.code, true);
                 EstadoPause->handlePlayerInput(event.key.code, true);
                 
                 break;

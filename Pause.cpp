@@ -18,13 +18,17 @@
 Pause::Pause(){
     
     
-    
+        mWindow = ref.GetWindow();
+
+    //Vista
+    mWorldView = mWindow->getDefaultView();
+    mWorldView.zoom(0.5f);
         if(!fontPausa.loadFromFile("resources/Fonts/Minecraft.ttf")){
         
     }
     
-    float width=1280;
-    float height=700;
+    float width=mWindow->getSize().x;
+    float height=mWindow->getSize().y;
     
     menuPausa[0].setFont(fontPausa);
     menuPausa[0].setColor(sf::Color::Red);
@@ -58,11 +62,7 @@ Pause::Pause(){
     EstadoActivo = false;
 
     //Referenciamos la ventana Singleton
-    mWindow = ref.GetWindow();
 
-    //Vista
-    mWorldView = mWindow->getDefaultView();
-    mWorldView.zoom(0.5f);
     
     //texturas
     
@@ -99,7 +99,7 @@ void Pause:: Update(sf::Time elapsedTime){
     sf::Vector2f mousePosition = mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow));
 }
 void Pause::render(float interpolation, sf::Time elapsedTime){
-       // mWindow->clear();
+       //mWindow->clear();
 
     updateView();
     mWindow->draw(spriteFondo);
@@ -127,7 +127,7 @@ void Pause::handleMouseInput(sf::Mouse::Button button, bool isPressed){
     }
     }
     
-    sf::View Pause::getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight){
+sf::View Pause::getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight){
          // Compares the aspect ratio of the window to the aspect ratio of the view,
     // and sets the view's viewport accordingly in order to archieve a letterbox effect.
     // A new view (with a new viewport set) is returned.
@@ -174,7 +174,8 @@ void Pause::handleMouseInput(sf::Mouse::Button button, bool isPressed){
     mWorldView.setSize(640, 480);
 
     mWindow->setView(getLetterboxView(mWorldView, ref.ancho, ref.alto, 640, 480));
-    }
+}
+    
 Pause::Pause(const Pause& orig) {
 }
 

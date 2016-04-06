@@ -30,22 +30,52 @@ public:
     Menu2(const Menu2& orig);
     virtual ~Menu2();
     
-    void draw(sf::RenderWindow &window);
+    void draw();
     void MoveUp();
     void MoveDown();
     
-    void handlePlayerInput(sf::Keyboard::Key key, bool isPressed, sf::RenderWindow &window); // Maneja eventos
+    void handlePlayerInput(sf::Keyboard::Key key, bool isPressed); // Maneja eventos
+    sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight);
+
+    
+        void updateView();
 
     int getSetectedItemIndex(){
         return selectedItemIndex;
     };
     
+    
+        Window &ref = *Window::Instance();
+
+    sf::View mWorldView;
+    sf::View mBackgroundView;
+    sf::View mHud;
+    
 private:
     
-        sf::RenderWindow *mWindow;
-
+    sf::RenderWindow            *mWindow;
+    sf::Texture                 texturaFondoMenu;
+    sf::Sprite                  spriteFondoMenu;
+    
+        sf::Texture                 texturaFondo;
+    sf::Sprite                  spriteFondo;
+    
+        sf::Texture                 texturaRelleno;
+    sf::Sprite                  spriteRelleno;
+    
+    sf::RectangleShape          rectanguloFondo;
+    
+    sf::Texture                 mouseTexture;
+    sf::Sprite                  mouseSprite;
+    
+    sf::Texture                 texturaTitulo;
+    sf::Sprite                  Titulo;
+    
     int selectedItemIndex;
     sf::Font font;
+    sf::Font fontTitulo;
+    sf::Text textTitulo;
+
     sf::Text menu[4];
 };
 
