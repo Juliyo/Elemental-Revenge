@@ -33,7 +33,7 @@ Game::Game(){
     EstadoTransition=new Transition();
     
 
-    Menu=new Menu2();
+    EstadoMenu=new Menu2();
     
     #ifdef _WIN32
     HWND handler = mWindow->getSystemHandle();
@@ -85,18 +85,21 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
 
 void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
 {
-    /*if(EstadoInGame->EstadoActivo){
+    if(EstadoInGame->EstadoActivo){
         EstadoInGame->render(interpolation, elapsedTime);
     }
     if(EstadoTransition->EstadoActivo){
         EstadoTransition->render(interpolation, elapsedTime);
-    }*/
+    }
+    
+        if(EstadoMenu->EstadoActivo){
+
         mWindow->clear();
 
-    Menu->draw(*mWindow);
+    EstadoMenu->draw(*mWindow);
     
     mWindow->display();
-    
+    }
 }
 
 /************** EVENTOS ****************/
@@ -110,7 +113,7 @@ void Game::processEvents() //Captura y procesa eventos
             case sf::Event::KeyPressed:
                 handlePlayerInput(event.key.code, true);
                 EstadoInGame->handlePlayerInput(event.key.code, true);
-                Menu->handlePlayerInput(event.key.code, true);
+                EstadoMenu->handlePlayerInput(event.key.code, true, *mWindow);
                 
                 break;
 
@@ -161,6 +164,12 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
     } else if(key == sf::Keyboard::N){
         EstadoTransition->EstadoActivo=false;
         EstadoInGame->EstadoActivo=true;
+    } else if(key == sf::Keyboard::Return && EstadoMenu->EstadoActivo){
+        if(EstadoMenu->getSetectedItemIndex()==0){
+            EstadoMenu->EstadoActivo=false;
+            EstadoInGame->EstadoActivo=true;
+        }
+
     }
     
     

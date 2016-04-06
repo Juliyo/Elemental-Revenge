@@ -43,7 +43,7 @@ private:
     
     InGame                      *EstadoInGame;
     Transition                  *EstadoTransition;
-    Menu2                       *Menu;    
+    Menu2                       *EstadoMenu;    
     float                       interpolation;
 	
     //Eventos

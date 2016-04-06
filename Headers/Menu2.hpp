@@ -15,11 +15,16 @@
 #define MENU2_HPP
 
 
+#include "State.hpp"
+#include "Window.hpp"
+#include "btree.hpp"
+#include "AnimatedSprite.hpp"
+
 #include <SFML/Graphics.hpp>
 
 #define MAX_NUMBER_OF_ITEMS 3   
 
-class Menu2 {
+class Menu2: public State  {
 public:
     Menu2();
     Menu2(const Menu2& orig);
@@ -29,13 +34,19 @@ public:
     void MoveUp();
     void MoveDown();
     
-    void handlePlayerInput(sf::Keyboard::Key key, bool isPressed); // Maneja eventos
+    void handlePlayerInput(sf::Keyboard::Key key, bool isPressed, sf::RenderWindow &window); // Maneja eventos
 
+    int getSetectedItemIndex(){
+        return selectedItemIndex;
+    };
     
 private:
+    
+        sf::RenderWindow *mWindow;
+
     int selectedItemIndex;
     sf::Font font;
-    sf::Text menu[MAX_NUMBER_OF_ITEMS];
+    sf::Text menu[4];
 };
 
 #endif /* MENU_HPP */

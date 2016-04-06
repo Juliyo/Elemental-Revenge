@@ -19,7 +19,6 @@
 InGame::InGame() {
     
     //Estado de Ingame
-    EstadoActivo = true;
     
     try {
         texturaFondo.loadFromFile("resources/Textures/grasstext.png");
