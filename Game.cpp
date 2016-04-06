@@ -31,6 +31,7 @@ Game::Game(){
     
     EstadoInGame=new InGame();   
     EstadoTransition=new Transition();
+    EstadoPause=new Pause();
     
 
     EstadoMenu=new Menu2();
@@ -79,6 +80,9 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
     if(EstadoTransition->EstadoActivo){
         EstadoTransition->Update(elapsedTime);
     }
+    if(EstadoPause->EstadoActivo){
+        EstadoPause->Update(elapsedTime);
+    }
 
 }
 
@@ -99,8 +103,14 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
     EstadoMenu->draw(*mWindow);
     
     mWindow->display();
+        }
+    if(EstadoPause->EstadoActivo){
+        EstadoInGame->renderForPause(interpolation, elapsedTime);
+        EstadoPause->render(interpolation, elapsedTime);
     }
 }
+
+
 
 /************** EVENTOS ****************/
 
@@ -161,6 +171,7 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
     if (key == sf::Keyboard::M) { //Esto lo hago para que cuando no estes presionando cambia a false
         EstadoInGame->EstadoActivo=false;
         EstadoTransition->EstadoActivo=true;
+        EstadoPause->EstadoActivo=false;
     } else if(key == sf::Keyboard::N){
         EstadoTransition->EstadoActivo=false;
         EstadoInGame->EstadoActivo=true;
@@ -170,6 +181,11 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
             EstadoInGame->EstadoActivo=true;
         }
 
+
+    } else if(key == sf::Keyboard::Escape){
+        EstadoTransition->EstadoActivo=false;
+        EstadoInGame->EstadoActivo=false;
+        EstadoPause->EstadoActivo=true;
     }
     
     
