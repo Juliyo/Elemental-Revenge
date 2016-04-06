@@ -47,14 +47,19 @@ private:
 
     //Recursos
     sf::Texture                 texturaFondo;
+    
     sf::Sprite                  pregunta;
+    sf::Texture                 texPregunta;
+    
     sf::Sprite                  spriteOpcionA;
     sf::Sprite                  spriteOpcionB;
-    sf::Texture                 texPregunta;
-    sf::Texture                 texturaRelleno;
+    sf::Sprite                  nextLevel;
     sf::Texture                 texturaOpcionA;
     sf::Texture                 texturaOpcionB;
+    sf::Texture                 texturaNextLevel;
+    
     sf::Sprite                  spriteRelleno;
+    sf::Texture                 texturaRelleno;
     sf::Sprite                  spriteFondo;
     sf::Font                    contFonts;
     sf::Texture                 mouseTexture;
@@ -63,15 +68,29 @@ private:
     sf::Sprite                  cruzeta1;
     sf::Sprite                  cruzeta2;
     
+    sf::Texture                 simboloText;
+    sf::Sprite                  simbolo;
+    
+    
+    
     AnimatedSprite *animatedSprite;
     Animation *animation;
     sf::Texture pend;
     btree *arbol;
-    bool buttonPressed;
-    bool firstTime = true;
+    node *currentNode;
+    bool buttonPressed = false;
+    bool firstTime = false;
+    sf::Color transparent = sf::Color::Transparent;
+    bool fadeEffect = false;
+    bool unfadeEffect = false;
+    bool izq = false;
+    bool der = false;
+    bool drawOpciones=true;
+    bool drawNextLevel;
+    char mejora;
     
     bool isPointOverSprite(const sf::Vector2f Position, const sf::Sprite &Sprite);
-    
+    void changePregunta();
     bool                        pulsado = false;
     bool                        Bcruzeta = false;
 
