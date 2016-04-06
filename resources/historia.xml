@@ -1,13 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <pregunta id="4">
 resources/TextoPreguntas/p1.png
 </pregunta>
 <respuesta1>
-El amuleto contiene una foto de una mujer joven, te suena de algo y buscas por la casa porque crees que ya la has visto en algún sitio.
-Encuentras un marco con una foto de tu maestro de joven, la chica y otro joven, de fondo hay una casa que recuerdas como la casa abandonada del otro lado del río. Decides ir  a la casa. (+1 agua).
+resources/TextoPreguntas/r1.png
 </respuesta1>
 <respuesta2>
-Decides investigar sobre el significado del símbolo en la biblioteca de tu maestro. Ves un libro que tiene ese símbolo, tras horas de investigación encuentras el significado: es de unos asesinos expertos en fuego. En él se menciona una guarida en las montañas del norte. Encaminas tu marcha hacia ella. Leyéndolo mejoras tu habilidad con el fuego (+1 fuego).
+resources/TextoPreguntas/r2.png
 </respuesta2>
 
 <pregunta id="2">

@@ -32,6 +32,7 @@ public:
     void insert(int key, std::string pregunta, std::string r1, std::string r2);
     node *search(int key);
     void destroy_tree();
+    node *nextNode(node *leaf, int dir);
 private:
     void destroy_tree(node *leaf);
     void insert(int key, node *leaf, std::string pregunta, std::string r1, std::string r2);

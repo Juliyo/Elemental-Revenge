@@ -82,7 +82,15 @@ node *btree::search(int key, node *leaf)
   }
   else return NULL;
 }
-
+node *btree::nextNode(node *leaf, int dir){
+    if(leaf!=NULL){
+        if(dir==1){//Izq
+            return leaf->left;
+        }else if(dir==0){//Der
+            return leaf->right;
+        }
+    }
+}
 void btree::insert(int key,std::string pregunta, std::string r1, std::string r2)
 {
   if(root!=NULL)
