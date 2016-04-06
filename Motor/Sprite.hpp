@@ -13,14 +13,36 @@
 
 #ifndef SPRITE_HPP
 #define SPRITE_HPP
+#include "SFML/Graphics.hpp"
+#include <string>
+#include <iostream>
 
 class Sprite: public sf::Drawable {
 public:
+    Sprite(std::string ruta);
+    Sprite(std::string ruta,bool smooth);
     Sprite();
     Sprite(const Sprite& orig);
     virtual ~Sprite();
+    void setTexture(std::string ruta);
+    void setScale(float x,float y);
+    void setRotation(float angulo);
+    void setTextRect(int fil, int col, int ancho, int alto);
+    void setOrigin(float x, float y);
+    sf::FloatRect getGlobalBounds();
+    void setSmooth(bool a);
+    void setRepeated(bool a);
+    void setPosition(float x, float y);
+    
+    
 private:
-    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+    sf::Sprite m_sprite;
+    sf::Texture m_texture;
+    sf::VertexArray m_vertices;
+    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const{
+        target.draw(m_sprite, states);
+    }
+    
 };
 
 #endif /* SPRITE_HPP */

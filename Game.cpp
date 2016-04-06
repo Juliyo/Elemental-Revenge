@@ -21,13 +21,7 @@ Game::Game(){
     Window *p1 = Window::Instance();    //Singleton
     Window *p2 = p1->Instance();
     Window &ref = * Window::Instance(); //Asi coges la referencia a la Window
-    
-    mWindow = ref.GetWindow();
-    
-    mWindow->setFramerateLimit(60); //Establecemos maximo real de procesamiento (aunque trabajamos con 60)
-    mWindow->setVerticalSyncEnabled(true);
-    mWindow->setMouseCursorVisible(false);
-   
+
     
     EstadoInGame=new InGame();   
     EstadoTransition=new Transition();

@@ -12,9 +12,10 @@
  */
 
 #include "Reloj.hpp"
-#include "SFML/System/Clock.hpp"
+
 
 Reloj::Reloj() {
+    reloj= new sf::Clock();
 }
 
 Reloj::Reloj(const Reloj& orig) {
@@ -23,8 +24,6 @@ Reloj::Reloj(const Reloj& orig) {
 Reloj::~Reloj() {
 }
 
-Reloj::~Reloj() {
-}
 
 
 float Reloj::getTiempo() {

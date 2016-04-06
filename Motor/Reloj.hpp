@@ -13,7 +13,7 @@
 
 #ifndef RELOJ_HPP
 #define RELOJ_HPP
-
+#include <SFML/Graphics.hpp>
 class Reloj {
 public:
     Reloj();
