@@ -11,11 +11,11 @@
  * Created on 6 de abril de 2016, 9:37
  */
 
-#include "Headers/Menu.hpp"
+#include "Headers/Menu2.hpp"
 
-Menu::Menu() {
+Menu2::Menu2() {
     
-    if(!font.loadFromFile("arial.ttf")){
+    if(!font.loadFromFile("resources/Fonts/Minecraft.ttf")){
         
     }
     
@@ -38,22 +38,59 @@ Menu::Menu() {
     menu[2].setString("Exit");
     menu[2].setPosition(sf::Vector2f(width/2, height/(MAX_NUMBER_OF_ITEMS+1) *3));
     
-    
+    selectedItemIndex=0;
     
 }
 
-Menu::Menu(const Menu& orig) {
+Menu2::Menu2(const Menu2& orig) {
 }
 
-Menu::~Menu() {
+Menu2::~Menu2() {
 }
 
-void Menu::draw(sf::RenderWindow &window){
+void Menu2::draw(sf::RenderWindow &window){
     
+
     for(int i=0; i<MAX_NUMBER_OF_ITEMS;i++){
+        
+
         
         window.draw(menu[i]);
        
     }
     
+}
+
+void Menu2::MoveUp(){
+    
+    if(selectedItemIndex-1>=0){
+        
+        menu[selectedItemIndex].setColor(sf::Color::White);
+        selectedItemIndex--;
+        menu[selectedItemIndex].setColor(sf::Color::Red);
+        
+    }
+    
+}
+
+void Menu2::MoveDown(){
+    
+    if(selectedItemIndex+1<MAX_NUMBER_OF_ITEMS){
+        
+        menu[selectedItemIndex].setColor(sf::Color::White);
+        selectedItemIndex++;
+        menu[selectedItemIndex].setColor(sf::Color::Red);
+        
+    }
+    
+}
+
+
+void Menu2::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
+    
+    if (key == sf::Keyboard::W) { //Esto lo hago para que cuando no estes presionando cambia a false
+        MoveUp();
+    } else if (key == sf::Keyboard::S) {
+        MoveDown();
+    } 
 }

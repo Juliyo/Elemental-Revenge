@@ -32,6 +32,9 @@ Game::Game(){
     EstadoInGame=new InGame();   
     EstadoTransition=new Transition();
     
+
+    Menu=new Menu2();
+    
     #ifdef _WIN32
     HWND handler = mWindow->getSystemHandle();
     RECT rWindow;
@@ -82,12 +85,18 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
 
 void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
 {
-    if(EstadoInGame->EstadoActivo){
+    /*if(EstadoInGame->EstadoActivo){
         EstadoInGame->render(interpolation, elapsedTime);
     }
     if(EstadoTransition->EstadoActivo){
         EstadoTransition->render(interpolation, elapsedTime);
-    }
+    }*/
+        mWindow->clear();
+
+    Menu->draw(*mWindow);
+    
+    mWindow->display();
+    
 }
 
 /************** EVENTOS ****************/
@@ -101,6 +110,7 @@ void Game::processEvents() //Captura y procesa eventos
             case sf::Event::KeyPressed:
                 handlePlayerInput(event.key.code, true);
                 EstadoInGame->handlePlayerInput(event.key.code, true);
+                Menu->handlePlayerInput(event.key.code, true);
                 
                 break;
 

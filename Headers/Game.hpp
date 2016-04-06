@@ -9,6 +9,8 @@
 #include "State.hpp"
 #include "InGame.hpp"
 #include "Transition.hpp"
+#include "Menu2.hpp"
+
 
 class Game : private sf::NonCopyable
 {
@@ -41,7 +43,7 @@ private:
     
     InGame                      *EstadoInGame;
     Transition                  *EstadoTransition;
-    
+    Menu2                       *Menu;    
     float                       interpolation;
 	
     //Eventos

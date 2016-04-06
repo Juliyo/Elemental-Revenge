@@ -5,28 +5,32 @@
  */
 
 /* 
- * File:   Menu.hpp
+ * File:   Menu2.hpp
  * Author: joselu
  *
- * Created on 6 de abril de 2016, 9:37
+ * Created on 6 de abril de 2016, 10:17
  */
 
-#ifndef MENU_HPP
-#define MENU_HPP
+#ifndef MENU2_HPP
+#define MENU2_HPP
+
 
 #include <SFML/Graphics.hpp>
 
 #define MAX_NUMBER_OF_ITEMS 3   
 
-class Menu {
+class Menu2 {
 public:
-    Menu();
-    Menu(const Menu& orig);
-    virtual ~Menu();
+    Menu2();
+    Menu2(const Menu2& orig);
+    virtual ~Menu2();
     
     void draw(sf::RenderWindow &window);
     void MoveUp();
     void MoveDown();
+    
+    void handlePlayerInput(sf::Keyboard::Key key, bool isPressed); // Maneja eventos
+
     
 private:
     int selectedItemIndex;
@@ -35,4 +39,6 @@ private:
 };
 
 #endif /* MENU_HPP */
+
+
 
