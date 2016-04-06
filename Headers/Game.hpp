@@ -9,6 +9,7 @@
 #include "State.hpp"
 #include "InGame.hpp"
 #include "Transition.hpp"
+#include "Pause.hpp"
 
 class Game : private sf::NonCopyable
 {
@@ -28,7 +29,6 @@ private:
     void                        updateView();
     void                        UpdatePlayerAnimation();
     
-    
 
     
 private:
@@ -41,6 +41,7 @@ private:
     
     InGame                      *EstadoInGame;
     Transition                  *EstadoTransition;
+    Pause                       *EstadoPause;
     
     float                       interpolation;
 	

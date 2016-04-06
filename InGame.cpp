@@ -233,6 +233,21 @@ void InGame::render(float interpolation, sf::Time elapsedTime){
     mWindow->display();
 }
 
+void InGame::renderForPause(float interpolation, sf::Time elapsedTime){
+    sf::View previa = mWindow->getView();
+    mWindow->setView(mBackgroundView);
+    mWindow->draw(spriteRelleno);
+    mWindow->setView(previa);
+    updateViewForPause();
+    previa = mWindow->getView();
+   
+    mWindow->draw(spriteFondo);
+    
+    mWindow->setView(getLetterboxView(mHud, ref.ancho, ref.alto, 640, 480));
+    player -> hud->renderHud(mWindow);
+    mWindow->setView(previa);
+}
+
 void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
     
     if (key == sf::Keyboard::W) { //Esto lo hago para que cuando no estes presionando cambia a false
@@ -361,6 +376,16 @@ void InGame::updateView() {
     float camera_y = (mouseSprite.getPosition().y + player -> getPosition().y * 6) / 7;
     float x = (mWorldView.getCenter().x + 0.1 * (camera_x - mWorldView.getCenter().x)); //Lo mismo que la funcion lerp
     float y = (mWorldView.getCenter().y + 0.1 * (camera_y - mWorldView.getCenter().y));
+    mWorldView.setCenter(x, y);
+    mWorldView.setSize(640, 480);
+
+    mWindow->setView(getLetterboxView(mWorldView, ref.ancho, ref.alto, 640, 480));
+}
+void InGame::updateViewForPause() {
+
+
+    float x = mWorldView.getCenter().x ; //Lo mismo que la funcion lerp
+    float y = mWorldView.getCenter().y ;
     mWorldView.setCenter(x, y);
     mWorldView.setSize(640, 480);
 

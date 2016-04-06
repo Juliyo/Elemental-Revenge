@@ -31,6 +31,7 @@ Game::Game(){
     
     EstadoInGame=new InGame();   
     EstadoTransition=new Transition();
+    EstadoPause=new Pause();
     
     #ifdef _WIN32
     HWND handler = mWindow->getSystemHandle();
@@ -76,6 +77,9 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
     if(EstadoTransition->EstadoActivo){
         EstadoTransition->Update(elapsedTime);
     }
+    if(EstadoPause->EstadoActivo){
+        EstadoPause->Update(elapsedTime);
+    }
 
 }
 
@@ -88,7 +92,13 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
     if(EstadoTransition->EstadoActivo){
         EstadoTransition->render(interpolation, elapsedTime);
     }
+    if(EstadoPause->EstadoActivo){
+        EstadoInGame->renderForPause(interpolation, elapsedTime);
+        EstadoPause->render(interpolation, elapsedTime);
+    }
 }
+
+
 
 /************** EVENTOS ****************/
 
@@ -148,9 +158,15 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
     if (key == sf::Keyboard::M) { //Esto lo hago para que cuando no estes presionando cambia a false
         EstadoInGame->EstadoActivo=false;
         EstadoTransition->EstadoActivo=true;
+        EstadoPause->EstadoActivo=false;
     } else if(key == sf::Keyboard::N){
         EstadoTransition->EstadoActivo=false;
         EstadoInGame->EstadoActivo=true;
+        EstadoPause->EstadoActivo=false;
+    } else if(key == sf::Keyboard::Escape){
+        EstadoTransition->EstadoActivo=false;
+        EstadoInGame->EstadoActivo=false;
+        EstadoPause->EstadoActivo=true;
     }
     
     

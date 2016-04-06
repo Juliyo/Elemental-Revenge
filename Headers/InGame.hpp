@@ -26,19 +26,21 @@ public:
     void    run();
 
     void Update(sf::Time elapsedTime);
-    
+    void UpdateForPause(sf::Time elapsedTime);
     void			handlePlayerInput(sf::Keyboard::Key key, bool isPressed);  // Maneja eventos
     void			handleMouseInput(sf::Mouse::Button button, bool isPressed);  // Maneja eventos
     
     void			render(float interpolation, sf::Time elapsedTime);
+     void			renderForPause(float interpolation, sf::Time elapsedTime);
 
     sf::View                    getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight);
     
     void                        updateView();
+    void                        updateViewForPause();
         Window &ref = * Window::Instance();
 
     
-        sf::View                    mWorldView;
+    sf::View                    mWorldView;
     sf::View                    mBackgroundView;
     sf::View                    mHud;
 private:
