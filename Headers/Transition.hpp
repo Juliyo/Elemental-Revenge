@@ -17,6 +17,7 @@
 #include "State.hpp"
 #include "Window.hpp"
 #include "btree.hpp"
+#include "AnimatedSprite.hpp"
 
 class Transition : public State {
 public:
@@ -66,6 +67,8 @@ private:
     Animation *animation;
     sf::Texture pend;
     btree *arbol;
+    bool buttonPressed;
+    bool firstTime = true;
     
     bool isPointOverSprite(const sf::Vector2f Position, const sf::Sprite &Sprite);
     

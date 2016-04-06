@@ -21,13 +21,13 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef ANIMATION_INCLUDE
-#define ANIMATION_INCLUDE
+#ifndef ANIMATION_HPP
+#define ANIMATION_HPP
 
 #include <vector>
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/Texture.hpp>
-#include "AnimatedSprite.hpp"
+
 #include "Animation.hpp"
 
 class Animation

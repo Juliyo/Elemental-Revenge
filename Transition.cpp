@@ -197,6 +197,17 @@ void Transition::Update(sf::Time elapsedTime) {
     } else {
         Bcruzeta = false;
     }
+    if(buttonPressed){
+        //Para entrar una vez
+        if(firstTime){
+            if (spriteOpcionA.getGlobalBounds().contains(mouseSprite.getPosition())) {
+                printf("FDSAF");
+                firstTime = false;
+            }
+        }
+        
+    }
+    
 
 }
 
@@ -216,9 +227,10 @@ void Transition::render(float interpolation, sf::Time elapsedTime) {
     mWindow->setView(previa);
 
     updateView();
-    animatedSprite->play(*animation);
+    /*animatedSprite->play(*animation);
     animatedSprite->update(elapsedTime);
-    mWindow->draw(*animatedSprite);
+    mWindow->draw(*animatedSprite);*/
+    mWindow->draw(spriteFondo);
     mWindow->draw(pregunta);
 
     
@@ -292,11 +304,8 @@ void Transition::updateView() {
 
 void Transition::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
     if (button == sf::Mouse::Button::Left) {
-        if (isPressed) {
-            if (spriteOpcionA.getGlobalBounds().contains(mouseSprite.getPosition())) {
-                printf("FDSAF");
-            }
+        if(isPressed){
+            buttonPressed = isPressed;
         }
     }
-
 }
