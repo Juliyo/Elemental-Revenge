@@ -12,49 +12,48 @@
  */
 
 #include "InGame.hpp"
-#include "Window.hpp"
+
 //SOLO EN WINDOWS
 
 
 InGame::InGame() {
-    
+    motor = Motor2D::Instance();
     //Estado de Ingame
     EstadoActivo = true;
     
     try {
-        texturaFondo.loadFromFile("resources/Textures/grasstext.png");
+        spriteFondo.setTexture("resources/Textures/grasstext.png");
+        spriteFondo.setSmooth(true);
+        spriteFondo.setTextRect(0, 0, 2000, 2000);
+        spriteFondo.setRepeated(true);
+        
+        spriteRelleno.setTexture("resources/Textures/background.png");
+        spriteRelleno.setTextRect(0, 0, 1024, 2048);
+        spriteRelleno.setRepeated(true);
+        spriteRelleno.setSmooth(true);
+        spriteRelleno.setScale(1, 2);
+        
+        mouseSprite.setTexture("resources/Textures/mouse.png");
+        mouseSprite.setSmooth(true);
+        mouseSprite.setScale(0.2, 0.2);
+        mouseSprite.setPosition(20, 20);
+        mouseSprite.setOrigin(64, 64);
+        
         contFonts.loadFromFile("resources/Fonts/Sansation.ttf");
-        texturaRelleno.loadFromFile("resources/Textures/background.png");
-        mouseTexture.loadFromFile("resources/Textures/mouse.png");
+
     } catch (std::runtime_error& e) {
         std::cout << "Excepcion: " << e.what() << std::endl;
         exit(0);
     }
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
-    texturaFondo.setSmooth(true);
-    texturaFondo.setRepeated(true);
-    spriteFondo.setTexture(texturaFondo);
 
-    texturaRelleno.setSmooth(true);
-    texturaRelleno.setRepeated(1);
-    spriteRelleno.setTexture(texturaRelleno);
-    spriteRelleno.setTextureRect(sf::IntRect(0, 0, 1024, 2048));
-    spriteRelleno.setScale(1, 2);
-    spriteFondo.setTextureRect(sf::IntRect(0, 0, 2000, 2000));
-
-    mouseSprite.setTexture(mouseTexture);
-    mouseSprite.setScale(0.2, 0.2);
-    mouseSprite.setPosition(20, 20);
-    mouseSprite.setOrigin(64, 64);
     
     player = new Player();
     player -> Inicializar(200.f, 250.f);
     
-    mWindow = ref.GetWindow();
-    
-    mWorldView = mWindow->getDefaultView();
-    mWorldView.zoom(0.5f);
+    motor->setZoomToView(0.5f,1);//1=vista del mundo(nuestra pantalla)
+
 
 }
 
@@ -94,7 +93,7 @@ void InGame::Update(sf::Time elapsedTime){
 
                 aux = true; //no entra mas aqui para no hacer restart del cast
             }
-            player->hRayoBasico->cast(sf::Vector2f(player->getPosition()), mWindow); //siempre que entra aqui pintas
+            player->hRayoBasico->cast(sf::Vector2f(player->getPosition())); //siempre que entra aqui pintas
 
         } else {//entras si no disparas o si no ha pasado el tiempo de enfriamiento
             if (aux == true) {//entras si acabas de soltar el raton
@@ -119,20 +118,23 @@ void InGame::Update(sf::Time elapsedTime){
 
 void InGame::render(float interpolation, sf::Time elapsedTime){
     
-    mWindow->clear();
+    
+    motor->clear();
 
     //Pillamos la view anterior, activamos la del fondo, dibujamos el fondo y volvemos al estado anterior
-    sf::View previa = mWindow->getView();
-    mWindow->setView(mBackgroundView);
-    mWindow->draw(spriteRelleno);
-    mWindow->setView(previa);
+    //sf::View previa = mWindow->getView();
+    motor->SetView(0);//bordes
+    //mWindow->setView(mBackgroundView);
+    motor->draw(&spriteRelleno);
+    //mWindow->setView(previa);
+    motor->SetView(1);//bordes
 
     updateView();
-    mWindow->draw(spriteFondo);
+    motor->draw(&spriteFondo);
 
 
-    int x = mouseSprite.getPosition().x - player -> getPosition().x;
-    int y = mouseSprite.getPosition().y - player -> getPosition().y;
+    int x = motor->getMousePosition().x - player -> getPosition().x;
+    int y = motor->getMousePosition().y - player -> getPosition().y;
     player ->UpdatePlayerAnimation(x, y);
     player -> hRayoAvanzado->PlayAnimation(*player -> hRayoAvanzado-> currentAnimation); //Current animation es un puntero a puntero
     if (player -> hRayoAvanzado->draw == true) {
@@ -157,7 +159,7 @@ void InGame::render(float interpolation, sf::Time elapsedTime){
         }
         player -> hRayoAvanzado -> UpdateAnimation(elapsedTime);
         if (player -> hRayoAvanzado->tiempoCast.getElapsedTime().asSeconds() < player -> hRayoAvanzado->getCast()) {
-            player -> hRayoAvanzado->DrawWithOutInterpolation(*mWindow);
+            player -> hRayoAvanzado->DrawWithOutInterpolation();
 
         }
     } else {
@@ -198,7 +200,7 @@ void InGame::render(float interpolation, sf::Time elapsedTime){
             }
 
 
-            player->hRayoBasico->DrawWithInterpolation(*mWindow, interpolation, player->GetPreviousPosition(), player->GetPosition());
+            player->hRayoBasico->DrawWithInterpolation( interpolation, player->GetPreviousPosition(), player->GetPosition());
         } else {
 
             player->hRayoBasico->draw = false;
@@ -219,18 +221,24 @@ void InGame::render(float interpolation, sf::Time elapsedTime){
     player -> UpdateAnimation(elapsedTime);
 
 
-    player -> DrawWithInterpolation(*mWindow, interpolation);
+    player -> DrawWithInterpolation(interpolation);
 
-    previa = mWindow->getView();
+   // previa = mWindow->getView();
 
-    mWindow->setView(getLetterboxView(mHud, ref.ancho, ref.alto, 640, 480));
-    player -> hud->renderHud(mWindow);
-    mWindow->setView(previa);
+   //mWindow->setView(getLetterboxView(mHud, ref.ancho, ref.alto, 640, 480));
+    motor->SetView(2);//vista del HUD
+    player -> hud->renderHud();
+   // mWindow->setView(previa);
+    
+    //prueba
+    //motor->SetView(1);//vista del juego
 
 
-    mWindow->draw(mouseSprite);
+    //mWindow->draw(mouseSprite);
+    motor->draw(&mouseSprite);
     // mWindow.draw(mStatisticsText);
-    mWindow->display();
+    //mWindow->display();
+    motor->display();
 }
 
 void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
@@ -305,7 +313,7 @@ void InGame::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
     }
     if (button == sf::Mouse::Button::Right && isPressed == false) {
 
-        player->hRayoAvanzado->cast(sf::Vector2f(player->getPosition()), mWindow);
+        player->hRayoAvanzado->cast(sf::Vector2f(player->getPosition()));
 
     }
 
@@ -315,23 +323,23 @@ void InGame::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
 
 void InGame::updateView() {
 
-    sf::Vector2f mousePosition = mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow));
-    sf::FloatRect viewBounds(mWorldView.getCenter() - mWorldView.getSize() / 2.f, mWorldView.getSize());
+   
+    sf::FloatRect viewBounds(motor->getCenterFromView(1) - motor->getSizeFromView(1) / 2.f, motor->getSizeFromView(1));
 
-    sf::Vector2f position = mousePosition;
+    sf::Vector2f position = motor->getMousePosition();
     position.x = std::max(position.x, viewBounds.left);
     position.x = std::min(position.x, viewBounds.width + viewBounds.left);
     position.y = std::max(position.y, viewBounds.top);
     position.y = std::min(position.y, viewBounds.height + viewBounds.top);
 
-    mouseSprite.setPosition(position);
+    mouseSprite.setPosition(position.x,position.y);
 
-    float camera_x = (mouseSprite.getPosition().x + (player -> getPosition().x * 6)) / 7; //Media dando prioridad al jugador
-    float camera_y = (mouseSprite.getPosition().y + player -> getPosition().y * 6) / 7;
-    float x = (mWorldView.getCenter().x + 0.1 * (camera_x - mWorldView.getCenter().x)); //Lo mismo que la funcion lerp
-    float y = (mWorldView.getCenter().y + 0.1 * (camera_y - mWorldView.getCenter().y));
-    mWorldView.setCenter(x, y);
-    mWorldView.setSize(640, 480);
-
-    mWindow->setView(getLetterboxView(mWorldView, ref.ancho, ref.alto, 640, 480));
+    float camera_x = (position.x + (player -> getPosition().x * 6)) / 7; //Media dando prioridad al jugador
+    float camera_y = (position.y + player -> getPosition().y * 6) / 7;
+    float x = (motor->getCenterFromView(1).x + 0.1 * (camera_x - motor->getCenterFromView(1).x)); //Lo mismo que la funcion lerp
+    float y = (motor->getCenterFromView(1).y + 0.1 * (camera_y - motor->getCenterFromView(1).y));
+    motor->setCenterForView(1,x,y);
+    motor->setSizeForView(1,640,480);
+    motor->SetView(1);
+   // mWindow->setView(getLetterboxView(mWorldView, ref.ancho, ref.alto, 640, 480));
 }

@@ -14,22 +14,22 @@
 #ifndef HUD_HPP
 #define HUD_HPP
 #include <SFML/Graphics.hpp>
+#include "../Motor/Motor2D.hpp"
+
 class Hud{
 public:
     Hud();
     Hud(const Hud& orig);
     virtual ~Hud();
-    void renderHud(sf::RenderWindow *window);
+    void renderHud();
     sf::FloatRect   viewBounds;
     sf::Vector2f    position;
     void            updateHud(int vidas);
     
 private:
-    sf::Sprite      barraVida;
+    Sprite      barraVida;
     sf::IntRect     shapeVida;
-    sf::Texture     tBarraVida;
-    sf::Texture     tUnidadVida;
-    sf::Sprite      sVida;
+    Sprite      sVida;
     sf::Text        tVida;
     sf::Font        fVida;
 };

@@ -148,12 +148,12 @@ void Player::Update(sf::Vector2f velocity, sf::Time elapsedTime) {
 }
 
 void Player::Draw(sf::RenderWindow& window) {
-    GetSprite().setPosition(GetPosition());
+    GetSprite().setPosition(GetPosition().x,GetPosition().y);
     window.draw(GetSprite());
 }
 
-void Player::DrawWithInterpolation(sf::RenderWindow& window, float interpolation) {
-    Render::DrawAnimation(window, GetPreviousPosition(), GetPosition(), interpolation);
+void Player::DrawWithInterpolation( float interpolation) {
+    Render::DrawAnimation(GetPreviousPosition(), GetPosition(), interpolation);
 }
 
 float Player::getVelocidad() {

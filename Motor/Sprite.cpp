@@ -68,3 +68,15 @@ void Sprite::setRepeated(bool a) {
 void Sprite::setPosition(float x, float y) {
     m_sprite.setPosition(x, y);
 }
+
+sf::Vector2u Sprite::getTextureSize() {
+    return m_texture.getSize();
+}
+
+sf::Texture Sprite::getTexture() {
+    return m_texture;
+}
+
+sf::Vector2f Sprite::getPosition() {
+    return m_sprite.getPosition();
+}

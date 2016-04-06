@@ -13,6 +13,7 @@
 
 #include "../Headers/hRayBasic.hpp"
 #include "../Headers/Player.hpp"
+#include "Motor/Motor2D.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Mouse.hpp>
 #include <math.h>
@@ -100,14 +101,12 @@ hRayBasic::~hRayBasic() {
     
 }
 
-void hRayBasic::cast(sf::Vector2f posicion, sf::RenderWindow *mWindow) {
+void hRayBasic::cast(sf::Vector2f posicion) {
     
 
     draw=true;
-    
-    sf::Vector2f mousePosition = mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow));
-    //hSprite.setPosition(posicion);
-    float angleShot = atan2(mousePosition.y - posicion.y, mousePosition.x - posicion.x);
+
+    float angleShot = Motor2D::Instance()->getAngleShot(posicion);
     
     
     angleShot = (angleShot * 180 / 3.14)+270;
@@ -119,6 +118,6 @@ void hRayBasic::cast(sf::Vector2f posicion, sf::RenderWindow *mWindow) {
     //GetSprite().setRotation((angleShot * 180 / 3.14)+90);
     
 }
-void hRayBasic::DrawWithInterpolation(sf::RenderWindow& window, float interpolation, const sf::Vector2f &posPrev, const sf::Vector2f &posNew){
-	DrawAnimation(window,posPrev, posNew , interpolation, &anglePrev, &angleNew);
+void hRayBasic::DrawWithInterpolation( float interpolation, const sf::Vector2f &posPrev, const sf::Vector2f &posNew){
+	DrawAnimation(posPrev, posNew , interpolation, &anglePrev, &angleNew);
 }

@@ -33,7 +33,9 @@ public:
     void setSmooth(bool a);
     void setRepeated(bool a);
     void setPosition(float x, float y);
-    
+    sf::Vector2u getTextureSize();
+    sf::Texture getTexture();
+    sf::Vector2f getPosition();
     
 private:
     sf::Sprite m_sprite;

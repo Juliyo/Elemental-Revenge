@@ -8,23 +8,23 @@
 
 #include "StringHelpers.hpp"
 #include "Hud.hpp"
+#include "Motor/Sprite.hpp"
 Hud::Hud() {
-    tBarraVida.loadFromFile("resources/Textures/hudHealthBar.png");
-    tUnidadVida.loadFromFile("resources/Textures/unidadVida.png");
-    fVida.loadFromFile("resources/Fonts/Minecraft.ttf");
-    tUnidadVida.setSmooth(1);
-    tUnidadVida.setRepeated(1);
-    tBarraVida.setSmooth(1);
     
-    barraVida.setTexture(tBarraVida);
+    fVida.loadFromFile("resources/Fonts/Minecraft.ttf");
+    
+    std::string ruta = "resources/Textures/hudHealthBar.png";
+    std::string ruta2 = "resources/Textures/unidadVida.png";
+    barraVida.setTexture(ruta);
     barraVida.setScale(0.5,1);
     barraVida.setPosition(10,10);
     
-    shapeVida.height = tUnidadVida.getSize().y;
-    shapeVida.width = tUnidadVida.getSize().x * 15; //15 vidas
+    shapeVida.height = sVida.getTextureSize().y;
+    shapeVida.width = sVida.getTextureSize().x * 15; //15 vidas
     
-    sVida.setTextureRect(shapeVida);
-    sVida.setTexture(tUnidadVida);
+    sVida.setTexture(ruta2);
+    //sVida.setTextRect(shapeVida);
+    sVida.setRepeated(true);
     sVida.setScale(0.5,1);
     sVida.setPosition(15,24);
     
@@ -40,19 +40,23 @@ Hud::Hud(const Hud& orig) {
 Hud::~Hud() {
 }
 
-void Hud::renderHud(sf::RenderWindow *window){
-    window->draw(sVida);
-    window->draw(tVida);
-    window->draw(barraVida);
+void Hud::renderHud(){
+    Motor2D *m = Motor2D::Instance();
+    m->draw(sVida);
+    m->draw(tVida);
+    m->draw(barraVida);
 }
 
 void Hud::updateHud(int vidas){
-    shapeVida.height = tUnidadVida.getSize().y;
-    shapeVida.width = tUnidadVida.getSize().x * vidas; //15 vidas
+  shapeVida.height = sVida.getTextureSize().y;
+    shapeVida.width = sVida.getTextureSize().x * vidas; //15 vidas
     
-    sVida.setTextureRect(shapeVida);
-    sVida.setTexture(tUnidadVida);
+    sVida.setTextRect(shapeVida.top,shapeVida.left,shapeVida.width,shapeVida.height);
+    //el metodo devuelve una sf::Texture que no estaria bien pero es para no tener que 
+    //leer del disco 15 veces por segundo, solo utilizamos este metodo aqui
+    //sVida.setTexture(sVida.getTexture());
     std::string str;
     str = toString(vidas) + "/15";
     tVida.setString(str);
 }
+

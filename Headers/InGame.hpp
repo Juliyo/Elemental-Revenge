@@ -15,8 +15,8 @@
 #define INGAME_HPP
 
 #include "State.hpp"
-#include "SFML/System.hpp"
-#include "Window.hpp"
+#include "../Motor/Motor2D.hpp"
+
 
 class InGame:public State {
 public:
@@ -35,29 +35,33 @@ public:
     sf::View                    getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight);
     
     void                        updateView();
-        Window &ref = * Window::Instance();
+       
 
     
-        sf::View                    mWorldView;
-    sf::View                    mBackgroundView;
-    sf::View                    mHud;
+
 private:
-    sf::RenderWindow            *mWindow;
+    
     
     Player			*player;
     Enemigo			enemigo[20];
     
+    
+    Motor2D                     *motor;
     //Graficos
 
     
     //Recursos
     sf::Texture                 texturaFondo;
-    sf::Sprite                  spriteFondo;
+    //sf::Sprite                  spriteFondo;
+    Sprite                      spriteFondo;
     sf::Texture                 texturaRelleno;
-    sf::Sprite                  spriteRelleno;
+    //sf::Sprite                  spriteRelleno;
+    Sprite                      spriteRelleno;
     sf::Font                    contFonts;
     sf::Texture                 mouseTexture;
-    sf::Sprite                  mouseSprite;
+   // sf::Sprite                  mouseSprite;
+    Sprite                  mouseSprite;
+    
     
     
     //Eventos

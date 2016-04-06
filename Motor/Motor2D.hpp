@@ -20,6 +20,7 @@
 #ifdef _WIN32
 #include <windows.h>
 #endif
+
 class Motor2D {
 public:
     Motor2D();
@@ -31,16 +32,23 @@ public:
     void setAltoVentana(int alto);
     int getAnchoVentana();
     int getAltoVentana();
+    void setZoomToView(float zoom, int view);
+
+    sf::Vector2f getCenterFromView(int view);
+    sf::Vector2f getSizeFromView(int view);
+    void setCenterForView(int view, int x, int y);
+    void setSizeForView(int view, int x, int y);
 #ifdef _WIN32
-   HWND getSystemHandle();
+    HWND getSystemHandle();
 #endif
-bool pollEvent(sf::Event event);
+    bool pollEvent(sf::Event event);
     float getAngleShot(sf::Vector2f posicion);
     void Inicializar();
 
     void clear();
     void draw(Sprite *sp);
     void draw(Sprite **sp);
+    void draw(const sf::Drawable& drawable);
     void display();
 
 

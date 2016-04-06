@@ -15,20 +15,21 @@
 #define HRAYADVANCED_HPP
 
 #include "../Headers/Hechizo.hpp"
-
+#include "../Motor/Motor2D.hpp"
 #include <SFML/Graphics.hpp>
-#include <SFML/Window/Mouse.hpp>
+#include <math.h>
+
 
 class hRayAdvanced:public Hechizo {
 public:
     hRayAdvanced();
     hRayAdvanced(const hRayAdvanced& orig);
     virtual ~hRayAdvanced();
-    void cast(sf::Vector2f vector, sf::RenderWindow *w);
+    void cast(sf::Vector2f vector);
     sf::Clock tiempoCast;
     sf::Clock tiempoCd;
     
-void DrawWithOutInterpolation(sf::RenderWindow &window);
+void DrawWithOutInterpolation();
     Animation **currentAnimation;
     Animation *animationDurante;
 private:

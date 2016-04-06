@@ -12,10 +12,7 @@
  */
 
 #include "../Headers/hRayAdvanced.hpp"
-#include "../Headers/Player.hpp"
-#include <SFML/Graphics.hpp>
-#include <SFML/Window/Mouse.hpp>
-#include <math.h>
+
 hRayAdvanced::hRayAdvanced() {
     draw=false;
     animationDurante = new Animation();
@@ -87,13 +84,13 @@ hRayAdvanced::hRayAdvanced(const hRayAdvanced& orig) {
 hRayAdvanced::~hRayAdvanced() {
 }
 
-void hRayAdvanced::cast(sf::Vector2f posicion, sf::RenderWindow *mWindow) {
+void hRayAdvanced::cast(sf::Vector2f posicion) {
 
     if(tiempoCd.getElapsedTime().asSeconds()>hCd || primerCast){
         primerCast=false;
         draw=true;
-        sf::Vector2f mousePosition = mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow));
-        hSprite.setPosition(mousePosition);
+        
+        hSprite.setPosition(Motor2D::Instance()->getMousePosition());
         tiempoCast.restart();
         tiempoCd.restart();
     }
@@ -101,6 +98,6 @@ void hRayAdvanced::cast(sf::Vector2f posicion, sf::RenderWindow *mWindow) {
 
    
 }
-void hRayAdvanced::DrawWithOutInterpolation(sf::RenderWindow& window){
-	DrawAnimationWithOut(window,hSprite.getPosition() );
+void hRayAdvanced::DrawWithOutInterpolation(){
+	DrawAnimationWithOut(hSprite.getPosition() );
 }
