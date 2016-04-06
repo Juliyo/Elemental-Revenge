@@ -156,6 +156,8 @@
       </item>
       <item path="Headers/InGame.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/Menu.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/PhysicsState.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Player.hpp" ex="false" tool="3" flavor2="0">
@@ -189,6 +191,8 @@
       <item path="Hud.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="InGame.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Menu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="PhysicsState.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -263,6 +267,8 @@
       </item>
       <item path="Headers/InGame.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/Menu.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/PhysicsState.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Player.hpp" ex="false" tool="3" flavor2="0">
@@ -296,6 +302,8 @@
       <item path="Hud.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="InGame.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Menu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="PhysicsState.cpp" ex="false" tool="1" flavor2="0">
       </item>
