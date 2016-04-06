@@ -1,13 +1,5 @@
 #include "Game.hpp"
 
-#include "SFML/System.hpp"
-#include "Window.hpp"
-
-#include <cmath>
-#include <math.h>
-#ifdef _WIN32
-#include <Windows.h>
-#endif
 #define M_PI          3.141592653589793238462643383279502884 /* pi */
 /************ VARIABLES GLOBALES ************/
 const sf::Time Game::timePerFrame = sf::seconds(1.f / 15.f);
@@ -18,16 +10,15 @@ const float segStatistics = 0.5f; //segundos de refresco de las estadisticas
 /************ CONSTRUCTOR **************/
 Game::Game(){
     
-    Window *p1 = Window::Instance();    //Singleton
-    Window *p2 = p1->Instance();
-    Window &ref = * Window::Instance(); //Asi coges la referencia a la Window
-
+    motor = Motor2D::Instance();
+    motor->Inicializar();
+    motor->inicializarVentana("Hito 2 - Intento Motor", 1280, 720);
     
     EstadoInGame=new InGame();   
     EstadoTransition=new Transition();
     
     #ifdef _WIN32
-    HWND handler = mWindow->getSystemHandle();
+    HWND handler = motor->getSystemHandle();
     RECT rWindow;
     GetWindowRect(handler, &rWindow);
     ClipCursor(&rWindow);
@@ -41,7 +32,7 @@ void Game::run() //Metodo principal
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero; //Tiempo desde el ultimo cambio de frame
 
-    while (mWindow->isOpen()) {
+    while (motor->isWindowOpen()) {
         sf::Time elapsedTime = clock.restart(); //Actualizamos variables de tiempo
         timeSinceLastUpdate += elapsedTime;
         processEvents();
@@ -90,7 +81,7 @@ void Game::processEvents() //Captura y procesa eventos
 {
    
     sf::Event event;
-    while (mWindow->pollEvent(event)) {
+    while (motor->pollEvent(event)) {
         switch (event.type) {
             case sf::Event::KeyPressed:
                 handlePlayerInput(event.key.code, true);
@@ -117,19 +108,21 @@ void Game::processEvents() //Captura y procesa eventos
                 break;
 
             case sf::Event::Closed:
-                mWindow->close();
+                motor->closeWindow();
                 break;
 
             case sf::Event::Resized:
 #ifdef _WIN32
-                HWND handler = mWindow->getSystemHandle();
+                HWND handler = motor->getSystemHandle();
                 RECT rWindow;
                 GetWindowRect(handler, &rWindow);
                 ClipCursor(&rWindow);
 #endif
-                mWindow->setView(EstadoInGame->getLetterboxView( EstadoInGame->mWorldView, event.size.width, event.size.height, 640, 480));
-                EstadoInGame->ref.ancho = event.size.width;
-                EstadoInGame->ref.alto = event.size.height;
+               
+                motor->SetView(1);
+                motor->setAltoVentana(event.size.height);
+                motor->setAnchoVentana(event.size.width);
+  
                 break;
         }
 
@@ -148,5 +141,21 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
     }
     
     
+}
+
+Player* Game::GetPlayer() {
+
+}
+
+void Game::UpdatePlayerAnimation() {
+
+}
+
+void Game::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
+
+}
+
+void Game::updateView() {
+
 }
 

@@ -12,6 +12,9 @@
  */
 
 #include "Window.hpp"
+#include "../Motor/Reloj.hpp"
+#include "../Motor/Motor2D.hpp"
+#include "../Motor/Sprite.hpp"
 
 
 Window* Window::pinstance = 0;

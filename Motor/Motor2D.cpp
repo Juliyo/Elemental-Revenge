@@ -23,13 +23,14 @@ void Motor2D::Inicializar() {
 }
 
 void Motor2D::inicializarVentana(std::string titulo, int ancho, int alto) {
+    anchoVentana = ancho;
+    altoVentana = alto;
     mWindow = new sf::RenderWindow();
     mWindow->create(sf::VideoMode(ancho, alto), titulo, sf::Style::Default);
     mWindow->setFramerateLimit(60); //Establecemos maximo real de procesamiento (aunque trabajamos con 60)
     mWindow->setVerticalSyncEnabled(true);
     mWindow->setMouseCursorVisible(false);
 }
-
 
 Motor2D::Motor2D() {
     Inicializar();
@@ -48,11 +49,19 @@ void Motor2D::SetView(int v) {
 
             break;
         case 1:
-            mWindow->setView(*pantalla);
+        {
+
+            mWindow->setView(getLetterboxView(*pantalla, anchoVentana, altoVentana, 640, 480););
             break;
+        }
+
         case 2:
-            mWindow->setView(*HUD);
+        {
+
+            mWindow->setView(getLetterboxView(*HUD, anchoVentana, altoVentana, 640, 480););
             break;
+        }
+
     }
 }
 
@@ -88,3 +97,58 @@ void Motor2D::closeWindow() {
 bool Motor2D::isWindowOpen() {
     return mWindow->isOpen();
 }
+
+sf::View Motor2D::getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight) {
+
+
+    float windowRatio = windowWidth / (float) windowHeight;
+    float viewRatio = viewRatioWidth / (float) viewRatioHeight;
+    float sizeX = 1;
+    float sizeY = 1;
+    float posX = 0;
+    float posY = 0;
+
+    bool horizontalSpacing = true;
+    if (windowRatio < viewRatio)
+        horizontalSpacing = false;
+
+
+
+    if (horizontalSpacing) {
+        sizeX = viewRatio / windowRatio;
+
+        posX = (1 - sizeX) / 2.0;
+    } else {
+        sizeY = windowRatio / viewRatio;
+        posY = (1 - sizeY) / 2.0;
+    }
+
+    view.setViewport(sf::FloatRect(posX, posY, sizeX, sizeY));
+    return view;
+}
+
+void Motor2D::setAnchoVentana(int ancho) {
+    anchoVentana = ancho;
+}
+
+void Motor2D::setAltoVentana(int alto) {
+    altoVentana = alto;
+}
+
+int Motor2D::getAnchoVentana() {
+    return anchoVentana;
+}
+
+int Motor2D::getAltoVentana() {
+    return altoVentana;
+}
+#ifdef _WIN32
+HWND Motor2D::getSystemHandle() {
+    return mWindow->getSystemHandle();
+}
+#endif
+
+bool Motor2D::pollEvent(sf::Event event) {
+    return mWindow->pollEvent(event);
+}
+

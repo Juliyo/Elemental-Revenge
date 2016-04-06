@@ -9,6 +9,12 @@
 #include "State.hpp"
 #include "InGame.hpp"
 #include "Transition.hpp"
+#include "../Motor/Motor2D.hpp"
+#include <cmath>
+#include <math.h>
+#ifdef _WIN32
+#include <Windows.h>
+#endif
 
 class Game : private sf::NonCopyable
 {
@@ -27,7 +33,7 @@ private:
     
     void                        updateView();
     void                        UpdatePlayerAnimation();
-    
+    Motor2D                     *motor;
     
 
     
@@ -35,7 +41,7 @@ private:
     static const sf::Time	timePerFrame;
 	
     //Graficos
-    sf::RenderWindow		*mWindow;
+    
     
     
     

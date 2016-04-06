@@ -17,7 +17,9 @@
 #include "Sprite.hpp"
 #include <SFML/Graphics.hpp>
 #include <string>
-
+#ifdef _WIN32
+#include <windows.h>
+#endif
 class Motor2D {
 public:
     Motor2D();
@@ -25,25 +27,35 @@ public:
     Motor2D(const Motor2D& orig);
     virtual ~Motor2D();
     void SetView(int v);
-    
-    
+    void setAnchoVentana(int ancho);
+    void setAltoVentana(int alto);
+    int getAnchoVentana();
+    int getAltoVentana();
+#ifdef _WIN32
+   HWND getSystemHandle();
+#endif
+bool pollEvent(sf::Event event);
     float getAngleShot(sf::Vector2f posicion);
     void Inicializar();
-    
+
     void clear();
     void draw(Sprite *sp);
     void draw(Sprite **sp);
     void display();
-    
+
 
     void inicializarVentana(std::string titulo, int ancho, int alto);
-    
+
     bool isWindowOpen();
     void closeWindow();
-    
+
     sf::Vector2f getMousePosition();
     sf::RenderWindow *mWindow;
+
+    sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight);
 private:
+    int anchoVentana;
+    int altoVentana;
     static Motor2D *mInstance;
     sf::View *fondo;
     sf::View *pantalla;
