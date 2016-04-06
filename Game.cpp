@@ -27,10 +27,15 @@ Game::Game() {
     mWindow->setVerticalSyncEnabled(true);
     mWindow->setMouseCursorVisible(false);
 
+   
+    
+    EstadoInGame=new InGame();   
+    EstadoTransition=new Transition();
+    EstadoPause=new Pause();
+    
 
-    EstadoInGame = new InGame();
-    EstadoTransition = new Transition();
-
+    EstadoMenu=new Menu2();
+    
 #ifdef _WIN32
     HWND handler = mWindow->getSystemHandle();
     RECT rWindow;
@@ -75,6 +80,9 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
     if (EstadoTransition->EstadoActivo) {
         EstadoTransition->Update(elapsedTime);
     }
+    if(EstadoPause->EstadoActivo){
+        EstadoPause->Update(elapsedTime);
+    }
 
 }
 
@@ -86,7 +94,22 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
     if (EstadoTransition->EstadoActivo) {
         EstadoTransition->render(interpolation, elapsedTime);
     }
+    
+        if(EstadoMenu->EstadoActivo){
+
+        mWindow->clear();
+
+    EstadoMenu->draw(*mWindow);
+    
+    mWindow->display();
+        }
+    if(EstadoPause->EstadoActivo){
+        EstadoInGame->renderForPause(interpolation, elapsedTime);
+        EstadoPause->render(interpolation, elapsedTime);
+    }
 }
+
+
 
 /************** EVENTOS ****************/
 
@@ -99,7 +122,7 @@ void Game::processEvents() //Captura y procesa eventos
             case sf::Event::KeyPressed:
                 handlePlayerInput(event.key.code, true);
                 EstadoInGame->handlePlayerInput(event.key.code, true);
-
+                EstadoMenu->handlePlayerInput(event.key.code, true, *mWindow);
                 break;
 
             case sf::Event::KeyReleased:
@@ -151,11 +174,23 @@ void Game::processEvents() //Captura y procesa eventos
 
 void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
     if (key == sf::Keyboard::M) { //Esto lo hago para que cuando no estes presionando cambia a false
-        EstadoInGame->EstadoActivo = false;
-        EstadoTransition->EstadoActivo = true;
-    } else if (key == sf::Keyboard::N) {
-        EstadoTransition->EstadoActivo = false;
-        EstadoInGame->EstadoActivo = true;
+        EstadoInGame->EstadoActivo=false;
+        EstadoTransition->EstadoActivo=true;
+        EstadoPause->EstadoActivo=false;
+    } else if(key == sf::Keyboard::N){
+        EstadoTransition->EstadoActivo=false;
+        EstadoInGame->EstadoActivo=true;
+    } else if(key == sf::Keyboard::Return && EstadoMenu->EstadoActivo){
+        if(EstadoMenu->getSetectedItemIndex()==0){
+            EstadoMenu->EstadoActivo=false;
+            EstadoInGame->EstadoActivo=true;
+        }
+
+
+    } else if(key == sf::Keyboard::Escape){
+        EstadoTransition->EstadoActivo=false;
+        EstadoInGame->EstadoActivo=false;
+        EstadoPause->EstadoActivo=true;
     }
 
 
