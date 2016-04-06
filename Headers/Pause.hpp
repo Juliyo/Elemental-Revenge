@@ -18,6 +18,8 @@
 #include "Window.hpp"
 #include "AnimatedSprite.hpp"
 
+#define MAX_NUMBER_OF_ITEMS 3   
+
 class Pause: public State {
 public:
     Pause();
@@ -29,6 +31,13 @@ public:
     void handleMouseInput(sf::Mouse::Button button, bool isPressed); // Maneja eventos
     sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight);
     void updateView();
+        void MoveUp();
+    void MoveDown();
+    
+        void handlePlayerInput(sf::Keyboard::Key key, bool isPressed ); // Maneja eventos
+    int getSetectedItemIndexPause(){
+        return selectedItemIndexPausa;
+    };
     
     Window &ref = *Window::Instance();
     sf::View mWorldView;
@@ -45,6 +54,11 @@ private:
     sf::Texture                 mouseTexture;
     sf::Sprite                  mouseSprite;
     bool buttonPressed;
+    
+    
+    int selectedItemIndexPausa;
+    sf::Font fontPausa;
+    sf::Text menuPausa[4];
 };
 
 #endif /* PAUSE_HPP */

@@ -2,6 +2,7 @@
 
 #include "SFML/System.hpp"
 #include "Window.hpp"
+#include "Pause.hpp"
 
 #include <cmath>
 #include <math.h>
@@ -124,6 +125,7 @@ void Game::processEvents() //Captura y procesa eventos
                 handlePlayerInput(event.key.code, true);
                 EstadoInGame->handlePlayerInput(event.key.code, true);
                 EstadoMenu->handlePlayerInput(event.key.code, true, *mWindow);
+                EstadoPause->handlePlayerInput(event.key.code, true);
                 
                 break;
 
@@ -180,9 +182,12 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
             EstadoMenu->EstadoActivo=false;
             EstadoInGame->EstadoActivo=true;
         }
-
-
-    } else if(key == sf::Keyboard::Escape){
+    }else if(key == sf::Keyboard::Return && EstadoPause->EstadoActivo){
+        if(EstadoPause->getSetectedItemIndexPause()==0){
+            EstadoPause->EstadoActivo=false;
+            EstadoInGame->EstadoActivo=true;
+        }
+    } else if(key == sf::Keyboard::P){
         EstadoTransition->EstadoActivo=false;
         EstadoInGame->EstadoActivo=false;
         EstadoPause->EstadoActivo=true;

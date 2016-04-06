@@ -16,6 +16,40 @@
 #include "Window.hpp"
 
 Pause::Pause(){
+    
+    
+    
+        if(!fontPausa.loadFromFile("resources/Fonts/Minecraft.ttf")){
+        
+    }
+    
+    float width=1280;
+    float height=700;
+    
+    menuPausa[0].setFont(fontPausa);
+    menuPausa[0].setColor(sf::Color::Red);
+    menuPausa[0].setString("Play");
+    menuPausa[0].setPosition(sf::Vector2f(width/2-50, height/(MAX_NUMBER_OF_ITEMS+1) *1.5));
+    
+    menuPausa[1].setFont(fontPausa);
+    menuPausa[1].setColor(sf::Color::Blue);
+    menuPausa[1].setString("Options");
+    menuPausa[1].setPosition(sf::Vector2f(width/2-50, height/(MAX_NUMBER_OF_ITEMS+1) *2));
+    
+    
+    menuPausa[2].setFont(fontPausa);
+    menuPausa[2].setColor(sf::Color::Blue);
+    menuPausa[2].setString("Exit");
+    menuPausa[2].setPosition(sf::Vector2f(width/2-50, height/(MAX_NUMBER_OF_ITEMS+1) *2.5));
+    
+    
+    menuPausa[3].setFont(fontPausa);
+    menuPausa[3].setColor(sf::Color::Red);
+    menuPausa[3].setString("OPTIONS");
+    menuPausa[3].setPosition(sf::Vector2f(width/2-50, height/(MAX_NUMBER_OF_ITEMS+1) *1.5));
+    
+    selectedItemIndexPausa=0;
+    
         //Reserva memoria
     //animatedSprite = new AnimatedSprite();
     animation = new Animation();//para el fondo SOLO declarado
@@ -70,9 +104,22 @@ void Pause::render(float interpolation, sf::Time elapsedTime){
     updateView();
     mWindow->draw(spriteFondo);
     mWindow->draw(mouseSprite);
+    
+        if(selectedItemIndexPausa<3){
+    for(int i=0; i<MAX_NUMBER_OF_ITEMS;i++){
+
+        mWindow->draw(menuPausa[i]);
+       
+    }
+    }
+    else{
+        mWindow->draw(menuPausa[3]);
+    }
+    
     mWindow->display();
     }
-    void Pause::handleMouseInput(sf::Mouse::Button button, bool isPressed){
+    
+void Pause::handleMouseInput(sf::Mouse::Button button, bool isPressed){
         if (button == sf::Mouse::Button::Left) {
         if(isPressed){
             buttonPressed = isPressed;
@@ -134,3 +181,57 @@ Pause::Pause(const Pause& orig) {
 Pause::~Pause() {
 }
 
+void Pause::MoveUp(){
+    
+    
+        if(selectedItemIndexPausa<3){
+
+    if(selectedItemIndexPausa-1>=0){
+        
+        menuPausa[selectedItemIndexPausa].setColor(sf::Color::Blue);
+        selectedItemIndexPausa--;
+        menuPausa[selectedItemIndexPausa].setColor(sf::Color::Red);
+        
+    }
+        }
+}
+
+void Pause::MoveDown(){
+    
+    
+        if(selectedItemIndexPausa<3){
+
+    if(selectedItemIndexPausa+1<MAX_NUMBER_OF_ITEMS){
+        
+        menuPausa[selectedItemIndexPausa].setColor(sf::Color::Blue);
+        selectedItemIndexPausa++;
+        menuPausa[selectedItemIndexPausa].setColor(sf::Color::Red);
+        
+    }
+        }
+    
+}
+
+
+void Pause::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
+    
+    if (key == sf::Keyboard::W) { //Esto lo hago para que cuando no estes presionando cambia a false
+        MoveUp();
+    } else if (key == sf::Keyboard::S) {
+        MoveDown();
+    } else if (key == sf::Keyboard::Return) {
+        if(selectedItemIndexPausa==1){
+        selectedItemIndexPausa=3;
+        }
+        if(selectedItemIndexPausa==2){
+            mWindow->close();
+        }
+
+    } else if (key == sf::Keyboard::Escape) {
+        if(selectedItemIndexPausa<3){
+        mWindow->close();}
+        else{
+            selectedItemIndexPausa=1;
+        }
+    } 
+}
