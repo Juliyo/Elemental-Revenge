@@ -41,7 +41,7 @@ public:
 #ifdef _WIN32
     HWND getSystemHandle();
 #endif
-    bool pollEvent(sf::Event event);
+    bool pollEvent(sf::Event& event);
     float getAngleShot(sf::Vector2f posicion);
     void Inicializar();
 

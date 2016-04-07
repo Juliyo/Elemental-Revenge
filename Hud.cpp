@@ -20,15 +20,16 @@ Hud::Hud() {
     barraVida.setScale(0.5, 1);
     barraVida.setPosition(10, 10);
 
-    shapeVida.height = sVida.getTextureSize().y;
-    shapeVida.width = sVida.getTextureSize().x * 15; //15 vidas
-
     sVida.setTexture(ruta2);
-    //sVida.setTextRect(shapeVida);
     sVida.setRepeated(true);
     sVida.setScale(0.5, 1);
     sVida.setPosition(15, 24);
+    
+    shapeVida.height = sVida.getTextureSize().y;
+    shapeVida.width = sVida.getTextureSize().x * 15; //15 vidas
 
+    sVida.setTextRect(shapeVida.top, shapeVida.left, shapeVida.width, shapeVida.height);
+    
     tVida.setFont(fVida);
     tVida.setString("15/15");
     tVida.setOrigin(tVida.getGlobalBounds().width / 2, tVida.getGlobalBounds().height / 2);
@@ -53,10 +54,10 @@ void Hud::updateHud(int vidas) {
     shapeVida.width = sVida.getTextureSize().x * vidas; //15 vidas
 
     sVida.setTextRect(shapeVida.top, shapeVida.left, shapeVida.width, shapeVida.height);
-    //el metodo devuelve una sf::Texture que no estaria bien pero es para no tener que 
-    //leer del disco 15 veces por segundo, solo utilizamos este metodo aqui
-    
-    sVida.setTexture(sVida.getSfTexture());
+    //El metodo getSfTexture() devuelve una sf::Texture que no estaria bien pero es para no tener que 
+    //leer del disco todo el rato. Solo utilizamos este metodo aqui
+
+    //sVida.setTexture(sVida.getSfTexture());
     std::string str;
     str = toString(vidas) + "/15";
     tVida.setString(str);

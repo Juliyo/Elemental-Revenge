@@ -145,7 +145,7 @@ HWND Motor2D::getSystemHandle() {
 }
 #endif
 
-bool Motor2D::pollEvent(sf::Event event) {
+bool Motor2D::pollEvent(sf::Event& event) {
     return mWindow->pollEvent(event);
 }
 
