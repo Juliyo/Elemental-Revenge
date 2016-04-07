@@ -34,28 +34,18 @@ public:
     sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight);
 
     void updateView();
-    Window &ref = *Window::Instance();
-
-
-    sf::View mWorldView;
-    sf::View mBackgroundView;
-    sf::View mHud;
 
 private:
-    sf::RenderWindow *mWindow;
+    
+    Motor2D                     *motor;
 
     //Recursos
-    sf::Texture                 texturaFondo;
-    sf::Sprite                  spriteFondo;
-    sf::Sprite                  spriteOpcionA;
-    sf::Sprite                  spriteOpcionB;
-    sf::Texture                 texturaRelleno;
-    sf::Texture                 texturaOpcionA;
-    sf::Texture                 texturaOpcionB;
-    sf::Sprite                  spriteRelleno;
+    Sprite                  spriteFondo;
+    Sprite                  spriteOpcionA;
+    Sprite                  spriteOpcionB;
+    Sprite                  spriteRelleno;
     sf::Font                    contFonts;
-    sf::Texture                 mouseTexture;
-    sf::Sprite                  mouseSprite;
+    Sprite                  mouseSprite;
     
     sf::Text textoPregunta;
     sf::Text textoRespuesta1;

@@ -37,6 +37,23 @@ void Sprite::setTexture(std::string ruta) {
     }
 }
 
+sf::Texture Sprite::getSfTexture(){
+    return m_texture;
+}
+
+void Sprite::setTexture(std::string ruta, bool smooth) {
+    if (m_texture.loadFromFile(ruta)) {
+        m_sprite.setTexture(m_texture);
+    }
+    if(smooth){
+        m_texture.setSmooth(true);
+    }
+}
+
+void Sprite::setTexture(sf::Texture textura) {
+    m_texture = textura;
+}
+
 void Sprite::setScale(float x, float y) {
     m_sprite.setScale(x, y);
 }

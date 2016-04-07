@@ -14,10 +14,10 @@ Game::Game(){
     motor->Inicializar();
     motor->inicializarVentana("Hito 2 - Intento Motor", 1280, 720);
     
-    EstadoInGame=new InGame();   
+    EstadoInGame = new InGame();   
     EstadoTransition=new Transition();
     
-    #ifdef _WIN32
+#ifdef _WIN32
     HWND handler = motor->getSystemHandle();
     RECT rWindow;
     GetWindowRect(handler, &rWindow);

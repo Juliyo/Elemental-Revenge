@@ -1,6 +1,6 @@
 /* 
- * File:   Motor2D.cpp
- * Author: Usuario
+ * File:   Motor2D.cpp FEngine
+ * Author: Paradox
  * 
  * Created on 5 de abril de 2016, 13:52
  */
@@ -46,22 +46,17 @@ void Motor2D::SetView(int v) {
     switch (v) {
         case 0:
             mWindow->setView(*fondo);
-
             break;
         case 1:
         {
-
             mWindow->setView(getLetterboxView(*pantalla, anchoVentana, altoVentana, 640, 480));
             break;
         }
-
         case 2:
         {
-
             mWindow->setView(getLetterboxView(*HUD, anchoVentana, altoVentana, 640, 480));
             break;
         }
-
     }
 }
 
@@ -76,7 +71,6 @@ void Motor2D::draw(Sprite** sp) {
 void Motor2D::draw(const sf::Drawable& drawable) {
     mWindow->draw(drawable);
 }
-
 
 void Motor2D::clear() {
     mWindow->clear();
@@ -105,7 +99,6 @@ bool Motor2D::isWindowOpen() {
 
 sf::View Motor2D::getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight) {
 
-
     float windowRatio = windowWidth / (float) windowHeight;
     float viewRatio = viewRatioWidth / (float) viewRatioHeight;
     float sizeX = 1;
@@ -116,8 +109,6 @@ sf::View Motor2D::getLetterboxView(sf::View view, int windowWidth, int windowHei
     bool horizontalSpacing = true;
     if (windowRatio < viewRatio)
         horizontalSpacing = false;
-
-
 
     if (horizontalSpacing) {
         sizeX = viewRatio / windowRatio;
@@ -148,6 +139,7 @@ int Motor2D::getAltoVentana() {
     return altoVentana;
 }
 #ifdef _WIN32
+
 HWND Motor2D::getSystemHandle() {
     return mWindow->getSystemHandle();
 }
@@ -167,13 +159,11 @@ void Motor2D::setZoomToView(float zoom, int view) {
             pantalla->zoom(zoom);
             break;
         }
-
         case 2:
         {
             HUD->zoom(zoom);
             break;
         }
-
     }
 }
 
@@ -187,13 +177,11 @@ sf::Vector2f Motor2D::getSizeFromView(int view) {
             return pantalla->getSize();
             break;
         }
-
         case 2:
         {
             return HUD->getSize();
             break;
         }
-
     }
 }
 
@@ -207,13 +195,11 @@ sf::Vector2f Motor2D::getCenterFromView(int view) {
             return pantalla->getCenter();
             break;
         }
-
         case 2:
         {
             return HUD->getCenter();
             break;
         }
-
     }
 }
 
@@ -227,16 +213,13 @@ void Motor2D::setSizeForView(int view, int x, int y) {
             pantalla->setSize(x, y);
             break;
         }
-
         case 2:
         {
             HUD->setSize(x, y);
             break;
         }
-
     }
 }
-
 
 void Motor2D::setCenterForView(int view, int x, int y) {
     switch (view) {
@@ -248,12 +231,10 @@ void Motor2D::setCenterForView(int view, int x, int y) {
             pantalla->setCenter(x, y);
             break;
         }
-
         case 2:
         {
             HUD->setCenter(x, y);
             break;
         }
-
     }
 }

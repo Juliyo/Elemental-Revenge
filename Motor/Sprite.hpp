@@ -25,6 +25,8 @@ public:
     Sprite(const Sprite& orig);
     virtual ~Sprite();
     void setTexture(std::string ruta);
+    void setTexture(std::string ruta, bool smooth);
+    void setTexture(sf::Texture textura);
     void setScale(float x,float y);
     void setRotation(float angulo);
     void setTextRect(int fil, int col, int ancho, int alto);
@@ -36,6 +38,7 @@ public:
     sf::Vector2u getTextureSize();
     sf::Texture getTexture();
     sf::Vector2f getPosition();
+    sf::Texture getSfTexture();
     
 private:
     sf::Sprite m_sprite;

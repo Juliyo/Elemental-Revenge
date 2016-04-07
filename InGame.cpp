@@ -63,9 +63,6 @@ InGame::InGame(const InGame& orig) {
 InGame::~InGame() {
 }
 
-
-
-
 void InGame::Update(sf::Time elapsedTime){
     
     if (!firstTime) {
@@ -125,12 +122,12 @@ void InGame::render(float interpolation, sf::Time elapsedTime){
     //sf::View previa = mWindow->getView();
     motor->SetView(0);//bordes
     //mWindow->setView(mBackgroundView);
-    motor->draw(&spriteRelleno);
+    motor->draw(spriteRelleno);
     //mWindow->setView(previa);
-    motor->SetView(1);//bordes
+    motor->SetView(1);
 
     updateView();
-    motor->draw(&spriteFondo);
+    motor->draw(spriteFondo);
 
 
     int x = motor->getMousePosition().x - player -> getPosition().x;
@@ -231,11 +228,9 @@ void InGame::render(float interpolation, sf::Time elapsedTime){
    // mWindow->setView(previa);
     
     //prueba
-    //motor->SetView(1);//vista del juego
-
-
+    motor->SetView(1);//vista del juego
     //mWindow->draw(mouseSprite);
-    motor->draw(&mouseSprite);
+    motor->draw(mouseSprite);
     // mWindow.draw(mStatisticsText);
     //mWindow->display();
     motor->display();
@@ -263,67 +258,18 @@ void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
     }
 }
 
-/************** EVENTOS ****************/
-/*
-void InGame::processEvents() //Captura y procesa eventos
-{
-    sf::Event event;
-    while (mWindow->pollEvent(event)) {
-        switch (event.type) {
-            case sf::Event::KeyPressed:
-                handlePlayerInput(event.key.code, true);
-                
-                break;
-
-            case sf::Event::KeyReleased:
-                handlePlayerInput(event.key.code, false);
-                break;
-            case sf::Event::MouseButtonPressed:
-                handleMouseInput(event.mouseButton.button, true);
-                break;
-            case sf::Event::MouseButtonReleased:
-                handleMouseInput(event.mouseButton.button, false);
-                break;
-
-            case sf::Event::Closed:
-                mWindow->close();
-                break;
-
-            case sf::Event::Resized:
-#ifdef _WIN32
-                HWND handler = mWindow->getSystemHandle();
-                RECT rWindow;
-                GetWindowRect(handler, &rWindow);
-                ClipCursor(&rWindow);
-#endif
-                mWindow->setView(getLetterboxView( mWorldView, event.size.width, event.size.height, 640, 480));
-                ref.ancho = event.size.width;
-                ref.alto = event.size.height;
-                break;
-        }
-
-    }
-
-}*/
-
 
 void InGame::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
     if (button == sf::Mouse::Button::Left) {
         isShooting = isPressed;
     }
     if (button == sf::Mouse::Button::Right && isPressed == false) {
-
         player->hRayoAvanzado->cast(sf::Vector2f(player->getPosition()));
-
     }
-
 }
-
-
 
 void InGame::updateView() {
 
-   
     sf::FloatRect viewBounds(motor->getCenterFromView(1) - motor->getSizeFromView(1) / 2.f, motor->getSizeFromView(1));
 
     sf::Vector2f position = motor->getMousePosition();

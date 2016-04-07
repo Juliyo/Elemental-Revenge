@@ -24,7 +24,7 @@
       <itemPath>Headers/tinystr.h</itemPath>
       <itemPath>Headers/tinyxml.h</itemPath>
     </logicalFolder>
-    <logicalFolder name="f1" displayName="Motor" projectFiles="true" kind="ROOT">
+    <logicalFolder name="f1" displayName="Motor" projectFiles="true">
       <itemPath>Motor/Motor2D.cpp</itemPath>
       <itemPath>Motor/Motor2D.hpp</itemPath>
       <itemPath>Motor/Reloj.cpp</itemPath>
@@ -108,9 +108,6 @@
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
-    <Elem>Headers</Elem>
-    <Elem>Headers</Elem>
-    <Elem>Headers</Elem>
     <Elem>Headers</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
