@@ -76,6 +76,10 @@ private:
     sf::Texture                 texturaTitulo;
     sf::Sprite                  Titulo;
     
+        
+    sf::Texture                 texturaMancha;
+    sf::Sprite                  Mancha[3];
+    
     int selectedItemIndex;
     sf::Font font;
     sf::Font fontTitulo;

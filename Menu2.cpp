@@ -80,7 +80,14 @@ Menu2::Menu2() {
     mWindow = ref.GetWindow();
     
     
-
+        texturaMancha.loadFromFile("resources/Textures/ManchaMenu.png");
+        
+        for(int i=0; i<3;i++){
+        Mancha[i].setTexture(texturaMancha);
+    Mancha[i].setScale(0.3,0.3);
+    
+        }
+    
         texturaTitulo.loadFromFile("resources/Textures/Titulo-juego.png");
         
             Titulo.setTexture(texturaTitulo);
@@ -88,41 +95,47 @@ Menu2::Menu2() {
         
     float width= mWorldView.getSize().x;
     float height= mWorldView.getSize().x;
+    sf::Color color(112,112,112);
 
     
     menu[0].setFont(font);
-    menu[0].setColor(sf::Color::Red);
+    menu[0].setColor(sf::Color::White);
     menu[0].setString("Play");
     menu[0].setPosition(sf::Vector2f(width/2+100, height/(MAX_NUMBER_OF_ITEMS+1) *1.7));
+    Mancha[0].setPosition(sf::Vector2f(width/2+50, height/(MAX_NUMBER_OF_ITEMS+1) *1.5));
     menu[0].setStyle(sf::Text::Bold);
             menu[0].setScale(0.7,0.7);
 
     menu[1].setFont(font);
-    menu[1].setColor(sf::Color::Blue);
+    menu[1].setColor(color);
     menu[1].setString("Options");
     menu[1].setPosition(sf::Vector2f(width/2+100, height/(MAX_NUMBER_OF_ITEMS+1) *2));
+    Mancha[1].setScale(0.4,0.3);
+    Mancha[1].setPosition(sf::Vector2f(width/2+50, height/(MAX_NUMBER_OF_ITEMS+1) *1.8));
+
             menu[1].setStyle(sf::Text::Bold);
             menu[1].setScale(0.7,0.7);
 
     
     menu[2].setFont(font);
-    menu[2].setColor(sf::Color::Blue);
+    menu[2].setColor(color);
     menu[2].setString("Exit");
     menu[2].setPosition(sf::Vector2f(width/2+100, height/(MAX_NUMBER_OF_ITEMS+1) *2.3));
+        Mancha[2].setPosition(sf::Vector2f(width/2+50, height/(MAX_NUMBER_OF_ITEMS+1) *2.1));
+
             menu[2].setStyle(sf::Text::Bold);
             menu[2].setScale(0.7,0.7);
 
     menu[3].setFont(font);
-    menu[3].setColor(sf::Color::Red);
+    menu[3].setColor(sf::Color::White);
     menu[3].setString("OPTIONS");
     menu[3].setPosition(sf::Vector2f(width/2+100, height/(MAX_NUMBER_OF_ITEMS+1) *1.5));
             menu[3].setStyle(sf::Text::Bold);
                 menu[3].setScale(0.7,0.7);
 
-    sf::Color color(21,142,6);
             
     textTitulo.setFont(fontTitulo);
-    textTitulo.setColor(color);
+    textTitulo.setColor(sf::Color::Black);
     textTitulo.setString("Elemental\n Revenge");
     textTitulo.scale(1.5,1.5);
     textTitulo.setPosition(sf::Vector2f(width/2-250, height/(MAX_NUMBER_OF_ITEMS+1) *1.8));
@@ -166,7 +179,10 @@ sf::Vector2f v1(100.f, 330.f);
         DrawAnimationWithOut(*mWindow, v1);
 
     mWindow->draw(Titulo);
-    
+        mWindow->draw(Mancha[0]);
+        mWindow->draw(Mancha[1]);
+        mWindow->draw(Mancha[2]);
+
     if(selectedItemIndex<3){
     for(int i=0; i<MAX_NUMBER_OF_ITEMS;i++){
 
@@ -183,14 +199,15 @@ sf::Vector2f v1(100.f, 330.f);
 
 void Menu2::MoveUp(){
     
+    sf::Color color(112,112,112);
     
         if(selectedItemIndex<3){
 
     if(selectedItemIndex-1>=0){
         
-        menu[selectedItemIndex].setColor(sf::Color::Blue);
+        menu[selectedItemIndex].setColor(color);
         selectedItemIndex--;
-        menu[selectedItemIndex].setColor(sf::Color::Red);
+        menu[selectedItemIndex].setColor(sf::Color::White);
         
     }
         }
@@ -198,14 +215,15 @@ void Menu2::MoveUp(){
 
 void Menu2::MoveDown(){
     
+    sf::Color color(112,112,112);
     
         if(selectedItemIndex<3){
 
     if(selectedItemIndex+1<MAX_NUMBER_OF_ITEMS){
         
-        menu[selectedItemIndex].setColor(sf::Color::Blue);
+        menu[selectedItemIndex].setColor(color);
         selectedItemIndex++;
-        menu[selectedItemIndex].setColor(sf::Color::Red);
+        menu[selectedItemIndex].setColor(sf::Color::White);
         
     }
         }
