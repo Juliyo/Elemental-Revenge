@@ -16,6 +16,7 @@
 #include "hRayBasic.hpp"
 #include "hFireBasic.hpp"
 #include "hFireAdvanced.hpp"
+#include "../Motor/Motor2D.hpp"
 
 class Player : public Render, public PhysicsState{
 public:
@@ -25,7 +26,7 @@ public:
 	
 	void Inicializar(float posX, float posY, float speedX=0.f, float speedY=0.f, float maxSpeedX=1000.f, float maxSpeedY=1000.f);
 	void Update(sf::Vector2f velocity, sf::Time elapsedTime);
-	void Draw(sf::RenderWindow& window);
+	void Draw();
 	void DrawWithInterpolation(float interpolation);
         float getVelocidad();
         PhysicsState* getPhysics();
@@ -33,7 +34,7 @@ public:
         sf::Vector2f getPosition();
         Animation** getAnimation(){ return currentAnimation; };
         
-        hRayBasic  *hRayoBasico;
+        hRayBasic     *hRayoBasico;
         hRayAdvanced  *hRayoAvanzado;
         
         
@@ -59,6 +60,17 @@ public:
         Animation               *castingAnimationDown;
         Animation               *castingAnimationRight;
         Animation               *castingAnimationLeft;
+                //Animaciones fuego1
+        Animation               *fuegoAnimationDown;
+        Animation               *fuegoAnimationLeft;
+        Animation               *fuegoAnimationRight;
+        Animation               *fuegoAnimationUp;
+        //Animaciones fuego2
+        Animation               *fuego2AnimationDown;
+        Animation               *fuego2AnimationLeft;
+        Animation               *fuego2AnimationRight;
+        Animation               *fuego2AnimationUp;
+        
 	Hud                     *hud;
         int                     cuadrante;
 private:

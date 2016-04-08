@@ -27,12 +27,28 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     castingAnimationDown= new Animation();
     castingAnimationRight= new Animation();
     castingAnimationLeft= new Animation();
+    //fuego
+    fuegoAnimationDown = new Animation();
+    fuegoAnimationLeft = new Animation();
+    fuegoAnimationRight = new Animation();
+    fuegoAnimationUp = new Animation();
+    fuego2AnimationDown = new Animation();
+    fuego2AnimationLeft = new Animation();
+    fuego2AnimationRight = new Animation();
+    fuego2AnimationUp = new Animation();
+    
+    
+    
+    
+    
+    
     hud = new Hud();
     hRayoBasico = new hRayBasic();
     hRayoAvanzado = new hRayAdvanced();
     
 
-    hFuegoBasico = new hFireBasic();
+   
+    hFuegoBasico = new hFireBasic[50];
     hFuegoAvanzado = new hFireAdvanced();
             
     if(!texturaPlayer.loadFromFile("resources/Textures/player.png")){
@@ -135,6 +151,92 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     castingAnimationLeft->addFrame(sf::IntRect(320, 832, 64, 64));
  
     
+    //Fuegooo
+     fuegoAnimationUp->setSpriteSheet("resources/Textures/player.png");
+    //fuegoAnimationUp->addFrame(sf::IntRect(320, 768, 64, 64));
+    fuegoAnimationUp->addFrame(sf::IntRect(0, 768, 64, 64));
+    fuegoAnimationUp->addFrame(sf::IntRect(64, 768, 64, 64));
+    fuegoAnimationUp->addFrame(sf::IntRect(128, 768, 64, 64));
+    fuegoAnimationUp->addFrame(sf::IntRect(192, 768, 64, 64));
+    fuegoAnimationUp->addFrame(sf::IntRect(256, 768, 64, 64));
+    fuegoAnimationUp->addFrame(sf::IntRect(320, 768, 64, 64));
+  
+  
+    
+    
+    fuegoAnimationDown->setSpriteSheet("resources/Textures/player.png");
+    //fuegoAnimationDown->addFrame(sf::IntRect(320, 896, 64, 64));
+    fuegoAnimationDown->addFrame(sf::IntRect(0, 896, 64, 64));
+    fuegoAnimationDown->addFrame(sf::IntRect(64, 896, 64, 64));
+    fuegoAnimationDown->addFrame(sf::IntRect(128, 896, 64, 64));
+    fuegoAnimationDown->addFrame(sf::IntRect(192, 896, 64, 64));
+    fuegoAnimationDown->addFrame(sf::IntRect(256, 896, 64, 64));
+    fuegoAnimationDown->addFrame(sf::IntRect(320, 896, 64, 64));
+ 
+    
+    
+    fuegoAnimationRight->setSpriteSheet("resources/Textures/player.png");
+    //fuegoAnimationRight->addFrame(sf::IntRect(320, 960, 64, 64));
+    fuegoAnimationRight->addFrame(sf::IntRect(0, 960, 64, 64));
+    fuegoAnimationRight->addFrame(sf::IntRect(64, 960, 64, 64));
+    fuegoAnimationRight->addFrame(sf::IntRect(128, 960, 64, 64));
+    fuegoAnimationRight->addFrame(sf::IntRect(192, 960, 64, 64));
+    fuegoAnimationRight->addFrame(sf::IntRect(256, 960, 64, 64));
+    fuegoAnimationRight->addFrame(sf::IntRect(320, 960, 64, 64));
+  
+    
+    
+    fuegoAnimationLeft->setSpriteSheet("resources/Textures/player.png");
+    //fuegoAnimationLeft->addFrame(sf::IntRect(320, 832, 64, 64));
+    fuegoAnimationLeft->addFrame(sf::IntRect(0, 832, 64, 64));
+    fuegoAnimationLeft->addFrame(sf::IntRect(64, 832, 64, 64));
+    fuegoAnimationLeft->addFrame(sf::IntRect(128, 832, 64, 64));
+    fuegoAnimationLeft->addFrame(sf::IntRect(192, 832, 64, 64));
+    fuegoAnimationLeft->addFrame(sf::IntRect(256, 832, 64, 64));
+    fuegoAnimationLeft->addFrame(sf::IntRect(320, 832, 64, 64));
+
+    fuego2AnimationDown->setSpriteSheet("resources/Textures/player.png");
+    fuego2AnimationDown->addFrame(sf::IntRect(384, 128, 64, 64));
+    fuego2AnimationDown->addFrame(sf::IntRect(0, 128, 64, 64));
+    fuego2AnimationDown->addFrame(sf::IntRect(64, 128, 64, 64));
+    fuego2AnimationDown->addFrame(sf::IntRect(128, 128, 64, 64));
+    fuego2AnimationDown->addFrame(sf::IntRect(192, 128, 64, 64));
+    fuego2AnimationDown->addFrame(sf::IntRect(256, 128, 64, 64));
+    fuego2AnimationDown->addFrame(sf::IntRect(320, 128, 64, 64));
+    fuego2AnimationDown->addFrame(sf::IntRect(384, 128, 64, 64));
+
+
+    fuego2AnimationLeft->setSpriteSheet("resources/Textures/player.png");
+    fuego2AnimationLeft->addFrame(sf::IntRect(384, 64, 64, 64));
+    fuego2AnimationLeft->addFrame(sf::IntRect(0, 64, 64, 64));
+    fuego2AnimationLeft->addFrame(sf::IntRect(64, 64, 64, 64));
+    fuego2AnimationLeft->addFrame(sf::IntRect(128, 64, 64, 64));
+    fuego2AnimationLeft->addFrame(sf::IntRect(192, 64, 64, 64));
+    fuego2AnimationLeft->addFrame(sf::IntRect(256, 64, 64, 64));
+    fuego2AnimationLeft->addFrame(sf::IntRect(320, 64, 64, 64));
+    fuego2AnimationLeft->addFrame(sf::IntRect(384, 64, 64, 64));
+
+    fuego2AnimationRight->setSpriteSheet("resources/Textures/player.png");
+    fuego2AnimationRight->addFrame(sf::IntRect(384, 192, 64, 64));
+    fuego2AnimationRight->addFrame(sf::IntRect(0, 192, 64, 64));
+    fuego2AnimationRight->addFrame(sf::IntRect(64, 192, 64, 64));
+    fuego2AnimationRight->addFrame(sf::IntRect(128, 192, 64, 64));
+    fuego2AnimationRight->addFrame(sf::IntRect(192, 192, 64, 64));
+    fuego2AnimationRight->addFrame(sf::IntRect(256, 192, 64, 64));
+    fuego2AnimationRight->addFrame(sf::IntRect(320, 192, 64, 64));
+    fuego2AnimationRight->addFrame(sf::IntRect(384, 192, 64, 64));
+
+
+    fuego2AnimationUp->setSpriteSheet("resources/Textures/player.png");
+    fuego2AnimationUp->addFrame(sf::IntRect(384, 0, 64, 64));
+    fuego2AnimationUp->addFrame(sf::IntRect(0, 0, 64, 64));
+    fuego2AnimationUp->addFrame(sf::IntRect(64, 0, 64, 64));
+    fuego2AnimationUp->addFrame(sf::IntRect(128, 0, 64, 64));
+    fuego2AnimationUp->addFrame(sf::IntRect(192, 0, 64, 64));
+    fuego2AnimationUp->addFrame(sf::IntRect(256, 0, 64, 64));
+    fuego2AnimationUp->addFrame(sf::IntRect(320, 0, 64, 64));
+    fuego2AnimationUp->addFrame(sf::IntRect(384, 0, 64, 64));
+    
     
     currentAnimation = &walkingAnimationDown;
     InicializarAnimatedSprite(sf::seconds(0.075f), true, false);
@@ -151,9 +253,10 @@ void Player::Update(sf::Vector2f velocity, sf::Time elapsedTime) {
     PhysicsState::Update(elapsedTime);
 }
 
-void Player::Draw(sf::RenderWindow& window) {
+void Player::Draw() {
     GetSprite().setPosition(GetPosition().x,GetPosition().y);
-    window.draw(GetSprite());
+    
+    Motor2D::Instance()->draw(GetSprite());
 }
 
 void Player::DrawWithInterpolation( float interpolation) {

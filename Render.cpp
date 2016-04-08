@@ -122,14 +122,22 @@ void Render::SetOriginAnimation(float x, float y) {
 }
 void Render::Draw90(const sf::Vector2f &posPrev, const sf::Vector2f &posNew, float interpolation)
 {
+    printf("ENTRO ZIZUUUU\n");
 	renderPos = sf::Vector2f(
 		posPrev.x + ((posNew.x - posPrev.x) * interpolation),
 		posPrev.y + ((posNew.y - posPrev.y) * interpolation));
 
 	sprite.setPosition(renderPos.x, renderPos.y);
         sprite.rotate(25);
-        Motor2D *m = Motor2D::Instance();
-        m->draw(sprite);
+   
+        Motor2D::Instance()->draw(sprite);
         
 	
+}
+
+void Render::SetFrameTime(sf::Time time) {
+    //if(&animatedSprite!=NULL){
+    animatedSprite.setFrameTime(time);
+    //}
+
 }

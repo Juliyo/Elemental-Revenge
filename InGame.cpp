@@ -20,7 +20,7 @@ InGame::InGame() {
     motor = Motor2D::Instance();
     //Estado de Ingame
     EstadoActivo = true;
-    rayo=true;
+    rayo=false;
     
     try {
         spriteFondo.setTexture("resources/Textures/grasstext.png");
@@ -65,10 +65,10 @@ InGame::~InGame() {
 }
 
 void InGame::Update(sf::Time elapsedTime){
-    printf("rayo es: %d\n",rayo);
+   
     if(rayo){
         
-    printf("1\n");
+    
     if (!firstTime) {
         sf::Vector2f movement(0.f, 0.f);
         if (isMovingUp)
@@ -117,9 +117,9 @@ void InGame::Update(sf::Time elapsedTime){
 }
     
     else{
-        printf("2\n");
+        
         if (!firstTime) {
-            printf("3\n");
+            
         sf::Vector2f movement(0.f, 0.f);
         if (isMovingUp) {
             movement.y -= player -> getVelocidad();
@@ -140,27 +140,27 @@ void InGame::Update(sf::Time elapsedTime){
 
     }
     firstTime = false;
-printf("4\n");
+
     sf::Vector2f movement2(0.f, 0.f);
     if (fuegoBasicCast) {
-        printf("5\n");
+       
         if (player->contFuego == 49) {
             player->contFuego = 0;
         }
-        printf("6\n");
+    
         if (player->clockCDFire.getTiempo() > player->CDFire || player->primercastFuego == true) {
             player->primercastFuego = false;
             player->clockCDFire.restart();
             player->hFuegoBasico[player->contFuego].cast(sf::Vector2f(player->getPosition()));
             player->castFire.restart();
         }
-        printf("7\n");
+       
         player->contFuego++;
     }
 
-    printf("8\n");
+    
     for (int aux = 0; aux <= 49; aux++) {
-        printf("9\n");
+      
         movement2.x = (40 * cos(player->hFuegoBasico[aux].angleshot2) * 10.0f);
         
         movement2.y = (40 * sin(player->hFuegoBasico[aux].angleshot2) * 10.0f);
@@ -168,11 +168,11 @@ printf("4\n");
 
     }
 
-printf("9.1\n");
+
     if (fuegoAdvancedCast) {
-        printf("10\n");
+     
         if (player->hFuegoAvanzado->clockCd.getTiempo() > player->hFuegoAvanzado->getCD() || player->hFuegoAvanzado->primerCast == true) {
-            printf("11\n");
+          
             player->hFuegoAvanzado->primerCast = false;
             player->hFuegoAvanzado->tiempoCast.restart();
             player->hFuegoAvanzado->clockCd.restart();
@@ -185,19 +185,17 @@ printf("9.1\n");
             player->hFuegoAvanzado->cast(sf::Vector2f(player->getPosition()));
         }
     }
-printf("9.2\n");
+
     if (player->hFuegoAvanzado->lanzado == true) {
-        printf("12\n");
+    
         player->hFuegoAvanzado->cast(sf::Vector2f(player->getPosition()));
     }
-printf("9.3\n");
+
     }
 }
 
 void InGame::render(float interpolation, sf::Time elapsedTime){
-    
-    
-    motor->clear();
+        motor->clear();
 
     //Pillamos la view anterior, activamos la del fondo, dibujamos el fondo y volvemos al estado anterior
     //sf::View previa = mWindow->getView();
@@ -209,9 +207,8 @@ void InGame::render(float interpolation, sf::Time elapsedTime){
 
     updateView();
     motor->draw(spriteFondo);
-
-
-    int x = motor->getMousePosition().x - player -> getPosition().x;
+    if(rayo){
+            int x = motor->getMousePosition().x - player -> getPosition().x;
     int y = motor->getMousePosition().y - player -> getPosition().y;
     player ->UpdatePlayerAnimation(x, y);
     player -> hRayoAvanzado->PlayAnimation(*player -> hRayoAvanzado-> currentAnimation); //Current animation es un puntero a puntero
@@ -300,6 +297,57 @@ void InGame::render(float interpolation, sf::Time elapsedTime){
 
 
     player -> DrawWithInterpolation(interpolation);
+    }else{
+        if (player->hFuegoAvanzado->tiempoCast.getTiempo() < player->hFuegoAvanzado->getCast() && player->hFuegoAvanzado->lanzado == true) {
+        if (player->hFuegoAvanzado->tiempoCast.getTiempo() > 0.4) {
+            player->hFuegoAvanzado->SetScale(player->hFuegoAvanzado->actualSize.x, player->hFuegoAvanzado->actualSize.y);
+
+        }
+        player->hFuegoAvanzado->DrawWithInterpolation( interpolation, player->GetPreviousPosition(), player->GetPosition());
+    }
+    for (int aux = 0; aux <= 49; aux++) {
+        player->hFuegoBasico[aux].PlayAnimation(player->hFuegoBasico[aux].animationInicio);
+        player->hFuegoBasico[aux].UpdateAnimation(elapsedTime);
+        player->hFuegoBasico[aux].DrawAnimation( player->hFuegoBasico[aux].GetPreviousPosition(), player->hFuegoBasico[aux].GetPosition(), interpolation);
+
+    }
+
+    if (player->castFire.getTiempo() < 0.45f) {
+        player->SetFrameTime(sf::seconds(0.075f));
+        //switch
+            int x = motor->getMousePosition().x - player -> getPosition().x;
+    int y = motor->getMousePosition().y - player -> getPosition().y;
+    player ->UpdatePlayerAnimation(x, y);
+    } else {
+        player->SetFrameTime(sf::seconds(0.075f));
+    }
+
+    if (player->castFire2.getTiempo() < 0.4f) {
+        player->SetFrameTime(sf::seconds(0.05f));
+        player->hFuegoAvanzado->SetScale(player->hFuegoAvanzado->actualSize.x * 1.1, player->hFuegoAvanzado->actualSize.y * 1.1);
+        player->hFuegoAvanzado->actualSize.x *= 1.05;
+        player->hFuegoAvanzado->actualSize.y *= 1.05;
+        //switch
+            int x = motor->getMousePosition().x - player -> getPosition().x;
+    int y = motor->getMousePosition().y - player -> getPosition().y;
+    player ->UpdatePlayerAnimation(x, y);
+    } else {
+        player->SetFrameTime(sf::seconds(0.075f));
+    }
+
+    player -> PlayAnimation(*player -> currentAnimation);
+
+
+    if (!isMovingDown && !isMovingLeft && !isMovingRight && !isMovingUp && player->castFire.getTiempo() > 0.45f && player->castFire2.getTiempo() > 0.4f) {
+        player -> StopAnimation();
+    }
+    player -> UpdateAnimation(elapsedTime);
+
+
+    player -> DrawWithInterpolation(interpolation);
+    }
+    
+   
 
    // previa = mWindow->getView();
 
@@ -328,10 +376,10 @@ void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
     } else if (key == sf::Keyboard::D) {
         isMovingRight = isPressed;
     } else if (key == sf::Keyboard::C) {
-        printf("Rayo Activo\n");
+      
         rayo = true;
     } else if (key == sf::Keyboard::V) {
-        printf("Fuego Activo\n");
+       
         rayo = false;
     }
     else if (key == sf::Keyboard::R && isPressed) {

@@ -42,6 +42,9 @@ public:
 	sf::Vector2f GetRenderPosition() const { return renderPos; }
         sf::FloatRect GetGlobalBounds();
         
+        
+        void SetFrameTime(sf::Time time);
+        
         void SetOriginAnimation(float x,float y);;
         void SetRotationAnimation(float angle);;
         void SetScaleAnimation(float x, float y);;
