@@ -18,6 +18,7 @@
 Pause::Pause(){
     
     
+
     
         if(!fontPausa.loadFromFile("resources/Fonts/BLOX2.ttf")){
         
@@ -28,6 +29,18 @@ Pause::Pause(){
     colorAzul.r=0;
     colorAzul.g=114;
     colorAzul.b=255;
+
+
+
+    //Vista
+    mWorldView = mWindow->getDefaultView();
+    mWorldView.zoom(0.5f);
+        if(!fontPausa.loadFromFile("resources/Fonts/Minecraft.ttf")){
+        
+    }
+    
+    //float width=mWindow->getSize().x;
+    //float height=mWindow->getSize().y;
     
     menuPausa[0].setFont(fontPausa);
     menuPausa[0].setColor(sf::Color::Red);
@@ -46,7 +59,7 @@ Pause::Pause(){
     menuPausa[2].setColor(colorAzul);
     menuPausa[2].setString("Salir");
     menuPausa[2].setStyle(sf::Text::Bold);
-    menuPausa[2].setPosition(sf::Vector2f( mWindow->getSize().x-490, mWindow->getSize().y-225));
+    menuPausa[2].setPosition(sf::Vector2f( mWindow->getSize().x-500, mWindow->getSize().y-225));
     menuPausa[2].scale(1.8,1.8);
     
     textoPausa.setFont(fontPausa);
@@ -65,11 +78,7 @@ Pause::Pause(){
     EstadoActivo = false;
 
     //Referenciamos la ventana Singleton
-    
 
-    //Vista
-    mWorldView = mWindow->getDefaultView();
-    mWorldView.zoom(0.5f);
     
     //texturas
     
@@ -133,7 +142,7 @@ void Pause:: Update(sf::Time elapsedTime){
     sf::Vector2f mousePosition = mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow));
 }
 void Pause::render(float interpolation, sf::Time elapsedTime){
-       // mWindow->clear();
+       //mWindow->clear();
 
     updateView();
     
@@ -165,7 +174,7 @@ void Pause::handleMouseInput(sf::Mouse::Button button, bool isPressed){
     }
     }
     
-    sf::View Pause::getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight){
+sf::View Pause::getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight){
          // Compares the aspect ratio of the window to the aspect ratio of the view,
     // and sets the view's viewport accordingly in order to archieve a letterbox effect.
     // A new view (with a new viewport set) is returned.
@@ -212,7 +221,8 @@ void Pause::handleMouseInput(sf::Mouse::Button button, bool isPressed){
     mWorldView.setSize(640, 480);
 
     mWindow->setView(getLetterboxView(mWorldView, ref.ancho, ref.alto, 640, 480));
-    }
+}
+    
 Pause::Pause(const Pause& orig) {
 }
 

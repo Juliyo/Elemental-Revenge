@@ -345,7 +345,14 @@ void Transition::Update(sf::Time elapsedTime) {
 }
 
 void Transition::changePregunta() {
-    exit(0);
+    currentNode = currentNode -> left;
+    if (!texPregunta.loadFromFile(currentNode->pregunta)) {
+        std::cout << "Error cargando " + currentNode->pregunta << std::endl;
+    }
+    pregunta.setTexture(texPregunta);
+    pregunta.setScale(0.35, 0.35);
+    pregunta.setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
+    pregunta.setPosition(mWindow->getSize().x / 2, mWindow->getSize().y / 2 - 100);
 }
 
 bool Transition::isPointOverSprite(const sf::Vector2f Position, const sf::Sprite &Sprite) {

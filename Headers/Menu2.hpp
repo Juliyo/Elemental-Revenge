@@ -19,33 +19,68 @@
 #include "Window.hpp"
 #include "btree.hpp"
 #include "AnimatedSprite.hpp"
+#include "Animation.hpp"
 
 #include <SFML/Graphics.hpp>
 
 #define MAX_NUMBER_OF_ITEMS 3   
 
-class Menu2: public State  {
+class Menu2: public State, public Render, public PhysicsState {
 public:
     Menu2();
     Menu2(const Menu2& orig);
     virtual ~Menu2();
     
-    void draw(sf::RenderWindow &window);
+    void draw();
     void MoveUp();
     void MoveDown();
+    sf::Vector2f getPosition();
+
+    void handlePlayerInput(sf::Keyboard::Key key, bool isPressed); // Maneja eventos
+    sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight);
+
     
-    void handlePlayerInput(sf::Keyboard::Key key, bool isPressed, sf::RenderWindow &window); // Maneja eventos
+        void updateView();
 
     int getSetectedItemIndex(){
         return selectedItemIndex;
     };
     
-private:
     
-        sf::RenderWindow *mWindow;
+        Window &ref = *Window::Instance();
 
+    sf::View mWorldView;
+    sf::View mBackgroundView;
+    sf::View mHud;
+    
+private:
+        sf::Texture                 texturaAnimation;
+
+    Animation                   *animationMenu;
+    
+    sf::RenderWindow            *mWindow;
+    sf::Texture                 texturaFondoMenu;
+    sf::Sprite                  spriteFondoMenu;
+    
+        sf::Texture                 texturaFondo;
+    sf::Sprite                  spriteFondo;
+    
+        sf::Texture                 texturaRelleno;
+    sf::Sprite                  spriteRelleno;
+    
+    sf::RectangleShape          rectanguloFondo;
+    
+    sf::Texture                 mouseTexture;
+    sf::Sprite                  mouseSprite;
+    
+    sf::Texture                 texturaTitulo;
+    sf::Sprite                  Titulo;
+    
     int selectedItemIndex;
     sf::Font font;
+    sf::Font fontTitulo;
+    sf::Text textTitulo;
+
     sf::Text menu[4];
 };
 
