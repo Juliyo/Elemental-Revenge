@@ -37,7 +37,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     }
     texturaPlayer.setSmooth(true);
     
-    walkingAnimationDown->setSpriteSheet(texturaPlayer);
+    walkingAnimationDown->setSpriteSheet("resources/Textures/player.png");
     walkingAnimationDown->addFrame(sf::IntRect(512, 640, 64, 64));
     walkingAnimationDown->addFrame(sf::IntRect(0, 640, 64, 64));
     walkingAnimationDown->addFrame(sf::IntRect(64, 640, 64, 64));
@@ -50,7 +50,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationDown->addFrame(sf::IntRect(512, 640, 64, 64));
    
     
-    walkingAnimationLeft->setSpriteSheet(texturaPlayer);
+    walkingAnimationLeft->setSpriteSheet("resources/Textures/player.png");
     walkingAnimationLeft->addFrame(sf::IntRect(512, 576, 64, 64));
     walkingAnimationLeft->addFrame(sf::IntRect(0, 576, 64, 64));
     walkingAnimationLeft->addFrame(sf::IntRect(64, 576, 64, 64));
@@ -62,7 +62,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationLeft->addFrame(sf::IntRect(448, 576, 64, 64));
     walkingAnimationLeft->addFrame(sf::IntRect(512, 576, 64, 64));
     
-    walkingAnimationRight->setSpriteSheet(texturaPlayer);
+    walkingAnimationRight->setSpriteSheet("resources/Textures/player.png");
     walkingAnimationRight->addFrame(sf::IntRect(512, 704, 64, 64));
     walkingAnimationRight->addFrame(sf::IntRect(0, 704, 64, 64));
     walkingAnimationRight->addFrame(sf::IntRect(64, 704, 64, 64));
@@ -74,7 +74,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationRight->addFrame(sf::IntRect(448, 704, 64, 64));
     
     
-    walkingAnimationUp->setSpriteSheet(texturaPlayer);
+    walkingAnimationUp->setSpriteSheet("resources/Textures/player.png");
     walkingAnimationUp->addFrame(sf::IntRect(512, 512, 64, 64));
     walkingAnimationUp->addFrame(sf::IntRect(0, 512, 64, 64));
     walkingAnimationUp->addFrame(sf::IntRect(64, 512, 64, 64));
@@ -87,7 +87,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationUp->addFrame(sf::IntRect(512, 512, 64, 64));
     
     //casteo
-    castingAnimationUp->setSpriteSheet(texturaPlayer);
+    castingAnimationUp->setSpriteSheet("resources/Textures/player.png");
     castingAnimationUp->addFrame(sf::IntRect(320, 768, 64, 64));
     castingAnimationUp->addFrame(sf::IntRect(0, 768, 64, 64));
     castingAnimationUp->addFrame(sf::IntRect(64, 768, 64, 64));
@@ -99,7 +99,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
   
     
     
-    castingAnimationDown->setSpriteSheet(texturaPlayer);
+    castingAnimationDown->setSpriteSheet("resources/Textures/player.png");
     castingAnimationDown->addFrame(sf::IntRect(320, 896, 64, 64));
     castingAnimationDown->addFrame(sf::IntRect(0, 896, 64, 64));
     castingAnimationDown->addFrame(sf::IntRect(64, 896, 64, 64));
@@ -110,7 +110,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
  
     
     
-    castingAnimationRight->setSpriteSheet(texturaPlayer);
+    castingAnimationRight->setSpriteSheet("resources/Textures/player.png");
     castingAnimationRight->addFrame(sf::IntRect(320, 960, 64, 64));
     castingAnimationRight->addFrame(sf::IntRect(0, 960, 64, 64));
     castingAnimationRight->addFrame(sf::IntRect(64, 960, 64, 64));
@@ -121,7 +121,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
   
     
     
-    castingAnimationLeft->setSpriteSheet(texturaPlayer);
+    castingAnimationLeft->setSpriteSheet("resources/Textures/player.png");
     castingAnimationLeft->addFrame(sf::IntRect(320, 832, 64, 64));
     castingAnimationLeft->addFrame(sf::IntRect(0, 832, 64, 64));
     castingAnimationLeft->addFrame(sf::IntRect(64, 832, 64, 64));
