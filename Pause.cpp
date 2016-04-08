@@ -19,34 +19,41 @@ Pause::Pause(){
     
     
     
-        if(!fontPausa.loadFromFile("resources/Fonts/Minecraft.ttf")){
+        if(!fontPausa.loadFromFile("resources/Fonts/BLOX2.ttf")){
         
     }
-    
+    mWindow = ref.GetWindow();
     float width=1280;
     float height=700;
+    colorAzul.r=0;
+    colorAzul.g=114;
+    colorAzul.b=255;
     
     menuPausa[0].setFont(fontPausa);
     menuPausa[0].setColor(sf::Color::Red);
-    menuPausa[0].setString("Play");
-    menuPausa[0].setPosition(sf::Vector2f(width/2-50, height/(MAX_NUMBER_OF_ITEMS+1) *1.5));
+    menuPausa[0].setString("Reanudar");
+    menuPausa[0].setStyle(sf::Text::Bold);
+    menuPausa[0].setPosition(sf::Vector2f(350, mWindow->getSize().y-250));
     
     menuPausa[1].setFont(fontPausa);
-    menuPausa[1].setColor(sf::Color::Blue);
-    menuPausa[1].setString("Options");
-    menuPausa[1].setPosition(sf::Vector2f(width/2-50, height/(MAX_NUMBER_OF_ITEMS+1) *2));
+    menuPausa[1].setColor(colorAzul);
+    menuPausa[1].setString("Opciones");
+    menuPausa[1].setStyle(sf::Text::Bold);
+    menuPausa[1].setPosition(sf::Vector2f(350, mWindow->getSize().y-200));
     
     
     menuPausa[2].setFont(fontPausa);
-    menuPausa[2].setColor(sf::Color::Blue);
-    menuPausa[2].setString("Exit");
-    menuPausa[2].setPosition(sf::Vector2f(width/2-50, height/(MAX_NUMBER_OF_ITEMS+1) *2.5));
+    menuPausa[2].setColor(colorAzul);
+    menuPausa[2].setString("Salir");
+    menuPausa[2].setStyle(sf::Text::Bold);
+    menuPausa[2].setPosition(sf::Vector2f( mWindow->getSize().x-490, mWindow->getSize().y-225));
+    menuPausa[2].scale(1.8,1.8);
     
-    
-    menuPausa[3].setFont(fontPausa);
-    menuPausa[3].setColor(sf::Color::Red);
-    menuPausa[3].setString("OPTIONS");
-    menuPausa[3].setPosition(sf::Vector2f(width/2-50, height/(MAX_NUMBER_OF_ITEMS+1) *1.5));
+    textoPausa.setFont(fontPausa);
+    textoPausa.setColor(sf::Color::White);
+    textoPausa.setString("PAUSA");
+    textoPausa.setPosition(sf::Vector2f(350, 200));
+    textoPausa.scale(3,3);
     
     selectedItemIndexPausa=0;
     
@@ -58,7 +65,7 @@ Pause::Pause(){
     EstadoActivo = false;
 
     //Referenciamos la ventana Singleton
-    mWindow = ref.GetWindow();
+    
 
     //Vista
     mWorldView = mWindow->getDefaultView();
@@ -70,6 +77,9 @@ Pause::Pause(){
         texturaRelleno.loadFromFile("resources/Textures/background.png");
         texturaFondo.loadFromFile("resources/Textures/fondo.png");
         mouseTexture.loadFromFile("resources/Textures/mouse.png");
+        texturaMancha.loadFromFile("resources/Textures/manchaSimple.png");
+        texturaPersonaje.loadFromFile("resources/Textures/fondoPersonaje.png");
+        
     } catch (std::runtime_error& e) {
         std::cout << "Excepcion: " << e.what() << std::endl;
         exit(0);
@@ -87,9 +97,33 @@ Pause::Pause(){
     texturaFondo.setSmooth(true);
     texturaFondo.setRepeated(1);
     spriteFondo.setTexture(texturaFondo);
-    spriteFondo.setTextureRect(sf::IntRect(0, 0, 500, 300));
+    spriteFondo.setTextureRect(sf::IntRect(0, 0, 1280, 720));
     spriteFondo.setOrigin(spriteFondo.getTextureRect().width/2,spriteFondo.getTextureRect().height/2);
     spriteFondo.setPosition(mWindow->getSize().x/2,mWindow->getSize().y/2);
+    transparent.a=125;
+    spriteFondo.setColor(transparent);
+    
+    spriteMancha.setTexture(texturaMancha);
+    spriteMancha.setTextureRect(sf::IntRect(0, 0, 1733, 1733));
+    spriteMancha.setOrigin(mWindow->getSize().x/2,mWindow->getSize().y/2);
+    spriteMancha.setPosition(300,mWindow->getSize().y-350);
+    spriteMancha.setScale(0.3,0.3);
+    
+    spriteMancha2.setTexture(texturaMancha);
+    spriteMancha2.setTextureRect(sf::IntRect(0, 0, 1733, 1733));
+    spriteMancha2.setOrigin(mWindow->getSize().x/2,mWindow->getSize().y/2);
+    spriteMancha2.setPosition(850,mWindow->getSize().y-350);
+    spriteMancha2.setScale(0.3,0.3);
+    
+    spritePersonaje.setTexture(texturaPersonaje);
+    spritePersonaje.setTextureRect(sf::IntRect(0, 0, 1733, 1733));
+    spritePersonaje.setOrigin(0,0);
+    spritePersonaje.setPosition(mWindow->getSize().x/2+100,mWindow->getSize().y/2-200);
+    printf("%d\n",spritePersonaje.getTextureRect().top);
+    spritePersonaje.setScale(1,1);
+
+    //transparent.a=80;
+    //spriteAsesino.setColor(transparent);
 
     spriteRelleno.setTexture(texturaRelleno);
     spriteRelleno.setTextureRect(sf::IntRect(0, 0, 1024, 2048));
@@ -102,9 +136,13 @@ void Pause::render(float interpolation, sf::Time elapsedTime){
        // mWindow->clear();
 
     updateView();
-    mWindow->draw(spriteFondo);
-    mWindow->draw(mouseSprite);
     
+    mWindow->draw(spriteFondo);
+    mWindow->draw(spritePersonaje);
+    mWindow->draw(spriteMancha);
+    mWindow->draw(spriteMancha2);
+    //mWindow->draw(mouseSprite);
+    mWindow->draw(textoPausa);
         if(selectedItemIndexPausa<3){
     for(int i=0; i<MAX_NUMBER_OF_ITEMS;i++){
 
@@ -188,7 +226,7 @@ void Pause::MoveUp(){
 
     if(selectedItemIndexPausa-1>=0){
         
-        menuPausa[selectedItemIndexPausa].setColor(sf::Color::Blue);
+        menuPausa[selectedItemIndexPausa].setColor(colorAzul);
         selectedItemIndexPausa--;
         menuPausa[selectedItemIndexPausa].setColor(sf::Color::Red);
         
@@ -203,7 +241,7 @@ void Pause::MoveDown(){
 
     if(selectedItemIndexPausa+1<MAX_NUMBER_OF_ITEMS){
         
-        menuPausa[selectedItemIndexPausa].setColor(sf::Color::Blue);
+        menuPausa[selectedItemIndexPausa].setColor(colorAzul);
         selectedItemIndexPausa++;
         menuPausa[selectedItemIndexPausa].setColor(sf::Color::Red);
         

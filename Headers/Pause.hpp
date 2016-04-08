@@ -49,16 +49,24 @@ private:
     Animation *animation;
     sf::Texture                 texturaRelleno;
     sf::Sprite                  spriteRelleno;
+    sf::Texture                 texturaPersonaje;
+    sf::Sprite                  spritePersonaje;
     sf::Texture                 texturaFondo;
     sf::Sprite                  spriteFondo;
+    sf::Texture                 texturaMancha;
+    sf::Sprite                  spriteMancha;
+    sf::Sprite                  spriteMancha2;
     sf::Texture                 mouseTexture;
     sf::Sprite                  mouseSprite;
+    sf::Color transparent = sf::Color::Transparent;
     bool buttonPressed;
     
     
     int selectedItemIndexPausa;
     sf::Font fontPausa;
     sf::Text menuPausa[4];
+    sf::Text textoPausa;
+    sf::Color colorAzul;
 };
 
 #endif /* PAUSE_HPP */

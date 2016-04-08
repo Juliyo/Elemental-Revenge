@@ -241,6 +241,8 @@ void InGame::renderForPause(float interpolation, sf::Time elapsedTime){
     previa = mWindow->getView();
    
     mWindow->draw(spriteFondo);
+     player->Draw(*mWindow);
+     mWindow->draw(player->GetSpriteAnimated());
     
     mWindow->setView(getLetterboxView(mHud, ref.ancho, ref.alto, 640, 480));
     player -> hud->renderHud(mWindow);
