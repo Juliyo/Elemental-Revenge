@@ -41,9 +41,8 @@ public:
     void handlePlayerInput(sf::Keyboard::Key key, bool isPressed); // Maneja eventos
     sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight);
 
-    
+    void handleMouseInput(sf::Mouse::Button button, bool isPressed);
         void updateView();
-        void clickUpdate();
     int getSetectedItemIndex(){
         return selectedItemIndex;
     };
@@ -58,7 +57,7 @@ public:
 private:
     bool tecladoActivo;
     bool ratonSelecciona;
-        sf::Texture                 texturaAnimation;
+     sf::Texture                 texturaAnimation;
 
     Animation                   *animationMenu;
     

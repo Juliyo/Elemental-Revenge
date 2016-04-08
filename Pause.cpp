@@ -458,9 +458,6 @@ void Pause::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         if(selectedItemIndexPausa==1){
         selectedItemIndexPausa=3;
         }
-        if(selectedItemIndexPausa==2){
-            mWindow->close();
-        }
 
 
     } else if (key == sf::Keyboard::Escape) {

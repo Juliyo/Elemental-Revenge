@@ -160,7 +160,7 @@ sf::Vector2f Menu2::getPosition() {
 }
 
 void Menu2::Update(sf::Time elapsedTime){
-    
+    if(selectedItemIndex<3){
     sf::Color color(112, 112, 112);
     if(mouseSprite.getGlobalBounds().intersects(Mancha[0].getGlobalBounds())){
         ratonSelecciona=true;
@@ -168,6 +168,7 @@ void Menu2::Update(sf::Time elapsedTime){
         menu[0].setColor(sf::Color::White);
         menu[1].setColor(color);
         menu[2].setColor(color);
+        selectedItemIndex=0;
         } else{
            tecladoActivo=false ;
         }
@@ -178,6 +179,7 @@ void Menu2::Update(sf::Time elapsedTime){
         menu[0].setColor(color);
         menu[1].setColor(sf::Color::White);
         menu[2].setColor(color);
+        selectedItemIndex=1;
         } else{
            tecladoActivo=false;
         }
@@ -188,6 +190,8 @@ void Menu2::Update(sf::Time elapsedTime){
         menu[0].setColor(color);
         menu[1].setColor(color);
         menu[2].setColor(sf::Color::White);
+
+        selectedItemIndex=2;
         }
         else{
            tecladoActivo=false ;
@@ -200,6 +204,7 @@ void Menu2::Update(sf::Time elapsedTime){
         menu[1].setColor(color);
         menu[2].setColor(color);
 }
+    }
     }
 }
 void Menu2::render() {
@@ -241,7 +246,6 @@ void Menu2::render() {
         mWindow->draw(menu[3]);
     }
     mWindow->draw(mouseSprite);
-
 }
 
 void Menu2::MoveUp() {
@@ -276,7 +280,17 @@ void Menu2::MoveDown() {
     }
 
 }
-
+void Menu2::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
+    if (button == sf::Mouse::Button::Left && isPressed==false) {
+        
+    if (selectedItemIndex == 1) {
+            selectedItemIndex = 3;
+        }
+        if (selectedItemIndex == 2) {
+            mWindow->close();
+        }
+    }
+}
 void Menu2::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
 
     if (key == sf::Keyboard::W) { //Esto lo hago para que cuando no estes presionando cambia a false
@@ -305,21 +319,8 @@ void Menu2::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
             selectedItemIndex = 1;
         }
     }
-    if (key == sf::Mouse::Button::Left) {
-        clickUpdate();
-    }
 }
-void Menu2::clickUpdate(){
-    if(mouseSprite.getGlobalBounds().intersects(Mancha[0].getGlobalBounds())){
-        menu[0].setColor(sf::Color::White);
-    }
-    if(mouseSprite.getGlobalBounds().intersects(Mancha[1].getGlobalBounds())){
-        menu[1].setColor(sf::Color::White);
-    }
-    if(mouseSprite.getGlobalBounds().intersects(Mancha[2].getGlobalBounds())){
-        menu[2].setColor(sf::Color::White);
-    }
-}
+
 
 void Menu2::updateView() {
     sf::Vector2f mousePosition = mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow));
