@@ -25,7 +25,7 @@
 #include <iostream>
 Animation::Animation() : m_texture(NULL)
 {
-
+    m_texture = new sf::Texture();
 }
 
 void Animation::addFrame(sf::IntRect rect)
@@ -33,12 +33,11 @@ void Animation::addFrame(sf::IntRect rect)
     m_frames.push_back(rect);
 }
 
-void Animation::setSpriteSheet(const sf::Texture& texture)
+void Animation::setSpriteSheet(std::string ruta)
 {
-    m_texture = &texture;
-    /*if(!m_texture->loadFromFile(ruta)){
-        exit(1); //Error
-    }*/
+    if(!m_texture->loadFromFile(ruta)){
+        exit(0); //Error
+    }
 }
 
 const sf::Texture* Animation::getSpriteSheet() const

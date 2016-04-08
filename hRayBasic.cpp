@@ -32,8 +32,8 @@ hRayBasic::hRayBasic() {
     }
     // hSprite.setTexture(hTexture);
     //SetPosition()
-    PrimeraAnimacion->setSpriteSheet(hTexture);
-    animationDurante->setSpriteSheet(hTexture);
+    PrimeraAnimacion->setSpriteSheet("resources/Textures/RayoSpriteSheet.png");
+    animationDurante->setSpriteSheet("resources/Textures/RayoSpriteSheet.png");
 
     animationDurante->addFrame(sf::IntRect(0, 445, 89, 445));
 
@@ -82,8 +82,6 @@ hRayBasic::hRayBasic() {
     currentAnimation = &PrimeraAnimacion;
     InicializarAnimatedSprite(sf::seconds(0.5f / 8), true, false);
     SetOriginAnimatedSprite(40, -30);
-
-
 }
 
 hRayBasic::hRayBasic(const hRayBasic& orig) {
@@ -95,20 +93,14 @@ hRayBasic::~hRayBasic() {
 
 void hRayBasic::cast(sf::Vector2f posicion) {
 
-
     draw = true;
-
     float angleShot = Motor2D::Instance()->getAngleShot(posicion);
-
 
     angleShot = (angleShot * 180 / 3.14) + 270;
     SetAngle(angleshot2, angleShot);
 
 
     angleshot2 = angleShot; //so it goes in a straight line
-
-    //GetSprite().setRotation((angleShot * 180 / 3.14)+90);
-
 }
 
 void hRayBasic::DrawWithInterpolation(float interpolation, const sf::Vector2f &posPrev, const sf::Vector2f &posNew) {

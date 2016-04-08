@@ -21,7 +21,7 @@ hRayAdvanced::hRayAdvanced() {
     if(!hTexture.loadFromFile("resources/Textures/rayo.png")){
         exit(0);
     }
-    animationDurante->setSpriteSheet(hTexture);
+    animationDurante->setSpriteSheet("resources/Textures/rayo.png");
     
     animationDurante->addFrame(sf::IntRect(0,0,960,582));
     animationDurante->addFrame(sf::IntRect(960,0,960,582));
