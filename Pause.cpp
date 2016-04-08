@@ -62,6 +62,31 @@ Pause::Pause(){
     menuPausa[2].setPosition(sf::Vector2f( mWindow->getSize().x-500, mWindow->getSize().y-225));
     menuPausa[2].scale(1.8,1.8);
     
+    menuPausa[3].setFont(fontPausa);
+    menuPausa[3].setColor(sf::Color::Red);
+    menuPausa[3].setString("Audio");
+    menuPausa[3].setStyle(sf::Text::Bold);
+    menuPausa[3].setPosition(sf::Vector2f(350, mWindow->getSize().y-250));
+    
+    menuPausa[4].setFont(fontPausa);
+    menuPausa[4].setColor(colorAzul);
+    menuPausa[4].setString("Video");
+    menuPausa[4].setStyle(sf::Text::Bold);
+    menuPausa[4].setPosition(sf::Vector2f(350, mWindow->getSize().y-200));
+    
+    menuPausa[5].setFont(fontPausa);
+    menuPausa[5].setColor(colorAzul);
+    menuPausa[5].setString("Personalizar");
+    menuPausa[5].setStyle(sf::Text::Bold);
+    menuPausa[5].setPosition(sf::Vector2f( mWindow->getSize().x-500, mWindow->getSize().y-240));
+    menuPausa[5].setScale(0.7,0.7);
+    
+    menuPausa[6].setFont(fontPausa);
+    menuPausa[6].setColor(colorAzul);
+    menuPausa[6].setString(L"Atrás");
+    menuPausa[6].setStyle(sf::Text::Bold);
+    menuPausa[6].setPosition(sf::Vector2f( mWindow->getSize().x-500, mWindow->getSize().y-200));
+
     textoPausa.setFont(fontPausa);
     textoPausa.setColor(sf::Color::White);
     textoPausa.setString("PAUSA");
@@ -151,18 +176,24 @@ void Pause::render(float interpolation, sf::Time elapsedTime){
     mWindow->draw(spriteMancha);
     mWindow->draw(spriteMancha2);
     //mWindow->draw(mouseSprite);
-    mWindow->draw(textoPausa);
-        if(selectedItemIndexPausa<3){
-    for(int i=0; i<MAX_NUMBER_OF_ITEMS;i++){
-
-        mWindow->draw(menuPausa[i]);
-       
-    }
-    }
-    else{
-        mWindow->draw(menuPausa[3]);
+    
+    if(selectedItemIndexPausa<3){
+        textoPausa.setString("PAUSA");
+        textoPausa.setScale(3,3);
+        for(int i=0; i<3;i++){
+            mWindow->draw(menuPausa[i]);
+        }
     }
     
+    if(selectedItemIndexPausa==3){
+        textoPausa.setString("OPCIONES");
+        textoPausa.setScale(2,2);
+        for(int i=3; i<7;i++){
+        mWindow->draw(menuPausa[i]);
+        
+        }
+    }
+    mWindow->draw(textoPausa);
     mWindow->display();
     }
     
@@ -256,6 +287,11 @@ void Pause::MoveDown(){
         menuPausa[selectedItemIndexPausa].setColor(sf::Color::Red);
         
     }
+        }
+        
+        if(selectedItemIndexPausa==3){
+            //completar
+            
         }
     
 }

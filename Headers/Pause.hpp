@@ -64,7 +64,7 @@ private:
     
     int selectedItemIndexPausa;
     sf::Font fontPausa;
-    sf::Text menuPausa[4];
+    sf::Text menuPausa[7];
     sf::Text textoPausa;
     sf::Color colorAzul;
 };
