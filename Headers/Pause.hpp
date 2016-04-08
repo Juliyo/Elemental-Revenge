@@ -31,9 +31,10 @@ public:
     void handleMouseInput(sf::Mouse::Button button, bool isPressed); // Maneja eventos
     sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight);
     void updateView();
-        void MoveUp();
+    void MoveUp();
     void MoveDown();
-    
+        void MoveLeft();
+    void MoveRight();
         void handlePlayerInput(sf::Keyboard::Key key, bool isPressed ); // Maneja eventos
     int getSetectedItemIndexPause(){
         return selectedItemIndexPausa;

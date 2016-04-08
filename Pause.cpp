@@ -185,7 +185,7 @@ void Pause::render(float interpolation, sf::Time elapsedTime){
         }
     }
     
-    if(selectedItemIndexPausa==3){
+    if(selectedItemIndexPausa>=3){
         textoPausa.setString("OPCIONES");
         textoPausa.setScale(2,2);
         for(int i=3; i<7;i++){
@@ -273,6 +273,16 @@ void Pause::MoveUp(){
         
     }
         }
+        
+        else{
+            if(selectedItemIndexPausa-1>=3){
+        
+        menuPausa[selectedItemIndexPausa].setColor(colorAzul);
+        selectedItemIndexPausa--;
+        menuPausa[selectedItemIndexPausa].setColor(sf::Color::Red);
+        
+    }
+        }
 }
 
 void Pause::MoveDown(){
@@ -289,11 +299,81 @@ void Pause::MoveDown(){
     }
         }
         
-        if(selectedItemIndexPausa==3){
-            //completar
-            
+        else{
+            if(selectedItemIndexPausa+1<7){
+        
+        menuPausa[selectedItemIndexPausa].setColor(colorAzul);
+        selectedItemIndexPausa++;
+        menuPausa[selectedItemIndexPausa].setColor(sf::Color::Red);
+        
+    }
         }
+        
+        
     
+}
+
+
+
+void Pause::MoveLeft(){
+    
+    
+    if(selectedItemIndexPausa<3){
+    if(selectedItemIndexPausa==2){
+        
+        menuPausa[selectedItemIndexPausa].setColor(colorAzul);
+        selectedItemIndexPausa=0;
+        menuPausa[selectedItemIndexPausa].setColor(sf::Color::Red);
+        
+    }
+    }
+    else{
+        
+    if(selectedItemIndexPausa==5){
+        menuPausa[selectedItemIndexPausa].setColor(colorAzul);
+        selectedItemIndexPausa=3;
+        menuPausa[selectedItemIndexPausa].setColor(sf::Color::Red);
+    }
+        if(selectedItemIndexPausa==6){
+        menuPausa[selectedItemIndexPausa].setColor(colorAzul);
+        selectedItemIndexPausa=4;
+        menuPausa[selectedItemIndexPausa].setColor(sf::Color::Red);
+    }
+    
+    }
+
+    
+}
+
+
+void Pause::MoveRight(){
+    
+    
+    if(selectedItemIndexPausa<3){
+
+    if(selectedItemIndexPausa==0 || selectedItemIndexPausa==1){
+        
+        menuPausa[selectedItemIndexPausa].setColor(colorAzul);
+        selectedItemIndexPausa=2;
+        menuPausa[selectedItemIndexPausa].setColor(sf::Color::Red);
+        
+    }
+    
+    }
+        else{
+        
+    if(selectedItemIndexPausa==3){
+        menuPausa[selectedItemIndexPausa].setColor(colorAzul);
+        selectedItemIndexPausa=5;
+        menuPausa[selectedItemIndexPausa].setColor(sf::Color::Red);
+    }
+        if(selectedItemIndexPausa==4){
+        menuPausa[selectedItemIndexPausa].setColor(colorAzul);
+        selectedItemIndexPausa=6;
+        menuPausa[selectedItemIndexPausa].setColor(sf::Color::Red);
+    }
+    
+    }
 }
 
 
@@ -303,6 +383,10 @@ void Pause::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         MoveUp();
     } else if (key == sf::Keyboard::S) {
         MoveDown();
+    } else if (key == sf::Keyboard::A) {
+        MoveLeft();
+    } else if (key == sf::Keyboard::D) {
+        MoveRight();
     } else if (key == sf::Keyboard::Return) {
         if(selectedItemIndexPausa==1){
         selectedItemIndexPausa=3;
