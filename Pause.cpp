@@ -470,5 +470,4 @@ void Pause::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
             selectedItemIndexPausa=1;
         }
     } 
-    printf("mi indice es %d\n",selectedItemIndexPausa);
 }

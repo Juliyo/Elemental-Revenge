@@ -84,6 +84,9 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
     if(EstadoPause->EstadoActivo){
         EstadoPause->Update(elapsedTime);
     }
+    if(EstadoMenu->EstadoActivo){
+        EstadoMenu->Update(elapsedTime);
+    }
 
 }
 
@@ -100,7 +103,7 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
 
         mWindow->clear();
 
-    EstadoMenu->draw();
+    EstadoMenu->render();
     
     mWindow->display();
         }
