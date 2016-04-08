@@ -181,7 +181,6 @@ Transition::Transition() {
     animatedSprite = new AnimatedSprite(sf::seconds(0.06), true, false);
     animatedSprite->setPosition(315, 100);
     animatedSprite->scale(1.5, 1.5);
-    std::cout << arbol->search(2)->respuesta1 << std::endl;
 
 }
 
@@ -332,7 +331,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         spriteOpcionB.setColor(transparent);
                         cruzeta1.setColor(transparent);
                         //simbolo.setColor(transparent);
-                        mejora = 'f';
+                        mejora = 'r';
                     }
                     break;
                 case 6:
@@ -354,7 +353,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         spriteOpcionB.setColor(transparent);
                         cruzeta1.setColor(transparent);
                         //simbolo.setColor(transparent);
-                        mejora = 'a';
+                        mejora = 'r';
 
                     } else {
                         if (!texPregunta.loadFromFile(currentNode->respuesta2)) {
@@ -395,14 +394,14 @@ void Transition::Update(sf::Time elapsedTime) {
                         spriteOpcionB.setColor(transparent);
                         cruzeta1.setColor(transparent);
                         //simbolo.setColor(transparent);
-                        mejora = 'a';
+                        mejora = 'r';
 
                     } else {
                         if (!texPregunta.loadFromFile(currentNode->respuesta2)) {
                             std::cout << "Error cargando respuesta2" << std::endl;
                         }
                         pregunta.setTexture(texPregunta);
-                        pregunta.setScale(0.45, 0.45);
+                        pregunta.setScale(0.65, 0.65);
                         pregunta.setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
                         pregunta.setPosition(mWindow->getSize().x / 2, mWindow->getSize().y / 2 - 100);
                         pregunta.setTextureRect(sf::IntRect(0, 0, texPregunta.getSize().x, texPregunta.getSize().y));
@@ -424,7 +423,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         }
 
                         pregunta.setTexture(texPregunta);
-                        pregunta.setScale(0.35, 0.35);
+                        pregunta.setScale(0.50, 0.50);
                         pregunta.setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
                         pregunta.setPosition(mWindow->getSize().x / 2, mWindow->getSize().y / 2 - 100);
                         pregunta.setTextureRect(sf::IntRect(0, 0, texPregunta.getSize().x, texPregunta.getSize().y));
@@ -455,7 +454,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         spriteOpcionB.setColor(transparent);
                         cruzeta1.setColor(transparent);
                         //simbolo.setColor(transparent);
-                        mejora = 'f';
+                        mejora = 'r';
                     }
                     break;
                 case 5:
@@ -496,7 +495,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         spriteOpcionB.setColor(transparent);
                         cruzeta1.setColor(transparent);
                         //simbolo.setColor(transparent);
-                        mejora = 'f';
+                        mejora = 'r';
                     }
                     break;
                 case 7:
@@ -518,7 +517,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         spriteOpcionB.setColor(transparent);
                         cruzeta1.setColor(transparent);
                         //simbolo.setColor(transparent);
-                        mejora = 'a';
+                        mejora = 'f';
 
                     } else {
                         if (!texPregunta.loadFromFile(currentNode->respuesta2)) {
@@ -537,7 +536,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         spriteOpcionB.setColor(transparent);
                         cruzeta1.setColor(transparent);
                         //simbolo.setColor(transparent);
-                        mejora = 'f';
+                        mejora = 'r';
                     }
                     break;
 
@@ -559,8 +558,19 @@ void Transition::Update(sf::Time elapsedTime) {
                     // simbolo.setColor(transparent);
                     break;
                 case 'f':
-                    if (!simboloText.loadFromFile("resources/UI Elements/agua-icono.png")) {
-                        std::cout << "Error cargando agua-icono" << std::endl;
+                    if (!simboloText.loadFromFile("resources/UI Elements/fuego-icono.png")) {
+                        std::cout << "Error cargando fuego-icono" << std::endl;
+                    }
+                    simbolo.setTexture(simboloText);
+                    simbolo.setScale(0.3, 0.3);
+                    simbolo.setOrigin(simboloText.getSize().x / 2, simboloText.getSize().y / 2);
+                    simbolo.setPosition(mWindow->getSize().x / 2, mWindow->getSize().y / 2 + 50);
+                    simbolo.setTextureRect(sf::IntRect(0, 0, simboloText.getSize().x, simboloText.getSize().y));
+                    drawNextLevel = true;
+                    break;
+                case 'r':
+                    if (!simboloText.loadFromFile("resources/UI Elements/rayo-icono.png")) {
+                        std::cout << "Error cargando rayo-icono" << std::endl;
                     }
                     simbolo.setTexture(simboloText);
                     simbolo.setScale(0.3, 0.3);
@@ -643,6 +653,8 @@ void Transition::changePregunta() {
             pregunta.setScale(0.55, 0.55);
             pregunta.setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
             pregunta.setPosition(mWindow->getSize().x / 2, mWindow->getSize().y / 2 - 100);
+            cruzeta1.setScale(0.35,0.35);
+            
             break;
         case 6:
             if (!texturaOpcionA.loadFromFile("resources/UI Elements/O31.png")) {
@@ -652,21 +664,22 @@ void Transition::changePregunta() {
                 std::cout << "Error cargando agua-icono" << std::endl;
             }
             spriteOpcionA.setTexture(texturaOpcionA);
-            spriteOpcionA.setScale(0.5, 0.5);
+            spriteOpcionA.setScale(0.35, 0.35);
             spriteOpcionA.setOrigin(texturaOpcionA.getSize().x / 2, texturaOpcionA.getSize().y / 2);
             spriteOpcionA.setPosition(500, 450);
             spriteOpcionA.setTextureRect(sf::IntRect(0, 0, texturaOpcionA.getSize().x, texturaOpcionA.getSize().y));
 
             spriteOpcionB.setTexture(texturaOpcionB);
-            spriteOpcionB.setScale(0.5, 0.5);
+            spriteOpcionB.setScale(0.35, 0.35);
             spriteOpcionB.setOrigin(texturaOpcionB.getSize().x / 2, texturaOpcionB.getSize().y / 2);
             spriteOpcionB.setPosition(800, 450);
             spriteOpcionB.setTextureRect(sf::IntRect(0, 0, texturaOpcionB.getSize().x, texturaOpcionB.getSize().y));
             
             pregunta.setTexture(texPregunta);
-            pregunta.setScale(0.55, 0.55);
+            pregunta.setScale(0.65, 0.65);
             pregunta.setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
             pregunta.setPosition(mWindow->getSize().x / 2, mWindow->getSize().y / 2 - 100);
+            cruzeta1.setScale(0.35,0.35);
             break;
         case 1:
             if (!texturaOpcionA.loadFromFile("resources/UI Elements/O41.png")) {
@@ -691,6 +704,8 @@ void Transition::changePregunta() {
             pregunta.setScale(0.55, 0.55);
             pregunta.setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
             pregunta.setPosition(mWindow->getSize().x / 2, mWindow->getSize().y / 2 - 100);
+            
+            cruzeta1.setScale(0.40,0.40);
             break;
         case 3:
             if (!texturaOpcionA.loadFromFile("resources/UI Elements/O51.png")) {
@@ -715,6 +730,7 @@ void Transition::changePregunta() {
             pregunta.setScale(0.50, 0.50);
             pregunta.setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
             pregunta.setPosition(mWindow->getSize().x / 2, mWindow->getSize().y / 2 - 100);
+            cruzeta1.setScale(0.25,0.25);
             break;
         case 5:
             if (!texturaOpcionA.loadFromFile("resources/UI Elements/O61.png")) {
@@ -736,9 +752,11 @@ void Transition::changePregunta() {
             spriteOpcionB.setTextureRect(sf::IntRect(0, 0, texturaOpcionB.getSize().x, texturaOpcionB.getSize().y));
             
             pregunta.setTexture(texPregunta);
-            pregunta.setScale(0.50, 0.50);
+            pregunta.setScale(0.75, 0.75);
             pregunta.setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
             pregunta.setPosition(mWindow->getSize().x / 2, mWindow->getSize().y / 2 - 100);
+            cruzeta1.setScale(0.50,0.50);
+            //std::cout<<"Puta ostia copon"<<std::endl;
             break;
         case 7:
             if (!texturaOpcionA.loadFromFile("resources/UI Elements/O71.png")) {
@@ -763,6 +781,7 @@ void Transition::changePregunta() {
             pregunta.setScale(0.55, 0.55);
             pregunta.setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
             pregunta.setPosition(mWindow->getSize().x / 2, mWindow->getSize().y / 2 - 100);
+            cruzeta1.setScale(0.40,0.40);
             break;
     }
 
