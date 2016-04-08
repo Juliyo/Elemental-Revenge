@@ -78,12 +78,12 @@ void InGame::Update(sf::Time elapsedTime){
 
         player -> Update(movement, elapsedTime);
 
-        if (player->hRayoBasico->tiempoCast.getElapsedTime().asSeconds() > player->hRayoBasico->getCast() && aux == true) {
+        if (player->hRayoBasico->tiempoCast.getTiempo() > player->hRayoBasico->getCast() && aux == true) {
             isShooting = false;
             player->hRayoBasico->primerCast = false;
         }
 
-        if ((isShooting && player->hRayoBasico->tiempoCd.getElapsedTime().asSeconds() > player->hRayoBasico->getCD()) || (isShooting && player->hRayoBasico->primerCast == true)) {//Entra si dispara y el tiempo de enfriamiento ha pasado
+        if ((isShooting && player->hRayoBasico->tiempoCd.getTiempo() > player->hRayoBasico->getCD()) || (isShooting && player->hRayoBasico->primerCast == true)) {//Entra si dispara y el tiempo de enfriamiento ha pasado
             player->hRayoBasico->primerCast = false;
             if (aux == false) {//si es la primera vez que pulsa el boton
                 player->hRayoBasico->tiempoCast.restart();
@@ -102,7 +102,7 @@ void InGame::Update(sf::Time elapsedTime){
         }
         //avanzado
 
-        if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && player->hRayoAvanzado->tiempoCast.getElapsedTime().asSeconds() > player->hRayoBasico->getCast()) {
+        if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && player->hRayoAvanzado->tiempoCast.getTiempo() > player->hRayoBasico->getCast()) {
             player->hRayoAvanzado->draw = false;
             player->hRayoAvanzado->StopAnimation();
         }
@@ -137,7 +137,7 @@ void InGame::render(float interpolation, sf::Time elapsedTime){
     if (player -> hRayoAvanzado->draw == true) {
 
         //player->SetFrame(sf::seconds(0.3f));
-        if (player -> hRayoAvanzado->tiempoCast.getElapsedTime().asSeconds() < player->hRayoAvanzado->getCast()) {
+        if (player -> hRayoAvanzado->tiempoCast.getTiempo() < player->hRayoAvanzado->getCast()) {
             //switch
             switch (player->cuadrante) {
                 case 1:
@@ -155,7 +155,7 @@ void InGame::render(float interpolation, sf::Time elapsedTime){
             }
         }
         player -> hRayoAvanzado -> UpdateAnimation(elapsedTime);
-        if (player -> hRayoAvanzado->tiempoCast.getElapsedTime().asSeconds() < player -> hRayoAvanzado->getCast()) {
+        if (player -> hRayoAvanzado->tiempoCast.getTiempo() < player -> hRayoAvanzado->getCast()) {
             player -> hRayoAvanzado->DrawWithOutInterpolation();
 
         }
@@ -183,12 +183,12 @@ void InGame::render(float interpolation, sf::Time elapsedTime){
 
 
         player -> hRayoBasico -> UpdateAnimation(elapsedTime);
-        if (player->hRayoBasico->tiempoCast.getElapsedTime().asSeconds() < player->hRayoBasico->getCast()) {
+        if (player->hRayoBasico->tiempoCast.getTiempo() < player->hRayoBasico->getCast()) {
             //printf("Posicion del animation:%f-%f\n",player->getPhysics()->GetPosition().x,player->getPhysics()->GetPosition().y);
             player->hRayoBasico->SetFrame(sf::seconds(0.075f));
             player->hRayoBasico->currentAnimation = &player->hRayoBasico->animationDurante;
 
-            if (player->hRayoBasico->tiempoCast.getElapsedTime().asSeconds() < 1.0f) {
+            if (player->hRayoBasico->tiempoCast.getTiempo() < 1.0f) {
 
 
                 player->hRayoBasico->SetFrame(sf::seconds(0.125f));
@@ -207,7 +207,7 @@ void InGame::render(float interpolation, sf::Time elapsedTime){
         player->SetFrame(sf::seconds(0.075f));
         player->hRayoBasico->StopAnimation();
     }
-    //printf("%f",player->hRayoBasico->tiempoCast.getElapsedTime().asSeconds());
+    //printf("%f",player->hRayoBasico->tiempoCast.getTiempo());
 
     player -> PlayAnimation(*player -> currentAnimation);
 
