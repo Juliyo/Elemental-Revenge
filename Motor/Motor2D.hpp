@@ -15,11 +15,13 @@
 #define MOTOR2D_HPP
 
 #include "Sprite.hpp"
+#include "Reloj.hpp"
 #include <SFML/Graphics.hpp>
 #include <string>
 #ifdef _WIN32
 #include <windows.h>
 #endif
+
 
 class Motor2D {
 public:

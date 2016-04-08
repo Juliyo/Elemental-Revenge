@@ -19,16 +19,8 @@ hRayAdvanced::hRayAdvanced() {
     setCast(1);
     setCD(3);
     if(!hTexture.loadFromFile("resources/Textures/rayo.png")){
-        
-        //comentario error
         exit(0);
     }
-    /*
-    hSprite.setTexture(hTexture);
-    hSprite.setTextureRect(sf::IntRect(0, 0, 100, 81));
-    hSprite.setScale(2,2);
-    hSprite.setPosition(0, 0);
-    hSprite.setOrigin(100/2,81/2);*/
     animationDurante->setSpriteSheet(hTexture);
     
     animationDurante->addFrame(sf::IntRect(0,0,960,582));
@@ -42,7 +34,6 @@ hRayAdvanced::hRayAdvanced() {
     animationDurante->addFrame(sf::IntRect(960*2,582,960,582));
     animationDurante->addFrame(sf::IntRect(960*3,582,960,582));
     animationDurante->addFrame(sf::IntRect(960*4,582,960,582));
-    
     
     animationDurante->addFrame(sf::IntRect(0,582*2,960,582));
     animationDurante->addFrame(sf::IntRect(960,582*2,960,582));
@@ -67,10 +58,7 @@ hRayAdvanced::hRayAdvanced() {
     animationDurante->addFrame(sf::IntRect(960*2,582*5,960,582));
     animationDurante->addFrame(sf::IntRect(960*3,582*5,960,582));
     animationDurante->addFrame(sf::IntRect(960*4,582*5,960,582));
-    
-    
 
-    
     currentAnimation = &animationDurante;
     InicializarAnimatedSprite(sf::seconds(1.f/29),true,false);
     SetScale(0.6f,0.6f);
@@ -86,7 +74,7 @@ hRayAdvanced::~hRayAdvanced() {
 
 void hRayAdvanced::cast(sf::Vector2f posicion) {
 
-    if(tiempoCd.getElapsedTime().asSeconds()>hCd || primerCast){
+    if(tiempoCd.getTiempo() > hCd || primerCast){
         primerCast=false;
         draw=true;
         
@@ -94,9 +82,6 @@ void hRayAdvanced::cast(sf::Vector2f posicion) {
         tiempoCast.restart();
         tiempoCd.restart();
     }
- 
-
-   
 }
 void hRayAdvanced::DrawWithOutInterpolation(){
 	DrawAnimationWithOut(hSprite.getPosition() );
