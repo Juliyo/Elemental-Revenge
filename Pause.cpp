@@ -86,6 +86,24 @@ Pause::Pause(){
     menuPausa[6].setString(L"Atrás");
     menuPausa[6].setStyle(sf::Text::Bold);
     menuPausa[6].setPosition(sf::Vector2f( mWindow->getSize().x-500, mWindow->getSize().y-200));
+    
+    menuPausa[7].setFont(fontPausa);
+    menuPausa[7].setColor(colorAzul);
+    menuPausa[7].setString("Cambiar volumen");
+    menuPausa[7].setStyle(sf::Text::Bold);
+    menuPausa[7].setPosition(sf::Vector2f( mWindow->getSize().x/2-225, mWindow->getSize().y/2-100));
+    
+    menuPausa[8].setFont(fontPausa);
+    menuPausa[8].setColor(colorAzul);
+    menuPausa[8].setString(L"Cambiar resolución");
+    menuPausa[8].setStyle(sf::Text::Bold);
+    menuPausa[8].setPosition(sf::Vector2f( mWindow->getSize().x/2-225, mWindow->getSize().y/2-100));
+    
+    menuPausa[9].setFont(fontPausa);
+    menuPausa[9].setColor(colorAzul);
+    menuPausa[9].setString(L"Cambiar sprite del ratón");
+    menuPausa[9].setStyle(sf::Text::Bold);
+    menuPausa[9].setPosition(sf::Vector2f( mWindow->getSize().x/2-225, mWindow->getSize().y/2-100));
 
     textoPausa.setFont(fontPausa);
     textoPausa.setColor(sf::Color::White);
@@ -137,6 +155,13 @@ Pause::Pause(){
     transparent.a=125;
     spriteFondo.setColor(transparent);
     
+    spriteFondoOpciones.setTexture(texturaFondo);
+    spriteFondoOpciones.setTextureRect(sf::IntRect(0, 0, 500, 500));
+    spriteFondoOpciones.setOrigin(250,250);
+    spriteFondoOpciones.setPosition(mWindow->getSize().x/2,mWindow->getSize().y/2);
+    transparent.a=200;
+    spriteFondoOpciones.setColor(transparent);
+    
     spriteMancha.setTexture(texturaMancha);
     spriteMancha.setTextureRect(sf::IntRect(0, 0, 1733, 1733));
     spriteMancha.setOrigin(mWindow->getSize().x/2,mWindow->getSize().y/2);
@@ -172,9 +197,15 @@ void Pause::render(float interpolation, sf::Time elapsedTime){
     updateView();
     
     mWindow->draw(spriteFondo);
-    mWindow->draw(spritePersonaje);
-    mWindow->draw(spriteMancha);
-    mWindow->draw(spriteMancha2);
+   
+    if(selectedItemIndexPausa<=7){
+       mWindow->draw(spritePersonaje);
+       mWindow->draw(spriteMancha);
+       mWindow->draw(spriteMancha2);    
+    }
+    else{
+       // mWindow->draw(spriteFondoOpciones);
+    }
     //mWindow->draw(mouseSprite);
     
     if(selectedItemIndexPausa<3){
@@ -185,12 +216,38 @@ void Pause::render(float interpolation, sf::Time elapsedTime){
         }
     }
     
-    if(selectedItemIndexPausa>=3){
+    if(selectedItemIndexPausa>=3 && selectedItemIndexPausa<8){
         textoPausa.setString("OPCIONES");
         textoPausa.setScale(2,2);
         for(int i=3; i<7;i++){
         mWindow->draw(menuPausa[i]);
+        }
+        }
         
+    if(selectedItemIndexPausa>7){
+        if(selectedItemIndexPausa==8){
+            textoPausa.setString("Opciones de audio");
+            textoPausa.setScale(1.5,1.5);
+            textoPausa.setPosition(mWindow->getSize().x/2-225,textoPausa.getPosition().y);
+            for(int i=7; i<8;i++){
+            mWindow->draw(menuPausa[i]);
+            }
+        }
+        if(selectedItemIndexPausa==9){
+            textoPausa.setString("Opciones de video");
+            textoPausa.setScale(1.5,1.5);
+            textoPausa.setPosition(mWindow->getSize().x/2-225,textoPausa.getPosition().y);
+            for(int i=8; i<9;i++){
+            mWindow->draw(menuPausa[i]);
+            }
+        }
+        if(selectedItemIndexPausa==10){
+            textoPausa.setString("Personalizar");
+            textoPausa.setScale(1.5,1.5);
+            textoPausa.setPosition(mWindow->getSize().x/2-225,textoPausa.getPosition().y);
+            for(int i=9; i<10;i++){
+            mWindow->draw(menuPausa[i]);
+            }
         }
     }
     mWindow->draw(textoPausa);
@@ -388,12 +445,23 @@ void Pause::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
     } else if (key == sf::Keyboard::D) {
         MoveRight();
     } else if (key == sf::Keyboard::Return) {
+        
+        if(selectedItemIndexPausa==3){
+            selectedItemIndexPausa=8;
+        }
+         if(selectedItemIndexPausa==4){
+            selectedItemIndexPausa=9;
+        }
+        if(selectedItemIndexPausa==5){
+            selectedItemIndexPausa=10;
+        }
         if(selectedItemIndexPausa==1){
         selectedItemIndexPausa=3;
         }
         if(selectedItemIndexPausa==2){
             mWindow->close();
         }
+
 
     } else if (key == sf::Keyboard::Escape) {
         if(selectedItemIndexPausa<3){
@@ -402,4 +470,5 @@ void Pause::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
             selectedItemIndexPausa=1;
         }
     } 
+    printf("mi indice es %d\n",selectedItemIndexPausa);
 }
