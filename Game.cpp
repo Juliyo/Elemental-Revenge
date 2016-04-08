@@ -124,7 +124,13 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
             movement.y -= player -> getVelocidad();
             //noKeyWasPressed = false;
             
-
+            int a=(int)(player->GetRenderPosition().x)/16;
+            int b=(int)(player->GetRenderPosition().y)/16;
+            
+            if (mapa->_tilemap[2][b][a]==160) {
+                
+                movement.y=0;
+            }
             
 /*
             for (int l = 0; l < mapa->_numLayers; l++) {
@@ -143,15 +149,48 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
         if (isMovingDown) {
             movement.y += player -> getVelocidad();
             //noKeyWasPressed = false;
+            int a=(int)(player->GetRenderPosition().x)/16;
+            int b=(int)(player->GetRenderPosition().y+48)/16;
+
             
+            if (mapa->_tilemap[2][b][a]==160) {
+                
+                movement.y=0;
+            }
+
    
         }
         if (isMovingLeft) {
             movement.x -= player -> getVelocidad();
             
-            
+            int a=(int)(player->GetRenderPosition().x-32)/16;
+            int b=(int)(player->GetRenderPosition().y+32)/16;
+
 
             
+            if (mapa->_tilemap[2][b][a]==160) {
+                
+
+                movement.x=0;
+            }
+
+            //printf("X del jugador: %f\n", player->GetRenderPosition().x);
+
+            
+            /*for (int y = 0; y < mapa->_height; y++) {
+                    for (int x = 0; x < mapa->_width; x++) {
+                            if(mapa->_tilemap[2][y][x]==160){
+                                printf("1");
+                            }else{
+                                printf("0");
+                            }
+                            
+                        
+                    }
+                    printf("\n");
+                }*/
+            
+            //printf("GID: %d\n", mapa->_tilemap[2][b][a]);
 
 
         /*    for (int l = 0; l < mapa->_numLayers; l++) {
@@ -186,8 +225,14 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
         if (isMovingRight) {
             movement.x += player -> getVelocidad();
             // noKeyWasPressed = false;
-            
 
+            int a=(int)(player->GetRenderPosition().x+32)/16;
+            int b=(int)(player->GetRenderPosition().y)/16;
+
+            if (mapa->_tilemap[2][b][a]==160) {
+                
+                movement.x=0;
+            }
             
 /*
             for (int l = 0; l < mapa->_numLayers; l++) {
@@ -205,7 +250,6 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
         }
 
         player -> Update(movement, elapsedTime);
-
 
 
     }

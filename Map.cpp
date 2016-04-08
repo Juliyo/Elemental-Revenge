@@ -163,7 +163,7 @@ void Map::leerMapa(){
 void Map::dibuja(sf::RenderWindow& window){
 
     
-    for(int l=0; l<_numLayers; l++){
+    for(int l=0; l<_numLayers-1; l++){
         for(int y=0; y<_height; y++){
             for(int x=0; x<_width; x++){
                 if(_tilemapSprite[l][y][x]!=NULL){
@@ -272,6 +272,7 @@ void Map::leerMapa2(){
     int s=0;
     for(int y=0; y<rows; y++){
         for(int x=0; x<columns;x++){
+                _tilesetTexture.setSmooth(1);
               _tilesetSprite[s].setTexture(_tilesetTexture);
               _tilesetSprite[s].setTextureRect(sf::IntRect(x*_tileWidth,y*_tileHeigth,_tileWidth,_tileHeigth));
               s++;
