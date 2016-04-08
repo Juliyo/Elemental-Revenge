@@ -42,7 +42,7 @@ Map::~Map() {
 void Map::leerMapa(){
 
     TiXmlDocument doc;
-    doc.LoadFile("resources/mapafinal2.tmx");
+    doc.LoadFile("resources/mapaBosqueAlfa.tmx");
     TiXmlElement* map = doc.FirstChildElement("map");
 
     map->QueryIntAttribute("width",&_width);
