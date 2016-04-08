@@ -54,6 +54,6 @@ std::size_t Animation::getSize() const
 
 const sf::IntRect& Animation::getFrame(std::size_t n) const
 {
-    int gola = m_frames.size();
+    
     return m_frames[n];
 }
