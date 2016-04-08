@@ -35,17 +35,18 @@ public:
     Menu2(const Menu2& orig);
     virtual ~Menu2();
     
-    void draw();
+    void render();
+    
     void MoveUp();
     void MoveDown();
     sf::Vector2f getPosition();
 
+    void    Update(sf::Time elapsedTime);
     void handlePlayerInput(sf::Keyboard::Key key, bool isPressed); // Maneja eventos
     sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight);
 
-    
+    void handleMouseInput(sf::Mouse::Button button, bool isPressed);
         void updateView();
-
     int getSetectedItemIndex(){
         return selectedItemIndex;
     };
@@ -58,7 +59,9 @@ public:
     sf::View mHud;
     
 private:
-        sf::Texture                 texturaAnimation;
+    bool tecladoActivo;
+    bool ratonSelecciona;
+     sf::Texture                 texturaAnimation;
 
     Animation                   *animationMenu;
     

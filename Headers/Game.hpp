@@ -27,6 +27,7 @@ private:
     void			update(sf::Time elapsedTime);
     void			render(float interpolation, sf::Time elapsedTime);
     void			handlePlayerInput(sf::Keyboard::Key key, bool isPressed);  // Maneja eventos
+    void			handlePlayerInput2(sf::Keyboard::Key key, bool isPressed);  // Maneja eventos
     void			handleMouseInput(sf::Mouse::Button button, bool isPressed);  // Maneja eventos
     
     void                        updateView();
