@@ -15,7 +15,7 @@
 #define HECHIZO_HPP
 
 #include <SFML/Graphics.hpp>
-
+#include "../Motor/Reloj.hpp"
 #include "Render.hpp"
 #include "PhysicsState.hpp"
 #include "Animation.hpp"
@@ -24,7 +24,7 @@ public:
     Hechizo();
     Hechizo(const Hechizo& orig);
     virtual ~Hechizo();
-    sf::Sprite hSprite;
+    Sprite hSprite;
     sf::Texture hTexture;
     float angleshot2=0.0f;
     

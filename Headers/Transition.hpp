@@ -15,7 +15,7 @@
 #define TRANSITION_HPP
 
 #include "State.hpp"
-#include "Window.hpp"
+
 #include "btree.hpp"
 
 class Transition : public State {

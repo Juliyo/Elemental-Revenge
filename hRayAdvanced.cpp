@@ -78,7 +78,7 @@ void hRayAdvanced::cast(sf::Vector2f posicion) {
         primerCast=false;
         draw=true;
         
-        hSprite.setPosition(Motor2D::Instance()->getMousePosition());
+        hSprite.setPosition(Motor2D::Instance()->getMousePosition().x,Motor2D::Instance()->getMousePosition().y);
         tiempoCast.restart();
         tiempoCd.restart();
     }

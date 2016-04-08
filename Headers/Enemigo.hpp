@@ -16,6 +16,7 @@
 
 #include "PhysicsState.hpp"
 #include "Render.hpp"
+#include "../Motor/Reloj.hpp"
 
 class Enemigo {
 public:
@@ -32,7 +33,7 @@ public:
         Sprite getSprite();
         bool empujado;
         bool empujado2;
-        sf::Clock tiempoempujado;
+        Reloj tiempoempujado;
 
          
 	

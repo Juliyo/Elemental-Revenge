@@ -28,7 +28,7 @@ Game::Game() {
 
 void Game::run() //Metodo principal
 {
-    sf::Clock clock;
+    Reloj clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero; //Tiempo desde el ultimo cambio de frame
 
     while (motor->isWindowOpen()) {

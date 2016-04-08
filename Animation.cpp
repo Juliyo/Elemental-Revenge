@@ -35,6 +35,7 @@ void Animation::addFrame(sf::IntRect rect)
 
 void Animation::setSpriteSheet(const sf::Texture& texture)
 {
+   
     m_texture = &texture;
     /*if(!m_texture->loadFromFile(ruta)){
         exit(1); //Error

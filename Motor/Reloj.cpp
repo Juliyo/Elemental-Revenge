@@ -29,6 +29,6 @@ Reloj::~Reloj() {
 float Reloj::getTiempo() {
     return reloj->getElapsedTime().asSeconds();
 }
-void Reloj::restart() {
-    reloj->restart();
+sf::Time Reloj::restart() {
+    return reloj->restart();
 }

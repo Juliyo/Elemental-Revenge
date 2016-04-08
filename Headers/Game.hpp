@@ -10,6 +10,7 @@
 #include "InGame.hpp"
 #include "Transition.hpp"
 #include "../Motor/Motor2D.hpp"
+#include "../Motor/Reloj.hpp"
 #include <cmath>
 #include <math.h>
 #ifdef _WIN32
