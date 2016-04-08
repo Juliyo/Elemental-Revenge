@@ -51,7 +51,6 @@ public:
     void draw(const sf::Drawable& drawable);
     void display();
 
-
     void inicializarVentana(std::string titulo, int ancho, int alto);
 
     bool isWindowOpen();
@@ -59,7 +58,6 @@ public:
 
     sf::Vector2f getMousePosition();
     sf::RenderWindow *mWindow;
-
     sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight);
 private:
     int anchoVentana;

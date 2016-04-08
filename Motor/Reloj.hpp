@@ -20,7 +20,7 @@ public:
     Reloj(const Reloj& orig);
     virtual ~Reloj();
     float getTiempo();
-    void reset();
+    void restart();
 private:
     sf::Clock *reloj;
 };

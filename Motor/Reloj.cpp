@@ -15,7 +15,7 @@
 
 
 Reloj::Reloj() {
-    reloj= new sf::Clock();
+    reloj = new sf::Clock();
 }
 
 Reloj::Reloj(const Reloj& orig) {
@@ -29,6 +29,6 @@ Reloj::~Reloj() {
 float Reloj::getTiempo() {
     return reloj->getElapsedTime().asSeconds();
 }
-void Reloj::reset() {
+void Reloj::restart() {
     reloj->restart();
 }
