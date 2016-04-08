@@ -108,3 +108,28 @@ void Render::SetFrame(sf::Time time) {
     animatedSprite.setFrameTime(time);
 
 }
+
+void Render::SetScaleAnimation(float x, float y) {
+    animatedSprite.setScale(x, y);
+}
+
+void Render::SetRotationAnimation(float angle) {
+    animatedSprite.setRotation(angle);
+}
+
+void Render::SetOriginAnimation(float x, float y) {
+    animatedSprite.setOrigin(x, y);
+}
+void Render::Draw90(const sf::Vector2f &posPrev, const sf::Vector2f &posNew, float interpolation)
+{
+	renderPos = sf::Vector2f(
+		posPrev.x + ((posNew.x - posPrev.x) * interpolation),
+		posPrev.y + ((posNew.y - posPrev.y) * interpolation));
+
+	sprite.setPosition(renderPos.x, renderPos.y);
+        sprite.rotate(25);
+        Motor2D *m = Motor2D::Instance();
+        m->draw(sprite);
+        
+	
+}

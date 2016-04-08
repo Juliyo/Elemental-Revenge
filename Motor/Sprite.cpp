@@ -97,3 +97,7 @@ sf::Texture Sprite::getTexture() {
 sf::Vector2f Sprite::getPosition() {
     return m_sprite.getPosition();
 }
+
+void Sprite::rotate(float ang) {
+    m_sprite.rotate(ang);
+}

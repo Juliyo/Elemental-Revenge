@@ -21,8 +21,6 @@ Hechizo::Hechizo() {
     hDamage = 1;
     hLVL = 0;
     dibujar=false;
-    Reloj tiempoCast;
-    Reloj clockCd;
     primerCast=true;
 }
 

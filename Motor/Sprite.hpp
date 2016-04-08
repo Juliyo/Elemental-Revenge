@@ -39,6 +39,7 @@ public:
     sf::Texture getTexture();
     sf::Vector2f getPosition();
     sf::Texture getSfTexture();
+    void rotate(float ang);
     
 private:
     sf::Sprite m_sprite;

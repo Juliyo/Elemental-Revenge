@@ -75,6 +75,11 @@ private:
     bool			isInterpolating;
     bool                        isShooting;
     bool                        aux;
+    bool                        rayo;
+    
+    //fuego
+    bool                        fuegoBasicCast=false;
+    bool                        fuegoAdvancedCast=false;
 };
 
 #endif /* INGAME_HPP */

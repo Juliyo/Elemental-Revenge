@@ -14,6 +14,8 @@
 #include "Hud.hpp"
 #include "hRayAdvanced.hpp"
 #include "hRayBasic.hpp"
+#include "hFireBasic.hpp"
+#include "hFireAdvanced.hpp"
 
 class Player : public Render, public PhysicsState{
 public:
@@ -33,6 +35,20 @@ public:
         
         hRayBasic  *hRayoBasico;
         hRayAdvanced  *hRayoAvanzado;
+        
+        
+        //Fuego
+        hFireBasic              *hFuegoBasico;
+        hFireAdvanced           *hFuegoAvanzado;
+        int                     contFuego=0;
+        Reloj               clockCDFire;    //Variable de clase para el cd
+        float                   CDFire=0.35f;
+        Reloj               castFire;    //Variable de clase para el casteo
+        Reloj               castFire2;    //Variable de clase para el casteo
+        bool                    primercastFuego;    //Variable de clase para el primer casteo
+        
+        
+        ///
         
         Animation               **currentAnimation;
         Animation               *walkingAnimationDown;

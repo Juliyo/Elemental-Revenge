@@ -41,6 +41,11 @@ public:
         AnimatedSprite &GetSpriteAnimated() { return animatedSprite; }
 	sf::Vector2f GetRenderPosition() const { return renderPos; }
         sf::FloatRect GetGlobalBounds();
+        
+        void SetOriginAnimation(float x,float y);;
+        void SetRotationAnimation(float angle);;
+        void SetScaleAnimation(float x, float y);;
+        void Draw90( const sf::Vector2f &posPrev, const sf::Vector2f &posNew, float interpolation);
 
 private:
         AnimatedSprite		animatedSprite;
