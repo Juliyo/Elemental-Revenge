@@ -15,8 +15,18 @@
 
 Menu2::Menu2() {
     
+    
+      srand (time(NULL));
+
+ Random = rand() % 2;         // v1 in the range 0 to 99
+
+    
+    
     animationMenu = new Animation();
     
+    
+    if(Random==0){
+
         if(!texturaAnimation.loadFromFile("resources/MenuInicio/SpritesheetMenu.png")){
        std::cout<<"Error cargando la textura: "<<"resources/MenuInicio/SpritesheetMenu.png"<<std::endl;
        exit(0);
@@ -30,15 +40,64 @@ Menu2::Menu2() {
     animationMenu->addFrame(sf::IntRect(799, 336, 800, 336));
     animationMenu->addFrame(sf::IntRect(0, 672, 800, 336));
     animationMenu->addFrame(sf::IntRect(799, 672, 800, 336));
-   animationMenu->addFrame(sf::IntRect(-1, 1008, 800, 336));
+    animationMenu->addFrame(sf::IntRect(-1, 1008, 800, 336));
     animationMenu->addFrame(sf::IntRect(799, 1008, 800, 336));
+            InicializarAnimatedSprite(sf::seconds(3.f), true, false);
 
+    }
+    
+    if(Random==1){
+
+     animationMenuFuego = new Animation();
+    
+        if(!texturaAnimationFuego.loadFromFile("resources/MenuInicio/fuego.png")){
+       std::cout<<"Error cargando la textura: "<<"resources/MenuInicio/fuego.png"<<std::endl;
+       exit(0);
+    }
+    texturaAnimationFuego.setSmooth(true);
+    
+    animationMenuFuego->setSpriteSheet(texturaAnimationFuego);
+    animationMenuFuego->addFrame(sf::IntRect(0, 0, 800, 600));
+    animationMenuFuego->addFrame(sf::IntRect(800, 0, 800, 600));
+    animationMenuFuego->addFrame(sf::IntRect(1600, 0, 800, 600));
+    animationMenuFuego->addFrame(sf::IntRect(2400, 0, 800, 600));
+    animationMenuFuego->addFrame(sf::IntRect(3200, 0, 800, 600));
+    animationMenuFuego->addFrame(sf::IntRect(4000, 0, 800, 600));
+    animationMenuFuego->addFrame(sf::IntRect(0, 600, 800, 600));
+    animationMenuFuego->addFrame(sf::IntRect(800, 600, 800, 600));
+    animationMenuFuego->addFrame(sf::IntRect(1600, 600, 800, 600));
+    animationMenuFuego->addFrame(sf::IntRect(2400, 600, 800, 600));
+    animationMenuFuego->addFrame(sf::IntRect(3200, 600, 800, 600));
+    animationMenuFuego->addFrame(sf::IntRect(4000, 600, 800, 600));
+    animationMenuFuego->addFrame(sf::IntRect(0, 1200, 800, 600));
+    animationMenuFuego->addFrame(sf::IntRect(800, 1200, 800, 600));
+    animationMenuFuego->addFrame(sf::IntRect(1600, 1200, 800, 600));
+    animationMenuFuego->addFrame(sf::IntRect(2400, 1200, 800, 600));
+    animationMenuFuego->addFrame(sf::IntRect(3200, 1200, 800, 600));
+    animationMenuFuego->addFrame(sf::IntRect(4000, 1200, 800, 600));
+    animationMenuFuego->addFrame(sf::IntRect(0, 1800, 800, 600));
+    animationMenuFuego->addFrame(sf::IntRect(800, 1800, 800, 600));
+    animationMenuFuego->addFrame(sf::IntRect(1600, 1800, 800, 600));
+    animationMenuFuego->addFrame(sf::IntRect(2400, 1800, 800, 600));
+    animationMenuFuego->addFrame(sf::IntRect(3200, 1800, 800, 600));
+    animationMenuFuego->addFrame(sf::IntRect(4000, 1800, 800, 600));
+    animationMenuFuego->addFrame(sf::IntRect(0, 2400, 800, 600));
+    animationMenuFuego->addFrame(sf::IntRect(800, 2400, 800, 600));
+    animationMenuFuego->addFrame(sf::IntRect(1600, 2400, 800, 600));
+    animationMenuFuego->addFrame(sf::IntRect(2400, 2400, 800, 600));
+    animationMenuFuego->addFrame(sf::IntRect(3200, 2400, 800, 600));
+    animationMenuFuego->addFrame(sf::IntRect(4000, 2400, 800, 600));
+    animationMenuFuego->addFrame(sf::IntRect(0, 3000, 800, 600));
+    animationMenuFuego->addFrame(sf::IntRect(800, 3000, 800, 600));
+    
+            InicializarAnimatedSprite(sf::seconds(3.f), true, false);
+
+    SetScale(0.85,0.7);
+    }
     EstadoActivo=true;
     
-    InicializarAnimatedSprite(sf::seconds(3.f), true, false);
-    SetPosition(100, 330);
 
-
+    
     if(!font.loadFromFile("resources/Fonts/PressStart.ttf")){
         
     }
@@ -96,7 +155,8 @@ Menu2::Menu2() {
     float width= mWorldView.getSize().x;
     float height= mWorldView.getSize().x;
     sf::Color color(112,112,112);
-
+    
+    
     
     menu[0].setFont(font);
     menu[0].setColor(sf::Color::White);
@@ -171,12 +231,28 @@ sf::Time t1 = sf::seconds(0.5f);
     mWindow->draw(rectanguloFondo);
     mWindow->draw(spriteFondo);
      //   mWindow->draw(spriteFondoMenu);
+    
 
-            PlayAnimation(animationMenu);
+if(Random==0){
+        PlayAnimation(animationMenu);
 Render::UpdateAnimation(t1);
 
 sf::Vector2f v1(100.f, 330.f);
         DrawAnimationWithOut(*mWindow, v1);
+}
+if(Random==1){
+        PlayAnimation(animationMenuFuego);
+Render::UpdateAnimation(t1);
+
+sf::Vector2f v1(180.f, 290.f);
+        DrawAnimationWithOut(*mWindow, v1);
+}
+
+
+    
+
+            //PlayAnimation(animationMenu);
+
 
     mWindow->draw(Titulo);
     

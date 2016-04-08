@@ -14,12 +14,16 @@
 #ifndef MENU2_HPP
 #define MENU2_HPP
 
+#include <random>   // rng
 
 #include "State.hpp"
 #include "Window.hpp"
 #include "btree.hpp"
 #include "AnimatedSprite.hpp"
 #include "Animation.hpp"
+#include <SFML/System.hpp>
+#include <iostream>
+
 
 #include <SFML/Graphics.hpp>
 
@@ -58,6 +62,12 @@ private:
 
     Animation                   *animationMenu;
     
+    
+            sf::Texture                 texturaAnimationFuego;
+
+    Animation                   *animationMenuFuego;
+    
+    
     sf::RenderWindow            *mWindow;
     sf::Texture                 texturaFondoMenu;
     sf::Sprite                  spriteFondoMenu;
@@ -81,6 +91,7 @@ private:
     sf::Sprite                  Mancha[3];
     
     int selectedItemIndex;
+    int Random;
     sf::Font font;
     sf::Font fontTitulo;
     sf::Text textTitulo;
