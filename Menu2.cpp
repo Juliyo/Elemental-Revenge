@@ -179,10 +179,12 @@ sf::Vector2f v1(100.f, 330.f);
         DrawAnimationWithOut(*mWindow, v1);
 
     mWindow->draw(Titulo);
+    
+    if(selectedItemIndex<3){
         mWindow->draw(Mancha[0]);
         mWindow->draw(Mancha[1]);
         mWindow->draw(Mancha[2]);
-
+    }
     if(selectedItemIndex<3){
     for(int i=0; i<MAX_NUMBER_OF_ITEMS;i++){
 
