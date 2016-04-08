@@ -15,6 +15,7 @@
 #define HUD_HPP
 #include <SFML/Graphics.hpp>
 #include "../Motor/Motor2D.hpp"
+#include "../Motor/Text.hpp"
 
 class Hud{
 public:
@@ -30,8 +31,8 @@ private:
     Sprite      barraVida;
     sf::IntRect     shapeVida;
     Sprite      sVida;
-    sf::Text        tVida;
-    sf::Font        fVida;
+    Text        tVida;
+    
 };
 
 #endif /* HUD_HPP */

@@ -12,7 +12,7 @@
 
 Hud::Hud() {
 
-    fVida.loadFromFile("resources/Fonts/Minecraft.ttf");
+    
 
     std::string ruta = "resources/Textures/hudHealthBar.png";
     std::string ruta2 = "resources/Textures/unidadVida.png";
@@ -30,7 +30,7 @@ Hud::Hud() {
 
     sVida.setTextRect(shapeVida.top, shapeVida.left, shapeVida.width, shapeVida.height);
     
-    tVida.setFont(fVida);
+    tVida.setFont("resources/Fonts/Minecraft.ttf");
     tVida.setString("15/15");
     tVida.setOrigin(tVida.getGlobalBounds().width / 2, tVida.getGlobalBounds().height / 2);
     tVida.setPosition(110, 32);

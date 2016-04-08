@@ -30,6 +30,7 @@
       <itemPath>Motor/Reloj.hpp</itemPath>
       <itemPath>Motor/Sprite.cpp</itemPath>
       <itemPath>Motor/Sprite.hpp</itemPath>
+      <itemPath>Motor/Text.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -49,6 +50,7 @@
       <itemPath>Player.cpp</itemPath>
       <itemPath>Render.cpp</itemPath>
       <itemPath>State.cpp</itemPath>
+      <itemPath>Motor/Text.cpp</itemPath>
       <itemPath>Transition.cpp</itemPath>
       <itemPath>Util.cpp</itemPath>
       <itemPath>btree.cpp</itemPath>
@@ -203,6 +205,10 @@
       </item>
       <item path="Motor/Sprite.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Motor/Text.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Motor/Text.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="PhysicsState.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Player.cpp" ex="false" tool="1" flavor2="0">
@@ -317,6 +323,10 @@
       <item path="Motor/Sprite.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Motor/Sprite.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Motor/Text.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Motor/Text.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="PhysicsState.cpp" ex="false" tool="1" flavor2="0">
       </item>
