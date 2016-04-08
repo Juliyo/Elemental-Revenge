@@ -133,12 +133,8 @@ void Game::processEvents() //Captura y procesa eventos
 
             case sf::Event::KeyReleased:
                 EstadoInGame->handlePlayerInput(event.key.code, false);
-
                 handlePlayerInput(event.key.code, false);
-                handlePlayerInput2(event.key.code, false);
-                
-                
-
+                handlePlayerInput2(event.key.code, false); 
             break;
             
             case sf::Event::MouseButtonPressed:
