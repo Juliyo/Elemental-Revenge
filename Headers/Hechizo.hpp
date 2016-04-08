@@ -45,7 +45,6 @@ public:
     bool draw;
     bool dibujar;
     bool primerCast=true;
-    Animation animation;
     
     
 protected:
