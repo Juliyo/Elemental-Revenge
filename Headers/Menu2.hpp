@@ -19,12 +19,13 @@
 #include "Window.hpp"
 #include "btree.hpp"
 #include "AnimatedSprite.hpp"
+#include "Animation.hpp"
 
 #include <SFML/Graphics.hpp>
 
 #define MAX_NUMBER_OF_ITEMS 3   
 
-class Menu2: public State  {
+class Menu2: public State, public Render, public PhysicsState {
 public:
     Menu2();
     Menu2(const Menu2& orig);
@@ -33,7 +34,8 @@ public:
     void draw();
     void MoveUp();
     void MoveDown();
-    
+    sf::Vector2f getPosition();
+
     void handlePlayerInput(sf::Keyboard::Key key, bool isPressed); // Maneja eventos
     sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight);
 
@@ -52,6 +54,9 @@ public:
     sf::View mHud;
     
 private:
+        sf::Texture                 texturaAnimation;
+
+    Animation                   *animationMenu;
     
     sf::RenderWindow            *mWindow;
     sf::Texture                 texturaFondoMenu;
