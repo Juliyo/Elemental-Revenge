@@ -68,7 +68,6 @@ Transition::Transition() {
     }
     //Establecemos la raiz del arbol como el nodo actual
     currentNode = arbol->search(4);
-
     //Carga texturas
     try {
         texPregunta.loadFromFile(arbol->search(4)->pregunta);
@@ -112,14 +111,14 @@ Transition::Transition() {
     spriteOpcionB.setOrigin(texturaOpcionB.getSize().x / 2, texturaOpcionB.getSize().y / 2);
     spriteOpcionB.setPosition(800, 450);
     spriteOpcionB.setTextureRect(sf::IntRect(0, 0, 258, 97));
-    
-    
+
+
     nextLevel.setTexture(texturaNextLevel);
     nextLevel.setScale(0.5, 0.5);
     nextLevel.setOrigin(texturaOpcionB.getSize().x / 2, texturaOpcionB.getSize().y / 2);
     nextLevel.setPosition(mWindow->getSize().x / 2, mWindow->getSize().y / 2 + 150);
-    nextLevel.setTextureRect(sf::IntRect(0, 0, 258, 97));
-    
+    nextLevel.setTextureRect(sf::IntRect(0, 0, 271, 59));
+
     mouseSprite.setTexture(mouseTexture);
     mouseSprite.setScale(0.2, 0.2);
     mouseSprite.setPosition(20, 20);
@@ -128,11 +127,11 @@ Transition::Transition() {
     cruzeta1.setTexture(cruzeta);
     cruzeta1.setOrigin(cruzeta.getSize().x / 2, cruzeta.getSize().y / 2);
     cruzeta1.setScale(0.25, 0.25);
-    
+
     cruzeta2.setTexture(cruzeta);
     cruzeta2.setOrigin(cruzeta.getSize().x / 2, cruzeta.getSize().y / 2);
     cruzeta2.setScale(0.25, 0.25);
-    
+
     animation->setSpriteSheet(pend);
 
     animation->addFrame(sf::IntRect(0, 0, 447, 335));
@@ -200,8 +199,34 @@ Transition::~Transition() {
 }
 
 void Transition::Update(sf::Time elapsedTime) {
+    if (buttonPressed && !firstTime) {
+        if (spriteOpcionA.getGlobalBounds().contains(mouseSprite.getPosition())) {
+            izq = true;
+            der=false;
+            fadeEffect = true;
+            transparent.a = 255;
+            //aguaSkillTransition();
+            firstTime = true;
+        }
+        if (spriteOpcionB.getGlobalBounds().contains(mouseSprite.getPosition())) {
+            der = true;
+            izq = false;
+            fadeEffect = true;
+            transparent.a = 255;
+            //aguaSkillTransition();
+            firstTime = true;
+        }
+        if(drawNextLevel){
+            if (nextLevel.getGlobalBounds().contains(mouseSprite.getPosition())) {
+                changePregunta();
+                drawNextLevel = false;
+            }
+        }
+        
+    }
+    
     sf::Vector2f mousePosition = mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow));
-    if(drawOpciones){
+    if (drawOpciones) {
         if (isPointOverSprite(mousePosition, spriteOpcionA)) {
             cruzeta1.setPosition(spriteOpcionA.getPosition());
             Bcruzeta = true;
@@ -211,16 +236,14 @@ void Transition::Update(sf::Time elapsedTime) {
         } else {
             Bcruzeta = false;
         }
-    }else{
-        if (isPointOverSprite(mousePosition, nextLevel)){
+    } else {
+        if (isPointOverSprite(mousePosition, nextLevel)) {
             cruzeta2.setPosition(nextLevel.getPosition());
             Bcruzeta = true;
-        }else {
+        } else {
             Bcruzeta = false;
         }
     }
-
-           
 
     if (fadeEffect) {
         pregunta.setColor(transparent);
@@ -248,7 +271,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         pregunta.setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
                         pregunta.setPosition(mWindow->getSize().x / 2, mWindow->getSize().y / 2 - 100);
                         pregunta.setTextureRect(sf::IntRect(0, 0, texPregunta.getSize().x, texPregunta.getSize().y));
-                        izq = false;
+                        //izq = false;
                         unfadeEffect = true;
                         transparent.a = 0;
                         pregunta.setColor(transparent);
@@ -267,7 +290,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         pregunta.setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
                         pregunta.setPosition(mWindow->getSize().x / 2, mWindow->getSize().y / 2 - 100);
                         pregunta.setTextureRect(sf::IntRect(0, 0, texPregunta.getSize().x, texPregunta.getSize().y));
-                        der = false;
+                        //der = false;
                         unfadeEffect = true;
                         transparent.a = 0;
                         pregunta.setColor(transparent);
@@ -278,9 +301,50 @@ void Transition::Update(sf::Time elapsedTime) {
                         mejora = 'f';
                     }
                     break;
+                case 2:
+                    if (izq) {
+                        if (!texPregunta.loadFromFile(currentNode->respuesta1)) {
+                            std::cout << "Error cargando respuesta1" << std::endl;
+                        }
+                        std::cout << currentNode->respuesta1 << std::endl;
+                        std::cout << "Hola" << std::endl;
+                        pregunta.setTexture(texPregunta);
+                        pregunta.setScale(0.3, 0.3);
+                        pregunta.setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
+                        pregunta.setPosition(mWindow->getSize().x / 2, mWindow->getSize().y / 2 - 100);
+                        pregunta.setTextureRect(sf::IntRect(0, 0, texPregunta.getSize().x, texPregunta.getSize().y));
+                        //izq = false;
+                        unfadeEffect = true;
+                        transparent.a = 0;
+                        pregunta.setColor(transparent);
+                        spriteOpcionA.setColor(transparent);
+                        spriteOpcionB.setColor(transparent);
+                        cruzeta1.setColor(transparent);
+                        //simbolo.setColor(transparent);
+                        mejora = 'a';
+
+                    } else {
+                        if (!texPregunta.loadFromFile(currentNode->respuesta2)) {
+                            std::cout << "Error cargando respuesta2" << std::endl;
+                        }
+                        pregunta.setTexture(texPregunta);
+                        pregunta.setScale(0.3, 0.3);
+                        pregunta.setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
+                        pregunta.setPosition(mWindow->getSize().x / 2, mWindow->getSize().y / 2 - 100);
+                        pregunta.setTextureRect(sf::IntRect(0, 0, texPregunta.getSize().x, texPregunta.getSize().y));
+                        //der = false;
+                        unfadeEffect = true;
+                        transparent.a = 0;
+                        pregunta.setColor(transparent);
+                        spriteOpcionA.setColor(transparent);
+                        spriteOpcionB.setColor(transparent);
+                        cruzeta1.setColor(transparent);
+                        //simbolo.setColor(transparent);
+                        mejora = 'f';
+                    }
             }
             drawOpciones = false;
-            firstTime=false;
+            firstTime = false;
             switch (mejora) {
                 case 'a':
                     if (!simboloText.loadFromFile("resources/UI Elements/agua-icono.png")) {
@@ -292,8 +356,8 @@ void Transition::Update(sf::Time elapsedTime) {
                     simbolo.setPosition(mWindow->getSize().x / 2, mWindow->getSize().y / 2 + 50);
                     simbolo.setTextureRect(sf::IntRect(0, 0, simboloText.getSize().x, simboloText.getSize().y));
                     drawNextLevel = true;
-                    
-                   // simbolo.setColor(transparent);
+
+                    // simbolo.setColor(transparent);
                     break;
                 case 'f':
                     break;
@@ -310,7 +374,6 @@ void Transition::Update(sf::Time elapsedTime) {
         cruzeta1.setColor(transparent);
         //simbolo.setColor(transparent);
         if (transparent.a + 20 > 255) {
-
             unfadeEffect = false;
             transparent.a = 255;
             pregunta.setColor(transparent);
@@ -322,30 +385,31 @@ void Transition::Update(sf::Time elapsedTime) {
             transparent.a += 20;
         }
     }
-    if (buttonPressed && !firstTime) {
-        if (spriteOpcionA.getGlobalBounds().contains(mouseSprite.getPosition())) {
-            izq = true;
-            fadeEffect = true;
-            transparent.a = 255;
-            //aguaSkillTransition();
-            firstTime = true;
-        }
-        if (spriteOpcionB.getGlobalBounds().contains(mouseSprite.getPosition())) {
-            der = true;
-            fadeEffect = true;
-            transparent.a = 255;
-            //aguaSkillTransition();
-            firstTime = true;
-        }
-        if (nextLevel.getGlobalBounds().contains(mouseSprite.getPosition())) {
-            changePregunta();
-        }
-    }
+    
 
 }
 
 void Transition::changePregunta() {
-    currentNode = currentNode -> left;
+    if (izq) {
+        if(currentNode -> left == NULL){
+            std::cout<<"La puta madre que pario al fidel"<<std::endl;
+            izq=false;
+        }else{
+            //std::cout<<currentNode -> left -> pregunta <<std::endl;
+            currentNode = currentNode -> left;
+            izq=false;
+            
+        }
+        
+    } else {
+        if(currentNode -> right == NULL){
+            std::cout<<"La puta madre que pario al fidel"<<std::endl;
+            der=false;
+        }else{
+            currentNode = currentNode -> right;
+            der=false;
+        }
+    }
     if (!texPregunta.loadFromFile(currentNode->pregunta)) {
         std::cout << "Error cargando " + currentNode->pregunta << std::endl;
     }
@@ -353,6 +417,11 @@ void Transition::changePregunta() {
     pregunta.setScale(0.35, 0.35);
     pregunta.setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
     pregunta.setPosition(mWindow->getSize().x / 2, mWindow->getSize().y / 2 - 100);
+    drawOpciones = true;
+    drawNextLevel = false;
+    unfadeEffect = true;
+    transparent.a = 0;
+    pregunta.setColor(transparent);
 }
 
 bool Transition::isPointOverSprite(const sf::Vector2f Position, const sf::Sprite &Sprite) {
@@ -363,20 +432,16 @@ bool Transition::isPointOverSprite(const sf::Vector2f Position, const sf::Sprite
 void Transition::render(float interpolation, sf::Time elapsedTime) {
 
     mWindow->clear();
-
     //Pillamos la view anterior, activamos la del fondo, dibujamos el fondo y volvemos al estado anterior
     sf::View previa = mWindow->getView();
     mWindow->setView(mBackgroundView);
     mWindow->draw(spriteRelleno);
     mWindow->setView(previa);
-
     updateView();
     /*animatedSprite->play(*animation);
     animatedSprite->update(elapsedTime);
     mWindow->draw(*animatedSprite);*/
     mWindow->draw(spriteFondo);
-
-
 
     mWindow->draw(pregunta);
 
@@ -393,8 +458,6 @@ void Transition::render(float interpolation, sf::Time elapsedTime) {
             mWindow->draw(cruzeta2);
         }
     }
-
-
 
     previa = mWindow->getView();
 
