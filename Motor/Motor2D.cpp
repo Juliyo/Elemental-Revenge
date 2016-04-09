@@ -30,6 +30,9 @@ void Motor2D::inicializarVentana(std::string titulo, int ancho, int alto) {
     mWindow->setFramerateLimit(60); //Establecemos maximo real de procesamiento (aunque trabajamos con 60)
     mWindow->setVerticalSyncEnabled(true);
     mWindow->setMouseCursorVisible(false);
+    
+    lightMapTexture.create(ancho,alto);
+    lightmap.setTexture(lightMapTexture.getTexture());
 }
 
 Motor2D::Motor2D() {
@@ -238,3 +241,24 @@ void Motor2D::setCenterForView(int view, int x, int y) {
         }
     }
 }
+
+void Motor2D::addLight(Light ligth) {
+    lights.push_back(ligth);
+}
+
+void Motor2D::clearAmbiente() {
+    lightMapTexture.clear(colorAmbiente);
+}
+
+void Motor2D::setAmbientColor(int r, int g, int b, int a) {
+    colorAmbiente.r = r;
+    colorAmbiente.g = g;
+    colorAmbiente.b = b;
+    colorAmbiente.a = a;
+}
+
+void Motor2D::renderLights() {
+    
+}
+
+

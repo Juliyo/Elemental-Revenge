@@ -195,6 +195,10 @@
       </item>
       <item path="InGame.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="Motor/Light.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Motor/Light.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Motor/Motor2D.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Motor/Motor2D.hpp" ex="false" tool="3" flavor2="0">
@@ -317,6 +321,10 @@
       <item path="Hud.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="InGame.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Motor/Light.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Motor/Light.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Motor/Motor2D.cpp" ex="false" tool="1" flavor2="0">
       </item>
