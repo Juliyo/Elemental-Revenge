@@ -71,7 +71,9 @@ private:
     bool                        rayoBasicCast = false;
     
     bool                        noKeyWasPressed = true;
-    bool			firstTime;
+    bool			firstTimeRayo;
+    bool			firstTimeFuego;
+    bool			firstTimeAgua;
     bool			isInterpolating;
     bool                        isShooting;
     bool                        aux;

@@ -18,6 +18,7 @@
       <itemPath>Headers/Transition.hpp</itemPath>
       <itemPath>Headers/Util.hpp</itemPath>
       <itemPath>Headers/btree.hpp</itemPath>
+      <itemPath>Headers/hFireBasic.hpp</itemPath>
       <itemPath>Headers/hRayAdvanced.hpp</itemPath>
       <itemPath>Headers/hRayBasic.hpp</itemPath>
       <itemPath>Headers/tinystr.h</itemPath>
@@ -54,6 +55,8 @@
       <itemPath>Transition.cpp</itemPath>
       <itemPath>Util.cpp</itemPath>
       <itemPath>btree.cpp</itemPath>
+      <itemPath>hFireAdvanced.cpp</itemPath>
+      <itemPath>hFireBasic.cpp</itemPath>
       <itemPath>hRayAdvanced.cpp</itemPath>
       <itemPath>hRayBasic.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
@@ -179,8 +182,6 @@
       </item>
       <item path="Headers/btree.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="Headers/hFireAdvanced.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Headers/hFireBasic.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/hRayAdvanced.hpp" ex="false" tool="3" flavor2="0">
@@ -305,8 +306,6 @@
       <item path="Headers/Util.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/btree.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Headers/hFireAdvanced.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/hFireBasic.hpp" ex="false" tool="3" flavor2="0">
       </item>

@@ -79,7 +79,7 @@ void hFireBasic::cast(sf::Vector2f posicion) {
 
     
     SetPosition(posicion);
-
+   
         float angleShot = Motor2D::Instance()->getAngleShot(posicion);
         angleshot2 = angleShot; //so it goes in a straight line
         SetRotationAnimation(angleShot * 180 / 3.14);
