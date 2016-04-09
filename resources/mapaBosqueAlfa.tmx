@@ -51211,7 +51211,7 @@
    <tile gid="553"/>
   </data>
  </layer>
- <layer name="Colisiones" width="160" height="160">
+ <layer name="Colisiones" width="160" height="160" visible="0">
   <data>
    <tile gid="160"/>
    <tile gid="160"/>

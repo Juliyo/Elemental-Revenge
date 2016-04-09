@@ -48,7 +48,7 @@ InGame::InGame() {
     mouseSprite.setOrigin(64, 64);
     
     player = new Player();
-    player -> Inicializar(200.f, 250.f);
+    player -> Inicializar(900.f, 850.f);
     
     mWindow = ref.GetWindow();
     
