@@ -44,6 +44,6 @@ void hFireAdvanced::cast(sf::Vector2f posicion) {
 }
 
 void hFireAdvanced::DrawWithInterpolation( float interpolation, const sf::Vector2f& posPrev, const sf::Vector2f& posNew) {
-    printf("ENTRO MOTHERFUCKER\n");
+   
     Draw90( posPrev, posNew, interpolation);
 }

@@ -298,6 +298,11 @@ void InGame::render(float interpolation, sf::Time elapsedTime){
 
     player -> DrawWithInterpolation(interpolation);
     }else{
+                //switch
+            int x = motor->getMousePosition().x - player -> getPosition().x;
+    int y = motor->getMousePosition().y - player -> getPosition().y;
+    player ->UpdatePlayerAnimation(x, y);
+    
         if (player->hFuegoAvanzado->tiempoCast.getTiempo() < player->hFuegoAvanzado->getCast() && player->hFuegoAvanzado->lanzado == true) {
         if (player->hFuegoAvanzado->tiempoCast.getTiempo() > 0.4) {
             player->hFuegoAvanzado->SetScale(player->hFuegoAvanzado->actualSize.x, player->hFuegoAvanzado->actualSize.y);
@@ -314,10 +319,7 @@ void InGame::render(float interpolation, sf::Time elapsedTime){
 
     if (player->castFire.getTiempo() < 0.45f) {
         player->SetFrameTime(sf::seconds(0.075f));
-        //switch
-            int x = motor->getMousePosition().x - player -> getPosition().x;
-    int y = motor->getMousePosition().y - player -> getPosition().y;
-    player ->UpdatePlayerAnimation(x, y);
+
     } else {
         player->SetFrameTime(sf::seconds(0.075f));
     }
@@ -327,10 +329,7 @@ void InGame::render(float interpolation, sf::Time elapsedTime){
         player->hFuegoAvanzado->SetScale(player->hFuegoAvanzado->actualSize.x * 1.1, player->hFuegoAvanzado->actualSize.y * 1.1);
         player->hFuegoAvanzado->actualSize.x *= 1.05;
         player->hFuegoAvanzado->actualSize.y *= 1.05;
-        //switch
-            int x = motor->getMousePosition().x - player -> getPosition().x;
-    int y = motor->getMousePosition().y - player -> getPosition().y;
-    player ->UpdatePlayerAnimation(x, y);
+
     } else {
         player->SetFrameTime(sf::seconds(0.075f));
     }
