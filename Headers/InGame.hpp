@@ -16,7 +16,7 @@
 
 #include "State.hpp"
 #include "../Motor/Motor2D.hpp"
-
+#include "../Motor/Video.hpp"
 
 class InGame:public State {
 public:
@@ -46,7 +46,8 @@ private:
     
     Motor2D                     *motor;
     //Graficos
-
+    
+    Video                       *video;
     
     //Recursos
     sf::Texture                 texturaFondo;

@@ -54,7 +54,7 @@ InGame::InGame() {
     
     motor->setZoomToView(0.5f,1);//1=vista del mundo(nuestra pantalla)
 
-
+    video = new Video("resources/Videos/arbol/tree",410);
 }
 
 InGame::InGame(const InGame& orig) {
@@ -106,9 +106,9 @@ void InGame::Update(sf::Time elapsedTime){
             player->hRayoAvanzado->draw = false;
             player->hRayoAvanzado->StopAnimation();
         }
-
+        video->setDibujar(true);
     }
-
+    
     firstTime = false;
     
 }
@@ -210,7 +210,7 @@ void InGame::render(float interpolation, sf::Time elapsedTime){
     //printf("%f",player->hRayoBasico->tiempoCast.getTiempo());
 
     player -> PlayAnimation(*player -> currentAnimation);
-
+    
 
     if ((!isMovingDown && !isMovingLeft && !isMovingRight && !isMovingUp) || player->hRayoBasico->draw == true) {
         player -> StopAnimation();
@@ -219,7 +219,8 @@ void InGame::render(float interpolation, sf::Time elapsedTime){
 
 
     player -> DrawWithInterpolation(interpolation);
-
+    
+    video->PlayVideo();
    // previa = mWindow->getView();
 
    //mWindow->setView(getLetterboxView(mHud, ref.ancho, ref.alto, 640, 480));
