@@ -260,6 +260,7 @@ void Player::Draw() {
 }
 
 void Player::DrawWithInterpolation( float interpolation) {
+    
     Render::DrawAnimation(GetPreviousPosition(), GetPosition(), interpolation);
 }
 

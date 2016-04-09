@@ -64,9 +64,10 @@ InGame::~InGame() {
 }
 
 void InGame::Update(sf::Time elapsedTime) {
-
-    if (rayo) {
+    
+    
         if (!firstTimeRayo) {
+            zizu=true;
             sf::Vector2f movement(0.f, 0.f);
             if (isMovingUp)
                 movement.y -= player -> getVelocidad();
@@ -109,7 +110,7 @@ void InGame::Update(sf::Time elapsedTime) {
             }
         }
         firstTimeRayo = false;
-    } else {
+    
 
         if (!firstTimeFuego) {
 
@@ -129,7 +130,7 @@ void InGame::Update(sf::Time elapsedTime) {
                 movement.x += player -> getVelocidad();
                 // noKeyWasPressed = false;
             }
-            player -> Update(movement, elapsedTime);
+            if(zizu==false) player -> Update(movement, elapsedTime);
         }
         firstTimeFuego = false;
         sf::Vector2f movement2(0.f, 0.f);
@@ -172,7 +173,7 @@ void InGame::Update(sf::Time elapsedTime) {
             player->hFuegoAvanzado->cast(sf::Vector2f(player->getPosition()));
         }
 
-    }
+    
 }
 
 void InGame::render(float interpolation, sf::Time elapsedTime) {
@@ -188,7 +189,7 @@ void InGame::render(float interpolation, sf::Time elapsedTime) {
 
     updateView();
     motor->draw(spriteFondo);
-    if (rayo) {
+    
         int x = motor->getMousePosition().x - player -> getPosition().x;
         int y = motor->getMousePosition().y - player -> getPosition().y;
         player ->UpdatePlayerAnimation(x, y);
@@ -267,7 +268,7 @@ void InGame::render(float interpolation, sf::Time elapsedTime) {
             player->hRayoBasico->StopAnimation();
         }
         //printf("%f",player->hRayoBasico->tiempoCast.getTiempo());
-
+/*
         player -> PlayAnimation(*player -> currentAnimation);
 
 
@@ -278,11 +279,8 @@ void InGame::render(float interpolation, sf::Time elapsedTime) {
 
 
         player -> DrawWithInterpolation(interpolation);
-    } else {
-        //switch
-        int x = motor->getMousePosition().x - player -> getPosition().x;
-        int y = motor->getMousePosition().y - player -> getPosition().y;
-        player ->UpdatePlayerAnimation(x, y);
+   */
+  
 
         if (player->hFuegoAvanzado->tiempoCast.getTiempo() < player->hFuegoAvanzado->getCast() && player->hFuegoAvanzado->lanzado == true) {
             if (player->hFuegoAvanzado->tiempoCast.getTiempo() > 0.4) {
@@ -325,7 +323,7 @@ void InGame::render(float interpolation, sf::Time elapsedTime) {
 
 
         player -> DrawWithInterpolation(interpolation);
-    }
+    
 
 
 
@@ -372,6 +370,8 @@ void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
 
 void InGame::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
     if (rayo) {
+        fuegoBasicCast=false;
+        fuegoAdvancedCast=false;
         if (button == sf::Mouse::Button::Left) {
             isShooting = isPressed;
         }
@@ -379,6 +379,8 @@ void InGame::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
             player->hRayoAvanzado->cast(sf::Vector2f(player->getPosition()));
         }
     } else {
+        isShooting=false;
+        
         if (button == sf::Mouse::Left) {//Traslaciones
             fuegoBasicCast = isPressed;
         }

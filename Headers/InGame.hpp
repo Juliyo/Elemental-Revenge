@@ -78,7 +78,7 @@ private:
     bool                        isShooting;
     bool                        aux;
     bool                        rayo;
-    
+    bool                        zizu=false;
     //fuego
     bool                        fuegoBasicCast=false;
     bool                        fuegoAdvancedCast=false;
