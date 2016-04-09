@@ -86,6 +86,10 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     SetSpeed(speedX, speedY);
     SetMaxSpeed(maxSpeedX, maxSpeedY);
     SetOriginAnimatedSprite(32,32);
+    top=0;
+    bot=0;
+    left=0;
+    right=0;
 }
 
 void Player::Update(sf::Vector2f velocity, sf::Time elapsedTime) {
@@ -93,13 +97,21 @@ void Player::Update(sf::Vector2f velocity, sf::Time elapsedTime) {
     sf::Vector2f nVelocity = Util::Normalize(velocity);
     SetSpeed(nVelocity * Player::getVelocidad());
     PhysicsState::Update(elapsedTime);
+    top=GetSpriteAnimated().getGlobalBounds().top;
+    bot=GetSpriteAnimated().getGlobalBounds().top+ GetSpriteAnimated().getGlobalBounds().height;
+    left=GetSpriteAnimated().getGlobalBounds().left;
+    right=GetSpriteAnimated().getGlobalBounds().left+GetSpriteAnimated().getGlobalBounds().width;
+    //printf("(%d,%d,%d,%d)\n",top/16,bot/16,left/16,right/16);
+    
 }
 
 void Player::Draw(sf::RenderWindow& window) {
     GetSprite().setPosition(GetPosition());
     window.draw(GetSprite());
 }
-
+void Player::DrawWithInterpolation(sf::RenderWindow& window, float interpolation, int top, int bot, int right, int left, Map *mapa){
+    Render::DrawAnimation(window, GetPreviousPosition(), GetPosition(), interpolation, top, bot, right, left, mapa);
+}
 void Player::DrawWithInterpolation(sf::RenderWindow& window, float interpolation) {
     Render::DrawAnimation(window, GetPreviousPosition(), GetPosition(), interpolation);
 }
