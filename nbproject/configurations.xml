@@ -5,7 +5,6 @@
       <itemPath>Headers/AnimatedSprite.hpp</itemPath>
       <itemPath>Headers/Animation.hpp</itemPath>
       <itemPath>Headers/Game.hpp</itemPath>
-      <itemPath>Headers/Hud.hpp</itemPath>
       <itemPath>Headers/Map.hpp</itemPath>
       <itemPath>Headers/PhysicsState.hpp</itemPath>
       <itemPath>Headers/Player.hpp</itemPath>
@@ -49,6 +48,7 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>Headers/Hud.hpp</itemPath>
   </logicalFolder>
   <sourceRootList>
     <Elem>Headers</Elem>
