@@ -515,3 +515,7 @@ sf::View Menu2::getLetterboxView(sf::View view, int windowWidth, int windowHeigh
     view.setViewport(sf::FloatRect(posX, posY, sizeX, sizeY));
     return view;
 }
+
+void Menu2::pararMusica() {
+    musica->stop();
+}

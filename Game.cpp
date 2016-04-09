@@ -159,7 +159,7 @@ void Game::processEvents() //Captura y procesa eventos
                 EstadoInGame->handleMouseInput(event.mouseButton.button, false);
                 EstadoTransition->handleMouseInput(event.mouseButton.button, false);
                 EstadoMenu->handleMouseInput(event.mouseButton.button, false);
-
+                handleMouseInput(event.mouseButton.button, false);
                 
                 
                 break;
@@ -197,6 +197,7 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         EstadoInGame->EstadoActivo=true;
     } else if(key == sf::Keyboard::Return && EstadoMenu->EstadoActivo){
         if(EstadoMenu->getSetectedItemIndex()==0){
+            EstadoMenu->pararMusica();
             EstadoMenu->EstadoActivo=false;
             EstadoInGame->EstadoActivo=true;
         }
@@ -215,6 +216,7 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         EstadoPause->EstadoActivo=true;
     }
 
+  
 
 }
 
@@ -233,3 +235,16 @@ void Game::handlePlayerInput2(sf::Keyboard::Key key, bool isPressed) {
                  }
 }
 
+void Game::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
+
+        
+    if(EstadoTransition->preguntaContestada==true){
+        printf("preguntaContestada es true");
+        EstadoTransition->EstadoActivo=false;
+        EstadoTransition->preguntaContestada=false;
+        EstadoInGame->mapa->leerMapa(2);
+        EstadoInGame->EstadoActivo=true;
+       
+    }
+    
+}

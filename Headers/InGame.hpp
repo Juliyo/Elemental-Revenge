@@ -44,6 +44,10 @@ public:
     sf::View                    mWorldView;
     sf::View                    mBackgroundView;
     sf::View                    mHud;
+    
+        Map                         *mapa;
+
+    
 private:
     sf::RenderWindow            *mWindow;
     
@@ -52,7 +56,6 @@ private:
     
     //Graficos
 
-    Map                         *mapa;
     
     //Recursos
     sf::Texture                 texturaFondo;

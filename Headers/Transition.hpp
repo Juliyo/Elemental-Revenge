@@ -41,6 +41,8 @@ public:
     sf::View mWorldView;
     sf::View mBackgroundView;
     sf::View mHud;
+    
+    bool preguntaContestada=false;
 
 private:
     sf::RenderWindow *mWindow;

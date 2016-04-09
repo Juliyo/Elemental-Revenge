@@ -51,8 +51,8 @@ public:
     int getSetectedItemIndex(){
         return selectedItemIndex;
     };
-    
-    
+    void pararMusica();
+
         Window &ref = *Window::Instance();
 
     sf::View mWorldView;
@@ -63,8 +63,8 @@ private:
     bool tecladoActivo;
     bool ratonSelecciona;
     
-    sf::Music                   *musica;
-    
+            sf::Music                   *musica;
+
     sf::Texture                 texturaAnimation;
 
     Animation                   *animationMenu;

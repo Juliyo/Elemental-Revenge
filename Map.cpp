@@ -39,10 +39,15 @@ Map::~Map() {
     delete[] _tilemap;
 }
 
-void Map::leerMapa(){
+void Map::leerMapa(int numMapa){
 
     TiXmlDocument doc;
+    if(numMapa==1){
     doc.LoadFile("resources/mapaBosqueAlfa.tmx");
+    }
+    if(numMapa==2){
+    doc.LoadFile("resources/mansionV2.tmx");
+    }
     TiXmlElement* map = doc.FirstChildElement("map");
 
     map->QueryIntAttribute("width",&_width);

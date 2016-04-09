@@ -57,7 +57,7 @@ InGame::InGame() {
 
     
        mapa = new Map();
-    mapa->leerMapa();
+    mapa->leerMapa(1);
 }
 
 InGame::InGame(const InGame& orig) {

@@ -21,7 +21,7 @@ public:
     Map();
     Map(const Map& orig);
     virtual ~Map();
-    void leerMapa();
+    void leerMapa(int numMapa);
     void leerMapa2();
     void dibuja(sf::RenderWindow &window);
     sf::Sprite  getMap();

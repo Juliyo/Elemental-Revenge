@@ -211,6 +211,11 @@ void Transition::Update(sf::Time elapsedTime) {
         if (drawNextLevel) {
             if (nextLevel.getGlobalBounds().contains(mouseSprite.getPosition())) {
                 changePregunta();
+                printf("ASD");
+                preguntaContestada=true;
+                if(preguntaContestada==true){
+                    printf("PATATA\n");
+                }
                 drawNextLevel = false;
             }
         }
