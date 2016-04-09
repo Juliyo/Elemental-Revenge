@@ -17,6 +17,7 @@
 #include "State.hpp"
 #include "SFML/System.hpp"
 #include "Window.hpp"
+#include <Map.hpp>
 
 class InGame:public State {
 public:
@@ -51,6 +52,7 @@ private:
     
     //Graficos
 
+    Map                         *mapa;
     
     //Recursos
     sf::Texture                 texturaFondo;

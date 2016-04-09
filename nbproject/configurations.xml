@@ -9,6 +9,7 @@
       <itemPath>Headers/Hechizo.hpp</itemPath>
       <itemPath>Headers/Hud.hpp</itemPath>
       <itemPath>Headers/InGame.hpp</itemPath>
+      <itemPath>Headers/Map.hpp</itemPath>
       <itemPath>Headers/Menu2.hpp</itemPath>
       <itemPath>Headers/Pause.hpp</itemPath>
       <itemPath>Headers/PhysicsState.hpp</itemPath>
@@ -19,6 +20,7 @@
       <itemPath>Headers/StringHelpers.inl</itemPath>
       <itemPath>Headers/Transition.hpp</itemPath>
       <itemPath>Headers/Util.hpp</itemPath>
+      <itemPath>Headers/Videos.hpp</itemPath>
       <itemPath>Headers/Window.hpp</itemPath>
       <itemPath>Headers/btree.hpp</itemPath>
       <itemPath>Headers/hRayAdvanced.hpp</itemPath>
@@ -40,6 +42,7 @@
       <itemPath>Hechizo.cpp</itemPath>
       <itemPath>Hud.cpp</itemPath>
       <itemPath>InGame.cpp</itemPath>
+      <itemPath>Map.cpp</itemPath>
       <itemPath>Menu2.cpp</itemPath>
       <itemPath>Pause.cpp</itemPath>
       <itemPath>PhysicsState.cpp</itemPath>
@@ -48,8 +51,6 @@
       <itemPath>State.cpp</itemPath>
       <itemPath>Transition.cpp</itemPath>
       <itemPath>Util.cpp</itemPath>
-      <itemPath>Videos.cpp</itemPath>
-      <itemPath>Headers/Videos.hpp</itemPath>
       <itemPath>Window.cpp</itemPath>
       <itemPath>btree.cpp</itemPath>
       <itemPath>hRayAdvanced.cpp</itemPath>
@@ -162,6 +163,8 @@
       </item>
       <item path="Headers/InGame.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/Map.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/Menu2.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Pause.hpp" ex="false" tool="3" flavor2="0">
@@ -202,6 +205,8 @@
       </item>
       <item path="InGame.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="Map.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="Menu2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Pause.cpp" ex="false" tool="1" flavor2="0">
@@ -217,8 +222,6 @@
       <item path="Transition.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Util.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Videos.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Window.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -281,6 +284,8 @@
       </item>
       <item path="Headers/InGame.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/Map.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/Menu2.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Pause.hpp" ex="false" tool="3" flavor2="0">
@@ -321,6 +326,8 @@
       </item>
       <item path="InGame.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="Map.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="Menu2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Pause.cpp" ex="false" tool="1" flavor2="0">
@@ -336,8 +343,6 @@
       <item path="Transition.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Util.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Videos.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Window.cpp" ex="false" tool="1" flavor2="0">
       </item>

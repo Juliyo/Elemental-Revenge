@@ -55,6 +55,9 @@ InGame::InGame() {
     mWorldView = mWindow->getDefaultView();
     mWorldView.zoom(0.5f);
 
+    
+       mapa = new Map();
+    mapa->leerMapa();
 }
 
 InGame::InGame(const InGame& orig) {
@@ -128,6 +131,7 @@ void InGame::render(float interpolation, sf::Time elapsedTime){
 
     updateView();
     mWindow->draw(spriteFondo);
+    mapa->dibuja(*mWindow);
 
 
     int x = mouseSprite.getPosition().x - player -> getPosition().x;
