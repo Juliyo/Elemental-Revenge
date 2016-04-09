@@ -23,6 +23,7 @@
 #include "Animation.hpp"
 #include <SFML/System.hpp>
 #include <iostream>
+#include <SFML/Audio.hpp>
 
 
 #include <SFML/Graphics.hpp>
@@ -61,24 +62,30 @@ public:
 private:
     bool tecladoActivo;
     bool ratonSelecciona;
-     sf::Texture                 texturaAnimation;
+    
+    sf::Music                   *musica;
+    
+    sf::Texture                 texturaAnimation;
 
     Animation                   *animationMenu;
     
     
-            sf::Texture                 texturaAnimationFuego;
+    sf::Texture                 texturaAnimationFuego;
 
     Animation                   *animationMenuFuego;
-    
+        
+    sf::Texture                 texturaAnimationRayo;
+
+    Animation                   *animationMenuRayo;
     
     sf::RenderWindow            *mWindow;
     sf::Texture                 texturaFondoMenu;
     sf::Sprite                  spriteFondoMenu;
     
-        sf::Texture                 texturaFondo;
+    sf::Texture                 texturaFondo;
     sf::Sprite                  spriteFondo;
     
-        sf::Texture                 texturaRelleno;
+    sf::Texture                 texturaRelleno;
     sf::Sprite                  spriteRelleno;
     
     sf::RectangleShape          rectanguloFondo;

@@ -31,7 +31,7 @@ Game::Game() {
    
     
     EstadoInGame=new InGame();   
-    //EstadoTransition=new Transition();
+    EstadoTransition=new Transition();
     EstadoPause=new Pause();
     
 
@@ -79,7 +79,7 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
     }
 
     if (EstadoTransition->EstadoActivo) {
-     //   EstadoTransition->Update(elapsedTime);
+       EstadoTransition->Update(elapsedTime);
     }
     if(EstadoPause->EstadoActivo){
         EstadoPause->Update(elapsedTime);
@@ -96,7 +96,7 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
         EstadoInGame->render(interpolation, elapsedTime);
     }
     if (EstadoTransition->EstadoActivo) {
-       // EstadoTransition->render(interpolation, elapsedTime);
+        EstadoTransition->render(interpolation, elapsedTime);
     }
     
         if(EstadoMenu->EstadoActivo){

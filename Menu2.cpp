@@ -15,17 +15,16 @@
 
 Menu2::Menu2() {
     
+    musica = new sf::Music();
+    
     
       srand (time(NULL));
 
- Random = rand() % 2;         // v1 in the range 0 to 99
+ Random = rand() % 3;         // v1 in the range 0 to 99
 
     
-    
-    animationMenu = new Animation();
-    
-    
     if(Random==0){
+    musica->openFromFile("resources/Sounds/Cascada.ogg");
 
         if(!texturaAnimation.loadFromFile("resources/MenuInicio/SpritesheetMenu.png")){
        std::cout<<"Error cargando la textura: "<<"resources/MenuInicio/SpritesheetMenu.png"<<std::endl;
@@ -49,6 +48,10 @@ Menu2::Menu2() {
     }
     
     if(Random==1){
+        
+    musica->openFromFile("resources/Sounds/CasaFuego.ogg");
+
+        
     EstadoActivo = true;
     tecladoActivo=false;
     ratonSelecciona=false;
@@ -100,6 +103,50 @@ Menu2::Menu2() {
 
     SetScale(0.85,0.7);
     }
+    
+     if(Random==2){
+             musica->openFromFile("resources/Sounds/Truenos.ogg");
+
+         
+    EstadoActivo = true;
+    tecladoActivo=false;
+    ratonSelecciona=false;
+
+
+     animationMenuRayo = new Animation();
+    
+        if(!texturaAnimationRayo.loadFromFile("resources/MenuInicio/rayo.png")){
+       std::cout<<"Error cargando la textura: "<<"resources/MenuInicio/rayo.png"<<std::endl;
+       exit(0);
+    }
+    texturaAnimationRayo.setSmooth(true);
+    
+    animationMenuRayo->setSpriteSheet(texturaAnimationRayo);
+    animationMenuRayo->addFrame(sf::IntRect(0, 0, 800, 336));
+    animationMenuRayo->addFrame(sf::IntRect(800, 0, 800, 336));
+    animationMenuRayo->addFrame(sf::IntRect(1600, 0, 800, 336));
+    animationMenuRayo->addFrame(sf::IntRect(0, 336, 800, 336));
+    animationMenuRayo->addFrame(sf::IntRect(800, 336, 800, 336));
+    animationMenuRayo->addFrame(sf::IntRect(1600, 336, 800, 336));
+    animationMenuRayo->addFrame(sf::IntRect(0, 672, 800, 336));
+    animationMenuRayo->addFrame(sf::IntRect(800, 672, 800, 336));
+    animationMenuRayo->addFrame(sf::IntRect(1600, 672, 800, 336));
+    animationMenuRayo->addFrame(sf::IntRect(0, 1008, 800, 336));
+    animationMenuRayo->addFrame(sf::IntRect(800, 1008, 800, 336));
+    animationMenuRayo->addFrame(sf::IntRect(1600, 1008, 800, 336));
+    /*
+    
+    animationMenuRayo->addFrame(sf::IntRect(0, 1344, 800, 336));
+    animationMenuRayo->addFrame(sf::IntRect(800, 1344, 800, 336));
+    animationMenuRayo->addFrame(sf::IntRect(1600, 1344, 800, 336));
+    
+    animationMenuRayo->addFrame(sf::IntRect(0, 1680, 800, 336));*/
+
+    InicializarAnimatedSprite(sf::seconds(3.f), true, false);
+
+    }
+    
+    
     EstadoActivo=true;
     
 
@@ -175,7 +222,7 @@ Menu2::Menu2() {
 
     menu[0].setFont(font);
     menu[0].setColor(sf::Color::White);
-    menu[0].setString("Play");
+    menu[0].setString("Jugar");
     menu[0].setPosition(sf::Vector2f(width / 2 + 100, height / (MAX_NUMBER_OF_ITEMS + 1) *1.7));
     Mancha[0].setPosition(sf::Vector2f(width / 2 + 50, height / (MAX_NUMBER_OF_ITEMS + 1) *1.5));
     menu[0].setStyle(sf::Text::Bold);
@@ -183,7 +230,7 @@ Menu2::Menu2() {
 
     menu[1].setFont(font);
     menu[1].setColor(color);
-    menu[1].setString("Options");
+    menu[1].setString("Opciones");
     menu[1].setPosition(sf::Vector2f(width / 2 + 100, height / (MAX_NUMBER_OF_ITEMS + 1) *2));
     Mancha[1].setScale(0.4, 0.3);
     Mancha[1].setPosition(sf::Vector2f(width / 2 + 50, height / (MAX_NUMBER_OF_ITEMS + 1) *1.8));
@@ -194,7 +241,7 @@ Menu2::Menu2() {
 
     menu[2].setFont(font);
     menu[2].setColor(color);
-    menu[2].setString("Exit");
+    menu[2].setString("Salir");
     menu[2].setPosition(sf::Vector2f(width / 2 + 100, height / (MAX_NUMBER_OF_ITEMS + 1) *2.3));
     Mancha[2].setPosition(sf::Vector2f(width / 2 + 50, height / (MAX_NUMBER_OF_ITEMS + 1) *2.1));
 
@@ -203,7 +250,7 @@ Menu2::Menu2() {
 
     menu[3].setFont(font);
     menu[3].setColor(sf::Color::White);
-    menu[3].setString("OPTIONS");
+    menu[3].setString("OPCIONES");
     menu[3].setPosition(sf::Vector2f(width / 2 + 100, height / (MAX_NUMBER_OF_ITEMS + 1) *1.5));
     menu[3].setStyle(sf::Text::Bold);
     menu[3].setScale(0.7, 0.7);
@@ -219,6 +266,9 @@ Menu2::Menu2() {
 
     selectedItemIndex = 0;
     
+    musica->play();
+
+
 }
 
 Menu2::Menu2(const Menu2& orig) {
@@ -310,7 +360,13 @@ Render::UpdateAnimation(t1);
 sf::Vector2f v1(180.f, 290.f);
         DrawAnimationWithOut(*mWindow, v1);
 }
+if(Random==2){
+        PlayAnimation(animationMenuRayo);
+Render::UpdateAnimation(t1);
 
+sf::Vector2f v1(100.f, 330.f);
+        DrawAnimationWithOut(*mWindow, v1);
+}
 
     
 
