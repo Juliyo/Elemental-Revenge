@@ -29,18 +29,12 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     castingAnimationDownRayo= new Animation();
     castingAnimationRightRayo= new Animation();
     castingAnimationLeftRayo= new Animation();
-    //casteo Fuego
-    castingAnimationUpFuego= new Animation();
-    castingAnimationDownFuego= new Animation();
-    castingAnimationRightFuego= new Animation();
-    castingAnimationLeftFuego= new Animation();
     //casteo Agua
     castingAnimationUpAgua= new Animation();
     castingAnimationDownAgua= new Animation();
     castingAnimationRightAgua= new Animation();
-    castingAnimationLeftAgua= new Animation();
-    
-    //fuego
+    castingAnimationLeftAgua= new Animation();   
+    //casteo fuego
     fuegoAnimationDown = new Animation();
     fuegoAnimationLeft = new Animation();
     fuegoAnimationRight = new Animation();
@@ -49,12 +43,17 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     fuego2AnimationLeft = new Animation();
     fuego2AnimationRight = new Animation();
     fuego2AnimationUp = new Animation();
+    //casteo Heal
+    healingAnimationDown = new Animation();
+    healingAnimationLeft = new Animation();
+    healingAnimationRight = new Animation();
+    healingAnimationUp = new Animation();
     
     
     
     
     
-    
+    hHeal = new Heal();
     hud = new Hud();
     hRayoBasico = new hRayBasic();
     hRayoAvanzado = new hRayAdvanced();
@@ -366,4 +365,37 @@ void Player::UpdatePlayerAnimation(int x,int y) {
 }
 PhysicsState* Player::getPhysics() {
     return &physicsState;
+}
+
+Animation** Player::getAnimation() {
+    return currentAnimation;
+}
+
+int Player::restaVida(int a) {
+
+    if (invulnerable.getTiempo() > 0.5f && (vida - a) >= 0) {
+        //std::cout <<"Resto vidas";
+        vida -= a;
+        hud->updateHud(vida);
+        invulnerable.restart();
+    }
+
+
+    return vida;
+}
+
+void Player::heal() {
+    if (hHeal->cast()) {
+        //std::cout <<"Sumo vidas";
+        vida += 2;
+        if (vida > 15) {
+            vida = 15;
+
+        }
+        hud->updateHud(vida);
+    }
+}
+
+int Player::getVida() {
+    return vida;
 }

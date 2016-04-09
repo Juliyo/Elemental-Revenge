@@ -6,6 +6,7 @@
       <itemPath>Headers/Animation.hpp</itemPath>
       <itemPath>Headers/Enemigo.hpp</itemPath>
       <itemPath>Headers/Game.hpp</itemPath>
+      <itemPath>Headers/Heal.hpp</itemPath>
       <itemPath>Headers/Hechizo.hpp</itemPath>
       <itemPath>Headers/Hud.hpp</itemPath>
       <itemPath>Headers/InGame.hpp</itemPath>
@@ -46,6 +47,7 @@
       <itemPath>Animation.cpp</itemPath>
       <itemPath>Enemigo.cpp</itemPath>
       <itemPath>Game.cpp</itemPath>
+      <itemPath>Heal.cpp</itemPath>
       <itemPath>Hechizo.cpp</itemPath>
       <itemPath>Hud.cpp</itemPath>
       <itemPath>InGame.cpp</itemPath>
@@ -162,6 +164,8 @@
       </item>
       <item path="Headers/Game.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/Heal.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/Hechizo.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Hud.hpp" ex="false" tool="3" flavor2="0">
@@ -199,6 +203,8 @@
       <item path="Headers/tinystr.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/tinyxml.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Heal.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Hechizo.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -295,6 +301,8 @@
       </item>
       <item path="Headers/Game.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/Heal.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/Hechizo.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Hud.hpp" ex="false" tool="3" flavor2="0">
@@ -332,6 +340,8 @@
       <item path="Headers/tinystr.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/tinyxml.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Heal.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Hechizo.cpp" ex="false" tool="1" flavor2="0">
       </item>

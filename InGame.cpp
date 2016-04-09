@@ -66,7 +66,7 @@ InGame::~InGame() {
 void InGame::Update(sf::Time elapsedTime) {
     if(firstTimeRayo && firstTimeFuego && firstTimeAgua){
          hActivo=0;
-         printf("entrooooooooooooooooooooo");
+        
     }
    
     //**************************RAYO**********************
@@ -277,6 +277,40 @@ void InGame::Update(sf::Time elapsedTime) {
 
 
     firstTimeAgua = false;
+    
+    //*******************************HEAL************************
+        if (!firstTimeHeal) {
+        sf::Vector2f movement5(0.f, 0.f);
+        if (!cantMove) { //Si algo nos lo impide no nos movemos
+            if (isMovingUp) {
+                movement5.y -= player -> getVelocidad();
+                //noKeyWasPressed = false;
+            }
+            if (isMovingDown) {
+                movement5.y += player -> getVelocidad();
+                //noKeyWasPressed = false;
+            }
+            if (isMovingLeft) {
+                movement5.x -= player -> getVelocidad();
+            }
+            if (isMovingRight) {
+                movement5.x += player -> getVelocidad();
+                // noKeyWasPressed = false;
+            }
+        }
+        player -> Update(movement5, elapsedTime);
+        
+
+
+    }
+    if(isHealing){
+        player->heal();
+    }
+
+    firstTimeHeal = false;
+    
+    
+    
 }
 
 void InGame::render(float interpolation, sf::Time elapsedTime) {
@@ -293,11 +327,12 @@ void InGame::render(float interpolation, sf::Time elapsedTime) {
         int x = motor->getMousePosition().x - player -> getPosition().x;
         int y = motor->getMousePosition().y - player -> getPosition().y;
         player ->UpdatePlayerAnimation(x, y);
-        player -> hRayoAvanzado->PlayAnimation(*player -> hRayoAvanzado-> currentAnimation); //Current animation es un puntero a puntero
+        
         
         
         
      //****************************RAYO************************************
+        player -> hRayoAvanzado->PlayAnimation(*player -> hRayoAvanzado-> currentAnimation); //Current animation es un puntero a puntero
         if (player -> hRayoAvanzado->draw == true) {
 
            
@@ -494,6 +529,44 @@ void InGame::render(float interpolation, sf::Time elapsedTime) {
         player->hAguaBasico->StopAnimation();
     }
         
+    //*******************************HEAL******************************************
+    player->hHeal->PlayAnimation(player->hHeal->animacion);
+    
+    if(player->hHeal->dibujar == true){
+        //Bloqueamos la movilidad mientras se castea
+        cantMove = true;
+        //Cambiamos el frameTime de la animacion
+        player->SetFrameTime(sf::seconds(0.125f));
+        //Vemos en que cuadrante estamos
+        switch(player->cuadrante){
+            case 1:
+                player -> currentAnimation = &player -> healingAnimationUp;
+                break;
+            case 2:
+                player -> currentAnimation = &player -> healingAnimationDown;
+                break;
+            case 3:
+                player -> currentAnimation = &player -> healingAnimationRight;
+                break;
+            case 4:
+                player -> currentAnimation = &player -> healingAnimationLeft;
+                break;
+        }
+        player->hHeal->UpdateAnimation(elapsedTime);
+        if(player->hHeal->tiempoCast.getTiempo() < 1.f){
+            player->hHeal->DrawWithInterpolation(interpolation,player->GetPreviousPosition(),player->GetPosition());
+        }else{
+            player->hHeal->dibujar=false;
+        }
+    }else{
+        //UpdatePlayerAnimation();  //Puede ser necesario llamar a esto
+        //Devolvemos el Frametime al original
+        player->SetFrameTime(sf::seconds(0.075f));
+        //Volvemos a permitir el movimiento
+        cantMove = false;
+        player->hHeal->StopAnimation();
+    }
+    
         
         
         //****************************RENDER PLAYER************************************
@@ -537,9 +610,13 @@ printf("Rayo activo \n");
     } else if (key == sf::Keyboard::B) {
 printf("Agua activo \n");
         hActivo=2;
-    }  else if (key == sf::Keyboard::R && isPressed) {
+    }  else if (key == sf::Keyboard::R){
+        isHealing = isPressed;
+    } else if (key == sf::Keyboard::T){//  QUITAR - SOLO PARA DEBUG
+        player->restaVida(1); //        QUITAR - SOLO PARA DEBUG
+}  else if (key == sf::Keyboard::F && isPressed) {
         player->hRayoBasico->aumentaLVL();
-    } else if (key == sf::Keyboard::T && isPressed) {
+    } else if (key == sf::Keyboard::G && isPressed) {
         player->hRayoAvanzado->aumentaLVL();
     } else if (key == sf::Keyboard::X && isPressed) {
         isInterpolating = !isInterpolating;

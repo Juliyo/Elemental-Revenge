@@ -74,6 +74,7 @@ private:
     bool			firstTimeRayo=true;
     bool			firstTimeFuego=true;
     bool			firstTimeAgua=true;
+    bool			firstTimeHeal=true;
     bool			isInterpolating;
     bool                        isShooting;
     bool                        aux;
@@ -84,7 +85,10 @@ private:
     bool                        fuegoAdvancedCast=false;
     //agua
     bool                        aguaAdvancedCast = false;
-    bool                        aguaBasicCast = false;   
+    bool                        aguaBasicCast = false;  
+    //heal
+    bool                        isHealing = false;
+    bool                        cantMove=false;
     
 };
 
