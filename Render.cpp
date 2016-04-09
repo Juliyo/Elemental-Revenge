@@ -141,3 +141,11 @@ void Render::SetFrameTime(sf::Time time) {
     //}
 
 }
+
+void Render::SetAngle2(float angle) {
+    animatedSprite.setRotation(angle);
+}
+
+sf::FloatRect Render::GetGlobalBounds() {
+    return animatedSprite.getGlobalBounds();
+}

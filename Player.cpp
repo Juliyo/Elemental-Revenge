@@ -23,10 +23,23 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationLeft = new Animation();
     walkingAnimationRight = new Animation();
     walkingAnimationUp = new Animation();
-    castingAnimationUp= new Animation();
-    castingAnimationDown= new Animation();
-    castingAnimationRight= new Animation();
-    castingAnimationLeft= new Animation();
+    
+    //casteo rayo
+    castingAnimationUpRayo= new Animation();
+    castingAnimationDownRayo= new Animation();
+    castingAnimationRightRayo= new Animation();
+    castingAnimationLeftRayo= new Animation();
+    //casteo Fuego
+    castingAnimationUpFuego= new Animation();
+    castingAnimationDownFuego= new Animation();
+    castingAnimationRightFuego= new Animation();
+    castingAnimationLeftFuego= new Animation();
+    //casteo Agua
+    castingAnimationUpAgua= new Animation();
+    castingAnimationDownAgua= new Animation();
+    castingAnimationRightAgua= new Animation();
+    castingAnimationLeftAgua= new Animation();
+    
     //fuego
     fuegoAnimationDown = new Animation();
     fuegoAnimationLeft = new Animation();
@@ -46,10 +59,12 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     hRayoBasico = new hRayBasic();
     hRayoAvanzado = new hRayAdvanced();
     
-
-   
     hFuegoBasico = new hFireBasic[50];
     hFuegoAvanzado = new hFireAdvanced();
+    
+    hAguaBasico=new hWaterBasic();
+    hAguaAvanzado = new hWaterAdvanced();
+    
             
     if(!texturaPlayer.loadFromFile("resources/Textures/player.png")){
        std::cout<<"Error cargando la textura: "<<"resources/Textures/player.png"<<std::endl;
@@ -106,53 +121,108 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationUp->addFrame(sf::IntRect(448, 512, 64, 64));
     walkingAnimationUp->addFrame(sf::IntRect(512, 512, 64, 64));
     
+    //casteo Rayo
+    castingAnimationUpRayo->setSpriteSheet("resources/Textures/player.png");
+    castingAnimationUpRayo->addFrame(sf::IntRect(320, 768, 64, 64));
+    castingAnimationUpRayo->addFrame(sf::IntRect(0, 768, 64, 64));
+    castingAnimationUpRayo->addFrame(sf::IntRect(64, 768, 64, 64));
+    castingAnimationUpRayo->addFrame(sf::IntRect(128, 768, 64, 64));
+    castingAnimationUpRayo->addFrame(sf::IntRect(192, 768, 64, 64));
+    castingAnimationUpRayo->addFrame(sf::IntRect(256, 768, 64, 64));
+    castingAnimationUpRayo->addFrame(sf::IntRect(320, 768, 64, 64));
+  
+ 
+    castingAnimationDownRayo->setSpriteSheet("resources/Textures/player.png");
+    castingAnimationDownRayo->addFrame(sf::IntRect(320, 896, 64, 64));
+    castingAnimationDownRayo->addFrame(sf::IntRect(0, 896, 64, 64));
+    castingAnimationDownRayo->addFrame(sf::IntRect(64, 896, 64, 64));
+    castingAnimationDownRayo->addFrame(sf::IntRect(128, 896, 64, 64));
+    castingAnimationDownRayo->addFrame(sf::IntRect(192, 896, 64, 64));
+    castingAnimationDownRayo->addFrame(sf::IntRect(256, 896, 64, 64));
+    castingAnimationDownRayo->addFrame(sf::IntRect(320, 896, 64, 64));
+ 
+    
+    castingAnimationRightRayo->setSpriteSheet("resources/Textures/player.png");
+    castingAnimationRightRayo->addFrame(sf::IntRect(320, 960, 64, 64));
+    castingAnimationRightRayo->addFrame(sf::IntRect(0, 960, 64, 64));
+    castingAnimationRightRayo->addFrame(sf::IntRect(64, 960, 64, 64));
+    castingAnimationRightRayo->addFrame(sf::IntRect(128, 960, 64, 64));
+    castingAnimationRightRayo->addFrame(sf::IntRect(192, 960, 64, 64));
+    castingAnimationRightRayo->addFrame(sf::IntRect(256, 960, 64, 64));
+    castingAnimationRightRayo->addFrame(sf::IntRect(320, 960, 64, 64));
+  
+   
+    castingAnimationLeftRayo->setSpriteSheet("resources/Textures/player.png");
+    castingAnimationLeftRayo->addFrame(sf::IntRect(320, 832, 64, 64));
+    castingAnimationLeftRayo->addFrame(sf::IntRect(0, 832, 64, 64));
+    castingAnimationLeftRayo->addFrame(sf::IntRect(64, 832, 64, 64));
+    castingAnimationLeftRayo->addFrame(sf::IntRect(128, 832, 64, 64));
+    castingAnimationLeftRayo->addFrame(sf::IntRect(192, 832, 64, 64));
+    castingAnimationLeftRayo->addFrame(sf::IntRect(256, 832, 64, 64));
+    castingAnimationLeftRayo->addFrame(sf::IntRect(320, 832, 64, 64));
+ 
+    
+    
+    
+    //Casteo Fuego
+    
+    
+    //Casteo Agua
     //casteo
-    castingAnimationUp->setSpriteSheet("resources/Textures/player.png");
-    castingAnimationUp->addFrame(sf::IntRect(320, 768, 64, 64));
-    castingAnimationUp->addFrame(sf::IntRect(0, 768, 64, 64));
-    castingAnimationUp->addFrame(sf::IntRect(64, 768, 64, 64));
-    castingAnimationUp->addFrame(sf::IntRect(128, 768, 64, 64));
-    castingAnimationUp->addFrame(sf::IntRect(192, 768, 64, 64));
-    castingAnimationUp->addFrame(sf::IntRect(256, 768, 64, 64));
-    castingAnimationUp->addFrame(sf::IntRect(320, 768, 64, 64));
-  
-  
-    
-    
-    castingAnimationDown->setSpriteSheet("resources/Textures/player.png");
-    castingAnimationDown->addFrame(sf::IntRect(320, 896, 64, 64));
-    castingAnimationDown->addFrame(sf::IntRect(0, 896, 64, 64));
-    castingAnimationDown->addFrame(sf::IntRect(64, 896, 64, 64));
-    castingAnimationDown->addFrame(sf::IntRect(128, 896, 64, 64));
-    castingAnimationDown->addFrame(sf::IntRect(192, 896, 64, 64));
-    castingAnimationDown->addFrame(sf::IntRect(256, 896, 64, 64));
-    castingAnimationDown->addFrame(sf::IntRect(320, 896, 64, 64));
- 
-    
-    
-    castingAnimationRight->setSpriteSheet("resources/Textures/player.png");
-    castingAnimationRight->addFrame(sf::IntRect(320, 960, 64, 64));
-    castingAnimationRight->addFrame(sf::IntRect(0, 960, 64, 64));
-    castingAnimationRight->addFrame(sf::IntRect(64, 960, 64, 64));
-    castingAnimationRight->addFrame(sf::IntRect(128, 960, 64, 64));
-    castingAnimationRight->addFrame(sf::IntRect(192, 960, 64, 64));
-    castingAnimationRight->addFrame(sf::IntRect(256, 960, 64, 64));
-    castingAnimationRight->addFrame(sf::IntRect(320, 960, 64, 64));
+    castingAnimationUpAgua->setSpriteSheet("resources/Textures/player.png");
+    castingAnimationUpAgua->addFrame(sf::IntRect(448, 256, 64, 64));
+    castingAnimationUpAgua->addFrame(sf::IntRect(0, 256, 64, 64));
+    castingAnimationUpAgua->addFrame(sf::IntRect(64, 256, 64, 64));
+    castingAnimationUpAgua->addFrame(sf::IntRect(128, 256, 64, 64));
+    castingAnimationUpAgua->addFrame(sf::IntRect(192, 256, 64, 64));
+    castingAnimationUpAgua->addFrame(sf::IntRect(256, 256, 64, 64));
+    castingAnimationUpAgua->addFrame(sf::IntRect(320, 256, 64, 64));
+    castingAnimationUpAgua->addFrame(sf::IntRect(384, 256, 64, 64));
+    castingAnimationUpAgua->addFrame(sf::IntRect(448, 256, 64, 64));
   
     
     
-    castingAnimationLeft->setSpriteSheet("resources/Textures/player.png");
-    castingAnimationLeft->addFrame(sf::IntRect(320, 832, 64, 64));
-    castingAnimationLeft->addFrame(sf::IntRect(0, 832, 64, 64));
-    castingAnimationLeft->addFrame(sf::IntRect(64, 832, 64, 64));
-    castingAnimationLeft->addFrame(sf::IntRect(128, 832, 64, 64));
-    castingAnimationLeft->addFrame(sf::IntRect(192, 832, 64, 64));
-    castingAnimationLeft->addFrame(sf::IntRect(256, 832, 64, 64));
-    castingAnimationLeft->addFrame(sf::IntRect(320, 832, 64, 64));
- 
+    castingAnimationDownAgua->setSpriteSheet("resources/Textures/player.png");
+    castingAnimationDownAgua->addFrame(sf::IntRect(448, 384, 64, 64));
+    castingAnimationDownAgua->addFrame(sf::IntRect(0, 384, 64, 64));
+    castingAnimationDownAgua->addFrame(sf::IntRect(64, 384, 64, 64));
+    castingAnimationDownAgua->addFrame(sf::IntRect(128, 384, 64, 64));
+    castingAnimationDownAgua->addFrame(sf::IntRect(192, 384, 64, 64));
+    castingAnimationDownAgua->addFrame(sf::IntRect(256, 384, 64, 64));
+    castingAnimationDownAgua->addFrame(sf::IntRect(320, 384, 64, 64));
+    castingAnimationDownAgua->addFrame(sf::IntRect(384, 384, 64, 64));
+    castingAnimationDownAgua->addFrame(sf::IntRect(448, 384, 64, 64));
     
+    
+    castingAnimationRightAgua->setSpriteSheet("resources/Textures/player.png");
+    castingAnimationRightAgua->addFrame(sf::IntRect(448, 448, 64, 64));
+    castingAnimationRightAgua->addFrame(sf::IntRect(0, 448, 64, 64));
+    castingAnimationRightAgua->addFrame(sf::IntRect(64, 448, 64, 64));
+    castingAnimationRightAgua->addFrame(sf::IntRect(128, 448, 64, 64));
+    castingAnimationRightAgua->addFrame(sf::IntRect(192, 448, 64, 64));
+    castingAnimationRightAgua->addFrame(sf::IntRect(256, 448, 64, 64));
+    castingAnimationRightAgua->addFrame(sf::IntRect(320, 448, 64, 64));
+    castingAnimationRightAgua->addFrame(sf::IntRect(384, 448, 64, 64));
+    castingAnimationRightAgua->addFrame(sf::IntRect(448, 448, 64, 64));
+    
+    
+    castingAnimationLeftAgua->setSpriteSheet("resources/Textures/player.png");
+    castingAnimationLeftAgua->addFrame(sf::IntRect(448, 320, 64, 64));
+    castingAnimationLeftAgua->addFrame(sf::IntRect(0, 320, 64, 64));
+    castingAnimationLeftAgua->addFrame(sf::IntRect(64, 320, 64, 64));
+    castingAnimationLeftAgua->addFrame(sf::IntRect(128, 320, 64, 64));
+    castingAnimationLeftAgua->addFrame(sf::IntRect(192, 320, 64, 64));
+    castingAnimationLeftAgua->addFrame(sf::IntRect(256, 320, 64, 64));
+    castingAnimationLeftAgua->addFrame(sf::IntRect(320, 320, 64, 64));
+    castingAnimationLeftAgua->addFrame(sf::IntRect(384, 320, 64, 64));
+    castingAnimationLeftAgua->addFrame(sf::IntRect(448, 320, 64, 64));
+    
+    
+    
+    /////////////////////////////////
     //Fuegooo
-     fuegoAnimationUp->setSpriteSheet("resources/Textures/player.png");
+    //castingAnimationLeftFuego
+    fuegoAnimationUp->setSpriteSheet("resources/Textures/player.png");
     //fuegoAnimationUp->addFrame(sf::IntRect(320, 768, 64, 64));
     fuegoAnimationUp->addFrame(sf::IntRect(0, 768, 64, 64));
     fuegoAnimationUp->addFrame(sf::IntRect(64, 768, 64, 64));

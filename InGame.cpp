@@ -19,7 +19,7 @@ InGame::InGame() {
     motor = Motor2D::Instance();
     //Estado de Ingame
     EstadoActivo = true;
-    rayo = true;
+    hActivo=0;
 
     try {
         spriteFondo.setTexture("resources/Textures/grasstext.png");
@@ -64,10 +64,16 @@ InGame::~InGame() {
 }
 
 void InGame::Update(sf::Time elapsedTime) {
-    
-    
+    if(firstTimeRayo && firstTimeFuego && firstTimeAgua){
+         hActivo=0;
+         printf("entrooooooooooooooooooooo");
+    }
+   
+    //**************************RAYO**********************
+
         if (!firstTimeRayo) {
-            zizu=true;
+            
+            if(hActivo==1){
             sf::Vector2f movement(0.f, 0.f);
             if (isMovingUp)
                 movement.y -= player -> getVelocidad();
@@ -79,6 +85,8 @@ void InGame::Update(sf::Time elapsedTime) {
                 movement.x += player -> getVelocidad();
 
             player -> Update(movement, elapsedTime);
+            }
+
 
             if (player->hRayoBasico->tiempoCast.getTiempo() > player->hRayoBasico->getCast() && aux == true) {
                 isShooting = false;
@@ -111,9 +119,9 @@ void InGame::Update(sf::Time elapsedTime) {
         }
         firstTimeRayo = false;
     
-
+//*****************************FUEGO**********************************************
         if (!firstTimeFuego) {
-
+            if(hActivo==0){
             sf::Vector2f movement(0.f, 0.f);
             if (isMovingUp) {
                 movement.y -= player -> getVelocidad();
@@ -130,7 +138,9 @@ void InGame::Update(sf::Time elapsedTime) {
                 movement.x += player -> getVelocidad();
                 // noKeyWasPressed = false;
             }
-            if(zizu==false) player -> Update(movement, elapsedTime);
+             player -> Update(movement, elapsedTime); 
+            }
+
         }
         firstTimeFuego = false;
         sf::Vector2f movement2(0.f, 0.f);
@@ -173,44 +183,138 @@ void InGame::Update(sf::Time elapsedTime) {
             player->hFuegoAvanzado->cast(sf::Vector2f(player->getPosition()));
         }
 
-    
+    //********************************AGUA*****************************************
+         sf::Vector2f movement3(0.f, 0.f);
+    if (!firstTimeAgua) {
+        
+            
+            if (isMovingUp) {
+            movement3.y -= player -> getVelocidad();
+            //noKeyWasPressed = false;
+        }
+        if (isMovingDown) {
+            movement3.y += player -> getVelocidad();
+            //noKeyWasPressed = false;
+        }
+        if (isMovingLeft) {
+            movement3.x -= player -> getVelocidad();
+        }
+        if (isMovingRight) {
+            movement3.x += player -> getVelocidad();
+            // noKeyWasPressed = false;
+        }
+        if(hActivo==2){
+        player -> Update(movement3, elapsedTime); 
+        }
+
+
+    }
+    if (aguaBasicCast) {
+        player->hAguaBasico->cast(sf::Vector2f(player->getPosition()));
+    }
+    if (player -> hAguaBasico->tiempoCast.getTiempo() < 0.5f && player -> hAguaBasico->dibujar == true) {
+        player -> hAguaBasico->Update(movement3, elapsedTime,player->getVelocidad());
+
+        if (player->hAguaBasico->GetGlobalBounds().intersects(enemigo[0].getSprite().getGlobalBounds())) {
+            enemigo[0].empujado = true;
+            enemigo[0].tiempoempujado.restart();
+        }
+
+        if (enemigo[0].empujado == true) {
+            sf::Vector2f movement3(0.f, 0.f);
+            movement3.x = 300 * (cos(player->hAguaBasico->angleshot2) * 1.0f);
+            movement3.y = 300 * (sin(player->hAguaBasico->angleshot2) * 1.0f);
+            enemigo[0].Update(movement3, elapsedTime);
+        }
+
+        if (enemigo[0].tiempoempujado.getTiempo() > 0.5) {
+            enemigo[0].empujado = false;
+        }
+
+        if (player->hAguaBasico->GetGlobalBounds().intersects(enemigo[1].getSprite().getGlobalBounds())) {
+            enemigo[1].empujado = true;
+            enemigo[1].tiempoempujado.restart();
+        }
+
+        if (enemigo[1].empujado == true) {
+            sf::Vector2f movement3(0.f, 0.f);
+            movement3.x = 300 * (cos(player->hAguaBasico->angleshot2) * 1.0f);
+            movement3.y = 300 * (sin(player->hAguaBasico->angleshot2) * 1.0f);
+            enemigo[1].Update(movement3, elapsedTime);
+        }
+
+        if (enemigo[1].tiempoempujado.getTiempo() > 0.5) {
+            enemigo[1].empujado = false;
+        }
+
+    }
+
+    sf::Vector2f movement4(0.f, 0.f);
+    if (aguaAdvancedCast) { //onMouseButtonRealeased
+        player -> hAguaAvanzado->cast(sf::Vector2f(player -> getPosition()));
+    }
+    if (player -> hAguaAvanzado->tiempoCast.getTiempo() < 2.5 && player -> hAguaAvanzado->dibujar == true) {
+        movement4.x = (40 * cos(player -> hAguaAvanzado->angleshot2) * 11.0f);
+        movement4.y = (40 * sin(player -> hAguaAvanzado->angleshot2) * 11.0f);
+        player -> hAguaAvanzado->UpdateHechizo(movement4, elapsedTime);
+
+        if (player->hAguaAvanzado->GetGlobalBounds().intersects(enemigo[0].getSprite().getGlobalBounds())) {
+            enemigo[0].empujado2 = true;
+            enemigo[0].tiempoempujado.restart();
+        }
+
+        if (enemigo[0].empujado2 == true) {
+            sf::Vector2f movement4(0.f, 0.f);
+            movement4.x = 300 * (cos(player->hAguaAvanzado->angleshot2) * 1.0f);
+            movement4.y = 300 * (sin(player->hAguaAvanzado->angleshot2) * 1.0f);
+            enemigo[0].Update(movement4, elapsedTime);
+        }
+
+        if (enemigo[0].tiempoempujado.getTiempo() > 0.5) {
+            enemigo[0].empujado2 = false;
+        }
+    }
+
+
+    firstTimeAgua = false;
 }
 
 void InGame::render(float interpolation, sf::Time elapsedTime) {
     motor->clear();
 
     //Pillamos la view anterior, activamos la del fondo, dibujamos el fondo y volvemos al estado anterior
-    //sf::View previa = mWindow->getView();
     motor->SetView(0); //bordes
-    //mWindow->setView(mBackgroundView);
     motor->draw(spriteRelleno);
-    //mWindow->setView(previa);
     motor->SetView(1);
 
     updateView();
     motor->draw(spriteFondo);
-    
+      //****************************ANIMACION PLAYER************************************
         int x = motor->getMousePosition().x - player -> getPosition().x;
         int y = motor->getMousePosition().y - player -> getPosition().y;
         player ->UpdatePlayerAnimation(x, y);
         player -> hRayoAvanzado->PlayAnimation(*player -> hRayoAvanzado-> currentAnimation); //Current animation es un puntero a puntero
+        
+        
+        
+     //****************************RAYO************************************
         if (player -> hRayoAvanzado->draw == true) {
 
-            //player->SetFrame(sf::seconds(0.3f));
+           
             if (player -> hRayoAvanzado->tiempoCast.getTiempo() < player->hRayoAvanzado->getCast()) {
                 //switch
                 switch (player->cuadrante) {
                     case 1:
-                        player->currentAnimation = &player->castingAnimationUp;
+                        player->currentAnimation = &player->castingAnimationUpRayo;
                         break;
                     case 2:
-                        player->currentAnimation = &player->castingAnimationDown;
+                        player->currentAnimation = &player->castingAnimationDownRayo;
                         break;
                     case 3:
-                        player->currentAnimation = &player->castingAnimationRight;
+                        player->currentAnimation = &player->castingAnimationRightRayo;
                         break;
                     case 4:
-                        player->currentAnimation = &player->castingAnimationLeft;
+                        player->currentAnimation = &player->castingAnimationLeftRayo;
                         break;
                 }
             }
@@ -228,23 +332,23 @@ void InGame::render(float interpolation, sf::Time elapsedTime) {
             //switch
             switch (player->cuadrante) {
                 case 1:
-                    player->currentAnimation = &player->castingAnimationUp;
+                    player->currentAnimation = &player->castingAnimationUpRayo;
                     break;
                 case 2:
-                    player->currentAnimation = &player->castingAnimationDown;
+                    player->currentAnimation = &player->castingAnimationDownRayo;
                     break;
                 case 3:
-                    player->currentAnimation = &player->castingAnimationRight;
+                    player->currentAnimation = &player->castingAnimationRightRayo;
                     break;
                 case 4:
-                    player->currentAnimation = &player->castingAnimationLeft;
+                    player->currentAnimation = &player->castingAnimationLeftRayo;
                     break;
             }
 
 
             player -> hRayoBasico -> UpdateAnimation(elapsedTime);
             if (player->hRayoBasico->tiempoCast.getTiempo() < player->hRayoBasico->getCast()) {
-                //printf("Posicion del animation:%f-%f\n",player->getPhysics()->GetPosition().x,player->getPhysics()->GetPosition().y);
+                
                 player->hRayoBasico->SetFrame(sf::seconds(0.075f));
                 player->hRayoBasico->currentAnimation = &player->hRayoBasico->animationDurante;
 
@@ -267,20 +371,8 @@ void InGame::render(float interpolation, sf::Time elapsedTime) {
             player->SetFrame(sf::seconds(0.075f));
             player->hRayoBasico->StopAnimation();
         }
-        //printf("%f",player->hRayoBasico->tiempoCast.getTiempo());
-/*
-        player -> PlayAnimation(*player -> currentAnimation);
 
-
-        if ((!isMovingDown && !isMovingLeft && !isMovingRight && !isMovingUp) || player->hRayoBasico->draw == true) {
-            player -> StopAnimation();
-        }
-        player -> UpdateAnimation(elapsedTime);
-
-
-        player -> DrawWithInterpolation(interpolation);
-   */
-  
+  //****************************FUEGO************************************
 
         if (player->hFuegoAvanzado->tiempoCast.getTiempo() < player->hFuegoAvanzado->getCast() && player->hFuegoAvanzado->lanzado == true) {
             if (player->hFuegoAvanzado->tiempoCast.getTiempo() > 0.4) {
@@ -295,24 +387,116 @@ void InGame::render(float interpolation, sf::Time elapsedTime) {
             player->hFuegoBasico[aux].DrawAnimation(player->hFuegoBasico[aux].GetPreviousPosition(), player->hFuegoBasico[aux].GetPosition(), interpolation);
 
         }
-
-        if (player->castFire.getTiempo() < 0.45f) {
-            player->SetFrameTime(sf::seconds(0.075f));
-
-        } else {
-            player->SetFrameTime(sf::seconds(0.075f));
+    if (player->castFire.getTiempo() < 0.45f) {
+        player->SetFrameTime(sf::seconds(0.075f));
+        //switch
+        switch (player->cuadrante) {
+            case 1:
+                player->currentAnimation = &player->fuegoAnimationUp;
+                break;
+            case 2:
+                player->currentAnimation = &player->fuegoAnimationDown;
+                break;
+            case 3:
+                player->currentAnimation = &player->fuegoAnimationRight;
+                break;
+            case 4:
+                player->currentAnimation = &player->fuegoAnimationLeft;
+                break;
         }
+    } else {
+        player->SetFrameTime(sf::seconds(0.075f));
+    }
+
 
         if (player->castFire2.getTiempo() < 0.4f) {
             player->SetFrameTime(sf::seconds(0.05f));
             player->hFuegoAvanzado->SetScale(player->hFuegoAvanzado->actualSize.x * 1.1, player->hFuegoAvanzado->actualSize.y * 1.1);
             player->hFuegoAvanzado->actualSize.x *= 1.05;
             player->hFuegoAvanzado->actualSize.y *= 1.05;
-
+        //switch
+        switch (player->cuadrante) {
+            case 1:
+                player->currentAnimation = &player->fuego2AnimationUp;
+                break;
+            case 2:
+                player->currentAnimation = &player->fuego2AnimationDown;
+                break;
+            case 3:
+                player->currentAnimation = &player->fuego2AnimationRight;
+                break;
+            case 4:
+                player->currentAnimation = &player->fuego2AnimationLeft;
+                break;
+        }
         } else {
             player->SetFrameTime(sf::seconds(0.075f));
         }
 
+        
+        //****************************AGUA************************************
+        
+        player -> hAguaAvanzado->PlayAnimation(*player -> hAguaAvanzado-> currentAnimation); //Current animation es un puntero a puntero
+    if (player -> hAguaAvanzado->dibujar == true) {
+        player->SetFrame(sf::seconds(0.125f));
+        //switch
+        switch(player->cuadrante){
+            case 1:
+                player->currentAnimation=&player->castingAnimationUpAgua;
+                break;
+                case 2:
+                player->currentAnimation=&player->castingAnimationDownAgua;
+                break;
+                case 3:
+                player->currentAnimation=&player->castingAnimationRightAgua;
+                break;
+                case 4:
+                player->currentAnimation=&player->castingAnimationLeftAgua;
+                break;
+        }
+        
+        
+        
+        player -> hAguaAvanzado -> UpdateAnimation(elapsedTime);
+        if (player -> hAguaAvanzado->tiempoCast.getTiempo() < 2.5) {
+            player -> hAguaAvanzado->DrawWithInterpolation( interpolation);
+        } else {
+            player -> hAguaAvanzado->setDibujar(false);
+        }
+    }
+    player->hAguaBasico->PlayAnimation(player->hAguaBasico->animation);
+    if (player->hAguaBasico->dibujar == true) {
+        player->SetFrame(sf::seconds(0.125f));
+        //switch
+        switch(player->cuadrante){
+            case 1:
+                player->currentAnimation=&player->castingAnimationUpAgua;
+                break;
+                case 2:
+                player->currentAnimation=&player->castingAnimationDownAgua;
+                break;
+                case 3:
+                player->currentAnimation=&player->castingAnimationRightAgua;
+                break;
+                case 4:
+                player->currentAnimation=&player->castingAnimationLeftAgua;
+                break;
+        }
+        player -> hAguaBasico -> UpdateAnimation(elapsedTime);
+        if (player->hAguaBasico->tiempoCast.getTiempo() < 0.5f) {
+            player->hAguaBasico->DrawWithInterpolation( interpolation);
+        } else {
+            player->hAguaBasico->setDibujar(false);
+        }
+
+    } else {
+        player->SetFrame(sf::seconds(0.075f));
+        player->hAguaBasico->StopAnimation();
+    }
+        
+        
+        
+        //****************************RENDER PLAYER************************************
         player -> PlayAnimation(*player -> currentAnimation);
 
 
@@ -324,22 +508,13 @@ void InGame::render(float interpolation, sf::Time elapsedTime) {
 
         player -> DrawWithInterpolation(interpolation);
     
+    motor->draw(enemigo[0].getSprite());
+    motor->draw(enemigo[1].getSprite());
 
-
-
-    // previa = mWindow->getView();
-
-    //mWindow->setView(getLetterboxView(mHud, ref.ancho, ref.alto, 640, 480));
     motor->SetView(2); //vista del HUD
     player -> hud->renderHud();
-    // mWindow->setView(previa);
-
-    //prueba
     motor->SetView(1); //vista del juego
-    //mWindow->draw(mouseSprite);
     motor->draw(mouseSprite);
-    // mWindow.draw(mStatisticsText);
-    //mWindow->display();
     motor->display();
 }
 
@@ -354,12 +529,15 @@ void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
     } else if (key == sf::Keyboard::D) {
         isMovingRight = isPressed;
     } else if (key == sf::Keyboard::C) {
-
-        rayo = true;
+        printf("Fuego activo \n");
+        hActivo=0;
     } else if (key == sf::Keyboard::V) {
-
-        rayo = false;
-    } else if (key == sf::Keyboard::R && isPressed) {
+printf("Rayo activo \n");
+        hActivo=1;
+    } else if (key == sf::Keyboard::B) {
+printf("Agua activo \n");
+        hActivo=2;
+    }  else if (key == sf::Keyboard::R && isPressed) {
         player->hRayoBasico->aumentaLVL();
     } else if (key == sf::Keyboard::T && isPressed) {
         player->hRayoAvanzado->aumentaLVL();
@@ -369,25 +547,57 @@ void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
 }
 
 void InGame::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
-    if (rayo) {
+
+    switch(hActivo){
+        case 1:{
+        //hacemos false el resto de casteos por si cambias mientras estabas pulsando
         fuegoBasicCast=false;
         fuegoAdvancedCast=false;
+        aguaBasicCast = false; 
+        aguaAdvancedCast = false;
         if (button == sf::Mouse::Button::Left) {
+            printf("Rayo basico \n");
             isShooting = isPressed;
         }
         if (button == sf::Mouse::Button::Right && isPressed == false) {
+            printf("Rayo avanzado \n");
             player->hRayoAvanzado->cast(sf::Vector2f(player->getPosition()));
         }
-    } else {
+        break;
+        }
+        case 0:{
+        //hacemos false el resto de casteos por si cambias mientras estabas pulsando
         isShooting=false;
-        
+        aguaBasicCast = false; 
+        aguaAdvancedCast = false;
         if (button == sf::Mouse::Left) {//Traslaciones
+            printf("fuego basico \n");
             fuegoBasicCast = isPressed;
         }
         if (button == sf::Mouse::Right) { //Traslaciones
+            printf("fuego avanzado \n");
             fuegoAdvancedCast = isPressed;
         }
+            break;
+        }
+        case 2:{
+        //hacemos false el resto de casteos por si cambias mientras estabas pulsando
+        isShooting=false;
+        fuegoBasicCast=false;
+        fuegoAdvancedCast=false;
+        if (button == sf::Mouse::Left) {//Traslaciones
+            printf("Agua basico \n");
+            aguaBasicCast = isPressed;
+        }
+        if (button == sf::Mouse::Right) { //Traslaciones
+            printf("Agua avanzado \n");
+            aguaAdvancedCast = isPressed;
+        }
+            break;
+        }
     }
+    
+
 
 }
 

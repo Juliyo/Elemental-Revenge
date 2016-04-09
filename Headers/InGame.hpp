@@ -71,17 +71,21 @@ private:
     bool                        rayoBasicCast = false;
     
     bool                        noKeyWasPressed = true;
-    bool			firstTimeRayo;
-    bool			firstTimeFuego;
-    bool			firstTimeAgua;
+    bool			firstTimeRayo=true;
+    bool			firstTimeFuego=true;
+    bool			firstTimeAgua=true;
     bool			isInterpolating;
     bool                        isShooting;
     bool                        aux;
-    bool                        rayo;
-    bool                        zizu=false;
+    int                         hActivo=0;
+
     //fuego
     bool                        fuegoBasicCast=false;
     bool                        fuegoAdvancedCast=false;
+    //agua
+    bool                        aguaAdvancedCast = false;
+    bool                        aguaBasicCast = false;   
+    
 };
 
 #endif /* INGAME_HPP */

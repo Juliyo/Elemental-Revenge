@@ -21,6 +21,8 @@
       <itemPath>Headers/hFireBasic.hpp</itemPath>
       <itemPath>Headers/hRayAdvanced.hpp</itemPath>
       <itemPath>Headers/hRayBasic.hpp</itemPath>
+      <itemPath>Headers/hWaterAdvanced.hpp</itemPath>
+      <itemPath>Headers/hWaterBasic.hpp</itemPath>
       <itemPath>Headers/tinystr.h</itemPath>
       <itemPath>Headers/tinyxml.h</itemPath>
     </logicalFolder>
@@ -59,6 +61,8 @@
       <itemPath>hFireBasic.cpp</itemPath>
       <itemPath>hRayAdvanced.cpp</itemPath>
       <itemPath>hRayBasic.cpp</itemPath>
+      <itemPath>hWaterAdvanced.cpp</itemPath>
+      <itemPath>hWaterBasic.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
       <itemPath>tinystr.cpp</itemPath>
       <itemPath>tinyxml.cpp</itemPath>
@@ -188,6 +192,10 @@
       </item>
       <item path="Headers/hRayBasic.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/hWaterAdvanced.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/hWaterBasic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/tinystr.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/tinyxml.h" ex="false" tool="3" flavor2="0">
@@ -235,6 +243,10 @@
       <item path="hRayAdvanced.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="hRayBasic.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="hWaterAdvanced.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="hWaterBasic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -313,6 +325,10 @@
       </item>
       <item path="Headers/hRayBasic.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/hWaterAdvanced.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/hWaterBasic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/tinystr.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/tinyxml.h" ex="false" tool="3" flavor2="0">
@@ -360,6 +376,10 @@
       <item path="hRayAdvanced.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="hRayBasic.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="hWaterAdvanced.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="hWaterBasic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>

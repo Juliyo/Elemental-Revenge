@@ -16,6 +16,8 @@
 #include "hRayBasic.hpp"
 #include "hFireBasic.hpp"
 #include "hFireAdvanced.hpp"
+#include "hWaterBasic.hpp"
+#include "hWaterAdvanced.hpp"
 #include "../Motor/Motor2D.hpp"
 
 class Player : public Render, public PhysicsState{
@@ -47,6 +49,12 @@ public:
         Reloj               castFire;    //Variable de clase para el casteo
         Reloj               castFire2;    //Variable de clase para el casteo
         bool                    primercastFuego;    //Variable de clase para el primer casteo
+  
+        
+        ///Aguaa
+        hWaterBasic             *hAguaBasico;
+        hWaterAdvanced          *hAguaAvanzado;
+        
         
         
         ///
@@ -56,10 +64,22 @@ public:
         Animation               *walkingAnimationLeft;
         Animation               *walkingAnimationRight;
         Animation               *walkingAnimationUp;
-        Animation               *castingAnimationUp;
-        Animation               *castingAnimationDown;
-        Animation               *castingAnimationRight;
-        Animation               *castingAnimationLeft;
+        //Fuego
+        Animation               *castingAnimationUpFuego;
+        Animation               *castingAnimationDownFuego;
+        Animation               *castingAnimationRightFuego;
+        Animation               *castingAnimationLeftFuego;
+        //Rayo
+        Animation               *castingAnimationUpRayo;
+        Animation               *castingAnimationDownRayo;
+        Animation               *castingAnimationRightRayo;
+        Animation               *castingAnimationLeftRayo;
+        //Agua
+        Animation               *castingAnimationUpAgua;
+        Animation               *castingAnimationDownAgua;
+        Animation               *castingAnimationRightAgua;
+        Animation               *castingAnimationLeftAgua;
+                
                 //Animaciones fuego1
         Animation               *fuegoAnimationDown;
         Animation               *fuegoAnimationLeft;
