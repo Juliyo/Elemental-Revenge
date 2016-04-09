@@ -85,7 +85,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     SetPosition(posX, posY);
     SetSpeed(speedX, speedY);
     SetMaxSpeed(maxSpeedX, maxSpeedY);
-    SetOriginAnimatedSprite(32,32);
+    SetOriginAnimatedSprite(0,0);
     top=0;
     bot=0;
     left=0;
