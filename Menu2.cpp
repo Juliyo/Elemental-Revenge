@@ -14,145 +14,145 @@
 #include "Headers/Menu2.hpp"
 
 Menu2::Menu2() {
-    
+
     musica = new sf::Music();
-    
-    
-      srand (time(NULL));
 
- Random = rand() % 3;         // v1 in the range 0 to 99
 
-    
-    if(Random==0){
-    musica->openFromFile("resources/Sounds/Cascada.ogg");
+    srand(time(NULL));
 
-        if(!texturaAnimation.loadFromFile("resources/MenuInicio/SpritesheetMenu.png")){
-       std::cout<<"Error cargando la textura: "<<"resources/MenuInicio/SpritesheetMenu.png"<<std::endl;
-       exit(0);
+    Random = rand() % 3; // v1 in the range 0 to 99
+
+
+    if (Random == 0) {
+        musica->openFromFile("resources/Sounds/Cascada.ogg");
+
+        if (!texturaAnimation.loadFromFile("resources/MenuInicio/SpritesheetMenu.png")) {
+            std::cout << "Error cargando la textura: " << "resources/MenuInicio/SpritesheetMenu.png" << std::endl;
+            exit(0);
         }
-    animationMenu = new Animation();
+        animationMenu = new Animation();
 
-    texturaAnimation.setSmooth(true);
+        texturaAnimation.setSmooth(true);
 
-    animationMenu->setSpriteSheet(texturaAnimation);
-    animationMenu->addFrame(sf::IntRect(0, 0, 800, 336));
-    animationMenu->addFrame(sf::IntRect(800, 0, 800, 336));
-    animationMenu->addFrame(sf::IntRect(0, 336, 800, 336));
-    animationMenu->addFrame(sf::IntRect(799, 336, 800, 336));
-    animationMenu->addFrame(sf::IntRect(0, 672, 800, 336));
-    animationMenu->addFrame(sf::IntRect(799, 672, 800, 336));
-    animationMenu->addFrame(sf::IntRect(-1, 1008, 800, 336));
-    animationMenu->addFrame(sf::IntRect(799, 1008, 800, 336));
-    InicializarAnimatedSprite(sf::seconds(3.f), true, false);
+        animationMenu->setSpriteSheet(texturaAnimation);
+        animationMenu->addFrame(sf::IntRect(0, 0, 800, 336));
+        animationMenu->addFrame(sf::IntRect(800, 0, 800, 336));
+        animationMenu->addFrame(sf::IntRect(0, 336, 800, 336));
+        animationMenu->addFrame(sf::IntRect(799, 336, 800, 336));
+        animationMenu->addFrame(sf::IntRect(0, 672, 800, 336));
+        animationMenu->addFrame(sf::IntRect(799, 672, 800, 336));
+        animationMenu->addFrame(sf::IntRect(-1, 1008, 800, 336));
+        animationMenu->addFrame(sf::IntRect(799, 1008, 800, 336));
+        InicializarAnimatedSprite(sf::seconds(3.f), true, false);
 
     }
-    
-    if(Random==1){
-        
-    musica->openFromFile("resources/Sounds/CasaFuego.ogg");
 
-        
+    if (Random == 1) {
+
+        musica->openFromFile("resources/Sounds/CasaFuego.ogg");
+
+
+        EstadoActivo = true;
+        tecladoActivo = false;
+        ratonSelecciona = false;
+
+
+        animationMenuFuego = new Animation();
+
+        if (!texturaAnimationFuego.loadFromFile("resources/MenuInicio/fuego.png")) {
+            std::cout << "Error cargando la textura: " << "resources/MenuInicio/fuego.png" << std::endl;
+            exit(0);
+        }
+        texturaAnimationFuego.setSmooth(true);
+
+        animationMenuFuego->setSpriteSheet(texturaAnimationFuego);
+        animationMenuFuego->addFrame(sf::IntRect(0, 0, 800, 600));
+        animationMenuFuego->addFrame(sf::IntRect(800, 0, 800, 600));
+        animationMenuFuego->addFrame(sf::IntRect(1600, 0, 800, 600));
+        animationMenuFuego->addFrame(sf::IntRect(2400, 0, 800, 600));
+        animationMenuFuego->addFrame(sf::IntRect(3200, 0, 800, 600));
+        animationMenuFuego->addFrame(sf::IntRect(4000, 0, 800, 600));
+        animationMenuFuego->addFrame(sf::IntRect(0, 600, 800, 600));
+        animationMenuFuego->addFrame(sf::IntRect(800, 600, 800, 600));
+        animationMenuFuego->addFrame(sf::IntRect(1600, 600, 800, 600));
+        animationMenuFuego->addFrame(sf::IntRect(2400, 600, 800, 600));
+        animationMenuFuego->addFrame(sf::IntRect(3200, 600, 800, 600));
+        animationMenuFuego->addFrame(sf::IntRect(4000, 600, 800, 600));
+        animationMenuFuego->addFrame(sf::IntRect(0, 1200, 800, 600));
+        animationMenuFuego->addFrame(sf::IntRect(800, 1200, 800, 600));
+        animationMenuFuego->addFrame(sf::IntRect(1600, 1200, 800, 600));
+        animationMenuFuego->addFrame(sf::IntRect(2400, 1200, 800, 600));
+        animationMenuFuego->addFrame(sf::IntRect(3200, 1200, 800, 600));
+        animationMenuFuego->addFrame(sf::IntRect(4000, 1200, 800, 600));
+        animationMenuFuego->addFrame(sf::IntRect(0, 1800, 800, 600));
+        animationMenuFuego->addFrame(sf::IntRect(800, 1800, 800, 600));
+        animationMenuFuego->addFrame(sf::IntRect(1600, 1800, 800, 600));
+        animationMenuFuego->addFrame(sf::IntRect(2400, 1800, 800, 600));
+        animationMenuFuego->addFrame(sf::IntRect(3200, 1800, 800, 600));
+        animationMenuFuego->addFrame(sf::IntRect(4000, 1800, 800, 600));
+        animationMenuFuego->addFrame(sf::IntRect(0, 2400, 800, 600));
+        animationMenuFuego->addFrame(sf::IntRect(800, 2400, 800, 600));
+        animationMenuFuego->addFrame(sf::IntRect(1600, 2400, 800, 600));
+        animationMenuFuego->addFrame(sf::IntRect(2400, 2400, 800, 600));
+        animationMenuFuego->addFrame(sf::IntRect(3200, 2400, 800, 600));
+        animationMenuFuego->addFrame(sf::IntRect(4000, 2400, 800, 600));
+        animationMenuFuego->addFrame(sf::IntRect(0, 3000, 800, 600));
+        animationMenuFuego->addFrame(sf::IntRect(800, 3000, 800, 600));
+
+        InicializarAnimatedSprite(sf::seconds(3.f), true, false);
+
+        SetScale(0.85, 0.7);
+    }
+
+    if (Random == 2) {
+        musica->openFromFile("resources/Sounds/Truenos.ogg");
+
+
+        EstadoActivo = true;
+        tecladoActivo = false;
+        ratonSelecciona = false;
+
+
+        animationMenuRayo = new Animation();
+
+        if (!texturaAnimationRayo.loadFromFile("resources/MenuInicio/rayo.png")) {
+            std::cout << "Error cargando la textura: " << "resources/MenuInicio/rayo.png" << std::endl;
+            exit(0);
+        }
+        texturaAnimationRayo.setSmooth(true);
+
+        animationMenuRayo->setSpriteSheet(texturaAnimationRayo);
+        animationMenuRayo->addFrame(sf::IntRect(0, 0, 800, 336));
+        animationMenuRayo->addFrame(sf::IntRect(800, 0, 800, 336));
+        animationMenuRayo->addFrame(sf::IntRect(1600, 0, 800, 336));
+        animationMenuRayo->addFrame(sf::IntRect(0, 336, 800, 336));
+        animationMenuRayo->addFrame(sf::IntRect(800, 336, 800, 336));
+        animationMenuRayo->addFrame(sf::IntRect(1600, 336, 800, 336));
+        animationMenuRayo->addFrame(sf::IntRect(0, 672, 800, 336));
+        animationMenuRayo->addFrame(sf::IntRect(800, 672, 800, 336));
+        animationMenuRayo->addFrame(sf::IntRect(1600, 672, 800, 336));
+        animationMenuRayo->addFrame(sf::IntRect(0, 1008, 800, 336));
+        animationMenuRayo->addFrame(sf::IntRect(800, 1008, 800, 336));
+        animationMenuRayo->addFrame(sf::IntRect(1600, 1008, 800, 336));
+        /*
+    
+        animationMenuRayo->addFrame(sf::IntRect(0, 1344, 800, 336));
+        animationMenuRayo->addFrame(sf::IntRect(800, 1344, 800, 336));
+        animationMenuRayo->addFrame(sf::IntRect(1600, 1344, 800, 336));
+    
+        animationMenuRayo->addFrame(sf::IntRect(0, 1680, 800, 336));*/
+
+        InicializarAnimatedSprite(sf::seconds(3.f), true, false);
+
+    }
+
+
     EstadoActivo = true;
-    tecladoActivo=false;
-    ratonSelecciona=false;
 
 
-     animationMenuFuego = new Animation();
-    
-        if(!texturaAnimationFuego.loadFromFile("resources/MenuInicio/fuego.png")){
-       std::cout<<"Error cargando la textura: "<<"resources/MenuInicio/fuego.png"<<std::endl;
-       exit(0);
-    }
-    texturaAnimationFuego.setSmooth(true);
-    
-    animationMenuFuego->setSpriteSheet(texturaAnimationFuego);
-    animationMenuFuego->addFrame(sf::IntRect(0, 0, 800, 600));
-    animationMenuFuego->addFrame(sf::IntRect(800, 0, 800, 600));
-    animationMenuFuego->addFrame(sf::IntRect(1600, 0, 800, 600));
-    animationMenuFuego->addFrame(sf::IntRect(2400, 0, 800, 600));
-    animationMenuFuego->addFrame(sf::IntRect(3200, 0, 800, 600));
-    animationMenuFuego->addFrame(sf::IntRect(4000, 0, 800, 600));
-    animationMenuFuego->addFrame(sf::IntRect(0, 600, 800, 600));
-    animationMenuFuego->addFrame(sf::IntRect(800, 600, 800, 600));
-    animationMenuFuego->addFrame(sf::IntRect(1600, 600, 800, 600));
-    animationMenuFuego->addFrame(sf::IntRect(2400, 600, 800, 600));
-    animationMenuFuego->addFrame(sf::IntRect(3200, 600, 800, 600));
-    animationMenuFuego->addFrame(sf::IntRect(4000, 600, 800, 600));
-    animationMenuFuego->addFrame(sf::IntRect(0, 1200, 800, 600));
-    animationMenuFuego->addFrame(sf::IntRect(800, 1200, 800, 600));
-    animationMenuFuego->addFrame(sf::IntRect(1600, 1200, 800, 600));
-    animationMenuFuego->addFrame(sf::IntRect(2400, 1200, 800, 600));
-    animationMenuFuego->addFrame(sf::IntRect(3200, 1200, 800, 600));
-    animationMenuFuego->addFrame(sf::IntRect(4000, 1200, 800, 600));
-    animationMenuFuego->addFrame(sf::IntRect(0, 1800, 800, 600));
-    animationMenuFuego->addFrame(sf::IntRect(800, 1800, 800, 600));
-    animationMenuFuego->addFrame(sf::IntRect(1600, 1800, 800, 600));
-    animationMenuFuego->addFrame(sf::IntRect(2400, 1800, 800, 600));
-    animationMenuFuego->addFrame(sf::IntRect(3200, 1800, 800, 600));
-    animationMenuFuego->addFrame(sf::IntRect(4000, 1800, 800, 600));
-    animationMenuFuego->addFrame(sf::IntRect(0, 2400, 800, 600));
-    animationMenuFuego->addFrame(sf::IntRect(800, 2400, 800, 600));
-    animationMenuFuego->addFrame(sf::IntRect(1600, 2400, 800, 600));
-    animationMenuFuego->addFrame(sf::IntRect(2400, 2400, 800, 600));
-    animationMenuFuego->addFrame(sf::IntRect(3200, 2400, 800, 600));
-    animationMenuFuego->addFrame(sf::IntRect(4000, 2400, 800, 600));
-    animationMenuFuego->addFrame(sf::IntRect(0, 3000, 800, 600));
-    animationMenuFuego->addFrame(sf::IntRect(800, 3000, 800, 600));
-    
-    InicializarAnimatedSprite(sf::seconds(3.f), true, false);
 
-    SetScale(0.85,0.7);
-    }
-    
-     if(Random==2){
-             musica->openFromFile("resources/Sounds/Truenos.ogg");
+    if (!font.loadFromFile("resources/Fonts/PressStart.ttf")) {
 
-         
-    EstadoActivo = true;
-    tecladoActivo=false;
-    ratonSelecciona=false;
-
-
-     animationMenuRayo = new Animation();
-    
-        if(!texturaAnimationRayo.loadFromFile("resources/MenuInicio/rayo.png")){
-       std::cout<<"Error cargando la textura: "<<"resources/MenuInicio/rayo.png"<<std::endl;
-       exit(0);
-    }
-    texturaAnimationRayo.setSmooth(true);
-    
-    animationMenuRayo->setSpriteSheet(texturaAnimationRayo);
-    animationMenuRayo->addFrame(sf::IntRect(0, 0, 800, 336));
-    animationMenuRayo->addFrame(sf::IntRect(800, 0, 800, 336));
-    animationMenuRayo->addFrame(sf::IntRect(1600, 0, 800, 336));
-    animationMenuRayo->addFrame(sf::IntRect(0, 336, 800, 336));
-    animationMenuRayo->addFrame(sf::IntRect(800, 336, 800, 336));
-    animationMenuRayo->addFrame(sf::IntRect(1600, 336, 800, 336));
-    animationMenuRayo->addFrame(sf::IntRect(0, 672, 800, 336));
-    animationMenuRayo->addFrame(sf::IntRect(800, 672, 800, 336));
-    animationMenuRayo->addFrame(sf::IntRect(1600, 672, 800, 336));
-    animationMenuRayo->addFrame(sf::IntRect(0, 1008, 800, 336));
-    animationMenuRayo->addFrame(sf::IntRect(800, 1008, 800, 336));
-    animationMenuRayo->addFrame(sf::IntRect(1600, 1008, 800, 336));
-    /*
-    
-    animationMenuRayo->addFrame(sf::IntRect(0, 1344, 800, 336));
-    animationMenuRayo->addFrame(sf::IntRect(800, 1344, 800, 336));
-    animationMenuRayo->addFrame(sf::IntRect(1600, 1344, 800, 336));
-    
-    animationMenuRayo->addFrame(sf::IntRect(0, 1680, 800, 336));*/
-
-    InicializarAnimatedSprite(sf::seconds(3.f), true, false);
-
-    }
-    
-    
-    EstadoActivo=true;
-    
-
-    
-    if(!font.loadFromFile("resources/Fonts/PressStart.ttf")){
-        
 
     }
 
@@ -197,21 +197,21 @@ Menu2::Menu2() {
 
     for (int i = 0; i < 3; i++) {
         Mancha[i].setTexture(texturaMancha);
-    Mancha[i].setScale(0.3,0.3);
-    
-        }
-    
-        texturaTitulo.loadFromFile("resources/Textures/Titulo-juego.png");
-        
-            Titulo.setTexture(texturaTitulo);
-    Titulo.setPosition(250,450);
-        
-    float width= mWorldView.getSize().x;
-    float height= mWorldView.getSize().x;
-    sf::Color color(112,112,112);
-    
+        Mancha[i].setScale(0.3, 0.3);
 
-    
+    }
+
+    texturaTitulo.loadFromFile("resources/Textures/Titulo-juego.png");
+
+    Titulo.setTexture(texturaTitulo);
+    Titulo.setPosition(250, 450);
+
+    float width = mWorldView.getSize().x;
+    float height = mWorldView.getSize().x;
+    sf::Color color(112, 112, 112);
+
+
+
 
     texturaTitulo.loadFromFile("resources/Textures/Titulo-juego.png");
 
@@ -265,7 +265,7 @@ Menu2::Menu2() {
 
 
     selectedItemIndex = 0;
-    
+
     musica->play();
 
 
@@ -281,54 +281,51 @@ sf::Vector2f Menu2::getPosition() {
     return GetSpriteAnimated().getPosition();
 }
 
-void Menu2::Update(sf::Time elapsedTime){
-    if(selectedItemIndex<3){
-    sf::Color color(112, 112, 112);
-    if(mouseSprite.getGlobalBounds().intersects(Mancha[0].getGlobalBounds())){
-        ratonSelecciona=true;
-        if(!tecladoActivo){
-        menu[0].setColor(sf::Color::White);
-        menu[1].setColor(color);
-        menu[2].setColor(color);
-        selectedItemIndex=0;
-        } else{
-           tecladoActivo=false ;
-        }
-    }
-    else if(mouseSprite.getGlobalBounds().intersects(Mancha[1].getGlobalBounds())){
-        ratonSelecciona=true;
-        if(!tecladoActivo){
-        menu[0].setColor(color);
-        menu[1].setColor(sf::Color::White);
-        menu[2].setColor(color);
-        selectedItemIndex=1;
-        } else{
-           tecladoActivo=false;
-        }
-    }
-    else if(mouseSprite.getGlobalBounds().intersects(Mancha[2].getGlobalBounds())){
-        ratonSelecciona=true;
-        if(!tecladoActivo){
-        menu[0].setColor(color);
-        menu[1].setColor(color);
-        menu[2].setColor(sf::Color::White);
+void Menu2::Update(sf::Time elapsedTime) {
+    if (selectedItemIndex < 3) {
+        sf::Color color(112, 112, 112);
+        if (mouseSprite.getGlobalBounds().intersects(Mancha[0].getGlobalBounds())) {
+            ratonSelecciona = true;
+            if (!tecladoActivo) {
+                menu[0].setColor(sf::Color::White);
+                menu[1].setColor(color);
+                menu[2].setColor(color);
+                selectedItemIndex = 0;
+            } else {
+                tecladoActivo = false;
+            }
+        } else if (mouseSprite.getGlobalBounds().intersects(Mancha[1].getGlobalBounds())) {
+            ratonSelecciona = true;
+            if (!tecladoActivo) {
+                menu[0].setColor(color);
+                menu[1].setColor(sf::Color::White);
+                menu[2].setColor(color);
+                selectedItemIndex = 1;
+            } else {
+                tecladoActivo = false;
+            }
+        } else if (mouseSprite.getGlobalBounds().intersects(Mancha[2].getGlobalBounds())) {
+            ratonSelecciona = true;
+            if (!tecladoActivo) {
+                menu[0].setColor(color);
+                menu[1].setColor(color);
+                menu[2].setColor(sf::Color::White);
 
-        selectedItemIndex=2;
+                selectedItemIndex = 2;
+            } else {
+                tecladoActivo = false;
+            }
+        } else {
+            ratonSelecciona = false;
+            if (!tecladoActivo) {
+                menu[0].setColor(color);
+                menu[1].setColor(color);
+                menu[2].setColor(color);
+            }
         }
-        else{
-           tecladoActivo=false ;
-        }
-    }
-    else{
-        ratonSelecciona=false;
-        if(!tecladoActivo){
-        menu[0].setColor(color);
-        menu[1].setColor(color);
-        menu[2].setColor(color);
-}
-    }
     }
 }
+
 void Menu2::render() {
 
 
@@ -343,34 +340,34 @@ void Menu2::render() {
     updateView();
     mWindow->draw(rectanguloFondo);
     mWindow->draw(spriteFondo);
-     //   mWindow->draw(spriteFondoMenu);
-    
+    //   mWindow->draw(spriteFondoMenu);
 
-if(Random==0){
+
+    if (Random == 0) {
         PlayAnimation(animationMenu);
-Render::UpdateAnimation(t1);
+        Render::UpdateAnimation(t1);
 
-sf::Vector2f v1(100.f, 330.f);
+        sf::Vector2f v1(100.f, 330.f);
         DrawAnimationWithOut(*mWindow, v1);
-}
-if(Random==1){
+    }
+    if (Random == 1) {
         PlayAnimation(animationMenuFuego);
-Render::UpdateAnimation(t1);
+        Render::UpdateAnimation(t1);
 
-sf::Vector2f v1(180.f, 290.f);
+        sf::Vector2f v1(180.f, 290.f);
         DrawAnimationWithOut(*mWindow, v1);
-}
-if(Random==2){
+    }
+    if (Random == 2) {
         PlayAnimation(animationMenuRayo);
-Render::UpdateAnimation(t1);
+        Render::UpdateAnimation(t1);
 
-sf::Vector2f v1(100.f, 330.f);
+        sf::Vector2f v1(100.f, 330.f);
         DrawAnimationWithOut(*mWindow, v1);
-}
+    }
 
-    
 
-            //PlayAnimation(animationMenu);
+
+    //PlayAnimation(animationMenu);
 
     //   mWindow->draw(spriteFondoMenu);
 
@@ -425,10 +422,11 @@ void Menu2::MoveDown() {
     }
 
 }
+
 void Menu2::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
-    if (button == sf::Mouse::Button::Left && isPressed==false) {
-        
-    if (selectedItemIndex == 1) {
+    if (button == sf::Mouse::Button::Left && isPressed == false) {
+
+        if (selectedItemIndex == 1) {
             selectedItemIndex = 3;
         }
         if (selectedItemIndex == 2) {
@@ -436,19 +434,20 @@ void Menu2::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
         }
     }
 }
+
 void Menu2::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
 
     if (key == sf::Keyboard::W) { //Esto lo hago para que cuando no estes presionando cambia a false
-        if(!ratonSelecciona){
-        tecladoActivo=true;
-        MoveUp();
+        if (!ratonSelecciona) {
+            tecladoActivo = true;
+            MoveUp();
         }
     } else if (key == sf::Keyboard::S) {
-        if(!ratonSelecciona){
-        tecladoActivo=true;
-        MoveDown();
+        if (!ratonSelecciona) {
+            tecladoActivo = true;
+            MoveDown();
         }
-        
+
     } else if (key == sf::Keyboard::Return) {
         if (selectedItemIndex == 1) {
             selectedItemIndex = 3;
@@ -465,7 +464,6 @@ void Menu2::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         }
     }
 }
-
 
 void Menu2::updateView() {
     sf::Vector2f mousePosition = mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow));

@@ -19,7 +19,7 @@
 InGame::InGame() {
     
     //Estado de Ingame
-    
+    EstadoActivo=false;
     try {
         texturaFondo.loadFromFile("resources/Textures/grasstext.png");
         contFonts.loadFromFile("resources/Fonts/Sansation.ttf");
@@ -53,11 +53,10 @@ InGame::InGame() {
     mWindow = ref.GetWindow();
     
     mWorldView = mWindow->getDefaultView();
-    mWorldView.zoom(0.5f);
 
-    
-       mapa = new Map();
-    mapa->leerMapa(1);
+
+    mapa = new Map();
+    //mapa->leerMapa(1);
 }
 
 InGame::InGame(const InGame& orig) {
@@ -82,7 +81,7 @@ void InGame::Update(sf::Time elapsedTime){
         if (isMovingRight)
             movement.x += player -> getVelocidad();
 
-        player -> Update(movement, elapsedTime);
+        player -> Update(movement, elapsedTime, mapa);
 
         if (player->hRayoBasico->tiempoCast.getElapsedTime().asSeconds() > player->hRayoBasico->getCast() && aux == true) {
             isShooting = false;
@@ -388,11 +387,10 @@ void InGame::updateView() {
 }
 void InGame::updateViewForPause() {
 
-
     float x = mWorldView.getCenter().x ; //Lo mismo que la funcion lerp
     float y = mWorldView.getCenter().y ;
     mWorldView.setCenter(x, y);
     mWorldView.setSize(640, 480);
-
     mWindow->setView(getLetterboxView(mWorldView, ref.ancho, ref.alto, 640, 480));
+    
 }

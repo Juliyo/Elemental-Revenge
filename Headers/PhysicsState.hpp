@@ -9,6 +9,7 @@
 #define	PHYSICSSTATE_HPP
 
 #include <SFML/Graphics.hpp>
+#include "Map.hpp"
 
 class PhysicsState {
 public:
@@ -29,6 +30,7 @@ public:
 	void SetMaxSpeed(float speed_x, float speed_y);
 	void SetMaxSpeed(sf::Vector2f maxSpeed);
 	void Update(sf::Time elapsedTime);
+        void Update(sf::Time elapsedTime, Map *mapa);
         void SetAngle(float angleP, float angleN);
         float anglePrev;
         float angleNew;

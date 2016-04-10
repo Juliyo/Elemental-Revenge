@@ -28,21 +28,20 @@ Game::Game() {
     mWindow->setVerticalSyncEnabled(true);
     mWindow->setMouseCursorVisible(false);
 
-   
-    
-    EstadoInGame=new InGame();   
-    EstadoTransition=new Transition();
-    EstadoPause=new Pause();
-    
 
-    EstadoMenu=new Menu2();
-    
+
+    EstadoInGame = new InGame();
+    EstadoTransition = new Transition();
+    EstadoPause = new Pause();
+    EstadoMenu = new Menu2();
+
 #ifdef _WIN32
     HWND handler = mWindow->getSystemHandle();
     RECT rWindow;
     GetWindowRect(handler, &rWindow);
     ClipCursor(&rWindow);
 #endif
+    
 }
 
 /**************  METODOS PRINCIPALES **************/
@@ -77,14 +76,13 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
     if (EstadoInGame->EstadoActivo) {
         EstadoInGame->Update(elapsedTime);
     }
-
     if (EstadoTransition->EstadoActivo) {
-       EstadoTransition->Update(elapsedTime);
+        EstadoTransition->Update(elapsedTime);
     }
-    if(EstadoPause->EstadoActivo){
+    if (EstadoPause->EstadoActivo) {
         EstadoPause->Update(elapsedTime);
     }
-    if(EstadoMenu->EstadoActivo){
+    if (EstadoMenu->EstadoActivo) {
         EstadoMenu->Update(elapsedTime);
     }
 
@@ -98,22 +96,20 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
     if (EstadoTransition->EstadoActivo) {
         EstadoTransition->render(interpolation, elapsedTime);
     }
-    
-        if(EstadoMenu->EstadoActivo){
+
+    if (EstadoMenu->EstadoActivo) {
 
         mWindow->clear();
 
-    EstadoMenu->render();
-    
-    mWindow->display();
-        }
-    if(EstadoPause->EstadoActivo){
+        EstadoMenu->render();
+
+        mWindow->display();
+    }
+    if (EstadoPause->EstadoActivo) {
         EstadoInGame->renderForPause(interpolation, elapsedTime);
         EstadoPause->render(interpolation, elapsedTime);
     }
 }
-
-
 
 /************** EVENTOS ****************/
 
@@ -128,15 +124,15 @@ void Game::processEvents() //Captura y procesa eventos
                 EstadoInGame->handlePlayerInput(event.key.code, true);
                 EstadoMenu->handlePlayerInput(event.key.code, true);
                 EstadoPause->handlePlayerInput(event.key.code, true);
-                
+
                 break;
 
             case sf::Event::KeyReleased:
                 EstadoInGame->handlePlayerInput(event.key.code, false);
                 handlePlayerInput(event.key.code, false);
-                handlePlayerInput2(event.key.code, false); 
-            break;
-            
+                handlePlayerInput2(event.key.code, false);
+                break;
+
             case sf::Event::MouseButtonPressed:
                 if (EstadoInGame->EstadoActivo) {
                     EstadoInGame->handleMouseInput(event.mouseButton.button, true);
@@ -144,14 +140,14 @@ void Game::processEvents() //Captura y procesa eventos
                 if (EstadoTransition->EstadoActivo) {
                     EstadoTransition->handleMouseInput(event.mouseButton.button, true);
                 }
-                if(EstadoMenu->EstadoActivo && EstadoMenu->EstadoActivo){
+                if (EstadoMenu->EstadoActivo && EstadoMenu->EstadoActivo) {
                     EstadoMenu->handleMouseInput(event.mouseButton.button, true);
-                    if(EstadoMenu->getSetectedItemIndex()==0){
-                        EstadoMenu->EstadoActivo=false;
-                        EstadoInGame->EstadoActivo=true;
+                    if (EstadoMenu->getSetectedItemIndex() == 0) {
+                        EstadoMenu->EstadoActivo = false;
+                        EstadoTransition->EstadoActivo = true;
                     }
                 }
-                
+
 
 
                 break;
@@ -160,8 +156,8 @@ void Game::processEvents() //Captura y procesa eventos
                 EstadoTransition->handleMouseInput(event.mouseButton.button, false);
                 EstadoMenu->handleMouseInput(event.mouseButton.button, false);
                 handleMouseInput(event.mouseButton.button, false);
-                
-                
+
+
                 break;
 
             case sf::Event::Closed:
@@ -189,62 +185,61 @@ void Game::processEvents() //Captura y procesa eventos
 
 void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
     if (key == sf::Keyboard::M) { //Esto lo hago para que cuando no estes presionando cambia a false
-        EstadoInGame->EstadoActivo=false;
-        EstadoTransition->EstadoActivo=true;
-        EstadoPause->EstadoActivo=false;
-    } else if(key == sf::Keyboard::N){
-        EstadoTransition->EstadoActivo=false;
-        EstadoInGame->EstadoActivo=true;
-    } else if(key == sf::Keyboard::Return && EstadoMenu->EstadoActivo){
-        if(EstadoMenu->getSetectedItemIndex()==0){
+        EstadoInGame->EstadoActivo = false;
+        EstadoTransition->EstadoActivo = true;
+        EstadoPause->EstadoActivo = false;
+    } else if (key == sf::Keyboard::N) {
+        EstadoTransition->EstadoActivo = false;
+        EstadoInGame->EstadoActivo = true;
+    } else if (key == sf::Keyboard::Return && EstadoMenu->EstadoActivo) {
+        if (EstadoMenu->getSetectedItemIndex() == 0) {
             EstadoMenu->pararMusica();
-            EstadoMenu->EstadoActivo=false;
-            EstadoInGame->EstadoActivo=true;
+            EstadoMenu->EstadoActivo = false;
+            EstadoInGame->EstadoActivo = true;
         }
-    }else if(key == sf::Keyboard::Return && EstadoPause->EstadoActivo){
-        if(EstadoPause->getSetectedItemIndexPause()==0){
-            EstadoPause->EstadoActivo=false;
-            EstadoInGame->EstadoActivo=true;
+    } else if (key == sf::Keyboard::Return && EstadoPause->EstadoActivo) {
+        if (EstadoPause->getSetectedItemIndexPause() == 0) {
+            EstadoPause->EstadoActivo = false;
+            EstadoInGame->EstadoActivo = true;
         }
-        if(EstadoPause->getSetectedItemIndexPause()==2){
-            EstadoPause->EstadoActivo=false;
-            EstadoMenu->EstadoActivo=true;
+        if (EstadoPause->getSetectedItemIndexPause() == 2) {
+            EstadoPause->EstadoActivo = false;
+            EstadoMenu->EstadoActivo = true;
         }
-    } else if(key == sf::Keyboard::P){
-        EstadoTransition->EstadoActivo=false;
-        EstadoInGame->EstadoActivo=false;
-        EstadoPause->EstadoActivo=true;
+    } else if (key == sf::Keyboard::P) {
+        EstadoTransition->EstadoActivo = false;
+        EstadoInGame->EstadoActivo = false;
+        EstadoPause->EstadoActivo = true;
     }
 
-  
+
 
 }
 
-
 void Game::handlePlayerInput2(sf::Keyboard::Key key, bool isPressed) {
 
-    
-                 if(key == sf::Keyboard::Return && EstadoPause->EstadoActivo){
-        
-        if(EstadoPause->getSetectedItemIndexPause()==2){
-            EstadoPause->EstadoActivo=false;
-            EstadoMenu->EstadoActivo=true;
+
+    if (key == sf::Keyboard::Return && EstadoPause->EstadoActivo) {
+
+        if (EstadoPause->getSetectedItemIndexPause() == 2) {
+            EstadoPause->EstadoActivo = false;
+            EstadoMenu->EstadoActivo = true;
         }
-                
-                
-                 }
+
+
+    }
 }
 
 void Game::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
 
-        
-    if(EstadoTransition->preguntaContestada==true){
+
+    if (EstadoTransition->preguntaContestada == true) {
         printf("preguntaContestada es true");
-        EstadoTransition->EstadoActivo=false;
-        EstadoTransition->preguntaContestada=false;
-        EstadoInGame->mapa->leerMapa(2);
-        EstadoInGame->EstadoActivo=true;
-       
+        EstadoTransition->EstadoActivo = false;
+        EstadoTransition->preguntaContestada = false;
+        EstadoInGame->mapa->leerMapa(EstadoTransition->level);
+        EstadoInGame->EstadoActivo = true;
+
     }
-    
+
 }

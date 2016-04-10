@@ -43,7 +43,7 @@ public:
     sf::View mHud;
     
     bool preguntaContestada=false;
-
+    int level = 0;
 private:
     sf::RenderWindow *mWindow;
 

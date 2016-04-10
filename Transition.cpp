@@ -25,7 +25,7 @@ Transition::Transition() {
     //animatedSprite = new AnimatedSprite();
     animation = new Animation();
 
-    //Estado de Ingame
+    //Estado de Transition
     EstadoActivo = false;
 
     //Referenciamos la ventana Singleton
@@ -211,12 +211,10 @@ void Transition::Update(sf::Time elapsedTime) {
         if (drawNextLevel) {
             if (nextLevel.getGlobalBounds().contains(mouseSprite.getPosition())) {
                 changePregunta();
-                printf("ASD");
                 preguntaContestada=true;
-                if(preguntaContestada==true){
-                    printf("PATATA\n");
-                }
                 drawNextLevel = false;
+                /*Cambiamos de nivel*/
+                level++;
             }
         }
 
