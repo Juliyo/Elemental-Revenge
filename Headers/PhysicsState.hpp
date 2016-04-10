@@ -9,7 +9,7 @@
 #define	PHYSICSSTATE_HPP
 
 #include <SFML/Graphics.hpp>
-
+#include "Map.hpp"
 class PhysicsState {
 public:
 	PhysicsState();
@@ -28,7 +28,7 @@ public:
 	void SetPosition(sf::Vector2f pos);
 	void SetMaxSpeed(float speed_x, float speed_y);
 	void SetMaxSpeed(sf::Vector2f maxSpeed);
-	void Update(sf::Time elapsedTime);
+	void Update(sf::Time elapsedTime, Map *mapa);
 	
 	/*
 	sf::Vector2f GetPreviousVelocity() const { return previousvelocity_; }

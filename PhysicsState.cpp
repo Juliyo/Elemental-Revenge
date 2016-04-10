@@ -49,14 +49,112 @@ void PhysicsState::SetMaxSpeed(sf::Vector2f maxSpeed)
 	this->maxSpeed = maxSpeed;
 }
 
+sf::Vector2f PhysicsState::GetNextPosition(sf::Time elapsedTime) const {
+    return posNew + speed * elapsedTime.asSeconds();
+}
 
-void PhysicsState::Update(sf::Time elapsedTime)
+void PhysicsState::Update(sf::Time elapsedTime, Map *mapa)
 {
-
-	/*  COLISIONES  */
-	
-	posPrev = posNew;
+    /*  COLISIONES  */
+    sf::Vector2f nextPos = GetNextPosition(elapsedTime);
+    int top=(int)nextPos.y-16;
+    int bot=(int)nextPos.y+32;
+    int left=(int)nextPos.x-16;
+    int right=(int)nextPos.x+16;
+    int left_right = (left+right)/2;
+    int top_bot = (top+bot)/2;
+    top=top/16;
+    bot=bot/16;
+    left=left/16;
+    right=right/16;
+    left_right=left_right/16;
+    top_bot=top_bot/16;
+    /**/
+     /*if (mapa->_tilemap[2][top][left] != 0) {
+         if(mapa->_tilemap[2][top+1][left-1] != 0 && mapa->_tilemap[2][top-1][left+1] != 0){
+             printf("entro en los 2\n");
+             posPrev = posNew;
+         }else if(mapa->_tilemap[2][top+1][left-1] != 0){
+             printf("entro en paron de x\n");
+             sf::Vector2f speed2 = speed;
+             if(speed2.x<0){
+               speed2.x=0;  
+             }
+             posPrev = posNew;
+             posNew += speed2 * elapsedTime.asSeconds();
+         }else if(mapa->_tilemap[2][top-1][left+1] != 0){
+             printf("entro en paron de y\n");
+             sf::Vector2f speed2 = speed;
+             if(speed2.y<0){
+               speed2.y=0;  
+             }
+             posPrev = posNew;
+             posNew += speed2 * elapsedTime.asSeconds();
+         }else{
+             printf("no entra\n");
+             posPrev = posNew;
+         }
+        
+    }else if (mapa->_tilemap[2][top][right] != 0) {
+         if(mapa->_tilemap[2][top+1][right-1] != 0 && mapa->_tilemap[2][top-1][right+1] != 0){
+             posPrev = posNew;
+         }else if(mapa->_tilemap[2][top+1][right-1] != 0){
+             sf::Vector2f speed2 = speed;
+             if(speed2.x>0){
+               speed2.x=0;  
+             }
+             posPrev = posNew;
+             posNew += speed2 * elapsedTime.asSeconds();
+         }else{
+             posPrev = posNew;
+         }
+    }else if (mapa->_tilemap[2][bot][left] != 0) {
+        posPrev = posNew;
+    }else if (mapa->_tilemap[2][bot][right] != 0) {
+        posPrev = posNew;
+    }else{
+        posPrev = posNew;
         posNew += speed * elapsedTime.asSeconds();
+    }*/
+    sf::Vector2f speed2 = speed;
+    if (mapa->_tilemap[2][top][left_right] != 0 && mapa->_tilemap[2][top_bot][left] != 0) {
+        posPrev = posNew;
+    }else if (mapa->_tilemap[2][top][left_right] != 0 && mapa->_tilemap[2][top_bot][right] != 0) {
+        posPrev = posNew;
+    }else if (mapa->_tilemap[2][bot][left_right] != 0 && mapa->_tilemap[2][top_bot][left] != 0) {
+        posPrev = posNew;
+    }else if (mapa->_tilemap[2][bot][left_right] != 0 && mapa->_tilemap[2][top_bot][right] != 0) {
+        posPrev = posNew;
+    }else if (mapa->_tilemap[2][top][left_right] != 0) {
+        if(speed2.y<0){
+               speed2.y=0;  
+             }
+             posPrev = posNew;
+             posNew += speed2 * elapsedTime.asSeconds();
+    }else if (mapa->_tilemap[2][bot][left_right] != 0) {
+         if(speed2.y>0){
+               speed2.y=0;  
+             }
+             posPrev = posNew;
+             posNew += speed2 * elapsedTime.asSeconds();
+    }else if (mapa->_tilemap[2][top_bot][left] != 0) {
+        if(speed2.x<0){
+               speed2.x=0;  
+             }
+             posPrev = posNew;
+             posNew += speed2 * elapsedTime.asSeconds();
+    }else if (mapa->_tilemap[2][top_bot][right] != 0) {
+                if(speed2.x>0){
+               speed2.x=0;  
+             }
+             posPrev = posNew;
+             posNew += speed2 * elapsedTime.asSeconds();
+    }else{
+        posPrev = posNew;
+        posNew += speed * elapsedTime.asSeconds();
+    }
+	
+	
         
 }
 

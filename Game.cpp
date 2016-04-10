@@ -119,7 +119,7 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
 
 
     if (!firstTime) {
-        if (!player->cantMove) {
+        
             sf::Vector2f movement(0.f, 0.f);
             if (isMovingUp) {
                 movement.y -= player -> getVelocidad();
@@ -250,10 +250,10 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
 
             }
 
-            player -> Update(movement, elapsedTime);
+            player -> Update(movement, elapsedTime, mapa);
 
 
-        }
+        
     }
 
 
@@ -355,7 +355,12 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
          player->SetPosition(player->GetPreviousPosition());
      }
      */
-    player -> DrawWithInterpolation(mWindow, interpolation, player->top, player->bot, player->right, player->left, mapa);
+    player->top=player->GetSpriteAnimated().getGlobalBounds().top;
+    player->bot=player->GetSpriteAnimated().getGlobalBounds().top+ player->GetSpriteAnimated().getGlobalBounds().height;
+    player->left=player->GetSpriteAnimated().getGlobalBounds().left;
+    player->right=player->GetSpriteAnimated().getGlobalBounds().left+player->GetSpriteAnimated().getGlobalBounds().width;
+    
+    player -> DrawWithInterpolation(mWindow, interpolation);
 
 
     previa = mWindow.getView();
