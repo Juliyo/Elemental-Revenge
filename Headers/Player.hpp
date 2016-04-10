@@ -12,9 +12,8 @@
 #include "Render.hpp"
 #include "Animation.hpp"
 #include "Hud.hpp"
-#include "Map.hpp"
 
-class Player : public Render, public PhysicsState{
+class Player : public Render, PhysicsState{
 public:
 	Player();
 	Player(const Player& orig);
@@ -34,17 +33,11 @@ public:
         Animation               *walkingAnimationRight;
         Animation               *walkingAnimationUp;
 	Hud                     *hud;
-        bool                    cantMove=false;
-        int                     top;
-        int                     bot;
-        int                     left;
-        int                     right;
+
 private:
         sf::Texture             texturaPlayer;
         float                   velocity=200.f;
         int                     vida=15;
-
-        
 };
 
 #endif	/* PLAYER_H */

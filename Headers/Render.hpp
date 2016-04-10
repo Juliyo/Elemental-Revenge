@@ -11,7 +11,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "AnimatedSprite.hpp"
-#include "Map.hpp"
 
 class Render {
 public:

@@ -53,8 +53,6 @@ void Render::DrawAnimation(sf::RenderWindow &window, const sf::Vector2f &posPrev
     renderPos = sf::Vector2f(
             posPrev.x + ((posNew.x - posPrev.x) * interpolation),
             posPrev.y + ((posNew.y - posPrev.y) * interpolation));
-
-        animatedSprite.setPosition(renderPos.x, renderPos.y);
-    
+    animatedSprite.setPosition(renderPos.x, renderPos.y);
     window.draw(animatedSprite);
 }
