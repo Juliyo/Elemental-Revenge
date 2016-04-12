@@ -71,6 +71,9 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     hAguaAvanzado = new hWaterAdvanced();
     
     hHeal = new Heal();
+    
+    flash = new Flash(1);//Animacion que aparece en la posicion que deja el jugador
+    flash2 = new Flash(2);//Animacion que aparece a la posicion en que se ha movido el jugador
             
     if(!texturaPlayer.loadFromFile("resources/Textures/player.png")){
        std::cout<<"Error cargando la textura: "<<"resources/Textures/player.png"<<std::endl;
@@ -449,4 +452,8 @@ void Player::heal() {
         }
         hud->updateHud(vida);
     }
+}
+
+void Player::Colocar(sf::Vector2f NuevaPosicion) {
+    SetPosition(NuevaPosicion);
 }

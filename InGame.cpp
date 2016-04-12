@@ -65,7 +65,7 @@ InGame::~InGame() {
 
 void InGame::Update(sf::Time elapsedTime) {
     
-    printf("hActivo es: %d \n",hActivo);
+    
     
     if(firstTimeRayo && firstTimeFuego && firstTimeAgua){
          hActivo=0;
@@ -326,6 +326,51 @@ void InGame::Update(sf::Time elapsedTime) {
 
     firstTimeHeal = false;
     
+    
+    //******************************FLASH**********************************************
+    
+    
+    if (!firstTimeFlash) {
+        if(hActivo==4){
+                    sf::Vector2f movement(0.f, 0.f);
+        if (isMovingUp) {
+            movement.y -= player -> getVelocidad();
+            //noKeyWasPressed = false;
+        }
+        if (isMovingDown) {
+            movement.y += player -> getVelocidad();
+            //noKeyWasPressed = false;
+        }
+        if (isMovingLeft) {
+            movement.x -= player -> getVelocidad();
+        }
+        if (isMovingRight) {
+            movement.x += player -> getVelocidad();
+            // noKeyWasPressed = false;
+        }
+
+
+        player -> Update(movement, elapsedTime);
+        if (player->isFlashing) {
+            //Como el player se ha movido 'casteamos' la animacion del otro flash
+            player->flash2->cast2(&player->flash->clockCd);
+            sf::Vector2f prueba = player->flash->cast(sf::Vector2f(player->getPosition()));
+            if(prueba.x != player->getPosition().x && prueba.y != player->getPosition().y){
+                player->Colocar(prueba);
+            }
+            
+            
+        }
+        }
+
+    }
+                if(hActivo==4 && !player->isFlashing){
+            printf("Desactivo Flash \n paso a anterior:%d\n",anterior);
+            hActivo=anterior;
+        }
+    firstTimeFlash = false;
+    
+    
 }
 
 void InGame::render(float interpolation, sf::Time elapsedTime) {
@@ -585,8 +630,10 @@ player->hHeal->PlayAnimation(player->hHeal->animacion);
         player->hHeal->StopAnimation();
     }
     
+
+
         
-        //****************************RENDER PLAYER************************************
+ //****************************RENDER PLAYER************************************
         player -> PlayAnimation(*player -> currentAnimation);
 
 
@@ -596,7 +643,45 @@ player->hHeal->PlayAnimation(player->hHeal->animacion);
         player -> UpdateAnimation(elapsedTime);
 
 
-        player -> DrawWithInterpolation(interpolation);
+        //player -> DrawWithInterpolation(interpolation);
+        
+        
+        
+        
+        //**************************************FLASH**************************
+        
+        //no hago play animation todo el rato porque no interesa ya que no haremos un getGlobalBounds del flash
+    if (player->flash->dibujar == true) {
+        player->flash->PlayAnimation(player->flash->flashingAnimation);
+        player->flash->UpdateAnimation(elapsedTime);
+        if (player->flash->tiempoCast.getTiempo() < 0.5f) {
+            player->flash->Draw();
+        } else {
+            player->flash->dibujar = false;
+        }
+    } else {
+        player->flash->StopAnimation();
+    }
+    
+
+    player -> DrawWithInterpolation( interpolation);
+
+    //no hago play animation todo el rato porque no interesa ya que no haremos un getGlobalBounds del flash
+    if(player->flash2->dibujar == true){
+        player->flash2->PlayAnimation(player->flash2->flashingAnimation2);
+        player->flash2->UpdateAnimation(elapsedTime);
+        if (player->flash2->tiempoCast.getTiempo() < 0.5f) {
+            player->flash2->DrawWithInterpolation( interpolation,player->GetPreviousPosition(),player->GetPosition());
+        } else {
+            player->flash2->dibujar = false;
+        }
+    } else {
+        player->flash2->StopAnimation();
+    }
+        
+        
+        
+        /////////////////////////////////
     
     motor->draw(enemigo[0].getSprite());
     motor->draw(enemigo[1].getSprite());
@@ -630,9 +715,13 @@ printf("Rayo activo \n");
 printf("Agua activo \n");
         hActivo=2;
         anterior=hActivo;
-    }else if (key == sf::Keyboard::R){
-        printf("Heal activo \n");
-        
+    }else if (key == sf::Keyboard::E){
+        printf("Flash activo \n");  
+        hActivo=4;
+         player->isFlashing = isPressed;
+    }     
+    else if (key == sf::Keyboard::R){
+        printf("Heal activo \n");       
         hActivo=3;
         isHealing = isPressed;
     }else if (key == sf::Keyboard::T){//  QUITAR - SOLO PARA DEBUG

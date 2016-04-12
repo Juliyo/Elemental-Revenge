@@ -19,6 +19,7 @@
 #include "hWaterBasic.hpp"
 #include "hWaterAdvanced.hpp"
 #include "Heal.hpp"
+#include "Flash.hpp"
 #include "../Motor/Motor2D.hpp"
 
 class Player : public Render, public PhysicsState{
@@ -36,6 +37,8 @@ public:
         void UpdatePlayerAnimation(int x, int y);
         sf::Vector2f getPosition();
         Animation** getAnimation(){ return currentAnimation; };
+        
+        void Colocar(sf::Vector2f NuevaPosicion);
         
         hRayBasic     *hRayoBasico;
         hRayAdvanced  *hRayoAvanzado;
@@ -105,6 +108,10 @@ public:
         int                     getVida();
         int                     restaVida(int a);
         void                    heal();
+        //flash
+        Flash                   *flash;
+        Flash                   *flash2;
+        bool                    isFlashing=false;
 private:
         sf::Texture             texturaPlayer;
         float                   velocity=200.f;

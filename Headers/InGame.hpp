@@ -75,6 +75,7 @@ private:
     bool			firstTimeFuego=true;
     bool			firstTimeAgua=true;
     bool                        firstTimeHeal=true;
+    bool                        firstTimeFlash=true;
     bool			isInterpolating;
     bool                        isShooting;
     bool                        aux;

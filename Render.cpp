@@ -99,6 +99,13 @@ void Render::DrawAnimation( const sf::Vector2f &posPrev, const sf::Vector2f &pos
     Motor2D::Instance()->draw(animatedSprite);
     
 }
+
+void Render::DrawWithout( sf::Vector2f pos) {
+    animatedSprite.setPosition(pos.x, pos.y);
+    Motor2D::Instance()->draw(animatedSprite);
+}
+
+
 void Render::UpdateAnimation(sf::Time elapsedTime) {
     animatedSprite.update(elapsedTime);
 }
