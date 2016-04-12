@@ -195,7 +195,6 @@ void Pause::Update(sf::Time elapsedTime) {
 
 void Pause::render(float interpolation, sf::Time elapsedTime) {
     //mWindow->clear();
-        printf("%d\n", selectedItemIndexPausa);
 
     updateView();
 

@@ -234,7 +234,7 @@ void Game::handlePlayerInput2(sf::Keyboard::Key key, bool isPressed) {
         if (EstadoPause->getSetectedItemIndexPause() == 2) {
             EstadoPause->EstadoActivo = false;
             
-            printf("EL SALIR VA BIEN");
+
             EstadoMenu->SetSetectedItemIndex(0);
             EstadoMenu->EstadoActivo = true;
         }
