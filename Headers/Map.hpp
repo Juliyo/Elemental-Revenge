@@ -24,6 +24,7 @@ public:
     void leerMapa(int numMapa);
     void leerMapa2();
     void dibuja(sf::RenderWindow &window);
+    void dibuja2(sf::RenderWindow &window);
     sf::Sprite  getMap();
     int _numLayers=0;
     int ***_tilemap;

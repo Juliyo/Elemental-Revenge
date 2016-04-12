@@ -201,7 +201,7 @@ Menu2::Menu2() {
 
     }
 
-    texturaTitulo.loadFromFile("resources/Textures/Titulo-juego.png");
+    texturaTitulo.loadFromFile("resources/Textures/TituloBioshock.png");
 
     Titulo.setTexture(texturaTitulo);
     Titulo.setPosition(250, 450);
@@ -213,11 +213,11 @@ Menu2::Menu2() {
 
 
 
-    texturaTitulo.loadFromFile("resources/Textures/Titulo-juego.png");
+    texturaTitulo.loadFromFile("resources/Textures/TituloBioshock.png");
 
     Titulo.setTexture(texturaTitulo);
-    Titulo.setPosition(250, 450);
-
+    Titulo.setPosition(190, 420);
+    Titulo.setScale(0.23,0.23);
 
 
     menu[0].setFont(font);

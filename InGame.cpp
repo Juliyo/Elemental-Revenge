@@ -131,6 +131,7 @@ void InGame::render(float interpolation, sf::Time elapsedTime){
     updateView();
     mWindow->draw(spriteFondo);
     mapa->dibuja(*mWindow);
+    mapa->dibuja2(*mWindow);
 
 
     int x = mouseSprite.getPosition().x - player -> getPosition().x;
@@ -223,6 +224,9 @@ void InGame::render(float interpolation, sf::Time elapsedTime){
 
     player -> DrawWithInterpolation(*mWindow, interpolation);
 
+
+
+    
     previa = mWindow->getView();
 
     mWindow->setView(getLetterboxView(mHud, ref.ancho, ref.alto, 640, 480));
@@ -231,6 +235,7 @@ void InGame::render(float interpolation, sf::Time elapsedTime){
 
 
     mWindow->draw(mouseSprite);
+
     // mWindow.draw(mStatisticsText);
     mWindow->display();
 }

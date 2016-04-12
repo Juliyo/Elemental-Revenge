@@ -168,7 +168,7 @@ void Map::leerMapa(int numMapa){
 void Map::dibuja(sf::RenderWindow& window){
 
     
-    for(int l=0; l<_numLayers-1; l++){
+    for(int l=0; l<_numLayers-2; l++){
         for(int y=0; y<_height; y++){
             for(int x=0; x<_width; x++){
                 if(_tilemapSprite[l][y][x]!=NULL){
@@ -178,6 +178,20 @@ void Map::dibuja(sf::RenderWindow& window){
         }
     }
 
+    
+   
+}
+
+void Map::dibuja2(sf::RenderWindow& window){
+
+ for(int y=0; y<_height; y++){
+            for(int x=0; x<_width; x++){
+                if(_tilemapSprite[_numLayers-2][y][x]!=NULL){
+                    window.draw(*(_tilemapSprite[_numLayers-2][y][x]));
+                }
+            }
+        }
+ 
 }
 
 sf::Sprite Map::getMap(){
