@@ -15,46 +15,63 @@
 
 //SOLO EN WINDOWS
 
-
 InGame::InGame() {
+    player = Player::Instance();
     motor = Motor2D::Instance();
     //Estado de Ingame
     EstadoActivo = true;
-    
+
     try {
         spriteFondo.setTexture("resources/Textures/grasstext.png");
         spriteFondo.setSmooth(true);
         spriteFondo.setTextRect(0, 0, 2000, 2000);
         spriteFondo.setRepeated(true);
-        
+
         spriteRelleno.setTexture("resources/Textures/background.png");
         spriteRelleno.setTextRect(0, 0, 1024, 2048);
         spriteRelleno.setRepeated(true);
         spriteRelleno.setSmooth(true);
         spriteRelleno.setScale(1, 2);
-        
+
         mouseSprite.setTexture("resources/Textures/mouse.png");
         mouseSprite.setSmooth(true);
         mouseSprite.setScale(0.2, 0.2);
         mouseSprite.setPosition(20, 20);
         mouseSprite.setOrigin(64, 64);
-        
+
+        //        Light luz;
+        //        //luz(sf::Vector2f(500,500),sf::Vector2f(1.f,1.f),255,128,128,"resources/Textures/spookyLightTexture.png");
+        //        luz.setPosition(sf::Vector2f(500,500));
+        //        luz.setScale(sf::Vector2f(1.f,1.f));
+        //        luz.setColor(255,128,128);
+        //        luz.setTexture("resources/Textures/spookyLightTexture.png");
+        //        motor->addLight(luz);
+
+        lightMapTexture.create(640, 480); // Make a lightmap that can cover our screen
+        lightmap.setTexture(lightMapTexture.getTexture()); // Make our lightmap sprite use the correct texture
+
+        lightTexture.loadFromFile("resources/Textures/spookyLightTexture.png"); // Load in our light 
+        lightTexture.setSmooth(true); // (Optional) It just smoothes the light out a bit
+
+        // Contains all the lights
+        lights.push_back(Light(sf::Vector2f(100, 100), sf::Vector2f(0.9f, 0.9f), sf::Color(255, 180, 130, 255))); // Create a light
+
+
         contFonts.loadFromFile("resources/Fonts/Sansation.ttf");
 
     } catch (std::runtime_error& e) {
+
         std::cout << "Excepcion: " << e.what() << std::endl;
         exit(0);
     }
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
-
-    
-    player = new Player();
+    //player = new Player();
     player -> Inicializar(200.f, 250.f);
-    
-    motor->setZoomToView(0.5f,1);//1=vista del mundo(nuestra pantalla)
 
-    video = new Video("resources/Videos/arbol/tree",410);
+    motor->setZoomToView(0.5f, 1); //1=vista del mundo(nuestra pantalla)
+
+    video = new Video("resources/Videos/arbol/tree", 410);
 }
 
 InGame::InGame(const InGame& orig) {
@@ -63,8 +80,8 @@ InGame::InGame(const InGame& orig) {
 InGame::~InGame() {
 }
 
-void InGame::Update(sf::Time elapsedTime){
-    
+void InGame::Update(sf::Time elapsedTime) {
+
     if (!firstTime) {
         sf::Vector2f movement(0.f, 0.f);
         if (isMovingUp)
@@ -103,33 +120,27 @@ void InGame::Update(sf::Time elapsedTime){
         //avanzado
 
         if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && player->hRayoAvanzado->tiempoCast.getTiempo() > player->hRayoBasico->getCast()) {
+
             player->hRayoAvanzado->draw = false;
             player->hRayoAvanzado->StopAnimation();
         }
         video->setDibujar(true);
+        player->hud->Update();
     }
     
+
     firstTime = false;
-    
+
 }
 
-void InGame::render(float interpolation, sf::Time elapsedTime){
-    
+void InGame::render(float interpolation, sf::Time elapsedTime) {
     
     motor->clear();
-
-    //Pillamos la view anterior, activamos la del fondo, dibujamos el fondo y volvemos al estado anterior
-    //sf::View previa = mWindow->getView();
-    motor->SetView(0);//bordes
-    //mWindow->setView(mBackgroundView);
+    motor->SetView(0);
     motor->draw(spriteRelleno);
-    //mWindow->setView(previa);
     motor->SetView(1);
-
     updateView();
     motor->draw(spriteFondo);
-
-
     int x = motor->getMousePosition().x - player -> getPosition().x;
     int y = motor->getMousePosition().y - player -> getPosition().y;
     player ->UpdatePlayerAnimation(x, y);
@@ -197,7 +208,7 @@ void InGame::render(float interpolation, sf::Time elapsedTime){
             }
 
 
-            player->hRayoBasico->DrawWithInterpolation( interpolation, player->GetPreviousPosition(), player->GetPosition());
+            player->hRayoBasico->DrawWithInterpolation(interpolation, player->GetPreviousPosition(), player->GetPosition());
         } else {
 
             player->hRayoBasico->draw = false;
@@ -210,35 +221,25 @@ void InGame::render(float interpolation, sf::Time elapsedTime){
     //printf("%f",player->hRayoBasico->tiempoCast.getTiempo());
 
     player -> PlayAnimation(*player -> currentAnimation);
-    
+
 
     if ((!isMovingDown && !isMovingLeft && !isMovingRight && !isMovingUp) || player->hRayoBasico->draw == true) {
+
         player -> StopAnimation();
     }
     player -> UpdateAnimation(elapsedTime);
-
-
     player -> DrawWithInterpolation(interpolation);
-    
     video->PlayVideo();
-   // previa = mWindow->getView();
-
-   //mWindow->setView(getLetterboxView(mHud, ref.ancho, ref.alto, 640, 480));
-    motor->SetView(2);//vista del HUD
+    motor->SetView(2); //vista del HUD
     player -> hud->renderHud();
-   // mWindow->setView(previa);
-    
-    //prueba
-    motor->SetView(1);//vista del juego
-    //mWindow->draw(mouseSprite);
+    motor->SetView(1); //vista del juego
     motor->draw(mouseSprite);
-    // mWindow.draw(mStatisticsText);
-    //mWindow->display();
+    
     motor->display();
 }
 
 void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
-    
+
     if (key == sf::Keyboard::W) { //Esto lo hago para que cuando no estes presionando cambia a false
         isMovingUp = isPressed;
     } else if (key == sf::Keyboard::S) {
@@ -247,24 +248,22 @@ void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         isMovingLeft = isPressed;
     } else if (key == sf::Keyboard::D) {
         isMovingRight = isPressed;
-    }
-    else if (key == sf::Keyboard::R && isPressed) {
+    } else if (key == sf::Keyboard::R && isPressed) {
         player->hRayoBasico->aumentaLVL();
-    }
-    else if (key == sf::Keyboard::T && isPressed) {
+    } else if (key == sf::Keyboard::T && isPressed) {
         player->hRayoAvanzado->aumentaLVL();
-    }
-    else if (key == sf::Keyboard::X && isPressed) {
+    } else if (key == sf::Keyboard::X && isPressed) {
+
         isInterpolating = !isInterpolating;
     }
 }
-
 
 void InGame::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
     if (button == sf::Mouse::Button::Left) {
         isShooting = isPressed;
     }
     if (button == sf::Mouse::Button::Right && isPressed == false) {
+
         player->hRayoAvanzado->cast(sf::Vector2f(player->getPosition()));
     }
 }
@@ -279,14 +278,14 @@ void InGame::updateView() {
     position.y = std::max(position.y, viewBounds.top);
     position.y = std::min(position.y, viewBounds.height + viewBounds.top);
 
-    mouseSprite.setPosition(position.x,position.y);
+    mouseSprite.setPosition(position.x, position.y);
 
     float camera_x = (position.x + (player -> getPosition().x * 6)) / 7; //Media dando prioridad al jugador
     float camera_y = (position.y + player -> getPosition().y * 6) / 7;
     float x = (motor->getCenterFromView(1).x + 0.1 * (camera_x - motor->getCenterFromView(1).x)); //Lo mismo que la funcion lerp
     float y = (motor->getCenterFromView(1).y + 0.1 * (camera_y - motor->getCenterFromView(1).y));
-    motor->setCenterForView(1,x,y);
-    motor->setSizeForView(1,640,480);
+    motor->setCenterForView(1, x, y);
+    motor->setSizeForView(1, 640, 480);
     motor->SetView(1);
-   // mWindow->setView(getLetterboxView(mWorldView, ref.ancho, ref.alto, 640, 480));
+    // mWindow->setView(getLetterboxView(mWorldView, ref.ancho, ref.alto, 640, 480));
 }

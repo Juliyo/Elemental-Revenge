@@ -26,8 +26,7 @@ public:
     hRayAdvanced(const hRayAdvanced& orig);
     virtual ~hRayAdvanced();
     void cast(sf::Vector2f vector);
-    Reloj tiempoCast;
-    Reloj tiempoCd;
+    
     
 void DrawWithOutInterpolation();
     Animation **currentAnimation;

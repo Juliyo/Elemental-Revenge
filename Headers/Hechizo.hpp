@@ -45,7 +45,8 @@ public:
     bool draw;
     bool dibujar;
     bool primerCast=true;
-    
+    Reloj tiempoCd;
+    Reloj tiempoCast;
     
 protected:
     float hCd;

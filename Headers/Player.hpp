@@ -20,7 +20,7 @@ public:
 	Player();
 	Player(const Player& orig);
 	virtual ~Player();
-	
+	static Player* Instance();
 	void Inicializar(float posX, float posY, float speedX=0.f, float speedY=0.f, float maxSpeedX=1000.f, float maxSpeedY=1000.f);
 	void Update(sf::Vector2f velocity, sf::Time elapsedTime);
 	void Draw(sf::RenderWindow& window);
@@ -46,6 +46,7 @@ public:
 	Hud                     *hud;
         int                     cuadrante;
 private:
+        static Player           *mInstance;
         sf::Texture             texturaPlayer;
         float                   velocity=200.f;
         int                     vida=15;

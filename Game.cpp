@@ -126,6 +126,12 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
     } else if (key == sf::Keyboard::N) {
         EstadoTransition->EstadoActivo = false;
         EstadoInGame->EstadoActivo = true;
+    }else if(key == sf::Keyboard::Num1){
+        Player::Instance()->hud->cambiaHechizo(1);
+    }else if(key == sf::Keyboard::Num2){
+        Player::Instance()->hud->cambiaHechizo(2);
+    }else if(key == sf::Keyboard::Num3){
+        Player::Instance()->hud->cambiaHechizo(3);
     }
 }
 

@@ -22,7 +22,7 @@ Video::Video(std::string ruta, int f) {
     current_frame=0;
     dibujar=false;
     for(int i=0; i < numFrames;i++){
-        frames[i].setTexture(ruta + std::to_string(i) + ".png");
+        frames[i].setTexture(ruta + toString(i) + ".png");
         frames[i].setSmooth(true);
         frames[i].setPosition(0,0);
     }

@@ -28,14 +28,16 @@ public:
     void setTexture(std::string ruta);
     void setTextureRect(int top, int left, int width, int heigth);
     void setOrigin(float x, float y);
-    
+    sf::Sprite getSprite();
 private:
     sf::Vector2f position;
     sf::Vector2f scale;
     sf::Color color;
     
+    sf::Texture m_texture;
+    
     sf::Texture lightTexture;
-    Sprite light;
+    sf::Sprite light;
 };
 
 #endif /* LIGHT_HPP */

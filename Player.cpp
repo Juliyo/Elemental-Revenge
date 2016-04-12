@@ -8,6 +8,14 @@
 #include "Player.hpp"
 #include "Util.hpp"
 
+Player* Player::mInstance = 0;
+Player* Player::Instance() {
+    if (mInstance == 0) {
+        mInstance = new Player;
+    }
+    return mInstance;
+}
+
 Player::Player() {
 }
 
@@ -27,10 +35,20 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     castingAnimationDown= new Animation();
     castingAnimationRight= new Animation();
     castingAnimationLeft= new Animation();
-    hud = new Hud();
+    
     hRayoBasico = new hRayBasic();
     hRayoAvanzado = new hRayAdvanced();
-            
+    
+    Reloj *relojes = new Reloj[6];
+    relojes[0] = hRayoBasico->tiempoCd;
+    relojes[1] = hRayoAvanzado->tiempoCd;
+    
+    float *cds = new float[6];
+    
+    cds[0] = hRayoBasico->getCD();
+    cds[1] = hRayoAvanzado->getCD();
+    hud = new Hud(relojes,cds);
+    
     if(!texturaPlayer.loadFromFile("resources/Textures/player.png")){
        std::cout<<"Error cargando la textura: "<<"resources/Textures/player.png"<<std::endl;
        exit(0);

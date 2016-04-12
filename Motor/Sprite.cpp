@@ -52,6 +52,7 @@ void Sprite::setTexture(std::string ruta, bool smooth) {
 
 void Sprite::setTexture(sf::Texture textura) {
     m_texture = textura;
+    m_sprite.setTexture(m_texture);
 }
 
 void Sprite::setScale(float x, float y) {

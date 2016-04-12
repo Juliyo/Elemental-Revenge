@@ -34,7 +34,12 @@ public:
     
     void                        updateView();
        
+sf::Texture lightTexture;
+        sf::Sprite light;
 
+        sf::RenderTexture lightMapTexture;
+        sf::Sprite lightmap;
+        std::vector<Light> lights;
     
 
 private:
@@ -60,8 +65,6 @@ private:
     sf::Texture                 mouseTexture;
    // sf::Sprite                  mouseSprite;
     Sprite                  mouseSprite;
-    
-    
     
     //Eventos
     bool			isMovingUp;

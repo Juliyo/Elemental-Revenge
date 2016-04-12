@@ -16,7 +16,6 @@
 
 #include "Sprite.hpp"
 #include "Reloj.hpp"
-#include "Light.hpp"
 #include <SFML/Graphics.hpp>
 #include <string>
 #ifdef _WIN32
@@ -24,6 +23,17 @@
 #endif
 #include <vector>
 
+struct Light {
+    sf::Vector2f position;
+    sf::Vector2f scale;
+    sf::Color color;
+
+    Light(sf::Vector2f nposition, sf::Vector2f nscale, sf::Color ncolor) :
+    position(nposition),
+    scale(nscale),
+    color(ncolor) {
+    }
+};
 
 class Motor2D {
 public:
@@ -59,16 +69,17 @@ public:
 
     bool isWindowOpen();
     void closeWindow();
-    
+
     void addLight(Light ligth);
     void clearAmbiente();
-    void setAmbientColor(int r, int g, int b,int a=128);
+    void setAmbientColor(int r, int g, int b, int a = 128);
     void renderLights();
-    
+    void drawLightmap();
+
     sf::Vector2f getMousePosition();
     sf::RenderWindow *mWindow;
     sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight);
-    
+
 private:
     int anchoVentana;
     int altoVentana;
@@ -77,9 +88,9 @@ private:
     sf::View *pantalla;
     sf::View *HUD;
     sf::Vector2f *raton;
-    
+
     sf::RenderTexture lightMapTexture;
-    Sprite lightmap;
+    sf::Sprite lightmap;
     std::vector<Light> lights;
     sf::Color colorAmbiente;
 };

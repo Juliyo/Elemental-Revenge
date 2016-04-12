@@ -26,6 +26,8 @@ void Light::setColor(int r, int g, int b) {
     color.r = r;
     color.g = g;
     color.b = b;
+    color.a = 255;
+    
 }
 
 void Light::setPosition(sf::Vector2f pos) {
@@ -39,18 +41,22 @@ void Light::setScale(sf::Vector2f scl) {
 }
 
 void Light::setTexture(std::string ruta) {
-    light.setTexture(ruta);
-    light.setSmooth(true);
+    lightTexture.loadFromFile(ruta);
+    lightTexture.setSmooth(true);
+    light.setTexture(lightTexture);
     
     setTextureRect(0,0,lightTexture.getSize().x,lightTexture.getSize().y);
     setOrigin(lightTexture.getSize().x/2,lightTexture.getSize().y/2);
 }
 
 void Light::setTextureRect(int top, int left, int width, int heigth) {
-    light.setTextRect(top, left, width, heigth);
+    light.setTextureRect(sf::IntRect(top, left, width, heigth));
 }
 
 void Light::setOrigin(float x, float y) {
     light.setOrigin(x, y);
 }
 
+sf::Sprite Light::getSprite() {
+    return light;
+}
