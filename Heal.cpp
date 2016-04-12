@@ -18,6 +18,7 @@ Heal::Heal() {
     animacion = new Animation();
 
 
+
     animacion->setSpriteSheet("resources/Textures/heal.png");
     animacion->addFrame(sf::IntRect(0,0,256,256));
     animacion->addFrame(sf::IntRect(256,0,256,256));

@@ -35,16 +35,7 @@ public:
         PhysicsState* getPhysics();
         void UpdatePlayerAnimation(int x, int y);
         sf::Vector2f getPosition();
-        Animation** getAnimation();
-        //Curar
-        Heal                    *hHeal;
-        int getVida();
-        int restaVida(int a);
-        void heal();
-        //
-                
-	Hud                     *hud;
-        int                     cuadrante;
+        Animation** getAnimation(){ return currentAnimation; };
         
         hRayBasic     *hRayoBasico;
         hRayAdvanced  *hRayoAvanzado;
@@ -59,19 +50,26 @@ public:
         Reloj               castFire;    //Variable de clase para el casteo
         Reloj               castFire2;    //Variable de clase para el casteo
         bool                    primercastFuego;    //Variable de clase para el primer casteo
-        //
+  
+        
         ///Aguaa
         hWaterBasic             *hAguaBasico;
         hWaterAdvanced          *hAguaAvanzado;
+        
+        
+        
         ///
         
-        //ANIMACIONES
         Animation               **currentAnimation;
         Animation               *walkingAnimationDown;
         Animation               *walkingAnimationLeft;
         Animation               *walkingAnimationRight;
         Animation               *walkingAnimationUp;
-
+        //Fuego
+        Animation               *castingAnimationUpFuego;
+        Animation               *castingAnimationDownFuego;
+        Animation               *castingAnimationRightFuego;
+        Animation               *castingAnimationLeftFuego;
         //Rayo
         Animation               *castingAnimationUpRayo;
         Animation               *castingAnimationDownRayo;
@@ -81,32 +79,38 @@ public:
         Animation               *castingAnimationUpAgua;
         Animation               *castingAnimationDownAgua;
         Animation               *castingAnimationRightAgua;
-        Animation               *castingAnimationLeftAgua;              
-        //fuego1
+        Animation               *castingAnimationLeftAgua;
+                
+                //Animaciones fuego1
         Animation               *fuegoAnimationDown;
         Animation               *fuegoAnimationLeft;
         Animation               *fuegoAnimationRight;
         Animation               *fuegoAnimationUp;
-        //fuego2
+        //Animaciones fuego2
         Animation               *fuego2AnimationDown;
         Animation               *fuego2AnimationLeft;
         Animation               *fuego2AnimationRight;
         Animation               *fuego2AnimationUp;
-        //heal
+        //Animaciones heal
         Animation               *healingAnimationDown;
         Animation               *healingAnimationLeft;
         Animation               *healingAnimationRight;
         Animation               *healingAnimationUp;
-
         
+	Hud                     *hud;
+        int                     cuadrante;
+        
+        //heal
+        Heal                    *hHeal;
+        int                     getVida();
+        int                     restaVida(int a);
+        void                    heal();
 private:
-    //curar
-        Reloj                   invulnerable;
-//
         sf::Texture             texturaPlayer;
         float                   velocity=200.f;
         int                     vida=15;
         PhysicsState            physicsState;
+        Reloj                   invulnerable;
 };
 
 #endif	/* PLAYER_H */

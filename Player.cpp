@@ -29,12 +29,18 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     castingAnimationDownRayo= new Animation();
     castingAnimationRightRayo= new Animation();
     castingAnimationLeftRayo= new Animation();
+    //casteo Fuego
+    castingAnimationUpFuego= new Animation();
+    castingAnimationDownFuego= new Animation();
+    castingAnimationRightFuego= new Animation();
+    castingAnimationLeftFuego= new Animation();
     //casteo Agua
     castingAnimationUpAgua= new Animation();
     castingAnimationDownAgua= new Animation();
     castingAnimationRightAgua= new Animation();
-    castingAnimationLeftAgua= new Animation();   
-    //casteo fuego
+    castingAnimationLeftAgua= new Animation();
+    
+    //fuego
     fuegoAnimationDown = new Animation();
     fuegoAnimationLeft = new Animation();
     fuegoAnimationRight = new Animation();
@@ -43,7 +49,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     fuego2AnimationLeft = new Animation();
     fuego2AnimationRight = new Animation();
     fuego2AnimationUp = new Animation();
-    //casteo Heal
+    //heal
     healingAnimationDown = new Animation();
     healingAnimationLeft = new Animation();
     healingAnimationRight = new Animation();
@@ -53,7 +59,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     
     
     
-    hHeal = new Heal();
+    
     hud = new Hud();
     hRayoBasico = new hRayBasic();
     hRayoAvanzado = new hRayAdvanced();
@@ -64,6 +70,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     hAguaBasico=new hWaterBasic();
     hAguaAvanzado = new hWaterAdvanced();
     
+    hHeal = new Heal();
             
     if(!texturaPlayer.loadFromFile("resources/Textures/player.png")){
        std::cout<<"Error cargando la textura: "<<"resources/Textures/player.png"<<std::endl;
@@ -306,6 +313,54 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     fuego2AnimationUp->addFrame(sf::IntRect(320, 0, 64, 64));
     fuego2AnimationUp->addFrame(sf::IntRect(384, 0, 64, 64));
     
+    //casteo heal
+    
+    healingAnimationDown->setSpriteSheet("resources/Textures/player.png");
+    healingAnimationDown->addFrame(sf::IntRect(384, 128, 64, 64));
+    healingAnimationDown->addFrame(sf::IntRect(0, 128, 64, 64));
+    healingAnimationDown->addFrame(sf::IntRect(64, 128, 64, 64));
+    healingAnimationDown->addFrame(sf::IntRect(128, 128, 64, 64));
+    healingAnimationDown->addFrame(sf::IntRect(192, 128, 64, 64));
+    healingAnimationDown->addFrame(sf::IntRect(256, 128, 64, 64));
+    healingAnimationDown->addFrame(sf::IntRect(320, 128, 64, 64));
+    healingAnimationDown->addFrame(sf::IntRect(384, 128, 64, 64));
+
+
+    healingAnimationLeft->setSpriteSheet("resources/Textures/player.png");
+    healingAnimationLeft->addFrame(sf::IntRect(384, 64, 64, 64));
+    healingAnimationLeft->addFrame(sf::IntRect(0, 64, 64, 64));
+    healingAnimationLeft->addFrame(sf::IntRect(64, 64, 64, 64));
+    healingAnimationLeft->addFrame(sf::IntRect(128, 64, 64, 64));
+    healingAnimationLeft->addFrame(sf::IntRect(192, 64, 64, 64));
+    healingAnimationLeft->addFrame(sf::IntRect(256, 64, 64, 64));
+    healingAnimationLeft->addFrame(sf::IntRect(320, 64, 64, 64));
+    healingAnimationLeft->addFrame(sf::IntRect(384, 64, 64, 64));
+
+    healingAnimationRight->setSpriteSheet("resources/Textures/player.png");
+    healingAnimationRight->addFrame(sf::IntRect(384, 192, 64, 64));
+    healingAnimationRight->addFrame(sf::IntRect(0, 192, 64, 64));
+    healingAnimationRight->addFrame(sf::IntRect(64, 192, 64, 64));
+    healingAnimationRight->addFrame(sf::IntRect(128, 192, 64, 64));
+    healingAnimationRight->addFrame(sf::IntRect(192, 192, 64, 64));
+    healingAnimationRight->addFrame(sf::IntRect(256, 192, 64, 64));
+    healingAnimationRight->addFrame(sf::IntRect(320, 192, 64, 64));
+    healingAnimationRight->addFrame(sf::IntRect(384, 192, 64, 64));
+
+
+    healingAnimationUp->setSpriteSheet("resources/Textures/player.png");
+    healingAnimationUp->addFrame(sf::IntRect(384, 0, 64, 64));
+    healingAnimationUp->addFrame(sf::IntRect(0, 0, 64, 64));
+    healingAnimationUp->addFrame(sf::IntRect(64, 0, 64, 64));
+    healingAnimationUp->addFrame(sf::IntRect(128, 0, 64, 64));
+    healingAnimationUp->addFrame(sf::IntRect(192, 0, 64, 64));
+    healingAnimationUp->addFrame(sf::IntRect(256, 0, 64, 64));
+    healingAnimationUp->addFrame(sf::IntRect(320, 0, 64, 64));
+    healingAnimationUp->addFrame(sf::IntRect(384, 0, 64, 64));
+    
+    
+    
+    ////////
+    
     
     currentAnimation = &walkingAnimationDown;
     InicializarAnimatedSprite(sf::seconds(0.075f), true, false);
@@ -367,13 +422,13 @@ PhysicsState* Player::getPhysics() {
     return &physicsState;
 }
 
-Animation** Player::getAnimation() {
-    return currentAnimation;
+int Player::getVida() {
+    return vida;
 }
 
 int Player::restaVida(int a) {
 
-    if (invulnerable.getTiempo() > 0.5f && (vida - a) >= 0) {
+    if (invulnerable.getTiempo() > 0.5f && (vida-a) >= 0) {
         //std::cout <<"Resto vidas";
         vida -= a;
         hud->updateHud(vida);
@@ -394,8 +449,4 @@ void Player::heal() {
         }
         hud->updateHud(vida);
     }
-}
-
-int Player::getVida() {
-    return vida;
 }
