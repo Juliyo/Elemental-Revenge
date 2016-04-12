@@ -195,7 +195,7 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         if (EstadoMenu->getSetectedItemIndex() == 0) {
             EstadoMenu->pararMusica();
             EstadoMenu->EstadoActivo = false;
-            EstadoInGame->EstadoActivo = true;
+            EstadoTransition->EstadoActivo = true;
         }
     } else if (key == sf::Keyboard::Return && EstadoPause->EstadoActivo) {
         if (EstadoPause->getSetectedItemIndexPause() == 0) {
