@@ -206,7 +206,7 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
             EstadoPause->EstadoActivo = false;
             EstadoMenu->EstadoActivo = true;
         }
-    } else if (key == sf::Keyboard::P) {
+    } else if (key == sf::Keyboard::P && EstadoInGame->EstadoActivo) {
         EstadoTransition->EstadoActivo = false;
         EstadoInGame->EstadoActivo = false;
         EstadoPause->EstadoActivo = true;
