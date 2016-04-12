@@ -458,7 +458,7 @@ void Menu2::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
 
     } else if (key == sf::Keyboard::Escape) {
         if (selectedItemIndex < 3) {
-            mWindow->close();
+           // mWindow->close();
         } else {
             selectedItemIndex = 1;
         }
