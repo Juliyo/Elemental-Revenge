@@ -332,7 +332,7 @@ void Pause::MoveUp(){
         }
         
         else{
-            if(selectedItemIndexPausa-1>=3){
+            if(selectedItemIndexPausa-1>=3 && selectedItemIndexPausa<7){
         
         menuPausa[selectedItemIndexPausa].setColor(colorAzul);
         selectedItemIndexPausa--;
@@ -463,8 +463,11 @@ void Pause::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
     } else if (key == sf::Keyboard::Escape) {
         if(selectedItemIndexPausa<3){
         mWindow->close();}
-        else{
+        if(selectedItemIndexPausa>3 && selectedItemIndexPausa<7){
             selectedItemIndexPausa=1;
+        }
+        if(selectedItemIndexPausa>7){
+            selectedItemIndexPausa=4;
         }
     } 
 }
