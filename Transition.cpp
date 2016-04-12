@@ -50,7 +50,7 @@ Transition::Transition() {
 
     arbol = new btree();
     arbol->insert(key, p1, respuesta1->GetText(), respuesta2->GetText());
-
+    firstNode=arbol->search(key);
     for (int i = 0; i < 6; i++) {
         pregunta1 = pregunta1->NextSiblingElement("pregunta");
         //std::cout<<respuesta1->GetText()<<std::endl;

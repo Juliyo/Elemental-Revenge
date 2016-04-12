@@ -44,6 +44,11 @@ public:
     
     bool preguntaContestada=false;
     int level = 0;
+    
+    node *currentNode;
+    node *firstNode;
+
+    
 private:
     sf::RenderWindow *mWindow;
 
@@ -79,7 +84,6 @@ private:
     Animation *animation;
     sf::Texture pend;
     btree *arbol;
-    node *currentNode;
     bool buttonPressed = false;
     bool firstTime = false;
     sf::Color transparent = sf::Color::Transparent;

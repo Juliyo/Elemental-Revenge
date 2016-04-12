@@ -36,10 +36,13 @@ public:
         void MoveLeft();
     void MoveRight();
         void handlePlayerInput(sf::Keyboard::Key key, bool isPressed ); // Maneja eventos
+        void handlePlayerInput2(sf::Keyboard::Key key, bool isPressed ); // Maneja eventos
     int getSetectedItemIndexPause(){
         return selectedItemIndexPausa;
     };
-    
+      int SetSetectedItemIndexPause(int a){
+        selectedItemIndexPausa =a;
+    };
     Window &ref = *Window::Instance();
     sf::View mWorldView;
     sf::View mBackgroundView;

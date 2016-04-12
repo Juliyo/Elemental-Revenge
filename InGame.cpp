@@ -249,6 +249,8 @@ void InGame::renderForPause(float interpolation, sf::Time elapsedTime){
     previa = mWindow->getView();
    
     mWindow->draw(spriteFondo);
+    mapa->dibuja(*mWindow);
+    mapa->dibuja2(*mWindow);
      player->Draw(*mWindow);
      mWindow->draw(player->GetSpriteAnimated());
     

@@ -50,7 +50,12 @@ public:
         void updateView();
     int getSetectedItemIndex(){
         return selectedItemIndex;
-    };
+    }
+    
+    int SetSetectedItemIndex(int a){
+        selectedItemIndex=a;
+    }
+    
     void pararMusica();
 
         Window &ref = *Window::Instance();
