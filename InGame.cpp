@@ -131,8 +131,8 @@ void InGame::render(float interpolation, sf::Time elapsedTime){
     updateView();
     mWindow->draw(spriteFondo);
     mapa->dibuja(*mWindow);
-    mapa->dibuja2(*mWindow);
-
+    //mapa->dibuja2(*mWindow);
+    
 
     int x = mouseSprite.getPosition().x - player -> getPosition().x;
     int y = mouseSprite.getPosition().y - player -> getPosition().y;

@@ -45,6 +45,10 @@ void Map::leerMapa(int numMapa){
     if(numMapa==1){
     doc.LoadFile("resources/mapaBosqueAlfa.tmx");
     }
+    if(numMapa==3){
+    doc.LoadFile("resources/CasaAbandonadaV1.tmx");
+    }
+    
     if(numMapa==2){
     doc.LoadFile("resources/mansionV2.tmx");
     }
@@ -168,11 +172,13 @@ void Map::leerMapa(int numMapa){
 void Map::dibuja(sf::RenderWindow& window){
 
     
-    for(int l=0; l<_numLayers-2; l++){
+    for(int l=0; l<_numLayers; l++){
         for(int y=0; y<_height; y++){
             for(int x=0; x<_width; x++){
+                if(l!=3){
                 if(_tilemapSprite[l][y][x]!=NULL){
                     window.draw(*(_tilemapSprite[l][y][x]));
+                }
                 }
             }
         }

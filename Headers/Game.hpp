@@ -40,9 +40,7 @@ private:
 	
     //Graficos
     sf::RenderWindow		*mWindow;
-    
-    
-    
+        
     InGame                      *EstadoInGame;
     Transition                  *EstadoTransition;
     Menu2                       *EstadoMenu;  

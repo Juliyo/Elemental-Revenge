@@ -77,33 +77,33 @@ void PhysicsState::Update(sf::Time elapsedTime, Map *mapa){
     top_bot=top_bot/16;
     
      sf::Vector2f speed2 = speed;
-    if (mapa->_tilemap[2][top][left_right] != 0 && mapa->_tilemap[2][top_bot][left] != 0) {
+    if (mapa->_tilemap[3][top][left_right] != 0 && mapa->_tilemap[3][top_bot][left] != 0) {
         posPrev = posNew;
-    }else if (mapa->_tilemap[2][top][left_right] != 0 && mapa->_tilemap[2][top_bot][right] != 0) {
+    }else if (mapa->_tilemap[3][top][left_right] != 0 && mapa->_tilemap[3][top_bot][right] != 0) {
         posPrev = posNew;
-    }else if (mapa->_tilemap[2][bot][left_right] != 0 && mapa->_tilemap[2][top_bot][left] != 0) {
+    }else if (mapa->_tilemap[3][bot][left_right] != 0 && mapa->_tilemap[3][top_bot][left] != 0) {
         posPrev = posNew;
-    }else if (mapa->_tilemap[2][bot][left_right] != 0 && mapa->_tilemap[2][top_bot][right] != 0) {
+    }else if (mapa->_tilemap[3][bot][left_right] != 0 && mapa->_tilemap[3][top_bot][right] != 0) {
         posPrev = posNew;
-    }else if (mapa->_tilemap[2][top][left_right] != 0) {
+    }else if (mapa->_tilemap[3][top][left_right] != 0) {
         if(speed2.y<0){
                speed2.y=0;  
              }
              posPrev = posNew;
              posNew += speed2 * elapsedTime.asSeconds();
-    }else if (mapa->_tilemap[2][bot][left_right] != 0) {
+    }else if (mapa->_tilemap[3][bot][left_right] != 0) {
          if(speed2.y>0){
                speed2.y=0;  
              }
              posPrev = posNew;
              posNew += speed2 * elapsedTime.asSeconds();
-    }else if (mapa->_tilemap[2][top_bot][left] != 0) {
+    }else if (mapa->_tilemap[3][top_bot][left] != 0) {
         if(speed2.x<0){
                speed2.x=0;  
              }
              posPrev = posNew;
              posNew += speed2 * elapsedTime.asSeconds();
-    }else if (mapa->_tilemap[2][top_bot][right] != 0) {
+    }else if (mapa->_tilemap[3][top_bot][right] != 0) {
                 if(speed2.x>0){
                speed2.x=0;  
              }
