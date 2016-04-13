@@ -191,6 +191,8 @@ Transition::~Transition() {
 }
 
 void Transition::Update(sf::Time elapsedTime) {
+    printf("%d\n",level);
+    
     if (buttonPressed && !firstTime && (!fadeEffect && !unfadeEffect)) {
         if (spriteOpcionA.getGlobalBounds().contains(mouseSprite.getPosition())) {
             izq = true;
@@ -606,7 +608,7 @@ void Transition::Update(sf::Time elapsedTime) {
             transparent.a += 20;
         }
     }
-
+    
 }
 
 void Transition::changePregunta() {
@@ -809,9 +811,6 @@ void Transition::render(float interpolation, sf::Time elapsedTime) {
     mWindow->draw(spriteRelleno);
     mWindow->setView(previa);
     updateView();
-    /*animatedSprite->play(*animation);
-    animatedSprite->update(elapsedTime);
-    mWindow->draw(*animatedSprite);*/
     mWindow->draw(spriteFondo);
 
     mWindow->draw(pregunta);

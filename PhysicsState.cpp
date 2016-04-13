@@ -61,10 +61,9 @@ void PhysicsState::Update(sf::Time elapsedTime)
         
 }
 void PhysicsState::Update(sf::Time elapsedTime, Map *mapa){
-    /*  COLISIONES  */
-    sf::Vector2f nextPos = GetNextPosition(elapsedTime);
+     sf::Vector2f nextPos = GetNextPosition(elapsedTime);
     int top=(int)nextPos.y-16;
-    int bot=(int)nextPos.y+32;
+    int bot=(int)nextPos.y+16;
     int left=(int)nextPos.x-16;
     int right=(int)nextPos.x+16;
     int left_right = (left+right)/2;
@@ -77,6 +76,7 @@ void PhysicsState::Update(sf::Time elapsedTime, Map *mapa){
     top_bot=top_bot/16;
     
      sf::Vector2f speed2 = speed;
+     printf("%d,%d,%d\n",mapa->_tilemap[3][top][left],mapa->_tilemap[3][top_bot][left],mapa->_tilemap[2][top][left_right]);
     if (mapa->_tilemap[3][top][left_right] != 0 && mapa->_tilemap[3][top_bot][left] != 0) {
         posPrev = posNew;
     }else if (mapa->_tilemap[3][top][left_right] != 0 && mapa->_tilemap[3][top_bot][right] != 0) {
@@ -109,7 +109,50 @@ void PhysicsState::Update(sf::Time elapsedTime, Map *mapa){
              }
              posPrev = posNew;
              posNew += speed2 * elapsedTime.asSeconds();
-    }else{
+    }else if (mapa->_tilemap[3][top][left] != 0 && mapa->_tilemap[3][top_bot][left] == 0 && mapa->_tilemap[3][top][left_right] == 0) {
+             if(speed2.y<0){
+               speed2.y=0;  
+             }
+             if(speed2.x<0){
+               speed2.x=0;  
+             }
+             posPrev = posNew;
+             posNew += speed2 * elapsedTime.asSeconds();
+        printf("entro esquina izq top");
+    }else if (mapa->_tilemap[3][top][right] != 0 && mapa->_tilemap[3][top_bot][right] == 0 && mapa->_tilemap[3][top][left_right] == 0) {
+             if(speed2.y<0){
+               speed2.y=0;  
+             }
+             if(speed2.x>0){
+               speed2.x=0;  
+             }
+             posPrev = posNew;
+             posNew += speed2 * elapsedTime.asSeconds();
+             printf("entro esquina der top");
+        posPrev = posNew;
+    } else if (mapa->_tilemap[3][bot][left] != 0 && mapa->_tilemap[3][top_bot][left] == 0 && mapa->_tilemap[3][bot][left_right] == 0) {
+             if(speed2.y>0){
+               speed2.y=0;  
+             }
+             if(speed2.x<0){
+               speed2.x=0;  
+             }
+             posPrev = posNew;
+             posNew += speed2 * elapsedTime.asSeconds();
+             
+        printf("entro esquina izq bot");
+    }else if (mapa->_tilemap[3][bot][right] != 0 && mapa->_tilemap[3][top_bot][right] == 0 && mapa->_tilemap[3][bot][left_right] == 0) {
+             if(speed2.y>0){
+               speed2.y=0;  
+             }
+             if(speed2.x>0){
+               speed2.x=0;  
+             }
+             posPrev = posNew;
+             posNew += speed2 * elapsedTime.asSeconds();
+             printf("entro esquina der bot");
+        posPrev = posNew;
+    } else{
         posPrev = posNew;
         posNew += speed * elapsedTime.asSeconds();
     }
