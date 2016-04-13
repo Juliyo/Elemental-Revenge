@@ -63,34 +63,30 @@ InGame::InGame(const InGame& orig) {
 InGame::~InGame() {
 }
 
-void InGame::Update(sf::Time elapsedTime) {
-    
-    
-    
-    if(firstTimeRayo && firstTimeFuego && firstTimeAgua){
-         hActivo=0;
-         
-    }
-   
-    //**************************RAYO**********************
-
-        if (!firstTimeRayo) {
-            
-            if(hActivo==1){
-            sf::Vector2f movement(0.f, 0.f);
+void InGame::Update(sf::Time elapsedTime) {   
+    //*********************PLAYER***********************
+    sf::Vector2f movement(0.f, 0.f);
+        if(!firstTime){
+           
+                
             if (isMovingUp)
                 movement.y -= player -> getVelocidad();
-            if (isMovingDown)
+            else if (isMovingDown)
                 movement.y += player -> getVelocidad();
-            if (isMovingLeft)
+            else if (isMovingLeft)
                 movement.x -= player -> getVelocidad();
-            if (isMovingRight)
+            else if (isMovingRight)
                 movement.x += player -> getVelocidad();
-
             player -> Update(movement, elapsedTime);
-            }
+    }else{
+        hActivo=0;      
+    }
+        firstTime=false;
+    //**************************RAYO**********************
 
-
+        if ( hActivo==1) {
+            
+            
             if (player->hRayoBasico->tiempoCast.getTiempo() > player->hRayoBasico->getCast() && aux == true) {
                 isShooting = false;
                 player->hRayoBasico->primerCast = false;
@@ -120,32 +116,10 @@ void InGame::Update(sf::Time elapsedTime) {
                 player->hRayoAvanzado->StopAnimation();
             }
         }
-        firstTimeRayo = false;
+      
     
 //*****************************FUEGO**********************************************
-        if (!firstTimeFuego) {
-            if(hActivo==0){
-            sf::Vector2f movement(0.f, 0.f);
-            if (isMovingUp) {
-                movement.y -= player -> getVelocidad();
-                //noKeyWasPressed = false;
-            }
-            if (isMovingDown) {
-                movement.y += player -> getVelocidad();
-                //noKeyWasPressed = false;
-            }
-            if (isMovingLeft) {
-                movement.x -= player -> getVelocidad();
-            }
-            if (isMovingRight) {
-                movement.x += player -> getVelocidad();
-                // noKeyWasPressed = false;
-            }
-             player -> Update(movement, elapsedTime); 
-            }
 
-        }
-        firstTimeFuego = false;
         sf::Vector2f movement2(0.f, 0.f);
         if (fuegoBasicCast) {
             if (player->contFuego == 49) {
@@ -185,38 +159,14 @@ void InGame::Update(sf::Time elapsedTime) {
 
             player->hFuegoAvanzado->cast(sf::Vector2f(player->getPosition()));
         }
-
+         
     //********************************AGUA*****************************************
-         sf::Vector2f movement3(0.f, 0.f);
-    if (!firstTimeAgua) {
-        
-            
-            if (isMovingUp) {
-            movement3.y -= player -> getVelocidad();
-            //noKeyWasPressed = false;
-        }
-        if (isMovingDown) {
-            movement3.y += player -> getVelocidad();
-            //noKeyWasPressed = false;
-        }
-        if (isMovingLeft) {
-            movement3.x -= player -> getVelocidad();
-        }
-        if (isMovingRight) {
-            movement3.x += player -> getVelocidad();
-            // noKeyWasPressed = false;
-        }
-        if(hActivo==2){
-        player -> Update(movement3, elapsedTime); 
-        }
-
-
-    }
+      
     if (aguaBasicCast) {
         player->hAguaBasico->cast(sf::Vector2f(player->getPosition()));
     }
     if (player -> hAguaBasico->tiempoCast.getTiempo() < 0.5f && player -> hAguaBasico->dibujar == true) {
-        player -> hAguaBasico->Update(movement3, elapsedTime,player->getVelocidad());
+        player -> hAguaBasico->Update(movement, elapsedTime,player->getVelocidad());
 
         if (player->hAguaBasico->GetGlobalBounds().intersects(enemigo[0].getSprite().getGlobalBounds())) {
             enemigo[0].empujado = true;
@@ -276,42 +226,10 @@ void InGame::Update(sf::Time elapsedTime) {
         if (enemigo[0].tiempoempujado.getTiempo() > 0.5) {
             enemigo[0].empujado2 = false;
         }
-    }
-
-
-    firstTimeAgua = false;
-    
+    }    
+ 
     //*********************HEAL**********************************
-    
-    
-    
-        if (!firstTimeHeal) {
-            if(hActivo==3){
-                        sf::Vector2f movement6(0.f, 0.f);
-        if (!cantMove) { //Si algo nos lo impide no nos movemos
-            if (isMovingUp) {
-                movement6.y -= player -> getVelocidad();
-                //noKeyWasPressed = false;
-            }
-            if (isMovingDown) {
-                movement6.y += player -> getVelocidad();
-                //noKeyWasPressed = false;
-            }
-            if (isMovingLeft) {
-                movement6.x -= player -> getVelocidad();
-            }
-            if (isMovingRight) {
-                movement6.x += player -> getVelocidad();
-                // noKeyWasPressed = false;
-            }
-        }
-        player -> Update(movement6, elapsedTime);
-            }
-
-        
-
-
-    }
+ 
     if(isHealing){
         player->heal();
     }else{
@@ -321,56 +239,27 @@ void InGame::Update(sf::Time elapsedTime) {
         }
     
     }
-    
-
-
-    firstTimeHeal = false;
-    
-    
+ 
     //******************************FLASH**********************************************
     
     
-    if (!firstTimeFlash) {
-        if(hActivo==4){
-                    sf::Vector2f movement(0.f, 0.f);
-        if (isMovingUp) {
-            movement.y -= player -> getVelocidad();
-            //noKeyWasPressed = false;
-        }
-        if (isMovingDown) {
-            movement.y += player -> getVelocidad();
-            //noKeyWasPressed = false;
-        }
-        if (isMovingLeft) {
-            movement.x -= player -> getVelocidad();
-        }
-        if (isMovingRight) {
-            movement.x += player -> getVelocidad();
-            // noKeyWasPressed = false;
-        }
-
-
-        player -> Update(movement, elapsedTime);
+    if (hActivo==4) {
+        
         if (player->isFlashing) {
             //Como el player se ha movido 'casteamos' la animacion del otro flash
             player->flash2->cast2(&player->flash->clockCd);
             sf::Vector2f prueba = player->flash->cast(sf::Vector2f(player->getPosition()));
             if(prueba.x != player->getPosition().x && prueba.y != player->getPosition().y){
                 player->Colocar(prueba);
-            }
-            
-            
+            } 
         }
-        }
+        
 
     }
                 if(hActivo==4 && !player->isFlashing){
             printf("Desactivo Flash \n paso a anterior:%d\n",anterior);
             hActivo=anterior;
         }
-    firstTimeFlash = false;
-    
-    
 }
 
 void InGame::render(float interpolation, sf::Time elapsedTime) {

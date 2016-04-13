@@ -101,3 +101,5 @@ sf::Vector2f Sprite::getPosition() {
 void Sprite::rotate(float ang) {
     m_sprite.rotate(ang);
 }
+
+
