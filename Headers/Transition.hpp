@@ -15,8 +15,9 @@
 #define TRANSITION_HPP
 
 #include "State.hpp"
-
 #include "btree.hpp"
+#include "tinystr.h"
+#include "tinyxml.h"
 
 class Transition : public State {
 public:
@@ -34,27 +35,59 @@ public:
     sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight);
 
     void updateView();
+    
+    bool preguntaContestada=false;
+    int level = 0;
+    
+    node *currentNode;
+    node *firstNode;
 
 private:
     
-    Motor2D                     *motor;
-
     //Recursos
-    Sprite                  spriteFondo;
-    Sprite                  spriteOpcionA;
-    Sprite                  spriteOpcionB;
-    Sprite                  spriteRelleno;
+    sf::Texture                 texturaFondo;
+    sf::Texture                 texPregunta;
+    sf::Texture                 texturaOpcionA;
+    sf::Texture                 texturaOpcionB;
+    sf::Texture                 texturaNextLevel;
+    sf::Texture                 texturaRelleno;
+    sf::Texture                 mouseTexture;
+    sf::Texture                 cruzeta;
+    sf::Texture                 simboloText;
+    
     sf::Font                    contFonts;
-    Sprite                  mouseSprite;
     
-    sf::Text textoPregunta;
-    sf::Text textoRespuesta1;
-    sf::Text textoRespuesta2;
+    Sprite                  *spriteOpcionA;
+    Sprite                  *pregunta;
+    Sprite                  *spriteOpcionB;
+    Sprite                  *nextLevel;
+    Sprite                  *spriteRelleno;
+    Sprite                  *spriteFondo;
+    Sprite                  *mouseSprite;
+    Sprite                  *cruzeta1;
+    Sprite                  *cruzeta2;
+    Sprite                  *simbolo;
+    
+    Motor2D                 *motor;
+    
     btree *arbol;
+    bool buttonPressed = false;
+    bool firstTime = false;
+    sf::Color transparent = sf::Color::Transparent;
+    bool fadeEffect = false;
+    bool unfadeEffect = false;
+    bool izq = false;
+    bool der = false;
+    bool drawOpciones=true;
+    bool drawNextLevel;
+    char mejora;
     
-    bool                        pulsado=false;
+    bool isPointOverSprite(const sf::Vector2f Position, Sprite &Sprite);
+    void changePregunta();
+    bool                        pulsado = false;
+    bool                        Bcruzeta = false;
 
-
+    
 };
 
 

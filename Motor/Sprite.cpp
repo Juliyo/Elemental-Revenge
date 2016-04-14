@@ -52,10 +52,15 @@ void Sprite::setTexture(std::string ruta, bool smooth) {
 
 void Sprite::setTexture(sf::Texture textura) {
     m_texture = textura;
+    m_sprite.setTexture(m_texture);
 }
 
 void Sprite::setScale(float x, float y) {
     m_sprite.setScale(x, y);
+}
+
+void Sprite::setColor(sf::Color transparent) {
+    m_sprite.setColor(transparent);
 }
 
 void Sprite::setRotation(float angulo) {
@@ -74,6 +79,10 @@ sf::FloatRect Sprite::getGlobalBounds() {
     return m_sprite.getGlobalBounds();
 }
 
+sf::FloatRect Sprite::getLocalBounds() {
+    return m_sprite.getLocalBounds();
+}
+
 void Sprite::setSmooth(bool a) {
     m_texture.setSmooth(a);
 }
@@ -84,6 +93,9 @@ void Sprite::setRepeated(bool a) {
 
 void Sprite::setPosition(float x, float y) {
     m_sprite.setPosition(x, y);
+}
+void Sprite::setPosition(sf::Vector2f pos) {
+    m_sprite.setPosition(pos);
 }
 
 sf::Vector2u Sprite::getTextureSize() {

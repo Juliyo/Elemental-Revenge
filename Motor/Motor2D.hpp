@@ -16,8 +16,11 @@
 
 #include "Sprite.hpp"
 #include "Reloj.hpp"
+#include "Textura.hpp"
 #include <SFML/Graphics.hpp>
 #include <string>
+#include <map>
+
 #ifdef _WIN32
 #include <windows.h>
 #endif
@@ -61,6 +64,9 @@ public:
     sf::Vector2f getMousePosition();
     sf::RenderWindow *mWindow;
     sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight);
+    //Conetenedor de las texturas
+    std::map<int, sf::Texture*> Textures;    
+    int key = 0;
 private:
     int anchoVentana;
     int altoVentana;
@@ -69,6 +75,7 @@ private:
     sf::View *pantalla;
     sf::View *HUD;
     sf::Vector2f *raton;
+
 };
 
 #endif /* MOTOR2D_HPP */

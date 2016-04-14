@@ -31,10 +31,13 @@ public:
     void setRotation(float angulo);
     void setTextRect(int fil, int col, int ancho, int alto);
     void setOrigin(float x, float y);
+    void setColor(sf::Color transparent);
     sf::FloatRect getGlobalBounds();
+    sf::FloatRect getLocalBounds();
     void setSmooth(bool a);
     void setRepeated(bool a);
     void setPosition(float x, float y);
+    void setPosition(sf::Vector2f pos);
     sf::Vector2u getTextureSize();
     sf::Texture getTexture();
     sf::Vector2f getPosition();
