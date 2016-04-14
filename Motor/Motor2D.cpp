@@ -30,6 +30,9 @@ void Motor2D::inicializarVentana(std::string titulo, int ancho, int alto) {
     mWindow->setFramerateLimit(60); //Establecemos maximo real de procesamiento (aunque trabajamos con 60)
     mWindow->setVerticalSyncEnabled(true);
     mWindow->setMouseCursorVisible(false);
+
+    lightMapTexture.create(640, 480);
+    lightmap.setTexture(lightMapTexture.getTexture());
 }
 
 Motor2D::Motor2D() {
@@ -68,8 +71,8 @@ void Motor2D::draw(Sprite** sp) {
     draw(*sp);
 }
 
-void Motor2D::draw(const sf::Drawable& drawable) {
-    mWindow->draw(drawable);
+void Motor2D::draw(const sf::Drawable& drawable, const sf::RenderStates& states) {
+    mWindow->draw(drawable, states);
 }
 
 void Motor2D::clear() {
@@ -237,4 +240,33 @@ void Motor2D::setCenterForView(int view, int x, int y) {
             break;
         }
     }
+}
+
+void Motor2D::addLight(Light ligth) {
+    lights.push_back(ligth);
+}
+
+void Motor2D::clearAmbiente() {
+    lightMapTexture.clear(colorAmbiente);
+}
+
+void Motor2D::setAmbientColor(int r, int g, int b, int a) {
+    colorAmbiente.r = r;
+    colorAmbiente.g = g;
+    colorAmbiente.b = b;
+    colorAmbiente.a = a;
+}
+
+void Motor2D::renderLights() {
+    clearAmbiente();
+    // Loop over the lights in the vector
+    for (std::size_t i = 0; i < lights.size(); ++i) {
+        //Draw it to the lightmap
+        //lightMapTexture.draw(lights[i].getSprite(), sf::BlendAdd); // This blendmode is used so the black in our lightimage won't be drawn to the lightmap
+    }
+    lightMapTexture.display(); // Need to make sure the rendertexture is displayed
+}
+
+void Motor2D::drawLightmap() {
+    mWindow->draw(lightmap);
 }

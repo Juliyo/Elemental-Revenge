@@ -21,7 +21,19 @@
 #ifdef _WIN32
 #include <windows.h>
 #endif
+#include <vector>
 
+struct Light {
+    sf::Vector2f position;
+    sf::Vector2f scale;
+    sf::Color color;
+
+    Light(sf::Vector2f nposition, sf::Vector2f nscale, sf::Color ncolor) :
+    position(nposition),
+    scale(nscale),
+    color(ncolor) {
+    }
+};
 
 class Motor2D {
 public:
@@ -50,7 +62,7 @@ public:
     void clear();
     void draw(Sprite *sp);
     void draw(Sprite **sp);
-    void draw(const sf::Drawable& drawable);
+    void draw(const sf::Drawable& drawable, const sf::RenderStates& states = sf::RenderStates::Default);
     void display();
 
     void inicializarVentana(std::string titulo, int ancho, int alto);
@@ -58,9 +70,16 @@ public:
     bool isWindowOpen();
     void closeWindow();
 
+    void addLight(Light ligth);
+    void clearAmbiente();
+    void setAmbientColor(int r, int g, int b, int a = 128);
+    void renderLights();
+    void drawLightmap();
+
     sf::Vector2f getMousePosition();
     sf::RenderWindow *mWindow;
     sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight);
+
 private:
     int anchoVentana;
     int altoVentana;
@@ -69,6 +88,11 @@ private:
     sf::View *pantalla;
     sf::View *HUD;
     sf::Vector2f *raton;
+
+    sf::RenderTexture lightMapTexture;
+    sf::Sprite lightmap;
+    std::vector<Light> lights;
+    sf::Color colorAmbiente;
 };
 
 #endif /* MOTOR2D_HPP */

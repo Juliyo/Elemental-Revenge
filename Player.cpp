@@ -8,6 +8,14 @@
 #include "Player.hpp"
 #include "Util.hpp"
 
+Player* Player::mInstance = 0;
+Player* Player::Instance() {
+    if (mInstance == 0) {
+        mInstance = new Player;
+    }
+    return mInstance;
+}
+
 Player::Player() {
 }
 
@@ -23,7 +31,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationLeft = new Animation();
     walkingAnimationRight = new Animation();
     walkingAnimationUp = new Animation();
-    
+
     //casteo rayo
     castingAnimationUpRayo= new Animation();
     castingAnimationDownRayo= new Animation();
@@ -54,13 +62,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     healingAnimationLeft = new Animation();
     healingAnimationRight = new Animation();
     healingAnimationUp = new Animation();
-    
-    
-    
-    
-    
-    
-    hud = new Hud();
+
     hRayoBasico = new hRayBasic();
     hRayoAvanzado = new hRayAdvanced();
     
@@ -74,7 +76,18 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     
     flash = new Flash(1);//Animacion que aparece en la posicion que deja el jugador
     flash2 = new Flash(2);//Animacion que aparece a la posicion en que se ha movido el jugador
-            
+
+    
+    Reloj *relojes = new Reloj[6];
+    relojes[0] = hRayoBasico->tiempoCd;
+    relojes[1] = hRayoAvanzado->tiempoCd;
+    
+    float *cds = new float[6];
+    
+    cds[0] = hRayoBasico->getCD();
+    cds[1] = hRayoAvanzado->getCD();
+    hud = new Hud(relojes,cds);
+
     if(!texturaPlayer.loadFromFile("resources/Textures/player.png")){
        std::cout<<"Error cargando la textura: "<<"resources/Textures/player.png"<<std::endl;
        exit(0);
@@ -170,12 +183,6 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     castingAnimationLeftRayo->addFrame(sf::IntRect(256, 832, 64, 64));
     castingAnimationLeftRayo->addFrame(sf::IntRect(320, 832, 64, 64));
  
-    
-    
-    
-    //Casteo Fuego
-    
-    
     //Casteo Agua
     //casteo
     castingAnimationUpAgua->setSpriteSheet("resources/Textures/player.png");
@@ -187,9 +194,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     castingAnimationUpAgua->addFrame(sf::IntRect(256, 256, 64, 64));
     castingAnimationUpAgua->addFrame(sf::IntRect(320, 256, 64, 64));
     castingAnimationUpAgua->addFrame(sf::IntRect(384, 256, 64, 64));
-    castingAnimationUpAgua->addFrame(sf::IntRect(448, 256, 64, 64));
-  
-    
+    castingAnimationUpAgua->addFrame(sf::IntRect(448, 256, 64, 64));  
     
     castingAnimationDownAgua->setSpriteSheet("resources/Textures/player.png");
     castingAnimationDownAgua->addFrame(sf::IntRect(448, 384, 64, 64));
@@ -214,7 +219,6 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     castingAnimationRightAgua->addFrame(sf::IntRect(384, 448, 64, 64));
     castingAnimationRightAgua->addFrame(sf::IntRect(448, 448, 64, 64));
     
-    
     castingAnimationLeftAgua->setSpriteSheet("resources/Textures/player.png");
     castingAnimationLeftAgua->addFrame(sf::IntRect(448, 320, 64, 64));
     castingAnimationLeftAgua->addFrame(sf::IntRect(0, 320, 64, 64));
@@ -225,8 +229,6 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     castingAnimationLeftAgua->addFrame(sf::IntRect(320, 320, 64, 64));
     castingAnimationLeftAgua->addFrame(sf::IntRect(384, 320, 64, 64));
     castingAnimationLeftAgua->addFrame(sf::IntRect(448, 320, 64, 64));
-    
-    
     
     /////////////////////////////////
     //Fuegooo
@@ -240,9 +242,6 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     fuegoAnimationUp->addFrame(sf::IntRect(256, 768, 64, 64));
     fuegoAnimationUp->addFrame(sf::IntRect(320, 768, 64, 64));
   
-  
-    
-    
     fuegoAnimationDown->setSpriteSheet("resources/Textures/player.png");
     //fuegoAnimationDown->addFrame(sf::IntRect(320, 896, 64, 64));
     fuegoAnimationDown->addFrame(sf::IntRect(0, 896, 64, 64));
@@ -359,11 +358,6 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     healingAnimationUp->addFrame(sf::IntRect(256, 0, 64, 64));
     healingAnimationUp->addFrame(sf::IntRect(320, 0, 64, 64));
     healingAnimationUp->addFrame(sf::IntRect(384, 0, 64, 64));
-    
-    
-    
-    ////////
-    
     
     currentAnimation = &walkingAnimationDown;
     InicializarAnimatedSprite(sf::seconds(0.075f), true, false);

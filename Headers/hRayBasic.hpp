@@ -26,15 +26,14 @@ public:
     virtual ~hRayBasic();
     void cast(sf::Vector2f vector);
     void DrawWithInterpolation( float interpolation, const sf::Vector2f &posPrev, const sf::Vector2f &posNew );
-    
-    Reloj tiempoCast;
-    Reloj tiempoCd;
     float angleshot2=0.0f;
     Animation *animation;
     Animation **currentAnimation;
     Animation *animationDurante;
     Animation *PrimeraAnimacion;
     //void cast(sf::Vector2f vector, sf::RenderWindow *w);
+    
+    
 private:
     
 };

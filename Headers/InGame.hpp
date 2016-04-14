@@ -16,82 +16,86 @@
 
 #include "State.hpp"
 #include "../Motor/Motor2D.hpp"
+#include "../Motor/Video.hpp"
 
-
-class InGame:public State {
+class InGame : public State {
 public:
     InGame();
     InGame(const InGame& orig);
     virtual ~InGame();
-    void    run();
+    void run();
 
     void Update(sf::Time elapsedTime);
-    
-    void			handlePlayerInput(sf::Keyboard::Key key, bool isPressed);  // Maneja eventos
-    void			handleMouseInput(sf::Mouse::Button button, bool isPressed);  // Maneja eventos
-    
-    void			render(float interpolation, sf::Time elapsedTime);
-    
-    void                        updateView();
-       
 
-    
+    void handlePlayerInput(sf::Keyboard::Key key, bool isPressed); // Maneja eventos
+    void handleMouseInput(sf::Mouse::Button button, bool isPressed); // Maneja eventos
+
+    void render(float interpolation, sf::Time elapsedTime);
+
+    void updateView();
+
+    sf::Texture lightTexture;
+    sf::Sprite light;
+
+    sf::RenderTexture lightMapTexture;
+    sf::Sprite lightmap;
+    std::vector<Light> lights;
+
 
 private:
-    
-    
-    Player			*player;
-    Enemigo			enemigo[20];
-    
-    
-    Motor2D                     *motor;
+
+
+    Player *player;
+    Enemigo enemigo[20];
+
+
+    Motor2D *motor;
     //Graficos
 
-    
+    Video *video;
+
     //Recursos
-    sf::Texture                 texturaFondo;
+    sf::Texture texturaFondo;
     //sf::Sprite                  spriteFondo;
-    Sprite                      spriteFondo;
-    sf::Texture                 texturaRelleno;
+    Sprite spriteFondo;
+    sf::Texture texturaRelleno;
     //sf::Sprite                  spriteRelleno;
-    Sprite                      spriteRelleno;
-    sf::Font                    contFonts;
-    sf::Texture                 mouseTexture;
-   // sf::Sprite                  mouseSprite;
-    Sprite                  mouseSprite;
-    
-    
-    
+    Sprite spriteRelleno;
+    sf::Font contFonts;
+    sf::Texture mouseTexture;
+    // sf::Sprite                  mouseSprite;
+    Sprite mouseSprite;
+
     //Eventos
-    bool			isMovingUp;
-    bool			isMovingDown;
-    bool			isMovingRight;
-    bool			isMovingLeft;
-    bool                        rayoAdvancedCast = false;
-    bool                        rayoBasicCast = false;
-    
-    bool                        noKeyWasPressed = true;
-    bool			firstTimeRayo=true;
-    bool			firstTimeFuego=true;
-    bool			firstTimeAgua=true;
-    bool                        firstTimeHeal=true;
-    bool                        firstTimeFlash=true;
-    bool			isInterpolating;
-    bool                        isShooting;
-    bool                        aux;
-    int                         hActivo=0;
+    bool isMovingUp;
+    bool isMovingDown;
+    bool isMovingRight;
+    bool isMovingLeft;
+    bool rayoAdvancedCast = false;
+    bool rayoBasicCast = false;
+
+    bool noKeyWasPressed = true;
+    bool firstTimeRayo = true;
+    bool firstTimeFuego = true;
+    bool firstTimeAgua = true;
+    bool firstTimeHeal = true;
+    bool firstTimeFlash = true;
+    bool isInterpolating;
+    bool isShooting;
+    bool aux;
+    int hActivo = 0;
 
     //fuego
-    bool                        fuegoBasicCast=false;
-    bool                        fuegoAdvancedCast=false;
+    bool fuegoBasicCast = false;
+    bool fuegoAdvancedCast = false;
     //agua
-    bool                        aguaAdvancedCast = false;
-    bool                        aguaBasicCast = false;  
+    bool aguaAdvancedCast = false;
+    bool aguaBasicCast = false;
     //heal
-    bool                        cantMove=false;
-    bool                        isHealing = false;
-    int                         anterior=0;
-    
+    bool cantMove = false;
+    bool isHealing = false;
+    int anterior = 0;
+
 };
 
 #endif /* INGAME_HPP */
