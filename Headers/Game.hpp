@@ -9,6 +9,7 @@
 #include "State.hpp"
 #include "InGame.hpp"
 #include "Transition.hpp"
+#include "Muerte.hpp"
 
 #include "Menu2.hpp"
 
@@ -46,6 +47,7 @@ private:
     Menu2                       *EstadoMenu;  
     
     Pause                       *EstadoPause;
+    Muerte                       *EstadoMuerte;
     
     float                       interpolation;
 	
