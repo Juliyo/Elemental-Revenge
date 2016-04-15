@@ -93,9 +93,11 @@ Hud::Hud(Reloj *cds, float *coolDowns) {
     //Fuego
 
     activo = 2;
-    cargarRayo();
+
     calculaRayo2();
-    iRayo2 = 0;
+    calculaRayo1();
+    cargarRayo();
+
 }
 
 Hud::Hud(const Hud& orig) {
@@ -105,8 +107,9 @@ Hud::~Hud() {
 }
 
 void Hud::renderHud() {
-
+    renderRayo1();
     renderRayo2();
+    
     Motor2D *m = Motor2D::Instance();
 
     m->draw(barraVida);
@@ -129,6 +132,10 @@ void Hud::renderHud() {
     sf::RenderStates st;
     st.transform = transform;
     m->draw(triangleRayo2, st);
+
+
+    m->draw(triangleRayo1, st);
+
     m->draw(rBlanco);
     m->draw(rayoBueno);
     m->draw(rSombra);
@@ -193,7 +200,7 @@ void Hud::Update() {
         cdRayo2->setString(s2.str());
         draws[1] = false;
     }
-    std::cout << "tRayo1: " << tRayo1 << std::endl;
+    std::cout << "tRayo2: " << tRayo2 << std::endl;
 }
 
 void Hud::updateHud(float vidas) {
@@ -220,13 +227,65 @@ void Hud::cargarRayo() {
     rSombra.setOrigin(rSombra.getTextureSize().x / 2, rSombra.getTextureSize().y / 2);
     rSombra.setPosition(200, 200);
     rSombra.setScale(1, 1.2);
+
+    //Rellenamos al principio porque esta disponible
+    sf::Vector2f punto1(200, 165);
+    triangleRayo2.append(punto1);
+    triangleRayo2[0].color = sf::Color::Green;
+    for (int i = 1; i < 150; i++) {
+        triangleRayo2.append(arrayPts5[i]);
+        triangleRayo2[i].color = sf::Color::Green;
+        triangleRayo2[i].color.a = 200;
+    }
+    iRayo2 = 0;
+
+    sf::Vector2f punto2(200, 165);
+    triangleRayo1.append(punto2);
+    triangleRayo1[0].color = sf::Color::Green;
+    for (int i = 1; i < 150; i++) {
+        triangleRayo1.append(arrayPts2[i]);
+        triangleRayo1[i].color = sf::Color::Green;
+        triangleRayo1[i].color.a = 200;
+    }
+    iRayo1 = 0;
 }
 
 void Hud::calculaRayo1() {
+    //150
+    //105*0.03 / 150 = 0.0315
+    sf::Vector2f punto(200, 165);
+    triangleRayo1.setPrimitiveType(sf::TrianglesFan);
+    triangleRayo1.append(punto);
+    triangleRayo1[0].color = sf::Color::Green;
 
+    sf::Vector2f centro(200, 165);
+    double radius = 120;
+    const double PI = 3.14159265359;
+    iRayo1 = 0;
+    for (double angle = 2 * PI; angle >= PI; angle -= 0.021) {
+        sf::Vector2f p(centro.x + radius * sin(angle), centro.y + radius * cos(angle));
+        arrayPts2[iRayo1] = p;
+        iRayo1++;
+    }
+    //sf::Vector2f v(arrayPts5[0].x, (arrayPts5[0].y)-(2*radius));
+    //arrayPts5[250] = v;
+    iRayo1 = 1;
 }
 
 void Hud::renderRayo1() {
+    // 5/150 = 0.05
+    if (firstRayo1) {
+        if (r1.getTiempo() >= 0.03) {
+
+            if (iRayo1 < 150) {
+                triangleRayo1.append(arrayPts2[iRayo1]);
+                triangleRayo1[iRayo1].color = sf::Color::Green;
+                triangleRayo1[iRayo1].color.a = 200;
+            }
+            r1.restart();
+            iRayo1++;
+        }
+    }
 
 }
 
@@ -249,21 +308,24 @@ void Hud::calculaRayo2() {
     }
     //sf::Vector2f v(arrayPts5[0].x, (arrayPts5[0].y)-(2*radius));
     //arrayPts5[250] = v;
-    iRayo2 = 0;
+    iRayo2 = 1;
 }
 
 void Hud::renderRayo2() {
     // 20/150 = 0.13
-    if (r2.getTiempo() >= 0.13) {
+    if (firstRayo2) {
+        if (r2.getTiempo() >= 0.13) {
 
-        if (iRayo2 < 150) {
-            triangleRayo2.append(arrayPts5[iRayo2]);
-            triangleRayo2[iRayo2].color = sf::Color::Green;
-            triangleRayo2[iRayo2].color.a = 200;
+            if (iRayo2 < 150) {
+                triangleRayo2.append(arrayPts5[iRayo2]);
+                triangleRayo2[iRayo2].color = sf::Color::Green;
+                triangleRayo2[iRayo2].color.a = 200;
+            }
+            r2.restart();
+            iRayo2++;
         }
-        r2.restart();
-        iRayo2++;
-    } 
+    }
+
 
 }
 
@@ -274,6 +336,17 @@ void Hud::resetRayo2() {
     triangleRayo2[0].color = sf::Color::Green;
     iRayo2 = 0;
     r2.restart();
+    firstRayo2 = true;
+}
+
+void Hud::resetRayo1() {
+    triangleRayo1.clear();
+    sf::Vector2f punto(200, 165);
+    triangleRayo1.append(punto);
+    triangleRayo1[0].color = sf::Color::Green;
+    iRayo1 = 0;
+    r1.restart();
+    firstRayo1 = true;
 }
 
 void Hud::cargarAgua() {

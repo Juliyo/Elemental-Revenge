@@ -29,6 +29,7 @@ public:
     void cambiaHechizo(int activar);
     void Update();
     void resetRayo2();
+    void resetRayo1();
 private:
     Sprite barraVida;
     sf::IntRect shapeVida;
@@ -106,6 +107,9 @@ private:
     void renderAgua2();
     void renderFuego1();
     void renderFuego2();
+    
+    bool firstRayo1 = false;
+    bool firstRayo2 = false;
 };
 
 #endif /* HUD_HPP */

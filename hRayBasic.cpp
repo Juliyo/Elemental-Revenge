@@ -23,7 +23,7 @@ hRayBasic::hRayBasic() {
     animation = new Animation();
     animationDurante = new Animation();
     PrimeraAnimacion = new Animation();
-    setCD(4);
+    setCD(5);
     setCast(3);
     if (!hTexture.loadFromFile("resources/Textures/RayoSpriteSheet.png")) {
 

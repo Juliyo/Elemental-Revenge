@@ -464,14 +464,15 @@ void Player::updateRayo(bool isShooting) {
                 hRayoBasico->primerCast = false;
                 if (aux == false) {//si es la primera vez que pulsa el boton
                     hRayoBasico->tiempoCast.restart();
-
                     aux = true; //no entra mas aqui para no hacer restart del cast
                 }
+                
                 hRayoBasico->cast(sf::Vector2f(getPosition())); //siempre que entra aqui pintas
 
             } else {//entras si no disparas o si no ha pasado el tiempo de enfriamiento
                 if (aux == true) {//entras si acabas de soltar el raton
                     hRayoBasico->tiempoCd.restart();
+                    hud->resetRayo1();
                     // std::cout<<"Inicio den CD"<<std::endl;
                     aux = false; //no entra mas aqui para no hacer restart dl cd
                 }
