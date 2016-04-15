@@ -193,7 +193,7 @@ void Hud::Update() {
         cdRayo2->setString(s2.str());
         draws[1] = false;
     }
-    std::cout << "tRayo2: " << tRayo2 << std::endl;
+    std::cout << "tRayo1: " << tRayo1 << std::endl;
 }
 
 void Hud::updateHud(float vidas) {
@@ -263,17 +263,7 @@ void Hud::renderRayo2() {
         }
         r2.restart();
         iRayo2++;
-    } else {
-        if (draws[1]) {
-            /*triangleRayo2.clear();
-            sf::Vector2f punto(200,165);
-            triangleRayo2.append(punto);
-            triangleRayo2[0].color = sf::Color::Green;
-            iRayo2 = 0;
-            r2.restart();*/
-            //triangleRayo2.resize(0);
-        }
-    }
+    } 
 
 }
 
