@@ -11,6 +11,7 @@
       <itemPath>Headers/InGame.hpp</itemPath>
       <itemPath>Headers/Map.hpp</itemPath>
       <itemPath>Headers/Menu2.hpp</itemPath>
+      <itemPath>Headers/Muerte.hpp</itemPath>
       <itemPath>Headers/Pause.hpp</itemPath>
       <itemPath>Headers/PhysicsState.hpp</itemPath>
       <itemPath>Headers/Player.hpp</itemPath>
@@ -44,6 +45,7 @@
       <itemPath>InGame.cpp</itemPath>
       <itemPath>Map.cpp</itemPath>
       <itemPath>Menu2.cpp</itemPath>
+      <itemPath>Muerte.cpp</itemPath>
       <itemPath>Pause.cpp</itemPath>
       <itemPath>PhysicsState.cpp</itemPath>
       <itemPath>Player.cpp</itemPath>
@@ -167,6 +169,8 @@
       </item>
       <item path="Headers/Menu2.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/Muerte.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/Pause.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/PhysicsState.hpp" ex="false" tool="3" flavor2="0">
@@ -208,6 +212,8 @@
       <item path="Map.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Menu2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Muerte.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Pause.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -288,6 +294,8 @@
       </item>
       <item path="Headers/Menu2.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/Muerte.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/Pause.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/PhysicsState.hpp" ex="false" tool="3" flavor2="0">
@@ -329,6 +337,8 @@
       <item path="Map.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Menu2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Muerte.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Pause.cpp" ex="false" tool="1" flavor2="0">
       </item>

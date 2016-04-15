@@ -33,6 +33,7 @@ Game::Game() {
     EstadoInGame = new InGame();
     EstadoTransition = new Transition();
     EstadoPause = new Pause();
+    EstadoMuerte = new Muerte();
     EstadoMenu = new Menu2();
 
 #ifdef _WIN32
@@ -108,6 +109,10 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
     if (EstadoPause->EstadoActivo) {
         EstadoInGame->renderForPause(interpolation, elapsedTime);
         EstadoPause->render(interpolation, elapsedTime);
+    }
+      if (EstadoMuerte->EstadoActivo) {
+        EstadoInGame->renderForPause(interpolation, elapsedTime);
+        EstadoMuerte->render(interpolation, elapsedTime);
     }
 }
 
@@ -220,7 +225,16 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         EstadoInGame->EstadoActivo = false;
         EstadoPause->SetSetectedItemIndexPause(0);
         EstadoPause->EstadoActivo = true;
+    }else if (key == sf::Keyboard::O && EstadoInGame->EstadoActivo) {
+        EstadoTransition->EstadoActivo = false;
+        EstadoInGame->EstadoActivo = false;
+        EstadoMuerte->EstadoActivo = true;
+    }else if (key == sf::Keyboard::O && EstadoMuerte->EstadoActivo) {
+        EstadoTransition->EstadoActivo = false;
+        EstadoInGame->EstadoActivo = true;
+        EstadoMuerte->EstadoActivo = false;
     }
+
 
 
 
