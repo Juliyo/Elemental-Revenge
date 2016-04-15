@@ -76,7 +76,6 @@ void PhysicsState::Update(sf::Time elapsedTime, Map *mapa){
     top_bot=top_bot/16;
     
      sf::Vector2f speed2 = speed;
-     printf("%d,%d,%d\n",mapa->_tilemap[3][top][left],mapa->_tilemap[3][top_bot][left],mapa->_tilemap[2][top][left_right]);
     if (mapa->_tilemap[3][top][left_right] != 0 && mapa->_tilemap[3][top_bot][left] != 0) {
         posPrev = posNew;
     }else if (mapa->_tilemap[3][top][left_right] != 0 && mapa->_tilemap[3][top_bot][right] != 0) {
@@ -118,7 +117,7 @@ void PhysicsState::Update(sf::Time elapsedTime, Map *mapa){
              }
              posPrev = posNew;
              posNew += speed2 * elapsedTime.asSeconds();
-        printf("entro esquina izq top");
+
     }else if (mapa->_tilemap[3][top][right] != 0 && mapa->_tilemap[3][top_bot][right] == 0 && mapa->_tilemap[3][top][left_right] == 0) {
              if(speed2.y<0){
                speed2.y=0;  
@@ -128,8 +127,8 @@ void PhysicsState::Update(sf::Time elapsedTime, Map *mapa){
              }
              posPrev = posNew;
              posNew += speed2 * elapsedTime.asSeconds();
-             printf("entro esquina der top");
-        posPrev = posNew;
+
+             posPrev = posNew;
     } else if (mapa->_tilemap[3][bot][left] != 0 && mapa->_tilemap[3][top_bot][left] == 0 && mapa->_tilemap[3][bot][left_right] == 0) {
              if(speed2.y>0){
                speed2.y=0;  
@@ -140,7 +139,7 @@ void PhysicsState::Update(sf::Time elapsedTime, Map *mapa){
              posPrev = posNew;
              posNew += speed2 * elapsedTime.asSeconds();
              
-        printf("entro esquina izq bot");
+
     }else if (mapa->_tilemap[3][bot][right] != 0 && mapa->_tilemap[3][top_bot][right] == 0 && mapa->_tilemap[3][bot][left_right] == 0) {
              if(speed2.y>0){
                speed2.y=0;  
@@ -150,8 +149,8 @@ void PhysicsState::Update(sf::Time elapsedTime, Map *mapa){
              }
              posPrev = posNew;
              posNew += speed2 * elapsedTime.asSeconds();
-             printf("entro esquina der bot");
-        posPrev = posNew;
+
+             posPrev = posNew;
     } else{
         posPrev = posNew;
         posNew += speed * elapsedTime.asSeconds();

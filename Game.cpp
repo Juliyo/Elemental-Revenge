@@ -3,6 +3,7 @@
 #include "SFML/System.hpp"
 #include "Window.hpp"
 #include "Pause.hpp"
+#include "Map.hpp"
 
 #include <cmath>
 #include <math.h>
@@ -250,6 +251,11 @@ void Game::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
         printf("preguntaContestada es true");
         EstadoTransition->EstadoActivo = false;
         EstadoTransition->preguntaContestada = false;
+        
+        delete EstadoInGame->mapa;
+        
+        EstadoInGame->mapa= new Map();
+        
         EstadoInGame->mapa->leerMapa(EstadoTransition->level);
         EstadoInGame->EstadoActivo = true;
 

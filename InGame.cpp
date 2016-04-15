@@ -130,8 +130,16 @@ void InGame::render(float interpolation, sf::Time elapsedTime){
 
     updateView();
     mWindow->draw(spriteFondo);
-    mapa->dibuja(*mWindow);
-    //mapa->dibuja2(*mWindow);
+    if(mapa->getMapaActual()==1){
+        mapa->dibujaMapa1(*mWindow);
+    }
+    if(mapa->getMapaActual()==2){
+        mapa->dibujaMapa2(*mWindow);
+
+    }
+    if(mapa->getMapaActual()==3){
+        mapa->dibujaMapa2(*mWindow);
+    }
     
 
     int x = mouseSprite.getPosition().x - player -> getPosition().x;
@@ -224,7 +232,17 @@ void InGame::render(float interpolation, sf::Time elapsedTime){
 
     player -> DrawWithInterpolation(*mWindow, interpolation);
 
+    if(mapa->getMapaActual()==1){
+        mapa->dibuja2Mapa1(*mWindow);
+    }
+    if(mapa->getMapaActual()==2){
+        mapa->dibuja2Mapa2(*mWindow);
 
+    }
+    if(mapa->getMapaActual()==3){
+        mapa->dibuja2Mapa3(*mWindow);
+    }
+    
 
     
     previa = mWindow->getView();
@@ -249,11 +267,31 @@ void InGame::renderForPause(float interpolation, sf::Time elapsedTime){
     previa = mWindow->getView();
    
     mWindow->draw(spriteFondo);
-    mapa->dibuja(*mWindow);
-    mapa->dibuja2(*mWindow);
+if(mapa->getMapaActual()==1){
+        mapa->dibujaMapa1(*mWindow);
+    }
+    if(mapa->getMapaActual()==2){
+        mapa->dibujaMapa2(*mWindow);
+
+    }
+    if(mapa->getMapaActual()==3){
+        mapa->dibujaMapa2(*mWindow);
+    }    
+    
      player->Draw(*mWindow);
      mWindow->draw(player->GetSpriteAnimated());
     
+     if(mapa->getMapaActual()==1){
+        mapa->dibujaMapa1(*mWindow);
+    }
+    if(mapa->getMapaActual()==2){
+        mapa->dibujaMapa2(*mWindow);
+
+    }
+    if(mapa->getMapaActual()==3){
+        mapa->dibujaMapa2(*mWindow);
+    }
+     
     mWindow->setView(getLetterboxView(mHud, ref.ancho, ref.alto, 640, 480));
     player -> hud->renderHud(mWindow);
     mWindow->setView(previa);

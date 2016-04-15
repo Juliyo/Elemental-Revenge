@@ -55,7 +55,6 @@ private:
     Enemigo			enemigo[20];
     
     //Graficos
-
     
     //Recursos
     sf::Texture                 texturaFondo;

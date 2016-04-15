@@ -23,8 +23,17 @@ public:
     virtual ~Map();
     void leerMapa(int numMapa);
     void leerMapa2();
-    void dibuja(sf::RenderWindow &window);
-    void dibuja2(sf::RenderWindow &window);
+    void dibujaMapa1(sf::RenderWindow &window);
+    void dibuja2Mapa1(sf::RenderWindow &window);
+    
+    void dibujaMapa2(sf::RenderWindow &window);
+    void dibuja2Mapa2(sf::RenderWindow &window);
+    
+    void dibujaMapa3(sf::RenderWindow &window);
+    void dibuja2Mapa3(sf::RenderWindow &window);
+    
+    int getMapaActual();
+    
     sf::Sprite  getMap();
     int _numLayers=0;
     int ***_tilemap;
@@ -37,7 +46,7 @@ public:
     sf::Sprite *_tilesetSprite;
 private:
    
-
+    int mapaActual;
 
 
 

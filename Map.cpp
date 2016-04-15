@@ -40,16 +40,18 @@ Map::~Map() {
 }
 
 void Map::leerMapa(int numMapa){
-
+    
+    mapaActual=numMapa;
+    
     TiXmlDocument doc;
     if(numMapa==1){
     doc.LoadFile("resources/mapaBosqueAlfa.tmx");
     }
-    if(numMapa==3){
+    if(numMapa==2){
     doc.LoadFile("resources/CasaAbandonadaV1.tmx");
     }
     
-    if(numMapa==2){
+    if(numMapa==3){
     doc.LoadFile("resources/mansionV2.tmx");
     }
     TiXmlElement* map = doc.FirstChildElement("map");
@@ -169,13 +171,13 @@ void Map::leerMapa(int numMapa){
 }
 
 
-void Map::dibuja(sf::RenderWindow& window){
+void Map::dibujaMapa1(sf::RenderWindow& window){
 
     
     for(int l=0; l<_numLayers; l++){
         for(int y=0; y<_height; y++){
             for(int x=0; x<_width; x++){
-                if(l!=3){
+                if(l!=3 && l!=2){
                 if(_tilemapSprite[l][y][x]!=NULL){
                     window.draw(*(_tilemapSprite[l][y][x]));
                 }
@@ -188,17 +190,90 @@ void Map::dibuja(sf::RenderWindow& window){
    
 }
 
-void Map::dibuja2(sf::RenderWindow& window){
+void Map::dibuja2Mapa1(sf::RenderWindow& window){
 
  for(int y=0; y<_height; y++){
             for(int x=0; x<_width; x++){
-                if(_tilemapSprite[_numLayers-2][y][x]!=NULL){
-                    window.draw(*(_tilemapSprite[_numLayers-2][y][x]));
+                if(_tilemapSprite[2][y][x]!=NULL){
+                    window.draw(*(_tilemapSprite[2][y][x]));
                 }
             }
         }
  
 }
+
+
+
+void Map::dibujaMapa2(sf::RenderWindow& window){
+
+    
+    for(int l=0; l<_numLayers; l++){
+        for(int y=0; y<_height; y++){
+            for(int x=0; x<_width; x++){
+                if(l!=3 && l!=5 &&l!=1){
+                if(_tilemapSprite[l][y][x]!=NULL){
+                    window.draw(*(_tilemapSprite[l][y][x]));
+                }
+                }
+            }
+        }
+    }
+
+    
+   
+}
+
+void Map::dibuja2Mapa2(sf::RenderWindow& window){
+
+ for(int y=0; y<_height; y++){
+            for(int x=0; x<_width; x++){
+                if(_tilemapSprite[5][y][x]!=NULL){
+                    window.draw(*(_tilemapSprite[5][y][x]));
+                }
+                if(_tilemapSprite[1][y][x]!=NULL){
+                    window.draw(*(_tilemapSprite[1][y][x]));
+                }
+            }
+        }
+ 
+}
+
+
+void Map::dibujaMapa3(sf::RenderWindow& window){
+
+    
+    for(int l=0; l<_numLayers; l++){
+        for(int y=0; y<_height; y++){
+            for(int x=0; x<_width; x++){
+                if(l!=3 && l!=1 && l!=6){
+                if(_tilemapSprite[l][y][x]!=NULL){
+                    window.draw(*(_tilemapSprite[l][y][x]));
+                }
+                }
+            }
+        }
+    }
+
+    
+   
+}
+
+void Map::dibuja2Mapa3(sf::RenderWindow& window){
+
+ for(int y=0; y<_height; y++){
+            for(int x=0; x<_width; x++){
+                if(_tilemapSprite[1][y][x]!=NULL){
+                    window.draw(*(_tilemapSprite[1][y][x]));
+                }
+                 if(_tilemapSprite[6][y][x]!=NULL){
+                    window.draw(*(_tilemapSprite[6][y][x]));
+                }
+            }
+        }
+ 
+}
+
+
 
 sf::Sprite Map::getMap(){
     return ****_tilemapSprite;
@@ -324,4 +399,8 @@ void Map::leerMapa2(){
         }
     }
      
+}
+
+int Map::getMapaActual() {
+    return mapaActual;
 }
