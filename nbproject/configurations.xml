@@ -5,12 +5,14 @@
       <itemPath>Headers/AnimatedSprite.hpp</itemPath>
       <itemPath>Headers/Animation.hpp</itemPath>
       <itemPath>Headers/Enemigo.hpp</itemPath>
-      <itemPath>Headers/Flash.hpp</itemPath>
       <itemPath>Headers/Game.hpp</itemPath>
-      <itemPath>Headers/Heal.hpp</itemPath>
       <itemPath>Headers/Hechizo.hpp</itemPath>
       <itemPath>Headers/Hud.hpp</itemPath>
       <itemPath>Headers/InGame.hpp</itemPath>
+      <itemPath>Headers/Map.hpp</itemPath>
+      <itemPath>Headers/Menu2.hpp</itemPath>
+      <itemPath>Headers/Muerte.hpp</itemPath>
+      <itemPath>Headers/Pause.hpp</itemPath>
       <itemPath>Headers/PhysicsState.hpp</itemPath>
       <itemPath>Headers/Player.hpp</itemPath>
       <itemPath>Headers/Render.hpp</itemPath>
@@ -19,12 +21,11 @@
       <itemPath>Headers/StringHelpers.inl</itemPath>
       <itemPath>Headers/Transition.hpp</itemPath>
       <itemPath>Headers/Util.hpp</itemPath>
+      <itemPath>Headers/Videos.hpp</itemPath>
+      <itemPath>Headers/Window.hpp</itemPath>
       <itemPath>Headers/btree.hpp</itemPath>
-      <itemPath>Headers/hFireBasic.hpp</itemPath>
       <itemPath>Headers/hRayAdvanced.hpp</itemPath>
       <itemPath>Headers/hRayBasic.hpp</itemPath>
-      <itemPath>Headers/hWaterAdvanced.hpp</itemPath>
-      <itemPath>Headers/hWaterBasic.hpp</itemPath>
       <itemPath>Headers/tinystr.h</itemPath>
       <itemPath>Headers/tinyxml.h</itemPath>
     </logicalFolder>
@@ -51,26 +52,24 @@
       <itemPath>AnimatedSprite.cpp</itemPath>
       <itemPath>Animation.cpp</itemPath>
       <itemPath>Enemigo.cpp</itemPath>
-      <itemPath>Flash.cpp</itemPath>
       <itemPath>Game.cpp</itemPath>
-      <itemPath>Heal.cpp</itemPath>
       <itemPath>Hechizo.cpp</itemPath>
       <itemPath>Hud.cpp</itemPath>
       <itemPath>InGame.cpp</itemPath>
+      <itemPath>Map.cpp</itemPath>
+      <itemPath>Menu2.cpp</itemPath>
+      <itemPath>Muerte.cpp</itemPath>
+      <itemPath>Pause.cpp</itemPath>
       <itemPath>PhysicsState.cpp</itemPath>
       <itemPath>Player.cpp</itemPath>
       <itemPath>Render.cpp</itemPath>
       <itemPath>State.cpp</itemPath>
-      <itemPath>Motor/Text.cpp</itemPath>
       <itemPath>Transition.cpp</itemPath>
       <itemPath>Util.cpp</itemPath>
+      <itemPath>Window.cpp</itemPath>
       <itemPath>btree.cpp</itemPath>
-      <itemPath>hFireAdvanced.cpp</itemPath>
-      <itemPath>hFireBasic.cpp</itemPath>
       <itemPath>hRayAdvanced.cpp</itemPath>
       <itemPath>hRayBasic.cpp</itemPath>
-      <itemPath>hWaterAdvanced.cpp</itemPath>
-      <itemPath>hWaterBasic.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
       <itemPath>tinystr.cpp</itemPath>
       <itemPath>tinyxml.cpp</itemPath>
@@ -165,8 +164,56 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
   </logicalFolder>
   <sourceRootList>
+    <Elem>Headers</Elem>
+    <Elem>Headers</Elem>
+    <Elem>Headers</Elem>
+    <Elem>Headers</Elem>
     <Elem>Headers</Elem>
     <Elem>Headers</Elem>
   </sourceRootList>

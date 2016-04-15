@@ -17,7 +17,7 @@ hRayAdvanced::hRayAdvanced() {
     draw=false;
     animationDurante = new Animation();
     setCast(1);
-    setCD(3);
+    setCD(20);
     if(!hTexture.loadFromFile("resources/Textures/rayo.png")){
         exit(0);
     }
