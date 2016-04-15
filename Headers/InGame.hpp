@@ -84,7 +84,6 @@ private:
     bool                        aguaAdvancedCast = false;
     bool                        aguaBasicCast = false;  
     //heal
-    bool                        cantMove=false;
     bool                        isHealing = false;
     int                         anterior=0;
     

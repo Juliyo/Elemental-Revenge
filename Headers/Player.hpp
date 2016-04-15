@@ -20,6 +20,7 @@
 #include "hWaterAdvanced.hpp"
 #include "Heal.hpp"
 #include "Flash.hpp"
+#include "Enemigo.hpp"
 #include "../Motor/Motor2D.hpp"
 
 class Player : public Render, public PhysicsState{
@@ -37,6 +38,15 @@ public:
         void UpdatePlayerAnimation(int x, int y);
         sf::Vector2f getPosition();
         Animation** getAnimation(){ return currentAnimation; };
+        void updateRayo(bool isShooting);
+        void updateFuego(bool fuegoBasicCast,bool fuegoAdvancedCast, sf::Time elapsedTime);
+        void updateAgua(bool aguaBasicCast,bool aguaAdvancedCast, sf::Time elapsedTime,sf::Vector2f movement);
+        void updateFlash();
+        void renderRayo(sf::Time elapsedTime, float interpolation);
+        void renderFuego(sf::Time elapsedTime, float interpolation);
+        void renderAgua(sf::Time elapsedTime, float interpolation);
+        void renderHeal(sf::Time elapsedTime, float interpolation);
+        void renderFlash(sf::Time elapsedTime, float interpolation);
         
         void Colocar(sf::Vector2f NuevaPosicion);
         
@@ -118,6 +128,8 @@ private:
         int                     vida=15;
         PhysicsState            physicsState;
         Reloj                   invulnerable;
+        bool                    aux;
+        bool                    cantMove=false;
 };
 
 #endif	/* PLAYER_H */
