@@ -672,7 +672,7 @@ void InGame::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
             }
             if (button == sf::Mouse::Button::Right && isPressed == false) {
                 printf("Rayo avanzado \n");
-                player->hRayoAvanzado->cast(sf::Vector2f(player->getPosition()));
+                player->hRayoAvanzado->cast(sf::Vector2f(player->getPosition()),player->hud);
             }
             break;
         }

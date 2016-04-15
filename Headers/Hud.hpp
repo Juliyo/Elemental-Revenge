@@ -28,6 +28,7 @@ public:
     void updateHud(float vidas);
     void cambiaHechizo(int activar);
     void Update();
+    void resetRayo2();
 private:
     Sprite barraVida;
     sf::IntRect shapeVida;
@@ -88,6 +89,7 @@ private:
     sf::VertexArray triangleRayo1;
     
     void cargarRayo();
+    
     void cargarAgua();
     void cargarFuego();
     
