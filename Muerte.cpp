@@ -48,7 +48,7 @@ textoMuerte.setFont(fontMuerte);
     //texturas
 
     try {
-        texturaRelleno.loadFromFile("resources/Textures/background.png");
+        texturaRelleno.loadFromFile("resources/Textures/texturaMuerte.png");
         texturaFondo.loadFromFile("resources/Textures/fondo.png");
         mouseTexture.loadFromFile("resources/Textures/mouse.png");
         texturaPersonaje.loadFromFile("resources/Textures/fondoPersonaje.png");
@@ -73,14 +73,14 @@ textoMuerte.setFont(fontMuerte);
     spriteFondo.setTextureRect(sf::IntRect(0, 0, 1280, 720));
     spriteFondo.setOrigin(spriteFondo.getTextureRect().width / 2, spriteFondo.getTextureRect().height / 2);
     spriteFondo.setPosition(mWindow->getSize().x / 2, mWindow->getSize().y / 2);
-    transparent.a = 150;
+    transparent.a = 180;
     spriteFondo.setColor(transparent);
     
-    spriteRelleno.setTexture(texturaFondo);
-    spriteRelleno.setTextureRect(sf::IntRect(0, 0, 1280, 100));
+    spriteRelleno.setTexture(texturaRelleno);
+    //spriteRelleno.setTextureRect(sf::IntRect(0, 0, 1280, 100));
+    spriteRelleno.scale(1,0.3);
     spriteRelleno.setOrigin(spriteRelleno.getTextureRect().width / 2, spriteRelleno.getTextureRect().height / 2);
-    spriteRelleno.setPosition(mWindow->getSize().x / 2, mWindow->getSize().y / 2+20);
-    transparent.a = 200;
+    spriteRelleno.setPosition(mWindow->getSize().x / 2, mWindow->getSize().y / 2+15);
     spriteRelleno.setColor(transparent);
 }
 
