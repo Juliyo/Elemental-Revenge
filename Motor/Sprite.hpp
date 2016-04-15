@@ -40,6 +40,7 @@ public:
     sf::Vector2f getPosition();
     sf::Texture getSfTexture();
     void rotate(float ang);
+    void setColor(sf::Color transparent);
     
 private:
     sf::Sprite m_sprite;
@@ -48,7 +49,6 @@ private:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const{
         target.draw(m_sprite, states);
     }
-    
 };
 
 #endif /* SPRITE_HPP */

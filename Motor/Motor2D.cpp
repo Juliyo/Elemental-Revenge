@@ -31,8 +31,8 @@ void Motor2D::inicializarVentana(std::string titulo, int ancho, int alto) {
     mWindow->setVerticalSyncEnabled(true);
     mWindow->setMouseCursorVisible(false);
 
-    lightMapTexture.create(640, 480);
-    lightmap.setTexture(lightMapTexture.getTexture());
+    //lightMapTexture.create(640, 480);
+    //lightmap.setTexture(lightMapTexture.getTexture());
 }
 
 Motor2D::Motor2D() {

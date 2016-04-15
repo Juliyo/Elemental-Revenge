@@ -333,6 +333,7 @@ void InGame::Update(sf::Time elapsedTime) {
         printf("Desactivo Flash \n paso a anterior:%d\n", anterior);
         hActivo = anterior;
     }
+    player -> hud -> Update();
     firstTimeFlash = false;
 }
 
