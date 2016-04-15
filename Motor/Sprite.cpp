@@ -102,8 +102,8 @@ sf::Vector2f Sprite::getPosition() {
 void Sprite::rotate(float ang) {
     m_sprite.rotate(ang);
 }
-
 void Sprite::setColor(sf::Color transparent) {
     m_sprite.setColor(transparent);
 }
+
 

@@ -67,23 +67,21 @@ private:
     Sprite mouseSprite;
 
     //Eventos
-    bool isMovingUp;
-    bool isMovingDown;
-    bool isMovingRight;
-    bool isMovingLeft;
-    bool rayoAdvancedCast = false;
-    bool rayoBasicCast = false;
 
-    bool noKeyWasPressed = true;
-    bool firstTimeRayo = true;
-    bool firstTimeFuego = true;
-    bool firstTimeAgua = true;
-    bool firstTimeHeal = true;
-    bool firstTimeFlash = true;
-    bool isInterpolating;
-    bool isShooting;
-    bool aux;
-    int hActivo = 0;
+    bool			isMovingUp;
+    bool			isMovingDown;
+    bool			isMovingRight;
+    bool			isMovingLeft;
+    bool                        rayoAdvancedCast = false;
+    bool                        rayoBasicCast = false;
+    
+    bool                        noKeyWasPressed = true;
+    bool			firstTime=true;
+    bool			isInterpolating;
+    bool                        isShooting;
+    bool                        aux;
+    int                         hActivo=0;
+
 
     //fuego
     bool fuegoBasicCast = false;
@@ -92,9 +90,10 @@ private:
     bool aguaAdvancedCast = false;
     bool aguaBasicCast = false;
     //heal
-    bool cantMove = false;
-    bool isHealing = false;
-    int anterior = 0;
+
+    bool                        isHealing = false;
+    int                         anterior=0;
+    
 
 };
 

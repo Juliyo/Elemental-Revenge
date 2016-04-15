@@ -42,6 +42,7 @@ public:
     void rotate(float ang);
     void setColor(sf::Color transparent);
     
+    
 private:
     sf::Sprite m_sprite;
     sf::Texture m_texture;

@@ -451,3 +451,434 @@ void Player::heal() {
 void Player::Colocar(sf::Vector2f NuevaPosicion) {
     SetPosition(NuevaPosicion);
 }
+
+void Player::updateRayo(bool isShooting) {
+          
+            
+            if (hRayoBasico->tiempoCast.getTiempo() > hRayoBasico->getCast() && aux == true) {
+                isShooting = false;
+                hRayoBasico->primerCast = false;
+            }
+
+            if ((isShooting && hRayoBasico->tiempoCd.getTiempo() > hRayoBasico->getCD()) || (isShooting && hRayoBasico->primerCast == true)) {//Entra si dispara y el tiempo de enfriamiento ha pasado
+                hRayoBasico->primerCast = false;
+                if (aux == false) {//si es la primera vez que pulsa el boton
+                    hRayoBasico->tiempoCast.restart();
+
+                    aux = true; //no entra mas aqui para no hacer restart del cast
+                }
+                hRayoBasico->cast(sf::Vector2f(getPosition())); //siempre que entra aqui pintas
+
+            } else {//entras si no disparas o si no ha pasado el tiempo de enfriamiento
+                if (aux == true) {//entras si acabas de soltar el raton
+                    hRayoBasico->tiempoCd.restart();
+                    // std::cout<<"Inicio den CD"<<std::endl;
+                    aux = false; //no entra mas aqui para no hacer restart dl cd
+                }
+                hRayoBasico->draw = false;
+            }
+            //avanzado
+
+            if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && hRayoAvanzado->tiempoCast.getTiempo() > hRayoBasico->getCast()) {
+                hRayoAvanzado->draw = false;
+                hRayoAvanzado->StopAnimation();
+            }
+}
+
+void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time elapsedTime) {
+
+        sf::Vector2f movement2(0.f, 0.f);
+        
+        if (fuegoBasicCast) {
+            if (contFuego == 49) {
+                contFuego = 0;
+            }
+            if (clockCDFire.getTiempo() > CDFire || primercastFuego == true) {
+                primercastFuego = false;
+                clockCDFire.restart();
+                hFuegoBasico[contFuego].cast(sf::Vector2f(getPosition()));
+                castFire.restart();
+            }
+            contFuego++;
+        }
+        for (int aux = 0; aux <= 49; aux++) {
+            movement2.x = (40 * cos(hFuegoBasico[aux].angleshot2) * 10.0f);
+            movement2.y = (40 * sin(hFuegoBasico[aux].angleshot2) * 10.0f);
+            hFuegoBasico[aux].Update2(movement2, elapsedTime);
+        }
+        if (fuegoAdvancedCast) {
+
+            if (hFuegoAvanzado->clockCd.getTiempo() > hFuegoAvanzado->getCD() || hFuegoAvanzado->primerCast == true) {
+
+                hFuegoAvanzado->primerCast = false;
+                hFuegoAvanzado->tiempoCast.restart();
+                hFuegoAvanzado->clockCd.restart();
+                hFuegoAvanzado->lanzado = true;
+                castFire2.restart();
+
+                hFuegoAvanzado->actualSize.x = 0.3;
+                hFuegoAvanzado->actualSize.y = 0.3;
+                hFuegoAvanzado->SetScale(0.3, 0.3);
+                hFuegoAvanzado->cast(sf::Vector2f(getPosition()));
+            }
+        }
+
+        if (hFuegoAvanzado->lanzado == true) {
+
+            hFuegoAvanzado->cast(sf::Vector2f(getPosition()));
+        }
+}
+
+void Player::updateAgua(bool aguaBasicCast, bool aguaAdvancedCast, sf::Time elapsedTime, sf::Vector2f movement) {
+    if (aguaBasicCast) {
+        hAguaBasico->cast(sf::Vector2f(getPosition()));
+    }
+    if ( hAguaBasico->tiempoCast.getTiempo() < 0.5f &&  hAguaBasico->dibujar == true) {
+        hAguaBasico->Update(movement, elapsedTime,getVelocidad());
+
+        
+        /* **************************PARA LA FUTURA CLASE ENTITY*************************
+        if (hAguaBasico->GetGlobalBounds().intersects(enemigo[0].getSprite().getGlobalBounds())) {
+            enemigo[0].empujado = true;
+            enemigo[0].tiempoempujado.restart();
+        }
+
+        if (enemigo[0].empujado == true) {
+            sf::Vector2f movement3(0.f, 0.f);
+            movement3.x = 300 * (cos(hAguaBasico->angleshot2) * 1.0f);
+            movement3.y = 300 * (sin(hAguaBasico->angleshot2) * 1.0f);
+            enemigo[0].Update(movement3, elapsedTime);
+        }
+
+        if (enemigo[0].tiempoempujado.getTiempo() > 0.5) {
+            enemigo[0].empujado = false;
+        }
+
+        if (hAguaBasico->GetGlobalBounds().intersects(enemigo[1].getSprite().getGlobalBounds())) {
+            enemigo[1].empujado = true;
+            enemigo[1].tiempoempujado.restart();
+        }
+
+        if (enemigo[1].empujado == true) {
+            sf::Vector2f movement3(0.f, 0.f);
+            movement3.x = 300 * (cos(hAguaBasico->angleshot2) * 1.0f);
+            movement3.y = 300 * (sin(hAguaBasico->angleshot2) * 1.0f);
+            enemigo[1].Update(movement3, elapsedTime);
+        }
+
+        if (enemigo[1].tiempoempujado.getTiempo() > 0.5) {
+            enemigo[1].empujado = false;
+        }
+*/
+    }
+
+    sf::Vector2f movement4(0.f, 0.f);
+    if (aguaAdvancedCast) { //onMouseButtonRealeased
+        hAguaAvanzado->cast(sf::Vector2f(getPosition()));
+    }
+    if (hAguaAvanzado->tiempoCast.getTiempo() < 2.5 && hAguaAvanzado->dibujar == true) {
+        movement4.x = (40 * cos(hAguaAvanzado->angleshot2) * 11.0f);
+        movement4.y = (40 * sin(hAguaAvanzado->angleshot2) * 11.0f);
+        hAguaAvanzado->UpdateHechizo(movement4, elapsedTime);
+        
+        
+/* **************************PARA LA FUTURA CLASE ENTITY*************************
+        if (hAguaAvanzado->GetGlobalBounds().intersects(enemigo[0].getSprite().getGlobalBounds())) {
+            enemigo[0].empujado2 = true;
+            enemigo[0].tiempoempujado.restart();
+        }
+
+        if (enemigo[0].empujado2 == true) {
+            sf::Vector2f movement4(0.f, 0.f);
+            movement4.x = 300 * (cos(hAguaAvanzado->angleshot2) * 1.0f);
+            movement4.y = 300 * (sin(hAguaAvanzado->angleshot2) * 1.0f);
+            enemigo[0].Update(movement4, elapsedTime);
+        }
+
+        if (enemigo[0].tiempoempujado.getTiempo() > 0.5) {
+            enemigo[0].empujado2 = false;
+        }
+        */
+    }    
+}
+
+void Player::updateFlash() {
+        if (isFlashing) {
+            //Como el player se ha movido 'casteamos' la animacion del otro flash
+            flash2->cast2(&flash->clockCd);
+            sf::Vector2f prueba =flash->cast(sf::Vector2f(getPosition()));
+            if(prueba.x != getPosition().x && prueba.y != getPosition().y){
+                Colocar(prueba);
+            } 
+        }
+        
+}
+
+void Player::renderRayo(sf::Time elapsedTime,float interpolation) {
+     hRayoAvanzado->PlayAnimation(*hRayoAvanzado-> currentAnimation); //Current animation es un puntero a puntero
+    if (hRayoAvanzado->draw == true) {
+
+
+        if ( hRayoAvanzado->tiempoCast.getTiempo() < hRayoAvanzado->getCast()) {
+            //switch
+            switch (cuadrante) {
+                case 1:
+                    currentAnimation = &castingAnimationUpRayo;
+                    break;
+                case 2:
+                    currentAnimation = &castingAnimationDownRayo;
+                    break;
+                case 3:
+                    currentAnimation = &castingAnimationRightRayo;
+                    break;
+                case 4:
+                    currentAnimation = &castingAnimationLeftRayo;
+                    break;
+            }
+        }
+        hRayoAvanzado -> UpdateAnimation(elapsedTime);
+        if (hRayoAvanzado->tiempoCast.getTiempo() < hRayoAvanzado->getCast()) {
+            hRayoAvanzado->DrawWithOutInterpolation();
+
+        }
+    } else {
+        hRayoAvanzado->StopAnimation();
+    }
+    hRayoBasico->PlayAnimation(*hRayoBasico->currentAnimation);
+    if (hRayoBasico->draw == true) {
+        SetFrame(sf::seconds(0.125f));
+        //switch
+        switch (cuadrante) {
+            case 1:
+                currentAnimation = &castingAnimationUpRayo;
+                break;
+            case 2:
+                currentAnimation = &castingAnimationDownRayo;
+                break;
+            case 3:
+                currentAnimation = &castingAnimationRightRayo;
+                break;
+            case 4:
+                currentAnimation = &castingAnimationLeftRayo;
+                break;
+        }
+
+
+         hRayoBasico -> UpdateAnimation(elapsedTime);
+        if (hRayoBasico->tiempoCast.getTiempo() < hRayoBasico->getCast()) {
+
+            hRayoBasico->SetFrame(sf::seconds(0.075f));
+            hRayoBasico->currentAnimation = &hRayoBasico->animationDurante;
+
+            if (hRayoBasico->tiempoCast.getTiempo() < 1.0f) {
+
+
+                hRayoBasico->SetFrame(sf::seconds(0.125f));
+                hRayoBasico->currentAnimation = &hRayoBasico->PrimeraAnimacion;
+
+            }
+
+
+            hRayoBasico->DrawWithInterpolation(interpolation, GetPreviousPosition(), GetPosition());
+        } else {
+
+            hRayoBasico->draw = false;
+        }
+
+    } else {
+        SetFrame(sf::seconds(0.075f));
+        hRayoBasico->StopAnimation();
+    }
+
+}
+
+void Player::renderFuego(sf::Time elapsedTime, float interpolation) {
+if (hFuegoAvanzado->tiempoCast.getTiempo() < hFuegoAvanzado->getCast() && hFuegoAvanzado->lanzado == true) {
+        if (hFuegoAvanzado->tiempoCast.getTiempo() > 0.4) {
+            hFuegoAvanzado->SetScale(hFuegoAvanzado->actualSize.x, hFuegoAvanzado->actualSize.y);
+
+        }
+        hFuegoAvanzado->DrawWithInterpolation(interpolation, GetPreviousPosition(), GetPosition());
+    }
+    for (int aux = 0; aux <= 49; aux++) {
+        hFuegoBasico[aux].PlayAnimation(hFuegoBasico[aux].animationInicio);
+        hFuegoBasico[aux].UpdateAnimation(elapsedTime);
+        hFuegoBasico[aux].DrawAnimation(hFuegoBasico[aux].GetPreviousPosition(),hFuegoBasico[aux].GetPosition(), interpolation);
+
+    }
+    if (castFire.getTiempo() < 0.45f) {
+        SetFrameTime(sf::seconds(0.075f));
+        //switch
+        switch (cuadrante) {
+            case 1:
+                currentAnimation = &fuegoAnimationUp;
+                break;
+            case 2:
+                currentAnimation = &fuegoAnimationDown;
+                break;
+            case 3:
+                currentAnimation = &fuegoAnimationRight;
+                break;
+            case 4:
+                currentAnimation = &fuegoAnimationLeft;
+                break;
+        }
+    } else {
+        SetFrameTime(sf::seconds(0.075f));
+    }
+
+
+    if (castFire2.getTiempo() < 0.4f) {
+        SetFrameTime(sf::seconds(0.05f));
+        hFuegoAvanzado->SetScale(hFuegoAvanzado->actualSize.x * 1.1, hFuegoAvanzado->actualSize.y * 1.1);
+        hFuegoAvanzado->actualSize.x *= 1.05;
+        hFuegoAvanzado->actualSize.y *= 1.05;
+        //switch
+        switch (cuadrante) {
+            case 1:
+                currentAnimation = &fuego2AnimationUp;
+                break;
+            case 2:
+                currentAnimation = &fuego2AnimationDown;
+                break;
+            case 3:
+                currentAnimation = &fuego2AnimationRight;
+                break;
+            case 4:
+                currentAnimation = &fuego2AnimationLeft;
+                break;
+        }
+    } else {
+        SetFrameTime(sf::seconds(0.075f));
+    }
+}
+
+void Player::renderAgua(sf::Time elapsedTime, float interpolation) {
+    hAguaAvanzado->PlayAnimation(*hAguaAvanzado-> currentAnimation); //Current animation es un puntero a puntero
+    if (hAguaAvanzado->dibujar == true) {
+        SetFrame(sf::seconds(0.125f));
+        //switch
+        switch (cuadrante) {
+            case 1:
+                currentAnimation = &castingAnimationUpAgua;
+                break;
+            case 2:
+                currentAnimation = &castingAnimationDownAgua;
+                break;
+            case 3:
+                currentAnimation = &castingAnimationRightAgua;
+                break;
+            case 4:
+                currentAnimation = &castingAnimationLeftAgua;
+                break;
+        }
+
+
+
+        hAguaAvanzado -> UpdateAnimation(elapsedTime);
+        if (hAguaAvanzado->tiempoCast.getTiempo() < 2.5) {
+            hAguaAvanzado->DrawWithInterpolation(interpolation);
+        } else {
+            hAguaAvanzado->setDibujar(false);
+        }
+    }
+    hAguaBasico->PlayAnimation(hAguaBasico->animation);
+    if (hAguaBasico->dibujar == true) {
+        SetFrame(sf::seconds(0.125f));
+        //switch
+        switch (cuadrante) {
+            case 1:
+                currentAnimation = &castingAnimationUpAgua;
+                break;
+            case 2:
+                currentAnimation = &castingAnimationDownAgua;
+                break;
+            case 3:
+                currentAnimation = &castingAnimationRightAgua;
+                break;
+            case 4:
+                currentAnimation = &castingAnimationLeftAgua;
+                break;
+        }
+        hAguaBasico -> UpdateAnimation(elapsedTime);
+        if (hAguaBasico->tiempoCast.getTiempo() < 0.5f) {
+            hAguaBasico->DrawWithInterpolation(interpolation);
+        } else {
+            hAguaBasico->setDibujar(false);
+        }
+
+    } else {
+        SetFrame(sf::seconds(0.075f));
+        hAguaBasico->StopAnimation();
+    }
+}
+
+void Player::renderFlash(sf::Time elapsedTime, float interpolation) {
+    //no hago play animation todo el rato porque no interesa ya que no haremos un getGlobalBounds del flash
+    if (flash->dibujar == true) {
+        flash->PlayAnimation(flash->flashingAnimation);
+        flash->UpdateAnimation(elapsedTime);
+        if (flash->tiempoCast.getTiempo() < 0.5f) {
+            flash->Draw();
+        } else {
+            flash->dibujar = false;
+        }
+    } else {
+        flash->StopAnimation();
+    }
+
+
+    DrawWithInterpolation(interpolation);
+
+    //no hago play animation todo el rato porque no interesa ya que no haremos un getGlobalBounds del flash
+    if (flash2->dibujar == true) {
+        flash2->PlayAnimation(flash2->flashingAnimation2);
+        flash2->UpdateAnimation(elapsedTime);
+        if (flash2->tiempoCast.getTiempo() < 0.5f) {
+            flash2->DrawWithInterpolation(interpolation, GetPreviousPosition(), GetPosition());
+        } else {
+            flash2->dibujar = false;
+        }
+    } else {
+        flash2->StopAnimation();
+    }
+}
+
+void Player::renderHeal(sf::Time elapsedTime, float interpolation) {
+    hHeal->PlayAnimation(hHeal->animacion);
+    if (hHeal->dibujar == true) {
+        //Bloqueamos la movilidad mientras se castea
+        cantMove = true;
+        //Cambiamos el frameTime de la animacion
+        SetFrameTime(sf::seconds(0.125f));
+        //Vemos en que cuadrante estamos
+        switch (cuadrante) {
+            case 1:
+                 currentAnimation = &healingAnimationUp;
+                break;
+            case 2:
+                currentAnimation = &healingAnimationDown;
+                break;
+            case 3:
+                currentAnimation = &healingAnimationRight;
+                break;
+            case 4:
+                currentAnimation = &healingAnimationLeft;
+                break;
+        }
+        hHeal->UpdateAnimation(elapsedTime);
+        if (hHeal->tiempoCast.getTiempo() < 1.f) {
+            sf::Vector2f zizu(33.f, 35.f);
+            hHeal->DrawWithInterpolation(interpolation, (GetPreviousPosition() - zizu), (GetPosition() - zizu));
+        } else {
+            hHeal->dibujar = false;
+        }
+    } else {
+        //UpdatePlayerAnimation();  //Puede ser necesario llamar a esto
+        //Devolvemos el Frametime al original
+        SetFrameTime(sf::seconds(0.075f));
+        //Volvemos a permitir el movimiento
+        cantMove = false;
+        hHeal->StopAnimation();
+    }
+}
