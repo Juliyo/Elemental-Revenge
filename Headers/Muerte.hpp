@@ -22,36 +22,37 @@ public:
     Muerte();
     Muerte(const Muerte& orig);
     virtual ~Muerte();
-    void Update(sf::Time elapsedTime);
+    //void Update(sf::Time elapsedTime);
     void render(float interpolation, sf::Time elapsedTime);
     void handleMouseInput(sf::Mouse::Button button, bool isPressed); // Maneja eventos
-    sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight);
     void updateView();
     
-    Window &ref = *Window::Instance();
+    Motor2D *motor;
+    
     sf::View mWorldView;
     sf::View mBackgroundView;
     sf::View mHud;
     
 private:
-    sf::RenderWindow *mWindow;
     AnimatedSprite *animatedSprite;
     Animation *animation;
+    //Sprites
+    Sprite                  *spriteRelleno;
+    Sprite                  *spritePersonaje;
+    Sprite                  *spriteFondo;
+    Sprite                  *spriteFondoOpciones;
+    Sprite                  *mouseSprite;
+    
     sf::Texture                 texturaRelleno;
-    sf::Sprite                  spriteRelleno;
     sf::Texture                 texturaPersonaje;
-    sf::Sprite                  spritePersonaje;
     sf::Texture                 texturaFondo;
-    sf::Sprite                  spriteFondo;
-    sf::Sprite                  spriteFondoOpciones;
     sf::Texture                 mouseTexture;
-    sf::Sprite                  mouseSprite;
+    
     sf::Color transparent = sf::Color::Transparent;
     bool buttonPressed;
     
-    
-    sf::Font fontMuerte;
-    sf::Text textoMuerte;
+    sf::Font     fontMuerte;
+    Text        *textoMuerte;
 };
 
 #endif /* MUERTE_HPP */

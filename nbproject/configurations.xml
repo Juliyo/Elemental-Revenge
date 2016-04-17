@@ -46,10 +46,7 @@
                    displayName="Resource Files"
                    projectFiles="true">
     </logicalFolder>
-    <logicalFolder name="f2"
-                   displayName="Source Files"
-                   projectFiles="true"
-                   kind="ROOT">
+    <logicalFolder name="f2" displayName="Source Files" projectFiles="true">
       <itemPath>AnimatedSprite.cpp</itemPath>
       <itemPath>Animation.cpp</itemPath>
       <itemPath>Enemigo.cpp</itemPath>

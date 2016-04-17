@@ -42,6 +42,7 @@ public:
     sf::Texture getTexture();
     sf::Vector2f getPosition();
     sf::Texture getSfTexture();
+    sf::IntRect getTextureRect();
     
 private:
     sf::Sprite m_sprite;

@@ -115,13 +115,8 @@ void InGame::render(float interpolation, sf::Time elapsedTime) {
 
 
     motor->clear();
-
-    //Pillamos la view anterior, activamos la del fondo, dibujamos el fondo y volvemos al estado anterior
-    //sf::View previa = mWindow->getView();
     motor->SetView(0); //bordes
-    //mWindow->setView(mBackgroundView);
     motor->draw(spriteRelleno);
-    //mWindow->setView(previa);
     motor->SetView(1);
 
     updateView();
@@ -129,13 +124,13 @@ void InGame::render(float interpolation, sf::Time elapsedTime) {
 
     /**********************ARREGLAR***************************/
     if (mapa->getMapaActual() == 1) {
-        mapa->dibujaMapa1(*mWindow);
+        mapa->dibujaMapa1();
     }
     if (mapa->getMapaActual() == 2) {
-        mapa->dibujaMapa2(*mWindow);
+        mapa->dibujaMapa2();
     }
     if (mapa->getMapaActual() == 3) {
-        mapa->dibujaMapa2(*mWindow);
+        mapa->dibujaMapa2();
     }
     /*********************************************************/
 
@@ -229,14 +224,14 @@ void InGame::render(float interpolation, sf::Time elapsedTime) {
     player -> DrawWithInterpolation(interpolation);
 
     if (mapa->getMapaActual() == 1) {
-        mapa->dibuja2Mapa1(*mWindow);
+        mapa->dibuja2Mapa1();
     }
     if (mapa->getMapaActual() == 2) {
-        mapa->dibuja2Mapa2(*mWindow);
+        mapa->dibuja2Mapa2();
 
     }
     if (mapa->getMapaActual() == 3) {
-        mapa->dibuja2Mapa3(*mWindow);
+        mapa->dibuja2Mapa3();
     }
 
     motor->SetView(2); //vista del HUD
@@ -250,42 +245,46 @@ void InGame::render(float interpolation, sf::Time elapsedTime) {
 }
 
 void InGame::renderForPause(float interpolation, sf::Time elapsedTime) {
-    sf::View previa = mWindow->getView();
-    mWindow->setView(mBackgroundView);
-    mWindow->draw(spriteRelleno);
-    mWindow->setView(previa);
+    motor->clear();
+    motor->SetView(0); //bordes
+    motor->draw(spriteRelleno);
+    motor->SetView(1);
+    
     updateViewForPause();
-    previa = mWindow->getView();
+    motor->draw(spriteFondo);
 
-    mWindow->draw(spriteFondo);
     if (mapa->getMapaActual() == 1) {
-        mapa->dibujaMapa1(*mWindow);
+        mapa->dibujaMapa1();
     }
     if (mapa->getMapaActual() == 2) {
-        mapa->dibujaMapa2(*mWindow);
+        mapa->dibujaMapa2();
 
     }
     if (mapa->getMapaActual() == 3) {
-        mapa->dibujaMapa2(*mWindow);
+        mapa->dibujaMapa2();
     }
 
-    player->Draw(*mWindow);
-    mWindow->draw(player->GetSpriteAnimated());
+    player->Draw();
+    motor->draw(player->GetSpriteAnimated());
 
     if (mapa->getMapaActual() == 1) {
-        mapa->dibujaMapa1(*mWindow);
+        mapa->dibujaMapa1();
     }
     if (mapa->getMapaActual() == 2) {
-        mapa->dibujaMapa2(*mWindow);
+        mapa->dibujaMapa2();
 
     }
     if (mapa->getMapaActual() == 3) {
-        mapa->dibujaMapa2(*mWindow);
+        mapa->dibujaMapa2();
     }
+    
+    motor->SetView(2); //vista del HUD
+    player -> hud->renderHud();
 
-    mWindow->setView(getLetterboxView(mHud, ref.ancho, ref.alto, 640, 480));
-    player -> hud->renderHud(mWindow);
-    mWindow->setView(previa);
+    motor->SetView(1); //vista del juego
+
+
+    motor->display();
 }
 
 void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
@@ -339,11 +338,7 @@ void InGame::updateView() {
 }
 
 void InGame::updateViewForPause() {
-
-    float x = mWorldView.getCenter().x; //Lo mismo que la funcion lerp
-    float y = mWorldView.getCenter().y;
-    mWorldView.setCenter(x, y);
-    mWorldView.setSize(640, 480);
-    mWindow->setView(getLetterboxView(mWorldView, ref.ancho, ref.alto, 640, 480));
-
+    motor->setCenterForView(1, motor->getCenterFromView(1).x, motor->getCenterFromView(1).y);
+    motor->setSizeForView(1, 640, 480);
+    motor->SetView(1);
 }

@@ -82,6 +82,9 @@ sf::FloatRect Sprite::getGlobalBounds() {
 sf::FloatRect Sprite::getLocalBounds() {
     return m_sprite.getLocalBounds();
 }
+sf::IntRect Sprite::getTextureRect() {
+    return m_sprite.getTextureRect();
+}
 
 void Sprite::setSmooth(bool a) {
     m_texture.setSmooth(a);

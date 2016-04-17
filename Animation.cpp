@@ -33,13 +33,15 @@ void Animation::addFrame(sf::IntRect rect)
     m_frames.push_back(rect);
 }
 
-void Animation::setSpriteSheet(std::string ruta)
+void Animation::setSprite(std::string ruta)
 {
-
     if(!m_texture->loadFromFile(ruta)){
         exit(0); //Error
     }
-
+}
+void Animation::setSpriteSheet(const sf::Texture& texture)
+{
+    m_texture = &texture;
 }
 
 const sf::Texture* Animation::getSpriteSheet() const

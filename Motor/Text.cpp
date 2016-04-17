@@ -32,6 +32,10 @@ void Text::setFont(std::string ruta) {
     m_text.setFont(m_font);
 }
 
+void Text::setFont(sf::Font fuente) {
+    m_font = fuente;
+    m_text.setFont(m_font);
+}
 void Text::setColor(int r, int g, int b, int a) {
     sf::Color color(r, g, b, a);
     m_text.setColor(color);
@@ -60,6 +64,10 @@ void Text::setStyle(int a) {
 
 }
 
+void Text::setColor(sf::Color color) {
+    m_text.setColor(color);
+}
+
 void Text::setScale(float x, float y) {
     m_text.setScale(x, y);
 }
@@ -70,6 +78,10 @@ void Text::setPosition(int x, int y) {
 
 sf::FloatRect Text::getGlobalBounds() {
     return m_text.getGlobalBounds();
+}
+
+sf::Vector2f Text::getPosition() {
+    return m_text.getPosition();
 }
 
 void Text::setOrigin(float x, float y) {

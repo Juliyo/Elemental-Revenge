@@ -16,60 +16,64 @@
 #include "State.hpp"
 #include "SFML/System.hpp"
 #include "AnimatedSprite.hpp"
+#include "../Motor/Motor2D.hpp"
 
 #define MAX_NUMBER_OF_ITEMS 3   
 
-class Pause: public State {
+class Pause : public State {
 public:
     Pause();
     Pause(const Pause& orig);
     virtual ~Pause();
-    
-    void Update(sf::Time elapsedTime);
+
+    //void Update(sf::Time elapsedTime);
     void render(float interpolation, sf::Time elapsedTime);
     void handleMouseInput(sf::Mouse::Button button, bool isPressed); // Maneja eventos
-    sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight);
     void updateView();
     void MoveUp();
     void MoveDown();
-        void MoveLeft();
+    void MoveLeft();
     void MoveRight();
-        void handlePlayerInput(sf::Keyboard::Key key, bool isPressed ); // Maneja eventos
-        void handlePlayerInput2(sf::Keyboard::Key key, bool isPressed ); // Maneja eventos
-    int getSetectedItemIndexPause(){
+    void handlePlayerInput(sf::Keyboard::Key key, bool isPressed); // Maneja eventos
+    void handlePlayerInput2(sf::Keyboard::Key key, bool isPressed); // Maneja eventos
+
+    int getSetectedItemIndexPause() {
         return selectedItemIndexPausa;
     };
-      int SetSetectedItemIndexPause(int a){
-        selectedItemIndexPausa =a;
+
+    int SetSetectedItemIndexPause(int a) {
+        selectedItemIndexPausa = a;
     };
-    Window &ref = *Window::Instance();
-    sf::View mWorldView;
-    sf::View mBackgroundView;
-    sf::View mHud;
+    
+    Motor2D *motor;
+    
 private:
-     sf::RenderWindow *mWindow;
-     AnimatedSprite *animatedSprite;
+    AnimatedSprite *animatedSprite;
     Animation *animation;
-    sf::Texture                 texturaRelleno;
-    sf::Sprite                  spriteRelleno;
-    sf::Texture                 texturaPersonaje;
-    sf::Sprite                  spritePersonaje;
-    sf::Texture                 texturaFondo;
-    sf::Sprite                  spriteFondo;
-    sf::Sprite                  spriteFondoOpciones;
-    sf::Texture                 texturaMancha;
-    sf::Sprite                  spriteMancha;
-    sf::Sprite                  spriteMancha2;
-    sf::Texture                 mouseTexture;
-    sf::Sprite                  mouseSprite;
+    
+    //Sprites
+    Sprite *spriteRelleno;
+    Sprite *spritePersonaje;
+    Sprite *spriteFondo;
+    Sprite *spriteFondoOpciones;
+    Sprite *spriteMancha;
+    Sprite *spriteMancha2;
+    Sprite *mouseSprite;
+    
+    //Texturas
+    sf::Texture texturaRelleno;
+    sf::Texture texturaPersonaje;
+    sf::Texture texturaFondo;
+    sf::Texture texturaMancha;
+    sf::Texture mouseTexture;
+    
     sf::Color transparent = sf::Color::Transparent;
     bool buttonPressed;
-    
-    
+
     int selectedItemIndexPausa;
     sf::Font fontPausa;
-    sf::Text menuPausa[10];
-    sf::Text textoPausa;
+    Text *menuPausa;
+    Text *textoPausa;
     sf::Color colorAzul;
 };
 

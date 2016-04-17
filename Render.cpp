@@ -36,9 +36,7 @@ void Render::PlayAnimation(Animation *animation) {
     animatedSprite.play(*animation);
 }
 void Render::StopAnimation(){
-
         animatedSprite.stop();
-        
 }
 //Renderizar sprites sin animar con interpolación
 void Render::Draw( const sf::Vector2f &posPrev, const sf::Vector2f &posNew, float interpolation)

@@ -149,9 +149,9 @@ void Player::Update(sf::Vector2f velocity, sf::Time elapsedTime, Map *mapa) {
     PhysicsState::Update(elapsedTime, mapa);
 }
 
-void Player::Draw(sf::RenderWindow& window) {
+void Player::Draw() {
     GetSprite().setPosition(GetPosition().x,GetPosition().y);
-    window.draw(GetSprite());
+    Motor2D::Instance()->draw(GetSprite());
 }
 
 void Player::DrawWithInterpolation( float interpolation) {

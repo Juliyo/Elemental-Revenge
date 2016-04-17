@@ -23,14 +23,14 @@ public:
     virtual ~Map();
     void leerMapa(int numMapa);
     void leerMapa2();
-    void dibujaMapa1(sf::RenderWindow &window);
-    void dibuja2Mapa1(sf::RenderWindow &window);
+    void dibujaMapa1();
+    void dibuja2Mapa1();
     
-    void dibujaMapa2(sf::RenderWindow &window);
-    void dibuja2Mapa2(sf::RenderWindow &window);
+    void dibujaMapa2();
+    void dibuja2Mapa2();
     
-    void dibujaMapa3(sf::RenderWindow &window);
-    void dibuja2Mapa3(sf::RenderWindow &window);
+    void dibujaMapa3();
+    void dibuja2Mapa3();
     
     int getMapaActual();
     

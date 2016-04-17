@@ -13,46 +13,35 @@
 #include <iostream>
 #include <string>
 #include "Muerte.hpp"
-#include "Window.hpp"
 
 Muerte::Muerte() {
 
-    mWindow = ref.GetWindow();
     float width = 1280;
     float height = 700;
-
-
-
-
-    //Vista
-    mWorldView = mWindow->getDefaultView();
-    mWorldView.zoom(0.5f);
-    if (!fontMuerte.loadFromFile("resources/Fonts/OptimusPrinceps.ttf")) {
-
-    }
-textoMuerte.setFont(fontMuerte);
-    textoMuerte.setColor(sf::Color::Red);
-    textoMuerte.setString("HAS MUERTO");
-    textoMuerte.setOrigin(sf::Vector2f(textoMuerte.getGlobalBounds().width/2, textoMuerte.getGlobalBounds().height/2));
-    textoMuerte.setPosition(sf::Vector2f(mWindow->getSize().x/2, mWindow->getSize().y/2));
-    textoMuerte.scale(2,2);
+    
+    motor = Motor2D::Instance();
+    
+    int anchoVentana = motor->getAnchoVentana();
+    int altoVentana = motor->getAltoVentana();
     
     animation = new Animation(); //para el fondo SOLO declarado
-
+    
+    spriteRelleno = new Sprite();
+    spritePersonaje = new Sprite();
+    spriteFondo = new Sprite();
+    spriteFondoOpciones = new Sprite();
+    mouseSprite = new Sprite();
+    textoMuerte = new Text();
+    
     //Estado de Ingame
     EstadoActivo = false;
-
-    //Referenciamos la ventana Singleton
-
-
-    //texturas
 
     try {
         texturaRelleno.loadFromFile("resources/Textures/texturaMuerte.png");
         texturaFondo.loadFromFile("resources/Textures/fondo.png");
         mouseTexture.loadFromFile("resources/Textures/mouse.png");
         texturaPersonaje.loadFromFile("resources/Textures/fondoPersonaje.png");
-
+        fontMuerte.loadFromFile("resources/Fonts/OptimusPrinceps.ttf");
     } catch (std::runtime_error& e) {
         std::cout << "Excepcion: " << e.what() << std::endl;
         exit(0);
@@ -60,28 +49,32 @@ textoMuerte.setFont(fontMuerte);
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
 
-    texturaFondo.setSmooth(true);
-    texturaFondo.setRepeated(1);
-    mouseSprite.setTexture(mouseTexture);
-    mouseSprite.setScale(0.2, 0.2);
-    mouseSprite.setPosition(20, 20);
-    mouseSprite.setOrigin(64, 64);
+    textoMuerte->setFont(fontMuerte);
+    textoMuerte->setColor(sf::Color::Red);
+    textoMuerte->setString("HAS MUERTO");
+    textoMuerte->setOrigin(textoMuerte->getGlobalBounds().width/2, textoMuerte->getGlobalBounds().height/2);
+    textoMuerte->setPosition(anchoVentana/2, altoVentana/2);
+    textoMuerte->setScale(2,2);
+    
+    mouseSprite->setTexture(mouseTexture);
+    mouseSprite->setScale(0.2, 0.2);
+    mouseSprite->setPosition(20, 20);
+    mouseSprite->setOrigin(64, 64);
 
     texturaFondo.setSmooth(true);
     texturaFondo.setRepeated(1);
-    spriteFondo.setTexture(texturaFondo);
-    spriteFondo.setTextureRect(sf::IntRect(0, 0, 1280, 720));
-    spriteFondo.setOrigin(spriteFondo.getTextureRect().width / 2, spriteFondo.getTextureRect().height / 2);
-    spriteFondo.setPosition(mWindow->getSize().x / 2, mWindow->getSize().y / 2);
+    spriteFondo->setTexture(texturaFondo);
+    spriteFondo->setTextRect(0, 0, 1280, 720);
+    spriteFondo->setOrigin(spriteFondo->getTextureRect().width / 2, spriteFondo->getTextureRect().height / 2);
+    spriteFondo->setPosition(anchoVentana / 2, altoVentana / 2);
     transparent.a = 180;
-    spriteFondo.setColor(transparent);
+    spriteFondo->setColor(transparent);
     
-    spriteRelleno.setTexture(texturaRelleno);
-    //spriteRelleno.setTextureRect(sf::IntRect(0, 0, 1280, 100));
-    spriteRelleno.scale(1,0.3);
-    spriteRelleno.setOrigin(spriteRelleno.getTextureRect().width / 2, spriteRelleno.getTextureRect().height / 2);
-    spriteRelleno.setPosition(mWindow->getSize().x / 2, mWindow->getSize().y / 2+15);
-    spriteRelleno.setColor(transparent);
+    spriteRelleno->setTexture(texturaRelleno);
+    spriteRelleno->setScale(1,0.3);
+    spriteRelleno->setOrigin(spriteRelleno->getTextureRect().width / 2, spriteRelleno->getTextureRect().height / 2);
+    spriteRelleno->setPosition(anchoVentana / 2, altoVentana / 2+15);
+    spriteRelleno->setColor(transparent);
 }
 
 
@@ -91,16 +84,16 @@ Muerte::Muerte(const Muerte& orig) {
 Muerte::~Muerte() {
 }
 
-void Muerte::Update(sf::Time elapsedTime) {
+/*void Muerte::Update(sf::Time elapsedTime) {
     sf::Vector2f mousePosition = mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow));
-}
+}*/
 void Muerte::render(float interpolation, sf::Time elapsedTime) {
     //mWindow->clear()
     updateView();
-    mWindow->draw(spriteFondo);
-    mWindow->draw(spriteRelleno);
-    mWindow->draw(textoMuerte);
-    mWindow->display();
+    motor->draw(spriteFondo);
+    motor->draw(spriteRelleno);
+    motor->draw(*textoMuerte);
+    motor->display();
 }
 void Muerte::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
     if (button == sf::Mouse::Button::Left) {
@@ -110,50 +103,17 @@ void Muerte::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
     }
 }
 
-sf::View Muerte::getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight) {
-    // Compares the aspect ratio of the window to the aspect ratio of the view,
-    // and sets the view's viewport accordingly in order to archieve a letterbox effect.
-    // A new view (with a new viewport set) is returned.
-
-    float windowRatio = windowWidth / (float) windowHeight;
-    float viewRatio = viewRatioWidth / (float) viewRatioHeight;
-    float sizeX = 1;
-    float sizeY = 1;
-    float posX = 0;
-    float posY = 0;
-
-    bool horizontalSpacing = true;
-    if (windowRatio < viewRatio)
-        horizontalSpacing = false;
-
-    // If horizontalSpacing is true, the black bars will appear on the left and right side.
-    // Otherwise, the black bars will appear on the top and bottom.
-
-    if (horizontalSpacing) {
-        sizeX = viewRatio / windowRatio;
-
-        posX = (1 - sizeX) / 2.0;
-    } else {
-        sizeY = windowRatio / viewRatio;
-        posY = (1 - sizeY) / 2.0;
-    }
-
-    view.setViewport(sf::FloatRect(posX, posY, sizeX, sizeY));
-    return view;
-}
 void Muerte::updateView() {
-    sf::Vector2f mousePosition = mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow));
-    sf::FloatRect viewBounds(mWorldView.getCenter() - mWorldView.getSize() / 2.f, mWorldView.getSize());
+     sf::FloatRect viewBounds(motor->getCenterFromView(1) - motor->getSizeFromView(1) / 2.f, motor->getSizeFromView(1));
 
-    sf::Vector2f position = mousePosition;
+    sf::Vector2f position = motor->getMousePosition();
     position.x = std::max(position.x, viewBounds.left);
     position.x = std::min(position.x, viewBounds.width + viewBounds.left);
     position.y = std::max(position.y, viewBounds.top);
     position.y = std::min(position.y, viewBounds.height + viewBounds.top);
 
-    mouseSprite.setPosition(position);
+    mouseSprite->setPosition(position.x, position.y);
 
-    mWorldView.setSize(640, 480);
-
-    mWindow->setView(getLetterboxView(mWorldView, ref.ancho, ref.alto, 640, 480));
+    motor->setSizeForView(1, 640, 480);
+    motor->SetView(1);
 }

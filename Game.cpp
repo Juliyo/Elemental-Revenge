@@ -22,14 +22,12 @@ Game::Game() {
     motor->inicializarVentana("Hito 2 - Intento Motor", 1280, 720);
 
     EstadoInGame = new InGame();
-    EstadoTransition = new Transition();
-    
-    EstadoInGame = new InGame();
-    EstadoTransition = new Transition();
-    EstadoPause = new Pause();
-    EstadoMuerte = new Muerte();
+    //EstadoTransition = new Transition();
+    //EstadoPause = new Pause();
+    //EstadoMuerte = new Muerte();
     EstadoMenu = new Menu2();
-
+    
+    
 #ifdef _WIN32
     HWND handler = motor->getSystemHandle();
     RECT rWindow;
@@ -74,9 +72,9 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
     if (EstadoTransition->EstadoActivo) {
         EstadoTransition->Update(elapsedTime);
     }
-    if (EstadoPause->EstadoActivo) {
+    /*if (EstadoPause->EstadoActivo) {
         EstadoPause->Update(elapsedTime);
-    }
+    }*/
     if (EstadoMenu->EstadoActivo) {
         EstadoMenu->Update(elapsedTime);
     }
@@ -94,11 +92,11 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
 
     if (EstadoMenu->EstadoActivo) {
 
-        mWindow->clear();
+        motor->clear();
 
         EstadoMenu->render();
 
-        mWindow->display();
+        motor->display();
     }
     if (EstadoPause->EstadoActivo) {
         EstadoInGame->renderForPause(interpolation, elapsedTime);

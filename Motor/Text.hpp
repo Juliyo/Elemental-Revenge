@@ -20,10 +20,13 @@ public:
     Text();
     void setString(std::string texto);
     void setFont(std::string ruta);
+    void setFont(sf::Font fuente);
     std::string getText();
     sf::FloatRect getGlobalBounds();
+    sf::Vector2f getPosition();
     void setStyle(int a);
     void setColor(int r, int g, int b, int a);
+    void setColor(sf::Color color);
     void setPosition(int x, int y);
     void setScale(float x, float y);
     void setOrigin(float x, float y);

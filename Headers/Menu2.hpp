@@ -29,88 +29,83 @@
 
 #define MAX_NUMBER_OF_ITEMS 3   
 
-class Menu2: public State, public Render, public PhysicsState {
+class Menu2 : public State, public Render, public PhysicsState {
 public:
     Menu2();
     Menu2(const Menu2& orig);
     virtual ~Menu2();
-    
+
     void render();
-    
+
     void MoveUp();
     void MoveDown();
     sf::Vector2f getPosition();
 
-    void    Update(sf::Time elapsedTime);
+    void Update(sf::Time elapsedTime);
     void handlePlayerInput(sf::Keyboard::Key key, bool isPressed); // Maneja eventos
-    sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight);
 
     void handleMouseInput(sf::Mouse::Button button, bool isPressed);
-        void updateView();
-    int getSetectedItemIndex(){
+    void updateView();
+
+    int getSetectedItemIndex() {
         return selectedItemIndex;
     }
-    
-    int SetSetectedItemIndex(int a){
-        selectedItemIndex=a;
+
+    int SetSetectedItemIndex(int a) {
+        selectedItemIndex = a;
     }
-    
+
     void pararMusica();
 
-        Window &ref = *Window::Instance();
+    Motor2D *motor;
 
     sf::View mWorldView;
     sf::View mBackgroundView;
     sf::View mHud;
-    
+
 private:
+    
+    void cargarAnimacionesMenu();
+    
     bool tecladoActivo;
     bool ratonSelecciona;
-    
-            sf::Music                   *musica;
 
-    sf::Texture                 texturaAnimation;
+    sf::Music *musica;
 
-    Animation                   *animationMenu;
+    //Animations
+    Animation *animationMenu;
+    Animation *animationMenuFuego;
+    Animation *animationMenuRayo;
     
+    //Sprites
+    Sprite *spriteFondoMenu;
+    Sprite *spriteFondo;
+    Sprite *spriteRelleno;
+    Sprite *mouseSprite;
+    Sprite *titulo;
+    Sprite mancha[3];
     
-    sf::Texture                 texturaAnimationFuego;
+    //Texturas
+    sf::Texture texturaAnimationFuego;
+    sf::Texture texturaAnimationRayo;
+    sf::Texture texturaFondoMenu;
+    sf::Texture texturaFondo;
+    sf::Texture texturaRelleno;
+    sf::Texture mouseTexture;
+    sf::Texture texturaTitulo;
+    sf::Texture texturaMancha;
+    sf::Texture texturaAnimation;
+    sf::Texture texturaPersonaje;
+    
+    sf::RectangleShape rectanguloFondo;
 
-    Animation                   *animationMenuFuego;
-        
-    sf::Texture                 texturaAnimationRayo;
-
-    Animation                   *animationMenuRayo;
-    
-    sf::RenderWindow            *mWindow;
-    sf::Texture                 texturaFondoMenu;
-    sf::Sprite                  spriteFondoMenu;
-    
-    sf::Texture                 texturaFondo;
-    sf::Sprite                  spriteFondo;
-    
-    sf::Texture                 texturaRelleno;
-    sf::Sprite                  spriteRelleno;
-    
-    sf::RectangleShape          rectanguloFondo;
-    
-    sf::Texture                 mouseTexture;
-    sf::Sprite                  mouseSprite;
-    
-    sf::Texture                 texturaTitulo;
-    sf::Sprite                  Titulo;
-    
-        
-    sf::Texture                 texturaMancha;
-    sf::Sprite                  Mancha[3];
-    
     int selectedItemIndex;
-    int Random;
+    int random;
     sf::Font font;
     sf::Font fontTitulo;
-    sf::Text textTitulo;
+    Text *textTitulo;
 
-    sf::Text menu[4];
+    Text menu[4];
 };
 
 #endif /* MENU_HPP */
