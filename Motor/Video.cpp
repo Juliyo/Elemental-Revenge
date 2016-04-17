@@ -12,6 +12,7 @@
  */
 
 #include "Video.hpp"
+#include "Textura.hpp"
 #include "../Headers/StringHelpers.hpp"
 
 

@@ -17,6 +17,7 @@ Textura::Textura(std::string ruta) {
     Motor2D *motor = Motor2D::Instance();
     motor->Textures.insert(std::pair<int, sf::Texture*>(motor->key, new sf::Texture()));
     motor->Textures.at(motor->key)->loadFromFile(ruta);
+    m_ruta = ruta;
     motor->key++;
 }
 

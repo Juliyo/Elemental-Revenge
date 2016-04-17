@@ -23,7 +23,7 @@ public:
     int getId();
 private:
     int id;
-    
+    const std::string m_ruta;
 };
 
 #endif /* TEXTURA_HPP */
