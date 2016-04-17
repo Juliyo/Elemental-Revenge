@@ -18,7 +18,7 @@
 #include "btree.hpp"
 #include "tinystr.h"
 #include "tinyxml.h"
-
+#include "../Motor/Video.hpp"
 class Transition : public State {
 public:
     Transition();
@@ -69,6 +69,8 @@ private:
     Sprite                  *simbolo;
     
     Motor2D                 *motor;
+    
+    Video                       *video;
     
     btree *arbol;
     bool buttonPressed = false;

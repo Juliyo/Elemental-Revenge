@@ -15,16 +15,17 @@
 #include "../Headers/StringHelpers.hpp"
 
 
-Video::Video(std::string ruta, int f) {
+Video::Video(std::string ruta, int f, int x, int y) {
     mRuta=ruta;
     numFrames=f;
     frames = new Sprite[numFrames];
     current_frame=0;
     dibujar=false;
     for(int i=0; i < numFrames;i++){
-        frames[i].setTexture(ruta + std::to_string(i) + ".png");
+        frames[i].setTexture(ruta + toString(i) + ".png");
         frames[i].setSmooth(true);
-        frames[i].setPosition(0,0);
+        frames[i].setPosition(x,y);
+        frames[i].setScale(1.4,1.4);
     }
 }
 

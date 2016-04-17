@@ -111,9 +111,11 @@ void Game::processEvents() //Captura y procesa eventos
                 GetWindowRect(handler, &rWindow);
                 ClipCursor(&rWindow);
 #endif
-                motor->SetView(1);
                 motor->setAltoVentana(event.size.height);
                 motor->setAnchoVentana(event.size.width);
+                motor->SetView(1);
+                motor->SetView(2);
+                motor->SetView(3);
                 break;
         }
     }

@@ -20,6 +20,7 @@ void Motor2D::Inicializar() {
     fondo = new sf::View();
     pantalla = new sf::View();
     HUD = new sf::View();
+    transicion = new sf::View();
 }
 
 void Motor2D::inicializarVentana(std::string titulo, int ancho, int alto) {
@@ -55,6 +56,11 @@ void Motor2D::SetView(int v) {
         case 2:
         {
             mWindow->setView(getLetterboxView(*HUD, anchoVentana, altoVentana, 640, 480));
+            break;
+        }
+        case 3:
+        {
+            mWindow->setView(getLetterboxView(*transicion, anchoVentana, altoVentana, 640, 480));
             break;
         }
     }
@@ -164,6 +170,11 @@ void Motor2D::setZoomToView(float zoom, int view) {
             HUD->zoom(zoom);
             break;
         }
+        case 3:
+        {
+            transicion->zoom(zoom);
+            break;
+        }
     }
 }
 
@@ -180,6 +191,10 @@ sf::Vector2f Motor2D::getSizeFromView(int view) {
         case 2:
         {
             return HUD->getSize();
+            break;
+        }
+        case 3:{
+            return transicion->getSize();
             break;
         }
     }
@@ -200,6 +215,11 @@ sf::Vector2f Motor2D::getCenterFromView(int view) {
             return HUD->getCenter();
             break;
         }
+        case 3:
+        {
+            return transicion->getCenter();
+            break;
+        }
     }
 }
 
@@ -218,6 +238,10 @@ void Motor2D::setSizeForView(int view, int x, int y) {
             HUD->setSize(x, y);
             break;
         }
+        case 3:{
+            transicion->setSize(x,y);
+            break;
+        }
     }
 }
 
@@ -234,6 +258,11 @@ void Motor2D::setCenterForView(int view, int x, int y) {
         case 2:
         {
             HUD->setCenter(x, y);
+            break;
+        }
+        case 3:
+        {
+            transicion->setCenter(x,y);
             break;
         }
     }

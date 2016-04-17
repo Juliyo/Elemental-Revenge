@@ -74,6 +74,7 @@ private:
     sf::View *fondo;
     sf::View *pantalla;
     sf::View *HUD;
+    sf::View *transicion;
     sf::Vector2f *raton;
 
 };

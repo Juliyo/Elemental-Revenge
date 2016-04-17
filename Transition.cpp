@@ -14,7 +14,6 @@
 #include "Transition.hpp"
 #include "btree.hpp"
 
-
 Transition::Transition() {
     motor = Motor2D::Instance();
     //Estado de Ingame
@@ -22,11 +21,9 @@ Transition::Transition() {
 
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
-    
-    
 
-    motor->setZoomToView(0.5f,1);
-    
+    //motor->setZoomToView(0.5f,1);
+    motor->setCenterForView(3, 650, 350);
     //Carga XML
     TiXmlDocument doc;
     doc.LoadFile("resources/historia.xml");
@@ -42,7 +39,7 @@ Transition::Transition() {
 
     arbol = new btree();
     arbol->insert(key, p1, respuesta1->GetText(), respuesta2->GetText());
-    firstNode=arbol->search(key);
+    firstNode = arbol->search(key);
     for (int i = 0; i < 6; i++) {
         pregunta1 = pregunta1->NextSiblingElement("pregunta");
         //std::cout<<respuesta1->GetText()<<std::endl;
@@ -79,14 +76,14 @@ Transition::Transition() {
     cruzeta1 = new Sprite();
     cruzeta2 = new Sprite();
     simbolo = new Sprite();
-    
-    
-    
+
+
+
     mouseSprite->setTexture(mouseTexture);
     mouseSprite->setScale(0.2, 0.2);
     mouseSprite->setPosition(20, 20);
     mouseSprite->setOrigin(64, 64);
-    
+
     texturaFondo.setSmooth(true);
     texturaFondo.setRepeated(1);
     spriteFondo->setTexture(texturaFondo);
@@ -133,7 +130,7 @@ Transition::Transition() {
     cruzeta2->setOrigin(cruzeta.getSize().x / 2, cruzeta.getSize().y / 2);
     cruzeta2->setScale(0.25, 0.25);
 
-   
+    video = new Video("resources/Videos/arbol/tree", 410, 280, 100);
 
 }
 
@@ -143,8 +140,8 @@ Transition::Transition(const Transition& orig) {
 Transition::~Transition() {
 }
 
-
-void Transition::Update(sf::Time elapsedTime){
+void Transition::Update(sf::Time elapsedTime) {
+    video->setDibujar(true);
     if (buttonPressed && !firstTime && (!fadeEffect && !unfadeEffect)) {
         if (spriteOpcionA->getGlobalBounds().contains(mouseSprite->getPosition())) {
             izq = true;
@@ -165,7 +162,7 @@ void Transition::Update(sf::Time elapsedTime){
         if (drawNextLevel) {
             if (nextLevel->getGlobalBounds().contains(mouseSprite->getPosition())) {
                 changePregunta();
-                preguntaContestada=true;
+                preguntaContestada = true;
                 drawNextLevel = false;
                 /*Cambiamos de nivel*/
                 level++;
@@ -561,6 +558,7 @@ void Transition::Update(sf::Time elapsedTime){
         }
     }
 }
+
 void Transition::changePregunta() {
     if (izq) {
         if (currentNode -> left == NULL) {
@@ -603,13 +601,13 @@ void Transition::changePregunta() {
             spriteOpcionB->setOrigin(texturaOpcionB.getSize().x / 2, texturaOpcionB.getSize().y / 2);
             spriteOpcionB->setPosition(800, 450);
             spriteOpcionB->setTextRect(0, 0, texturaOpcionB.getSize().x, texturaOpcionB.getSize().y);
-            
+
             pregunta->setTexture(texPregunta);
             pregunta->setScale(0.55, 0.55);
             pregunta->setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
             pregunta->setPosition(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2 - 100);
-            cruzeta1->setScale(0.35,0.35);
-            
+            cruzeta1->setScale(0.35, 0.35);
+
             break;
         case 6:
             if (!texturaOpcionA.loadFromFile("resources/UI Elements/O31.png")) {
@@ -629,12 +627,12 @@ void Transition::changePregunta() {
             spriteOpcionB->setOrigin(texturaOpcionB.getSize().x / 2, texturaOpcionB.getSize().y / 2);
             spriteOpcionB->setPosition(800, 450);
             spriteOpcionB->setTextRect(0, 0, texturaOpcionB.getSize().x, texturaOpcionB.getSize().y);
-            
+
             pregunta->setTexture(texPregunta);
             pregunta->setScale(0.65, 0.65);
             pregunta->setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
             pregunta->setPosition(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2 - 100);
-            cruzeta1->setScale(0.35,0.35);
+            cruzeta1->setScale(0.35, 0.35);
             break;
         case 1:
             if (!texturaOpcionA.loadFromFile("resources/UI Elements/O41.png")) {
@@ -654,13 +652,13 @@ void Transition::changePregunta() {
             spriteOpcionB->setOrigin(texturaOpcionB.getSize().x / 2, texturaOpcionB.getSize().y / 2);
             spriteOpcionB->setPosition(800, 450);
             spriteOpcionB->setTextRect(0, 0, texturaOpcionB.getSize().x, texturaOpcionB.getSize().y);
-            
+
             pregunta->setTexture(texPregunta);
             pregunta->setScale(0.55, 0.55);
             pregunta->setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
             pregunta->setPosition(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2 - 100);
-            
-            cruzeta1->setScale(0.40,0.40);
+
+            cruzeta1->setScale(0.40, 0.40);
             break;
         case 3:
             if (!texturaOpcionA.loadFromFile("resources/UI Elements/O51.png")) {
@@ -680,12 +678,12 @@ void Transition::changePregunta() {
             spriteOpcionB->setOrigin(texturaOpcionB.getSize().x / 2, texturaOpcionB.getSize().y / 2);
             spriteOpcionB->setPosition(800, 450);
             spriteOpcionB->setTextRect(0, 0, texturaOpcionB.getSize().x, texturaOpcionB.getSize().y);
-            
+
             pregunta->setTexture(texPregunta);
             pregunta->setScale(0.50, 0.50);
             pregunta->setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
             pregunta->setPosition(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2 - 100);
-            cruzeta1->setScale(0.25,0.25);
+            cruzeta1->setScale(0.25, 0.25);
             break;
         case 5:
             if (!texturaOpcionA.loadFromFile("resources/UI Elements/O61.png")) {
@@ -705,12 +703,12 @@ void Transition::changePregunta() {
             spriteOpcionB->setOrigin(texturaOpcionB.getSize().x / 2, texturaOpcionB.getSize().y / 2);
             spriteOpcionB->setPosition(800, 450);
             spriteOpcionB->setTextRect(0, 0, texturaOpcionB.getSize().x, texturaOpcionB.getSize().y);
-            
+
             pregunta->setTexture(texPregunta);
             pregunta->setScale(0.75, 0.75);
             pregunta->setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
             pregunta->setPosition(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2 - 100);
-            cruzeta1->setScale(0.50,0.50);
+            cruzeta1->setScale(0.50, 0.50);
             //std::cout<<"Puta ostia copon"<<std::endl;
             break;
         case 7:
@@ -731,12 +729,12 @@ void Transition::changePregunta() {
             spriteOpcionB->setOrigin(texturaOpcionB.getSize().x / 2, texturaOpcionB.getSize().y / 2);
             spriteOpcionB->setPosition(800, 450);
             spriteOpcionB->setTextRect(0, 0, texturaOpcionB.getSize().x, texturaOpcionB.getSize().y);
-            
+
             pregunta->setTexture(texPregunta);
             pregunta->setScale(0.55, 0.55);
             pregunta->setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
             pregunta->setPosition(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2 - 100);
-            cruzeta1->setScale(0.40,0.40);
+            cruzeta1->setScale(0.40, 0.40);
             break;
     }
 
@@ -746,15 +744,17 @@ void Transition::changePregunta() {
     transparent.a = 0;
     pregunta->setColor(transparent);
 }
-void Transition::render(float interpolation, sf::Time elapsedTime){
-    
+
+void Transition::render(float interpolation, sf::Time elapsedTime) {
+
     motor->clear();
     //Pillamos la view anterior, activamos la del fondo, dibujamos el fondo y volvemos al estado anterior
     motor->SetView(0);
     motor->draw(spriteRelleno);
-    motor->SetView(1);
+    motor->SetView(3);
     updateView();
-    motor->draw(spriteFondo);
+    //motor->draw(spriteFondo);
+    video->PlayVideo();
 
     motor->draw(pregunta);
 
@@ -772,36 +772,31 @@ void Transition::render(float interpolation, sf::Time elapsedTime){
         }
     }
 
-   
     motor->SetView(2);
-    motor->SetView(1);
+    motor->SetView(3);
     motor->draw(mouseSprite);
     motor->display();
 }
 
 void Transition::updateView() {
-    sf::FloatRect viewBounds(motor->getCenterFromView(1) - motor->getSizeFromView(1) / 2.f, motor->getSizeFromView(1));
+    sf::FloatRect viewBounds(motor->getCenterFromView(3) - motor->getSizeFromView(3) / 2.f, motor->getSizeFromView(3));
 
     sf::Vector2f position = motor->getMousePosition();
     position.x = std::max(position.x, viewBounds.left);
     position.x = std::min(position.x, viewBounds.width + viewBounds.left);
     position.y = std::max(position.y, viewBounds.top);
     position.y = std::min(position.y, viewBounds.height + viewBounds.top);
-    
-    mouseSprite->setPosition(position.x,position.y);
-    motor->setSizeForView(1,640,480);
-    motor->SetView(1);
+    mouseSprite->setPosition(position.x, position.y);
+    motor->setSizeForView(3, 640, 480);
+    motor->SetView(3);
 }
 
 void Transition::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
     if (button == sf::Mouse::Button::Left) {
-        if(isPressed){
-            if(spriteOpcionA->getGlobalBounds().contains(mouseSprite->getPosition())){
-                printf("FDSAF");
-            }
-        }
+        buttonPressed = isPressed;
     }
 }
+
 bool Transition::isPointOverSprite(const sf::Vector2f Position, Sprite &Sprite) {
     return (Position.x > Sprite.getPosition().x - Sprite.getLocalBounds().width / 2) && (Position.x < Sprite.getPosition().x + Sprite.getLocalBounds().width / 2) &&
             (Position.y > Sprite.getPosition().y - Sprite.getLocalBounds().height / 2) && (Position.y < Sprite.getPosition().y + Sprite.getLocalBounds().height / 2);
