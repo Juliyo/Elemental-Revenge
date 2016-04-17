@@ -24,6 +24,7 @@ Transition::Transition() {
 
     //motor->setZoomToView(0.5f,1);
     motor->setCenterForView(3, 650, 350);
+
     //Carga XML
     TiXmlDocument doc;
     doc.LoadFile("resources/historia.xml");
@@ -39,7 +40,9 @@ Transition::Transition() {
 
     arbol = new btree();
     arbol->insert(key, p1, respuesta1->GetText(), respuesta2->GetText());
+
     firstNode = arbol->search(key);
+
     for (int i = 0; i < 6; i++) {
         pregunta1 = pregunta1->NextSiblingElement("pregunta");
         //std::cout<<respuesta1->GetText()<<std::endl;
@@ -60,7 +63,6 @@ Transition::Transition() {
         mouseTexture.loadFromFile("resources/Textures/mouse.png");
         cruzeta.loadFromFile("resources/UI Elements/cruzetas.png");
         texturaNextLevel.loadFromFile("resources/UI Elements/continuar.png");
-        mouseTexture.loadFromFile("resources/Textures/mouse.png");
     } catch (std::runtime_error& e) {
         std::cout << "Excepcion: " << e.what() << std::endl;
         exit(0);
@@ -76,7 +78,6 @@ Transition::Transition() {
     cruzeta1 = new Sprite();
     cruzeta2 = new Sprite();
     simbolo = new Sprite();
-
 
 
     mouseSprite->setTexture(mouseTexture);
@@ -110,7 +111,6 @@ Transition::Transition() {
     spriteOpcionB->setPosition(800, 450);
     spriteOpcionB->setTextRect(0, 0, 258, 97);
 
-
     nextLevel->setTexture(texturaNextLevel);
     nextLevel->setScale(0.5, 0.5);
     nextLevel->setOrigin(texturaOpcionB.getSize().x / 2, texturaOpcionB.getSize().y / 2);
@@ -139,6 +139,7 @@ Transition::Transition(const Transition& orig) {
 
 Transition::~Transition() {
 }
+
 
 void Transition::Update(sf::Time elapsedTime) {
     video->setDibujar(true);

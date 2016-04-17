@@ -16,7 +16,8 @@
 
 #include "State.hpp"
 #include "../Motor/Motor2D.hpp"
-
+#include "SFML/System.hpp"
+#include <Map.hpp>
 
 class InGame:public State {
 public:
@@ -26,17 +27,17 @@ public:
     void    run();
 
     void Update(sf::Time elapsedTime);
-    
+    void UpdateForPause(sf::Time elapsedTime);
     void			handlePlayerInput(sf::Keyboard::Key key, bool isPressed);  // Maneja eventos
     void			handleMouseInput(sf::Mouse::Button button, bool isPressed);  // Maneja eventos
     
     void			render(float interpolation, sf::Time elapsedTime);
     
     void                        updateView();
-       
-
+    void			renderForPause(float interpolation, sf::Time elapsedTime);
+    void                        updateViewForPause();
+    Map                         *mapa;
     
-
 private:
     
     
@@ -46,8 +47,6 @@ private:
     
     Motor2D                     *motor;
     //Graficos
-    
-    
     
     //Recursos
     sf::Texture                 texturaFondo;

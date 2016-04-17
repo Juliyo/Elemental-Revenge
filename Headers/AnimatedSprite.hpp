@@ -21,8 +21,8 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef ANIMATEDSPRITE_INCLUDE
-#define ANIMATEDSPRITE_INCLUDE
+#ifndef ANIMATEDSPRITE_HPP
+#define ANIMATEDSPRITE_HPP
 
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/System/Time.hpp>

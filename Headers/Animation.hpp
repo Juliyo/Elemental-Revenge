@@ -21,12 +21,14 @@
 //
 ////////////////////////////////////////////////////////////
 
-#ifndef ANIMATION_INCLUDE
-#define ANIMATION_INCLUDE
+#ifndef ANIMATION_HPP
+#define ANIMATION_HPP
 
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include <string>
+
+#include "Animation.hpp"
 
 class Animation
 {
@@ -42,6 +44,7 @@ public:
 private:
     std::vector<sf::IntRect> m_frames;
     sf::Texture* m_texture;
+
 };
 
 #endif // ANIMATION_INCLUDE

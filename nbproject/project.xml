@@ -11,6 +11,11 @@
             <make-dep-projects/>
             <sourceRootList>
                 <sourceRootElem>Headers</sourceRootElem>
+                <sourceRootElem>Headers</sourceRootElem>
+                <sourceRootElem>Headers</sourceRootElem>
+                <sourceRootElem>Headers</sourceRootElem>
+                <sourceRootElem>Headers</sourceRootElem>
+                <sourceRootElem>Headers</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>

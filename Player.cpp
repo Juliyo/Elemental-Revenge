@@ -19,6 +19,7 @@ Player::~Player() {
 
 void Player::Inicializar(float posX, float posY, float speedX, float speedY, float maxSpeedX, float maxSpeedY) {
     /*Reservamos memoria para los punteros de Animation*/
+    
     walkingAnimationDown = new Animation();
     walkingAnimationLeft = new Animation();
     walkingAnimationRight = new Animation();
@@ -138,13 +139,14 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     SetSpeed(speedX, speedY);
     SetMaxSpeed(maxSpeedX, maxSpeedY);
     SetOriginAnimatedSprite(32,38);
+
 }
 
-void Player::Update(sf::Vector2f velocity, sf::Time elapsedTime) {
+void Player::Update(sf::Vector2f velocity, sf::Time elapsedTime, Map *mapa) {
     /**Hay que normalizar la velocidad**/
     sf::Vector2f nVelocity = Util::Normalize(velocity);
     SetSpeed(nVelocity * Player::getVelocidad());
-    PhysicsState::Update(elapsedTime);
+    PhysicsState::Update(elapsedTime, mapa);
 }
 
 void Player::Draw(sf::RenderWindow& window) {
