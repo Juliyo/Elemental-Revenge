@@ -72,11 +72,11 @@ void InGame::Update(sf::Time elapsedTime) {
     if (!firstTime) {
         if (isMovingUp)
             movement.y -= player -> getVelocidad();
-        else if (isMovingDown)
+         if (isMovingDown)
             movement.y += player -> getVelocidad();
-        else if (isMovingLeft)
+         if (isMovingLeft)
             movement.x -= player -> getVelocidad();
-        else if (isMovingRight)
+         if (isMovingRight)
             movement.x += player -> getVelocidad();
         player -> Update(movement, elapsedTime);
     } else {
