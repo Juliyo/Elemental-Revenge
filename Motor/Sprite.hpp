@@ -22,11 +22,10 @@ public:
     Sprite(std::string ruta);
     Sprite(std::string ruta,bool smooth);
     Sprite();
-    Sprite(const Sprite& orig);
     virtual ~Sprite();
     void setTexture(std::string ruta);
     void setTexture(std::string ruta, bool smooth);
-    void setTexture(sf::Texture textura);
+    void setTexture(sf::Texture& textura);
     void setScale(float x,float y);
     void setRotation(float angulo);
     void setTextRect(int fil, int col, int ancho, int alto);
@@ -39,14 +38,14 @@ public:
     void setPosition(float x, float y);
     void setPosition(sf::Vector2f pos);
     sf::Vector2u getTextureSize();
-    sf::Texture getTexture();
+    sf::Texture* getTexture();
     sf::Vector2f getPosition();
-    sf::Texture getSfTexture();
+    sf::Texture* getSfTexture();
     sf::IntRect getTextureRect();
     
 private:
     sf::Sprite m_sprite;
-    sf::Texture m_texture;
+    sf::Texture *m_texture;
     sf::VertexArray m_vertices;
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const{
         target.draw(m_sprite, states);

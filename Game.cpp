@@ -22,9 +22,9 @@ Game::Game() {
     motor->inicializarVentana("Hito 2 - Intento Motor", 1280, 720);
 
     EstadoInGame = new InGame();
-    //EstadoTransition = new Transition();
-    //EstadoPause = new Pause();
-    //EstadoMuerte = new Muerte();
+    EstadoTransition = new Transition();
+    EstadoPause = new Pause();
+    EstadoMuerte = new Muerte();
     EstadoMenu = new Menu2();
     
     
@@ -167,6 +167,7 @@ void Game::processEvents() //Captura y procesa eventos
                 motor->setAnchoVentana(event.size.width);
                 motor->SetView(1);
                 motor->SetView(2);
+                motor->setSizeForView(3, 640, 480);
                 motor->SetView(3);
                 break;
         }

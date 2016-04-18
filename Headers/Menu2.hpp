@@ -83,7 +83,7 @@ private:
     Sprite *spriteRelleno;
     Sprite *mouseSprite;
     Sprite *titulo;
-    Sprite mancha[3];
+    Sprite *mancha;
     
     //Texturas
     sf::Texture texturaAnimationFuego;

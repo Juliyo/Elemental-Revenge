@@ -14,45 +14,45 @@
 #include "Sprite.hpp"
 
 Sprite::Sprite(std::string ruta) {
+    m_texture = new sf::Texture();
     setTexture(ruta);
 }
 Sprite::Sprite() {
-}
-
-
-Sprite::Sprite(const Sprite& orig) {
+    m_texture = new sf::Texture();
 }
 
 Sprite::Sprite(std::string ruta, bool smooth) {
+    m_texture = new sf::Texture();
     setTexture(ruta);
-    m_texture.setSmooth(smooth);
+    m_texture->setSmooth(smooth);
 }
 
 Sprite::~Sprite() {
+    delete m_texture;
 }
 
 void Sprite::setTexture(std::string ruta) {
-    if (m_texture.loadFromFile(ruta)) {
-        m_sprite.setTexture(m_texture);
+    if (m_texture->loadFromFile(ruta)) {
+        m_sprite.setTexture(*m_texture);
     }
 }
 
-sf::Texture Sprite::getSfTexture(){
+sf::Texture* Sprite::getSfTexture(){
     return m_texture;
 }
 
 void Sprite::setTexture(std::string ruta, bool smooth) {
-    if (m_texture.loadFromFile(ruta)) {
-        m_sprite.setTexture(m_texture);
+    if (m_texture->loadFromFile(ruta)) {
+        m_sprite.setTexture(*m_texture);
     }
     if(smooth){
-        m_texture.setSmooth(true);
+        m_texture->setSmooth(true);
     }
 }
 
-void Sprite::setTexture(sf::Texture textura) {
-    m_texture = textura;
-    m_sprite.setTexture(m_texture);
+void Sprite::setTexture(sf::Texture& textura) {
+    m_texture = &textura;
+    m_sprite.setTexture(*m_texture);
 }
 
 void Sprite::setScale(float x, float y) {
@@ -87,11 +87,11 @@ sf::IntRect Sprite::getTextureRect() {
 }
 
 void Sprite::setSmooth(bool a) {
-    m_texture.setSmooth(a);
+    m_texture->setSmooth(a);
 }
 
 void Sprite::setRepeated(bool a) {
-    m_texture.setRepeated(a);
+    m_texture->setRepeated(a);
 }
 
 void Sprite::setPosition(float x, float y) {
@@ -102,10 +102,10 @@ void Sprite::setPosition(sf::Vector2f pos) {
 }
 
 sf::Vector2u Sprite::getTextureSize() {
-    return m_texture.getSize();
+    return m_texture->getSize();
 }
 
-sf::Texture Sprite::getTexture() {
+sf::Texture* Sprite::getTexture() {
     return m_texture;
 }
 

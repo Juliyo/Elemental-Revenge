@@ -21,7 +21,16 @@ Menu2::Menu2() {
     srand(time(NULL));
 
     random = rand() % 3; // v1 in the range 0 to 99
-
+    
+    spriteFondoMenu = new Sprite();
+    spriteFondo = new Sprite();
+    spriteRelleno = new Sprite();
+    mouseSprite = new Sprite();
+    titulo = new Sprite();
+    mancha = new Sprite[3];
+    
+    textTitulo = new Text();
+    
     cargarAnimacionesMenu();
 
     EstadoActivo = true;
