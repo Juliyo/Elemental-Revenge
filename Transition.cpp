@@ -79,7 +79,7 @@ Transition::Transition() {
     cruzeta2 = new Sprite();
     simbolo = new Sprite();
 
-
+    std::cout<<motor->getAnchoVentana()<<" , "<<motor->getAltoVentana()<<std::endl;
     mouseSprite->setTexture(mouseTexture);
     mouseSprite->setScale(0.2, 0.2);
     mouseSprite->setPosition(20, 20);
@@ -97,7 +97,7 @@ Transition::Transition() {
     pregunta->setTexture(texPregunta);
     pregunta->setScale(0.35, 0.35);
     pregunta->setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
-    pregunta->setPosition(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2 - 100);
+    pregunta->setPosition(640, 360 - 100);
 
     spriteOpcionA->setTexture(texturaOpcionA);
     spriteOpcionA->setScale(0.5, 0.5);
@@ -114,7 +114,7 @@ Transition::Transition() {
     nextLevel->setTexture(texturaNextLevel);
     nextLevel->setScale(0.5, 0.5);
     nextLevel->setOrigin(texturaOpcionB.getSize().x / 2, texturaOpcionB.getSize().y / 2);
-    nextLevel->setPosition(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2 + 150);
+    nextLevel->setPosition(640, 360 + 150);
     nextLevel->setTextRect(0, 0, 271, 59);
 
     mouseSprite->setTexture(mouseTexture);
@@ -216,7 +216,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         pregunta->setTexture(texPregunta);
                         pregunta->setScale(0.3, 0.3);
                         pregunta->setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
-                        pregunta->setPosition(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2 - 100);
+                        pregunta->setPosition(640, 360 - 100);
                         pregunta->setTextRect(0, 0, texPregunta.getSize().x, texPregunta.getSize().y);
                         //izq = false;
                         unfadeEffect = true;
@@ -235,7 +235,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         pregunta->setTexture(texPregunta);
                         pregunta->setScale(0.30, 0.30);
                         pregunta->setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
-                        pregunta->setPosition(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2 - 100);
+                        pregunta->setPosition(640, 360 - 100);
                         pregunta->setTextRect(0, 0, texPregunta.getSize().x, texPregunta.getSize().y);
                         //der = false;
                         unfadeEffect = true;
@@ -257,7 +257,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         pregunta->setTexture(texPregunta);
                         pregunta->setScale(0.5, 0.5);
                         pregunta->setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
-                        pregunta->setPosition(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2 - 100);
+                        pregunta->setPosition(640, 360 - 100);
                         pregunta->setTextRect(0, 0, texPregunta.getSize().x, texPregunta.getSize().y);
                         //izq = false;
                         unfadeEffect = true;
@@ -276,7 +276,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         pregunta->setTexture(texPregunta);
                         pregunta->setScale(0.50, 0.50);
                         pregunta->setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
-                        pregunta->setPosition(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2 - 100);
+                        pregunta->setPosition(640, 360 - 100);
                         pregunta->setTextRect(0, 0, texPregunta.getSize().x, texPregunta.getSize().y);
                         //der = false;
                         unfadeEffect = true;
@@ -298,7 +298,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         pregunta->setTexture(texPregunta);
                         pregunta->setScale(0.50, 0.50);
                         pregunta->setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
-                        pregunta->setPosition(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2 - 100);
+                        pregunta->setPosition(640, 360 - 100);
                         pregunta->setTextRect(0, 0, texPregunta.getSize().x, texPregunta.getSize().y);
                         //izq = false;
                         unfadeEffect = true;
@@ -317,7 +317,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         pregunta->setTexture(texPregunta);
                         pregunta->setScale(0.55, 0.55);
                         pregunta->setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
-                        pregunta->setPosition(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2 - 100);
+                        pregunta->setPosition(640, 360 - 100);
                         pregunta->setTextRect(0, 0, texPregunta.getSize().x, texPregunta.getSize().y);
                         //der = false;
                         unfadeEffect = true;
@@ -339,7 +339,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         pregunta->setTexture(texPregunta);
                         pregunta->setScale(0.45, 0.45);
                         pregunta->setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
-                        pregunta->setPosition(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2 - 100);
+                        pregunta->setPosition(640, 360 - 100);
                         pregunta->setTextRect(0, 0, texPregunta.getSize().x, texPregunta.getSize().y);
                         //izq = false;
                         unfadeEffect = true;
@@ -358,7 +358,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         pregunta->setTexture(texPregunta);
                         pregunta->setScale(0.65, 0.65);
                         pregunta->setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
-                        pregunta->setPosition(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2 - 100);
+                        pregunta->setPosition(640, 360 - 100);
                         pregunta->setTextRect(0, 0, texPregunta.getSize().x, texPregunta.getSize().y);
                         //der = false;
                         unfadeEffect = true;
@@ -380,7 +380,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         pregunta->setTexture(texPregunta);
                         pregunta->setScale(0.50, 0.50);
                         pregunta->setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
-                        pregunta->setPosition(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2 - 100);
+                        pregunta->setPosition(640, 360 - 100);
                         pregunta->setTextRect(0, 0, texPregunta.getSize().x, texPregunta.getSize().y);
                         //izq = false;
                         unfadeEffect = true;
@@ -399,7 +399,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         pregunta->setTexture(texPregunta);
                         pregunta->setScale(0.50, 0.50);
                         pregunta->setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
-                        pregunta->setPosition(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2 - 100);
+                        pregunta->setPosition(640, 360 - 100);
                         pregunta->setTextRect(0, 0, texPregunta.getSize().x, texPregunta.getSize().y);
                         //der = false;
                         unfadeEffect = true;
@@ -421,7 +421,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         pregunta->setTexture(texPregunta);
                         pregunta->setScale(0.55, 0.55);
                         pregunta->setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
-                        pregunta->setPosition(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2 - 100);
+                        pregunta->setPosition(640, 360 - 100);
                         pregunta->setTextRect(0, 0, texPregunta.getSize().x, texPregunta.getSize().y);
                         //izq = false;
                         unfadeEffect = true;
@@ -440,7 +440,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         pregunta->setTexture(texPregunta);
                         pregunta->setScale(0.55, 0.55);
                         pregunta->setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
-                        pregunta->setPosition(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2 - 100);
+                        pregunta->setPosition(640, 360 - 100);
                         pregunta->setTextRect(0, 0, texPregunta.getSize().x, texPregunta.getSize().y);
                         //der = false;
                         unfadeEffect = true;
@@ -462,7 +462,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         pregunta->setTexture(texPregunta);
                         pregunta->setScale(0.55, 0.55);
                         pregunta->setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
-                        pregunta->setPosition(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2 - 100);
+                        pregunta->setPosition(640, 360 - 100);
                         pregunta->setTextRect(0, 0, texPregunta.getSize().x, texPregunta.getSize().y);
                         //izq = false;
                         unfadeEffect = true;
@@ -481,7 +481,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         pregunta->setTexture(texPregunta);
                         pregunta->setScale(0.55, 0.55);
                         pregunta->setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
-                        pregunta->setPosition(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2 - 100);
+                        pregunta->setPosition(640, 360 - 100);
                         pregunta->setTextRect(0, 0, texPregunta.getSize().x, texPregunta.getSize().y);
                         //der = false;
                         unfadeEffect = true;
@@ -506,7 +506,7 @@ void Transition::Update(sf::Time elapsedTime) {
                     simbolo->setTexture(simboloText);
                     simbolo->setScale(0.3, 0.3);
                     simbolo->setOrigin(simboloText.getSize().x / 2, simboloText.getSize().y / 2);
-                    simbolo->setPosition(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2 + 50);
+                    simbolo->setPosition(640, 360 + 50);
                     simbolo->setTextRect(0, 0, simboloText.getSize().x, simboloText.getSize().y);
                     drawNextLevel = true;
 
@@ -519,7 +519,7 @@ void Transition::Update(sf::Time elapsedTime) {
                     simbolo->setTexture(simboloText);
                     simbolo->setScale(0.3, 0.3);
                     simbolo->setOrigin(simboloText.getSize().x / 2, simboloText.getSize().y / 2);
-                    simbolo->setPosition(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2 + 50);
+                    simbolo->setPosition(640, 360 + 50);
                     simbolo->setTextRect(0, 0, simboloText.getSize().x, simboloText.getSize().y);
                     drawNextLevel = true;
                     break;
@@ -530,7 +530,7 @@ void Transition::Update(sf::Time elapsedTime) {
                     simbolo->setTexture(simboloText);
                     simbolo->setScale(0.3, 0.3);
                     simbolo->setOrigin(simboloText.getSize().x / 2, simboloText.getSize().y / 2);
-                    simbolo->setPosition(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2 + 50);
+                    simbolo->setPosition(640, 360 + 50);
                     simbolo->setTextRect(0, 0, simboloText.getSize().x, simboloText.getSize().y);
                     drawNextLevel = true;
                     break;
@@ -606,7 +606,7 @@ void Transition::changePregunta() {
             pregunta->setTexture(texPregunta);
             pregunta->setScale(0.55, 0.55);
             pregunta->setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
-            pregunta->setPosition(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2 - 100);
+            pregunta->setPosition(640, 360 - 100);
             cruzeta1->setScale(0.35, 0.35);
 
             break;
@@ -632,7 +632,7 @@ void Transition::changePregunta() {
             pregunta->setTexture(texPregunta);
             pregunta->setScale(0.65, 0.65);
             pregunta->setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
-            pregunta->setPosition(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2 - 100);
+            pregunta->setPosition(640, 360 - 100);
             cruzeta1->setScale(0.35, 0.35);
             break;
         case 1:
@@ -657,7 +657,7 @@ void Transition::changePregunta() {
             pregunta->setTexture(texPregunta);
             pregunta->setScale(0.55, 0.55);
             pregunta->setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
-            pregunta->setPosition(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2 - 100);
+            pregunta->setPosition(640, 360 - 100);
 
             cruzeta1->setScale(0.40, 0.40);
             break;
@@ -683,7 +683,7 @@ void Transition::changePregunta() {
             pregunta->setTexture(texPregunta);
             pregunta->setScale(0.50, 0.50);
             pregunta->setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
-            pregunta->setPosition(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2 - 100);
+            pregunta->setPosition(640, 360 - 100);
             cruzeta1->setScale(0.25, 0.25);
             break;
         case 5:
@@ -708,7 +708,7 @@ void Transition::changePregunta() {
             pregunta->setTexture(texPregunta);
             pregunta->setScale(0.75, 0.75);
             pregunta->setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
-            pregunta->setPosition(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2 - 100);
+            pregunta->setPosition(640, 360 - 100);
             cruzeta1->setScale(0.50, 0.50);
             //std::cout<<"Puta ostia copon"<<std::endl;
             break;
@@ -734,7 +734,7 @@ void Transition::changePregunta() {
             pregunta->setTexture(texPregunta);
             pregunta->setScale(0.55, 0.55);
             pregunta->setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
-            pregunta->setPosition(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2 - 100);
+            pregunta->setPosition(640, 360 - 100);
             cruzeta1->setScale(0.40, 0.40);
             break;
     }
