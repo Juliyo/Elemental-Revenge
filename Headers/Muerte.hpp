@@ -34,6 +34,8 @@ public:
     sf::View mBackgroundView;
     sf::View mHud;
     
+        sf::Clock relojMuerte;
+
 private:
     sf::RenderWindow *mWindow;
     AnimatedSprite *animatedSprite;
@@ -48,6 +50,9 @@ private:
     sf::Texture                 mouseTexture;
     sf::Sprite                  mouseSprite;
     sf::Color transparent = sf::Color::Transparent;
+    
+    int escala=1;
+    
     bool buttonPressed;
     
     

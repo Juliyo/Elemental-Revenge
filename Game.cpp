@@ -229,6 +229,7 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
     }else if (key == sf::Keyboard::O && EstadoInGame->EstadoActivo) {
         EstadoTransition->EstadoActivo = false;
         EstadoInGame->EstadoActivo = false;
+        EstadoMuerte->relojMuerte.restart();
         EstadoMuerte->EstadoActivo = true;
     }else if (key == sf::Keyboard::O && EstadoMuerte->EstadoActivo) {
         EstadoTransition->EstadoActivo = false;

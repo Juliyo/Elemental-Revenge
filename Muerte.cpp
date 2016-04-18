@@ -36,7 +36,7 @@ textoMuerte.setFont(fontMuerte);
     textoMuerte.setOrigin(sf::Vector2f(textoMuerte.getGlobalBounds().width/2, textoMuerte.getGlobalBounds().height/2));
     textoMuerte.setPosition(sf::Vector2f(mWindow->getSize().x/2, mWindow->getSize().y/2));
     textoMuerte.scale(2,2);
-    
+    relojMuerte.restart();
     animation = new Animation(); //para el fondo SOLO declarado
 
     //Estado de Ingame
@@ -96,6 +96,12 @@ void Muerte::Update(sf::Time elapsedTime) {
 }
 void Muerte::render(float interpolation, sf::Time elapsedTime) {
     //mWindow->clear()
+    
+    if(relojMuerte.getElapsedTime().asSeconds()<0.5){
+    escala++;
+    float aux= 1.4+0.07*escala;
+    textoMuerte.setScale(aux,aux);
+    }
     updateView();
     mWindow->draw(spriteFondo);
     mWindow->draw(spriteRelleno);
