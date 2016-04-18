@@ -211,6 +211,7 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         EstadoPause->SetSetectedItemIndexPause(0);
         EstadoPause->EstadoActivo = true;
     }else if (key == sf::Keyboard::O && EstadoInGame->EstadoActivo) {
+        printf("Se supone que estoy en muerte");
         EstadoTransition->EstadoActivo = false;
         EstadoInGame->EstadoActivo = false;
         EstadoMuerte->EstadoActivo = true;

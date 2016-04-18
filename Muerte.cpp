@@ -15,14 +15,11 @@
 #include "Muerte.hpp"
 
 Muerte::Muerte() {
-
-    float width = 1280;
-    float height = 700;
     
     motor = Motor2D::Instance();
     
-    int anchoVentana = motor->getAnchoVentana();
-    int altoVentana = motor->getAltoVentana();
+    int anchoVentana = 1500;
+    int altoVentana = 1500;
     
     animation = new Animation(); //para el fondo SOLO declarado
     
