@@ -67,6 +67,8 @@ private:
 
     bool *draws;
 
+    sf::Texture glare, blanco, sombra;
+    
     //Rayo
     Sprite rayoBueno, rBlanco, rGlare, rRayo, rSombra;
 

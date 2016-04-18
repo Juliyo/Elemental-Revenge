@@ -135,7 +135,7 @@ void Render::Draw90(const sf::Vector2f &posPrev, const sf::Vector2f &posNew, flo
 		posPrev.y + ((posNew.y - posPrev.y) * interpolation));
 
 	sprite.setPosition(renderPos.x, renderPos.y);
-        sprite.rotate(25);
+        sprite.setRotation(25);
    
         Motor2D::Instance()->draw(sprite);
         

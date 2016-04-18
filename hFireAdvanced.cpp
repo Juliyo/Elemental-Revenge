@@ -39,7 +39,7 @@ void hFireAdvanced::cast(sf::Vector2f posicion) {
 
 
     hSprite.setPosition(posicion.x, posicion.y);
-    hSprite.rotate(90);
+    hSprite.setRotation(90);
 
 }
 

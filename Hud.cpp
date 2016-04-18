@@ -93,7 +93,8 @@ Hud::Hud(Reloj *cds, float *coolDowns) {
     //Fuego
 
     activo = 2;
-
+    
+    
     calculaRayo2();
     calculaRayo1();
     cargarRayo();
@@ -128,12 +129,10 @@ void Hud::renderHud() {
         m->draw(*cdRayo2);
     }
     sf::Transform transform;
-    transform.scale(1, 1.2);
+    transform.scale(0.5, 0.6);
     sf::RenderStates st;
     st.transform = transform;
     m->draw(triangleRayo2, st);
-
-
     m->draw(triangleRayo1, st);
 
     m->draw(rBlanco);
@@ -178,7 +177,7 @@ void Hud::cambiaHechizo(int activar) {
 }
 
 void Hud::Update() {
-    //std::cout<<Motor2D::Instance()->getMousePosition().x<<", "<<Motor2D::Instance()->getMousePosition().y<<std::endl;
+    std::cout<<Motor2D::Instance()->getMousePosition().x<<", "<<Motor2D::Instance()->getMousePosition().y<<std::endl;
     float tRayo1 = mCoolDowns[0] - mCds[0].getTiempo();
     float tRayo2 = mCoolDowns[1] - mCds[1].getTiempo();
 
@@ -200,7 +199,7 @@ void Hud::Update() {
         cdRayo2->setString(s2.str());
         draws[1] = false;
     }
-    std::cout << "tRayo2: " << tRayo2 << std::endl;
+    //std::cout << "tRayo2: " << tRayo2 << std::endl;
 }
 
 void Hud::updateHud(float vidas) {
@@ -213,23 +212,23 @@ void Hud::updateHud(float vidas) {
 void Hud::cargarRayo() {
     rBlanco.setTexture("resources/Textures/hud/blanco.png", true);
     rBlanco.setOrigin(rBlanco.getTextureSize().x / 2, rBlanco.getTextureSize().y / 2);
-    rBlanco.setPosition(200, 200);
-    rBlanco.setScale(1, 1.2);
+    rBlanco.setPosition(500, 900);
+    rBlanco.setScale(0.5, 0.6);
     rayoBueno.setTexture("resources/Textures/hud/rayo.png", true);
     rayoBueno.setOrigin(rayoBueno.getTextureSize().x / 2, rayoBueno.getTextureSize().y / 2);
-    rayoBueno.setPosition(200, 200);
-    rayoBueno.setScale(1, 1.2);
+    rayoBueno.setPosition(500, 900);
+    rayoBueno.setScale(0.5, 0.6);
     rGlare.setTexture("resources/Textures/hud/glare.png", true);
     rGlare.setOrigin(rGlare.getTextureSize().x / 2, rGlare.getTextureSize().y / 2);
-    rGlare.setPosition(200, 200);
-    rGlare.setScale(1, 1.2);
+    rGlare.setPosition(500, 900);
+    rGlare.setScale(0.5, 0.6);
     rSombra.setTexture("resources/Textures/hud/sombra.png", true);
     rSombra.setOrigin(rSombra.getTextureSize().x / 2, rSombra.getTextureSize().y / 2);
-    rSombra.setPosition(200, 200);
-    rSombra.setScale(1, 1.2);
+    rSombra.setPosition(500, 900);
+    rSombra.setScale(0.5, 0.6);
 
     //Rellenamos al principio porque esta disponible
-    sf::Vector2f punto1(200, 165);
+    sf::Vector2f punto1(1000, 1500);
     triangleRayo2.append(punto1);
     triangleRayo2[0].color = sf::Color::Green;
     for (int i = 1; i < 150; i++) {
@@ -239,7 +238,7 @@ void Hud::cargarRayo() {
     }
     iRayo2 = 0;
 
-    sf::Vector2f punto2(200, 165);
+    sf::Vector2f punto2(1000, 1500);
     triangleRayo1.append(punto2);
     triangleRayo1[0].color = sf::Color::Green;
     for (int i = 1; i < 150; i++) {
@@ -253,12 +252,12 @@ void Hud::cargarRayo() {
 void Hud::calculaRayo1() {
     //150
     //105*0.03 / 150 = 0.0315
-    sf::Vector2f punto(200, 165);
+    
+    sf::Vector2f centro(1000, 1500);
     triangleRayo1.setPrimitiveType(sf::TrianglesFan);
-    triangleRayo1.append(punto);
+    triangleRayo1.append(centro);
     triangleRayo1[0].color = sf::Color::Green;
-
-    sf::Vector2f centro(200, 165);
+    
     double radius = 120;
     const double PI = 3.14159265359;
     iRayo1 = 0;
@@ -267,8 +266,6 @@ void Hud::calculaRayo1() {
         arrayPts2[iRayo1] = p;
         iRayo1++;
     }
-    //sf::Vector2f v(arrayPts5[0].x, (arrayPts5[0].y)-(2*radius));
-    //arrayPts5[250] = v;
     iRayo1 = 1;
 }
 
@@ -292,12 +289,12 @@ void Hud::renderRayo1() {
 void Hud::calculaRayo2() {
     //150
     //105*0.03 / 150 = 0.021
-    sf::Vector2f punto(200, 165);
+    sf::Vector2f punto(1000, 1500);
     triangleRayo2.setPrimitiveType(sf::TrianglesFan);
     triangleRayo2.append(punto);
     triangleRayo2[0].color = sf::Color::Green;
 
-    sf::Vector2f centro(200, 165);
+    sf::Vector2f centro(1000, 1500);
     double radius = 120;
     const double PI = 3.14159265359;
     iRayo2 = 0;
@@ -331,7 +328,7 @@ void Hud::renderRayo2() {
 
 void Hud::resetRayo2() {
     triangleRayo2.clear();
-    sf::Vector2f punto(200, 165);
+    sf::Vector2f punto(1000, 1500);
     triangleRayo2.append(punto);
     triangleRayo2[0].color = sf::Color::Green;
     iRayo2 = 0;
@@ -341,7 +338,7 @@ void Hud::resetRayo2() {
 
 void Hud::resetRayo1() {
     triangleRayo1.clear();
-    sf::Vector2f punto(200, 165);
+    sf::Vector2f punto(1000, 1500);
     triangleRayo1.append(punto);
     triangleRayo1[0].color = sf::Color::Green;
     iRayo1 = 0;
