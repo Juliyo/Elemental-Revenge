@@ -18,8 +18,8 @@ Muerte::Muerte() {
     
     motor = Motor2D::Instance();
     
-    int anchoVentana = 1500;
-    int altoVentana = 1500;
+    int anchoVentana = 1700;
+    int altoVentana = 1700;
     
     animation = new Animation(); //para el fondo SOLO declarado
     
@@ -50,7 +50,7 @@ Muerte::Muerte() {
     textoMuerte->setColor(sf::Color::Red);
     textoMuerte->setString("HAS MUERTO");
     textoMuerte->setOrigin(textoMuerte->getGlobalBounds().width/2, textoMuerte->getGlobalBounds().height/2);
-    textoMuerte->setPosition(anchoVentana/2, altoVentana/2);
+    textoMuerte->setPosition(15+(anchoVentana/2), altoVentana/2);
     textoMuerte->setScale(2,2);
     
     mouseSprite->setTexture(mouseTexture);
@@ -86,6 +86,14 @@ Muerte::~Muerte() {
 }*/
 void Muerte::render(float interpolation, sf::Time elapsedTime) {
     //mWindow->clear()
+    
+    
+    if(relojMuerte.getElapsedTime().asSeconds()<0.5){
+    escala++;
+    float aux= 1.4+0.07*escala;
+    textoMuerte->setScale(aux,aux);
+    }
+    
     updateView();
     motor->draw(spriteFondo);
     motor->draw(spriteRelleno);
@@ -113,4 +121,8 @@ void Muerte::updateView() {
 
     motor->setSizeForView(1, 640, 480);
     motor->SetView(1);
+}
+
+void Muerte::SetEscala() {
+    escala = 1;
 }

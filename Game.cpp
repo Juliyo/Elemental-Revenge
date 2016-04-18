@@ -214,10 +214,12 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         printf("Se supone que estoy en muerte");
         EstadoTransition->EstadoActivo = false;
         EstadoInGame->EstadoActivo = false;
+        EstadoMuerte->relojMuerte.restart();
         EstadoMuerte->EstadoActivo = true;
     }else if (key == sf::Keyboard::O && EstadoMuerte->EstadoActivo) {
         EstadoTransition->EstadoActivo = false;
         EstadoInGame->EstadoActivo = true;
+        EstadoMuerte->SetEscala();
         EstadoMuerte->EstadoActivo = false;
     }
 
