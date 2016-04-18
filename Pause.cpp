@@ -60,27 +60,27 @@ Pause::Pause() {
     menuPausa[0].setColor(sf::Color::Red);
     menuPausa[0].setString("Reanudar");
     menuPausa[0].setStyle(sf::Text::Bold);
-    menuPausa[0].setPosition(350, 1500 - 250);
+    menuPausa[0].setPosition(600, 1500 - 550);
 
     menuPausa[1].setFont(fontPausa);
     menuPausa[1].setColor(colorAzul);
     menuPausa[1].setString("Opciones");
     menuPausa[1].setStyle(sf::Text::Bold);
-    menuPausa[1].setPosition(350, 1500 - 200);
+    menuPausa[1].setPosition(600, 1500 - 500);
 
 
     menuPausa[2].setFont(fontPausa);
     menuPausa[2].setColor(colorAzul);
     menuPausa[2].setString("Salir");
     menuPausa[2].setStyle(sf::Text::Bold);
-    menuPausa[2].setPosition(1500 - 500, 1500 - 225);
+    menuPausa[2].setPosition(1000, 1500 - 525);
     menuPausa[2].setScale(1.8, 1.8);
 
     menuPausa[3].setFont(fontPausa);
     menuPausa[3].setColor(sf::Color::Red);
     menuPausa[3].setString("Audio");
     menuPausa[3].setStyle(sf::Text::Bold);
-    menuPausa[3].setPosition(350, 1500 - 250);
+    menuPausa[3].setPosition(900, 1500 - 500);
 
     menuPausa[4].setFont(fontPausa);
     menuPausa[4].setColor(colorAzul);
@@ -122,7 +122,7 @@ Pause::Pause() {
     textoPausa->setFont(fontPausa);
     textoPausa->setColor(sf::Color::White);
     textoPausa->setString("PAUSA");
-    textoPausa->setPosition(350, 200);
+    textoPausa->setPosition(600, 500);
     textoPausa->setScale(3, 3);
 
     texturaFondo.setSmooth(true);
@@ -234,7 +234,7 @@ void Pause::render(float interpolation, sf::Time elapsedTime) {
             }
         }
     }
-    motor->draw(*textoPausa);
+    motor->draw(textoPausa);
     motor->display();
 }
 
