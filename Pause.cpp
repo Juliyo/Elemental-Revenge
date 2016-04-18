@@ -33,8 +33,8 @@ Pause::Pause() {
     //Estado de Ingame
     EstadoActivo = false;
     
-    float width = 1280;
-    float height = 700;
+    float width = 1500;
+    float height = 1500;
     colorAzul.r = 0;
     colorAzul.g = 114;
     colorAzul.b = 255;
@@ -60,69 +60,69 @@ Pause::Pause() {
     menuPausa[0].setColor(sf::Color::Red);
     menuPausa[0].setString("Reanudar");
     menuPausa[0].setStyle(sf::Text::Bold);
-    menuPausa[0].setPosition(350, motor->getAltoVentana() - 250);
+    menuPausa[0].setPosition(600, 1500 - 550);
 
     menuPausa[1].setFont(fontPausa);
     menuPausa[1].setColor(colorAzul);
     menuPausa[1].setString("Opciones");
     menuPausa[1].setStyle(sf::Text::Bold);
-    menuPausa[1].setPosition(350, motor->getAltoVentana() - 200);
+    menuPausa[1].setPosition(600, 1500 - 500);
 
 
     menuPausa[2].setFont(fontPausa);
     menuPausa[2].setColor(colorAzul);
     menuPausa[2].setString("Salir");
     menuPausa[2].setStyle(sf::Text::Bold);
-    menuPausa[2].setPosition(motor->getAnchoVentana() - 500, motor->getAltoVentana() - 225);
+    menuPausa[2].setPosition(1000, 1500 - 525);
     menuPausa[2].setScale(1.8, 1.8);
 
     menuPausa[3].setFont(fontPausa);
     menuPausa[3].setColor(sf::Color::Red);
     menuPausa[3].setString("Audio");
     menuPausa[3].setStyle(sf::Text::Bold);
-    menuPausa[3].setPosition(350, motor->getAltoVentana() - 250);
+    menuPausa[3].setPosition(900, 1500 - 500);
 
     menuPausa[4].setFont(fontPausa);
     menuPausa[4].setColor(colorAzul);
     menuPausa[4].setString("Video");
     menuPausa[4].setStyle(sf::Text::Bold);
-    menuPausa[4].setPosition(350, motor->getAltoVentana() - 200);
+    menuPausa[4].setPosition(350, 1500 - 200);
 
     menuPausa[5].setFont(fontPausa);
     menuPausa[5].setColor(colorAzul);
     menuPausa[5].setString("Personalizar");
     menuPausa[5].setStyle(sf::Text::Bold);
-    menuPausa[5].setPosition(motor->getAnchoVentana() - 500, motor->getAltoVentana() - 240);
+    menuPausa[5].setPosition(1500 - 500, 1500 - 240);
     menuPausa[5].setScale(0.7, 0.7);
 
     menuPausa[6].setFont(fontPausa);
     menuPausa[6].setColor(colorAzul);
     menuPausa[6].setString("Atrás");
     menuPausa[6].setStyle(sf::Text::Bold);
-    menuPausa[6].setPosition(motor->getAnchoVentana() - 500, motor->getAltoVentana() - 200);
+    menuPausa[6].setPosition(1500 - 500, 1500 - 200);
 
     menuPausa[7].setFont(fontPausa);
     menuPausa[7].setColor(colorAzul);
     menuPausa[7].setString("Cambiar volumen");
     menuPausa[7].setStyle(sf::Text::Bold);
-    menuPausa[7].setPosition(motor->getAnchoVentana() / 2 - 225, motor->getAltoVentana() / 2 - 100);
+    menuPausa[7].setPosition(1500 / 2 - 225, 1500 / 2 - 100);
 
     menuPausa[8].setFont(fontPausa);
     menuPausa[8].setColor(colorAzul);
     menuPausa[8].setString("Cambiar resolución");
     menuPausa[8].setStyle(sf::Text::Bold);
-    menuPausa[8].setPosition(motor->getAnchoVentana() / 2 - 225, motor->getAltoVentana() / 2 - 100);
+    menuPausa[8].setPosition(1500 / 2 - 225, 1500 / 2 - 100);
 
     menuPausa[9].setFont(fontPausa);
     menuPausa[9].setColor(colorAzul);
     menuPausa[9].setString("Cambiar sprite del ratón");
     menuPausa[9].setStyle(sf::Text::Bold);
-    menuPausa[9].setPosition(motor->getAnchoVentana() / 2 - 225, motor->getAltoVentana() / 2 - 100);
+    menuPausa[9].setPosition(1500 / 2 - 225, 1500 / 2 - 100);
 
     textoPausa->setFont(fontPausa);
     textoPausa->setColor(sf::Color::White);
     textoPausa->setString("PAUSA");
-    textoPausa->setPosition(350, 200);
+    textoPausa->setPosition(600, 500);
     textoPausa->setScale(3, 3);
 
     texturaFondo.setSmooth(true);
@@ -137,33 +137,33 @@ Pause::Pause() {
     spriteFondo->setTexture(texturaFondo);
     spriteFondo->setTextRect(0, 0, 1280, 720);
     spriteFondo->setOrigin(spriteFondo->getTextureRect().width / 2, spriteFondo->getTextureRect().height / 2);
-    spriteFondo->setPosition(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2);
+    spriteFondo->setPosition(1500 / 2, 1500 / 2);
     transparent.a = 125;
     spriteFondo->setColor(transparent);
 
     spriteFondoOpciones->setTexture(texturaFondo);
     spriteFondoOpciones->setTextRect(0, 0, 500, 500);
     spriteFondoOpciones->setOrigin(250, 250);
-    spriteFondoOpciones->setPosition(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2);
+    spriteFondoOpciones->setPosition(1500 / 2, 1500 / 2);
     transparent.a = 200;
     spriteFondoOpciones->setColor(transparent);
 
     spriteMancha->setTexture(texturaMancha);
     spriteMancha->setTextRect(0, 0, 1733, 1733);
-    spriteMancha->setOrigin(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2);
-    spriteMancha->setPosition(300, motor->getAltoVentana() - 350);
+    spriteMancha->setOrigin(1500 / 2, 1500 / 2);
+    spriteMancha->setPosition(300, 1500 - 350);
     spriteMancha->setScale(0.3, 0.3);
 
     spriteMancha2->setTexture(texturaMancha);
     spriteMancha2->setTextRect(0, 0, 1733, 1733);
-    spriteMancha2->setOrigin(motor->getAnchoVentana() / 2, motor->getAltoVentana() / 2);
+    spriteMancha2->setOrigin(1500 / 2, 1500 / 2);
     spriteMancha2->setPosition(850, motor->getAltoVentana() - 350);
     spriteMancha2->setScale(0.3, 0.3);
 
     spritePersonaje->setTexture(texturaPersonaje);
     spritePersonaje->setTextRect(0, 0, 1733, 1733);
     spritePersonaje->setOrigin(0, 0);
-    spritePersonaje->setPosition(motor->getAnchoVentana() / 2 + 100, motor->getAltoVentana() / 2 - 200);
+    spritePersonaje->setPosition(1500 / 2 + 100, 1500 / 2 - 200);
     spritePersonaje->setScale(1, 1);
 
 

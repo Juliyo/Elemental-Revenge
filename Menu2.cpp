@@ -85,7 +85,6 @@ Menu2::Menu2() {
 
     float width = 1000;
     float height = 1000;
-    std::cout<<motor->getAnchoVentana()<<" , "<<motor->getAltoVentana()<<std::endl;
     sf::Color color(112, 112, 112);
 
     titulo->setTexture(texturaTitulo);

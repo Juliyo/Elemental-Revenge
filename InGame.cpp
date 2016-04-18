@@ -286,7 +286,7 @@ void InGame::renderForPause(float interpolation, sf::Time elapsedTime) {
     motor->SetView(1); //vista del juego
 
 
-    motor->display();
+    //motor->display();
 }
 
 void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {

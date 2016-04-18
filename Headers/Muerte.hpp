@@ -27,12 +27,15 @@ public:
     void handleMouseInput(sf::Mouse::Button button, bool isPressed); // Maneja eventos
     void updateView();
     
+    void SetEscala();
+    
     Motor2D *motor;
     
     sf::View mWorldView;
     sf::View mBackgroundView;
     sf::View mHud;
-    
+            sf::Clock relojMuerte;
+
 private:
     AnimatedSprite *animatedSprite;
     Animation *animation;
@@ -42,6 +45,8 @@ private:
     Sprite                  *spriteFondo;
     Sprite                  *spriteFondoOpciones;
     Sprite                  *mouseSprite;
+    
+    int escala=1;
     
     sf::Texture                 texturaRelleno;
     sf::Texture                 texturaPersonaje;
