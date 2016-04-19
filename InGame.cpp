@@ -46,9 +46,20 @@ InGame::InGame() {
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
 
+    
+     zizu=0;
 
     player = new Player();
     player -> Inicializar(900.f, 850.f);
+    
+
+    
+    enemigo = new Enemigo[80];
+    for(int i=0;i<80;i++){
+        
+        enemigo[i]. Inicializar(950.f+i, 850.f+i);
+    }
+    //enemigo -> Inicializar(950.f, 850.f);
 
     motor->setZoomToView(0.5f, 1); //1=vista del mundo(nuestra pantalla)
     motor->setCenterForView(1, 200,200);
@@ -62,19 +73,48 @@ InGame::~InGame() {
 }
 
 void InGame::Update(sf::Time elapsedTime) {
-
+    
     if (!firstTime) {
         sf::Vector2f movement(0.f, 0.f);
-        if (isMovingUp)
-            movement.y -= player -> getVelocidad();
-        if (isMovingDown)
-            movement.y += player -> getVelocidad();
-        if (isMovingLeft)
+        sf::Vector2f movement2(0.f, 0.f);
+        if (isMovingUp){
+             movement.y -= player -> getVelocidad();
+             zizu=1;
+        }
+           
+        if (isMovingDown){
+             movement.y += player -> getVelocidad();
+             zizu=1;
+        }
+           
+        if (isMovingLeft){
+            zizu=1;
             movement.x -= player -> getVelocidad();
-        if (isMovingRight)
+        }
+            
+        if (isMovingRight){
+            zizu=1;
             movement.x += player -> getVelocidad();
+        }
+            
 
-        player -> Update(movement, elapsedTime, mapa);
+            for(int i=0;i<80;i++){
+        if (enemigo[i].cuadrante==1 )
+            movement2.y -= player -> getVelocidad()/3;
+        if (enemigo[i].cuadrante==2 )
+            movement2.y += player -> getVelocidad()/3;
+        if (enemigo[i].cuadrante==3 )
+            movement2.x += player -> getVelocidad()/3;
+        if (enemigo[i].cuadrante==4 )
+            movement2.x -= player -> getVelocidad()/3;
+        enemigo[i].Update(movement2, elapsedTime, mapa);
+    }
+ 
+        
+        
+        player -> Update(movement, elapsedTime, mapa);       
+        
+       
 
         if (player->hRayoBasico->tiempoCast.getTiempo() > player->hRayoBasico->getCast() && aux == true) {
             isShooting = false;
@@ -138,7 +178,18 @@ void InGame::render(float interpolation, sf::Time elapsedTime) {
 
     int x = motor->getMousePosition().x - player -> getPosition().x;
     int y = motor->getMousePosition().y - player -> getPosition().y;
+    
+
     player ->UpdatePlayerAnimation(x, y);
+    
+     for(int i=0;i<80;i++){
+             int x2 = player->getPosition().x - enemigo[i].getPosition().x;
+    int y2 = player->getPosition().y - enemigo[i].getPosition().y;
+         enemigo[i].UpdateEnemyAnimation(x2,y2);
+     }
+    
+    
+    
     player -> hRayoAvanzado->PlayAnimation(*player -> hRayoAvanzado-> currentAnimation); //Current animation es un puntero a puntero
     if (player -> hRayoAvanzado->draw == true) {
 
@@ -214,16 +265,33 @@ void InGame::render(float interpolation, sf::Time elapsedTime) {
         player->hRayoBasico->StopAnimation();
     }
     //printf("%f",player->hRayoBasico->tiempoCast.getTiempo());
+ for(int i=0;i<80;i++){
+         player -> PlayAnimation(*player -> currentAnimation);
+                if(enemigo[i].getSpeed().x==0 && enemigo[i].getSpeed().y==0){
+            
+            enemigo[i].StopAnimation();
+            
+        }
+    enemigo[i]. PlayAnimation(*enemigo -> currentAnimation);
+    enemigo[i]. UpdateAnimation(elapsedTime);
+        enemigo[i]. DrawWithInterpolation(interpolation);
+ }
 
-    player -> PlayAnimation(*player -> currentAnimation);
+    
 
 
     if ((!isMovingDown && !isMovingLeft && !isMovingRight && !isMovingUp) || player->hRayoBasico->draw == true) {
         player -> StopAnimation();
+        zizu=0;
     }
     player -> UpdateAnimation(elapsedTime);
+    
+   
 
     player -> DrawWithInterpolation(interpolation);
+
+   
+    //enemigo->Draw();
 
     if (mapa->getMapaActual() == 1) {
         mapa->dibuja2Mapa1();

@@ -42,7 +42,8 @@ private:
     
     
     Player			*player;
-    Enemigo			enemigo[20];
+    Enemigo			*enemigo;
+    int zizu=0;
     
     
     Motor2D                     *motor;

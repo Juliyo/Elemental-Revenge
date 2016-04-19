@@ -16,7 +16,9 @@
 
 #include "PhysicsState.hpp"
 #include "Render.hpp"
+#include "Animation.hpp"
 #include "../Motor/Reloj.hpp"
+#include "Util.hpp"
 
 class Enemigo {
 public:
@@ -25,19 +27,32 @@ public:
 	virtual ~Enemigo();
 	
 	void Inicializar(float posX, float posY, float speedX=0.f, float speedY=0.f, float maxSpeedX=1000.f, float maxSpeedY=1000.f);
-	void Update(sf::Vector2f velocity, sf::Time elapsedTime);
+	void Update(sf::Vector2f velocity, sf::Time elapsedTime,Map *mapa);
 	void Draw();
 	void DrawWithInterpolation( float interpolation);
         float getVelocidad();
         sf::Vector2f getPosition();
         Sprite getSprite();
+        void UpdateEnemyAnimation(int x,int y);
+        void PlayAnimation(Animation *animation);
+        void UpdateAnimation(sf::Time elapsedTime);
+        void StopAnimation();
+        sf::Vector2f getSpeed(){
+            return physicsState.GetSpeed();
+        }
+        
         bool empujado;
         bool empujado2;
         Reloj tiempoempujado;
-
-         
+        int   cuadrante=2;
+        Animation               **currentAnimation;
+        Animation               *walkingAnimationDown;
+        Animation               *walkingAnimationLeft;
+        Animation               *walkingAnimationRight;
+        Animation               *walkingAnimationUp;
 	
 private:
+
 	Render			renderState;
 	PhysicsState            physicsState;
         sf::Texture             texturaEnemigo;

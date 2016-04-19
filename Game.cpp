@@ -21,14 +21,19 @@ Game::Game() {
     thread2 = new sf::Thread(&Game::cargarMapa, this);
     motor = Motor2D::Instance();
     motor->Inicializar();
-    motor->inicializarVentana("Hito 2 - Intento Motor", 1280, 720);
+    motor->inicializarVentana("Hito 2 - Enemigos-TransicionMotor", 1280, 720);
 
     /* EstadoInGame = new InGame();
      EstadoTransition = new Transition();
      EstadoPause = new Pause();
      EstadoMuerte = new Muerte();*/
-    EstadoMenu = new Menu2();
-    estadoMenu = true;
+    //EstadoMenu = new Menu2();
+    //estadoMenu = true;
+    EstadoCarga1 = new Carga1();
+                        EstadoCarga1 -> EstadoActivo = true;
+                        estadoCarga1 = true;
+
+                        thread->launch();
 
 #ifdef _WIN32
     HWND handler = motor->getSystemHandle();
@@ -271,14 +276,25 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
 }
 
 void Game::cargarInGameTransition() {
-    EstadoTransition = new Transition();
-    EstadoCarga1 -> transitionCargado();
+    //EstadoTransition = new Transition();
+    //EstadoCarga1 -> transitionCargado();
     EstadoInGame = new InGame();
     EstadoCarga1 -> ingameCargado();
     
-    EstadoTransition -> EstadoActivo = true;
-    estadoTransition = true;
+    EstadoInGame -> EstadoActivo = true;
+   // estadoTransition = true;
     EstadoCarga1 -> EstadoActivo = false;
+    
+    /////////////////BORRAR
+     EstadoCarga2 = new Carga2();
+        EstadoCarga2 -> EstadoActivo = true;
+        estadoCarga2 = true;
+        
+        
+        EstadoInGame->EstadoActivo = true;
+
+
+        thread2->launch();
 }
 
 void Game::handlePlayerInput2(sf::Keyboard::Key key, bool isPressed) {
@@ -324,15 +340,17 @@ void Game::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
 }
 
 void Game::cargarMapa() {
-    EstadoTransition->EstadoActivo = false;
-    EstadoTransition->preguntaContestada = false;
+    //EstadoTransition->EstadoActivo = false;
+    //EstadoTransition->preguntaContestada = false;
 
     //delete EstadoInGame->mapa;
 
     EstadoInGame->mapa = new Map();
-    EstadoInGame->mapa->leerMapa(EstadoTransition->level);
+    EstadoInGame->mapa->leerMapa(1);
     
     EstadoInGame->EstadoActivo = true;
     estadoInGame = true;
     EstadoCarga2->EstadoActivo = false;
+    
+    
 }
