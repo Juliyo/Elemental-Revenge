@@ -17,8 +17,8 @@ const float segStatistics = 0.5f; //segundos de refresco de las estadisticas
 /************ CONSTRUCTOR **************/
 Game::Game() {
     
-    thread = new sf::Thread(&cargarInGameTransition, this);
-    thread2 = new sf::Thread(&cargarMapa, this);
+    thread = new sf::Thread(&Game::cargarInGameTransition, this);
+    thread2 = new sf::Thread(&Game::cargarMapa, this);
     motor = Motor2D::Instance();
     motor->Inicializar();
     motor->inicializarVentana("Hito 2 - Intento Motor", 1280, 720);
@@ -298,7 +298,27 @@ void Game::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
         EstadoCarga2 -> EstadoActivo = true;
         estadoCarga2 = true;
         
+
+
+        
+        if(EstadoTransition->level==2){
+            if(EstadoTransition->getIzqODer()==1){
+            EstadoInGame->mapa->leerMapa(EstadoTransition->level,1);
+        }
+        
+        if(EstadoTransition->getIzqODer()==2){
+            EstadoInGame->mapa->leerMapa(EstadoTransition->level,2);
+        }
+        
+        }else{
+            EstadoInGame->mapa->leerMapa(EstadoTransition->level,0);
+        }
+        
+        EstadoInGame->EstadoActivo = true;
+
+
         thread2->launch();
+
     }
 
 }
@@ -310,7 +330,7 @@ void Game::cargarMapa() {
     EstadoInGame->mapa->~Map();
 
     EstadoInGame->mapa = new Map();
-    EstadoInGame->mapa->leerMapa(2);
+    //EstadoInGame->mapa->leerMapa(2);
     
     
     EstadoInGame->EstadoActivo = true;

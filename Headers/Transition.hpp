@@ -41,6 +41,7 @@ public:
     node *currentNode;
     node *firstNode;
 
+    int getIzqODer();
 
 private:
 
@@ -80,6 +81,10 @@ private:
     bool unfadeEffect = false;
     bool izq = false;
     bool der = false;
+    
+    bool izquierdaRes=false;
+    bool derechaRes=false;
+    
     bool drawOpciones = true;
     bool drawNextLevel;
     char mejora;

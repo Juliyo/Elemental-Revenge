@@ -40,7 +40,7 @@ Map::~Map() {
     delete[] _tilemap;
 }
 
-void Map::leerMapa(int numMapa) {
+void Map::leerMapa(int numMapa, int versionMapa) {
 
     mapaActual = numMapa;
 
@@ -49,7 +49,13 @@ void Map::leerMapa(int numMapa) {
         doc.LoadFile("resources/mapaBosqueAlfa.tmx");
     }
     if (numMapa == 2) {
-        doc.LoadFile("resources/CasaAbandonadaV2.tmx");
+        
+        if(versionMapa==1){
+        doc.LoadFile("resources/CasaAbandonadaV1.tmx");
+        }
+        else{
+        doc.LoadFile("resources/LVL22.tmx");
+        }
     }
 
     if (numMapa == 3) {
