@@ -15,14 +15,14 @@ Hud::Hud(Reloj *cds, float *coolDowns) {
     m = Motor2D::Instance();
     mCds = cds;
     mCoolDowns = coolDowns;
-    
-    cRayo1 = new ProgressBar(120, 150, sf::Vector2f(1000, 1500), mCoolDowns[0], 1, sf::Vector2f(0.5,0.6),sf::Color::Yellow);
-    cRayo2 = new ProgressBar(120, 150, sf::Vector2f(1000, 1500), mCoolDowns[1], 0, sf::Vector2f(0.5,0.6),sf::Color::Yellow);
-    cAgua1 = new ProgressBar(120, 150, sf::Vector2f(1300, 1500), mCoolDowns[2], 1, sf::Vector2f(0.5,0.6),sf::Color::Yellow);
-    cAgua2 = new ProgressBar(120, 150, sf::Vector2f(1300, 1500), mCoolDowns[3], 0, sf::Vector2f(0.5,0.6),sf::Color::Yellow);
-    cFuego1 = new ProgressBar(120, 25, sf::Vector2f(700, 1500), 0.35, 1, sf::Vector2f(0.5,0.6),sf::Color::Yellow);
-    cFuego2 = new ProgressBar(120, 150, sf::Vector2f(700, 1500), mCoolDowns[5], 0, sf::Vector2f(0.5,0.6),sf::Color::Yellow);
-    
+
+    cRayo1 = new ProgressBar(120, 150, sf::Vector2f(1000, 1500), mCoolDowns[0], 1, sf::Vector2f(0.5, 0.6), sf::Color::Yellow);
+    cRayo2 = new ProgressBar(120, 150, sf::Vector2f(1000, 1500), mCoolDowns[1], 0, sf::Vector2f(0.5, 0.6), sf::Color::Yellow);
+    cAgua1 = new ProgressBar(120, 150, sf::Vector2f(1300, 1500), mCoolDowns[2], 1, sf::Vector2f(0.5, 0.6), sf::Color::Yellow);
+    cAgua2 = new ProgressBar(120, 150, sf::Vector2f(1300, 1500), mCoolDowns[3], 0, sf::Vector2f(0.5, 0.6), sf::Color::Yellow);
+    cFuego1 = new ProgressBar(120, 25, sf::Vector2f(700, 1500), mCoolDowns[4], 1, sf::Vector2f(0.5, 0.6), sf::Color::Yellow);
+    cFuego2 = new ProgressBar(120, 150, sf::Vector2f(700, 1500), mCoolDowns[5], 0, sf::Vector2f(0.5, 0.6), sf::Color::Yellow);
+
     std::string ruta = "resources/Textures/hudHealthBar.png";
     std::string ruta2 = "resources/Textures/barraVida.png";
 
@@ -42,7 +42,7 @@ Hud::Hud(Reloj *cds, float *coolDowns) {
     cargarRayo();
 
     cargarAgua();
-    
+
     cargarFuego();
 
 }
@@ -50,9 +50,7 @@ Hud::Hud(Reloj *cds, float *coolDowns) {
 Hud::Hud(const Hud& orig) {
 }
 
-Hud::~Hud() {
-    
-}
+
 
 void Hud::renderHud(sf::Time elapsedTime) {
 
@@ -62,7 +60,7 @@ void Hud::renderHud(sf::Time elapsedTime) {
     cAgua2->update(elapsedTime);
     cFuego1->update(elapsedTime);
     cFuego2->update(elapsedTime);
-    
+
     m->draw(barraVida);
     m->draw(sVida);
 
@@ -72,7 +70,7 @@ void Hud::renderHud(sf::Time elapsedTime) {
     cAgua2->draw();
     cFuego1->draw();
     cFuego2->draw();
-    
+
     m->draw(fBlanco);
     m->draw(fuegoBueno);
     m->draw(fSombra);
@@ -87,8 +85,8 @@ void Hud::renderHud(sf::Time elapsedTime) {
     m->draw(aguaBueno);
     m->draw(aSombra);
     m->draw(aGlare);
-    
-    
+
+
 
 }
 
@@ -108,7 +106,7 @@ void Hud::cambiaHechizo(int activar) {
     }
     switch (activar) {
         case 3:
-            
+
             activo = 3;
             break;
         case 2:
@@ -189,18 +187,19 @@ void Hud::cargarAgua() {
     aSombra->setScale(0.5, 0.6);
 }
 
-void Hud::resetAgua2(){
+void Hud::resetAgua2() {
     cAgua2->reset();
 }
+
 void Hud::resetAgua1() {
     cAgua1->reset();
 }
 
-void Hud::resetFuego1(){
+void Hud::resetFuego1() {
     cFuego1->reset();
 }
 
-void Hud::resetFuego2(){
+void Hud::resetFuego2() {
     cFuego2->reset();
 }
 
@@ -229,4 +228,36 @@ void Hud::cargarFuego() {
     fSombra->setOrigin(rSombra->getTextureSize().x / 2, rSombra->getTextureSize().y / 2);
     fSombra->setPosition(350, 900);
     fSombra->setScale(0.5, 0.6);
+}
+
+
+Hud::~Hud() {
+    delete cRayo1;
+    delete cRayo2;
+    delete cAgua1;
+    delete cAgua2;
+    delete cFuego1;
+    delete cFuego2;
+
+    delete rayoBueno;
+    delete rBlanco;
+    delete rGlare;
+    delete rRayo;
+    delete rSombra;
+    //Agua
+    delete aguaBueno;
+    delete aBlanco;
+    delete aGlare;
+    delete aRayo;
+    delete aSombra;
+
+    //Fuego
+    delete fuegoBueno;
+    delete fBlanco;
+    delete fGlare;
+    delete fRayo;
+    delete fSombra;
+    delete mCds;
+    delete mCoolDowns;
+    delete m;
 }

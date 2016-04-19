@@ -23,6 +23,7 @@ Player::Player(const Player& orig) {
 }
 
 Player::~Player() {
+    delete hud;
 }
 
 void Player::Inicializar(float posX, float posY, float speedX, float speedY, float maxSpeedX, float maxSpeedY) {

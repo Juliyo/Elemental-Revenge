@@ -101,6 +101,7 @@ void Game::processEvents() //Captura y procesa eventos
                 
             case sf::Event::Closed:
                 motor->closeWindow();
+                
                 break;
 
             case sf::Event::Resized:
