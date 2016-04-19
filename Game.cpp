@@ -1,5 +1,5 @@
 #include "Game.hpp"
-#include "SFML/System.hpp"
+#include <SFML/System.hpp>
 #include "Pause.hpp"
 #include "Map.hpp"
 
@@ -16,25 +16,27 @@ const float segStatistics = 0.5f; //segundos de refresco de las estadisticas
 
 /************ CONSTRUCTOR **************/
 Game::Game() {
-
+    
+    thread = new sf::Thread(&Game::cargarInGameTransition, this);
+    thread2 = new sf::Thread(&Game::cargarMapa, this);
     motor = Motor2D::Instance();
     motor->Inicializar();
     motor->inicializarVentana("Hito 2 - Intento Motor", 1280, 720);
 
-    EstadoInGame = new InGame();
-    EstadoTransition = new Transition();
-    EstadoPause = new Pause();
-    EstadoMuerte = new Muerte();
+    /* EstadoInGame = new InGame();
+     EstadoTransition = new Transition();
+     EstadoPause = new Pause();
+     EstadoMuerte = new Muerte();*/
     EstadoMenu = new Menu2();
-    
-    
+    estadoMenu = true;
+
 #ifdef _WIN32
     HWND handler = motor->getSystemHandle();
     RECT rWindow;
     GetWindowRect(handler, &rWindow);
     ClipCursor(&rWindow);
 #endif
-    
+
 }
 
 /**************  METODOS PRINCIPALES **************/
@@ -66,16 +68,19 @@ void Game::run() //Metodo principal
 
 void Game::update(sf::Time elapsedTime) //Actualiza la fisica
 {
-    if (EstadoInGame->EstadoActivo) {
+    if (estadoInGame == true && EstadoInGame->EstadoActivo) {
         EstadoInGame->Update(elapsedTime);
     }
-    if (EstadoTransition->EstadoActivo) {
+    if (estadoTransition == true && EstadoTransition->EstadoActivo) {
         EstadoTransition->Update(elapsedTime);
     }
-    /*if (EstadoPause->EstadoActivo) {
-        EstadoPause->Update(elapsedTime);
-    }*/
-    if (EstadoMenu->EstadoActivo) {
+    if (estadoCarga1 == true && EstadoCarga1->EstadoActivo) {
+        EstadoCarga1->Update(elapsedTime);
+    }
+    if(estadoCarga2 == true && EstadoCarga2->EstadoActivo){
+        EstadoCarga2->Update(elapsedTime);
+    }
+    if (estadoMenu == true && EstadoMenu->EstadoActivo) {
         EstadoMenu->Update(elapsedTime);
     }
 
@@ -83,14 +88,14 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
 
 void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
 {
-    if (EstadoInGame->EstadoActivo) {
+    if (estadoInGame == true && EstadoInGame->EstadoActivo) {
         EstadoInGame->render(interpolation, elapsedTime);
     }
-    if (EstadoTransition->EstadoActivo) {
+    if (estadoTransition == true && EstadoTransition->EstadoActivo) {
         EstadoTransition->render(interpolation, elapsedTime);
     }
 
-    if (EstadoMenu->EstadoActivo) {
+    if (estadoMenu == true && EstadoMenu->EstadoActivo) {
 
         motor->clear();
 
@@ -98,13 +103,19 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
 
         motor->display();
     }
-    if (EstadoPause->EstadoActivo) {
+    if (estadoPause == true && EstadoPause->EstadoActivo) {
         EstadoInGame->renderForPause(interpolation, elapsedTime);
         EstadoPause->render(interpolation, elapsedTime);
     }
-      if (EstadoMuerte->EstadoActivo) {
+    if (estadoMuerte == true && EstadoMuerte->EstadoActivo) {
         EstadoInGame->renderForPause(interpolation, elapsedTime);
         EstadoMuerte->render(interpolation, elapsedTime);
+    }
+    if (estadoCarga1 == true && EstadoCarga1->EstadoActivo) {
+        EstadoCarga1->render(interpolation, elapsedTime);
+    }
+    if (estadoCarga2 == true && EstadoCarga2->EstadoActivo) {
+        EstadoCarga2->render(interpolation, elapsedTime);
     }
 }
 
@@ -117,41 +128,60 @@ void Game::processEvents() //Captura y procesa eventos
         switch (event.type) {
             case sf::Event::KeyPressed:
                 //handlePlayerInput(event.key.code, true);
-                EstadoInGame->handlePlayerInput(event.key.code, true);
-                EstadoMenu->handlePlayerInput(event.key.code, true);
-                //EstadoPause->handlePlayerInput(event.key.code, true);
+                if (estadoInGame == true && EstadoInGame->EstadoActivo) {
+                    EstadoInGame->handlePlayerInput(event.key.code, true);
+                }
+                if (estadoMenu == true && EstadoMenu->EstadoActivo) {
+                    EstadoMenu->handlePlayerInput(event.key.code, true);
+                }
+
                 break;
-                
+
             case sf::Event::KeyReleased:
-                EstadoInGame->handlePlayerInput(event.key.code, false);
-                EstadoPause->handlePlayerInput2(event.key.code, true);
+                if (estadoInGame == true && EstadoInGame->EstadoActivo) {
+                    EstadoInGame->handlePlayerInput(event.key.code, false);
+                }
+                if (estadoPause == true && EstadoPause->EstadoActivo) {
+                    EstadoPause->handlePlayerInput2(event.key.code, true);
+                }
                 handlePlayerInput(event.key.code, false);
                 handlePlayerInput2(event.key.code, false);
                 break;
 
             case sf::Event::MouseButtonPressed:
-                if (EstadoInGame->EstadoActivo) {
+                if (estadoInGame == true && EstadoInGame->EstadoActivo) {
                     EstadoInGame->handleMouseInput(event.mouseButton.button, true);
                 }
-                if (EstadoTransition->EstadoActivo) {
+                if (estadoTransition == true && EstadoTransition->EstadoActivo) {
                     EstadoTransition->handleMouseInput(event.mouseButton.button, true);
                 }
-                if (EstadoMenu->EstadoActivo) {
+                if (estadoMenu == true && EstadoMenu->EstadoActivo) {
                     EstadoMenu->handleMouseInput(event.mouseButton.button, true);
                     if (EstadoMenu->getSetectedItemIndex() == 0) {
                         EstadoMenu->EstadoActivo = false;
-                        EstadoTransition->EstadoActivo = true;
+                        EstadoCarga1 = new Carga1();
+                        EstadoCarga1 -> EstadoActivo = true;
+                        estadoCarga1 = true;
+
+                        thread->launch();
                     }
                 }
                 break;
-                
+
             case sf::Event::MouseButtonReleased:
-                EstadoInGame->handleMouseInput(event.mouseButton.button, false);
-                EstadoTransition->handleMouseInput(event.mouseButton.button, false);
-                EstadoMenu->handleMouseInput(event.mouseButton.button, false);
+                if (estadoInGame == true && EstadoInGame->EstadoActivo) {
+                    EstadoInGame->handleMouseInput(event.mouseButton.button, false);
+                }
+                if (estadoTransition == true && EstadoTransition->EstadoActivo) {
+                    EstadoTransition->handleMouseInput(event.mouseButton.button, false);
+                }
+                if (estadoMenu == true && EstadoMenu->EstadoActivo) {
+                    EstadoMenu->handleMouseInput(event.mouseButton.button, false);
+                }
+
                 handleMouseInput(event.mouseButton.button, false);
                 break;
-                
+
             case sf::Event::Closed:
                 motor->closeWindow();
                 break;
@@ -176,47 +206,62 @@ void Game::processEvents() //Captura y procesa eventos
 
 void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
     if (key == sf::Keyboard::M) { //Para pasar de nivel
-        EstadoInGame->EstadoActivo = false;
-        EstadoTransition->EstadoActivo = true;
-        EstadoPause->EstadoActivo = false;
+        if (estadoInGame == true) {
+            EstadoInGame->EstadoActivo = false;
+        }
+        if (estadoTransition == true) {
+            EstadoTransition->EstadoActivo = true;
+        }
+        if (estadoPause == true) {
+            EstadoPause->EstadoActivo = false;
+        }
+
     } else if (key == sf::Keyboard::N) {
-        EstadoTransition->EstadoActivo = false;
-        EstadoInGame->EstadoActivo = true;
-    } else if (key == sf::Keyboard::Return && EstadoMenu->EstadoActivo) {
+        if (estadoTransition == true) {
+            EstadoTransition->EstadoActivo = false;
+        }
+        if (estadoInGame == true) {
+            EstadoInGame->EstadoActivo = false;
+        }
+    } else if (key == sf::Keyboard::Return && estadoMenu == true && EstadoMenu->EstadoActivo) {
         if (EstadoMenu->getSetectedItemIndex() == 0) {
             EstadoMenu->pararMusica();
             EstadoMenu->EstadoActivo = false;
-            EstadoTransition->EstadoActivo = true;
+
+            EstadoCarga1 = new Carga1();
+            EstadoCarga1 -> EstadoActivo = true;
+            estadoCarga1 = true;
+           
+            thread->launch();
         }
-    } else if (key == sf::Keyboard::Return && EstadoPause->EstadoActivo) {
+    } else if (key == sf::Keyboard::Return && estadoPause == true && EstadoPause->EstadoActivo) {
         if (EstadoPause->getSetectedItemIndexPause() == 0) {
             EstadoPause->EstadoActivo = false;
             EstadoInGame->EstadoActivo = true;
         }
         if (EstadoPause->getSetectedItemIndexPause() == 2) {
             EstadoPause->EstadoActivo = false;
-            
+
 
             delete EstadoTransition;
             EstadoTransition = new Transition();
             delete EstadoInGame;
             EstadoInGame = new InGame();
-            
+
             EstadoMenu->EstadoActivo = true;
             //////////////////AQUI VAN LOS SETS
         }
-    } else if (key == sf::Keyboard::P && EstadoInGame->EstadoActivo) {
+    } else if (key == sf::Keyboard::P && estadoInGame == true && EstadoInGame->EstadoActivo) {
         EstadoTransition->EstadoActivo = false;
         EstadoInGame->EstadoActivo = false;
         EstadoPause->SetSetectedItemIndexPause(0);
         EstadoPause->EstadoActivo = true;
-    }else if (key == sf::Keyboard::O && EstadoInGame->EstadoActivo) {
-        printf("Se supone que estoy en muerte");
+    } else if (key == sf::Keyboard::O && estadoInGame == true && EstadoInGame->EstadoActivo) {
         EstadoTransition->EstadoActivo = false;
         EstadoInGame->EstadoActivo = false;
         EstadoMuerte->relojMuerte.restart();
         EstadoMuerte->EstadoActivo = true;
-    }else if (key == sf::Keyboard::O && EstadoMuerte->EstadoActivo) {
+    } else if (key == sf::Keyboard::O && estadoMuerte == true && EstadoMuerte->EstadoActivo) {
         EstadoTransition->EstadoActivo = false;
         EstadoInGame->EstadoActivo = true;
         EstadoMuerte->SetEscala();
@@ -225,42 +270,36 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
 
 }
 
+void Game::cargarInGameTransition() {
+    EstadoTransition = new Transition();
+    EstadoCarga1 -> transitionCargado();
+    EstadoInGame = new InGame();
+    EstadoCarga1 -> ingameCargado();
+    
+    EstadoTransition -> EstadoActivo = true;
+    estadoTransition = true;
+    EstadoCarga1 -> EstadoActivo = false;
+}
+
 void Game::handlePlayerInput2(sf::Keyboard::Key key, bool isPressed) {
-
-
-    if (key == sf::Keyboard::Return && EstadoPause->EstadoActivo) {
-
+    if (key == sf::Keyboard::Return && estadoPause == true && EstadoPause->EstadoActivo) {
         if (EstadoPause->getSetectedItemIndexPause() == 2) {
             EstadoPause->EstadoActivo = false;
-            
-
             EstadoMenu->SetSetectedItemIndex(0);
             EstadoMenu->EstadoActivo = true;
         }
-
-
     }
 }
 
 void Game::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
+    if (estadoTransition == true && EstadoTransition->preguntaContestada == true) {
+        
+        EstadoCarga2 = new Carga2();
+        EstadoCarga2 -> EstadoActivo = true;
+        estadoCarga2 = true;
+        
 
 
-    if (EstadoTransition->preguntaContestada == true) {
-        printf("preguntaContestada es true");
-        EstadoTransition->EstadoActivo = false;
-        EstadoTransition->preguntaContestada = false;
-        
-        delete EstadoInGame->mapa;
-        
-        EstadoInGame->mapa= new Map();
-        
-        if(EstadoTransition->getIzqODer()==1){
-            printf("IZQUIERDA\n");
-        }
-        
-        if(EstadoTransition->getIzqODer()==2){
-            printf("DERECHA\n");
-        }
         
         if(EstadoTransition->level==2){
             if(EstadoTransition->getIzqODer()==1){
@@ -277,6 +316,23 @@ void Game::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
         
         EstadoInGame->EstadoActivo = true;
 
+
+        thread2->launch();
+
     }
 
+}
+
+void Game::cargarMapa() {
+    EstadoTransition->EstadoActivo = false;
+    EstadoTransition->preguntaContestada = false;
+
+    //delete EstadoInGame->mapa;
+
+    EstadoInGame->mapa = new Map();
+    EstadoInGame->mapa->leerMapa(EstadoTransition->level);
+    
+    EstadoInGame->EstadoActivo = true;
+    estadoInGame = true;
+    EstadoCarga2->EstadoActivo = false;
 }

@@ -17,7 +17,7 @@
 
 class Video {
 public:
-    Video(std::string ruta, int f, int x, int y);
+    Video(std::string ruta, int f, int x, int y, int tipo, sf::Vector2f scale);
     Video(const Video& orig);
     virtual ~Video();
     

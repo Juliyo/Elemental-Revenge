@@ -9,13 +9,16 @@
 #include "State.hpp"
 #include "InGame.hpp"
 #include "Transition.hpp"
+#include "Carga1.hpp"
+#include "Pause.hpp"
+#include "Carga2.hpp"
 #include "../Motor/Motor2D.hpp"
 #include "../Motor/Reloj.hpp"
 #include "Muerte.hpp"
 
 #include "Menu2.hpp"
 
-#include "Pause.hpp"
+
 #include <cmath>
 #include <math.h>
 #ifdef _WIN32
@@ -50,12 +53,20 @@ private:
     InGame *EstadoInGame;
     Transition *EstadoTransition;
     Menu2 *EstadoMenu;
-
     Pause *EstadoPause;
     Muerte *EstadoMuerte;
-
+    Carga1 *EstadoCarga1;
+    Carga2 *EstadoCarga2;
+    
     float interpolation;
-
+    
+    bool estadoInGame = false;
+    bool estadoTransition = false;
+    bool estadoMenu = false;
+    bool estadoPause = false;
+    bool estadoMuerte = false;
+    bool estadoCarga1 = false;
+    bool estadoCarga2 = false;
     //Eventos
     /*bool			isMovingUp;
     bool			isMovingDown;
@@ -69,6 +80,13 @@ private:
     bool			isInterpolating;
     bool                        isShooting;
     bool                        aux;*/
+    sf::Thread *thread;
+    sf::Thread *thread2;
+    
+    void cargarInGameTransition();
+    void cargarMapa();
+    
+
 };
 
 

@@ -51,8 +51,8 @@ InGame::InGame() {
     player -> Inicializar(900.f, 850.f);
 
     motor->setZoomToView(0.5f, 1); //1=vista del mundo(nuestra pantalla)
-
-    mapa = new Map();
+    motor->setCenterForView(1, 200,200);
+    //mapa = new Map();
 }
 
 InGame::InGame(const InGame& orig) {
@@ -118,8 +118,10 @@ void InGame::render(float interpolation, sf::Time elapsedTime) {
     motor->SetView(0); //bordes
     motor->draw(spriteRelleno);
     motor->SetView(1);
-
-    updateView();
+    if(!firstTime){
+        updateView();
+    }
+    
     motor->draw(spriteFondo);
 
     /**********************ARREGLAR***************************/

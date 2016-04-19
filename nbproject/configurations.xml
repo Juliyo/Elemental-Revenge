@@ -4,6 +4,8 @@
     <logicalFolder name="Headers" displayName="Headers" projectFiles="true">
       <itemPath>Headers/AnimatedSprite.hpp</itemPath>
       <itemPath>Headers/Animation.hpp</itemPath>
+      <itemPath>Headers/Carga1.hpp</itemPath>
+      <itemPath>Headers/Carga2.hpp</itemPath>
       <itemPath>Headers/Enemigo.hpp</itemPath>
       <itemPath>Headers/Game.hpp</itemPath>
       <itemPath>Headers/Hechizo.hpp</itemPath>
@@ -49,6 +51,8 @@
     <logicalFolder name="f2" displayName="Source Files" projectFiles="true">
       <itemPath>AnimatedSprite.cpp</itemPath>
       <itemPath>Animation.cpp</itemPath>
+      <itemPath>Carga1.cpp</itemPath>
+      <itemPath>Carga2.cpp</itemPath>
       <itemPath>Enemigo.cpp</itemPath>
       <itemPath>Game.cpp</itemPath>
       <itemPath>Hechizo.cpp</itemPath>
@@ -116,6 +120,10 @@
       </item>
       <item path="Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="Carga1.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Carga2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="Enemigo.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Game.cpp" ex="false" tool="1" flavor2="0">
@@ -123,6 +131,10 @@
       <item path="Headers/AnimatedSprite.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Animation.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/Carga1.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/Carga2.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Enemigo.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -255,6 +267,10 @@
       </item>
       <item path="Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="Carga1.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Carga2.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="Enemigo.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Game.cpp" ex="false" tool="1" flavor2="0">
@@ -262,6 +278,10 @@
       <item path="Headers/AnimatedSprite.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Animation.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/Carga1.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/Carga2.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Enemigo.hpp" ex="false" tool="3" flavor2="0">
       </item>

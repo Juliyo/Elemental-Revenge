@@ -33,8 +33,6 @@ public:
 
     void render(float interpolation, sf::Time elapsedTime);
 
-    sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight);
-
     void updateView();
 
     bool preguntaContestada = false;
