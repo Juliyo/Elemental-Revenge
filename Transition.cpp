@@ -56,8 +56,8 @@ Transition::Transition() {
     //Carga texturas
     try {
         texPregunta.loadFromFile(arbol->search(4)->pregunta);
-        texturaOpcionA.loadFromFile("resources/UI Elements/colgante.png");
-        texturaOpcionB.loadFromFile("resources/UI Elements/amuleto.png");
+        texturaOpcionA.loadFromFile("resources/UI Elements/amuleto.png");
+        texturaOpcionB.loadFromFile("resources/UI Elements/colgante.png");
         texturaRelleno.loadFromFile("resources/Textures/background.png");
         texturaFondo.loadFromFile("resources/Textures/fondo.png");
         mouseTexture.loadFromFile("resources/Textures/mouse.png");
@@ -79,7 +79,7 @@ Transition::Transition() {
     cruzeta2 = new Sprite();
     simbolo = new Sprite();
 
-    
+
     mouseSprite->setTexture(mouseTexture);
     mouseSprite->setScale(0.2, 0.2);
     mouseSprite->setPosition(20, 20);
@@ -132,13 +132,13 @@ Transition::Transition() {
     cruzeta2->setOrigin(cruzeta.getSize().x / 2, cruzeta.getSize().y / 2);
     cruzeta2->setScale(0.25, 0.25);
 
-    video = new Video("resources/Videos/moltoFondaco/frame-", 9, 145, 110,1,sf::Vector2f(1.7,1.7));
-    
+    video = new Video("resources/Videos/moltoFondaco/frame-", 9, 145, 110, 1, sf::Vector2f(1.7, 1.7));
+
     musica = new sf::Music();
     musica->openFromFile("resources/Sounds/history.ogg");
     musica->setVolume(70);
-    
-    
+
+
 
 }
 
@@ -148,15 +148,14 @@ Transition::Transition(const Transition& orig) {
 Transition::~Transition() {
 }
 
-
 void Transition::Update(sf::Time elapsedTime) {
     video->setDibujar(true);
     if (buttonPressed && !firstTime && (!fadeEffect && !unfadeEffect)) {
         if (spriteOpcionA->getGlobalBounds().contains(mouseSprite->getPosition())) {
             izq = true;
             der = false;
-            izquierdaRes=true;
-            derechaRes=false;
+            izquierdaRes = true;
+            derechaRes = false;
             fadeEffect = true;
             transparent.a = 255;
             transparent.g = 255;
@@ -168,8 +167,8 @@ void Transition::Update(sf::Time elapsedTime) {
         if (spriteOpcionB->getGlobalBounds().contains(mouseSprite->getPosition())) {
             der = true;
             izq = false;
-            izquierdaRes=false;
-            derechaRes=true;
+            izquierdaRes = false;
+            derechaRes = true;
             fadeEffect = true;
             transparent.a = 255;
             transparent.g = 255;
@@ -264,9 +263,9 @@ void Transition::Update(sf::Time elapsedTime) {
                         //der = false;
                         unfadeEffect = true;
                         transparent.a = 0;
-            transparent.r = 255;
-            transparent.g = 255;
-            transparent.b = 255;
+                        transparent.r = 255;
+                        transparent.g = 255;
+                        transparent.b = 255;
                         pregunta->setColor(transparent);
                         spriteOpcionA->setColor(transparent);
                         spriteOpcionB->setColor(transparent);
@@ -453,8 +452,8 @@ void Transition::Update(sf::Time elapsedTime) {
                         unfadeEffect = true;
                         transparent.a = 0;
                         transparent.g = 255;
-            transparent.b = 255;
-            transparent.r = 255;
+                        transparent.b = 255;
+                        transparent.r = 255;
                         pregunta->setColor(transparent);
                         spriteOpcionA->setColor(transparent);
                         spriteOpcionB->setColor(transparent);
@@ -478,8 +477,8 @@ void Transition::Update(sf::Time elapsedTime) {
                         unfadeEffect = true;
                         transparent.a = 0;
                         transparent.g = 255;
-            transparent.b = 255;
-            transparent.r = 255;
+                        transparent.b = 255;
+                        transparent.r = 255;
                         pregunta->setColor(transparent);
                         spriteOpcionA->setColor(transparent);
                         spriteOpcionB->setColor(transparent);
@@ -500,8 +499,8 @@ void Transition::Update(sf::Time elapsedTime) {
                         unfadeEffect = true;
                         transparent.a = 0;
                         transparent.g = 255;
-            transparent.b = 255;
-            transparent.r = 255;
+                        transparent.b = 255;
+                        transparent.r = 255;
                         pregunta->setColor(transparent);
                         spriteOpcionA->setColor(transparent);
                         spriteOpcionB->setColor(transparent);
@@ -525,8 +524,8 @@ void Transition::Update(sf::Time elapsedTime) {
                         unfadeEffect = true;
                         transparent.a = 0;
                         transparent.g = 255;
-            transparent.b = 255;
-            transparent.r = 255;
+                        transparent.b = 255;
+                        transparent.r = 255;
                         pregunta->setColor(transparent);
                         spriteOpcionA->setColor(transparent);
                         spriteOpcionB->setColor(transparent);
@@ -547,8 +546,8 @@ void Transition::Update(sf::Time elapsedTime) {
                         unfadeEffect = true;
                         transparent.a = 0;
                         transparent.g = 255;
-            transparent.b = 255;
-            transparent.r = 255;
+                        transparent.b = 255;
+                        transparent.r = 255;
                         pregunta->setColor(transparent);
                         spriteOpcionA->setColor(transparent);
                         spriteOpcionB->setColor(transparent);
