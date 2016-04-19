@@ -16,15 +16,14 @@
 #include <SFML/Graphics.hpp>
 #include "../Motor/Motor2D.hpp"
 #include "../Motor/Text.hpp"
-#include <iostream>
-#include <vector>
+#include "../Motor/ProgressBar.hpp"
 
 class Hud {
 public:
     Hud(Reloj *cds, float *coolDowns);
     Hud(const Hud& orig);
     virtual ~Hud();
-    void renderHud();
+    void renderHud(sf::Time elapsedTime);
     sf::FloatRect viewBounds;
     sf::Vector2f position;
     void updateHud(float vidas);
@@ -39,6 +38,7 @@ public:
     void resetFuego1();
     void resetFuego2();
 private:
+    Motor2D *m;
     Sprite barraVida;
     sf::IntRect shapeVida;
 
@@ -135,7 +135,7 @@ private:
     
     void renderRayo1();
     void renderRayo2();
-    void renderAgua1();
+    void renderAgua1(sf::Time elapsedTime);
     void renderAgua2();
     void renderFuego1();
     void renderFuego2();
@@ -148,6 +148,14 @@ private:
     
     bool firstFuego1 = false;
     bool firstFuego2 = false;
+    
+    sf::Time    m_currentTime;
+    sf::Time    m_frameTime;
+    
+    ProgressBar *cRayo1;
+    ProgressBar *cRayo2;
+    ProgressBar *cAgua1;
+    
 };
 
 #endif /* HUD_HPP */

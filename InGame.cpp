@@ -151,7 +151,7 @@ void InGame::render(float interpolation, sf::Time elapsedTime) {
     //video->PlayVideo();
     motor->SetView(2); //vista del HUD
     
-    player -> hud->renderHud();
+    player -> hud->renderHud(elapsedTime);
     
     motor->SetView(1); //vista del juego
     motor->draw(mouseSprite);
