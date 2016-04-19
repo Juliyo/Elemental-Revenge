@@ -619,7 +619,7 @@ void Transition::Update(sf::Time elapsedTime) {
 void Transition::changePregunta() {
     if (izq) {
         if (currentNode -> left == NULL) {
-            exit(0);
+            //exit(0);
             izq = false;
         } else {
             //std::cout<<currentNode -> left -> pregunta <<std::endl;
@@ -629,7 +629,8 @@ void Transition::changePregunta() {
 
     } else {
         if (currentNode -> right == NULL) {
-            exit(0);
+            //exit(0);
+
             der = false;
         } else {
             currentNode = currentNode -> right;

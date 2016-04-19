@@ -50,7 +50,7 @@ private:
 
 
 
-
+    int cuenta=0;
 };
 
 
