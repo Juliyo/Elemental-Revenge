@@ -18,6 +18,7 @@
 #include "../Headers/AnimatedSprite.hpp"
 #include "../Headers/Animation.hpp"
 #include "Headers/Util.hpp"
+#include "Hud.hpp"
 #endif
 
 hWaterBasic::hWaterBasic() {
@@ -58,7 +59,7 @@ hWaterBasic::hWaterBasic() {
     InicializarAnimatedSprite(sf::seconds(0.5f / 29), true, false);
     SetOriginAnimatedSprite(0, 147 / 2);
     SetScale(0.5f, 0.5f);
-    setCD(1.0f);
+    setCD(3.0f);
 }
 
 hWaterBasic::hWaterBasic(const hWaterBasic& orig) {
@@ -69,15 +70,16 @@ hWaterBasic::~hWaterBasic() {
 
 }
 
-void hWaterBasic::cast(sf::Vector2f posicion) {
+void hWaterBasic::cast(sf::Vector2f posicion, Hud *hud) {
 
     if (clockCd.getTiempo() > getCD() || primerCast == true) {
         clockCd.restart();
-        primerCast = false;
         
-            float angleShot = Motor2D::Instance()->getAngleShot(posicion);
-    SetAngle(angleshot2, angleShot);
-    angleshot2 = angleShot;
+        primerCast = false;
+        hud->resetAgua1();
+        float angleShot = Motor2D::Instance()->getAngleShot(posicion);
+        SetAngle(angleshot2, angleShot);
+        angleshot2 = angleShot;
         //Ponemos el sprite en la posicion del jugador y separado un distancia del jugador
         SetPosition(posicion.x + 10 * cos(angleshot2) * 1.0f, posicion.y + 20 * sin(angleshot2) * 1.0f);
         tiempoCast.restart();
@@ -88,14 +90,14 @@ void hWaterBasic::cast(sf::Vector2f posicion) {
 
 }
 
-void hWaterBasic::DrawWithInterpolation( float interpolation) {
-    DrawAnimation( GetPreviousPosition(), GetPosition(), interpolation);
+void hWaterBasic::DrawWithInterpolation(float interpolation) {
+    DrawAnimation(GetPreviousPosition(), GetPosition(), interpolation);
 }
 
 void hWaterBasic::Update(sf::Vector2f velocity, sf::Time elapsedTime, float playerV) {
     /**Hay que normalizar la velocidad**/
     sf::Vector2f nVelocity = Util::Normalize(velocity);
-    SetSpeed(nVelocity*playerV);
+    SetSpeed(nVelocity * playerV);
     PhysicsState::Update(elapsedTime);
 }
 

@@ -15,16 +15,16 @@ Hud::Hud(Reloj *cds, float *coolDowns) {
     mCds = cds;
     mCoolDowns = coolDowns;
 
-    arrayPts = new sf::Vector2f[20]; //Fuego 1
-    arrayPts1 = new sf::Vector2f[50]; //Agua 1
-    arrayPts2 = new sf::Vector2f[100]; //Rayo 1
-    arrayPts3 = new sf::Vector2f[250]; // Agua 2
-    arrayPts4 = new sf::Vector2f[250]; // Fuego 2
-    arrayPts5 = new sf::Vector2f[150]; // Rayo 2
+//    arrayPts = new sf::Vector2f[20]; //Fuego 1
+//    arrayPts1 = new sf::Vector2f[128]; //Agua 1
+//    arrayPts2 = new sf::Vector2f[100]; //Rayo 1
+//    arrayPts3 = new sf::Vector2f[150]; // Agua 2
+//    arrayPts4 = new sf::Vector2f[250]; // Fuego 2
+//    arrayPts5 = new sf::Vector2f[150]; // Rayo 2
 
     std::string ruta = "resources/Textures/hudHealthBar.png";
     std::string ruta2 = "resources/Textures/barraVida.png";
-
+    
     barraVida.setTexture(ruta);
     barraVida.setScale(0.6f, 0.7f);
     barraVida.setSmooth(false);
@@ -98,6 +98,10 @@ Hud::Hud(Reloj *cds, float *coolDowns) {
     calculaRayo1();
     cargarRayo();
 
+    calculaAgua2();
+    calculaAgua1();
+    cargarAgua();
+    
 }
 
 Hud::Hud(const Hud& orig) {
@@ -109,7 +113,7 @@ Hud::~Hud() {
 void Hud::renderHud() {
     renderRayo1();
     renderRayo2();
-    
+    renderAgua1();
     Motor2D *m = Motor2D::Instance();
 
     m->draw(barraVida);
@@ -131,13 +135,22 @@ void Hud::renderHud() {
     transform.scale(0.5, 0.6);
     sf::RenderStates st;
     st.transform = transform;
+    
     m->draw(triangleRayo2, st);
     m->draw(triangleRayo1, st);
+    
+    //m->draw(triangleAgua2, st);
+    m->draw(triangleAgua1, st);
 
     m->draw(rBlanco);
     m->draw(rayoBueno);
     m->draw(rSombra);
     m->draw(rGlare);
+    
+    m->draw(aBlanco);
+    m->draw(aguaBueno);
+    m->draw(aSombra);
+    m->draw(aGlare);
 
 }
 
@@ -154,6 +167,8 @@ void Hud::cambiaHechizo(int activar) {
         case 1:
             fuego.setPosition(20, 745 + (rayo.getTextureSize().y * 2)*0.6);
             fuego.setTexture(fuegoGris);
+            break;
+            default:
             break;
     }
     switch (activar) {
@@ -172,11 +187,13 @@ void Hud::cambiaHechizo(int activar) {
             fuego.setTexture(fuegoT);
             activo = 1;
             break;
+        default:
+            break;
     }
 }
 
 void Hud::Update() {
-    std::cout<<Motor2D::Instance()->getMousePosition().x<<", "<<Motor2D::Instance()->getMousePosition().y<<std::endl;
+    //std::cout<<Motor2D::Instance()->getMousePosition().x<<", "<<Motor2D::Instance()->getMousePosition().y<<std::endl;
     float tRayo1 = mCoolDowns[0] - mCds[0].getTiempo();
     float tRayo2 = mCoolDowns[1] - mCds[1].getTiempo();
 
@@ -262,13 +279,14 @@ void Hud::calculaRayo1() {
     triangleRayo1.setPrimitiveType(sf::TrianglesFan);
     triangleRayo1.append(centro);
     triangleRayo1[0].color = sf::Color::Green;
-    
+   
     double radius = 120;
     const double PI = 3.14159265359;
     iRayo1 = 0;
     for (double angle = 2 * PI; angle >= PI; angle -= 0.021) {
         sf::Vector2f p(centro.x + radius * sin(angle), centro.y + radius * cos(angle));
-        arrayPts2[iRayo1] = p;
+        arrayPts2.push_back(p);
+        //arrayPts2[iRayo1] = p;
         iRayo1++;
     }
     iRayo1 = 1;
@@ -280,7 +298,9 @@ void Hud::renderRayo1() {
         if (r1.getTiempo() >= 0.03) {
 
             if (iRayo1 < 150) {
-                triangleRayo1.append(arrayPts2[iRayo1]);
+                triangleRayo1.append(arrayPts2.at(iRayo1));
+                //std::cout<<"arrayPts["<<iRayo1<<"]: "<<&triangleRayo1[iRayo1]<<std::endl;
+                //std::cout<<"arrayPts["<<iRayo1<<"] Pos: "<<triangleRayo1[iRayo1].position.x<<", "<<triangleRayo1[iRayo1].position.x<<std::endl;
                 triangleRayo1[iRayo1].color = sf::Color::Green;
                 triangleRayo1[iRayo1].color.a = 200;
             }
@@ -305,7 +325,8 @@ void Hud::calculaRayo2() {
     iRayo2 = 0;
     for (double angle = 0; angle <= PI; angle += 0.021) {
         sf::Vector2f p(centro.x + radius * sin(angle), centro.y + radius * cos(angle));
-        arrayPts5[iRayo2] = p;
+        arrayPts5.push_back(p);
+        //arrayPts5[iRayo2] = p;
         iRayo2++;
     }
     //sf::Vector2f v(arrayPts5[0].x, (arrayPts5[0].y)-(2*radius));
@@ -319,7 +340,7 @@ void Hud::renderRayo2() {
         if (r2.getTiempo() >= 0.13) {
 
             if (iRayo2 < 150) {
-                triangleRayo2.append(arrayPts5[iRayo2]);
+                triangleRayo2.append(arrayPts5.at(iRayo2));
                 triangleRayo2[iRayo2].color = sf::Color::Green;
                 triangleRayo2[iRayo2].color.a = 200;
             }
@@ -327,8 +348,6 @@ void Hud::renderRayo2() {
             iRayo2++;
         }
     }
-
-
 }
 
 void Hud::resetRayo2() {
@@ -346,7 +365,7 @@ void Hud::resetRayo1() {
     sf::Vector2f punto(1000, 1500);
     triangleRayo1.append(punto);
     triangleRayo1[0].color = sf::Color::Green;
-    iRayo1 = 0;
+    iRayo1 = 1;
     r1.restart();
     firstRayo1 = true;
 }
@@ -360,40 +379,40 @@ void Hud::cargarAgua() {
     
     aBlanco->setTexture("resources/Textures/hud/blanco.png", true);
     aBlanco->setOrigin(rBlanco->getTextureSize().x / 2, rBlanco->getTextureSize().y / 2);
-    aBlanco->setPosition(500, 900);
+    aBlanco->setPosition(800, 900);
     aBlanco->setScale(0.5, 0.6);
     
     aguaBueno->setTexture("resources/Textures/hud/agua.png", true);
     aguaBueno->setOrigin(rayoBueno->getTextureSize().x / 2, rayoBueno->getTextureSize().y / 2);
-    aguaBueno->setPosition(500, 900);
+    aguaBueno->setPosition(800, 900);
     aguaBueno->setScale(0.5, 0.6);
     
     aGlare->setTexture("resources/Textures/hud/glare.png", true);
     aGlare->setOrigin(rGlare->getTextureSize().x / 2, rGlare->getTextureSize().y / 2);
-    aGlare->setPosition(500, 900);
+    aGlare->setPosition(800, 900);
     aGlare->setScale(0.5, 0.6);
     
     aSombra->setTexture("resources/Textures/hud/sombra.png", true);
     aSombra->setOrigin(rSombra->getTextureSize().x / 2, rSombra->getTextureSize().y / 2);
-    aSombra->setPosition(500, 900);
+    aSombra->setPosition(800, 900);
     aSombra->setScale(0.5, 0.6);
     
 
     //Rellenamos al principio porque esta disponible
-    sf::Vector2f punto1(1000, 1500);
+    sf::Vector2f punto1(1600, 1500);
     triangleAgua2.append(punto1);
     triangleAgua2[0].color = sf::Color::Green;
-    for (int iAgua2 = 1; i < 150; iAgua2++) {
-        triangleAgua2.append(arrayPts5[iAgua2]);
+    /*for (int iAgua2 = 1; iAgua2 < 150; iAgua2++) {
+        triangleAgua2.append(arrayPts3.at(iAgua2));
         triangleAgua2[iAgua2].color = sf::Color::Green;
         triangleAgua2[iAgua2].color.a = 200;
-    }
+    }*/
     iAgua2 = 0;
-    sf::Vector2f punto2(1000, 1500);
+    sf::Vector2f punto2(1600, 1500);
     triangleAgua1.append(punto2);
     triangleAgua1[0].color = sf::Color::Green;
-    for (int iAgua1 = 1; iAgua1 < 150; iAgua1++) {
-        triangleAgua1.append(arrayPts2[iAgua1]);
+    for (int iAgua1 = 1; iAgua1 < 128; iAgua1++) {
+        triangleAgua1.append(arrayPts1.at(iAgua1));
         triangleAgua1[iAgua1].color = sf::Color::Green;
         triangleAgua1[iAgua1].color.a = 200;
     }
@@ -401,43 +420,56 @@ void Hud::cargarAgua() {
 }
 
 void Hud::calculaAgua1() {
-    sf::Vector2f punto(478, 502);
-    triangleRayo2.setPrimitiveType(sf::TrianglesFan);
-    triangleRayo2.append(punto);
-    triangleRayo2[0].color = sf::Color::Green;
-
-    sf::Vector2f centro(478, 502);
+    //128
+    //105*0.03 / 128 = 0,024
+    
+    sf::Vector2f centro(1600, 1500);
+    triangleAgua1.clear();
+    triangleAgua1.setPrimitiveType(sf::TrianglesFan);
+    triangleAgua1.append(centro);
+    triangleAgua1[0].color = sf::Color::Green;
+    
     double radius = 120;
     const double PI = 3.14159265359;
-    i = 0;
-    for (double angle = 0; angle <= PI; angle += 0.063) {
+    iAgua1 = 0;
+    for (double angle = 2 * PI; angle >= PI; angle -= 0.024) {
         sf::Vector2f p(centro.x + radius * sin(angle), centro.y + radius * cos(angle));
-        //triangleRayo2.append(p);
-        arrayPts1[i] = p;
-        i++;
+        arrayPts1.push_back(p);
+        //arrayPts1[iAgua1] = p;
+        iAgua1++;
     }
-    sf::Vector2f v(arrayPts1[0].x, (arrayPts1[0].y)-(2 * radius));
-    arrayPts1[50] = v;
-    i = 0;
+//    std::cout<<"Direccion memoria arrayPts1: "<<arrayPts1<<std::endl;
+//    std::cout<<"Direccion memoria arrayPts1[0]: "<<&arrayPts1[0]<<std::endl;
+//    std::cout<<"Direccion memoria arrayPts2: "<<arrayPts2<<std::endl;
+//    std::cout<<"Direccion memoria arrayPts2[0]: "<<&arrayPts2[0]<<std::endl;
+    iAgua1 = 1;
 }
 
 void Hud::renderAgua1() {
-    if (r2.getTiempo() > 0.15) {
-        r2.restart();
-        if (i < 50) {
-            triangleRayo2.append(arrayPts1[i]);
-            triangleRayo2[i].color = sf::Color::Green;
-            triangleRayo2[i].color.a = 200;
-            i++;
-        }
-        if (i == 50) {
-            sf::Vector2f v(arrayPts1[0].x, (arrayPts1[0].y)-(2 * 120));
-            triangleRayo2.append(v);
-            triangleRayo2[50].color = sf::Color::Green;
-            triangleRayo2[50].color.a = 200;
+    if (firstAgua1) {
+        if (a1.getTiempo() >= mCoolDowns[2]/128) {
+
+            if (iAgua1 < 128) {
+                triangleAgua1.append(arrayPts1.at(iAgua1));
+                triangleAgua1[iAgua1].color = sf::Color::Green;
+                triangleAgua1[iAgua1].color.a = 200;
+            }
+            a1.restart();
+            iAgua1++;
         }
     }
 }
+
+void Hud::resetAgua1() {
+    triangleAgua1.clear();
+    sf::Vector2f punto(1600, 1500);
+    triangleAgua1.append(punto);
+    triangleAgua1[0].color = sf::Color::Green;
+    iAgua1 = 0;
+    a1.restart();
+    firstAgua1 = true;
+}
+
 
 void Hud::calculaAgua2() {
 

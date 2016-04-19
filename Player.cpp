@@ -86,6 +86,11 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     
     cds[0] = hRayoBasico->getCD();
     cds[1] = hRayoAvanzado->getCD();
+    cds[2] = hAguaBasico->getCD();
+    cds[3] = hAguaAvanzado->getCD();
+    cds[4] = hFuegoBasico->getCD();
+    cds[5] = hFuegoAvanzado->getCD();
+    
     hud = new Hud(relojes,cds);
 
     if(!texturaPlayer.loadFromFile("resources/Textures/player.png")){
@@ -472,7 +477,10 @@ void Player::updateRayo(bool isShooting) {
             } else {//entras si no disparas o si no ha pasado el tiempo de enfriamiento
                 if (aux == true) {//entras si acabas de soltar el raton
                     hRayoBasico->tiempoCd.restart();
-                    hud->resetRayo1();
+                    //if(hRayoBasico->primerCast)
+                       hud->resetRayo1(); 
+                    //}
+                    
                     // std::cout<<"Inicio den CD"<<std::endl;
                     aux = false; //no entra mas aqui para no hacer restart dl cd
                 }
@@ -532,7 +540,7 @@ void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time e
 
 void Player::updateAgua(bool aguaBasicCast, bool aguaAdvancedCast, sf::Time elapsedTime, sf::Vector2f movement) {
     if (aguaBasicCast) {
-        hAguaBasico->cast(sf::Vector2f(getPosition()));
+        hAguaBasico->cast(sf::Vector2f(getPosition()), hud);
     }
     if ( hAguaBasico->tiempoCast.getTiempo() < 0.5f &&  hAguaBasico->dibujar == true) {
         hAguaBasico->Update(movement, elapsedTime,getVelocidad());

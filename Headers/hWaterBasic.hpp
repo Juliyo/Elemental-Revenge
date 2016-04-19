@@ -16,6 +16,7 @@
 
 #include "Hechizo.hpp"
 #include "../Motor/Motor2D.hpp"
+#include "Hud.hpp"
 
 
 class hWaterBasic:public Hechizo {
@@ -23,7 +24,7 @@ public:
     hWaterBasic();
     hWaterBasic(const hWaterBasic& orig);
     virtual ~hWaterBasic();
-    void cast(sf::Vector2f);
+    void cast(sf::Vector2f, Hud *hud);
     void DrawWithInterpolation( float interpolation);
     void Update(sf::Vector2f velocity, sf::Time elapsedTime, float playerV);
     void setDibujar(bool NuevoDibujar);

@@ -16,6 +16,8 @@
 #include <SFML/Graphics.hpp>
 #include "../Motor/Motor2D.hpp"
 #include "../Motor/Text.hpp"
+#include <iostream>
+#include <vector>
 
 class Hud {
 public:
@@ -30,6 +32,12 @@ public:
     void Update();
     void resetRayo2();
     void resetRayo1();
+    
+    void resetAgua1();
+    void resetAgua2();
+    
+    void resetFuego1();
+    void resetFuego2();
 private:
     Sprite barraVida;
     sf::IntRect shapeVida;
@@ -83,14 +91,20 @@ private:
     Sprite       *aSombra;
     
     //Fuego
+    
+    std::vector<sf::Vector2f> arrayPts;
+    std::vector<sf::Vector2f> arrayPts1;
+    std::vector<sf::Vector2f> arrayPts2;
+    std::vector<sf::Vector2f> arrayPts3;
+    std::vector<sf::Vector2f> arrayPts4;
+    std::vector<sf::Vector2f> arrayPts5;
 
-
-    sf::Vector2f *arrayPts; // Fuego 1
-    sf::Vector2f *arrayPts1; // Agua1
-    sf::Vector2f *arrayPts2; // Rayo 1
-    sf::Vector2f *arrayPts3; // Agua 2
-    sf::Vector2f *arrayPts4; // Fuego 2
-    sf::Vector2f *arrayPts5; // Rayo 2
+//    sf::Vector2f arrayPts[20]; // Fuego 1
+//    sf::Vector2f arrayPts1[128]; // Agua1
+//    sf::Vector2f arrayPts2[100]; // Rayo 1
+//    sf::Vector2f arrayPts3[150]; // Agua 2
+//    sf::Vector2f arrayPts4[250]; // Fuego 2
+//    sf::Vector2f arrayPts5[150]; // Rayo 2
 
     Reloj r2,r1,a1,a2,f1,f2;
     int i;
@@ -128,6 +142,12 @@ private:
     
     bool firstRayo1 = false;
     bool firstRayo2 = false;
+    
+    bool firstAgua1 = false;
+    bool firstAgua2 = false;
+    
+    bool firstFuego1 = false;
+    bool firstFuego2 = false;
 };
 
 #endif /* HUD_HPP */
