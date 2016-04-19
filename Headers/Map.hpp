@@ -21,7 +21,7 @@ public:
     Map();
     Map(const Map& orig);
     virtual ~Map();
-    void leerMapa(int numMapa);
+    void leerMapa(int numMapa, int versionMapa);
     void leerMapa2();
     void dibujaMapa1();
     void dibuja2Mapa1();
@@ -50,7 +50,7 @@ private:
 
 
 
-
+    int cuenta=0;
 };
 
 

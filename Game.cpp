@@ -304,7 +304,27 @@ void Game::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
         EstadoCarga2 -> EstadoActivo = true;
         estadoCarga2 = true;
         
+
+
+        
+        if(EstadoTransition->level==2){
+            if(EstadoTransition->getIzqODer()==1){
+            EstadoInGame->mapa->leerMapa(EstadoTransition->level,1);
+        }
+        
+        if(EstadoTransition->getIzqODer()==2){
+            EstadoInGame->mapa->leerMapa(EstadoTransition->level,2);
+        }
+        
+        }else{
+            EstadoInGame->mapa->leerMapa(EstadoTransition->level,0);
+        }
+        
+        EstadoInGame->EstadoActivo = true;
+
+
         thread2->launch();
+
     }
 
 }
@@ -313,10 +333,11 @@ void Game::cargarMapa() {
     EstadoTransition->EstadoActivo = false;
     EstadoTransition->preguntaContestada = false;
 
-    //delete EstadoInGame->mapa;
+    EstadoInGame->mapa->~Map();
 
     EstadoInGame->mapa = new Map();
-    EstadoInGame->mapa->leerMapa(EstadoTransition->level);
+    //EstadoInGame->mapa->leerMapa(2);
+    
     
     EstadoInGame->EstadoActivo = true;
     estadoInGame = true;
