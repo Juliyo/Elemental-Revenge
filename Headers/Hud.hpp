@@ -66,11 +66,24 @@ private:
     Text *cdRayo2;
 
     bool *draws;
-
-    sf::Texture glare, blanco, sombra;
     
     //Rayo
-    Sprite rayoBueno, rBlanco, rGlare, rRayo, rSombra;
+    Sprite      *rayoBueno;
+    Sprite       *rBlanco;
+    Sprite       *rGlare;
+    Sprite       *rRayo;
+    Sprite       *rSombra;
+    
+    //Agua
+    
+    Sprite      *aguaBueno;
+    Sprite       *aBlanco;
+    Sprite       *aGlare;
+    Sprite       *aRayo;
+    Sprite       *aSombra;
+    
+    //Fuego
+
 
     sf::Vector2f *arrayPts; // Fuego 1
     sf::Vector2f *arrayPts1; // Agua1
@@ -90,6 +103,9 @@ private:
     
     sf::VertexArray triangleRayo2;
     sf::VertexArray triangleRayo1;
+    
+    sf::VertexArray triangleAgua2;
+    sf::VertexArray triangleAgua1;
     
     void cargarRayo();
     

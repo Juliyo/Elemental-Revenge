@@ -60,7 +60,6 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
     if (EstadoTransition->EstadoActivo) {
         EstadoTransition->Update(elapsedTime);
     }
-
 }
 
 void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja

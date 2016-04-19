@@ -94,7 +94,6 @@ Hud::Hud(Reloj *cds, float *coolDowns) {
 
     activo = 2;
     
-    
     calculaRayo2();
     calculaRayo1();
     cargarRayo();
@@ -210,22 +209,28 @@ void Hud::updateHud(float vidas) {
 }
 
 void Hud::cargarRayo() {
-    rBlanco.setTexture("resources/Textures/hud/blanco.png", true);
-    rBlanco.setOrigin(rBlanco.getTextureSize().x / 2, rBlanco.getTextureSize().y / 2);
-    rBlanco.setPosition(500, 900);
-    rBlanco.setScale(0.5, 0.6);
-    rayoBueno.setTexture("resources/Textures/hud/rayo.png", true);
-    rayoBueno.setOrigin(rayoBueno.getTextureSize().x / 2, rayoBueno.getTextureSize().y / 2);
-    rayoBueno.setPosition(500, 900);
-    rayoBueno.setScale(0.5, 0.6);
-    rGlare.setTexture("resources/Textures/hud/glare.png", true);
-    rGlare.setOrigin(rGlare.getTextureSize().x / 2, rGlare.getTextureSize().y / 2);
-    rGlare.setPosition(500, 900);
-    rGlare.setScale(0.5, 0.6);
-    rSombra.setTexture("resources/Textures/hud/sombra.png", true);
-    rSombra.setOrigin(rSombra.getTextureSize().x / 2, rSombra.getTextureSize().y / 2);
-    rSombra.setPosition(500, 900);
-    rSombra.setScale(0.5, 0.6);
+    
+    rBlanco = new Sprite();
+    rayoBueno = new Sprite();
+    rGlare = new Sprite();
+    rSombra = new Sprite();
+    
+    rBlanco->setTexture("resources/Textures/hud/blanco.png", true);
+    rBlanco->setOrigin(rBlanco->getTextureSize().x / 2, rBlanco->getTextureSize().y / 2);
+    rBlanco->setPosition(500, 900);
+    rBlanco->setScale(0.5, 0.6);
+    rayoBueno->setTexture("resources/Textures/hud/rayo.png", true);
+    rayoBueno->setOrigin(rayoBueno->getTextureSize().x / 2, rayoBueno->getTextureSize().y / 2);
+    rayoBueno->setPosition(500, 900);
+    rayoBueno->setScale(0.5, 0.6);
+    rGlare->setTexture("resources/Textures/hud/glare.png", true);
+    rGlare->setOrigin(rGlare->getTextureSize().x / 2, rGlare->getTextureSize().y / 2);
+    rGlare->setPosition(500, 900);
+    rGlare->setScale(0.5, 0.6);
+    rSombra->setTexture("resources/Textures/hud/sombra.png", true);
+    rSombra->setOrigin(rSombra->getTextureSize().x / 2, rSombra->getTextureSize().y / 2);
+    rSombra->setPosition(500, 900);
+    rSombra->setScale(0.5, 0.6);
 
     //Rellenamos al principio porque esta disponible
     sf::Vector2f punto1(1000, 1500);
@@ -237,15 +242,15 @@ void Hud::cargarRayo() {
         triangleRayo2[i].color.a = 200;
     }
     iRayo2 = 0;
-
     sf::Vector2f punto2(1000, 1500);
     triangleRayo1.append(punto2);
     triangleRayo1[0].color = sf::Color::Green;
-    for (int i = 1; i < 150; i++) {
-        triangleRayo1.append(arrayPts2[i]);
-        triangleRayo1[i].color = sf::Color::Green;
-        triangleRayo1[i].color.a = 200;
+    for (int iRayo1 = 1; iRayo1 < 150; iRayo1++) {
+        triangleRayo1.append(arrayPts2[iRayo1]);
+        triangleRayo1[iRayo1].color = sf::Color::Green;
+        triangleRayo1[iRayo1].color.a = 200;
     }
+    i=0;
     iRayo1 = 0;
 }
 
@@ -348,6 +353,51 @@ void Hud::resetRayo1() {
 
 void Hud::cargarAgua() {
 
+    aBlanco = new Sprite();
+    aguaBueno = new Sprite();
+    aGlare = new Sprite();
+    aSombra = new Sprite();
+    
+    aBlanco->setTexture("resources/Textures/hud/blanco.png", true);
+    aBlanco->setOrigin(rBlanco->getTextureSize().x / 2, rBlanco->getTextureSize().y / 2);
+    aBlanco->setPosition(500, 900);
+    aBlanco->setScale(0.5, 0.6);
+    
+    aguaBueno->setTexture("resources/Textures/hud/agua.png", true);
+    aguaBueno->setOrigin(rayoBueno->getTextureSize().x / 2, rayoBueno->getTextureSize().y / 2);
+    aguaBueno->setPosition(500, 900);
+    aguaBueno->setScale(0.5, 0.6);
+    
+    aGlare->setTexture("resources/Textures/hud/glare.png", true);
+    aGlare->setOrigin(rGlare->getTextureSize().x / 2, rGlare->getTextureSize().y / 2);
+    aGlare->setPosition(500, 900);
+    aGlare->setScale(0.5, 0.6);
+    
+    aSombra->setTexture("resources/Textures/hud/sombra.png", true);
+    aSombra->setOrigin(rSombra->getTextureSize().x / 2, rSombra->getTextureSize().y / 2);
+    aSombra->setPosition(500, 900);
+    aSombra->setScale(0.5, 0.6);
+    
+
+    //Rellenamos al principio porque esta disponible
+    sf::Vector2f punto1(1000, 1500);
+    triangleAgua2.append(punto1);
+    triangleAgua2[0].color = sf::Color::Green;
+    for (int iAgua2 = 1; i < 150; iAgua2++) {
+        triangleAgua2.append(arrayPts5[iAgua2]);
+        triangleAgua2[iAgua2].color = sf::Color::Green;
+        triangleAgua2[iAgua2].color.a = 200;
+    }
+    iAgua2 = 0;
+    sf::Vector2f punto2(1000, 1500);
+    triangleAgua1.append(punto2);
+    triangleAgua1[0].color = sf::Color::Green;
+    for (int iAgua1 = 1; iAgua1 < 150; iAgua1++) {
+        triangleAgua1.append(arrayPts2[iAgua1]);
+        triangleAgua1[iAgua1].color = sf::Color::Green;
+        triangleAgua1[iAgua1].color.a = 200;
+    }
+    iAgua1 = 0;
 }
 
 void Hud::calculaAgua1() {
