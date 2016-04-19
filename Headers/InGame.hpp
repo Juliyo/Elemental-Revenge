@@ -16,9 +16,11 @@
 
 #include "State.hpp"
 #include "../Motor/Motor2D.hpp"
+#include "../Motor/Video.hpp"
 #include "SFML/System.hpp"
 #include <Map.hpp>
 #include <SFML/Audio.hpp>
+
 
 class InGame:public State {
 public:
@@ -63,7 +65,7 @@ private:
     Sprite                      mouseSprite;
     
     
-    
+    Video *video;
     //Eventos
     bool			isMovingUp;
     bool			isMovingDown;

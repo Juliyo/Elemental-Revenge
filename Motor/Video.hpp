@@ -17,20 +17,23 @@
 
 class Video {
 public:
-    Video(std::string ruta, int f, int x, int y, int tipo, sf::Vector2f scale);
+    Video(std::string ruta, int f, int x, int y, int tipo, sf::Vector2f scale, bool setOrigin = false, sf::Vector2f size = sf::Vector2f(0,0));
     Video(const Video& orig);
     virtual ~Video();
     
     void PlayVideo();
     bool setDibujar(bool a);
-    bool getDibujar(bool a);
+    bool getDibujar();
+    bool getLooped();
 private:
     Sprite *frames;
     std::string mRuta;
     int numFrames;
     int current_frame;
     
+    bool looped=false;;
     bool dibujar;
+    sf::Vector2f origin;
 };
 
 #endif /* VIDEO_HPP */

@@ -16,17 +16,30 @@
 #include "../Headers/StringHelpers.hpp"
 
 
-Video::Video(std::string ruta, int f, int x, int y, int tipo, sf::Vector2f scale) {
+Video::Video(std::string ruta, int f, int x, int y, int tipo, sf::Vector2f scale, bool setOrigin, sf::Vector2f size) {
     mRuta=ruta;
     numFrames=f;
     frames = new Sprite[numFrames];
     current_frame=0;
     dibujar=false;
+    origin.x = size.x/2;
+    origin.y = size.y/2;
     for(int i=0; i < numFrames;i++){
         if(tipo == 0){
-            frames[i].setTexture(ruta + toString(i) + ".png");
+            if(setOrigin){
+                frames[i].setTexture(ruta + toString(i) + ".png");
+                frames[i].setOrigin(origin.x,origin.y);
+            }else{
+                frames[i].setTexture(ruta + toString(i) + ".png");
+            }
+            
         }else if(tipo == 1){
-            frames[i].setTexture(ruta + toString(i) + ".gif");
+            if(setOrigin){
+                frames[i].setTexture(ruta + toString(i) + ".gif");
+                frames[i].setOrigin(origin.x,origin.y);
+            }else{
+                frames[i].setTexture(ruta + toString(i) + ".gif");
+            }
         }
         
         frames[i].setSmooth(true);
@@ -47,6 +60,7 @@ void Video::PlayVideo(){
         current_frame++;
         if(current_frame >= numFrames){
             current_frame=0;
+            looped = true;
         }
         dibujar=false;
     }else{
@@ -54,11 +68,14 @@ void Video::PlayVideo(){
     }
 }
 
-bool Video::getDibujar(bool a) {
-    return a;
+bool Video::getDibujar() {
+    return dibujar;
 }
 
 bool Video::setDibujar(bool a) {
     dibujar=a;
 }
 
+bool Video::getLooped() {
+    return looped;
+}

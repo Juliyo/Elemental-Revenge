@@ -278,7 +278,6 @@ void Game::cargarInGameTransition() {
     EstadoTransition = new Transition();
     EstadoCarga1 -> transitionCargado();
     EstadoInGame = new InGame();
-    EstadoCarga1 -> ingameCargado();
 
     EstadoTransition -> EstadoActivo = true;
     estadoTransition = true;
@@ -334,9 +333,9 @@ void Game::cargarMapa() {
         EstadoInGame->mapa->leerMapa(EstadoTransition->level, 0);
     }
 
-
     EstadoInGame->EstadoActivo = true;
     estadoInGame = true;
+    //sf::sleep(sf::seconds(10));
     EstadoCarga2->EstadoActivo = false;
     
     EstadoTransition->musica->pause();

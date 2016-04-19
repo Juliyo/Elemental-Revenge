@@ -64,7 +64,7 @@ Carga1::Carga1() {
     
     reloj1 = new Reloj();
     
-    video = new Video("resources/Videos/solaire/frame-",36,180,105,1,sf::Vector2f(1,1));
+    video = new Video("resources/Videos/solaire/frame-",36,180,105,1,sf::Vector2f(1,1),false);
 }
 
 Carga1::Carga1(const Carga1& orig) {
@@ -126,7 +126,4 @@ void Carga1::transitionCargado() {
     mensaje->setString("Juego++;");
 }
 
-void Carga1::ingameCargado() {
-    
-}
 

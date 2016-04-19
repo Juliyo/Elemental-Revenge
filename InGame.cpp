@@ -51,15 +51,15 @@ InGame::InGame() {
     player -> Inicializar(850.f, 800.f);
 
     motor->setZoomToView(0.5f, 1); //1=vista del mundo(nuestra pantalla)
-    motor->setCenterForView(1, 200,200);
-    
+
+    updateView();
 
     //mapa = new Map();
-   // motor->setCenterForView(1, 900,850);
-    //motor->SetView(1);
+    motor->setCenterForView(1, 900,850);
+    motor->SetView(1);
     mapa = new Map();
-    
-        musica = new sf::Music();
+    video = new Video("resources/Videos/nubes/nube", 30, 495, 500,0,sf::Vector2f(0.8,1.4),true,sf::Vector2f(1280,720));
+    musica = new sf::Music();
     musica->openFromFile("resources/Sounds/InGame.ogg");
     musica->setVolume(50);
 }
@@ -71,7 +71,7 @@ InGame::~InGame() {
 }
 
 void InGame::Update(sf::Time elapsedTime) {
-
+    
     if (!firstTime) {
         sf::Vector2f movement(0.f, 0.f);
         if (isMovingUp)
@@ -113,7 +113,12 @@ void InGame::Update(sf::Time elapsedTime) {
             player->hRayoAvanzado->draw = false;
             player->hRayoAvanzado->StopAnimation();
         }
-
+        if(!video -> getLooped()){
+            video->setDibujar(true);
+        }
+        
+    }else{
+        sf::sleep(sf::seconds(5));
     }
 
     firstTime = false;
@@ -244,10 +249,13 @@ void InGame::render(float interpolation, sf::Time elapsedTime) {
     if (mapa->getMapaActual() == 3) {
         mapa->dibuja2Mapa3();
     }
-
+    
+    
     motor->SetView(2); //vista del HUD
     player -> hud->renderHud();
-
+    if(!video -> getLooped()){
+            video -> PlayVideo();
+    }
     motor->SetView(1); //vista del juego
 
     motor->draw(mouseSprite);
