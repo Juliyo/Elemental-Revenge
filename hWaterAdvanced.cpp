@@ -12,13 +12,11 @@
  */
 
 #include "hWaterAdvanced.hpp"
+#include "Hud.hpp"
 
 hWaterAdvanced::hWaterAdvanced() {
 
     animationDurante = new Animation();
-
-
-
     animationDurante->setSpriteSheet("resources/Textures/AguaHardcore.png");
     animationDurante->addFrame(sf::IntRect(5, 97, 95, 60));
     animationDurante->addFrame(sf::IntRect(100, 97, 95, 60));
@@ -34,6 +32,7 @@ hWaterAdvanced::hWaterAdvanced() {
     InicializarAnimatedSprite(sf::seconds(0.05f), true, false);
     SetOriginAnimatedSprite(95 / 2, 60 / 2);
 
+    setCD(10.f);
     //***********************************************
     clockCd.restart();
 
@@ -45,14 +44,14 @@ hWaterAdvanced::hWaterAdvanced(const hWaterAdvanced& orig) {
 hWaterAdvanced::~hWaterAdvanced() {
 }
 
-void hWaterAdvanced::cast(sf::Vector2f posicion) {
+void hWaterAdvanced::cast(sf::Vector2f posicion, Hud *hud) {
 
-    if (clockCd.getTiempo() > 5 || primerCast == true) {
+    if (clockCd.getTiempo() > hCd || primerCast == true) {
         primerCast = false;
         clockCd.restart();
         tiempoInicio.restart();
         SetPosition(posicion);
-        
+        hud->resetAgua2();
         float angleShot = Motor2D::Instance()->getAngleShot(posicion);
         angleshot2 = angleShot;
         

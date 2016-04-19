@@ -17,6 +17,7 @@
 #include "Hechizo.hpp"
 #include "../Motor/Motor2D.hpp"
 #include "../Motor/Reloj.hpp"
+#include "Hud.hpp"
 
 
 class hWaterAdvanced:public Hechizo {
@@ -24,7 +25,7 @@ public:
     hWaterAdvanced();
     hWaterAdvanced(const hWaterAdvanced& orig);
     virtual ~hWaterAdvanced();
-    void cast(sf::Vector2f pos);
+    void cast(sf::Vector2f pos, Hud *hud);
     void UpdateHechizo(sf::Vector2f velocity, sf::Time elapsedTime);
     void setDibujar(bool NuevoDibujar);
     void DrawWithInterpolation( float interpolation);

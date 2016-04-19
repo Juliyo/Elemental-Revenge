@@ -92,7 +92,7 @@ void InGame::Update(sf::Time elapsedTime) {
     //********************************AGUA*****************************************
     player->updateAgua(aguaBasicCast, aguaAdvancedCast, elapsedTime, movement);
     //********************************HUD*****************************************
-    player->hud->Update();
+    //player->hud->Update();
     //*********************HEAL**********************************
 
     if (isHealing) {

@@ -13,7 +13,7 @@
 
 #include "ProgressBar.hpp"
 
-ProgressBar::ProgressBar(float r, int nFrames, sf::Vector2f center, int tiempo, bool izquierda, sf::Vector2f escala, sf::Color color1, sf::Color color2) {
+ProgressBar::ProgressBar(float r, int nFrames, sf::Vector2f center, float tiempo, bool izquierda, sf::Vector2f escala, sf::Color color1, sf::Color color2) {
     radio = r;
     numFrames = nFrames;
     centro = center;
@@ -96,7 +96,7 @@ void ProgressBar::reset() {
 }
 
 void ProgressBar::setTime(int tiempo) {
-    m_frameTime = sf::seconds(tiempo / (float) numFrames);
+    m_frameTime = sf::seconds(tiempo / (float) numFrames+1);
 }
 
 void ProgressBar::rellena() {

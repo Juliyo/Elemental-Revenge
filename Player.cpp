@@ -88,7 +88,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     cds[1] = hRayoAvanzado->getCD();
     cds[2] = hAguaBasico->getCD();
     cds[3] = hAguaAvanzado->getCD();
-    cds[4] = hFuegoBasico->getCD();
+    cds[4] = CDFire;
     cds[5] = hFuegoAvanzado->getCD();
     
     hud = new Hud(relojes,cds);
@@ -507,6 +507,7 @@ void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time e
                 clockCDFire.restart();
                 hFuegoBasico[contFuego].cast(sf::Vector2f(getPosition()));
                 castFire.restart();
+                hud->resetFuego1();
             }
             contFuego++;
         }
@@ -529,6 +530,8 @@ void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time e
                 hFuegoAvanzado->actualSize.y = 0.3;
                 hFuegoAvanzado->SetScale(0.3, 0.3);
                 hFuegoAvanzado->cast(sf::Vector2f(getPosition()));
+                
+                hud->resetFuego2();
             }
         }
 
@@ -583,7 +586,7 @@ void Player::updateAgua(bool aguaBasicCast, bool aguaAdvancedCast, sf::Time elap
 
     sf::Vector2f movement4(0.f, 0.f);
     if (aguaAdvancedCast) { //onMouseButtonRealeased
-        hAguaAvanzado->cast(sf::Vector2f(getPosition()));
+        hAguaAvanzado->cast(sf::Vector2f(getPosition()),hud);
     }
     if (hAguaAvanzado->tiempoCast.getTiempo() < 2.5 && hAguaAvanzado->dibujar == true) {
         movement4.x = (40 * cos(hAguaAvanzado->angleshot2) * 11.0f);

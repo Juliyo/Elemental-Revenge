@@ -63,11 +63,11 @@ hWaterBasic::hWaterBasic() {
 }
 
 hWaterBasic::hWaterBasic(const hWaterBasic& orig) {
+    
 }
 
 hWaterBasic::~hWaterBasic() {
-
-
+    
 }
 
 void hWaterBasic::cast(sf::Vector2f posicion, Hud *hud) {

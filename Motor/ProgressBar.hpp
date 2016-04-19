@@ -22,7 +22,7 @@ const double PI = 3.14159265359;
 class ProgressBar {
 public:
 
-    ProgressBar(float r, int nFrames, sf::Vector2f center, int tiempo, bool izquierda, sf::Vector2f escala, sf::Color color1 = sf::Color::Green, sf::Color color2 = sf::Color::Green);
+    ProgressBar(float r, int nFrames, sf::Vector2f center, float tiempo, bool izquierda, sf::Vector2f escala, sf::Color color1 = sf::Color::Green, sf::Color color2 = sf::Color::Green);
 
     void setTime(int tiempo);
     
