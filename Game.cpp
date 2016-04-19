@@ -17,8 +17,8 @@ const float segStatistics = 0.5f; //segundos de refresco de las estadisticas
 /************ CONSTRUCTOR **************/
 Game::Game() {
     
-    thread = new sf::Thread(&cargarInGameTransition, this);
-    thread2 = new sf::Thread(&cargarMapa, this);
+    thread = new sf::Thread(&Game::cargarInGameTransition, this);
+    thread2 = new sf::Thread(&Game::cargarMapa, this);
     motor = Motor2D::Instance();
     motor->Inicializar();
     motor->inicializarVentana("Hito 2 - Intento Motor", 1280, 720);
