@@ -52,6 +52,10 @@ InGame::InGame() {
 
     motor->setZoomToView(0.5f, 1); //1=vista del mundo(nuestra pantalla)
     motor->setCenterForView(1, 200,200);
+    
+    musica = new sf::Music();
+    musica->openFromFile("resources/Sounds/InGame.ogg");
+    musica->setVolume(50);
     //mapa = new Map();
 }
 

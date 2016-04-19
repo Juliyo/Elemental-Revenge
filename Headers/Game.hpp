@@ -43,7 +43,7 @@ private:
     void updateView();
     void UpdatePlayerAnimation();
     Motor2D *motor;
-
+   
 
 
 private:
@@ -57,6 +57,7 @@ private:
     Muerte *EstadoMuerte;
     Carga1 *EstadoCarga1;
     Carga2 *EstadoCarga2;
+    
     
     float interpolation;
     

@@ -18,6 +18,7 @@
 #include "../Motor/Motor2D.hpp"
 #include "SFML/System.hpp"
 #include <Map.hpp>
+#include <SFML/Audio.hpp>
 
 class InGame:public State {
 public:
@@ -37,6 +38,7 @@ public:
     void			renderForPause(float interpolation, sf::Time elapsedTime);
     void                        updateViewForPause();
     Map                         *mapa;
+    sf::Music                   *musica;
     
 private:
     

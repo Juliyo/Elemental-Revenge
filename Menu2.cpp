@@ -16,6 +16,8 @@
 Menu2::Menu2() {
 
     musica = new sf::Music();
+    
+    
     motor = Motor2D::Instance();
 
     srand(time(NULL));
@@ -136,6 +138,16 @@ Menu2::Menu2() {
     selectedItemIndex = 0;
 
     musica->play();
+    
+    musicaFondo = new sf::Music();
+    musicaFondo->openFromFile("resources/Sounds/Magicka2.ogg");
+    musicaFondo->play();
+    musicaFondo->setVolume(30);
+
+
+    
+
+    
 }
 
 Menu2::Menu2(const Menu2& orig) {
@@ -335,13 +347,14 @@ void Menu2::updateView() {
 }
 
 void Menu2::pararMusica() {
+
     musica->stop();
 }
 
 void Menu2::cargarAnimacionesMenu() {
     if (random == 0) {
         musica->openFromFile("resources/Sounds/Cascada.ogg");
-
+        musica->setVolume(7);
         if (!texturaAnimation.loadFromFile("resources/MenuInicio/SpritesheetMenu.png")) {
             std::cout << "Error cargando la textura: " << "resources/MenuInicio/SpritesheetMenu.png" << std::endl;
             exit(0);
@@ -366,6 +379,7 @@ void Menu2::cargarAnimacionesMenu() {
     if (random == 1) {
 
         musica->openFromFile("resources/Sounds/CasaFuego.ogg");
+        musica->setVolume(7);
 
 
         EstadoActivo = true;
@@ -421,7 +435,7 @@ void Menu2::cargarAnimacionesMenu() {
 
     if (random == 2) {
         musica->openFromFile("resources/Sounds/Truenos.ogg");
-
+        musica->setVolume(7);
 
         EstadoActivo = true;
         tecladoActivo = false;

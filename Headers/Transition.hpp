@@ -19,6 +19,8 @@
 #include "tinystr.h"
 #include "tinyxml.h"
 #include "../Motor/Video.hpp"
+#include <SFML/Audio.hpp>
+#include <SFML/System.hpp>
 
 class Transition : public State {
 public:
@@ -40,10 +42,12 @@ public:
 
     node *currentNode;
     node *firstNode;
-
+    sf::Music *musica;
 
 private:
 
+    
+    
     //Recursos
     sf::Texture texturaFondo;
     sf::Texture texPregunta;

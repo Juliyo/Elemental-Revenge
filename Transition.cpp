@@ -133,6 +133,12 @@ Transition::Transition() {
     cruzeta2->setScale(0.25, 0.25);
 
     video = new Video("resources/Videos/moltoFondaco/frame-", 9, 145, 110,1,sf::Vector2f(1.7,1.7));
+    
+    musica = new sf::Music();
+    musica->openFromFile("resources/Sounds/history.ogg");
+    musica->setVolume(70);
+    
+    
 
 }
 

@@ -22,7 +22,7 @@ Game::Game() {
     motor = Motor2D::Instance();
     motor->Inicializar();
     motor->inicializarVentana("Hito 2 - Intento Motor", 1280, 720);
-
+    
     /* EstadoInGame = new InGame();
      EstadoTransition = new Transition();
      EstadoPause = new Pause();
@@ -158,12 +158,14 @@ void Game::processEvents() //Captura y procesa eventos
                 if (estadoMenu == true && EstadoMenu->EstadoActivo) {
                     EstadoMenu->handleMouseInput(event.mouseButton.button, true);
                     if (EstadoMenu->getSetectedItemIndex() == 0) {
+                        EstadoMenu->pararMusica();
                         EstadoMenu->EstadoActivo = false;
                         EstadoCarga1 = new Carga1();
                         EstadoCarga1 -> EstadoActivo = true;
                         estadoCarga1 = true;
 
                         thread->launch();
+                        
                     }
                 }
                 break;
@@ -211,6 +213,8 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         }
         if (estadoTransition == true) {
             EstadoTransition->EstadoActivo = true;
+            EstadoInGame->musica->stop();
+            EstadoTransition->musica->play();
         }
         if (estadoPause == true) {
             EstadoPause->EstadoActivo = false;
@@ -279,6 +283,8 @@ void Game::cargarInGameTransition() {
     EstadoTransition -> EstadoActivo = true;
     estadoTransition = true;
     EstadoCarga1 -> EstadoActivo = false;
+    EstadoMenu->musicaFondo->stop();
+    EstadoTransition->musica->play();
 }
 
 void Game::handlePlayerInput2(sf::Keyboard::Key key, bool isPressed) {
@@ -315,4 +321,8 @@ void Game::cargarMapa() {
     EstadoInGame->EstadoActivo = true;
     estadoInGame = true;
     EstadoCarga2->EstadoActivo = false;
+    
+    EstadoTransition->musica->pause();
+    EstadoInGame->musica->play();
+    
 }
