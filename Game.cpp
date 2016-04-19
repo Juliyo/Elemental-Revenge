@@ -327,10 +327,11 @@ void Game::cargarMapa() {
     EstadoTransition->EstadoActivo = false;
     EstadoTransition->preguntaContestada = false;
 
-    //delete EstadoInGame->mapa;
+    EstadoInGame->mapa->~Map();
 
     EstadoInGame->mapa = new Map();
-    EstadoInGame->mapa->leerMapa(EstadoTransition->level);
+    //EstadoInGame->mapa->leerMapa(2);
+    
     
     EstadoInGame->EstadoActivo = true;
     estadoInGame = true;

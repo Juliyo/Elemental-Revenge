@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="160" height="160" tilewidth="16" tileheight="16" nextobjectid="1">
- <tileset firstgid="1" name="tilesetReboot2" tilewidth="16" tileheight="16" tilecount="2750" columns="50">
-  <image source="tilesetReboot2.png" width="807" height="887"/>
+ <tileset firstgid="1" name="tilesetAbandonada2New" tilewidth="16" tileheight="16" tilecount="2750" columns="50">
+  <image source="tilesetAbandonada2New.png" width="807" height="887"/>
  </tileset>
  <layer name="Capa de Patrones 1" width="160" height="160">
   <data>

@@ -148,6 +148,7 @@ void Map::leerMapa(int numMapa, int versionMapa) {
     int t = 0;
     for (int y = 0; y < rows; y++) {
         for (int x = 0; x < columns; x++) {
+            _tilesetTexture.setSmooth(1);
             _tilesetSprite[t].setTexture(_tilesetTexture);
             _tilesetSprite[t].setTextureRect(sf::IntRect(x*_tileWidth, y*_tileHeigth, _tileWidth, _tileHeigth));
             t++;
@@ -176,14 +177,17 @@ void Map::dibujaMapa1() {
     for (int l = 0; l < _numLayers; l++) {
         for (int y = 0; y < _height; y++) {
             for (int x = 0; x < _width; x++) {
-                if (l != 3 && l != 2) {
+                if (l == 3 && l != 2) {
                     if (_tilemapSprite[l][y][x] != NULL) {
                         Motor2D::Instance()->draw(*(_tilemapSprite[l][y][x]));
+                        cuenta++;
                     }
                 }
             }
         }
     }
+    std::cout<<"Cuenta: "<<cuenta<<std::endl;
+    cuenta=0;
 }
 
 void Map::dibuja2Mapa1() {
@@ -201,17 +205,31 @@ void Map::dibuja2Mapa1() {
 void Map::dibujaMapa2() {
 
 
-    for (int l = 0; l < _numLayers; l++) {
         for (int y = 0; y < _height; y++) {
             for (int x = 0; x < _width; x++) {
-                if (l != 3 && l != 5 && l != 1) {
-                    if (_tilemapSprite[l][y][x] != NULL) {
-                        Motor2D::Instance()->draw(*(_tilemapSprite[l][y][x]));
+                //if (l != 3 && l != 5) {
+                    if (_tilemapSprite[0][y][x] != NULL) {
+                        Motor2D::Instance()->draw(*(_tilemapSprite[0][y][x]));
+                        cuenta++;
                     }
-                }
+               if (_tilemapSprite[1][y][x] != NULL) {
+                        Motor2D::Instance()->draw(*(_tilemapSprite[1][y][x]));
+                        cuenta++;
+                    }
+                    if (_tilemapSprite[2][y][x] != NULL) {
+                        Motor2D::Instance()->draw(*(_tilemapSprite[2][y][x]));
+                        cuenta++;
+                    }
+                    if (_tilemapSprite[4][y][x] != NULL) {
+                        Motor2D::Instance()->draw(*(_tilemapSprite[4][y][x]));
+                        cuenta++;
+                    }
             }
         }
-    }
+    
+    cuenta++;
+    std::cout<<"Cuenta: "<<cuenta<<std::endl;
+    cuenta=0;
 }
 
 void Map::dibuja2Mapa2() {
@@ -221,9 +239,9 @@ void Map::dibuja2Mapa2() {
             if (_tilemapSprite[5][y][x] != NULL) {
                 Motor2D::Instance()->draw(*(_tilemapSprite[5][y][x]));
             }
-            if (_tilemapSprite[1][y][x] != NULL) {
+            /*if (_tilemapSprite[1][y][x] != NULL) {
                 Motor2D::Instance()->draw(*(_tilemapSprite[1][y][x]));
-            }
+            }*/
         }
     }
 
@@ -236,11 +254,15 @@ void Map::dibujaMapa3() {
                 if (l != 3 && l != 1 && l != 6) {
                     if (_tilemapSprite[l][y][x] != NULL) {
                         Motor2D::Instance()->draw(*(_tilemapSprite[l][y][x]));
+                        cuenta++;
                     }
                 }
             }
         }
     }
+    
+    std::cout<<"Cuenta: "<<cuenta<<std::endl;
+    cuenta=0;
 }
 
 void Map::dibuja2Mapa3() {
