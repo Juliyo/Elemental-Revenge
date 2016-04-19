@@ -147,6 +147,8 @@ void Transition::Update(sf::Time elapsedTime) {
         if (spriteOpcionA->getGlobalBounds().contains(mouseSprite->getPosition())) {
             izq = true;
             der = false;
+            izquierdaRes=true;
+            derechaRes=false;
             fadeEffect = true;
             transparent.a = 255;
             //aguaSkillTransition();
@@ -155,6 +157,8 @@ void Transition::Update(sf::Time elapsedTime) {
         if (spriteOpcionB->getGlobalBounds().contains(mouseSprite->getPosition())) {
             der = true;
             izq = false;
+            izquierdaRes=false;
+            derechaRes=true;
             fadeEffect = true;
             transparent.a = 255;
             //aguaSkillTransition();
@@ -801,4 +805,13 @@ void Transition::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
 bool Transition::isPointOverSprite(const sf::Vector2f Position, Sprite &Sprite) {
     return (Position.x > Sprite.getPosition().x - Sprite.getLocalBounds().width / 2) && (Position.x < Sprite.getPosition().x + Sprite.getLocalBounds().width / 2) &&
             (Position.y > Sprite.getPosition().y - Sprite.getLocalBounds().height / 2) && (Position.y < Sprite.getPosition().y + Sprite.getLocalBounds().height / 2);
+}
+
+int Transition::getIzqODer() {
+
+    if (izquierdaRes == true) {
+        return 1;
+    } else {
+        return 2;
+    }
 }

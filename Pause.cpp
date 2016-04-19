@@ -234,7 +234,7 @@ void Pause::render(float interpolation, sf::Time elapsedTime) {
             }
         }
     }
-    motor->draw(textoPausa);
+    motor->draw(*textoPausa);
     motor->display();
 }
 

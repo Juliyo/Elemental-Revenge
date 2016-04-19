@@ -254,7 +254,27 @@ void Game::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
         
         EstadoInGame->mapa= new Map();
         
-        EstadoInGame->mapa->leerMapa(EstadoTransition->level);
+        if(EstadoTransition->getIzqODer()==1){
+            printf("IZQUIERDA\n");
+        }
+        
+        if(EstadoTransition->getIzqODer()==2){
+            printf("DERECHA\n");
+        }
+        
+        if(EstadoTransition->level==2){
+            if(EstadoTransition->getIzqODer()==1){
+            EstadoInGame->mapa->leerMapa(EstadoTransition->level,1);
+        }
+        
+        if(EstadoTransition->getIzqODer()==2){
+            EstadoInGame->mapa->leerMapa(EstadoTransition->level,2);
+        }
+        
+        }else{
+            EstadoInGame->mapa->leerMapa(EstadoTransition->level,0);
+        }
+        
         EstadoInGame->EstadoActivo = true;
 
     }
