@@ -51,7 +51,7 @@ void Map::leerMapa(int numMapa, int versionMapa) {
     if (numMapa == 2) {
         
         if(versionMapa==1){
-        doc.LoadFile("resources/CasaAbandonadaV1.tmx");
+        doc.LoadFile("resources/CasaAbandonadaV2.tmx");
         }
         else{
         doc.LoadFile("resources/LVL22.tmx");
@@ -177,7 +177,7 @@ void Map::dibujaMapa1() {
     for (int l = 0; l < _numLayers; l++) {
         for (int y = 0; y < _height; y++) {
             for (int x = 0; x < _width; x++) {
-                if (l == 3 && l != 2) {
+                if (l != 3 && l != 2) {
                     if (_tilemapSprite[l][y][x] != NULL) {
                         Motor2D::Instance()->draw(*(_tilemapSprite[l][y][x]));
                         cuenta++;
@@ -212,10 +212,7 @@ void Map::dibujaMapa2() {
                         Motor2D::Instance()->draw(*(_tilemapSprite[0][y][x]));
                         cuenta++;
                     }
-               if (_tilemapSprite[1][y][x] != NULL) {
-                        Motor2D::Instance()->draw(*(_tilemapSprite[1][y][x]));
-                        cuenta++;
-                    }
+               
                     if (_tilemapSprite[2][y][x] != NULL) {
                         Motor2D::Instance()->draw(*(_tilemapSprite[2][y][x]));
                         cuenta++;
@@ -239,9 +236,9 @@ void Map::dibuja2Mapa2() {
             if (_tilemapSprite[5][y][x] != NULL) {
                 Motor2D::Instance()->draw(*(_tilemapSprite[5][y][x]));
             }
-            /*if (_tilemapSprite[1][y][x] != NULL) {
+            if (_tilemapSprite[1][y][x] != NULL) {
                 Motor2D::Instance()->draw(*(_tilemapSprite[1][y][x]));
-            }*/
+            }
         }
     }
 

@@ -16,7 +16,7 @@ const float segStatistics = 0.5f; //segundos de refresco de las estadisticas
 
 /************ CONSTRUCTOR **************/
 Game::Game() {
-    
+
     thread = new sf::Thread(&Game::cargarInGameTransition, this);
     thread2 = new sf::Thread(&Game::cargarMapa, this);
     motor = Motor2D::Instance();
@@ -77,7 +77,7 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
     if (estadoCarga1 == true && EstadoCarga1->EstadoActivo) {
         EstadoCarga1->Update(elapsedTime);
     }
-    if(estadoCarga2 == true && EstadoCarga2->EstadoActivo){
+    if (estadoCarga2 == true && EstadoCarga2->EstadoActivo) {
         EstadoCarga2->Update(elapsedTime);
     }
     if (estadoMenu == true && EstadoMenu->EstadoActivo) {
@@ -235,7 +235,7 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
             EstadoCarga1 = new Carga1();
             EstadoCarga1 -> EstadoActivo = true;
             estadoCarga1 = true;
-           
+
             thread->launch();
         }
     } else if (key == sf::Keyboard::Return && estadoPause == true && EstadoPause->EstadoActivo) {
@@ -279,7 +279,7 @@ void Game::cargarInGameTransition() {
     EstadoCarga1 -> transitionCargado();
     EstadoInGame = new InGame();
     EstadoCarga1 -> ingameCargado();
-    
+
     EstadoTransition -> EstadoActivo = true;
     estadoTransition = true;
     EstadoCarga1 -> EstadoActivo = false;
@@ -299,28 +299,12 @@ void Game::handlePlayerInput2(sf::Keyboard::Key key, bool isPressed) {
 
 void Game::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
     if (estadoTransition == true && EstadoTransition->preguntaContestada == true) {
-        
+
         EstadoCarga2 = new Carga2();
         EstadoCarga2 -> EstadoActivo = true;
         estadoCarga2 = true;
-        
 
-
-        
-        if(EstadoTransition->level==2){
-            if(EstadoTransition->getIzqODer()==1){
-            EstadoInGame->mapa->leerMapa(EstadoTransition->level,1);
-        }
-        
-        if(EstadoTransition->getIzqODer()==2){
-            EstadoInGame->mapa->leerMapa(EstadoTransition->level,2);
-        }
-        
-        }else{
-            EstadoInGame->mapa->leerMapa(EstadoTransition->level,0);
-        }
-        
-        EstadoInGame->EstadoActivo = true;
+        // EstadoInGame->EstadoActivo = true;
 
 
         thread2->launch();
@@ -336,9 +320,21 @@ void Game::cargarMapa() {
     EstadoInGame->mapa->~Map();
 
     EstadoInGame->mapa = new Map();
-    //EstadoInGame->mapa->leerMapa(2);
-    
-    
+    //EstadoInGame->mapa->leerMapa(2,0);
+    if (EstadoTransition->level == 2) {
+        if (EstadoTransition->getIzqODer() == 1) {
+            EstadoInGame->mapa->leerMapa(EstadoTransition->level, 1);
+        }
+
+        if (EstadoTransition->getIzqODer() == 2) {
+            EstadoInGame->mapa->leerMapa(EstadoTransition->level, 2);
+        }
+
+    } else {
+        EstadoInGame->mapa->leerMapa(EstadoTransition->level, 0);
+    }
+
+
     EstadoInGame->EstadoActivo = true;
     estadoInGame = true;
     EstadoCarga2->EstadoActivo = false;

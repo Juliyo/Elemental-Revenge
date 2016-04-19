@@ -48,7 +48,7 @@ InGame::InGame() {
 
 
     player = new Player();
-    player -> Inicializar(100.f, 100.f);
+    player -> Inicializar(850.f, 800.f);
 
     motor->setZoomToView(0.5f, 1); //1=vista del mundo(nuestra pantalla)
     motor->setCenterForView(1, 200,200);
@@ -234,7 +234,7 @@ void InGame::render(float interpolation, sf::Time elapsedTime) {
 
     player -> DrawWithInterpolation(interpolation);
 
-   /* if (mapa->getMapaActual() == 1) {
+   if (mapa->getMapaActual() == 1) {
         mapa->dibuja2Mapa1();
     }
     if (mapa->getMapaActual() == 2) {
@@ -243,7 +243,7 @@ void InGame::render(float interpolation, sf::Time elapsedTime) {
     }
     if (mapa->getMapaActual() == 3) {
         mapa->dibuja2Mapa3();
-    }*/
+    }
 
     motor->SetView(2); //vista del HUD
     player -> hud->renderHud();
