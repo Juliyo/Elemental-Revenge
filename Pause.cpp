@@ -70,20 +70,20 @@ Pause::Pause() {
     menuPausa[0].setColor(sf::Color::Red);
     menuPausa[0].setString("Reanudar");
     menuPausa[0].setStyle(sf::Text::Bold);
-    menuPausa[0].setPosition(600, 1500 - 550);
+    menuPausa[0].setPosition(30, 800);
 
     menuPausa[1].setFont(fontPausa);
     menuPausa[1].setColor(colorAzul);
     menuPausa[1].setString("Opciones");
     menuPausa[1].setStyle(sf::Text::Bold);
-    menuPausa[1].setPosition(600, 1500 - 500);
+    menuPausa[1].setPosition(30, 900);
 
 
     menuPausa[2].setFont(fontPausa);
     menuPausa[2].setColor(colorAzul);
     menuPausa[2].setString("Salir");
     menuPausa[2].setStyle(sf::Text::Bold);
-    menuPausa[2].setPosition(1000, 1500 - 525);
+    menuPausa[2].setPosition(800,850 );
     menuPausa[2].setScale(1.8, 1.8);
 
     menuPausa[3].setFont(fontPausa);
@@ -132,7 +132,7 @@ Pause::Pause() {
     textoPausa->setFont(fontPausa);
     textoPausa->setColor(sf::Color::White);
     textoPausa->setString("PAUSA");
-    textoPausa->setPosition(600, 500);
+    textoPausa->setPosition(20, 120);
     textoPausa->setScale(3, 3);
 
     texturaFondo.setSmooth(true);
@@ -146,8 +146,8 @@ Pause::Pause() {
     texturaFondo.setRepeated(1);
     spriteFondo->setTexture(texturaFondo);
     spriteFondo->setTextRect(0, 0, 1280, 720);
-    spriteFondo->setOrigin(spriteFondo->getTextureRect().width / 2, spriteFondo->getTextureRect().height / 2);
-    spriteFondo->setPosition(1500 / 2, 1500 / 2);
+    spriteFondo->setScale(1, 2);
+    spriteFondo->setPosition(0, 0);
     transparent.a = 125;
     spriteFondo->setColor(transparent);
 
@@ -160,20 +160,18 @@ Pause::Pause() {
 
     spriteMancha->setTexture(texturaMancha);
     spriteMancha->setTextRect(0, 0, 1733, 1733);
-    spriteMancha->setOrigin(1500 / 2, 1500 / 2);
-    spriteMancha->setPosition(300, 1500 - 350);
+    spriteMancha->setPosition(-50,600);
     spriteMancha->setScale(0.3, 0.3);
 
     spriteMancha2->setTexture(texturaMancha);
     spriteMancha2->setTextRect(0, 0, 1733, 1733);
-    spriteMancha2->setOrigin(1500 / 2, 1500 / 2);
-    spriteMancha2->setPosition(850, motor->getAltoVentana() - 350);
+    spriteMancha2->setPosition(600,600 );
     spriteMancha2->setScale(0.3, 0.3);
 
     spritePersonaje->setTexture(texturaPersonaje);
     spritePersonaje->setTextRect(0, 0, 1733, 1733);
     spritePersonaje->setOrigin(0, 0);
-    spritePersonaje->setPosition(1500 / 2 + 100, 1500 / 2 - 200);
+    spritePersonaje->setPosition(100,600 );
     spritePersonaje->setScale(1, 1);
 
 
