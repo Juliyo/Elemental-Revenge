@@ -45,9 +45,9 @@ Pause::Pause() {
     
     float width = 1500;
     float height = 1500;
-    colorAzul.r = 0;
-    colorAzul.g = 114;
-    colorAzul.b = 255;
+    colorAzul.r = 112;
+    colorAzul.g = 112;
+    colorAzul.b = 112;
 
     //texturas
     try {
@@ -67,7 +67,7 @@ Pause::Pause() {
     
 
     menuPausa[0].setFont(fontPausa);
-    menuPausa[0].setColor(sf::Color::Red);
+    menuPausa[0].setColor(sf::Color::White);
     menuPausa[0].setString("Reanudar");
     menuPausa[0].setStyle(sf::Text::Bold);
     menuPausa[0].setPosition(80, 825);
@@ -78,7 +78,7 @@ Pause::Pause() {
     menuPausa[1].setString("Opciones");
     menuPausa[1].setStyle(sf::Text::Bold);
     menuPausa[1].setPosition(80, 900);
-    menuPausa[0].setScale(1.2, 1.2);
+    menuPausa[1].setScale(1.2, 1.2);
 
 
     menuPausa[2].setFont(fontPausa);
@@ -89,7 +89,7 @@ Pause::Pause() {
     menuPausa[2].setScale(1.8, 1.8);
 
     menuPausa[3].setFont(fontPausa);
-    menuPausa[3].setColor(sf::Color::Red);
+    menuPausa[3].setColor(sf::Color::White);
     menuPausa[3].setString("Audio");
     menuPausa[3].setStyle(sf::Text::Bold);
     menuPausa[3].setPosition(80, 825);
@@ -170,13 +170,13 @@ Pause::Pause() {
 
     spriteMancha->setTexture(texturaMancha);
     spriteMancha->setTextRect(0, 0, 1733, 1733);
-    spriteMancha->setPosition(-75,600);
-    spriteMancha->setScale(0.3, 0.3);
+    spriteMancha->setPosition(-125,500);
+    spriteMancha->setScale(0.4, 0.4);
 
     spriteMancha2->setTexture(texturaMancha);
     spriteMancha2->setTextRect(0, 0, 1733, 1733);
-    spriteMancha2->setPosition(600,600 );
-    spriteMancha2->setScale(0.3, 0.3);
+    spriteMancha2->setPosition(500,500 );
+    spriteMancha2->setScale(0.4, 0.4);
 
     spritePersonaje->setTexture(texturaPersonaje);
     spritePersonaje->setTextRect(0, 0, 1733, 1733);
@@ -268,7 +268,7 @@ void Pause::MoveUp() {
 
             menuPausa[selectedItemIndexPausa].setColor(colorAzul);
             selectedItemIndexPausa--;
-            menuPausa[selectedItemIndexPausa].setColor(sf::Color::Red);
+            menuPausa[selectedItemIndexPausa].setColor(sf::Color::White);
 
         }
     } else {
@@ -276,7 +276,7 @@ void Pause::MoveUp() {
 
             menuPausa[selectedItemIndexPausa].setColor(colorAzul);
             selectedItemIndexPausa--;
-            menuPausa[selectedItemIndexPausa].setColor(sf::Color::Red);
+            menuPausa[selectedItemIndexPausa].setColor(sf::Color::White);
 
         }
     }
@@ -289,7 +289,7 @@ void Pause::MoveDown() {
 
             menuPausa[selectedItemIndexPausa].setColor(colorAzul);
             selectedItemIndexPausa++;
-            menuPausa[selectedItemIndexPausa].setColor(sf::Color::Red);
+            menuPausa[selectedItemIndexPausa].setColor(sf::Color::White);
 
         }
     } else {
@@ -297,7 +297,7 @@ void Pause::MoveDown() {
 
             menuPausa[selectedItemIndexPausa].setColor(colorAzul);
             selectedItemIndexPausa++;
-            menuPausa[selectedItemIndexPausa].setColor(sf::Color::Red);
+            menuPausa[selectedItemIndexPausa].setColor(sf::Color::White);
 
         }
     }
@@ -309,7 +309,7 @@ void Pause::MoveLeft() {
 
             menuPausa[selectedItemIndexPausa].setColor(colorAzul);
             selectedItemIndexPausa = 0;
-            menuPausa[selectedItemIndexPausa].setColor(sf::Color::Red);
+            menuPausa[selectedItemIndexPausa].setColor(sf::Color::White);
 
         }
     }
@@ -318,12 +318,12 @@ void Pause::MoveLeft() {
         if (selectedItemIndexPausa == 5) {
             menuPausa[selectedItemIndexPausa].setColor(colorAzul);
             selectedItemIndexPausa = 3;
-            menuPausa[selectedItemIndexPausa].setColor(sf::Color::Red);
+            menuPausa[selectedItemIndexPausa].setColor(sf::Color::White);
         }
         if (selectedItemIndexPausa == 6) {
             menuPausa[selectedItemIndexPausa].setColor(colorAzul);
             selectedItemIndexPausa = 4;
-            menuPausa[selectedItemIndexPausa].setColor(sf::Color::Red);
+            menuPausa[selectedItemIndexPausa].setColor(sf::Color::White);
         }
     }
 }
@@ -334,7 +334,7 @@ void Pause::MoveRight() {
         if (selectedItemIndexPausa == 0 || selectedItemIndexPausa == 1) {
             menuPausa[selectedItemIndexPausa].setColor(colorAzul);
             selectedItemIndexPausa = 2;
-            menuPausa[selectedItemIndexPausa].setColor(sf::Color::Red);
+            menuPausa[selectedItemIndexPausa].setColor(sf::Color::White);
         }
 
     }
@@ -343,12 +343,12 @@ void Pause::MoveRight() {
         if (selectedItemIndexPausa == 3) {
             menuPausa[selectedItemIndexPausa].setColor(colorAzul);
             selectedItemIndexPausa = 5;
-            menuPausa[selectedItemIndexPausa].setColor(sf::Color::Red);
+            menuPausa[selectedItemIndexPausa].setColor(sf::Color::White);
         }
         if (selectedItemIndexPausa == 4) {
             menuPausa[selectedItemIndexPausa].setColor(colorAzul);
             selectedItemIndexPausa = 6;
-            menuPausa[selectedItemIndexPausa].setColor(sf::Color::Red);
+            menuPausa[selectedItemIndexPausa].setColor(sf::Color::White);
         }
 
     }
@@ -404,7 +404,7 @@ void Pause::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         if (selectedItemIndexPausa == 6) {
             selectedItemIndexPausa = 1;
             menuPausa[6].setColor(colorAzul);
-            menuPausa[3].setColor(sf::Color::Red);
+            menuPausa[3].setColor(sf::Color::White);
         }
     }
 }
