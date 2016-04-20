@@ -11,7 +11,7 @@ Game::Game() {
 
     motor = Motor2D::Instance();
     motor->Inicializar();
-    motor->inicializarVentana("Hito 2 - Intento Motor", 1280, 720);
+    motor->inicializarVentana("Hito 2 - HUD", 1280, 720);
 
     EstadoInGame = new InGame();
     EstadoTransition = new Transition();
