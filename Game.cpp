@@ -225,13 +225,6 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
             EstadoPause->EstadoActivo = false;
         }
 
-    } else if (key == sf::Keyboard::N) {
-        if (estadoTransition == true) {
-            EstadoTransition->EstadoActivo = false;
-        }
-        if (estadoInGame == true) {
-            EstadoInGame->EstadoActivo = false;
-        }
     } else if (key == sf::Keyboard::Return && estadoMenu == true && EstadoMenu->EstadoActivo) {
         if (EstadoMenu->getSetectedItemIndex() == 0) {
             EstadoMenu->pararMusica();
@@ -249,15 +242,19 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
             // EstadoInGame->EstadoActivo = true;
         }
         if (EstadoPause->getSetectedItemIndexPause() == 2) {
-            EstadoPause->EstadoActivo = false;
+            /*EstadoPause->EstadoActivo = false;
 
 
             delete EstadoTransition;
-            EstadoTransition = new Transition();
+            //EstadoTransition = new Transition();
             delete EstadoInGame;
-            EstadoInGame = new InGame();
-
+            //EstadoInGame = new InGame();
+            EstadoMenu = new Menu2();
+            
+            EstadoTransition->EstadoActivo = false;
             EstadoMenu->EstadoActivo = true;
+            EstadoInGame->EstadoActivo = false;*/
+            exit(0);
             //////////////////AQUI VAN LOS SETS
         }
     } else if (key == sf::Keyboard::P && estadoInGame == true && EstadoInGame->EstadoActivo) {
