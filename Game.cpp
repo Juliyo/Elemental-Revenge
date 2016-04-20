@@ -27,6 +27,7 @@ Game::Game() {
      EstadoTransition = new Transition();
      EstadoPause = new Pause();
      EstadoMuerte = new Muerte();*/
+    EstadoPause = Pause::Instance();
     EstadoMenu = new Menu2();
     estadoMenu = true;
 
@@ -69,7 +70,10 @@ void Game::run() //Metodo principal
 void Game::update(sf::Time elapsedTime) //Actualiza la fisica
 {
     if (estadoInGame == true && EstadoInGame->EstadoActivo) {
-        EstadoInGame->Update(elapsedTime);
+        //Si estado pause esta activo no hacemos el de in game
+        if(!EstadoPause->EstadoActivo){
+            EstadoInGame->Update(elapsedTime);
+        }
     }
     if (estadoTransition == true && EstadoTransition->EstadoActivo) {
         EstadoTransition->Update(elapsedTime);
@@ -89,7 +93,11 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
 void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
 {
     if (estadoInGame == true && EstadoInGame->EstadoActivo) {
-        EstadoInGame->render(interpolation, elapsedTime);
+        if(!EstadoPause->EstadoActivo){
+            EstadoInGame->render(interpolation, elapsedTime);
+        }else{
+            EstadoInGame->renderForPause(interpolation, elapsedTime);
+        }
     }
     if (estadoTransition == true && EstadoTransition->EstadoActivo) {
         EstadoTransition->render(interpolation, elapsedTime);
@@ -104,11 +112,11 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
         motor->display();
     }
     if (estadoPause == true && EstadoPause->EstadoActivo) {
-        EstadoInGame->renderForPause(interpolation, elapsedTime);
-        EstadoPause->render(interpolation, elapsedTime);
+        /*EstadoInGame->renderForPause(interpolation, elapsedTime);
+        EstadoPause->render(interpolation, elapsedTime);*/
     }
     if (estadoMuerte == true && EstadoMuerte->EstadoActivo) {
-        EstadoInGame->renderForPause(interpolation, elapsedTime);
+        //EstadoInGame->renderForPause(interpolation, elapsedTime);
         EstadoMuerte->render(interpolation, elapsedTime);
     }
     if (estadoCarga1 == true && EstadoCarga1->EstadoActivo) {
@@ -142,7 +150,7 @@ void Game::processEvents() //Captura y procesa eventos
                     EstadoInGame->handlePlayerInput(event.key.code, false);
                 }
                 if (estadoPause == true && EstadoPause->EstadoActivo) {
-                    EstadoPause->handlePlayerInput2(event.key.code, true);
+                    EstadoPause->handlePlayerInput(event.key.code, true);
                 }
                 handlePlayerInput(event.key.code, false);
                 handlePlayerInput2(event.key.code, false);
@@ -241,7 +249,7 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
     } else if (key == sf::Keyboard::Return && estadoPause == true && EstadoPause->EstadoActivo) {
         if (EstadoPause->getSetectedItemIndexPause() == 0) {
             EstadoPause->EstadoActivo = false;
-            EstadoInGame->EstadoActivo = true;
+           // EstadoInGame->EstadoActivo = true;
         }
         if (EstadoPause->getSetectedItemIndexPause() == 2) {
             EstadoPause->EstadoActivo = false;
@@ -257,7 +265,7 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         }
     } else if (key == sf::Keyboard::P && estadoInGame == true && EstadoInGame->EstadoActivo) {
         EstadoTransition->EstadoActivo = false;
-        EstadoInGame->EstadoActivo = false;
+        //EstadoInGame->EstadoActivo = false;
         EstadoPause->SetSetectedItemIndexPause(0);
         EstadoPause->EstadoActivo = true;
     } else if (key == sf::Keyboard::O && estadoInGame == true && EstadoInGame->EstadoActivo) {
@@ -278,7 +286,10 @@ void Game::cargarInGameTransition() {
     EstadoTransition = new Transition();
     EstadoCarga1 -> transitionCargado();
     EstadoInGame = new InGame();
-
+    EstadoMuerte = new Muerte();
+    EstadoPause -> EstadoActivo = false;
+    estadoMuerte = true;
+    estadoPause = true;
     EstadoTransition -> EstadoActivo = true;
     estadoTransition = true;
     EstadoCarga1 -> EstadoActivo = false;

@@ -13,9 +13,19 @@
 #include <iostream>
 #include <string>
 #include "Pause.hpp"
+Pause* Pause::mInstance = 0;
+
+Pause* Pause::Instance() {
+    if (mInstance == 0) {
+        mInstance = new Pause;
+    }
+    return mInstance;
+}
 
 Pause::Pause() {
     motor = Motor2D::Instance();
+    
+    EstadoActivo = false;
     
     selectedItemIndexPausa = 0;
 
@@ -172,17 +182,14 @@ Pause::Pause() {
     spriteRelleno->setScale(1, 2);
 }
 
-/*void Pause::Update(sf::Time elapsedTime) {
-    sf::Vector2f mousePosition = mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow));
-}*/
+Pause::Pause(const Pause& orig) {
+}
+
+Pause::~Pause() {
+}
 
 void Pause::render(float interpolation, sf::Time elapsedTime) {
-    //mWindow->clear();
-
-    updateView();
-
     motor->draw(spriteFondo);
-
     if (selectedItemIndexPausa <= 7) {
         motor->draw(spritePersonaje);
         motor->draw(spriteMancha);
@@ -235,7 +242,7 @@ void Pause::render(float interpolation, sf::Time elapsedTime) {
         }
     }
     motor->draw(*textoPausa);
-    motor->display();
+  //  motor->display();
 }
 
 void Pause::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
@@ -246,26 +253,6 @@ void Pause::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
     }
 }
 
-void Pause::updateView() {
-    sf::FloatRect viewBounds(motor->getCenterFromView(1) - motor->getSizeFromView(1) / 2.f, motor->getSizeFromView(1));
-
-    sf::Vector2f position = motor->getMousePosition();
-    position.x = std::max(position.x, viewBounds.left);
-    position.x = std::min(position.x, viewBounds.width + viewBounds.left);
-    position.y = std::max(position.y, viewBounds.top);
-    position.y = std::min(position.y, viewBounds.height + viewBounds.top);
-
-    mouseSprite->setPosition(position.x, position.y);
-
-    motor->setSizeForView(1, 640, 480);
-    motor->SetView(1);
-}
-
-Pause::Pause(const Pause& orig) {
-}
-
-Pause::~Pause() {
-}
 
 void Pause::MoveUp() {
     if (selectedItemIndexPausa < 3) {
@@ -360,11 +347,8 @@ void Pause::MoveRight() {
     }
 }
 
+
 void Pause::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
-
-}
-
-void Pause::handlePlayerInput2(sf::Keyboard::Key key, bool isPressed) {
     if (key == sf::Keyboard::W) { //Esto lo hago para que cuando no estes presionando cambia a false
         MoveUp();
     } else if (key == sf::Keyboard::S) {

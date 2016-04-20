@@ -20,6 +20,7 @@
 #include "SFML/System.hpp"
 #include <Map.hpp>
 #include <SFML/Audio.hpp>
+#include "Pause.hpp"
 
 
 class InGame:public State {
@@ -48,9 +49,9 @@ private:
     Player			*player;
     Enemigo			enemigo[20];
     
-    
+    //Singletones
     Motor2D                     *motor;
-    //Graficos
+    Pause                       *pause;
     
     //Recursos
     sf::Texture                 texturaFondo;

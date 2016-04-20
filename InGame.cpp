@@ -12,11 +12,13 @@
  */
 
 #include "InGame.hpp"
+#include "Pause.hpp"
 
 //SOLO EN WINDOWS
 
 InGame::InGame() {
     motor = Motor2D::Instance();
+    pause = Pause::Instance();
     //Estado de Ingame
     EstadoActivo = false;
     try {
@@ -124,7 +126,56 @@ void InGame::Update(sf::Time elapsedTime) {
     firstTime = false;
 
 }
+void InGame::renderForPause(float interpolation, sf::Time elapsedTime){
+    motor->clear();
+    motor->SetView(0); //bordes
+    motor->draw(spriteRelleno);
+    motor->SetView(1);
+    
+    updateViewForPause();
+    
+    
+    motor->draw(spriteFondo);
 
+    /**********************ARREGLAR***************************/
+    if (mapa->getMapaActual() == 1) {
+        mapa->dibujaMapa1();
+    }
+    if (mapa->getMapaActual() == 2) {
+        mapa->dibujaMapa2();
+    }
+    if (mapa->getMapaActual() == 3) {
+        mapa->dibujaMapa2();
+    }
+    /*********************************************************/
+    player -> hRayoAvanzado->DrawWithOutInterpolation();
+    player->hRayoBasico->DrawWithInterpolation(interpolation, player->GetPreviousPosition(), player->GetPosition());
+    player -> DrawWithInterpolation(interpolation);
+
+   if (mapa->getMapaActual() == 1) {
+        mapa->dibuja2Mapa1();
+    }
+    if (mapa->getMapaActual() == 2) {
+        mapa->dibuja2Mapa2();
+
+    }
+    if (mapa->getMapaActual() == 3) {
+        mapa->dibuja2Mapa3();
+    }
+    
+    
+    motor->SetView(2); //vista del HUD
+    player -> hud->renderHud();
+    if(!video -> getLooped()){
+            video -> PlayVideo();
+    }
+    pause->render(interpolation,elapsedTime);
+    motor->SetView(1); //vista del juego
+
+    motor->draw(mouseSprite);
+
+    motor->display();
+}
 void InGame::render(float interpolation, sf::Time elapsedTime) {
 
 
@@ -133,7 +184,7 @@ void InGame::render(float interpolation, sf::Time elapsedTime) {
     motor->draw(spriteRelleno);
     motor->SetView(1);
     
-        updateView();
+    updateView();
     
     
     motor->draw(spriteFondo);
@@ -263,49 +314,6 @@ void InGame::render(float interpolation, sf::Time elapsedTime) {
     motor->display();
 }
 
-void InGame::renderForPause(float interpolation, sf::Time elapsedTime) {
-    motor->clear();
-    motor->SetView(0); //bordes
-    motor->draw(spriteRelleno);
-    motor->SetView(1);
-    
-    updateViewForPause();
-    motor->draw(spriteFondo);
-
-    if (mapa->getMapaActual() == 1) {
-        mapa->dibujaMapa1();
-    }
-    if (mapa->getMapaActual() == 2) {
-        mapa->dibujaMapa2();
-
-    }
-    if (mapa->getMapaActual() == 3) {
-        mapa->dibujaMapa2();
-    }
-
-    player->Draw();
-    motor->draw(player->GetSpriteAnimated());
-
-    if (mapa->getMapaActual() == 1) {
-        mapa->dibujaMapa1();
-    }
-    if (mapa->getMapaActual() == 2) {
-        mapa->dibujaMapa2();
-
-    }
-    if (mapa->getMapaActual() == 3) {
-        mapa->dibujaMapa2();
-    }
-    
-    motor->SetView(2); //vista del HUD
-    player -> hud->renderHud();
-
-    motor->SetView(1); //vista del juego
-
-
-    //motor->display();
-}
-
 void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
 
     if (key == sf::Keyboard::W) { //Esto lo hago para que cuando no estes presionando cambia a false
@@ -353,11 +361,17 @@ void InGame::updateView() {
     motor->setCenterForView(1, x, y);
     motor->setSizeForView(1, 640, 480);
     motor->SetView(1);
-    // mWindow->setView(getLetterboxView(mWorldView, ref.ancho, ref.alto, 640, 480));
 }
 
 void InGame::updateViewForPause() {
-    motor->setCenterForView(1, motor->getCenterFromView(1).x, motor->getCenterFromView(1).y);
-    motor->setSizeForView(1, 640, 480);
-    motor->SetView(1);
+    sf::FloatRect viewBounds(motor->getCenterFromView(1) - motor->getSizeFromView(1) / 2.f, motor->getSizeFromView(1));
+
+    sf::Vector2f position = motor->getMousePosition();
+    position.x = std::max(position.x, viewBounds.left);
+    position.x = std::min(position.x, viewBounds.width + viewBounds.left);
+    position.y = std::max(position.y, viewBounds.top);
+    position.y = std::min(position.y, viewBounds.height + viewBounds.top);
+
+    mouseSprite.setPosition(position.x, position.y);
+
 }

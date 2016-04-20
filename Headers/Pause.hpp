@@ -23,19 +23,17 @@
 class Pause : public State {
 public:
     Pause();
+    static Pause* Instance();
     Pause(const Pause& orig);
     virtual ~Pause();
 
-    //void Update(sf::Time elapsedTime);
     void render(float interpolation, sf::Time elapsedTime);
     void handleMouseInput(sf::Mouse::Button button, bool isPressed); // Maneja eventos
-    void updateView();
     void MoveUp();
     void MoveDown();
     void MoveLeft();
     void MoveRight();
     void handlePlayerInput(sf::Keyboard::Key key, bool isPressed); // Maneja eventos
-    void handlePlayerInput2(sf::Keyboard::Key key, bool isPressed); // Maneja eventos
 
     int getSetectedItemIndexPause() {
         return selectedItemIndexPausa;
@@ -75,6 +73,8 @@ private:
     Text *menuPausa;
     Text *textoPausa;
     sf::Color colorAzul;
+    
+    static Pause *mInstance;
 };
 
 #endif /* PAUSE_HPP */
