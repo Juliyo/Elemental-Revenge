@@ -27,11 +27,6 @@ Muerte::Muerte() {
     
     motor = Motor2D::Instance();
     
-    int anchoVentana = 1700;
-    int altoVentana = 1700;
-    
-    animation = new Animation(); //para el fondo SOLO declarado
-    
     spriteRelleno = new Sprite();
     spritePersonaje = new Sprite();
     spriteFondo = new Sprite();
@@ -59,7 +54,7 @@ Muerte::Muerte() {
     textoMuerte->setColor(sf::Color::Red);
     textoMuerte->setString("HAS MUERTO");
     textoMuerte->setOrigin(textoMuerte->getGlobalBounds().width/2, textoMuerte->getGlobalBounds().height/2);
-    textoMuerte->setPosition(15+(anchoVentana/2), altoVentana/2);
+    textoMuerte->setPosition(15+(500), 500);
     textoMuerte->setScale(2,2);
     
     mouseSprite->setTexture(mouseTexture);
@@ -71,15 +66,16 @@ Muerte::Muerte() {
     texturaFondo.setRepeated(1);
     spriteFondo->setTexture(texturaFondo);
     spriteFondo->setTextRect(0, 0, 1280, 720);
-    spriteFondo->setOrigin(spriteFondo->getTextureRect().width / 2, spriteFondo->getTextureRect().height / 2);
-    spriteFondo->setPosition(anchoVentana / 2, altoVentana / 2);
+    //spriteFondo->setOrigin(spriteFondo->getTextureRect().width / 2, spriteFondo->getTextureRect().height / 2);
+    //spriteFondo->setPosition(350, 700 / 2);
+    spriteFondo->setScale(1,2);
     transparent.a = 180;
     spriteFondo->setColor(transparent);
     
     spriteRelleno->setTexture(texturaRelleno);
-    spriteRelleno->setScale(1,0.3);
-    spriteRelleno->setOrigin(spriteRelleno->getTextureRect().width / 2, spriteRelleno->getTextureRect().height / 2);
-    spriteRelleno->setPosition(anchoVentana / 2, altoVentana / 2+15);
+    spriteRelleno->setScale(1.2,0.45);
+    //spriteRelleno->setOrigin(spriteRelleno->getTextureRect().width / 2, spriteRelleno->getTextureRect().height / 2);
+    spriteRelleno->setPosition(0, 440);
     spriteRelleno->setColor(transparent);
 }
 
@@ -90,9 +86,6 @@ Muerte::Muerte(const Muerte& orig) {
 Muerte::~Muerte() {
 }
 
-/*void Muerte::Update(sf::Time elapsedTime) {
-    sf::Vector2f mousePosition = mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow));
-}*/
 void Muerte::render(float interpolation, sf::Time elapsedTime) {
     
     if(relojMuerte.getElapsedTime().asSeconds()<0.5){

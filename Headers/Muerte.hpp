@@ -38,8 +38,6 @@ public:
             sf::Clock relojMuerte;
 
 private:
-    AnimatedSprite *animatedSprite;
-    Animation *animation;
     //Sprites
     Sprite                  *spriteRelleno;
     Sprite                  *spritePersonaje;

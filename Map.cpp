@@ -186,7 +186,7 @@ void Map::dibujaMapa1() {
             }
         }
     }
-    std::cout<<"Cuenta: "<<cuenta<<std::endl;
+    //std::cout<<"Cuenta: "<<cuenta<<std::endl;
     cuenta=0;
 }
 
@@ -225,7 +225,7 @@ void Map::dibujaMapa2() {
         }
     
     cuenta++;
-    std::cout<<"Cuenta: "<<cuenta<<std::endl;
+    //std::cout<<"Cuenta: "<<cuenta<<std::endl;
     cuenta=0;
 }
 
@@ -258,7 +258,7 @@ void Map::dibujaMapa3() {
         }
     }
     
-    std::cout<<"Cuenta: "<<cuenta<<std::endl;
+    //std::cout<<"Cuenta: "<<cuenta<<std::endl;
     cuenta=0;
 }
 

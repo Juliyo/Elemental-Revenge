@@ -151,9 +151,7 @@ void InGame::renderForMuerte(float interpolation, sf::Time elapsedTime) {
         mapa->dibujaMapa2();
     }
     /*********************************************************/
-    player -> hRayoAvanzado->DrawWithOutInterpolation();
-    player->hRayoBasico->DrawWithInterpolation(interpolation, player->GetPreviousPosition(), player->GetPosition());
-    player -> DrawWithInterpolation(interpolation);
+    player -> DrawAnimationWithOut(player->GetSpriteAnimated().getPosition());
 
    if (mapa->getMapaActual() == 1) {
         mapa->dibuja2Mapa1();
@@ -203,7 +201,7 @@ void InGame::renderForPause(float interpolation, sf::Time elapsedTime){
     }
     /*********************************************************/
 
-    player -> DrawWithInterpolation(interpolation);
+    player -> DrawAnimationWithOut(player->GetSpriteAnimated().getPosition());
 
    if (mapa->getMapaActual() == 1) {
         mapa->dibuja2Mapa1();
@@ -230,8 +228,7 @@ void InGame::renderForPause(float interpolation, sf::Time elapsedTime){
     motor->display();
 }
 void InGame::render(float interpolation, sf::Time elapsedTime) {
-
-
+    
     motor->clear();
     motor->SetView(0); //bordes
     motor->draw(spriteRelleno);

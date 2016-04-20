@@ -22,7 +22,7 @@ Game::Game() {
     motor = Motor2D::Instance();
     motor->Inicializar();
     motor->inicializarVentana("Hito 2 - Intento Motor", 1280, 720);
-    
+
     /* EstadoInGame = new InGame();
      EstadoTransition = new Transition();
      EstadoPause = new Pause();
@@ -72,7 +72,7 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
 {
     if (estadoInGame == true && EstadoInGame->EstadoActivo) {
         //Si estado pause esta activo no hacemos el de in game
-        if(!EstadoPause->EstadoActivo || !EstadoMuerte->EstadoActivo){
+        if (!EstadoPause->EstadoActivo && !EstadoMuerte->EstadoActivo) {
             EstadoInGame->Update(elapsedTime);
         }
     }
@@ -94,11 +94,11 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
 void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
 {
     if (estadoInGame == true && EstadoInGame->EstadoActivo) {
-        if(!EstadoPause->EstadoActivo || !EstadoMuerte->EstadoActivo){
+        if (!EstadoPause->EstadoActivo && !EstadoMuerte->EstadoActivo) { //No esta ni muerte ni pause activo
             EstadoInGame->render(interpolation, elapsedTime);
-        }else if(EstadoPause->EstadoActivo){
-            EstadoInGame->renderForPause(interpolation, elapsedTime);
-        }else{
+        } else if (EstadoPause->EstadoActivo) {
+            EstadoInGame->renderForPause(interpolation, elapsedTime); //Pause está activo
+        } else {
             EstadoInGame->renderForMuerte(interpolation, elapsedTime);
         }
     }
@@ -113,14 +113,6 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
         EstadoMenu->render();
 
         motor->display();
-    }
-    if (estadoPause == true && EstadoPause->EstadoActivo) {
-        /*EstadoInGame->renderForPause(interpolation, elapsedTime);
-        EstadoPause->render(interpolation, elapsedTime);*/
-    }
-    if (estadoMuerte == true && EstadoMuerte->EstadoActivo) {
-        //EstadoInGame->renderForPause(interpolation, elapsedTime);
-        EstadoMuerte->render(interpolation, elapsedTime);
     }
     if (estadoCarga1 == true && EstadoCarga1->EstadoActivo) {
         EstadoCarga1->render(interpolation, elapsedTime);
@@ -176,7 +168,7 @@ void Game::processEvents() //Captura y procesa eventos
                         estadoCarga1 = true;
 
                         thread->launch();
-                        
+
                     }
                 }
                 break;
@@ -252,7 +244,7 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
     } else if (key == sf::Keyboard::Return && estadoPause == true && EstadoPause->EstadoActivo) {
         if (EstadoPause->getSetectedItemIndexPause() == 0) {
             EstadoPause->EstadoActivo = false;
-           // EstadoInGame->EstadoActivo = true;
+            // EstadoInGame->EstadoActivo = true;
         }
         if (EstadoPause->getSetectedItemIndexPause() == 2) {
             EstadoPause->EstadoActivo = false;
@@ -271,30 +263,17 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         EstadoPause->SetSetectedItemIndexPause(0);
         EstadoPause->EstadoActivo = true;
     } else if (key == sf::Keyboard::O && estadoInGame == true && EstadoInGame->EstadoActivo) {
-        EstadoTransition->EstadoActivo = false;
-        EstadoMuerte->relojMuerte.restart();
-        EstadoMuerte->EstadoActivo = true;
-    } else if (key == sf::Keyboard::O && estadoMuerte == true && EstadoMuerte->EstadoActivo) {
-        EstadoTransition->EstadoActivo = false;
-        EstadoMuerte->SetEscala();
-        EstadoMuerte->EstadoActivo = false;
+        if (!EstadoMuerte->EstadoActivo) {
+            EstadoTransition->EstadoActivo = false;
+            EstadoMuerte->relojMuerte.restart();
+            EstadoMuerte->EstadoActivo = true;
+        } else {
+            EstadoTransition->EstadoActivo = false;
+            EstadoMuerte->SetEscala();
+            EstadoMuerte->EstadoActivo = false;
+        }
     }
 
-}
-
-void Game::cargarInGameTransition() {
-    EstadoTransition = new Transition();
-    EstadoCarga1 -> transitionCargado();
-    EstadoInGame = new InGame();
-    EstadoMuerte = new Muerte();
-    EstadoPause -> EstadoActivo = false;
-    estadoMuerte = true;
-    estadoPause = true;
-    EstadoTransition -> EstadoActivo = true;
-    estadoTransition = true;
-    EstadoCarga1 -> EstadoActivo = false;
-    EstadoMenu->musicaFondo->stop();
-    EstadoTransition->musica->play();
 }
 
 void Game::handlePlayerInput2(sf::Keyboard::Key key, bool isPressed) {
@@ -323,6 +302,22 @@ void Game::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
 
 }
 
+void Game::cargarInGameTransition() {
+    EstadoTransition = new Transition();
+    EstadoCarga1 -> transitionCargado();
+    EstadoInGame = new InGame();
+    EstadoPause -> EstadoActivo = false;
+    EstadoMuerte -> EstadoActivo = false;
+    estadoMuerte = true;
+    estadoPause = true;
+
+    EstadoTransition -> EstadoActivo = true;
+    estadoTransition = true;
+    EstadoCarga1 -> EstadoActivo = false;
+    EstadoMenu->musicaFondo->stop();
+    EstadoTransition->musica->play();
+}
+
 void Game::cargarMapa() {
     EstadoTransition->EstadoActivo = false;
     EstadoTransition->preguntaContestada = false;
@@ -348,8 +343,8 @@ void Game::cargarMapa() {
     estadoInGame = true;
     //sf::sleep(sf::seconds(10));
     EstadoCarga2->EstadoActivo = false;
-    
+
     EstadoTransition->musica->pause();
     EstadoInGame->musica->play();
-    
+
 }
