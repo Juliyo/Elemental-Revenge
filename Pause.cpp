@@ -70,70 +70,80 @@ Pause::Pause() {
     menuPausa[0].setColor(sf::Color::Red);
     menuPausa[0].setString("Reanudar");
     menuPausa[0].setStyle(sf::Text::Bold);
-    menuPausa[0].setPosition(30, 800);
+    menuPausa[0].setPosition(80, 825);
+    menuPausa[0].setScale(1.2, 1.2);
 
     menuPausa[1].setFont(fontPausa);
     menuPausa[1].setColor(colorAzul);
     menuPausa[1].setString("Opciones");
     menuPausa[1].setStyle(sf::Text::Bold);
-    menuPausa[1].setPosition(30, 900);
+    menuPausa[1].setPosition(80, 900);
+    menuPausa[0].setScale(1.2, 1.2);
 
 
     menuPausa[2].setFont(fontPausa);
     menuPausa[2].setColor(colorAzul);
     menuPausa[2].setString("Salir");
     menuPausa[2].setStyle(sf::Text::Bold);
-    menuPausa[2].setPosition(800,850 );
+    menuPausa[2].setPosition(750,850 );
     menuPausa[2].setScale(1.8, 1.8);
 
     menuPausa[3].setFont(fontPausa);
     menuPausa[3].setColor(sf::Color::Red);
     menuPausa[3].setString("Audio");
     menuPausa[3].setStyle(sf::Text::Bold);
-    menuPausa[3].setPosition(900, 1500 - 500);
+    menuPausa[3].setPosition(80, 825);
+    menuPausa[3].setScale(1.2, 1.2);
 
     menuPausa[4].setFont(fontPausa);
     menuPausa[4].setColor(colorAzul);
     menuPausa[4].setString("Video");
     menuPausa[4].setStyle(sf::Text::Bold);
-    menuPausa[4].setPosition(350, 1500 - 200);
+    menuPausa[4].setPosition(80, 900);
+    menuPausa[4].setScale(1.2, 1.2);
 
     menuPausa[5].setFont(fontPausa);
     menuPausa[5].setColor(colorAzul);
     menuPausa[5].setString("Personalizar");
     menuPausa[5].setStyle(sf::Text::Bold);
-    menuPausa[5].setPosition(1500 - 500, 1500 - 240);
-    menuPausa[5].setScale(0.7, 0.7);
+    menuPausa[5].setPosition(750,825 );
+    menuPausa[5].setScale(1, 1);
 
     menuPausa[6].setFont(fontPausa);
     menuPausa[6].setColor(colorAzul);
     menuPausa[6].setString("Atrás");
     menuPausa[6].setStyle(sf::Text::Bold);
-    menuPausa[6].setPosition(1500 - 500, 1500 - 200);
+    menuPausa[6].setPosition(750,900 );
+    menuPausa[6].setScale(1.2, 1.2);
 
     menuPausa[7].setFont(fontPausa);
     menuPausa[7].setColor(colorAzul);
     menuPausa[7].setString("Cambiar volumen");
     menuPausa[7].setStyle(sf::Text::Bold);
-    menuPausa[7].setPosition(1500 / 2 - 225, 1500 / 2 - 100);
+    menuPausa[7].setPosition(300, 350);
+    menuPausa[7].setScale(1.2, 1.2);
 
     menuPausa[8].setFont(fontPausa);
     menuPausa[8].setColor(colorAzul);
     menuPausa[8].setString("Cambiar resolución");
     menuPausa[8].setStyle(sf::Text::Bold);
-    menuPausa[8].setPosition(1500 / 2 - 225, 1500 / 2 - 100);
+    menuPausa[8].setPosition(300, 350);
+    menuPausa[8].setScale(1.2, 1.2);
 
     menuPausa[9].setFont(fontPausa);
     menuPausa[9].setColor(colorAzul);
     menuPausa[9].setString("Cambiar sprite del ratón");
     menuPausa[9].setStyle(sf::Text::Bold);
-    menuPausa[9].setPosition(1500 / 2 - 225, 1500 / 2 - 100);
+    menuPausa[9].setPosition(300, 350);
+    menuPausa[9].setScale(1.2, 1.2);
 
     textoPausa->setFont(fontPausa);
     textoPausa->setColor(sf::Color::White);
+    textoPausa->setScale(2,2);
     textoPausa->setString("PAUSA");
-    textoPausa->setPosition(20, 120);
-    textoPausa->setScale(3, 3);
+    textoPausa->setPosition(30, 200);
+    textoPausa->setStyle(sf::Text::Bold);
+    
 
     texturaFondo.setSmooth(true);
     texturaFondo.setRepeated(1);
@@ -160,7 +170,7 @@ Pause::Pause() {
 
     spriteMancha->setTexture(texturaMancha);
     spriteMancha->setTextRect(0, 0, 1733, 1733);
-    spriteMancha->setPosition(-50,600);
+    spriteMancha->setPosition(-75,600);
     spriteMancha->setScale(0.3, 0.3);
 
     spriteMancha2->setTexture(texturaMancha);
@@ -171,8 +181,8 @@ Pause::Pause() {
     spritePersonaje->setTexture(texturaPersonaje);
     spritePersonaje->setTextRect(0, 0, 1733, 1733);
     spritePersonaje->setOrigin(0, 0);
-    spritePersonaje->setPosition(100,600 );
-    spritePersonaje->setScale(1, 1);
+    spritePersonaje->setPosition(550,100 );
+    spritePersonaje->setScale(1.75, 1.75);
 
 
     spriteRelleno->setTexture(texturaRelleno);
@@ -199,7 +209,7 @@ void Pause::render(float interpolation, sf::Time elapsedTime) {
 
     if (selectedItemIndexPausa < 3) {
         textoPausa->setString("PAUSA");
-        textoPausa->setScale(3, 3);
+        textoPausa->setScale(5, 5);
         for (int i = 0; i < 3; i++) {
             motor->draw(menuPausa[i]);
         }
@@ -207,7 +217,7 @@ void Pause::render(float interpolation, sf::Time elapsedTime) {
 
     if (selectedItemIndexPausa >= 3 && selectedItemIndexPausa < 8) {
         textoPausa->setString("OPCIONES");
-        textoPausa->setScale(2, 2);
+        textoPausa->setScale(4, 4);
         for (int i = 3; i < 7; i++) {
             motor->draw(menuPausa[i]);
         }
@@ -217,7 +227,6 @@ void Pause::render(float interpolation, sf::Time elapsedTime) {
         if (selectedItemIndexPausa == 8) {
             textoPausa->setString("Opciones de audio");
             textoPausa->setScale(1.5, 1.5);
-            textoPausa->setPosition(motor->getAnchoVentana() / 2 - 225, textoPausa->getPosition().y);
             for (int i = 7; i < 8; i++) {
                 motor->draw(menuPausa[i]);
             }
@@ -225,7 +234,7 @@ void Pause::render(float interpolation, sf::Time elapsedTime) {
         if (selectedItemIndexPausa == 9) {
             textoPausa->setString("Opciones de video");
             textoPausa->setScale(1.5, 1.5);
-            textoPausa->setPosition(motor->getAnchoVentana() / 2 - 225, textoPausa->getPosition().y);
+
             for (int i = 8; i < 9; i++) {
                 motor->draw(menuPausa[i]);
             }
@@ -233,7 +242,7 @@ void Pause::render(float interpolation, sf::Time elapsedTime) {
         if (selectedItemIndexPausa == 10) {
             textoPausa->setString("Personalizar");
             textoPausa->setScale(1.5, 1.5);
-            textoPausa->setPosition(motor->getAnchoVentana() / 2 - 225, textoPausa->getPosition().y);
+
             for (int i = 9; i < 10; i++) {
                 motor->draw(menuPausa[i]);
             }

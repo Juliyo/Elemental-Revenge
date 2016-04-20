@@ -148,8 +148,7 @@ void InGame::renderForPause(float interpolation, sf::Time elapsedTime){
         mapa->dibujaMapa2();
     }
     /*********************************************************/
-    player -> hRayoAvanzado->DrawWithOutInterpolation();
-    player->hRayoBasico->DrawWithInterpolation(interpolation, player->GetPreviousPosition(), player->GetPosition());
+
     player -> DrawWithInterpolation(interpolation);
 
    if (mapa->getMapaActual() == 1) {
