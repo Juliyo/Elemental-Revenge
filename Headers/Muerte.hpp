@@ -20,6 +20,7 @@
 class Muerte: public State {
 public:
     Muerte();
+    static Muerte* Instance();
     Muerte(const Muerte& orig);
     virtual ~Muerte();
     //void Update(sf::Time elapsedTime);
@@ -58,6 +59,8 @@ private:
     
     sf::Font     fontMuerte;
     Text        *textoMuerte;
+    
+    static Muerte *mInstance;
 };
 
 #endif /* MUERTE_HPP */

@@ -28,6 +28,7 @@ Game::Game() {
      EstadoPause = new Pause();
      EstadoMuerte = new Muerte();*/
     EstadoPause = Pause::Instance();
+    EstadoMuerte = Muerte::Instance();
     EstadoMenu = new Menu2();
     estadoMenu = true;
 
@@ -71,7 +72,7 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
 {
     if (estadoInGame == true && EstadoInGame->EstadoActivo) {
         //Si estado pause esta activo no hacemos el de in game
-        if(!EstadoPause->EstadoActivo){
+        if(!EstadoPause->EstadoActivo || !EstadoMuerte->EstadoActivo){
             EstadoInGame->Update(elapsedTime);
         }
     }
@@ -93,10 +94,12 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
 void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
 {
     if (estadoInGame == true && EstadoInGame->EstadoActivo) {
-        if(!EstadoPause->EstadoActivo){
+        if(!EstadoPause->EstadoActivo || !EstadoMuerte->EstadoActivo){
             EstadoInGame->render(interpolation, elapsedTime);
-        }else{
+        }else if(EstadoPause->EstadoActivo){
             EstadoInGame->renderForPause(interpolation, elapsedTime);
+        }else{
+            EstadoInGame->renderForMuerte(interpolation, elapsedTime);
         }
     }
     if (estadoTransition == true && EstadoTransition->EstadoActivo) {
@@ -265,17 +268,14 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         }
     } else if (key == sf::Keyboard::P && estadoInGame == true && EstadoInGame->EstadoActivo) {
         EstadoTransition->EstadoActivo = false;
-        //EstadoInGame->EstadoActivo = false;
         EstadoPause->SetSetectedItemIndexPause(0);
         EstadoPause->EstadoActivo = true;
     } else if (key == sf::Keyboard::O && estadoInGame == true && EstadoInGame->EstadoActivo) {
         EstadoTransition->EstadoActivo = false;
-        EstadoInGame->EstadoActivo = false;
         EstadoMuerte->relojMuerte.restart();
         EstadoMuerte->EstadoActivo = true;
     } else if (key == sf::Keyboard::O && estadoMuerte == true && EstadoMuerte->EstadoActivo) {
         EstadoTransition->EstadoActivo = false;
-        EstadoInGame->EstadoActivo = true;
         EstadoMuerte->SetEscala();
         EstadoMuerte->EstadoActivo = false;
     }

@@ -14,6 +14,15 @@
 #include <string>
 #include "Muerte.hpp"
 
+Muerte* Muerte::mInstance = 0;
+
+Muerte* Muerte::Instance() {
+    if (mInstance == 0) {
+        mInstance = new Muerte;
+    }
+    return mInstance;
+}
+
 Muerte::Muerte() {
     
     motor = Motor2D::Instance();
@@ -85,20 +94,18 @@ Muerte::~Muerte() {
     sf::Vector2f mousePosition = mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow));
 }*/
 void Muerte::render(float interpolation, sf::Time elapsedTime) {
-    //mWindow->clear()
-    
     
     if(relojMuerte.getElapsedTime().asSeconds()<0.5){
-    escala++;
-    float aux= 1.4+0.07*escala;
-    textoMuerte->setScale(aux,aux);
+        escala++;
+        float aux= 1.4+0.07*escala;
+        textoMuerte->setScale(aux,aux);
     }
     
     updateView();
     motor->draw(spriteFondo);
     motor->draw(spriteRelleno);
     motor->draw(*textoMuerte);
-    motor->display();
+    
 }
 void Muerte::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
     if (button == sf::Mouse::Button::Left) {
@@ -119,8 +126,6 @@ void Muerte::updateView() {
 
     mouseSprite->setPosition(position.x, position.y);
 
-    motor->setSizeForView(1, 640, 480);
-    motor->SetView(1);
 }
 
 void Muerte::SetEscala() {

@@ -21,7 +21,7 @@
 #include <Map.hpp>
 #include <SFML/Audio.hpp>
 #include "Pause.hpp"
-
+#include "Muerte.hpp"
 
 class InGame:public State {
 public:
@@ -30,15 +30,15 @@ public:
     virtual ~InGame();
     void    run();
 
-    void Update(sf::Time elapsedTime);
-    void UpdateForPause(sf::Time elapsedTime);
+    void                        Update(sf::Time elapsedTime);
     void			handlePlayerInput(sf::Keyboard::Key key, bool isPressed);  // Maneja eventos
     void			handleMouseInput(sf::Mouse::Button button, bool isPressed);  // Maneja eventos
     
     void			render(float interpolation, sf::Time elapsedTime);
+    void			renderForPause(float interpolation, sf::Time elapsedTime);
+    void			renderForMuerte(float interpolation, sf::Time elapsedTime);
     
     void                        updateView();
-    void			renderForPause(float interpolation, sf::Time elapsedTime);
     void                        updateViewForPause();
     Map                         *mapa;
     sf::Music                   *musica;
@@ -52,6 +52,7 @@ private:
     //Singletones
     Motor2D                     *motor;
     Pause                       *pause;
+    Muerte                      *muerte;
     
     //Recursos
     sf::Texture                 texturaFondo;

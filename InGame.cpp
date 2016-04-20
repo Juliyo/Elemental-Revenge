@@ -13,12 +13,14 @@
 
 #include "InGame.hpp"
 #include "Pause.hpp"
+#include "Muerte.hpp"
 
 //SOLO EN WINDOWS
 
 InGame::InGame() {
     motor = Motor2D::Instance();
     pause = Pause::Instance();
+    muerte = Muerte::Instance();
     //Estado de Ingame
     EstadoActivo = false;
     try {
@@ -126,6 +128,58 @@ void InGame::Update(sf::Time elapsedTime) {
     firstTime = false;
 
 }
+
+void InGame::renderForMuerte(float interpolation, sf::Time elapsedTime) {
+    motor->clear();
+    motor->SetView(0); //bordes
+    motor->draw(spriteRelleno);
+    motor->SetView(1);
+    
+    updateViewForPause();
+    
+    
+    motor->draw(spriteFondo);
+
+    /**********************ARREGLAR***************************/
+    if (mapa->getMapaActual() == 1) {
+        mapa->dibujaMapa1();
+    }
+    if (mapa->getMapaActual() == 2) {
+        mapa->dibujaMapa2();
+    }
+    if (mapa->getMapaActual() == 3) {
+        mapa->dibujaMapa2();
+    }
+    /*********************************************************/
+    player -> hRayoAvanzado->DrawWithOutInterpolation();
+    player->hRayoBasico->DrawWithInterpolation(interpolation, player->GetPreviousPosition(), player->GetPosition());
+    player -> DrawWithInterpolation(interpolation);
+
+   if (mapa->getMapaActual() == 1) {
+        mapa->dibuja2Mapa1();
+    }
+    if (mapa->getMapaActual() == 2) {
+        mapa->dibuja2Mapa2();
+
+    }
+    if (mapa->getMapaActual() == 3) {
+        mapa->dibuja2Mapa3();
+    }
+    
+    
+    motor->SetView(2); //vista del HUD
+    player -> hud->renderHud();
+    if(!video -> getLooped()){
+            video -> PlayVideo();
+    }
+    muerte->render(interpolation,elapsedTime);
+    motor->SetView(1); //vista del juego
+
+    motor->draw(mouseSprite);
+
+    motor->display();
+}
+
 void InGame::renderForPause(float interpolation, sf::Time elapsedTime){
     motor->clear();
     motor->SetView(0); //bordes
