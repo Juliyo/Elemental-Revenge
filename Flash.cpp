@@ -86,7 +86,7 @@ Flash::Flash(const Flash& orig) {
 Flash::~Flash() {
 }
 
-sf::Vector2f Flash::cast(sf::Vector2f posicion) {
+sf::Vector2f Flash::cast(sf::Vector2f posicion,Hud *hud) {
 
 
     if (clockCd.getTiempo() > getCD() || primerCast == true) {
@@ -94,6 +94,7 @@ sf::Vector2f Flash::cast(sf::Vector2f posicion) {
         dibujar = true;
         SetPosition(posicion);
         clockCd.restart();
+        hud->resetFlash();
         tiempoCast.restart();
         sf::Vector2f vectorFinal;
         sf::Vector2f mousePosition=Motor2D::Instance()->getMousePosition();

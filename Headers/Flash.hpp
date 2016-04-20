@@ -16,6 +16,7 @@
 
 #include "../Headers/Hechizo.hpp"
 #include "../Headers/Animation.hpp"
+#include "Hud.hpp"
 
 class Flash : public Hechizo {
 public:
@@ -24,7 +25,7 @@ public:
     virtual ~Flash();
     void Draw();
     void DrawWithInterpolation( float interpolation, const sf::Vector2f &posPrev, const sf::Vector2f &posNew);
-    sf::Vector2f cast(sf::Vector2f);
+    sf::Vector2f cast(sf::Vector2f, Hud *hud);
     void cast2(Reloj *clockCD2);
     Animation *flashingAnimation;
     Animation *flashingAnimation2;

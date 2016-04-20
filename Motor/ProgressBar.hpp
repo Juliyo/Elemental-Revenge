@@ -22,7 +22,7 @@ const double PI = 3.14159265359;
 class ProgressBar {
 public:
 
-    ProgressBar(float r, int nFrames, sf::Vector2f center, float tiempo, bool izquierda, sf::Vector2f escala, sf::Color color1 = sf::Color::Green, sf::Color color2 = sf::Color::Green);
+    ProgressBar(float r, int nFrames, sf::Vector2f center, float tiempo, bool izquierda, sf::Vector2f escala, sf::Color color1 = sf::Color::Green, sf::Color color2 = sf::Color::Green, bool comple = false);
 
     void setTime(int tiempo);
     
@@ -40,6 +40,7 @@ private:
     sf::Time m_currentTime;
     bool firstTime = false;
     bool completado = false;
+    bool completo = false;
     float radio;
     sf::Vector2f centro;
     int numFrames;

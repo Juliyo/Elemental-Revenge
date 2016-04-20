@@ -57,10 +57,11 @@ Heal::Heal(const Heal& orig) {
 Heal::~Heal() {
 }
 
-bool Heal::cast() {
+bool Heal::cast(Hud *hud) {
     if (primerCast == true || clockCd.getTiempo() > getCD()) {
         primerCast = false;
         clockCd.restart();
+        hud->resetCurar();
         tiempoCast.restart();
         dibujar = true;
         return true;

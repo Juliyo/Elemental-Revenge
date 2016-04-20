@@ -16,12 +16,16 @@ Hud::Hud(Reloj *cds, float *coolDowns) {
     mCds = cds;
     mCoolDowns = coolDowns;
 
-    cRayo1 = new ProgressBar(120, 150, sf::Vector2f(1000, 1500), mCoolDowns[0], 1, sf::Vector2f(0.5, 0.6), sf::Color::Yellow);
-    cRayo2 = new ProgressBar(120, 150, sf::Vector2f(1000, 1500), mCoolDowns[1], 0, sf::Vector2f(0.5, 0.6), sf::Color::Yellow);
-    cAgua1 = new ProgressBar(120, 150, sf::Vector2f(1300, 1500), mCoolDowns[2], 1, sf::Vector2f(0.5, 0.6), sf::Color::Yellow);
-    cAgua2 = new ProgressBar(120, 150, sf::Vector2f(1300, 1500), mCoolDowns[3], 0, sf::Vector2f(0.5, 0.6), sf::Color::Yellow);
-    cFuego1 = new ProgressBar(120, 25, sf::Vector2f(700, 1500), mCoolDowns[4], 1, sf::Vector2f(0.5, 0.6), sf::Color::Yellow);
-    cFuego2 = new ProgressBar(120, 150, sf::Vector2f(700, 1500), mCoolDowns[5], 0, sf::Vector2f(0.5, 0.6), sf::Color::Yellow);
+    cRayo1 = new ProgressBar(120, 150, sf::Vector2f(1670, 2275), mCoolDowns[0], 1, sf::Vector2f(0.3, 0.4), sf::Color::Yellow);
+    cRayo2 = new ProgressBar(120, 150, sf::Vector2f(1670, 2275), mCoolDowns[1], 0, sf::Vector2f(0.3, 0.4), sf::Color::Yellow);
+    cAgua1 = new ProgressBar(120, 150, sf::Vector2f(2000, 2275), mCoolDowns[2], 1, sf::Vector2f(0.3, 0.4), sf::Color::Yellow);
+    cAgua2 = new ProgressBar(120, 150, sf::Vector2f(2000, 2275), mCoolDowns[3], 0, sf::Vector2f(0.3, 0.4), sf::Color::Yellow);
+    cFuego1 = new ProgressBar(120, 25, sf::Vector2f(1335, 2275), mCoolDowns[4], 1, sf::Vector2f(0.3, 0.4), sf::Color::Yellow);
+    cFuego2 = new ProgressBar(120, 150, sf::Vector2f(1335, 2275), mCoolDowns[5], 0, sf::Vector2f(0.3, 0.4), sf::Color::Yellow);
+    
+    cCurar = new ProgressBar(120, 180, sf::Vector2f(1501, 3675), mCoolDowns[7], 0, sf::Vector2f(0.2, 0.25), sf::Color::Yellow,sf::Color::Green, true);
+    
+    cFlash = new ProgressBar(120, 180, sf::Vector2f(3500, 3675), mCoolDowns[6], 0, sf::Vector2f(0.2, 0.25), sf::Color::Yellow,sf::Color::Green, true);
 
     std::string ruta = "resources/Textures/hudHealthBar.png";
     std::string ruta2 = "resources/Textures/barraVida.png";
@@ -44,6 +48,10 @@ Hud::Hud(Reloj *cds, float *coolDowns) {
     cargarAgua();
 
     cargarFuego();
+    
+    cargarFlash();
+    
+    cargarCurar();
 
 }
 
@@ -60,6 +68,8 @@ void Hud::renderHud(sf::Time elapsedTime) {
     cAgua2->update(elapsedTime);
     cFuego1->update(elapsedTime);
     cFuego2->update(elapsedTime);
+    cCurar->update(elapsedTime);
+    cFlash->update(elapsedTime);
 
     m->draw(barraVida);
     m->draw(sVida);
@@ -70,6 +80,8 @@ void Hud::renderHud(sf::Time elapsedTime) {
     cAgua2->draw();
     cFuego1->draw();
     cFuego2->draw();
+    cCurar->draw();
+    cFlash->draw();
 
     m->draw(fBlanco);
     m->draw(fuegoBueno);
@@ -85,9 +97,16 @@ void Hud::renderHud(sf::Time elapsedTime) {
     m->draw(aguaBueno);
     m->draw(aSombra);
     m->draw(aGlare);
-
-
-
+    
+    m->draw(cuBlanco);
+    m->draw(curarBueno);
+    m->draw(cuSombra);
+    m->draw(cuGlare);
+    
+    m->draw(flBlanco);
+    m->draw(flashBueno);
+    m->draw(flSombra);
+    m->draw(flGlare);
 }
 
 void Hud::cambiaHechizo(int activar) {
@@ -135,28 +154,23 @@ void Hud::cargarRayo() {
 
     rBlanco->setTexture("resources/Textures/hud/blanco.png", true);
     rBlanco->setOrigin(rBlanco->getTextureSize().x / 2, rBlanco->getTextureSize().y / 2);
-    rBlanco->setPosition(500, 900);
-    rBlanco->setScale(0.5, 0.6);
+    rBlanco->setPosition(500, 910);
+    rBlanco->setScale(0.3, 0.4);
+    
     rayoBueno->setTexture("resources/Textures/hud/rayo.png", true);
     rayoBueno->setOrigin(rayoBueno->getTextureSize().x / 2, rayoBueno->getTextureSize().y / 2);
-    rayoBueno->setPosition(500, 900);
-    rayoBueno->setScale(0.5, 0.6);
+    rayoBueno->setPosition(500, 910);
+    rayoBueno->setScale(0.3, 0.4);
+    
     rGlare->setTexture("resources/Textures/hud/glare.png", true);
     rGlare->setOrigin(rGlare->getTextureSize().x / 2, rGlare->getTextureSize().y / 2);
-    rGlare->setPosition(500, 900);
-    rGlare->setScale(0.5, 0.6);
+    rGlare->setPosition(500, 910);
+    rGlare->setScale(0.3, 0.4);
+    
     rSombra->setTexture("resources/Textures/hud/sombra.png", true);
     rSombra->setOrigin(rSombra->getTextureSize().x / 2, rSombra->getTextureSize().y / 2);
-    rSombra->setPosition(500, 900);
-    rSombra->setScale(0.5, 0.6);
-}
-
-void Hud::resetRayo2() {
-    cRayo2->reset();
-}
-
-void Hud::resetRayo1() {
-    cRayo1->reset();
+    rSombra->setPosition(500, 910);
+    rSombra->setScale(0.3, 0.4);
 }
 
 void Hud::cargarAgua() {
@@ -168,24 +182,56 @@ void Hud::cargarAgua() {
 
     aBlanco->setTexture("resources/Textures/hud/blanco.png", true);
     aBlanco->setOrigin(rBlanco->getTextureSize().x / 2, rBlanco->getTextureSize().y / 2);
-    aBlanco->setPosition(650, 900);
-    aBlanco->setScale(0.5, 0.6);
+    aBlanco->setPosition(600, 910);
+    aBlanco->setScale(0.3, 0.4);
 
     aguaBueno->setTexture("resources/Textures/hud/agua.png", true);
     aguaBueno->setOrigin(rayoBueno->getTextureSize().x / 2, rayoBueno->getTextureSize().y / 2);
-    aguaBueno->setPosition(650, 900);
-    aguaBueno->setScale(0.5, 0.6);
+    aguaBueno->setPosition(600, 910);
+    aguaBueno->setScale(0.3, 0.4);
 
     aGlare->setTexture("resources/Textures/hud/glare.png", true);
     aGlare->setOrigin(rGlare->getTextureSize().x / 2, rGlare->getTextureSize().y / 2);
-    aGlare->setPosition(650, 900);
-    aGlare->setScale(0.5, 0.6);
+    aGlare->setPosition(600, 910);
+    aGlare->setScale(0.3, 0.4);
 
     aSombra->setTexture("resources/Textures/hud/sombra.png", true);
     aSombra->setOrigin(rSombra->getTextureSize().x / 2, rSombra->getTextureSize().y / 2);
-    aSombra->setPosition(650, 900);
-    aSombra->setScale(0.5, 0.6);
+    aSombra->setPosition(600, 910);
+    aSombra->setScale(0.3, 0.4);
 }
+
+void Hud::cargarCurar() {
+    cuBlanco = new Sprite();
+    curarBueno = new Sprite();
+    cuGlare = new Sprite();
+    cuSombra = new Sprite();
+    
+    cuBlanco->setTexture("resources/Textures/hud/blanco.png", true);
+    cuBlanco->setOrigin(rBlanco->getTextureSize().x / 2, rBlanco->getTextureSize().y / 2);
+    cuBlanco->setPosition(300, 920);
+    cuBlanco->setScale(0.2, 0.25);
+
+    curarBueno->setTexture("resources/Textures/hud/curar.png", true);
+    curarBueno->setOrigin(rayoBueno->getTextureSize().x / 2, rayoBueno->getTextureSize().y / 2);
+    curarBueno->setPosition(300, 920);
+    curarBueno->setScale(0.2, 0.25);
+
+    cuGlare->setTexture("resources/Textures/hud/glare.png", true);
+    cuGlare->setOrigin(rGlare->getTextureSize().x / 2, rGlare->getTextureSize().y / 2);
+    cuGlare->setPosition(300, 920);
+    cuGlare->setScale(0.2, 0.25);
+
+    cuSombra->setTexture("resources/Textures/hud/sombra.png", true);
+    cuSombra->setOrigin(rSombra->getTextureSize().x / 2, rSombra->getTextureSize().y / 2);
+    cuSombra->setPosition(300, 920);
+    cuSombra->setScale(0.2, 0.25);
+}
+
+void Hud::resetCurar() {
+    cCurar->reset();
+}
+
 
 void Hud::resetAgua2() {
     cAgua2->reset();
@@ -202,6 +248,18 @@ void Hud::resetFuego1() {
 void Hud::resetFuego2() {
     cFuego2->reset();
 }
+void Hud::resetRayo2() {
+    cRayo2->reset();
+}
+
+void Hud::resetRayo1() {
+    cRayo1->reset();
+}
+
+void Hud::resetFlash() {
+    cFlash->reset();
+}
+
 
 void Hud::cargarFuego() {
     fBlanco = new Sprite();
@@ -211,23 +269,51 @@ void Hud::cargarFuego() {
 
     fBlanco->setTexture("resources/Textures/hud/blanco.png", true);
     fBlanco->setOrigin(rBlanco->getTextureSize().x / 2, rBlanco->getTextureSize().y / 2);
-    fBlanco->setPosition(350, 900);
-    fBlanco->setScale(0.5, 0.6);
+    fBlanco->setPosition(400, 910);
+    fBlanco->setScale(0.3, 0.4);
 
     fuegoBueno->setTexture("resources/Textures/hud/fuego.png", true);
     fuegoBueno->setOrigin(rayoBueno->getTextureSize().x / 2, rayoBueno->getTextureSize().y / 2);
-    fuegoBueno->setPosition(350, 900);
-    fuegoBueno->setScale(0.5, 0.6);
+    fuegoBueno->setPosition(400, 910);
+    fuegoBueno->setScale(0.3, 0.4);
 
     fGlare->setTexture("resources/Textures/hud/glare.png", true);
     fGlare->setOrigin(rGlare->getTextureSize().x / 2, rGlare->getTextureSize().y / 2);
-    fGlare->setPosition(350, 900);
-    fGlare->setScale(0.5, 0.6);
+    fGlare->setPosition(400, 910);
+    fGlare->setScale(0.3, 0.4);
 
     fSombra->setTexture("resources/Textures/hud/sombra.png", true);
     fSombra->setOrigin(rSombra->getTextureSize().x / 2, rSombra->getTextureSize().y / 2);
-    fSombra->setPosition(350, 900);
-    fSombra->setScale(0.5, 0.6);
+    fSombra->setPosition(400, 910);
+    fSombra->setScale(0.3, 0.4);
+}
+
+void Hud::cargarFlash(){
+    flashBueno = new Sprite();
+    flBlanco = new Sprite();
+    flGlare = new Sprite();
+    flRayo = new Sprite();
+    flSombra = new Sprite();
+    
+    flBlanco->setTexture("resources/Textures/hud/blanco.png", true);
+    flBlanco->setOrigin(rBlanco->getTextureSize().x / 2, rBlanco->getTextureSize().y / 2);
+    flBlanco->setPosition(700, 920);
+    flBlanco->setScale(0.2, 0.25);
+
+    flashBueno->setTexture("resources/Textures/hud/flash.png", true);
+    flashBueno->setOrigin(rayoBueno->getTextureSize().x / 2, rayoBueno->getTextureSize().y / 2);
+    flashBueno->setPosition(700, 920);
+    flashBueno->setScale(0.2, 0.25);
+
+    flGlare->setTexture("resources/Textures/hud/glare.png", true);
+    flGlare->setOrigin(rGlare->getTextureSize().x / 2, rGlare->getTextureSize().y / 2);
+    flGlare->setPosition(700, 920);
+    flGlare->setScale(0.2, 0.25);
+
+    flSombra->setTexture("resources/Textures/hud/sombra.png", true);
+    flSombra->setOrigin(rSombra->getTextureSize().x / 2, rSombra->getTextureSize().y / 2);
+    flSombra->setPosition(700, 920);
+    flSombra->setScale(0.2, 0.25);
 }
 
 

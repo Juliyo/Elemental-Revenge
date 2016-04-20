@@ -83,7 +83,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     relojes[0] = hRayoBasico->tiempoCd;
     relojes[1] = hRayoAvanzado->tiempoCd;
     
-    float *cds = new float[6];
+    float *cds = new float[8];
     
     cds[0] = hRayoBasico->getCD();
     cds[1] = hRayoAvanzado->getCD();
@@ -91,6 +91,9 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     cds[3] = hAguaAvanzado->getCD();
     cds[4] = CDFire;
     cds[5] = hFuegoAvanzado->getCD();
+    cds[6] = flash->getCD();
+    cds[7] = hHeal->getCD();
+    
     
     hud = new Hud(relojes,cds);
 
@@ -443,7 +446,7 @@ int Player::restaVida(int a) {
 }
 
 void Player::heal() {
-    if (hHeal->cast()) {
+    if (hHeal->cast(hud)) {
         //std::cout <<"Sumo vidas";
         vida += 2;
         if (vida > 15) {
@@ -619,7 +622,7 @@ void Player::updateFlash() {
         if (isFlashing) {
             //Como el player se ha movido 'casteamos' la animacion del otro flash
             flash2->cast2(&flash->clockCd);
-            sf::Vector2f prueba =flash->cast(sf::Vector2f(getPosition()));
+            sf::Vector2f prueba =flash->cast(sf::Vector2f(getPosition()),hud);
             if(prueba.x != getPosition().x && prueba.y != getPosition().y){
                 Colocar(prueba);
             } 
@@ -880,7 +883,8 @@ void Player::renderHeal(sf::Time elapsedTime, float interpolation) {
                 break;
         }
         hHeal->UpdateAnimation(elapsedTime);
-        if (hHeal->tiempoCast.getTiempo() < 1.f) {
+        //Muy importante el getCD
+        if (hHeal->tiempoCast.getTiempo() < hHeal->getCD()) {
             sf::Vector2f zizu(33.f, 35.f);
             hHeal->DrawWithInterpolation(interpolation, (GetPreviousPosition() - zizu), (GetPosition() - zizu));
         } else {

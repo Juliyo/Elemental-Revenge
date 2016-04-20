@@ -15,13 +15,13 @@
 
 #include "Hechizo.hpp"
 #include "Animation.hpp"
-
+#include "Hud.hpp"
 class Heal: public Hechizo {
 public:
     Heal();
     Heal(const Heal& orig);
     virtual ~Heal();
-    bool cast();
+    bool cast(Hud *hud);
     void DrawWithInterpolation( float interpolation, sf::Vector2f pos1,sf::Vector2f pos2);
     
     Animation   *animacion;

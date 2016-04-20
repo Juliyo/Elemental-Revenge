@@ -13,7 +13,7 @@
 
 #include "ProgressBar.hpp"
 
-ProgressBar::ProgressBar(float r, int nFrames, sf::Vector2f center, float tiempo, bool izquierda, sf::Vector2f escala, sf::Color color1, sf::Color color2) {
+ProgressBar::ProgressBar(float r, int nFrames, sf::Vector2f center, float tiempo, bool izquierda, sf::Vector2f escala, sf::Color color1, sf::Color color2, bool comple) {
     radio = r;
     numFrames = nFrames;
     centro = center;
@@ -25,15 +25,23 @@ ProgressBar::ProgressBar(float r, int nFrames, sf::Vector2f center, float tiempo
 
     float incre = 3.15 / numFrames;
 
-    if (izquierda) {
+    if (izquierda && !comple) {
         for (double angle = 2 * PI; angle >= PI; angle -= incre) {
             sf::Vector2f p(centro.x + radio * sin(angle), centro.y + radio * cos(angle));
             puntos.push_back(p);
         }
     } else {
-        for (double angle = 0; angle <= PI; angle += incre) {
-            sf::Vector2f p(centro.x + radio * sin(angle), centro.y + radio * cos(angle));
-            puntos.push_back(p);
+        if (!comple) {
+            for (double angle = 0; angle <= PI; angle += incre) {
+                sf::Vector2f p(centro.x + radio * sin(angle), centro.y + radio * cos(angle));
+                puntos.push_back(p);
+            }
+        } else {
+            float incr2 = 6.28 / numFrames;
+            for (double angle = 2*PI; angle >= 0; angle -= incr2) {
+                sf::Vector2f p(centro.x + radio * sin(angle), centro.y + radio * cos(angle));
+                puntos.push_back(p);
+            }
         }
     }
     m = Motor2D::Instance();
@@ -41,6 +49,7 @@ ProgressBar::ProgressBar(float r, int nFrames, sf::Vector2f center, float tiempo
     rs.transform = trans;
     loadingColor = color1;
     completedColor = color2;
+    completo = comple;
     rellena();
 }
 
@@ -67,7 +76,7 @@ void ProgressBar::update(sf::Time elapsedTime) {
                 contador++;
             } else {
                 //Animacion terminada
-                if(!completado){
+                if (!completado) {
                     for (int i = 0; i <= numFrames; i++) {
                         triangleFan[i].color = completedColor;
                         triangleFan[i].color.a = 200;
@@ -76,9 +85,9 @@ void ProgressBar::update(sf::Time elapsedTime) {
                 }
             }
             //if (contador != (numFrames + 1)) {
-                triangleFan.append(puntos.at(contador-1));
-                triangleFan[contador-1].color = loadingColor;
-                triangleFan[contador-1].color.a = 200;
+            triangleFan.append(puntos.at(contador - 1));
+            triangleFan[contador - 1].color = loadingColor;
+            triangleFan[contador - 1].color.a = 200;
             //}
         }
     }
@@ -97,11 +106,11 @@ void ProgressBar::reset() {
 }
 
 void ProgressBar::setTime(int tiempo) {
-    m_frameTime = sf::seconds(tiempo / (float) numFrames+1);
+    m_frameTime = sf::seconds(tiempo / (float) numFrames + 1);
 }
 
 void ProgressBar::rellena() {
-    for (int i = 0; i < numFrames+1; i++) {
+    for (int i = 0; i < numFrames + 1; i++) {
         triangleFan.append(puntos.at(i));
         triangleFan[i].color = completedColor;
         triangleFan[i].color.a = 200;

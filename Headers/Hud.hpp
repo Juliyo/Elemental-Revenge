@@ -36,6 +36,10 @@ public:
     
     void resetFuego1();
     void resetFuego2();
+    
+    void resetFlash();
+    
+    void resetCurar();
 private:
     Motor2D *m;
     Sprite barraVida;
@@ -67,10 +71,27 @@ private:
     Sprite       *fRayo;
     Sprite       *fSombra;
     
+    //Flash
+    
+    Sprite      *flashBueno;
+    Sprite       *flBlanco;
+    Sprite       *flGlare;
+    Sprite       *flRayo;
+    Sprite       *flSombra;
+    
+    //Curar
+    
+    Sprite      *curarBueno;
+    Sprite       *cuBlanco;
+    Sprite       *cuGlare;
+    Sprite       *cuRayo;
+    Sprite       *cuSombra;
+    
     void cargarRayo();
     void cargarAgua();
     void cargarFuego();
-
+    void cargarFlash();
+    void cargarCurar();
     
     ProgressBar *cRayo1;
     ProgressBar *cRayo2;
@@ -78,6 +99,8 @@ private:
     ProgressBar *cAgua2;
     ProgressBar *cFuego1;
     ProgressBar *cFuego2;
+    ProgressBar *cFlash;
+    ProgressBar *cCurar;
     
 };
 
