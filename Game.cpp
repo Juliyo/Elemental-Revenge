@@ -217,6 +217,7 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         if (estadoTransition == true) {
             EstadoTransition->EstadoActivo = true;
             EstadoInGame->musica->stop();
+            EstadoInGame->musica2->stop();
             Motor2D::Instance() -> setZoom(1.f);
             EstadoTransition->musica->play();
         }
