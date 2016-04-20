@@ -217,6 +217,7 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         if (estadoTransition == true) {
             EstadoTransition->EstadoActivo = true;
             EstadoInGame->musica->stop();
+            Motor2D::Instance() -> setZoom(1.f);
             EstadoTransition->musica->play();
         }
         if (estadoPause == true) {
@@ -292,7 +293,7 @@ void Game::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
         EstadoCarga2 = new Carga2();
         EstadoCarga2 -> EstadoActivo = true;
         estadoCarga2 = true;
-
+        
         // EstadoInGame->EstadoActivo = true;
 
 
@@ -358,7 +359,7 @@ void Game::cargarMapa() {
     } else {
         EstadoInGame->mapa->leerMapa(EstadoTransition->level, 0);
     }
-
+    EstadoInGame->video ->setLooped(false);
     EstadoInGame->EstadoActivo = true;
     estadoInGame = true;
     //sf::sleep(sf::seconds(10));
@@ -366,5 +367,5 @@ void Game::cargarMapa() {
 
     EstadoTransition->musica->pause();
     EstadoInGame->musica->play();
-
+    //Motor2D::Instance() -> setZoom(0.7f);
 }

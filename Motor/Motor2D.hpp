@@ -37,7 +37,7 @@ public:
     void setAltoVentana(int alto);
     int getAnchoVentana();
     int getAltoVentana();
-    void setZoomToView(float zoom, int view);
+    void setZoom(float zoom);
 
     sf::Vector2f getCenterFromView(int view);
     sf::Vector2f getSizeFromView(int view);
@@ -76,7 +76,8 @@ private:
     sf::View *HUD;
     sf::View *transicion;
     sf::Vector2f *raton;
-
+    
+    float zoomLevel =1.f;
 };
 
 #endif /* MOTOR2D_HPP */

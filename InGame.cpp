@@ -53,8 +53,8 @@ InGame::InGame() {
 
     player = new Player();
     player -> Inicializar(850.f, 800.f);
-
-    motor->setZoomToView(0.5f, 1); //1=vista del mundo(nuestra pantalla)
+    //player->SetScale(0.7,0.7);
+    //motor->setZoom(0.3f); //1=vista del mundo(nuestra pantalla)
 
     updateView();
 
@@ -191,7 +191,6 @@ void InGame::renderForPause(float interpolation, sf::Time elapsedTime){
     
     motor->draw(spriteFondo);
 
-    /**********************ARREGLAR***************************/
     if (mapa->getMapaActual() == 1) {
         mapa->dibujaMapa1();
     }
@@ -201,7 +200,6 @@ void InGame::renderForPause(float interpolation, sf::Time elapsedTime){
     if (mapa->getMapaActual() == 3) {
         mapa->dibujaMapa3();
     }
-    /*********************************************************/
 
     player -> DrawAnimationWithOut(player->GetSpriteAnimated().getPosition());
 
@@ -241,7 +239,6 @@ void InGame::render(float interpolation, sf::Time elapsedTime) {
     
     motor->draw(spriteFondo);
 
-    /**********************ARREGLAR***************************/
     if (mapa->getMapaActual() == 1) {
         mapa->dibujaMapa1();
     }
@@ -251,7 +248,6 @@ void InGame::render(float interpolation, sf::Time elapsedTime) {
     if (mapa->getMapaActual() == 3) {
         mapa->dibujaMapa3();
     }
-    /*********************************************************/
 
      player -> PlayAnimation(*player -> currentAnimation);
 

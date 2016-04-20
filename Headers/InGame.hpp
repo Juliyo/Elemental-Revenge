@@ -44,7 +44,7 @@ public:
     void                        updateViewForPause();
     Map                         *mapa;
     sf::Music                   *musica;
-    
+    Video *video;
 private:
     
     
@@ -69,7 +69,7 @@ private:
     Sprite                      mouseSprite;
     
     
-    Video *video;
+   
     //Eventos
     bool			isMovingUp;
     bool			isMovingDown;
