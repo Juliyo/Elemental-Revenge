@@ -328,6 +328,7 @@ void Game::cargarMapa() {
             
             EstadoInGame->musica->openFromFile("resources/Sounds/Bosque.ogg");
             EstadoInGame->musica->setVolume(10);
+            EstadoInGame->musica2->play();
 
         }
 

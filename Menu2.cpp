@@ -140,7 +140,7 @@ Menu2::Menu2() {
     musica->play();
     
     musicaFondo = new sf::Music();
-    musicaFondo->openFromFile("resources/Sounds/Magicka2.ogg");
+    musicaFondo->openFromFile("resources/Sounds/Magicka.ogg");
     musicaFondo->play();
     musicaFondo->setVolume(30);
 

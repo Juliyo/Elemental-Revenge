@@ -66,6 +66,10 @@ InGame::InGame() {
     musica = new sf::Music();
     musica->openFromFile("resources/Sounds/InGame.ogg");
     musica->setVolume(50);
+    
+    musica2 = new sf::Music();
+    musica2->openFromFile("resources/Sounds/Magicka2.ogg");
+    musica2->setVolume(50);
 }
 
 InGame::InGame(const InGame& orig) {

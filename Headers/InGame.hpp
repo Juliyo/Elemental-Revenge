@@ -44,6 +44,7 @@ public:
     void                        updateViewForPause();
     Map                         *mapa;
     sf::Music                   *musica;
+    sf::Music                   *musica2;
     
 private:
     
