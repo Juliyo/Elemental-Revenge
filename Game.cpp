@@ -324,15 +324,30 @@ void Game::cargarMapa() {
 
     EstadoInGame->mapa->~Map();
 
+        if (EstadoTransition->level == 1) {
+            
+            EstadoInGame->musica->openFromFile("resources/Sounds/Bosque.ogg");
+            EstadoInGame->musica->setVolume(10);
+
+        }
+
+        if (EstadoTransition->level == 3) {
+            
+                 EstadoInGame->musica->openFromFile("resources/Sounds/history.ogg");
+
+        }
+    
     EstadoInGame->mapa = new Map();
     //EstadoInGame->mapa->leerMapa(2,0);
     if (EstadoTransition->level == 2) {
         if (EstadoTransition->getIzqODer() == 1) {
             EstadoInGame->mapa->leerMapa(EstadoTransition->level, 1);
+
         }
 
         if (EstadoTransition->getIzqODer() == 2) {
             EstadoInGame->mapa->leerMapa(EstadoTransition->level, 2);
+
         }
 
     } else {
