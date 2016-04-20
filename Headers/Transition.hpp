@@ -98,6 +98,7 @@ private:
     void changePregunta();
     bool pulsado = false;
     bool Bcruzeta = false;
+    bool salir=false;
 
 };
 
