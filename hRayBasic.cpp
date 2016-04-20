@@ -100,13 +100,13 @@ hRayBasic::~hRayBasic() {
 
 void hRayBasic::cast(sf::Vector2f posicion) {
 
-      if(!buffer.loadFromFile("resources/Sounds/Pistola.wav")){
+      /*if(!buffer.loadFromFile("resources/Sounds/Pistola.wav")){
         exit(0);
     }
 
     sound.setBuffer(buffer);
     sound.play();
-
+*/
     draw = true;
     float angleShot = Motor2D::Instance()->getAngleShot(posicion);
 

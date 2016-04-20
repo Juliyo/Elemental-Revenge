@@ -143,12 +143,14 @@ void InGame::renderForMuerte(float interpolation, sf::Time elapsedTime) {
     /**********************ARREGLAR***************************/
     if (mapa->getMapaActual() == 1) {
         mapa->dibujaMapa1();
+
     }
     if (mapa->getMapaActual() == 2) {
         mapa->dibujaMapa2();
+
     }
     if (mapa->getMapaActual() == 3) {
-        mapa->dibujaMapa2();
+        mapa->dibujaMapa3();
     }
     /*********************************************************/
     player -> DrawAnimationWithOut(player->GetSpriteAnimated().getPosition());
@@ -197,7 +199,7 @@ void InGame::renderForPause(float interpolation, sf::Time elapsedTime){
         mapa->dibujaMapa2();
     }
     if (mapa->getMapaActual() == 3) {
-        mapa->dibujaMapa2();
+        mapa->dibujaMapa3();
     }
     /*********************************************************/
 
@@ -247,10 +249,31 @@ void InGame::render(float interpolation, sf::Time elapsedTime) {
         mapa->dibujaMapa2();
     }
     if (mapa->getMapaActual() == 3) {
-        mapa->dibujaMapa2();
+        mapa->dibujaMapa3();
     }
     /*********************************************************/
 
+     player -> PlayAnimation(*player -> currentAnimation);
+
+
+    if ((!isMovingDown && !isMovingLeft && !isMovingRight && !isMovingUp) || player->hRayoBasico->draw == true) {
+        player -> StopAnimation();
+    }
+    player -> UpdateAnimation(elapsedTime);
+
+    player -> DrawWithInterpolation(interpolation);
+
+   if (mapa->getMapaActual() == 1) {
+        mapa->dibuja2Mapa1();
+    }
+    if (mapa->getMapaActual() == 2) {
+        mapa->dibuja2Mapa2();
+
+    }
+    if (mapa->getMapaActual() == 3) {
+        mapa->dibuja2Mapa3();
+    }
+    
     int x = motor->getMousePosition().x - player -> getPosition().x;
     int y = motor->getMousePosition().y - player -> getPosition().y;
     player ->UpdatePlayerAnimation(x, y);
@@ -330,26 +353,7 @@ void InGame::render(float interpolation, sf::Time elapsedTime) {
     }
     //printf("%f",player->hRayoBasico->tiempoCast.getTiempo());
 
-    player -> PlayAnimation(*player -> currentAnimation);
-
-
-    if ((!isMovingDown && !isMovingLeft && !isMovingRight && !isMovingUp) || player->hRayoBasico->draw == true) {
-        player -> StopAnimation();
-    }
-    player -> UpdateAnimation(elapsedTime);
-
-    player -> DrawWithInterpolation(interpolation);
-
-   if (mapa->getMapaActual() == 1) {
-        mapa->dibuja2Mapa1();
-    }
-    if (mapa->getMapaActual() == 2) {
-        mapa->dibuja2Mapa2();
-
-    }
-    if (mapa->getMapaActual() == 3) {
-        mapa->dibuja2Mapa3();
-    }
+   
     
     
     motor->SetView(2); //vista del HUD
@@ -424,4 +428,9 @@ void InGame::updateViewForPause() {
 
     mouseSprite.setPosition(position.x, position.y);
 
+}
+
+void InGame::SetPlayer(float x, float y) {
+    player->SetPosition(x, y);
+    
 }

@@ -38,6 +38,8 @@ public:
     void			renderForPause(float interpolation, sf::Time elapsedTime);
     void			renderForMuerte(float interpolation, sf::Time elapsedTime);
     
+    void                        SetPlayer(float x, float y);
+    
     void                        updateView();
     void                        updateViewForPause();
     Map                         *mapa;

@@ -334,6 +334,8 @@ void Game::cargarMapa() {
         if (EstadoTransition->level == 3) {
             
                  EstadoInGame->musica->openFromFile("resources/Sounds/history.ogg");
+            EstadoInGame->musica->setVolume(10);
+            EstadoInGame->SetPlayer(2000.f,800.f);
 
         }
     
@@ -342,13 +344,16 @@ void Game::cargarMapa() {
     if (EstadoTransition->level == 2) {
         if (EstadoTransition->getIzqODer() == 1) {
             EstadoInGame->mapa->leerMapa(EstadoTransition->level, 1);
-
+            EstadoInGame->SetPlayer(2000.f,800.f);
         }
 
         if (EstadoTransition->getIzqODer() == 2) {
             EstadoInGame->mapa->leerMapa(EstadoTransition->level, 2);
+            EstadoInGame->SetPlayer(2000.f,800.f);
 
         }
+        EstadoInGame->musica->openFromFile("resources/Sounds/Creepy.ogg");
+            EstadoInGame->musica->setVolume(10);
 
     } else {
         EstadoInGame->mapa->leerMapa(EstadoTransition->level, 0);
