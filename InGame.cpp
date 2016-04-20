@@ -54,10 +54,10 @@ InGame::InGame() {
     
 
     
-    enemigo = new Enemigo[80];
-    for(int i=0;i<80;i++){
+    enemigo = new Enemigo[5];
+    for(int i=0;i<5;i++){
         
-        enemigo[i]. Inicializar(950.f+i, 850.f+i);
+        enemigo[i]. Inicializar(950.f+i*2, 850.f+i*2);
     }
     //enemigo -> Inicializar(950.f, 850.f);
 
@@ -98,15 +98,16 @@ void InGame::Update(sf::Time elapsedTime) {
         }
             
 
-            for(int i=0;i<80;i++){
+            for(int i=0;i<5;i++){
         if (enemigo[i].cuadrante==1 )
-            movement2.y -= player -> getVelocidad()/3;
+            movement2.y -= 1.f;
         if (enemigo[i].cuadrante==2 )
-            movement2.y += player -> getVelocidad()/3;
+            movement2.y += 1.f;
         if (enemigo[i].cuadrante==3 )
-            movement2.x += player -> getVelocidad()/3;
+            movement2.x += 1.f;
         if (enemigo[i].cuadrante==4 )
-            movement2.x -= player -> getVelocidad()/3;
+            movement2.x -= 1.f;
+        std::cout<<movement2.x<<","<<movement2.y<<std::endl;
         enemigo[i].Update(movement2, elapsedTime, mapa);
     }
  
@@ -182,7 +183,7 @@ void InGame::render(float interpolation, sf::Time elapsedTime) {
 
     player ->UpdatePlayerAnimation(x, y);
     
-     for(int i=0;i<80;i++){
+     for(int i=0;i<5;i++){
              int x2 = player->getPosition().x - enemigo[i].getPosition().x;
     int y2 = player->getPosition().y - enemigo[i].getPosition().y;
          enemigo[i].UpdateEnemyAnimation(x2,y2);
@@ -265,7 +266,7 @@ void InGame::render(float interpolation, sf::Time elapsedTime) {
         player->hRayoBasico->StopAnimation();
     }
     //printf("%f",player->hRayoBasico->tiempoCast.getTiempo());
- for(int i=0;i<80;i++){
+ for(int i=0;i<5;i++){
          player -> PlayAnimation(*player -> currentAnimation);
                 if(enemigo[i].getSpeed().x==0 && enemigo[i].getSpeed().y==0){
             
