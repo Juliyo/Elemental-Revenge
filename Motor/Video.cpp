@@ -72,10 +72,14 @@ bool Video::getDibujar() {
     return dibujar;
 }
 
-bool Video::setDibujar(bool a) {
+void Video::setDibujar(bool a) {
     dibujar=a;
 }
 
 bool Video::getLooped() {
     return looped;
+}
+
+void Video::setLooped(bool a) {
+    looped=a;
 }

@@ -46,6 +46,7 @@ public:
     sf::Music                   *musica;
     sf::Music                   *musica2;
     
+    Video *video;
 private:
     
     
@@ -70,7 +71,7 @@ private:
     Sprite                      mouseSprite;
     
     
-    Video *video;
+   
     //Eventos
     bool			isMovingUp;
     bool			isMovingDown;

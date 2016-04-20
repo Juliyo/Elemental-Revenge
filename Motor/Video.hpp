@@ -22,7 +22,8 @@ public:
     virtual ~Video();
     
     void PlayVideo();
-    bool setDibujar(bool a);
+    void setDibujar(bool a);
+    void setLooped(bool a);
     bool getDibujar();
     bool getLooped();
 private:

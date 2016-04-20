@@ -126,6 +126,7 @@ sf::View Motor2D::getLetterboxView(sf::View view, int windowWidth, int windowHei
     }
 
     view.setViewport(sf::FloatRect(posX, posY, sizeX, sizeY));
+    view.zoom(zoomLevel);
     return view;
 }
 
@@ -155,27 +156,8 @@ bool Motor2D::pollEvent(sf::Event& event) {
     return mWindow->pollEvent(event);
 }
 
-void Motor2D::setZoomToView(float zoom, int view) {
-    switch (view) {
-        case 0:
-            fondo->zoom(zoom);
-            break;
-        case 1:
-        {
-            pantalla->zoom(zoom);
-            break;
-        }
-        case 2:
-        {
-            HUD->zoom(zoom);
-            break;
-        }
-        case 3:
-        {
-            transicion->zoom(zoom);
-            break;
-        }
-    }
+void Motor2D::setZoom(float zoom) {
+    zoomLevel=zoom;
 }
 
 sf::Vector2f Motor2D::getSizeFromView(int view) {
