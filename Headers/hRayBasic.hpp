@@ -17,6 +17,7 @@
 #include "../Headers/Hechizo.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Mouse.hpp>
+#include <SFML/Audio.hpp>
 
 
 class hRayBasic:public Hechizo {
@@ -35,6 +36,10 @@ public:
     Animation *animationDurante;
     Animation *PrimeraAnimacion;
     //void cast(sf::Vector2f vector, sf::RenderWindow *w);
+    
+    sf::SoundBuffer buffer;
+    sf::Sound sound;
+
 private:
     
 };
