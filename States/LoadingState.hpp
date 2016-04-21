@@ -17,17 +17,23 @@
 #include "../States/State.hpp"
 #include "../Motor/Motor2D.hpp"
 #include "../Motor/Video.hpp"
-class Carga1 : public State{
+class LoadingState : public State{
 public:
-    Carga1();
-    Carga1(const Carga1& orig);
-    virtual ~Carga1();
+    LoadingState();
+    LoadingState(const LoadingState& orig);
+    virtual ~LoadingState();
+    
+    void Inicializar();
+    
+    void HandleEvents(sf::Event& event);
+
+    void Update(sf::Time elapsedTime);
+    void Render(float interpolation, sf::Time elapsedTime);
     
     void transitionCargado();
     void ingameCargado();
     
-    void Update(sf::Time elapsedTime);
-    void render(float interpolation, sf::Time elapsedTime);
+    
 private:
     
 

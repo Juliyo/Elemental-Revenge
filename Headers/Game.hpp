@@ -57,7 +57,7 @@ private:
     //Menu *EstadoMenu;
     Pause *EstadoPause;
     Muerte *EstadoMuerte;
-    Carga1 *EstadoCarga1;
+    LoadingState *EstadoCarga1;
     Carga2 *EstadoCarga2;
     
     StateStack*   stateStack;

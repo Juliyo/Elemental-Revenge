@@ -4,7 +4,6 @@
     <logicalFolder name="Headers" displayName="Headers" projectFiles="true">
       <itemPath>Headers/AnimatedSprite.hpp</itemPath>
       <itemPath>Headers/Animation.hpp</itemPath>
-      <itemPath>Headers/Carga1.hpp</itemPath>
       <itemPath>Headers/Carga2.hpp</itemPath>
       <itemPath>Headers/Enemigo.hpp</itemPath>
       <itemPath>Headers/Game.hpp</itemPath>
@@ -47,7 +46,6 @@
     <logicalFolder name="f2" displayName="Source Files" projectFiles="true">
       <itemPath>AnimatedSprite.cpp</itemPath>
       <itemPath>Animation.cpp</itemPath>
-      <itemPath>Carga1.cpp</itemPath>
       <itemPath>Carga2.cpp</itemPath>
       <itemPath>Enemigo.cpp</itemPath>
       <itemPath>Game.cpp</itemPath>
@@ -71,8 +69,10 @@
       <itemPath>tinyxmlparser.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="f3" displayName="States" projectFiles="true">
+      <itemPath>States/Carga1.hpp</itemPath>
       <itemPath>States/InGame.cpp</itemPath>
       <itemPath>States/InGame.hpp</itemPath>
+      <itemPath>States/LoadingState.cpp</itemPath>
       <itemPath>States/Menu.cpp</itemPath>
       <itemPath>States/Menu.hpp</itemPath>
       <itemPath>States/State.cpp</itemPath>
@@ -124,8 +124,6 @@
       </item>
       <item path="Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Carga1.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="Carga2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Enemigo.cpp" ex="false" tool="1" flavor2="0">
@@ -135,8 +133,6 @@
       <item path="Headers/AnimatedSprite.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Animation.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Headers/Carga1.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Carga2.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -212,9 +208,13 @@
       </item>
       <item path="Render.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="States/Carga1.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="States/InGame.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="States/InGame.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="States/LoadingState.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="States/Menu.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -277,8 +277,6 @@
       </item>
       <item path="Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Carga1.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="Carga2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Enemigo.cpp" ex="false" tool="1" flavor2="0">
@@ -288,8 +286,6 @@
       <item path="Headers/AnimatedSprite.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Animation.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Headers/Carga1.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Carga2.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -365,9 +361,13 @@
       </item>
       <item path="Render.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="States/Carga1.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="States/InGame.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="States/InGame.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="States/LoadingState.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="States/Menu.cpp" ex="false" tool="1" flavor2="0">
       </item>
