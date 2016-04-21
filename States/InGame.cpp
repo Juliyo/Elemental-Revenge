@@ -37,7 +37,7 @@ InGame::InGame() {
     //mapa = new Map();
     /*motor->setCenterForView(1, 900,850);
     motor->SetView(1);*/
-    mapa = new Map();
+    level = new Level();
     
     video = new Video("resources/Videos/nubes/nube", 30, 495, 500, 0, sf::Vector2f(0.8, 1.4), true, sf::Vector2f(1280, 720));
     /*musica = new sf::Music();
@@ -83,7 +83,8 @@ void InGame::Inicializar() {
     }
     updateView();
     player -> Inicializar(850.f, 800.f);
-    mapa->leerMapa(1,0);
+    level->LoadMap("mapaBosqueAlfa.tmx");
+    //mapa->leerMapa(1,0);
     
     
 }
@@ -101,7 +102,7 @@ void InGame::Update(sf::Time elapsedTime) {
         if (isMovingRight)
             movement.x += player -> getVelocidad();
 
-        player -> Update(movement, elapsedTime, mapa);
+        player -> Update(movement, elapsedTime);
 
         if (player->hRayoBasico->tiempoCast.getTiempo() > player->hRayoBasico->getCast() && aux == true) {
             isShooting = false;
@@ -155,7 +156,7 @@ void InGame::renderForMuerte(float interpolation, sf::Time elapsedTime) {
     motor->draw(spriteFondo);
 
     /**********************ARREGLAR***************************/
-    if (mapa->getMapaActual() == 1) {
+    /*if (mapa->getMapaActual() == 1) {
         mapa->dibujaMapa1();
 
     }
@@ -169,7 +170,7 @@ void InGame::renderForMuerte(float interpolation, sf::Time elapsedTime) {
     /*********************************************************/
     player -> DrawAnimationWithOut(player->GetSpriteAnimated().getPosition());
 
-    if (mapa->getMapaActual() == 1) {
+   /* if (mapa->getMapaActual() == 1) {
         mapa->dibuja2Mapa1();
     }
     if (mapa->getMapaActual() == 2) {
@@ -179,7 +180,7 @@ void InGame::renderForMuerte(float interpolation, sf::Time elapsedTime) {
     if (mapa->getMapaActual() == 3) {
         mapa->dibuja2Mapa3();
     }
-
+*/
 
     motor->SetView(2); //vista del HUD
     player -> hud->renderHud();
@@ -205,7 +206,7 @@ void InGame::renderForPause(float interpolation, sf::Time elapsedTime) {
 
     motor->draw(spriteFondo);
 
-    if (mapa->getMapaActual() == 1) {
+    /*if (mapa->getMapaActual() == 1) {
         mapa->dibujaMapa1();
     }
     if (mapa->getMapaActual() == 2) {
@@ -213,11 +214,11 @@ void InGame::renderForPause(float interpolation, sf::Time elapsedTime) {
     }
     if (mapa->getMapaActual() == 3) {
         mapa->dibujaMapa3();
-    }
+    }*/
 
     player -> DrawAnimationWithOut(player->GetSpriteAnimated().getPosition());
 
-    if (mapa->getMapaActual() == 1) {
+    /*if (mapa->getMapaActual() == 1) {
         mapa->dibuja2Mapa1();
     }
     if (mapa->getMapaActual() == 2) {
@@ -226,7 +227,7 @@ void InGame::renderForPause(float interpolation, sf::Time elapsedTime) {
     }
     if (mapa->getMapaActual() == 3) {
         mapa->dibuja2Mapa3();
-    }
+    }*/
 
 
     motor->SetView(2); //vista del HUD
@@ -254,7 +255,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
 
     motor->draw(spriteFondo);
 
-    if (mapa->getMapaActual() == 1) {
+    /*if (mapa->getMapaActual() == 1) {
         mapa->dibujaMapa1();
     }
     if (mapa->getMapaActual() == 2) {
@@ -262,8 +263,8 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     }
     if (mapa->getMapaActual() == 3) {
         mapa->dibujaMapa3();
-    }
-
+    }*/
+    level->render();
     player -> PlayAnimation(*player -> currentAnimation);
 
 
@@ -274,7 +275,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
 
     player -> DrawWithInterpolation(interpolation);
 
-    if (mapa->getMapaActual() == 1) {
+    /*if (mapa->getMapaActual() == 1) {
         mapa->dibuja2Mapa1();
     }
     if (mapa->getMapaActual() == 2) {
@@ -283,7 +284,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     }
     if (mapa->getMapaActual() == 3) {
         mapa->dibuja2Mapa3();
-    }
+    }*/
 
     int x = motor->getMousePosition().x - player -> getPosition().x;
     int y = motor->getMousePosition().y - player -> getPosition().y;

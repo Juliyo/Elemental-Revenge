@@ -142,11 +142,11 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
 
 }
 
-void Player::Update(sf::Vector2f velocity, sf::Time elapsedTime, Map *mapa) {
+void Player::Update(sf::Vector2f velocity, sf::Time elapsedTime) {
     /**Hay que normalizar la velocidad**/
     sf::Vector2f nVelocity = Util::Normalize(velocity);
     SetSpeed(nVelocity * Player::getVelocidad());
-    PhysicsState::Update(elapsedTime, mapa);
+    PhysicsState::Update(elapsedTime);
 }
 
 void Player::Draw() {

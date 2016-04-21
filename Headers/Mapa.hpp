@@ -14,13 +14,18 @@
 #ifndef MAP_HPP
 #define MAP_HPP
 
+#include "../Motor/Motor2D.hpp"
 #include <SFML/Graphics.hpp>
+#include <tmx/MapLoader.h>
+#include <tmx/MapLayer.h>
+#include <string>
+#include <vector>
 
-class Map {
+class Mapa {
 public:
-    Map();
-    Map(const Map& orig);
-    virtual ~Map();
+    Mapa();
+    Mapa(const Mapa& orig);
+    virtual ~Mapa();
     void leerMapa(int numMapa, int versionMapa);
     void leerMapa2();
     void dibujaMapa1();
@@ -44,12 +49,20 @@ public:
     sf::Sprite ****_tilemapSprite;
     sf::Texture _tilesetTexture;
     sf::Sprite *_tilesetSprite;
+    void mapLoader(std::string mapName);
+    void render();
+    tmx::MapLayer GetLayer(std::string layer);
+    void UpdateQuadTree(){
+        Motor2D *m = Motor2D::Instance();
+        sf::FloatRect viewBounds(m->getCenterFromView(1) - m->getSizeFromView(1) / 2.f, m->getSizeFromView(1));
+        ml.UpdateQuadTree(viewBounds);
+    }
+    std::vector<tmx::MapObject*> QueryQuadTree(sf::FloatRect t){
+        return ml.QueryQuadTree(t);
+    }
 private:
-   
     int mapaActual;
-
-
-
+    tmx::MapLoader ml;
     int cuenta=0;
 };
 

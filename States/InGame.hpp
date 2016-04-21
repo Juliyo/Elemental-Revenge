@@ -18,10 +18,11 @@
 #include "../Motor/Motor2D.hpp"
 #include "../Motor/Video.hpp"
 #include "SFML/System.hpp"
-#include <Map.hpp>
+#include <Mapa.hpp>
 #include <SFML/Audio.hpp>
 #include "Pause.hpp"
 #include "Muerte.hpp"
+#include "../Motor/Level.hpp"
 
 class InGame:public State {
 public:
@@ -52,7 +53,7 @@ public:
     
     void                        updateView();
     void                        updateViewForPause();
-    Map                         *mapa;
+    Level                       *level;
     sf::Music                   *musica;
     sf::Music                   *musica2;
     

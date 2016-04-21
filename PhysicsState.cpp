@@ -60,7 +60,7 @@ void PhysicsState::Update(sf::Time elapsedTime)
         posNew += speed * elapsedTime.asSeconds();
         
 }
-void PhysicsState::Update(sf::Time elapsedTime, Map *mapa){
+/*void PhysicsState::Update(sf::Time elapsedTime, Map *mapa){
      sf::Vector2f nextPos = GetNextPosition(elapsedTime);
     int top=(int)nextPos.y-16;
     int bot=(int)nextPos.y+16;
@@ -156,7 +156,7 @@ void PhysicsState::Update(sf::Time elapsedTime, Map *mapa){
         posNew += speed * elapsedTime.asSeconds();
     }
      
-}
+}*/
 
 
 /*

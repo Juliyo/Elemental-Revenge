@@ -11,7 +11,7 @@
  * Created on 20 de marzo de 2016, 17:32
  */
 
-#include "Map.hpp"
+#include "Mapa.hpp"
 
 #include "tinystr.h"
 #include "tinyxml.h"
@@ -22,15 +22,47 @@
 
 using namespace std;
 
-Map::Map() {
-
-
+Mapa::Mapa()
+:ml("resources/"){
+    
 }
 
-Map::Map(const Map& orig) {
+void Mapa::mapLoader(std::string mapName) {
+    ml.Load(mapName);
 }
 
-Map::~Map() {
+void Mapa::render() {
+    Motor2D *m = Motor2D::Instance();
+   /* m->draw(GetLayer("Capa1"));
+    m->draw(GetLayer("Capa2"));
+    m->draw(GetLayer("Capa3"));*/
+    tmx::MapLayer l = GetLayer("Ground");
+    m->mWindow->draw(GetLayer("Capa 1"));
+    m->mWindow->draw(GetLayer("Capa 2"));
+    //m->mWindow->draw(l);
+    //m->draw(ml);
+}
+
+Mapa::Mapa(const Mapa& orig):
+ml("resources/")
+{
+}
+// Devuelve una capa concreta del mapa
+tmx::MapLayer Mapa::GetLayer(std::string layerName){
+    int cont = 0;
+    for(auto layer = ml.GetLayers().begin(); layer != ml.GetLayers().end(); ++layer)
+    {
+        if(layer->name == layerName)
+        {
+            return ml.GetLayers().at(cont);
+        }
+        cont++;
+    }
+    return tmx::MapLayer(ml.GetLayers().at(0));
+    //return 0;
+}
+
+Mapa::~Mapa() {
     for (int l = 0; l < _numLayers; l++) {
         for (int y = 0; y < _height; y++) {
             delete[] _tilemap[l][y];
@@ -40,7 +72,7 @@ Map::~Map() {
     delete[] _tilemap;
 }
 
-void Map::leerMapa(int numMapa, int versionMapa) {
+void Mapa::leerMapa(int numMapa, int versionMapa) {
 
     mapaActual = numMapa;
 
@@ -173,7 +205,7 @@ void Map::leerMapa(int numMapa, int versionMapa) {
 
 }
 
-void Map::dibujaMapa1() {
+void Mapa::dibujaMapa1() {
     for (int l = 0; l < _numLayers; l++) {
         for (int y = 0; y < _height; y++) {
             for (int x = 0; x < _width; x++) {
@@ -190,7 +222,7 @@ void Map::dibujaMapa1() {
     cuenta=0;
 }
 
-void Map::dibuja2Mapa1() {
+void Mapa::dibuja2Mapa1() {
 
     for (int y = 0; y < _height; y++) {
         for (int x = 0; x < _width; x++) {
@@ -202,7 +234,7 @@ void Map::dibuja2Mapa1() {
 
 }
 
-void Map::dibujaMapa2() {
+void Mapa::dibujaMapa2() {
 
 
         for (int y = 0; y < _height; y++) {
@@ -229,7 +261,7 @@ void Map::dibujaMapa2() {
     cuenta=0;
 }
 
-void Map::dibuja2Mapa2() {
+void Mapa::dibuja2Mapa2() {
 
     for (int y = 0; y < _height; y++) {
         for (int x = 0; x < _width; x++) {
@@ -244,7 +276,7 @@ void Map::dibuja2Mapa2() {
 
 }
 
-void Map::dibujaMapa3() {
+void Mapa::dibujaMapa3() {
     for (int l = 0; l < _numLayers; l++) {
         for (int y = 0; y < _height; y++) {
             for (int x = 0; x < _width; x++) {
@@ -262,7 +294,7 @@ void Map::dibujaMapa3() {
     cuenta=0;
 }
 
-void Map::dibuja2Mapa3() {
+void Mapa::dibuja2Mapa3() {
 
     for (int y = 0; y < _height; y++) {
         for (int x = 0; x < _width; x++) {
@@ -277,11 +309,11 @@ void Map::dibuja2Mapa3() {
 
 }
 
-sf::Sprite Map::getMap() {
+sf::Sprite Mapa::getMap() {
     return ****_tilemapSprite;
 }
 
-void Map::leerMapa2() {
+void Mapa::leerMapa2() {
 
 
     TiXmlDocument doc;
@@ -401,6 +433,6 @@ void Map::leerMapa2() {
 
 }
 
-int Map::getMapaActual() {
+int Mapa::getMapaActual() {
     return mapaActual;
 }
