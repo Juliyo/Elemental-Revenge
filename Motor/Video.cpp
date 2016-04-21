@@ -16,7 +16,7 @@
 #include "../Headers/StringHelpers.hpp"
 
 
-Video::Video(std::string ruta, int f, int x, int y, int tipo, sf::Vector2f scale, bool setOrigin, sf::Vector2f size) {
+Video::Video(std::string ruta, int f, int x, int y, int tipo, sf::Vector2f scale, bool o, sf::Vector2f size) {
     mRuta=ruta;
     numFrames=f;
     frames = new Sprite[numFrames];
@@ -24,28 +24,11 @@ Video::Video(std::string ruta, int f, int x, int y, int tipo, sf::Vector2f scale
     dibujar=false;
     origin.x = size.x/2;
     origin.y = size.y/2;
-    for(int i=0; i < numFrames;i++){
-        if(tipo == 0){
-            if(setOrigin){
-                frames[i].setTexture(ruta + toString(i) + ".png");
-                frames[i].setOrigin(origin.x,origin.y);
-            }else{
-                frames[i].setTexture(ruta + toString(i) + ".png");
-            }
-            
-        }else if(tipo == 1){
-            if(setOrigin){
-                frames[i].setTexture(ruta + toString(i) + ".gif");
-                frames[i].setOrigin(origin.x,origin.y);
-            }else{
-                frames[i].setTexture(ruta + toString(i) + ".gif");
-            }
-        }
-        
-        frames[i].setSmooth(true);
-        frames[i].setPosition(x,y);
-        frames[i].setScale(scale.x,scale.y);
-    }
+    extension = tipo;
+    setOrigin = o;
+    posX=x;
+    posY=y;
+    escala = scale;
 }
 
 Video::Video(const Video& orig) {
@@ -54,6 +37,32 @@ Video::Video(const Video& orig) {
 Video::~Video() {
     
 }
+
+void Video::Inicializar() {
+    for(int i=0; i < numFrames;i++){
+        if(extension == 0){
+            if(setOrigin){
+                frames[i].setTexture(mRuta + toString(i) + ".png");
+                frames[i].setOrigin(origin.x,origin.y);
+            }else{
+                frames[i].setTexture(mRuta + toString(i) + ".png");
+            }
+            
+        }else if(extension == 1){
+            if(setOrigin){
+                frames[i].setTexture(mRuta + toString(i) + ".gif");
+                frames[i].setOrigin(origin.x,origin.y);
+            }else{
+                frames[i].setTexture(mRuta + toString(i) + ".gif");
+            }
+        }
+        
+        frames[i].setSmooth(true);
+        frames[i].setPosition(posX,posY);
+        frames[i].setScale(escala.x,escala.y);
+    }
+}
+
 void Video::PlayVideo(){
     if(dibujar){
         Motor2D::Instance()->draw(frames[current_frame]);

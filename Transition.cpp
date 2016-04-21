@@ -17,7 +17,7 @@
 Transition::Transition() {
     motor = Motor2D::Instance();
     //Estado de Ingame
-    EstadoActivo = false;
+//    EstadoActivo = false;
 
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;

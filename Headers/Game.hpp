@@ -6,8 +6,8 @@
 #include <SFML/Graphics.hpp>
 #include "Player.hpp"
 #include "Enemigo.hpp"
-#include "State.hpp"
-#include "InGame.hpp"
+
+//#include "InGame.hpp"
 #include "Transition.hpp"
 #include "Carga1.hpp"
 #include "Pause.hpp"
@@ -15,9 +15,10 @@
 #include "../Motor/Motor2D.hpp"
 #include "../Motor/Reloj.hpp"
 #include "Muerte.hpp"
+//#include "../"
 
-#include "Menu2.hpp"
-
+#include "../States/State.hpp"
+#include "../States/StateStack.hpp"
 
 #include <cmath>
 #include <math.h>
@@ -36,6 +37,7 @@ private:
     void processEvents(); // Captura y procesa eventos
     void update(sf::Time elapsedTime);
     void render(float interpolation, sf::Time elapsedTime);
+    
     void handlePlayerInput(sf::Keyboard::Key key, bool isPressed); // Maneja eventos
     void handlePlayerInput2(sf::Keyboard::Key key, bool isPressed); // Maneja eventos
     void handleMouseInput(sf::Mouse::Button button, bool isPressed); // Maneja eventos
@@ -50,14 +52,15 @@ private:
     static const sf::Time timePerFrame;
 
     //Graficos
-    InGame *EstadoInGame;
+    //InGame *EstadoInGame;
     Transition *EstadoTransition;
-    Menu2 *EstadoMenu;
+    //Menu *EstadoMenu;
     Pause *EstadoPause;
     Muerte *EstadoMuerte;
     Carga1 *EstadoCarga1;
     Carga2 *EstadoCarga2;
     
+    StateStack*   stateStack;
     
     float interpolation;
     

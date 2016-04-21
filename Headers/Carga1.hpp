@@ -14,7 +14,7 @@
 #ifndef CARGA1_HPP
 #define CARGA1_HPP
 
-#include "State.hpp"
+#include "../States/State.hpp"
 #include "../Motor/Motor2D.hpp"
 #include "../Motor/Video.hpp"
 class Carga1 : public State{

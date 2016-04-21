@@ -11,18 +11,14 @@
  * Created on 6 de abril de 2016, 9:37
  */
 
-#include "Headers/Menu2.hpp"
+#include "Menu.hpp"
+#include "StateStack.hpp"
 
-Menu2::Menu2() {
-
-    musica = new sf::Music();
-    
+Menu::Menu() {
     
     motor = Motor2D::Instance();
-
-    srand(time(NULL));
-
-    random = rand() % 3; // v1 in the range 0 to 99
+    
+    musica = new sf::Music();
     
     spriteFondoMenu = new Sprite();
     spriteFondo = new Sprite();
@@ -32,10 +28,25 @@ Menu2::Menu2() {
     mancha = new Sprite[3];
     
     textTitulo = new Text();
+    musicaFondo = new sf::Music();
+    
+   
+}
+
+Menu::Menu(const Menu& orig) {
+}
+
+Menu::~Menu() {
+}
+
+void Menu::Inicializar() {
+    srand(time(NULL));
+
+    random = rand() % 3; // v1 in the range 0 to 99
     
     cargarAnimacionesMenu();
 
-    EstadoActivo = true;
+   // EstadoActivo = true;
 
     try {
         texturaRelleno.loadFromFile("resources/Textures/background.png");
@@ -54,7 +65,7 @@ Menu2::Menu2() {
         std::cout << "Excepcion: " << e.what() << std::endl;
         exit(0);
     }
-
+    
     texturaFondo.setSmooth(true);
     texturaFondo.setRepeated(1);
     spriteFondo->setTexture(texturaFondo);
@@ -79,14 +90,13 @@ Menu2::Menu2() {
     for (int i = 0; i < 3; i++) {
         mancha[i].setTexture(texturaMancha);
         mancha[i].setScale(0.3, 0.3);
-
     }
 
     titulo->setTexture(texturaTitulo);
     titulo->setPosition(250, 450);
 
-    float width = 1000;
-    float height = 1000;
+    float width = 900;
+    float height = 900;
     sf::Color color(112, 112, 112);
 
     titulo->setTexture(texturaTitulo);
@@ -97,17 +107,17 @@ Menu2::Menu2() {
     menu[0].setFont(font);
     menu[0].setColor(sf::Color::White);
     menu[0].setString("Jugar");
-    menu[0].setPosition(width / 2 + 100, height / (MAX_NUMBER_OF_ITEMS + 1) *1.7);
-    mancha[0].setPosition(width / 2 + 50, height / (MAX_NUMBER_OF_ITEMS + 1) *1.5);
+    menu[0].setPosition(580, 410);
+    mancha[0].setPosition(540, 370);
     menu[0].setStyle(1);
     menu[0].setScale(0.7, 0.7);
 
     menu[1].setFont(font);
     menu[1].setColor(color);
     menu[1].setString("Opciones");
-    menu[1].setPosition(width / 2 + 100, height / (MAX_NUMBER_OF_ITEMS + 1) *2);
+    menu[1].setPosition(580, 490);
     mancha[1].setScale(0.4, 0.3);
-    mancha[1].setPosition(width / 2 + 50, height / (MAX_NUMBER_OF_ITEMS + 1) *1.8);
+    mancha[1].setPosition(540, 450);
 
     menu[1].setStyle(1);
     menu[1].setScale(0.7, 0.7);
@@ -115,8 +125,8 @@ Menu2::Menu2() {
     menu[2].setFont(font);
     menu[2].setColor(color);
     menu[2].setString("Salir");
-    menu[2].setPosition(width / 2 + 100, height / (MAX_NUMBER_OF_ITEMS + 1) *2.3);
-    mancha[2].setPosition(width / 2 + 50, height / (MAX_NUMBER_OF_ITEMS + 1) *2.1);
+    menu[2].setPosition(580, 570);
+    mancha[2].setPosition(540, 540);
 
     menu[2].setStyle(1);
     menu[2].setScale(0.7, 0.7);
@@ -139,31 +149,19 @@ Menu2::Menu2() {
 
     musica->play();
     
-    musicaFondo = new sf::Music();
     musicaFondo->openFromFile("resources/Sounds/Magicka.ogg");
     musicaFondo->play();
     musicaFondo->setVolume(30);
-
-
-    
-
-    
 }
 
-Menu2::Menu2(const Menu2& orig) {
-}
-
-Menu2::~Menu2() {
-}
-
-sf::Vector2f Menu2::getPosition() {
+sf::Vector2f Menu::getPosition() {
     return GetSpriteAnimated().getPosition();
 }
 
-void Menu2::Update(sf::Time elapsedTime) {
+void Menu::Update(sf::Time elapsedTime) {
     if (selectedItemIndex < 3) {
         sf::Color color(112, 112, 112);
-        if (mouseSprite->getGlobalBounds().intersects(mancha[0].getGlobalBounds())) {
+        if (mouseSprite->getGlobalBounds().intersects(menu[0].getGlobalBounds())) {
             ratonSelecciona = true;
             if (!tecladoActivo) {
                 menu[0].setColor(sf::Color::White);
@@ -173,7 +171,7 @@ void Menu2::Update(sf::Time elapsedTime) {
             } else {
                 tecladoActivo = false;
             }
-        } else if (mouseSprite->getGlobalBounds().intersects(mancha[1].getGlobalBounds())) {
+        } else if (mouseSprite->getGlobalBounds().intersects(menu[1].getGlobalBounds())) {
             ratonSelecciona = true;
             if (!tecladoActivo) {
                 menu[0].setColor(color);
@@ -183,7 +181,7 @@ void Menu2::Update(sf::Time elapsedTime) {
             } else {
                 tecladoActivo = false;
             }
-        } else if (mouseSprite->getGlobalBounds().intersects(mancha[2].getGlobalBounds())) {
+        } else if (mouseSprite->getGlobalBounds().intersects(menu[2].getGlobalBounds())) {
             ratonSelecciona = true;
             if (!tecladoActivo) {
                 menu[0].setColor(color);
@@ -205,13 +203,13 @@ void Menu2::Update(sf::Time elapsedTime) {
     }
 }
 
-void Menu2::render() {
+void Menu::Render(float interpolation, sf::Time elapsedTime) {
     sf::Time t1 = sf::seconds(0.5f);
 
     motor->clear();
     motor->SetView(0); //bordes;
     motor->draw(spriteRelleno);
-    motor->SetView(1);
+    motor->SetView(3);
 
     updateView();
     motor->draw(rectanguloFondo);
@@ -253,10 +251,13 @@ void Menu2::render() {
     } else {
         motor->draw(menu[3]);
     }
+    motor->SetView(2);
+    motor->SetView(3);
     motor->draw(mouseSprite);
+    motor->display();
 }
 
-void Menu2::MoveUp() {
+void Menu::MoveUp() {
 
     sf::Color color(112, 112, 112);
 
@@ -272,7 +273,7 @@ void Menu2::MoveUp() {
     }
 }
 
-void Menu2::MoveDown() {
+void Menu::MoveDown() {
 
     sf::Color color(112, 112, 112);
 
@@ -289,11 +290,30 @@ void Menu2::MoveDown() {
 
 }
 
-void Menu2::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
+void Menu::HandleEvents(sf::Event& event) {
+    switch (event.type) {
+        case sf::Event::KeyPressed:
+            handlePlayerInput(event.key.code,true);
+            break;
+        case sf::Event::KeyReleased:
+            handlePlayerInput(event.key.code,false);
+            break;
+        case sf::Event::MouseButtonPressed:
+            handleMouseInput(event.mouseButton.button,true);
+            break;
+        case sf::Event::MouseButtonReleased:
+            handleMouseInput(event.mouseButton.button,false);
+            break;
+    }
+}
+
+void Menu::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
     if (button == sf::Mouse::Button::Left && isPressed == false) {
 
-        if (selectedItemIndex == 1) {
-            selectedItemIndex = 3;
+        if (selectedItemIndex == 0) {
+            //selectedItemIndex = 3;
+            StateStack::Instance()->GetState(States::ID::InGame)->Inicializar();
+            StateStack::Instance()->SetCurrentState(States::ID::InGame);
         }
         if (selectedItemIndex == 2) {
             motor->closeWindow();
@@ -301,7 +321,7 @@ void Menu2::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
     }
 }
 
-void Menu2::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
+void Menu::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
 
     if (key == sf::Keyboard::W) { //Esto lo hago para que cuando no estes presionando cambia a false
         if (!ratonSelecciona) {
@@ -331,7 +351,7 @@ void Menu2::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
     }
 }
 
-void Menu2::updateView() {
+void Menu::updateView() {
     sf::FloatRect viewBounds(motor->getCenterFromView(1) - motor->getSizeFromView(1) / 2.f, motor->getSizeFromView(1));
 
     sf::Vector2f position = motor->getMousePosition();
@@ -342,16 +362,16 @@ void Menu2::updateView() {
 
     mouseSprite->setPosition(position.x, position.y);
 
-    motor->setSizeForView(1, 640, 480);
-    motor->SetView(1);
+    motor->setSizeForView(3, 640, 480);
+    motor->SetView(3);
 }
 
-void Menu2::pararMusica() {
+void Menu::pararMusica() {
 
     musica->stop();
 }
 
-void Menu2::cargarAnimacionesMenu() {
+void Menu::cargarAnimacionesMenu() {
     if (random == 0) {
         musica->openFromFile("resources/Sounds/Cascada.ogg");
         musica->setVolume(7);
@@ -382,7 +402,7 @@ void Menu2::cargarAnimacionesMenu() {
         musica->setVolume(7);
 
 
-        EstadoActivo = true;
+//        EstadoActivo = true;
         tecladoActivo = false;
         ratonSelecciona = false;
 
@@ -437,7 +457,7 @@ void Menu2::cargarAnimacionesMenu() {
         musica->openFromFile("resources/Sounds/Truenos.ogg");
         musica->setVolume(7);
 
-        EstadoActivo = true;
+//        EstadoActivo = true;
         tecladoActivo = false;
         ratonSelecciona = false;
 

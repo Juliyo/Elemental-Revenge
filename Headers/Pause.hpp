@@ -13,7 +13,7 @@
 
 #ifndef PAUSE_HPP
 #define PAUSE_HPP
-#include "State.hpp"
+#include "../States/State.hpp"
 #include "SFML/System.hpp"
 #include "AnimatedSprite.hpp"
 #include "../Motor/Motor2D.hpp"
@@ -23,7 +23,7 @@
 class Pause : public State {
 public:
     Pause();
-    static Pause* Instance();
+    //static Pause* Instance();
     Pause(const Pause& orig);
     virtual ~Pause();
 
@@ -74,7 +74,7 @@ private:
     Text *textoPausa;
     sf::Color colorAzul;
     
-    static Pause *mInstance;
+    //static Pause *mInstance;
 };
 
 #endif /* PAUSE_HPP */

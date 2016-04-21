@@ -13,19 +13,19 @@
 #include <iostream>
 #include <string>
 #include "Pause.hpp"
-Pause* Pause::mInstance = 0;
+/*Pause* Pause::mInstance = 0;
 
 Pause* Pause::Instance() {
     if (mInstance == 0) {
         mInstance = new Pause;
     }
     return mInstance;
-}
+}*/
 
 Pause::Pause() {
     motor = Motor2D::Instance();
     
-    EstadoActivo = false;
+//    EstadoActivo = false;
     
     selectedItemIndexPausa = 0;
 
@@ -41,7 +41,7 @@ Pause::Pause() {
     menuPausa = new Text[10];
     
     //Estado de Ingame
-    EstadoActivo = false;
+    //EstadoActivo = false;
     
     float width = 1500;
     float height = 1500;

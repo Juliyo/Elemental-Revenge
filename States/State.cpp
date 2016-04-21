@@ -13,12 +13,5 @@
 
 #include "State.hpp"
 
-State::State() {
-}
 
-State::State(const State& orig) {
-}
-
-State::~State() {
-}
 

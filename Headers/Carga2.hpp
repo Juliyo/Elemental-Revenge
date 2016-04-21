@@ -14,7 +14,7 @@
 #ifndef CARGA2_HPP
 #define CARGA2_HPP
 
-#include "State.hpp"
+#include "../States/State.hpp"
 #include "../Motor/Motor2D.hpp"
 #include "../Motor/Video.hpp"
 

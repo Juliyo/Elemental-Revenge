@@ -13,14 +13,14 @@
 
 #ifndef MUERTE_HPP
 #define MUERTE_HPP
-#include "State.hpp"
+#include "../States/State.hpp"
 #include "SFML/System.hpp"
 #include "AnimatedSprite.hpp"
 
 class Muerte: public State {
 public:
     Muerte();
-    static Muerte* Instance();
+    //static Muerte* Instance();
     Muerte(const Muerte& orig);
     virtual ~Muerte();
     //void Update(sf::Time elapsedTime);
@@ -58,7 +58,7 @@ private:
     sf::Font     fontMuerte;
     Text        *textoMuerte;
     
-    static Muerte *mInstance;
+    //static Muerte *mInstance;
 };
 
 #endif /* MUERTE_HPP */

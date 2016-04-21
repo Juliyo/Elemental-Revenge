@@ -29,12 +29,22 @@ public:
     InGame(const InGame& orig);
     virtual ~InGame();
     void    run();
+    
+    
+   // void Init();
+   // void Clean();
+    void Inicializar();
+
+    void LoadResources();
 
     void                        Update(sf::Time elapsedTime);
+    void			Render(float interpolation, sf::Time elapsedTime);
+    
+    void                        HandleEvents(sf::Event& event);
     void			handlePlayerInput(sf::Keyboard::Key key, bool isPressed);  // Maneja eventos
     void			handleMouseInput(sf::Mouse::Button button, bool isPressed);  // Maneja eventos
     
-    void			render(float interpolation, sf::Time elapsedTime);
+    
     void			renderForPause(float interpolation, sf::Time elapsedTime);
     void			renderForMuerte(float interpolation, sf::Time elapsedTime);
     
@@ -49,12 +59,13 @@ public:
     Video *video;
 private:
     
+    std::pair<States::ID , bool> requestStateChange;
+    
     
     Player			*player;
     Enemigo			enemigo[20];
     
     //Singletones
-    Motor2D                     *motor;
     Pause                       *pause;
     Muerte                      *muerte;
     

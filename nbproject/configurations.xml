@@ -10,16 +10,12 @@
       <itemPath>Headers/Game.hpp</itemPath>
       <itemPath>Headers/Hechizo.hpp</itemPath>
       <itemPath>Headers/Hud.hpp</itemPath>
-      <itemPath>Headers/InGame.hpp</itemPath>
       <itemPath>Headers/Map.hpp</itemPath>
-      <itemPath>Headers/Menu.hpp</itemPath>
-      <itemPath>Headers/Menu2.hpp</itemPath>
       <itemPath>Headers/Muerte.hpp</itemPath>
       <itemPath>Headers/Pause.hpp</itemPath>
       <itemPath>Headers/PhysicsState.hpp</itemPath>
       <itemPath>Headers/Player.hpp</itemPath>
       <itemPath>Headers/Render.hpp</itemPath>
-      <itemPath>Headers/State.hpp</itemPath>
       <itemPath>Headers/StringHelpers.hpp</itemPath>
       <itemPath>Headers/StringHelpers.inl</itemPath>
       <itemPath>Headers/Transition.hpp</itemPath>
@@ -57,16 +53,12 @@
       <itemPath>Game.cpp</itemPath>
       <itemPath>Hechizo.cpp</itemPath>
       <itemPath>Hud.cpp</itemPath>
-      <itemPath>InGame.cpp</itemPath>
       <itemPath>Map.cpp</itemPath>
-      <itemPath>Menu.cpp</itemPath>
-      <itemPath>Menu2.cpp</itemPath>
       <itemPath>Muerte.cpp</itemPath>
       <itemPath>Pause.cpp</itemPath>
       <itemPath>PhysicsState.cpp</itemPath>
       <itemPath>Player.cpp</itemPath>
       <itemPath>Render.cpp</itemPath>
-      <itemPath>State.cpp</itemPath>
       <itemPath>Transition.cpp</itemPath>
       <itemPath>Util.cpp</itemPath>
       <itemPath>btree.cpp</itemPath>
@@ -77,6 +69,18 @@
       <itemPath>tinyxml.cpp</itemPath>
       <itemPath>tinyxmlerror.cpp</itemPath>
       <itemPath>tinyxmlparser.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="f3" displayName="States" projectFiles="true">
+      <itemPath>States/InGame.cpp</itemPath>
+      <itemPath>States/InGame.hpp</itemPath>
+      <itemPath>States/Menu.cpp</itemPath>
+      <itemPath>States/Menu.hpp</itemPath>
+      <itemPath>States/State.cpp</itemPath>
+      <itemPath>States/State.hpp</itemPath>
+      <itemPath>States/StateFactory.cpp</itemPath>
+      <itemPath>States/StateFactory.hpp</itemPath>
+      <itemPath>States/StateStack.cpp</itemPath>
+      <itemPath>States/StateStack.hpp</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
@@ -144,17 +148,11 @@
       </item>
       <item path="Headers/Hud.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="Headers/InGame.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Headers/Menu.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Headers/PhysicsState.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Player.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Render.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Headers/State.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/StringHelpers.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -178,13 +176,7 @@
       </item>
       <item path="Hud.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="InGame.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="Map.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Menu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Menu2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Motor/Motor2D.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -220,7 +212,25 @@
       </item>
       <item path="Render.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="State.cpp" ex="false" tool="1" flavor2="0">
+      <item path="States/InGame.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="States/InGame.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="States/Menu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="States/Menu.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="States/State.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="States/State.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="States/StateFactory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="States/StateFactory.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="States/StateStack.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="States/StateStack.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Transition.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -291,17 +301,11 @@
       </item>
       <item path="Headers/Hud.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="Headers/InGame.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Headers/Menu.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Headers/PhysicsState.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Player.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Render.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Headers/State.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/StringHelpers.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -325,13 +329,7 @@
       </item>
       <item path="Hud.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="InGame.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="Map.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Menu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Menu2.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Motor/Motor2D.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -367,7 +365,25 @@
       </item>
       <item path="Render.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="State.cpp" ex="false" tool="1" flavor2="0">
+      <item path="States/InGame.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="States/InGame.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="States/Menu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="States/Menu.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="States/State.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="States/State.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="States/StateFactory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="States/StateFactory.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="States/StateStack.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="States/StateStack.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Transition.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -16,7 +16,7 @@
 
 #include <random>   // rng
 
-#include "State.hpp"
+#include "../States/State.hpp"
 #include "btree.hpp"
 #include "AnimatedSprite.hpp"
 #include "Animation.hpp"
@@ -29,22 +29,28 @@
 
 #define MAX_NUMBER_OF_ITEMS 3   
 
-class Menu2 : public State, public Render, public PhysicsState {
+class Menu : public State, public Render, public PhysicsState {
 public:
-    Menu2();
-    Menu2(const Menu2& orig);
-    virtual ~Menu2();
+    Menu();
+    Menu(const Menu& orig);
+    virtual ~Menu();
 
-    void render();
+    void Inicializar();
 
+    void Render(float interpolation, sf::Time elapsedTime);
+    void Update(sf::Time elapsedTime);
+    
+    void HandleEvents(sf::Event& event);
+    void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
+    void handleMouseInput(sf::Mouse::Button button, bool isPressed);
+    
     void MoveUp();
     void MoveDown();
+    
     sf::Vector2f getPosition();
 
-    void Update(sf::Time elapsedTime);
-    void handlePlayerInput(sf::Keyboard::Key key, bool isPressed); // Maneja eventos
-
-    void handleMouseInput(sf::Mouse::Button button, bool isPressed);
+    
+    
     void updateView();
 
     int getSetectedItemIndex() {

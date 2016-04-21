@@ -14,14 +14,6 @@
 #include <string>
 #include "Muerte.hpp"
 
-Muerte* Muerte::mInstance = 0;
-
-Muerte* Muerte::Instance() {
-    if (mInstance == 0) {
-        mInstance = new Muerte;
-    }
-    return mInstance;
-}
 
 Muerte::Muerte() {
     
@@ -35,7 +27,7 @@ Muerte::Muerte() {
     textoMuerte = new Text();
     
     //Estado de Ingame
-    EstadoActivo = false;
+//    EstadoActivo = false;
 
     try {
         texturaRelleno.loadFromFile("resources/Textures/texturaMuerte.png");

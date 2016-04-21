@@ -14,7 +14,7 @@
 #ifndef TRANSITION_HPP
 #define TRANSITION_HPP
 
-#include "State.hpp"
+#include "../States/State.hpp"
 #include "btree.hpp"
 #include "tinystr.h"
 #include "tinyxml.h"

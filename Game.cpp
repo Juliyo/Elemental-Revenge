@@ -23,14 +23,16 @@ Game::Game() {
     motor->Inicializar();
     motor->inicializarVentana("Hito 2 - Intento Motor", 1280, 720);
 
+    
+    stateStack = StateStack::Instance();
     /* EstadoInGame = new InGame();
      EstadoTransition = new Transition();
      EstadoPause = new Pause();
      EstadoMuerte = new Muerte();*/
-    EstadoPause = Pause::Instance();
+    /*EstadoPause = Pause::Instance();
     EstadoMuerte = Muerte::Instance();
     EstadoMenu = new Menu2();
-    estadoMenu = true;
+    estadoMenu = true;*/
 
 #ifdef _WIN32
     HWND handler = motor->getSystemHandle();
@@ -70,7 +72,8 @@ void Game::run() //Metodo principal
 
 void Game::update(sf::Time elapsedTime) //Actualiza la fisica
 {
-    if (estadoInGame == true && EstadoInGame->EstadoActivo) {
+    stateStack->GetCurrentState()->Update(elapsedTime);
+   /* if (estadoInGame == true && EstadoInGame->EstadoActivo) {
         //Si estado pause esta activo no hacemos el de in game
         if (!EstadoPause->EstadoActivo && !EstadoMuerte->EstadoActivo) {
             EstadoInGame->Update(elapsedTime);
@@ -88,12 +91,14 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
     if (estadoMenu == true && EstadoMenu->EstadoActivo) {
         EstadoMenu->Update(elapsedTime);
     }
-
+*/
 }
 
 void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
 {
-    if (estadoInGame == true && EstadoInGame->EstadoActivo) {
+    
+    stateStack->GetCurrentState()->Render(interpolation,elapsedTime);
+ /*   if (estadoInGame == true && EstadoInGame->EstadoActivo) {
         if (!EstadoPause->EstadoActivo && !EstadoMuerte->EstadoActivo) { //No esta ni muerte ni pause activo
             EstadoInGame->render(interpolation, elapsedTime);
         } else if (EstadoPause->EstadoActivo) {
@@ -119,7 +124,7 @@ void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
     }
     if (estadoCarga2 == true && EstadoCarga2->EstadoActivo) {
         EstadoCarga2->render(interpolation, elapsedTime);
-    }
+    }*/
 }
 
 /************** EVENTOS ****************/
@@ -128,7 +133,26 @@ void Game::processEvents() //Captura y procesa eventos
 {
     sf::Event event;
     while (motor->pollEvent(event)) {
-        switch (event.type) {
+        stateStack->GetCurrentState()->HandleEvents(event);
+        if (event.type == sf::Event::Closed){
+            motor->closeWindow();
+        }
+        if(event.type == sf::Event::Resized){
+#ifdef _WIN32
+                HWND handler = motor->getSystemHandle();
+                RECT rWindow;
+                GetWindowRect(handler, &rWindow);
+                ClipCursor(&rWindow);
+#endif
+                motor->setAltoVentana(event.size.height);
+                motor->setAnchoVentana(event.size.width);
+                motor->SetView(1);
+                motor->SetView(2);
+                motor->setSizeForView(3, 640, 480);
+                motor->SetView(3);
+        }
+			
+      /*  switch (event.type) {
             case sf::Event::KeyPressed:
                 //handlePlayerInput(event.key.code, true);
                 if (estadoInGame == true && EstadoInGame->EstadoActivo) {
@@ -205,12 +229,12 @@ void Game::processEvents() //Captura y procesa eventos
                 motor->setSizeForView(3, 640, 480);
                 motor->SetView(3);
                 break;
-        }
+        }*/
     }
 }
 
 void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
-    if (key == sf::Keyboard::M) { //Para pasar de nivel
+    /*if (key == sf::Keyboard::M) { //Para pasar de nivel
         if (estadoInGame == true) {
             EstadoInGame->EstadoActivo = false;
         }
@@ -253,7 +277,7 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
             
             EstadoTransition->EstadoActivo = false;
             EstadoMenu->EstadoActivo = true;
-            EstadoInGame->EstadoActivo = false;*/
+            EstadoInGame->EstadoActivo = false;
             exit(0);
             //////////////////AQUI VAN LOS SETS
         }
@@ -271,22 +295,22 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
             EstadoMuerte->SetEscala();
             EstadoMuerte->EstadoActivo = false;
         }
-    }
-
+    }*/
+    
 }
 
 void Game::handlePlayerInput2(sf::Keyboard::Key key, bool isPressed) {
-    if (key == sf::Keyboard::Return && estadoPause == true && EstadoPause->EstadoActivo) {
+    /*if (key == sf::Keyboard::Return && estadoPause == true && EstadoPause->EstadoActivo) {
         if (EstadoPause->getSetectedItemIndexPause() == 2) {
             EstadoPause->EstadoActivo = false;
             EstadoMenu->SetSetectedItemIndex(0);
             EstadoMenu->EstadoActivo = true;
         }
-    }
+    }*/
 }
 
 void Game::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
-    if (estadoTransition == true && EstadoTransition->preguntaContestada == true) {
+  /*  if (estadoTransition == true && EstadoTransition->preguntaContestada == true) {
 
         EstadoCarga2 = new Carga2();
         EstadoCarga2 -> EstadoActivo = true;
@@ -297,12 +321,12 @@ void Game::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
 
         thread2->launch();
 
-    }
+    }*/
 
 }
 
 void Game::cargarInGameTransition() {
-    EstadoTransition = new Transition();
+    /*EstadoTransition = new Transition();
     EstadoCarga1 -> transitionCargado();
     EstadoInGame = new InGame();
     EstadoPause -> EstadoActivo = false;
@@ -314,11 +338,11 @@ void Game::cargarInGameTransition() {
     estadoTransition = true;
     EstadoCarga1 -> EstadoActivo = false;
     EstadoMenu->musicaFondo->stop();
-    EstadoTransition->musica->play();
+    EstadoTransition->musica->play();*/
 }
 
 void Game::cargarMapa() {
-    EstadoTransition->EstadoActivo = false;
+    /*EstadoTransition->EstadoActivo = false;
     EstadoTransition->preguntaContestada = false;
 
     EstadoInGame->mapa->~Map();
@@ -366,5 +390,5 @@ void Game::cargarMapa() {
 
     EstadoTransition->musica->pause();
     EstadoInGame->musica->play();
-    //Motor2D::Instance() -> setZoom(0.7f);
+    //Motor2D::Instance() -> setZoom(0.7f);*/
 }

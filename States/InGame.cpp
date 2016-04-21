@@ -19,10 +19,44 @@
 
 InGame::InGame() {
     motor = Motor2D::Instance();
-    pause = Pause::Instance();
-    muerte = Muerte::Instance();
-    //Estado de Ingame
-    EstadoActivo = false;
+    /* pause = Pause::Instance();
+     muerte = Muerte::Instance();*/
+
+    
+    /* sf::ContextSettings settings;
+     settings.antialiasingLevel = 8;*/
+
+
+    player = new Player();
+    
+    //player->SetScale(0.7,0.7);
+    //motor->setZoom(0.3f); //1=vista del mundo(nuestra pantalla)
+
+    //updateView();
+
+    //mapa = new Map();
+    /*motor->setCenterForView(1, 900,850);
+    motor->SetView(1);*/
+    mapa = new Map();
+    
+    video = new Video("resources/Videos/nubes/nube", 30, 495, 500, 0, sf::Vector2f(0.8, 1.4), true, sf::Vector2f(1280, 720));
+    /*musica = new sf::Music();
+    musica->openFromFile("resources/Sounds/InGame.ogg");
+    musica->setVolume(50);
+    
+    musica2 = new sf::Music();
+    musica2->openFromFile("resources/Sounds/Magicka2.ogg");
+    musica2->setVolume(50);*/
+    //Inicializar();
+}
+
+InGame::InGame(const InGame& orig) {
+}
+
+InGame::~InGame() {
+}
+
+void InGame::Inicializar() {
     try {
         spriteFondo.setTexture("resources/Textures/grasstext.png");
         spriteFondo.setSmooth(true);
@@ -47,39 +81,15 @@ InGame::InGame() {
         std::cout << "Excepcion: " << e.what() << std::endl;
         exit(0);
     }
-    sf::ContextSettings settings;
-    settings.antialiasingLevel = 8;
-
-
-    player = new Player();
-    player -> Inicializar(850.f, 800.f);
-    //player->SetScale(0.7,0.7);
-    //motor->setZoom(0.3f); //1=vista del mundo(nuestra pantalla)
-
     updateView();
-
-    //mapa = new Map();
-    motor->setCenterForView(1, 900,850);
-    motor->SetView(1);
-    mapa = new Map();
-    video = new Video("resources/Videos/nubes/nube", 30, 495, 500,0,sf::Vector2f(0.8,1.4),true,sf::Vector2f(1280,720));
-    musica = new sf::Music();
-    musica->openFromFile("resources/Sounds/InGame.ogg");
-    musica->setVolume(50);
+    player -> Inicializar(850.f, 800.f);
+    mapa->leerMapa(1,0);
     
-    musica2 = new sf::Music();
-    musica2->openFromFile("resources/Sounds/Magicka2.ogg");
-    musica2->setVolume(50);
-}
-
-InGame::InGame(const InGame& orig) {
-}
-
-InGame::~InGame() {
+    
 }
 
 void InGame::Update(sf::Time elapsedTime) {
-    
+
     if (!firstTime) {
         sf::Vector2f movement(0.f, 0.f);
         if (isMovingUp)
@@ -121,11 +131,11 @@ void InGame::Update(sf::Time elapsedTime) {
             player->hRayoAvanzado->draw = false;
             player->hRayoAvanzado->StopAnimation();
         }
-        if(!video -> getLooped()){
+        if (!video -> getLooped()) {
             video->setDibujar(true);
         }
-        
-    }else{
+
+    } else {
         sf::sleep(sf::seconds(5));
     }
 
@@ -138,10 +148,10 @@ void InGame::renderForMuerte(float interpolation, sf::Time elapsedTime) {
     motor->SetView(0); //bordes
     motor->draw(spriteRelleno);
     motor->SetView(1);
-    
+
     updateViewForPause();
-    
-    
+
+
     motor->draw(spriteFondo);
 
     /**********************ARREGLAR***************************/
@@ -159,7 +169,7 @@ void InGame::renderForMuerte(float interpolation, sf::Time elapsedTime) {
     /*********************************************************/
     player -> DrawAnimationWithOut(player->GetSpriteAnimated().getPosition());
 
-   if (mapa->getMapaActual() == 1) {
+    if (mapa->getMapaActual() == 1) {
         mapa->dibuja2Mapa1();
     }
     if (mapa->getMapaActual() == 2) {
@@ -169,14 +179,14 @@ void InGame::renderForMuerte(float interpolation, sf::Time elapsedTime) {
     if (mapa->getMapaActual() == 3) {
         mapa->dibuja2Mapa3();
     }
-    
-    
+
+
     motor->SetView(2); //vista del HUD
     player -> hud->renderHud();
-    if(!video -> getLooped()){
-            video -> PlayVideo();
+    if (!video -> getLooped()) {
+        video -> PlayVideo();
     }
-    muerte->render(interpolation,elapsedTime);
+    muerte->render(interpolation, elapsedTime);
     motor->SetView(1); //vista del juego
 
     motor->draw(mouseSprite);
@@ -184,15 +194,15 @@ void InGame::renderForMuerte(float interpolation, sf::Time elapsedTime) {
     motor->display();
 }
 
-void InGame::renderForPause(float interpolation, sf::Time elapsedTime){
+void InGame::renderForPause(float interpolation, sf::Time elapsedTime) {
     motor->clear();
     motor->SetView(0); //bordes
     motor->draw(spriteRelleno);
     motor->SetView(1);
-    
+
     updateViewForPause();
-    
-    
+
+
     motor->draw(spriteFondo);
 
     if (mapa->getMapaActual() == 1) {
@@ -207,7 +217,7 @@ void InGame::renderForPause(float interpolation, sf::Time elapsedTime){
 
     player -> DrawAnimationWithOut(player->GetSpriteAnimated().getPosition());
 
-   if (mapa->getMapaActual() == 1) {
+    if (mapa->getMapaActual() == 1) {
         mapa->dibuja2Mapa1();
     }
     if (mapa->getMapaActual() == 2) {
@@ -217,30 +227,31 @@ void InGame::renderForPause(float interpolation, sf::Time elapsedTime){
     if (mapa->getMapaActual() == 3) {
         mapa->dibuja2Mapa3();
     }
-    
-    
+
+
     motor->SetView(2); //vista del HUD
     player -> hud->renderHud();
-    if(!video -> getLooped()){
-            video -> PlayVideo();
+    if (!video -> getLooped()) {
+        video -> PlayVideo();
     }
-    pause->render(interpolation,elapsedTime);
+    pause->render(interpolation, elapsedTime);
     motor->SetView(1); //vista del juego
 
     motor->draw(mouseSprite);
 
     motor->display();
 }
-void InGame::render(float interpolation, sf::Time elapsedTime) {
-    
+
+void InGame::Render(float interpolation, sf::Time elapsedTime) {
+
     motor->clear();
     motor->SetView(0); //bordes
     motor->draw(spriteRelleno);
     motor->SetView(1);
-    
+
     updateView();
-    
-    
+
+
     motor->draw(spriteFondo);
 
     if (mapa->getMapaActual() == 1) {
@@ -253,7 +264,7 @@ void InGame::render(float interpolation, sf::Time elapsedTime) {
         mapa->dibujaMapa3();
     }
 
-     player -> PlayAnimation(*player -> currentAnimation);
+    player -> PlayAnimation(*player -> currentAnimation);
 
 
     if ((!isMovingDown && !isMovingLeft && !isMovingRight && !isMovingUp) || player->hRayoBasico->draw == true) {
@@ -263,7 +274,7 @@ void InGame::render(float interpolation, sf::Time elapsedTime) {
 
     player -> DrawWithInterpolation(interpolation);
 
-   if (mapa->getMapaActual() == 1) {
+    if (mapa->getMapaActual() == 1) {
         mapa->dibuja2Mapa1();
     }
     if (mapa->getMapaActual() == 2) {
@@ -273,7 +284,7 @@ void InGame::render(float interpolation, sf::Time elapsedTime) {
     if (mapa->getMapaActual() == 3) {
         mapa->dibuja2Mapa3();
     }
-    
+
     int x = motor->getMousePosition().x - player -> getPosition().x;
     int y = motor->getMousePosition().y - player -> getPosition().y;
     player ->UpdatePlayerAnimation(x, y);
@@ -353,19 +364,36 @@ void InGame::render(float interpolation, sf::Time elapsedTime) {
     }
     //printf("%f",player->hRayoBasico->tiempoCast.getTiempo());
 
-   
-    
-    
+
+
+
     motor->SetView(2); //vista del HUD
     player -> hud->renderHud();
-    if(!video -> getLooped()){
-            video -> PlayVideo();
+    if (!video -> getLooped()) {
+        video -> PlayVideo();
     }
     motor->SetView(1); //vista del juego
 
     motor->draw(mouseSprite);
 
     motor->display();
+}
+
+void InGame::HandleEvents(sf::Event& event) {
+    switch (event.type) {
+        case sf::Event::KeyPressed:
+            handlePlayerInput(event.key.code,true);
+            break;
+        case sf::Event::KeyReleased:
+            handlePlayerInput(event.key.code,false);
+            break;
+        case sf::Event::MouseButtonPressed:
+            handleMouseInput(event.mouseButton.button,true);
+            break;
+        case sf::Event::MouseButtonReleased:
+            handleMouseInput(event.mouseButton.button,false);
+            break;
+    }
 }
 
 void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
@@ -432,5 +460,5 @@ void InGame::updateViewForPause() {
 
 void InGame::SetPlayer(float x, float y) {
     player->SetPosition(x, y);
-    
+
 }

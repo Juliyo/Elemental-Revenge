@@ -20,13 +20,26 @@
 #include "Enemigo.hpp"
 #include <SFML/Window.hpp>
 
+namespace States{
+	enum ID{
+            InGame,
+            Menu
+	};
+}
+
 class State {
 public:
-    State();
-    State(const State& orig);
-    virtual ~State();
-    
-    bool             EstadoActivo=false;
+    virtual void HandleEvents(sf::Event &event) = 0;
+    virtual void Update(sf::Time timeElapsed) = 0;
+    virtual void Render(float interpolation, sf::Time elapsedTime) = 0;
+
+   // virtual void Clean() = 0;
+    virtual void Inicializar() = 0;
+
+
+    Motor2D *motor;
+
+    States::ID id;
 
 };
 

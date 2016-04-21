@@ -17,10 +17,11 @@
 
 class Video {
 public:
-    Video(std::string ruta, int f, int x, int y, int tipo, sf::Vector2f scale, bool setOrigin = false, sf::Vector2f size = sf::Vector2f(0,0));
+    Video(std::string ruta, int f, int x, int y, int tipo, sf::Vector2f scale, bool o = false, sf::Vector2f size = sf::Vector2f(0,0));
     Video(const Video& orig);
     virtual ~Video();
     
+    void Inicializar();
     void PlayVideo();
     void setDibujar(bool a);
     void setLooped(bool a);
@@ -32,9 +33,15 @@ private:
     int numFrames;
     int current_frame;
     
+    bool setOrigin;
+    bool extension;
     bool looped=false;;
     bool dibujar;
     sf::Vector2f origin;
+    sf::Vector2f escala;
+    int posX;
+    int posY;
+    
 };
 
 #endif /* VIDEO_HPP */

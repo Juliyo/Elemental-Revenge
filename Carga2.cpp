@@ -16,7 +16,7 @@
 Carga2::Carga2() {
     motor = Motor2D::Instance();
     //Estado de Ingame
-    EstadoActivo = false;
+//    EstadoActivo = false;
     
     motor->setCenterForView(3, 650, 350);
     
