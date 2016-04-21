@@ -18,6 +18,7 @@
 #include <SFML/Graphics.hpp>
 #include <tmx/MapLoader.h>
 #include <tmx/MapLayer.h>
+#include "tinyxml.h"
 #include <string>
 #include <vector>
 
@@ -51,7 +52,7 @@ public:
     sf::Sprite *_tilesetSprite;
     void mapLoader(std::string mapName);
     void render();
-    tmx::MapLayer GetLayer(std::string layer);
+    const tmx::MapLayer& GetLayer(const std::string& name);
     void UpdateQuadTree(){
         Motor2D *m = Motor2D::Instance();
         sf::FloatRect viewBounds(m->getCenterFromView(1) - m->getSizeFromView(1) / 2.f, m->getSizeFromView(1));
@@ -60,10 +61,40 @@ public:
     std::vector<tmx::MapObject*> QueryQuadTree(sf::FloatRect t){
         return ml.QueryQuadTree(t);
     }
+    void createCollisions(){
+        
+        TiXmlDocument doc;
+        doc.LoadFile(nombreMapa.c_str());
+       
+        TiXmlElement* map = doc.FirstChildElement("map");
+        
+        map->QueryIntAttribute("width", &_width);
+        map->QueryIntAttribute("height", &_height);
+        colisiones = new int*[_height];
+        for(int i = 0;i<_height;i++){
+            colisiones[i] = new int[_width];
+        }
+        TiXmlElement *layer = map->FirstChildElement()->NextSiblingElement("layer");
+        while(layer){
+            if(layer->Attribute("name") == "Colision"){
+                break;
+            }
+            layer = layer->NextSiblingElement("layer");
+        }
+        std::cout<<"Nombre de la capa: "<<layer->Attribute("name")<<std::endl;
+        
+        for(int i = 0;i<_width;++i){
+            for(int j=0;j<_height;++j){
+                
+            }
+        }
+    }
 private:
     int mapaActual;
     tmx::MapLoader ml;
     int cuenta=0;
+    std::string nombreMapa;
+    int **colisiones;
 };
 
 

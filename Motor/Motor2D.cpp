@@ -50,17 +50,17 @@ void Motor2D::SetView(int v) {
             break;
         case 1:
         {
-            mWindow->setView(getLetterboxView(*pantalla, anchoVentana, altoVentana, 640, 480));
+            mWindow->setView(getLetterboxView(*pantalla, anchoVentana, altoVentana, 640, 480,true));
             break;
         }
         case 2:
         {
-            mWindow->setView(getLetterboxView(*HUD, anchoVentana, altoVentana, 640, 480));
+            mWindow->setView(getLetterboxView(*HUD, anchoVentana, altoVentana, 640, 480,false));
             break;
         }
         case 3:
         {
-            mWindow->setView(getLetterboxView(*transicion, anchoVentana, altoVentana, 640, 480));
+            mWindow->setView(getLetterboxView(*transicion, anchoVentana, altoVentana, 640, 480,false));
             break;
         }
     }
@@ -103,7 +103,7 @@ bool Motor2D::isWindowOpen() {
     return mWindow->isOpen();
 }
 
-sf::View Motor2D::getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight) {
+sf::View Motor2D::getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight, bool zoom) {
 
     float windowRatio = windowWidth / (float) windowHeight;
     float viewRatio = viewRatioWidth / (float) viewRatioHeight;
@@ -125,8 +125,12 @@ sf::View Motor2D::getLetterboxView(sf::View view, int windowWidth, int windowHei
         posY = (1 - sizeY) / 2.0;
     }
 
+    if(zoom){
+        //view.zoom(zoomLevel);
+    }
+    
     view.setViewport(sf::FloatRect(posX, posY, sizeX, sizeY));
-    view.zoom(zoomLevel);
+    
     return view;
 }
 

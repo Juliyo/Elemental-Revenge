@@ -139,7 +139,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     SetSpeed(speedX, speedY);
     SetMaxSpeed(maxSpeedX, maxSpeedY);
     SetOriginAnimatedSprite(32,38);
-
+    SetScale(1.0,1.0);
 }
 
 void Player::Update(sf::Vector2f velocity, sf::Time elapsedTime) {

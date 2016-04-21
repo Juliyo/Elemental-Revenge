@@ -30,7 +30,7 @@ InGame::InGame() {
     player = new Player();
     
     //player->SetScale(0.7,0.7);
-    //motor->setZoom(0.3f); //1=vista del mundo(nuestra pantalla)
+    motor->setZoom(0.3f); //1=vista del mundo(nuestra pantalla)
 
     //updateView();
 
@@ -102,6 +102,9 @@ void InGame::Update(sf::Time elapsedTime) {
         if (isMovingRight)
             movement.x += player -> getVelocidad();
 
+        level->updateQuadTree();
+        objetosCercanos = level->queryQuadTree(player->GetSpriteAnimated().getGlobalBounds());
+        std::cout<<"Objeto: "<<objetosCercanos.size()<<std::endl;
         player -> Update(movement, elapsedTime);
 
         if (player->hRayoBasico->tiempoCast.getTiempo() > player->hRayoBasico->getCast() && aux == true) {
@@ -136,8 +139,6 @@ void InGame::Update(sf::Time elapsedTime) {
             video->setDibujar(true);
         }
 
-    } else {
-        sf::sleep(sf::seconds(5));
     }
 
     firstTime = false;

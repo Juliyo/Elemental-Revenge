@@ -63,7 +63,7 @@ public:
 
     sf::Vector2f getMousePosition();
     sf::RenderWindow *mWindow;
-    sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight);
+    sf::View getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight,bool zoom);
     //Conetenedor de las texturas
     std::map<int, sf::Texture*> Textures;    
     int key = 0;

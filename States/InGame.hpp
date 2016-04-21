@@ -23,6 +23,8 @@
 #include "Pause.hpp"
 #include "Muerte.hpp"
 #include "../Motor/Level.hpp"
+#include <vector>
+#include <tmx/MapObject.h>
 
 class InGame:public State {
 public:
@@ -97,6 +99,8 @@ private:
     bool			isInterpolating;
     bool                        isShooting;
     bool                        aux;
+    
+    std::vector<tmx::MapObject*> objetosCercanos;
 };
 
 #endif /* INGAME_HPP */

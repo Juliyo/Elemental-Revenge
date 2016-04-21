@@ -16,9 +16,11 @@
 #include "tinystr.h"
 #include "tinyxml.h"
 #include "Motor/Motor2D.hpp"
+#include "States/StateStack.hpp"
 #include <iostream>
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
 
 using namespace std;
 
@@ -28,19 +30,24 @@ Mapa::Mapa()
 }
 
 void Mapa::mapLoader(std::string mapName) {
+    nombreMapa = "resources/"+ mapName;
     ml.Load(mapName);
+    createCollisions();
 }
 
 void Mapa::render() {
     Motor2D *m = Motor2D::Instance();
-   /* m->draw(GetLayer("Capa1"));
-    m->draw(GetLayer("Capa2"));
-    m->draw(GetLayer("Capa3"));*/
-    tmx::MapLayer l = GetLayer("Ground");
-    m->mWindow->draw(GetLayer("Capa 1"));
-    m->mWindow->draw(GetLayer("Capa 2"));
-    //m->mWindow->draw(l);
-    //m->draw(ml);
+    const auto& layers = ml.GetLayers();
+    for(const auto& l : layers)
+    {
+        ml.Draw(*m->mWindow,l,true);
+    }
+//    ml.Draw(*m->mWindow,GetLayer("Capa 1"),false);
+//    ml.Draw(*m->mWindow,GetLayer("Capa 2"),false);
+//    ml.Draw(*m->mWindow,GetLayer("Capa 3"),false);
+//    ml.Draw(*m->mWindow,GetLayer("Capa 4"),false);
+//    ml.Draw(*m->mWindow,GetLayer("Capa 5"),false);
+
 }
 
 Mapa::Mapa(const Mapa& orig):
@@ -48,18 +55,14 @@ ml("resources/")
 {
 }
 // Devuelve una capa concreta del mapa
-tmx::MapLayer Mapa::GetLayer(std::string layerName){
-    int cont = 0;
-    for(auto layer = ml.GetLayers().begin(); layer != ml.GetLayers().end(); ++layer)
+const tmx::MapLayer& Mapa::GetLayer(const std::string& name)
+{
+    const auto& layers = ml.GetLayers();
+    for(const auto& l : layers)
     {
-        if(layer->name == layerName)
-        {
-            return ml.GetLayers().at(cont);
-        }
-        cont++;
+        if(l.name == name) return l;
     }
-    return tmx::MapLayer(ml.GetLayers().at(0));
-    //return 0;
+    return layers[0];
 }
 
 Mapa::~Mapa() {
