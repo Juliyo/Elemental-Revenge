@@ -17,6 +17,8 @@
 #include "../States/State.hpp"
 #include "../Motor/Motor2D.hpp"
 #include "../Motor/Video.hpp"
+#include "../Otros/ParalellTask.hpp"
+
 class LoadingState : public State{
 public:
     LoadingState();
@@ -55,6 +57,10 @@ private:
     Reloj *reloj1;
     
     Video *video;
+    
+    ParalellTask*   loadingTask;
+    float           seconds;
+    bool            loaded;
 };
 
 #endif /* CARGA1_HPP */

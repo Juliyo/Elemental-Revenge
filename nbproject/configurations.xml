@@ -17,7 +17,6 @@
       <itemPath>Headers/Render.hpp</itemPath>
       <itemPath>Headers/StringHelpers.hpp</itemPath>
       <itemPath>Headers/StringHelpers.inl</itemPath>
-      <itemPath>Headers/Transition.hpp</itemPath>
       <itemPath>Headers/Util.hpp</itemPath>
       <itemPath>Headers/btree.hpp</itemPath>
       <itemPath>Headers/hRayAdvanced.hpp</itemPath>
@@ -39,6 +38,10 @@
       <itemPath>Motor/Video.cpp</itemPath>
       <itemPath>Motor/Video.hpp</itemPath>
     </logicalFolder>
+    <logicalFolder name="f4" displayName="Otros" projectFiles="true" kind="ROOT">
+      <itemPath>Otros/ParalellTask.cpp</itemPath>
+      <itemPath>Otros/ParalellTask.hpp</itemPath>
+    </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
                    projectFiles="true">
@@ -57,7 +60,6 @@
       <itemPath>PhysicsState.cpp</itemPath>
       <itemPath>Player.cpp</itemPath>
       <itemPath>Render.cpp</itemPath>
-      <itemPath>Transition.cpp</itemPath>
       <itemPath>Util.cpp</itemPath>
       <itemPath>btree.cpp</itemPath>
       <itemPath>hRayAdvanced.cpp</itemPath>
@@ -69,10 +71,10 @@
       <itemPath>tinyxmlparser.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="f3" displayName="States" projectFiles="true">
-      <itemPath>States/Carga1.hpp</itemPath>
       <itemPath>States/InGame.cpp</itemPath>
       <itemPath>States/InGame.hpp</itemPath>
       <itemPath>States/LoadingState.cpp</itemPath>
+      <itemPath>States/LoadingState.hpp</itemPath>
       <itemPath>States/Menu.cpp</itemPath>
       <itemPath>States/Menu.hpp</itemPath>
       <itemPath>States/State.cpp</itemPath>
@@ -81,6 +83,8 @@
       <itemPath>States/StateFactory.hpp</itemPath>
       <itemPath>States/StateStack.cpp</itemPath>
       <itemPath>States/StateStack.hpp</itemPath>
+      <itemPath>States/Transition.cpp</itemPath>
+      <itemPath>States/Transition.hpp</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
@@ -154,8 +158,6 @@
       </item>
       <item path="Headers/StringHelpers.inl" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="Headers/Transition.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Headers/Util.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/btree.hpp" ex="false" tool="3" flavor2="0">
@@ -200,6 +202,10 @@
       </item>
       <item path="Muerte.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="Otros/ParalellTask.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Otros/ParalellTask.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Pause.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="PhysicsState.cpp" ex="false" tool="1" flavor2="0">
@@ -208,13 +214,13 @@
       </item>
       <item path="Render.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="States/Carga1.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="States/InGame.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="States/InGame.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="States/LoadingState.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="States/LoadingState.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="States/Menu.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -232,7 +238,9 @@
       </item>
       <item path="States/StateStack.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="Transition.cpp" ex="false" tool="1" flavor2="0">
+      <item path="States/Transition.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="States/Transition.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Util.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -307,8 +315,6 @@
       </item>
       <item path="Headers/StringHelpers.inl" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="Headers/Transition.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Headers/Util.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/btree.hpp" ex="false" tool="3" flavor2="0">
@@ -353,6 +359,10 @@
       </item>
       <item path="Muerte.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="Otros/ParalellTask.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Otros/ParalellTask.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Pause.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="PhysicsState.cpp" ex="false" tool="1" flavor2="0">
@@ -361,13 +371,13 @@
       </item>
       <item path="Render.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="States/Carga1.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="States/InGame.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="States/InGame.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="States/LoadingState.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="States/LoadingState.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="States/Menu.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -385,7 +395,9 @@
       </item>
       <item path="States/StateStack.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="Transition.cpp" ex="false" tool="1" flavor2="0">
+      <item path="States/Transition.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="States/Transition.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Util.cpp" ex="false" tool="1" flavor2="0">
       </item>

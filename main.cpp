@@ -28,5 +28,5 @@ int main(int, char const**)
     info();
     Game *game = new Game();
     game -> run();
-    delete game;
+    //delete game;
 }

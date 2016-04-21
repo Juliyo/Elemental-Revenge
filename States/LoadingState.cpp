@@ -20,7 +20,7 @@ LoadingState::LoadingState() {
     motor = Motor2D::Instance();
 
     
-    motor->setCenterForView(3, 650, 350);
+    //motor->setCenterForView(3, 650, 350);
 
     spriteRelleno = new Sprite();
     spriteFondo = new Sprite();
@@ -28,11 +28,9 @@ LoadingState::LoadingState() {
     cargando = new Text();
     mensaje = new Text();
     
-    
-    
     reloj1 = new Reloj();
+    video = new Video("resources/Videos/solaire/frame-",36,500,500,1,sf::Vector2f(1,1),true,sf::Vector2f(960,512));
     
-    video = new Video("resources/Videos/solaire/frame-",36,180,105,1,sf::Vector2f(1,1),false);
 }
 
 LoadingState::LoadingState(const LoadingState& orig) {
@@ -42,6 +40,7 @@ LoadingState::~LoadingState() {
 }
 
 void LoadingState::Inicializar() {
+    video->Inicializar();
     //Carga texturas
     try {
         texturaRelleno.loadFromFile("resources/Textures/background.png");
@@ -68,13 +67,16 @@ void LoadingState::Inicializar() {
     
     cargando->setFont("resources/Fonts/Minecraft.ttf");
     cargando->setString("Cargando");
-    cargando->setPosition(560,300);
+    cargando->setPosition(400,450);
     cargando->setScale(1.2,1.2);
     
     mensaje->setFont("resources/Fonts/Minecraft.ttf");
     mensaje->setString("Historia++;");
-    mensaje->setPosition(610,400);
+    mensaje->setPosition(440,520);
     mensaje->setScale(0.6,0.6);
+    
+    loadingTask = new ParalellTask();
+    loadingTask->Execute(mensaje);
 }
 
 
@@ -128,7 +130,7 @@ void LoadingState::updateView() {
 }
 
 void LoadingState::HandleEvents(sf::Event& event) {
-    return false;
+    return;
 }
 
 

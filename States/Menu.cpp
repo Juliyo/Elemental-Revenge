@@ -313,8 +313,9 @@ void Menu::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
         if (selectedItemIndex == 0) {
             //selectedItemIndex = 3;
             //Si estamos en el Menu lanzamos el estado ingame
-            StateStack::Instance()->GetState(States::ID::InGame)->Inicializar();
-            StateStack::Instance()->SetCurrentState(States::ID::InGame);
+           // StateStack::Instance()->GetState(States::ID::Carga)->Inicializar();
+            StateStack::Instance()->SetCurrentState(States::ID::Carga);
+            StateStack::Instance()->GetState(States::ID::Carga)->Inicializar();
         }
         if (selectedItemIndex == 2) {
             motor->closeWindow();

@@ -14,6 +14,7 @@
 #include "InGame.hpp"
 #include "Pause.hpp"
 #include "Muerte.hpp"
+#include "StateStack.hpp"
 
 //SOLO EN WINDOWS
 
@@ -84,7 +85,7 @@ void InGame::Inicializar() {
     updateView();
     player -> Inicializar(850.f, 800.f);
     mapa->leerMapa(1,0);
-    
+    video->Inicializar();
     
 }
 
@@ -410,8 +411,9 @@ void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         player->hRayoBasico->aumentaLVL();
     } else if (key == sf::Keyboard::T && isPressed) {
         player->hRayoAvanzado->aumentaLVL();
-    } else if (key == sf::Keyboard::X && isPressed) {
-        isInterpolating = !isInterpolating;
+    } else if (key == sf::Keyboard::M){
+        //Si pulsamos la M pasamos de nivel
+        StateStack::Instance()->SetCurrentState(States::ID::Transition);
     }
 }
 

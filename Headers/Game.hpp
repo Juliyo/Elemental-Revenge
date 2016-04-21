@@ -8,8 +8,7 @@
 #include "Enemigo.hpp"
 
 //#include "InGame.hpp"
-#include "Transition.hpp"
-#include "Carga1.hpp"
+//#include "Transition.hpp"
 #include "Pause.hpp"
 #include "Carga2.hpp"
 #include "../Motor/Motor2D.hpp"
@@ -53,14 +52,14 @@ private:
 
     //Graficos
     //InGame *EstadoInGame;
-    Transition *EstadoTransition;
+    //Transition *EstadoTransition;
     //Menu *EstadoMenu;
     Pause *EstadoPause;
     Muerte *EstadoMuerte;
-    LoadingState *EstadoCarga1;
+    //LoadingState *EstadoCarga1;
     Carga2 *EstadoCarga2;
     
-    StateStack*   stateStack;
+    StateStack *stateStack;
     
     float interpolation;
     
