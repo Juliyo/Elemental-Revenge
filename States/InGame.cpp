@@ -266,16 +266,19 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
         mapa->dibujaMapa3();
     }*/
     level->render();
+    
     player -> PlayAnimation(*player -> currentAnimation);
-
-
+    
+    for(int i=0;i<player->shapes.size();i++){
+        motor->draw(player->shapes.at(i));
+    }
     if ((!isMovingDown && !isMovingLeft && !isMovingRight && !isMovingUp) || player->hRayoBasico->draw == true) {
         player -> StopAnimation();
     }
     player -> UpdateAnimation(elapsedTime);
-
+motor->draw(player->playerShape);
     player -> DrawWithInterpolation(interpolation);
-
+    
     /*if (mapa->getMapaActual() == 1) {
         mapa->dibuja2Mapa1();
     }

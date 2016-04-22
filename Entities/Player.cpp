@@ -142,6 +142,9 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     SetMaxSpeed(maxSpeedX, maxSpeedY);
     //SetOriginAnimatedSprite(32,38);
     SetScale(1.0, 1.0);
+    playerShape = sf::RectangleShape(sf::Vector2f(32,32));
+    playerShape.setPosition(GetRectangleColisionAbsolute().GetTopLeft().x,GetRectangleColisionAbsolute().GetTopLeft().y);
+    //playerShape.setOrigin(0,0);
 }
 
 void Player::Update(const sf::Time elapsedTime) {
@@ -155,7 +158,7 @@ void Player::Update(const sf::Time elapsedTime) {
     if (isMovingRight)
         movement.x += getVelocidad();
 
-    
+    playerShape.setPosition(GetRectangleColisionAbsolute().GetTopLeft().x,GetRectangleColisionAbsolute().GetTopLeft().y);
     /**Hay que normalizar la velocidad**/
     sf::Vector2f nVelocity = Util::Normalize(movement);
     SetSpeed(nVelocity * Player::getVelocidad());
@@ -188,7 +191,10 @@ void Player::HandleMapCollisions(const sf::Time& elapsedTime) {
     if(colisiones[indiceTopLeft.y][indiceTopLeft.x] == 1){
         //std::cout<<"Colisiona esquina superior izquierda"<<std::endl;
         BoundingBox boundingArbol(indiceTopLeft.x*24,indiceTopLeft.y*24,24,24);
-        sf::Shape shape();
+        sf::RectangleShape r(sf::Vector2f(24,24));
+        r.setPosition(sf::Vector2f(indiceTopLeft.x*24,indiceTopLeft.y*24));
+        r.setFillColor(sf::Color::Red);
+        shapes.push_back(r);
         if(boundingPlayer.Intersects(boundingArbol)){
             SetSpeed(0,0);
         }

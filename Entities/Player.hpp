@@ -57,7 +57,8 @@ public:
     bool isMovingRight;
     bool isMovingLeft;
 
-    //std::vector<sf::Shape>
+    std::vector<sf::RectangleShape> shapes;
+    sf::RectangleShape playerShape;
 private:
     
     void HandleMapCollisions(const sf::Time& elapsedTime);
