@@ -12,7 +12,7 @@
  */
 
 #include "../Headers/hRayBasic.hpp"
-#include "../Headers/Player.hpp"
+#include "Entities/Player.hpp"
 #include "Motor/Motor2D.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Mouse.hpp>
@@ -21,10 +21,6 @@
 
 
 hRayBasic::hRayBasic() {
-    
-    
-  
-
     
     draw = false;
     animation = new Animation();

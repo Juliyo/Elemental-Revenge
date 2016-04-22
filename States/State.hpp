@@ -16,7 +16,6 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "Player.hpp"
 #include "Enemigo.hpp"
 #include <SFML/Window.hpp>
 

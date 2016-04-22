@@ -18,7 +18,7 @@
 State* StateFactory::CreateState(States::ID id){
     
     if(id == States::ID::InGame){
-        return new InGame();
+        return InGame::Instance();
     }else if(id == States::ID::Menu){
         return new Menu();
     }

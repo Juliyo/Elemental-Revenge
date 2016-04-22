@@ -104,19 +104,25 @@ public:
                 nodo = nodo->NextSiblingElement("tile");
             }
         }
-        for(int i=0;i<_width;++i){
-            for(int j = 0;j<_height;++j){
-                std::cout<<colisiones[i][j];
-            }
-            std::cout<<std::endl;
+        /*
+        for(int i=0 ; i < _width ; i++){
+            std::cout<<i<<std::endl;
+        for(int j= 0;j<_height; j++){
+            
+            std::cout<<colisiones[i][j];
+            
         }
+        std::cout<<std::endl;
+    }*/
+
     }
+    int **colisiones;
 private:
     int mapaActual;
     tmx::MapLoader ml;
     int cuenta=0;
     std::string nombreMapa;
-    int **colisiones;
+    
 };
 
 

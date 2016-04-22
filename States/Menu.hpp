@@ -23,6 +23,7 @@
 #include <SFML/System.hpp>
 #include <iostream>
 #include <SFML/Audio.hpp>
+#include "../Motor/Text.hpp"
 
 
 #include <SFML/Graphics.hpp>

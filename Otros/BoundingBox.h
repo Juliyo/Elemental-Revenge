@@ -1,11 +1,11 @@
 /* 
- * File:   Rectangle.h
+ * File:   BoundingBox.h
  * Author: Tonire
  *
  */
 
-#ifndef RECTANGLE_H
-#define RECTANGLE_H
+#ifndef BOUNDINGBOX_H
+#define BOUNDINGBOX_H
 
 #include <SFML/Graphics.hpp>
 
@@ -82,5 +82,5 @@ protected:
     sf::FloatRect* bounding;
 };
 
-#endif /* RECTANGLE_H */
+#endif /* BOUNDINGBOX_H */
 

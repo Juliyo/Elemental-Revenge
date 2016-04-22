@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "Player.hpp"
+#include "../Entities/Player.hpp"
 #include "Enemigo.hpp"
 
 //#include "InGame.hpp"

@@ -14,10 +14,10 @@
 #ifndef CARGA1_HPP
 #define CARGA1_HPP
 
-#include "../States/State.hpp"
+//#include "../States/State.hpp"
 #include "../Motor/Motor2D.hpp"
 #include "../Motor/Video.hpp"
-class Carga1 : public State{
+class Carga1 /*: public State*/{
 public:
     Carga1();
     Carga1(const Carga1& orig);

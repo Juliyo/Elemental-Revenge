@@ -11,7 +11,7 @@
  * Created on 18 de abril de 2016, 12:32
  */
 
-#include "Carga1.hpp"
+#include "../Headers/Carga1.hpp"
 #include "Motor/Text.hpp"
 #include "Motor/Video.hpp"
 

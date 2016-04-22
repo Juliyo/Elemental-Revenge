@@ -12,11 +12,17 @@
  */
 
 #include "InGame.hpp"
-#include "Pause.hpp"
-#include "Muerte.hpp"
 #include "../Otros/MapFactory.hpp"
 
-//SOLO EN WINDOWS
+InGame* InGame::mInstance = 0;
+
+InGame* InGame::Instance() {
+	if(mInstance == 0){
+            mInstance = new InGame();
+        }
+        
+	return mInstance;
+}
 
 InGame::InGame() {
     motor = Motor2D::Instance();
@@ -29,6 +35,7 @@ InGame::InGame() {
 
 
     player = new Player();
+    player->SetRectangleColision(0,0,32,32);
     
     //player->SetScale(0.7,0.7);
     motor->setZoom(0.3f); //1=vista del mundo(nuestra pantalla)
@@ -93,20 +100,12 @@ void InGame::Inicializar() {
 void InGame::Update(sf::Time elapsedTime) {
 
     if (!firstTime) {
-        sf::Vector2f movement(0.f, 0.f);
-        if (isMovingUp)
-            movement.y -= player -> getVelocidad();
-        if (isMovingDown)
-            movement.y += player -> getVelocidad();
-        if (isMovingLeft)
-            movement.x -= player -> getVelocidad();
-        if (isMovingRight)
-            movement.x += player -> getVelocidad();
+        
 
-        level->updateQuadTree();
-        objetosCercanos = level->queryQuadTree(player->GetSpriteAnimated().getGlobalBounds());
+        /*level->updateQuadTree();
+        objetosCercanos = level->queryQuadTree(player->GetSpriteAnimated().getGlobalBounds());*/
         //std::cout<<"Objeto: "<<objetosCercanos.size()<<std::endl;
-        player -> Update(movement, elapsedTime);
+        player -> Update(elapsedTime);
 
         if (player->hRayoBasico->tiempoCast.getTiempo() > player->hRayoBasico->getCast() && aux == true) {
             isShooting = false;
@@ -189,7 +188,7 @@ void InGame::renderForMuerte(float interpolation, sf::Time elapsedTime) {
     if (!video -> getLooped()) {
         video -> PlayVideo();
     }
-    muerte->render(interpolation, elapsedTime);
+//    muerte->render(interpolation, elapsedTime);
     motor->SetView(1); //vista del juego
 
     motor->draw(mouseSprite);
@@ -237,7 +236,7 @@ void InGame::renderForPause(float interpolation, sf::Time elapsedTime) {
     if (!video -> getLooped()) {
         video -> PlayVideo();
     }
-    pause->render(interpolation, elapsedTime);
+//    pause->render(interpolation, elapsedTime);
     motor->SetView(1); //vista del juego
 
     motor->draw(mouseSprite);
@@ -402,13 +401,13 @@ void InGame::HandleEvents(sf::Event& event) {
 void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
 
     if (key == sf::Keyboard::W) { //Esto lo hago para que cuando no estes presionando cambia a false
-        isMovingUp = isPressed;
+        player->isMovingUp = isPressed;
     } else if (key == sf::Keyboard::S) {
-        isMovingDown = isPressed;
+        player->isMovingDown = isPressed;
     } else if (key == sf::Keyboard::A) {
-        isMovingLeft = isPressed;
+        player->isMovingLeft = isPressed;
     } else if (key == sf::Keyboard::D) {
-        isMovingRight = isPressed;
+        player->isMovingRight = isPressed;
     } else if (key == sf::Keyboard::R && isPressed) {
         player->hRayoBasico->aumentaLVL();
     } else if (key == sf::Keyboard::T && isPressed) {

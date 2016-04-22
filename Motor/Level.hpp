@@ -33,8 +33,9 @@ public:
     void render(){
         map->render();
     }
-private:
     Mapa *map;
+private:
+    
 };
 
 #endif /* LEVEL_HPP */

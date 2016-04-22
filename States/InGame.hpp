@@ -20,15 +20,15 @@
 #include "SFML/System.hpp"
 #include <../Motor/Mapa.hpp>
 #include <SFML/Audio.hpp>
-#include "Pause.hpp"
-#include "Muerte.hpp"
 #include "../Motor/Level.hpp"
 #include <vector>
 #include <tmx/MapObject.h>
+#include "../Entities/Player.hpp"
 
 class InGame:public State {
 public:
     InGame();
+    static InGame* Instance();
     InGame(const InGame& orig);
     virtual ~InGame();
     void    run();
@@ -69,8 +69,8 @@ private:
     Enemigo			enemigo[20];
     
     //Singletones
-    Pause                       *pause;
-    Muerte                      *muerte;
+   /* Pause                       *pause;
+    Muerte                      *muerte;*/
     
     //Recursos
     sf::Texture                 texturaFondo;
@@ -91,6 +91,7 @@ private:
     bool			isMovingDown;
     bool			isMovingRight;
     bool			isMovingLeft;
+    
     bool                        rayoAdvancedCast = false;
     bool                        rayoBasicCast = false;
     
@@ -101,6 +102,8 @@ private:
     bool                        aux;
     
     std::vector<tmx::MapObject*> objetosCercanos;
+    
+    static InGame* mInstance;
 };
 
 #endif /* INGAME_HPP */
