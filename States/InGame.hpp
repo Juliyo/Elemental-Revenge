@@ -18,7 +18,7 @@
 #include "../Motor/Motor2D.hpp"
 #include "../Motor/Video.hpp"
 #include "SFML/System.hpp"
-#include <Mapa.hpp>
+#include <../Motor/Mapa.hpp>
 #include <SFML/Audio.hpp>
 #include "Pause.hpp"
 #include "Muerte.hpp"

@@ -14,6 +14,7 @@
 #include "InGame.hpp"
 #include "Pause.hpp"
 #include "Muerte.hpp"
+#include "../Otros/MapFactory.hpp"
 
 //SOLO EN WINDOWS
 
@@ -83,7 +84,7 @@ void InGame::Inicializar() {
     }
     updateView();
     player -> Inicializar(850.f, 800.f);
-    level->LoadMap("mapaBosqueAlfa.tmx");
+    level->LoadMap(MapFactory::CreateLevel(Niveles::Level1));
     //mapa->leerMapa(1,0);
     
     
@@ -104,7 +105,7 @@ void InGame::Update(sf::Time elapsedTime) {
 
         level->updateQuadTree();
         objetosCercanos = level->queryQuadTree(player->GetSpriteAnimated().getGlobalBounds());
-        std::cout<<"Objeto: "<<objetosCercanos.size()<<std::endl;
+        //std::cout<<"Objeto: "<<objetosCercanos.size()<<std::endl;
         player -> Update(movement, elapsedTime);
 
         if (player->hRayoBasico->tiempoCast.getTiempo() > player->hRayoBasico->getCast() && aux == true) {

@@ -1,7 +1,7 @@
 #include "Game.hpp"
 #include <SFML/System.hpp>
 #include "Pause.hpp"
-#include "Mapa.hpp"
+#include "../Motor/Mapa.hpp"
 
 #include <cmath>
 #include <math.h>

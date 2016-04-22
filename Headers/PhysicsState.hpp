@@ -9,7 +9,7 @@
 #define	PHYSICSSTATE_HPP
 
 #include <SFML/Graphics.hpp>
-#include "Mapa.hpp"
+#include "../Motor/Mapa.hpp"
 
 class PhysicsState {
 public:

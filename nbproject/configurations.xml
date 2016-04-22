@@ -10,7 +10,6 @@
       <itemPath>Headers/Game.hpp</itemPath>
       <itemPath>Headers/Hechizo.hpp</itemPath>
       <itemPath>Headers/Hud.hpp</itemPath>
-      <itemPath>Headers/Mapa.hpp</itemPath>
       <itemPath>Headers/Muerte.hpp</itemPath>
       <itemPath>Headers/Pause.hpp</itemPath>
       <itemPath>Headers/PhysicsState.hpp</itemPath>
@@ -29,6 +28,8 @@
     <logicalFolder name="f1" displayName="Motor" projectFiles="true">
       <itemPath>Motor/Level.cpp</itemPath>
       <itemPath>Motor/Level.hpp</itemPath>
+      <itemPath>Motor/Mapa.cpp</itemPath>
+      <itemPath>Motor/Mapa.hpp</itemPath>
       <itemPath>Motor/Motor2D.cpp</itemPath>
       <itemPath>Motor/Motor2D.hpp</itemPath>
       <itemPath>Motor/Reloj.cpp</itemPath>
@@ -42,9 +43,11 @@
       <itemPath>Motor/Video.cpp</itemPath>
       <itemPath>Motor/Video.hpp</itemPath>
     </logicalFolder>
-    <logicalFolder name="f4" displayName="Otros" projectFiles="true" kind="ROOT">
+    <logicalFolder name="f4" displayName="Otros" projectFiles="true">
       <itemPath>Otros/BoundingBox.cpp</itemPath>
       <itemPath>Otros/BoundingBox.h</itemPath>
+      <itemPath>Otros/MapFactory.cpp</itemPath>
+      <itemPath>Otros/MapFactory.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -59,7 +62,6 @@
       <itemPath>Game.cpp</itemPath>
       <itemPath>Hechizo.cpp</itemPath>
       <itemPath>Hud.cpp</itemPath>
-      <itemPath>Mapa.cpp</itemPath>
       <itemPath>Muerte.cpp</itemPath>
       <itemPath>Pause.cpp</itemPath>
       <itemPath>PhysicsState.cpp</itemPath>
@@ -185,11 +187,13 @@
       </item>
       <item path="Hud.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Mapa.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="Motor/Level.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Motor/Level.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Motor/Mapa.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Motor/Mapa.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Motor/Motor2D.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -220,6 +224,10 @@
       <item path="Otros/BoundingBox.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Otros/BoundingBox.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Otros/MapFactory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Otros/MapFactory.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Pause.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -346,11 +354,13 @@
       </item>
       <item path="Hud.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Mapa.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="Motor/Level.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Motor/Level.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Motor/Mapa.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Motor/Mapa.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Motor/Motor2D.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -381,6 +391,10 @@
       <item path="Otros/BoundingBox.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Otros/BoundingBox.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Otros/MapFactory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Otros/MapFactory.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Pause.cpp" ex="false" tool="1" flavor2="0">
       </item>
