@@ -35,7 +35,7 @@ InGame::InGame() {
 
 
     player = new Player();
-    player->SetRectangleColision(0,0,32,32);
+    player->SetRectangleColision(14,12,36,52);
     
     //player->SetScale(0.7,0.7);
     motor->setZoom(0.3f); //1=vista del mundo(nuestra pantalla)
@@ -102,8 +102,7 @@ void InGame::Update(sf::Time elapsedTime) {
     if (!firstTime) {
         
 
-        /*level->updateQuadTree();
-        objetosCercanos = level->queryQuadTree(player->GetSpriteAnimated().getGlobalBounds());*/
+        
         //std::cout<<"Objeto: "<<objetosCercanos.size()<<std::endl;
         player -> Update(elapsedTime);
 
@@ -269,14 +268,14 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     
     player -> PlayAnimation(*player -> currentAnimation);
     
-    for(int i=0;i<player->shapes.size();i++){
+   /* for(int i=0;i<player->shapes.size();i++){
         motor->draw(player->shapes.at(i));
-    }
+    }*/
+    motor->draw(player->playerShape);
     if ((!isMovingDown && !isMovingLeft && !isMovingRight && !isMovingUp) || player->hRayoBasico->draw == true) {
         player -> StopAnimation();
     }
     player -> UpdateAnimation(elapsedTime);
-motor->draw(player->playerShape);
     player -> DrawWithInterpolation(interpolation);
     
     /*if (mapa->getMapaActual() == 1) {
@@ -416,7 +415,7 @@ void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
     } else if (key == sf::Keyboard::T && isPressed) {
         player->hRayoAvanzado->aumentaLVL();
     } else if (key == sf::Keyboard::X && isPressed) {
-        isInterpolating = !isInterpolating;
+        player->SetPosition(1420,1230);
     }
 }
 

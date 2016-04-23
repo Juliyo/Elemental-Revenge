@@ -50,7 +50,9 @@ public:
     Hud *hud;
     int cuadrante;
     
-    void OnColision(Colision::Type type);
+    void OnColision(std::vector<Colision::Type>);
+
+
     
     bool isMovingUp;
     bool isMovingDown;
@@ -59,12 +61,13 @@ public:
 
     std::vector<sf::RectangleShape> shapes;
     sf::RectangleShape playerShape;
+    std::vector<tmx::MapObject*> objetosCercanos;
 private:
     
     void HandleMapCollisions(const sf::Time& elapsedTime);
     sf::Texture texturaPlayer;
     
-    float velocity = 200.f;
+    float velocity = 150.f;
     int vida = 15;
 
     

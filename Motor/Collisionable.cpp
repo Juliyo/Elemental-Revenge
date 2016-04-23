@@ -28,8 +28,8 @@ Collisionable::~Collisionable() {
 
 BoundingBox Collisionable::GetRectangleColisionAbsolute() const {
     return BoundingBox(
-            this->entity->GetPosition().x + rectColision->GetTopLeft().x,
-            this->entity->GetPosition().y + rectColision->GetTopLeft().y,
+            this->entity->GetPosition().x - entOrigin.x + rectColision->GetTopLeft().x,
+            this->entity->GetPosition().y - entOrigin.y + rectColision->GetTopLeft().y,
             rectColision->GetWidth(),
             rectColision->GetHeight()
             );
@@ -52,6 +52,9 @@ void Collisionable::SetRectangleColision(float x, float y, float w, float h) {
 bool Collisionable::CheckColision(const Collisionable& ent, const sf::Time& elapsedTime) {
     return CalculateNextRect(elapsedTime).Intersects(ent.GetRectangleColisionAbsolute());
 }
+bool Collisionable::CheckColision(const BoundingBox& rec, const sf::Time& elapsedTime) {
+    return CalculateNextRect(elapsedTime).Intersects(rec);
+}
 
 bool Collisionable::CheckColision(const BoundingBox& rec) {
     return GetRectangleColisionAbsolute().Intersects(rec);
@@ -61,7 +64,7 @@ bool Collisionable::CheckColision(const Collisionable& ent) {
     return GetRectangleColisionAbsolute().Intersects(ent.GetRectangleColisionAbsolute());
 }
 
-std::vector<Colision::Type> Collisionable::TypeOfColision(const BoundingBox& rec, const sf::Time& elapsedTime) {
+/*std::vector<Colision::Type> Collisionable::TypeOfColision(const BoundingBox& rec, const sf::Time& elapsedTime) {
     BoundingBox entRec = CalculateNextRect(elapsedTime);
     std::vector<Colision::Type> colisions;
 
@@ -76,6 +79,86 @@ std::vector<Colision::Type> Collisionable::TypeOfColision(const BoundingBox& rec
     
     return colisions;
 
-}
+}*/
+
+/*Colision::Type Collisionable::TypeOfColision(const BoundingBox& rec, const sf::Time& elapsedTime) {
+    BoundingBox entRec = CalculateNextRect(elapsedTime);
+    std::vector<Colision::Type> colisions;
+
+    //***** Comprobamos en los ejes en los que colisiona
+    if (rec.GetTopLeft().x >= entRec.GetTopLeft().x && rec.GetTopLeft().x <= entRec.GetTopRight().x)
+        colisions.push_back(Colision::Type::LEFT);
+    if (rec.GetTopRight().x >= entRec.GetTopLeft().x && rec.GetTopRight().x <= entRec.GetTopRight().x)
+        colisions.push_back(Colision::Type::RIGHT);
+    if (rec.GetTopLeft().y <= entRec.GetBottomLeft().y && rec.GetTopLeft().y >= entRec.GetTopLeft().y) // Suelo
+        colisions.push_back(Colision::Type::BOTTOM);
+    if (rec.GetBottomLeft().y <= entRec.GetBottomLeft().y && rec.GetBottomLeft().y >= entRec.GetTopLeft().y) // Techo
+        colisions.push_back(Colision::Type::TOP);
+
+
+
+    //***** COLISION 1 EJE: ya lo tenemos
+    if (colisions.size() == 1)
+        return colisions.at(0);
+
+        //***** COLISION 3 EJES: si hay 2 verticales y 1 horizontal, será el horizontal, y viceversa.
+    else if (colisions.size() == 3) {
+        if (colisions.at(0) == Colision::Type::LEFT && colisions.at(1) == Colision::Type::BOTTOM && colisions.at(2) == Colision::Type::TOP)
+            return Colision::Type::LEFT;
+        else if (colisions.at(0) == Colision::Type::RIGHT && colisions.at(1) == Colision::Type::BOTTOM && colisions.at(2) == Colision::Type::TOP)
+            return Colision::Type::RIGHT;
+        else if (colisions.at(0) == Colision::Type::LEFT && colisions.at(1) == Colision::Type::RIGHT && colisions.at(2) == Colision::Type::TOP)
+            return Colision::Type::TOP;
+        else if (colisions.at(0) == Colision::Type::LEFT && colisions.at(1) == Colision::Type::RIGHT && colisions.at(2) == Colision::Type::BOTTOM)
+            return Colision::Type::BOTTOM;
+    }
+        //***** COLISION 2 EJES: comprobación estadística respecto a la posición anterior
+    else {
+        BoundingBox rectPrev = GetRectangleColisionAbsolute();
+        sf::Vector2f posAux;
+
+        // Si es la esquina TOP-LEFT, comprobamos con la BOTTOM-RIGHT del Sprite, pero primero miramos la VELOCIDAD
+        if (colisions.at(0) == Colision::Type::LEFT && colisions.at(1) == Colision::Type::BOTTOM) {
+            posAux = rectPrev.GetBottomRight();
+
+            if (posAux.y > rec.GetTopLeft().y && posAux.y < rec.GetTopLeft().y + 3.f)
+                return Colision::Type::BOTTOM;
+            else if (posAux.y < rec.GetTopLeft().y + 25.f)
+                return Colision::Type::BOTTOM;
+            else
+                return Colision::Type::LEFT;
+
+        }
+
+        if (colisions.at(0) == Colision::Type::RIGHT && colisions.at(1) == Colision::Type::BOTTOM) {
+            posAux = rectPrev.GetBottomLeft();
+
+            if (posAux.y < rec.GetTopRight().y && posAux.y < rec.GetTopLeft().y + 3.f)
+                return Colision::Type::BOTTOM;
+            else if (posAux.y < rec.GetTopLeft().y + 25.f)
+                return Colision::Type::BOTTOM;
+            else
+                return Colision::Type::RIGHT;
+        }
+
+        if (colisions.at(0) == Colision::Type::LEFT && colisions.at(1) == Colision::Type::TOP) {
+            posAux = rectPrev.GetTopRight();
+
+            if (posAux.y > rec.GetBottomLeft().y + 1.3f) //Si está arriba a la derecha de la esquina
+                return Colision::Type::TOP;
+            else
+                return Colision::Type::LEFT;
+        }
+
+        if (colisions.at(0) == Colision::Type::RIGHT && colisions.at(1) == Colision::Type::TOP) {
+            posAux = rectPrev.GetTopLeft();
+
+            if (posAux.y < rec.GetBottomRight().y - 1.3f) //Si está arriba a la derecha de la esquina
+                return Colision::Type::TOP;
+            else
+                return Colision::Type::RIGHT;
+        }
+    }
+}*/
 
 

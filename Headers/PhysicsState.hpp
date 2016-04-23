@@ -38,7 +38,6 @@ public:
 	sf::Vector2f GetAcceleration() const { return acceleration_; }
 	void SetAcceleration(float acc_x, float acc_y);
 	 */
-	
 private:
 	sf::Vector2f posPrev;
 	sf::Vector2f posNew;

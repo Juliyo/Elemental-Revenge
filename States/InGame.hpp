@@ -101,7 +101,7 @@ private:
     bool                        isShooting;
     bool                        aux;
     
-    std::vector<tmx::MapObject*> objetosCercanos;
+    
     
     static InGame* mInstance;
 };

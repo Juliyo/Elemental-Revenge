@@ -29,16 +29,24 @@ public:
     virtual ~Collisionable();
 
     void SetRectangleColision(float x, float y, float w, float h);
-
+    void SetOriginColision(float x, float y){
+        entOrigin.x = x;
+        entOrigin.y = y;
+    }
+    
     BoundingBox GetRectangleColisionAbsolute() const;
     BoundingBox CalculateNextRect(const sf::Time& elapsedTime);
 
-    virtual void OnColision(Colision::Type type) = 0;
+    virtual void OnColision(std::vector<Colision::Type> type) = 0;
+    
+    
 
 protected:
 
     BoundingBox* rectColision;
     Entity* entity;
+    sf::Vector2f entOrigin;
+    
 
     bool CheckColision(const Collisionable& ent, const sf::Time& elapsedTime);
     bool CheckColision(const BoundingBox& rec, const sf::Time& elapsedTime);
@@ -46,7 +54,7 @@ protected:
     bool CheckColision(const Collisionable& ent);
     bool CheckColision(const BoundingBox& rec);
     
-    std::vector<Colision::Type> TypeOfColision(const BoundingBox& rec, const sf::Time& elapsedTime);
+    //std::vector<Colision::Type> TypeOfColision(const BoundingBox& rec, const sf::Time& elapsedTime);
 };
 
 #endif /* COLLISIONABLE_HPP */

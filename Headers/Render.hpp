@@ -33,14 +33,16 @@ public:
         void DrawAnimation( const sf::Vector2f &posPrev, const sf::Vector2f &posNew, float interpolation, float *anglePrev, float *angleNew);
         void DrawAnimationWithOut( const sf::Vector2f &pos);
         
-        void SetOrigin(float x,float y){sprite.setOrigin(x,y);};
+       // void SetOrigin(float x,float y){sprite.setOrigin(x,y);}; 
         void SetOriginAnimatedSprite(float x,float y){ animatedSprite.setOrigin(x,y); };
         void SetRotation(float angle){ animatedSprite.setRotation(angle); };
         void SetScale(float x, float y){ animatedSprite.setScale(x,y); };
 	Sprite &GetSprite() { return sprite; }
         AnimatedSprite &GetSpriteAnimated() { return animatedSprite; }
 	sf::Vector2f GetRenderPosition() const { return renderPos; }
-        sf::FloatRect GetGlobalBounds();
+        sf::FloatRect GetGlobalBounds(){
+            return animatedSprite.getGlobalBounds();
+        };
 
 private:
         AnimatedSprite		animatedSprite;

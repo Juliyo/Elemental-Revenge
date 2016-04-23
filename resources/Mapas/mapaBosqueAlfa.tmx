@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="160" height="160" tilewidth="24" tileheight="24" nextobjectid="25">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="160" height="160" tilewidth="24" tileheight="24" nextobjectid="40">
  <tileset firstgid="1" name="tilesetReboot2" tilewidth="24" tileheight="24" tilecount="2750" columns="50">
   <image source="tileset322.png" width="1211" height="1331"/>
  </tileset>
@@ -84558,12 +84558,12 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="10"/>
+   <tile gid="10"/>
+   <tile gid="10"/>
+   <tile gid="10"/>
+   <tile gid="10"/>
+   <tile gid="10"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -84718,12 +84718,12 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="10"/>
+   <tile gid="10"/>
+   <tile gid="10"/>
+   <tile gid="10"/>
+   <tile gid="10"/>
+   <tile gid="10"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -84878,12 +84878,12 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="10"/>
+   <tile gid="10"/>
+   <tile gid="10"/>
+   <tile gid="10"/>
+   <tile gid="10"/>
+   <tile gid="10"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -85038,12 +85038,12 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="10"/>
+   <tile gid="10"/>
+   <tile gid="10"/>
+   <tile gid="10"/>
+   <tile gid="10"/>
+   <tile gid="10"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -102419,4 +102419,10 @@
    <tile gid="0"/>
   </data>
  </layer>
+ <objectgroup name="Collision" visible="0">
+  <object id="29" x="1463.33" y="1152.67" width="145.333" height="96.6667"/>
+  <object id="32" x="1199.33" y="1033.33" width="96" height="141.333"/>
+  <object id="37" x="1296" y="1104.67" width="47.3333" height="70"/>
+  <object id="39" x="1199.33" y="1176" width="48.6667" height="71.3333"/>
+ </objectgroup>
 </map>
