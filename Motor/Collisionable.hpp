@@ -36,6 +36,9 @@ public:
     
     BoundingBox GetRectangleColisionAbsolute() const;
     BoundingBox CalculateNextRect(const sf::Time& elapsedTime);
+    
+    int GetXDepth(const BoundingBox& rec);
+    int GetYDepth(const BoundingBox& rec);
 
     virtual void OnColision(std::vector<Colision::Type> type) = 0;
     

@@ -63,6 +63,30 @@ bool Collisionable::CheckColision(const BoundingBox& rec) {
 bool Collisionable::CheckColision(const Collisionable& ent) {
     return GetRectangleColisionAbsolute().Intersects(ent.GetRectangleColisionAbsolute());
 }
+int Collisionable::GetXDepth(const BoundingBox& rec){
+    BoundingBox bPlayer = GetRectangleColisionAbsolute();
+    if(bPlayer.IsInside(rec.GetBottomRight())){
+        return abs(rec.GetBottomRight().x - bPlayer.GetTopLeft().x);
+    }else if(bPlayer.IsInside(rec.GetBottomLeft())){
+        return abs(rec.GetBottomLeft().x - bPlayer.GetTopRight().x);
+    }else if(bPlayer.IsInside(rec.GetTopLeft())){
+        return abs(rec.GetTopLeft().x - bPlayer.GetBottomRight().x);
+    }else{
+        return abs(rec.GetTopRight().x - bPlayer.GetBottomLeft().x);
+    }
+}
+int Collisionable::GetYDepth(const BoundingBox& rec){
+    BoundingBox bPlayer = GetRectangleColisionAbsolute();
+    if(bPlayer.IsInside(rec.GetBottomRight())){
+        return abs(rec.GetBottomRight().y - bPlayer.GetTopLeft().y);
+    }else if(bPlayer.IsInside(rec.GetBottomLeft())){
+        return abs(rec.GetBottomLeft().y - bPlayer.GetTopRight().y);
+    }else if(bPlayer.IsInside(rec.GetTopLeft())){
+        return abs(rec.GetTopLeft().y - bPlayer.GetBottomRight().y);
+    }else{
+        return abs(rec.GetTopRight().y - bPlayer.GetBottomLeft().y);
+    }
+}
 
 /*std::vector<Colision::Type> Collisionable::TypeOfColision(const BoundingBox& rec, const sf::Time& elapsedTime) {
     BoundingBox entRec = CalculateNextRect(elapsedTime);
