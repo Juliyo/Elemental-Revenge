@@ -10,7 +10,7 @@
 #include "../States/InGame.hpp"
 #include "../Otros/tmxHelper.hpp"
 
-Player::Player() : Collisionable((Entity*)this) {
+Player::Player(BoundingBox *rectPlayer) : Collisionable((Entity*)this, rectPlayer) {
 
 }
 
@@ -163,17 +163,17 @@ void Player::Update(const sf::Time elapsedTime) {
 
    // playerShape.setPosition(GetRectangleColisionAbsolute().GetTopLeft().x, GetRectangleColisionAbsolute().GetTopLeft().y);
     /**Hay que normalizar la velocidad**/
-    sf::Vector2f nVelocity = Util::Normalize(movement);
-     SetSpeed(nVelocity * Player::getVelocidad());
-    //body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(movement)*Player::getVelocidad()));
+   // sf::Vector2f nVelocity = Util::Normalize(movement);
+     //SetSpeed(nVelocity * Player::getVelocidad());
+    body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(movement)*Player::getVelocidad()));
     //SetSpeed(tmx::BoxToSfVec(body->GetLinearVelocity()));
     //SetPosition(body->GetPosition());
     
     //body->SetLinearVelocity(tmx::SfToBoxVec(movement));
     //HandleMapCollisions(elapsedTime);
     
-    PhysicsState::Update(elapsedTime);
-    body->SetTransform(tmx::SfToBoxVec(GetPosition()),body->GetAngle());
+    //PhysicsState::Update(elapsedTime);
+   // body->SetTransform(tmx::SfToBoxVec(GetPosition()),body->GetAngle());
     SetPosition(tmx::BoxToSfVec(body->GetPosition()));
     //
 }

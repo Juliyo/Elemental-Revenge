@@ -56,7 +56,7 @@ InGame::InGame() {
     musica2->openFromFile("resources/Sounds/Magicka2.ogg");
     musica2->setVolume(50);*/
     //Inicializar();
-    physicWorld = new b2World(tmx::SfToBoxVec(sf::Vector2f(0.f, 100.f)));
+    physicWorld = new b2World(tmx::SfToBoxVec(sf::Vector2f(0.f, 0.f)));
     
 }
 
@@ -67,8 +67,8 @@ InGame::~InGame() {
 }
 
 void InGame::Inicializar() {
-    player = new Player();
-    player->SetRectangleColision(14,12,36,52);
+    player = new Player(new BoundingBox(14,12,36,60));
+    //player->SetRectangleColision(14,12,36,52);
     
     try {
         spriteFondo.setTexture("resources/Textures/grasstext.png");

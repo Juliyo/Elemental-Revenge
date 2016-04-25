@@ -26,7 +26,7 @@ namespace Colision {
 
 class Collisionable {
 public:
-    Collisionable(Entity* ent);
+    Collisionable(Entity* ent, BoundingBox *rP);
     //Collisionable(const Collisionable& orig);
     virtual ~Collisionable();
 

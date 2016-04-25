@@ -18,9 +18,9 @@
 #include "../States/InGame.hpp"
 
 
-Collisionable::Collisionable(Entity* ent) {
+Collisionable::Collisionable(Entity* ent, BoundingBox *rP) {
     entity = ent;
-    rectColision = new BoundingBox(0, 0, 50, 50);
+    rectColision = rP;
     physicWorld = InGame::Instance()->physicWorld;
     bodyDef = new b2BodyDef();
     bodyDef->type = b2_dynamicBody;
@@ -33,7 +33,7 @@ Collisionable::Collisionable(Entity* ent) {
     fixtureDef = new b2FixtureDef();
     fixtureDef->shape = shape;
     fixtureDef->density = 1.0f;
-    fixtureDef->friction = 0.3f;
+    fixtureDef->friction = 0.0f;
     body->CreateFixture(fixtureDef);
 }
 

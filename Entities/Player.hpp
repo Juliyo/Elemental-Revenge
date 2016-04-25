@@ -17,7 +17,7 @@
 
 class Player : public Entity, public Collisionable {
 public:
-    Player();
+    Player(BoundingBox *rectPlayer);
    // Player(const Player& orig);
     virtual ~Player();
 
