@@ -24,6 +24,7 @@
 #include <vector>
 #include <tmx/MapObject.h>
 #include "../Entities/Player.hpp"
+#include <Box2D/Box2D.h>
 
 class InGame:public State {
 public:
@@ -59,11 +60,12 @@ public:
     sf::Music                   *musica;
     sf::Music                   *musica2;
     
+    b2World                     *physicWorld;
+    
     Video *video;
 private:
     
     std::pair<States::ID , bool> requestStateChange;
-    
     
     Player			*player;
     Enemigo			enemigo[20];
@@ -84,8 +86,6 @@ private:
    // sf::Sprite                  mouseSprite;
     Sprite                      mouseSprite;
     
-    
-   
     //Eventos
     bool			isMovingUp;
     bool			isMovingDown;
@@ -100,8 +100,6 @@ private:
     bool			isInterpolating;
     bool                        isShooting;
     bool                        aux;
-    
-    
     
     static InGame* mInstance;
 };

@@ -14,10 +14,27 @@
 #include "Collisionable.hpp"
 #include "SFML/System/Vector2.hpp"
 #include "SFML/System/Time.hpp"
+#include "../Otros/tmxHelper.hpp"
+#include "../States/InGame.hpp"
+
 
 Collisionable::Collisionable(Entity* ent) {
     entity = ent;
     rectColision = new BoundingBox(0, 0, 50, 50);
+    physicWorld = InGame::Instance()->physicWorld;
+    bodyDef = new b2BodyDef();
+    bodyDef->type = b2_dynamicBody;
+    bodyDef->position.Set(ent->GetPosition().x,ent->GetPosition().y);
+    bodyDef->fixedRotation = true;
+    body = physicWorld->CreateBody(bodyDef);
+    shape = new b2PolygonShape();
+    shape->SetAsBox(tmx::SfToBoxFloat(GetRectangleColisionAbsolute().GetWidth() / 2.f), tmx::SfToBoxFloat(GetRectangleColisionAbsolute().GetHeight() / 2.f));
+    
+    fixtureDef = new b2FixtureDef();
+    fixtureDef->shape = shape;
+    fixtureDef->density = 1.0f;
+    fixtureDef->friction = 0.3f;
+    body->CreateFixture(fixtureDef);
 }
 
 /*Collisionable::Collisionable(const Collisionable& orig) {

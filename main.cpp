@@ -29,4 +29,7 @@ int main(int, char const**)
     Game *game = new Game();
     game -> run();
     delete game;
+	return 0;
+    
+    
 }

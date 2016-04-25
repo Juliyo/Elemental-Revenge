@@ -23,7 +23,7 @@ void PhysicsState::SetPosition(float pos_x, float pos_y)
 
 void PhysicsState::SetPosition(sf::Vector2f pos)
 {
-	posPrev = pos;
+	posPrev = posNew;
 	posNew = pos;
 }
 

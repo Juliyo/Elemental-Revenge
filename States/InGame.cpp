@@ -13,6 +13,7 @@
 
 #include "InGame.hpp"
 #include "../Otros/MapFactory.hpp"
+#include "../Otros/tmxHelper.hpp"
 
 InGame* InGame::mInstance = 0;
 
@@ -34,8 +35,7 @@ InGame::InGame() {
      settings.antialiasingLevel = 8;*/
 
 
-    player = new Player();
-    player->SetRectangleColision(14,12,36,52);
+    
     
     //player->SetScale(0.7,0.7);
     motor->setZoom(0.3f); //1=vista del mundo(nuestra pantalla)
@@ -51,11 +51,13 @@ InGame::InGame() {
     /*musica = new sf::Music();
     musica->openFromFile("resources/Sounds/InGame.ogg");
     musica->setVolume(50);
-    
+        
     musica2 = new sf::Music();
     musica2->openFromFile("resources/Sounds/Magicka2.ogg");
     musica2->setVolume(50);*/
     //Inicializar();
+    physicWorld = new b2World(tmx::SfToBoxVec(sf::Vector2f(0.f, 100.f)));
+    
 }
 
 InGame::InGame(const InGame& orig) {
@@ -65,6 +67,9 @@ InGame::~InGame() {
 }
 
 void InGame::Inicializar() {
+    player = new Player();
+    player->SetRectangleColision(14,12,36,52);
+    
     try {
         spriteFondo.setTexture("resources/Textures/grasstext.png");
         spriteFondo.setSmooth(true);
@@ -98,10 +103,8 @@ void InGame::Inicializar() {
 }
 
 void InGame::Update(sf::Time elapsedTime) {
-
+    physicWorld->Step(1.0f/15.0f,6,2);
     if (!firstTime) {
-        
-
         
         //std::cout<<"Objeto: "<<objetosCercanos.size()<<std::endl;
         player -> Update(elapsedTime);

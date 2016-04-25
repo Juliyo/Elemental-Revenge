@@ -21,6 +21,7 @@
 #include "tinyxml.h"
 #include <string>
 #include <vector>
+#include <Box2D/Box2D.h>
 
 namespace Niveles{
     enum ID{
@@ -117,12 +118,14 @@ public:
 
     }
     int **colisiones;
+    void createStaticMeshes();
+    
 private:
     int mapaActual;
     tmx::MapLoader ml;
     int cuenta=0;
     std::string nombreMapa;
-    
+    b2World *world;
 };
 
 

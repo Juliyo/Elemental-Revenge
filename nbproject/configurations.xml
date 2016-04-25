@@ -51,6 +51,8 @@
       <itemPath>Otros/BoundingBox.h</itemPath>
       <itemPath>Otros/MapFactory.cpp</itemPath>
       <itemPath>Otros/MapFactory.hpp</itemPath>
+      <itemPath>Otros/tmxHelper.cpp</itemPath>
+      <itemPath>Otros/tmxHelper.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -97,6 +99,13 @@
     <Elem>Headers</Elem>
     <Elem>Headers</Elem>
     <Elem>Otros</Elem>
+    <Elem>Headers</Elem>
+    <Elem>Headers</Elem>
+    <Elem>Headers</Elem>
+    <Elem>Headers</Elem>
+    <Elem>Headers</Elem>
+    <Elem>Headers</Elem>
+    <Elem>Otros</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -124,6 +133,7 @@
             <linkerLibFileItem>lib/libsfml-system-d.a</linkerLibFileItem>
             <linkerLibFileItem>lib/libsfml-audio-d.a</linkerLibFileItem>
             <linkerLibFileItem>lib/libsfml-main-d.a</linkerLibFileItem>
+            <linkerLibFileItem>lib/libBox2D.a</linkerLibFileItem>
             <linkerLibFileItem>lib/libpugi-d.a</linkerLibFileItem>
             <linkerLibFileItem>lib/libtmx-loader-d.a</linkerLibFileItem>
           </linkerLibItems>
@@ -226,6 +236,10 @@
       <item path="Otros/MapFactory.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Otros/MapFactory.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Otros/tmxHelper.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Otros/tmxHelper.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="PhysicsState.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -389,6 +403,10 @@
       <item path="Otros/MapFactory.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Otros/MapFactory.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Otros/tmxHelper.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Otros/tmxHelper.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="PhysicsState.cpp" ex="false" tool="1" flavor2="0">
       </item>

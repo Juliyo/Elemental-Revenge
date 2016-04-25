@@ -21,46 +21,60 @@
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
+#include "../States/InGame.hpp"
+#include "../Otros/tmxHelper.hpp"
 
 using namespace std;
 
 Mapa::Mapa()
-:ml("resources/Mapas"){
-    
+: ml("resources/Mapas") {
+
 }
 
 void Mapa::mapLoader(std::string mapName) {
-    nombreMapa = "resources/Mapas/"+ mapName;
+    world = InGame::Instance()->physicWorld;
+    nombreMapa = "resources/Mapas/" + mapName;
     ml.Load(mapName);
     createCollisions();
+    createStaticMeshes();
+}
+
+void Mapa::createStaticMeshes() {
+    const std::vector<tmx::MapLayer>& layers = ml.GetLayers();
+    for (const auto& l : layers) {
+        if (l.name == "Static") //static bodies which make up the map geometry
+        {
+            for (const auto& o : l.objects) {
+                //receive a pointer to the newly created body
+                b2Body* b = tmx::BodyCreator::Add(o, *world);
+            }
+        }
+    }
 }
 
 void Mapa::render() {
     Motor2D *m = Motor2D::Instance();
     const auto& layers = ml.GetLayers();
-    for(const auto& l : layers)
-    {
-        ml.Draw(*m->mWindow,l,true);
+    for (const auto& l : layers) {
+        ml.Draw(*m->mWindow, l, true);
     }
-//    ml.Draw(*m->mWindow,GetLayer("Capa 1"),false);
-//    ml.Draw(*m->mWindow,GetLayer("Capa 2"),false);
-//    ml.Draw(*m->mWindow,GetLayer("Capa 3"),false);
-//    ml.Draw(*m->mWindow,GetLayer("Capa 4"),false);
-//    ml.Draw(*m->mWindow,GetLayer("Capa 5"),false);
+    //    ml.Draw(*m->mWindow,GetLayer("Capa 1"),false);
+    //    ml.Draw(*m->mWindow,GetLayer("Capa 2"),false);
+    //    ml.Draw(*m->mWindow,GetLayer("Capa 3"),false);
+    //    ml.Draw(*m->mWindow,GetLayer("Capa 4"),false);
+    //    ml.Draw(*m->mWindow,GetLayer("Capa 5"),false);
 
 }
 
-Mapa::Mapa(const Mapa& orig):
-ml("resources/Mapas")
-{
+Mapa::Mapa(const Mapa& orig) :
+ml("resources/Mapas") {
 }
 // Devuelve una capa concreta del mapa
-const tmx::MapLayer& Mapa::GetLayer(const std::string& name)
-{
+
+const tmx::MapLayer& Mapa::GetLayer(const std::string& name) {
     const auto& layers = ml.GetLayers();
-    for(const auto& l : layers)
-    {
-        if(l.name == name) return l;
+    for (const auto& l : layers) {
+        if (l.name == name) return l;
     }
     return layers[0];
 }
@@ -84,12 +98,11 @@ void Mapa::leerMapa(int numMapa, int versionMapa) {
         doc.LoadFile("resources/mapaBosqueAlfa.tmx");
     }
     if (numMapa == 2) {
-        
-        if(versionMapa==1){
-        doc.LoadFile("resources/CasaAbandonadaV2.tmx");
-        }
-        else{
-        doc.LoadFile("resources/LVL22.tmx");
+
+        if (versionMapa == 1) {
+            doc.LoadFile("resources/CasaAbandonadaV2.tmx");
+        } else {
+            doc.LoadFile("resources/LVL22.tmx");
         }
     }
 
@@ -222,7 +235,7 @@ void Mapa::dibujaMapa1() {
         }
     }
     //std::cout<<"Cuenta: "<<cuenta<<std::endl;
-    cuenta=0;
+    cuenta = 0;
 }
 
 void Mapa::dibuja2Mapa1() {
@@ -240,28 +253,28 @@ void Mapa::dibuja2Mapa1() {
 void Mapa::dibujaMapa2() {
 
 
-        for (int y = 0; y < _height; y++) {
-            for (int x = 0; x < _width; x++) {
-                //if (l != 3 && l != 5) {
-                    if (_tilemapSprite[0][y][x] != NULL) {
-                        Motor2D::Instance()->draw(*(_tilemapSprite[0][y][x]));
-                        cuenta++;
-                    }
-               
-                    if (_tilemapSprite[2][y][x] != NULL) {
-                        Motor2D::Instance()->draw(*(_tilemapSprite[2][y][x]));
-                        cuenta++;
-                    }
-                    if (_tilemapSprite[4][y][x] != NULL) {
-                        Motor2D::Instance()->draw(*(_tilemapSprite[4][y][x]));
-                        cuenta++;
-                    }
+    for (int y = 0; y < _height; y++) {
+        for (int x = 0; x < _width; x++) {
+            //if (l != 3 && l != 5) {
+            if (_tilemapSprite[0][y][x] != NULL) {
+                Motor2D::Instance()->draw(*(_tilemapSprite[0][y][x]));
+                cuenta++;
+            }
+
+            if (_tilemapSprite[2][y][x] != NULL) {
+                Motor2D::Instance()->draw(*(_tilemapSprite[2][y][x]));
+                cuenta++;
+            }
+            if (_tilemapSprite[4][y][x] != NULL) {
+                Motor2D::Instance()->draw(*(_tilemapSprite[4][y][x]));
+                cuenta++;
             }
         }
-    
+    }
+
     cuenta++;
     //std::cout<<"Cuenta: "<<cuenta<<std::endl;
-    cuenta=0;
+    cuenta = 0;
 }
 
 void Mapa::dibuja2Mapa2() {
@@ -292,9 +305,9 @@ void Mapa::dibujaMapa3() {
             }
         }
     }
-    
+
     //std::cout<<"Cuenta: "<<cuenta<<std::endl;
-    cuenta=0;
+    cuenta = 0;
 }
 
 void Mapa::dibuja2Mapa3() {

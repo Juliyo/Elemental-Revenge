@@ -15,6 +15,8 @@
 #define COLLISIONABLE_HPP
 #include "../Otros/BoundingBox.h"
 #include "../Entities/Entity.hpp"
+#include <Box2D/Box2D.h>
+
 namespace Colision {
 
     enum Type {
@@ -42,7 +44,7 @@ public:
 
     virtual void OnColision(std::vector<Colision::Type> type) = 0;
     
-    
+    b2Body  *body;
 
 protected:
 
@@ -56,6 +58,11 @@ protected:
 
     bool CheckColision(const Collisionable& ent);
     bool CheckColision(const BoundingBox& rec);
+    
+    b2BodyDef *bodyDef;
+    b2PolygonShape *shape;
+    b2FixtureDef *fixtureDef;
+    b2World *physicWorld;
     
     //std::vector<Colision::Type> TypeOfColision(const BoundingBox& rec, const sf::Time& elapsedTime);
 };
