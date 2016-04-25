@@ -17,8 +17,7 @@
 
 class Player : public Entity, public Collisionable {
 public:
-    Player(BoundingBox *rectPlayer);
-   // Player(const Player& orig);
+    Player();
     virtual ~Player();
 
     void Inicializar(float posX, float posY, float speedX = 0.f, float speedY = 0.f, float maxSpeedX = 1000.f, float maxSpeedY = 1000.f);
@@ -26,7 +25,8 @@ public:
 
     void Draw();
     void DrawWithInterpolation(float interpolation);
-    float getVelocidad();
+    
+    
     PhysicsState* getPhysics();
     void UpdatePlayerAnimation(int x, int y);
     sf::Vector2f getPosition();
@@ -34,6 +34,22 @@ public:
     Animation** getAnimation() {
         return currentAnimation;
     };
+    
+    float GetVelocity() const {
+        return velocity;
+    }
+
+    void SetVelocity(float velocity) {
+        this->velocity = velocity;
+    }
+
+    int GetVida() const {
+        return vida;
+    }
+
+    void SetVida(int vida) {
+        this->vida = vida;
+    }
 
     hRayBasic *hRayoBasico;
     hRayAdvanced *hRayoAvanzado;
@@ -50,21 +66,15 @@ public:
     Hud *hud;
     int cuadrante;
     
-    void OnColision(std::vector<Colision::Type>);
-
-
-    
+    //Eventos del player
     bool isMovingUp;
     bool isMovingDown;
     bool isMovingRight;
     bool isMovingLeft;
-
-    std::vector<sf::RectangleShape> shapes;
-    sf::RectangleShape playerShape;
-    std::vector<tmx::MapObject*> objetosCercanos;
+    
+    
 private:
     
-    void HandleMapCollisions(const sf::Time& elapsedTime);
     sf::Texture texturaPlayer;
     
     float velocity = 150.f;

@@ -20,22 +20,13 @@ public:
     Level();
     Level(const Level& orig);
     virtual ~Level();
-    void calculaColision(BoundingBox *bb);
-    void LoadMap(std::string mapName){
-        map->mapLoader(mapName);
-    }
-    void updateQuadTree(){
-        map->UpdateQuadTree();
-    }
-    std::vector<tmx::MapObject*> queryQuadTree(sf::FloatRect t){
-        return map->QueryQuadTree(t);
-    }
-    void render(){
-        map->render();
-    }
+    void CreateLevels();
+    void LoadMap(Niveles::ID nivel);
+    void render();
     Mapa *map;
 private:
-    
+    std::map<Niveles::ID,std::string> *mapNiveles;
+    Niveles::ID currentLevel;
 };
 
 #endif /* LEVEL_HPP */

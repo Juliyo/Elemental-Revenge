@@ -1,21 +1,11 @@
-/* 
- * File:   Player.cpp
- * Author: linuxero
- * 
- * Created on March 5, 2014, 7:43 AM
- */
-
 #include "Player.hpp"
 #include "Util.hpp"
 #include "../States/InGame.hpp"
 #include "../Otros/tmxHelper.hpp"
 
-Player::Player(BoundingBox *rectPlayer) : Collisionable((Entity*)this, rectPlayer) {
+Player::Player() : Collisionable((Entity*)this) {
 
 }
-
-/*Player::Player(const Player& orig) {
-}*/
 
 Player::~Player() {
 }
@@ -100,9 +90,6 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     castingAnimationUp->addFrame(sf::IntRect(256, 768, 64, 64));
     castingAnimationUp->addFrame(sf::IntRect(320, 768, 64, 64));
 
-
-
-
     castingAnimationDown->setSpriteSheet("resources/Textures/player.png");
     castingAnimationDown->addFrame(sf::IntRect(320, 896, 64, 64));
     castingAnimationDown->addFrame(sf::IntRect(0, 896, 64, 64));
@@ -111,8 +98,6 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     castingAnimationDown->addFrame(sf::IntRect(192, 896, 64, 64));
     castingAnimationDown->addFrame(sf::IntRect(256, 896, 64, 64));
     castingAnimationDown->addFrame(sf::IntRect(320, 896, 64, 64));
-
-
 
     castingAnimationRight->setSpriteSheet("resources/Textures/player.png");
     castingAnimationRight->addFrame(sf::IntRect(320, 960, 64, 64));
@@ -124,7 +109,6 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     castingAnimationRight->addFrame(sf::IntRect(320, 960, 64, 64));
 
 
-
     castingAnimationLeft->setSpriteSheet("resources/Textures/player.png");
     castingAnimationLeft->addFrame(sf::IntRect(320, 832, 64, 64));
     castingAnimationLeft->addFrame(sf::IntRect(0, 832, 64, 64));
@@ -134,48 +118,32 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     castingAnimationLeft->addFrame(sf::IntRect(256, 832, 64, 64));
     castingAnimationLeft->addFrame(sf::IntRect(320, 832, 64, 64));
 
-
-
     currentAnimation = &walkingAnimationDown;
+
     InicializarAnimatedSprite(sf::seconds(0.075f), true, false);
     SetPosition(posX, posY);
     SetSpeed(speedX, speedY);
-    SetMaxSpeed(maxSpeedX, maxSpeedY);
     SetOriginAnimatedSprite(32, 40);
-    SetOriginColision(32,32);
-    SetScale(1.0, 1.0);
-    //playerShape = sf::RectangleShape(sf::Vector2f(36, 52));
-    //playerShape.setPosition(GetRectangleColisionAbsolute().GetTopLeft().x + 36, GetRectangleColisionAbsolute().GetTopLeft().y + 52);
-    //playerShape.setOrigin(0,0);
-    playerShape = sf::RectangleShape(sf::Vector2f(24,24));
+    SetOriginColision(32, 40);
+
 }
 
 void Player::Update(const sf::Time elapsedTime) {
     sf::Vector2f movement(0.f, 0.f);
     if (isMovingUp)
-        movement.y -= getVelocidad();
+        movement.y -= GetVelocity();
     if (isMovingDown)
-        movement.y += getVelocidad();
+        movement.y += GetVelocity();
     if (isMovingLeft)
-        movement.x -= getVelocidad();
+        movement.x -= GetVelocity();
     if (isMovingRight)
-        movement.x += getVelocidad();
+        movement.x += GetVelocity();
 
-   // playerShape.setPosition(GetRectangleColisionAbsolute().GetTopLeft().x, GetRectangleColisionAbsolute().GetTopLeft().y);
-    /**Hay que normalizar la velocidad**/
-   // sf::Vector2f nVelocity = Util::Normalize(movement);
-     //SetSpeed(nVelocity * Player::getVelocidad());
-    body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(movement)*Player::getVelocidad()));
-    //SetSpeed(tmx::BoxToSfVec(body->GetLinearVelocity()));
-    //SetPosition(body->GetPosition());
-    
-    //body->SetLinearVelocity(tmx::SfToBoxVec(movement));
-    //HandleMapCollisions(elapsedTime);
-    
-    //PhysicsState::Update(elapsedTime);
-   // body->SetTransform(tmx::SfToBoxVec(GetPosition()),body->GetAngle());
+    //Hay que setear al BodyDef el vector velocidad que hallamos calculado
+    body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(movement) * Player::GetVelocity()));
+    //Actualizamos la posicion del player con la posicion del bodyDef
     SetPosition(tmx::BoxToSfVec(body->GetPosition()));
-    //
+
 }
 
 //void Player::HandleMapCollisions(const sf::Time& elapsedTime) {
@@ -351,10 +319,6 @@ void Player::DrawWithInterpolation(float interpolation) {
     Render::DrawAnimation(GetPreviousPosition(), GetPosition(), interpolation);
 }
 
-float Player::getVelocidad() {
-    return velocity;
-}
-
 sf::Vector2f Player::getPosition() {
     return GetSpriteAnimated().getPosition();
 }
@@ -366,7 +330,6 @@ void Player::UpdatePlayerAnimation(int x, int y) {
     // 2 -> Abajo
     // 3 -> Derecha
     // 4 -> Izquierda
-
 
     if (abs(y) > abs(x) && y <= 0) {
         cuadrante = 1;
@@ -381,101 +344,4 @@ void Player::UpdatePlayerAnimation(int x, int y) {
         currentAnimation = &walkingAnimationLeft;
         cuadrante = 4;
     }
-}
-
-void Player::OnColision(std::vector<Colision::Type> type) {
-    //std::cout<<GetPosition().x<<" , "<<GetPosition().y<<std::endl;
-    //Colision solo por un lado
-    if (type.size() == 1) {
-        if (type.at(0) == Colision::Type::LEFT)
-            SetSpeed(0.f, GetSpeed().y);
-        else if (type.at(0) == Colision::Type::RIGHT)
-            SetSpeed(0, GetSpeed().y);
-        else if (type.at(0) == Colision::Type::TOP)
-            SetSpeed(GetSpeed().x, 0);
-        else if (type.at(0) == Colision::Type::BOTTOM)
-            SetSpeed(GetSpeed().x, 0);
-    //Colision en los 3 ejes
-    } else if (type.size() == 3) {
-
-        if (type.at(0) == Colision::Type::LEFT && type.at(1) == Colision::Type::BOTTOM && type.at(2) == Colision::Type::TOP) {
-            if (GetSpeed().x < 0) {
-                SetSpeed(0, 0);
-            }else{
-                SetSpeed(GetSpeed().x, 0);
-            }
-        } else if (type.at(0) == Colision::Type::RIGHT && type.at(1) == Colision::Type::BOTTOM && type.at(2) == Colision::Type::TOP) {
-            if (GetSpeed().x > 0) {
-                SetSpeed(0, 0);
-            }else{
-                SetSpeed(GetSpeed().x, 0);
-            }
-        } else if (type.at(0) == Colision::Type::LEFT && type.at(1) == Colision::Type::RIGHT && type.at(2) == Colision::Type::TOP) {
-            if(GetSpeed().y < 0){
-                SetSpeed(0, 0);
-            }else{
-                SetSpeed(0, GetSpeed().y);
-            }
-        } else if (type.at(0) == Colision::Type::LEFT && type.at(1) == Colision::Type::RIGHT && type.at(2) == Colision::Type::BOTTOM) {
-            if(GetSpeed().y > 0){
-                SetSpeed(0, 0);
-            }else{
-                SetSpeed(0, GetSpeed().y);
-            }
-        }
-    //Colision 2 ejes
-    } else {
-        if (type.at(0) == Colision::Type::LEFT && type.at(1) == Colision::Type::BOTTOM) {
-            if(GetSpeed().y > 0 && GetSpeed().x > 0){
-                SetSpeed(GetSpeed().x,0);
-            }else if(GetSpeed().y < 0 && GetSpeed().x < 0){
-                SetSpeed(0,GetSpeed().y);
-            }else if(GetSpeed().y > 0 && GetSpeed().x < 0 ){
-                SetSpeed(0,GetSpeed().y);
-            }else if(GetSpeed().y < 0 && GetSpeed().x > 0){//??
-                SetSpeed(GetSpeed().x,0);
-            }else{
-                SetSpeed(0,0);
-            }
-            //SetSpeed(GetSpeed().x,0);
-        } else if (type.at(0) == Colision::Type::RIGHT && type.at(1) == Colision::Type::BOTTOM){
-            if(GetSpeed().y > 0 && GetSpeed().x > 0){
-                SetSpeed(GetSpeed().y,0);
-            }else if(GetSpeed().y < 0 && GetSpeed().x < 0){//???
-                SetSpeed(0,GetSpeed().y);
-            }else if(GetSpeed().y > 0 && GetSpeed().x < 0 ){
-                SetSpeed(0,GetSpeed().y);
-            }else if(GetSpeed().y < 0 && GetSpeed().x > 0){
-                SetSpeed(0,GetSpeed().y);
-            }else{
-                SetSpeed(0,0);
-            }
-            
-        } else if(type.at(0) == Colision::Type::LEFT && type.at(1) == Colision::Type::TOP){
-            if(GetSpeed().y > 0 && GetSpeed().x > 0){//??
-                SetSpeed(0,GetSpeed().y);
-            }else if(GetSpeed().y < 0 && GetSpeed().x < 0){
-                SetSpeed(GetSpeed().x,0);
-            }else if(GetSpeed().y > 0 && GetSpeed().x < 0 ){
-                SetSpeed(0,GetSpeed().y);
-            }else if(GetSpeed().y < 0 && GetSpeed().x > 0){
-                SetSpeed(GetSpeed().x,0);
-            }else{
-                SetSpeed(0,0);
-            }
-        } else if(type.at(0) == Colision::Type::RIGHT && type.at(1) == Colision::Type::TOP){
-           if(GetSpeed().y > 0 && GetSpeed().x > 0){
-                SetSpeed(0,GetSpeed().y);
-            }else if(GetSpeed().y < 0 && GetSpeed().x < 0){
-                SetSpeed(GetSpeed().x,0);
-            }else if(GetSpeed().y > 0 && GetSpeed().x < 0 ){//??
-                SetSpeed(0,GetSpeed().y);
-            }else if(GetSpeed().y < 0 && GetSpeed().x > 0){
-                SetSpeed(0,GetSpeed().y);
-            }else{
-                SetSpeed(0,0);
-            }
-        }
-    }
-
 }

@@ -71,59 +71,13 @@ public:
     std::vector<tmx::MapObject*> QueryQuadTree(sf::FloatRect t){
         return ml.QueryQuadTree(t);
     }
-    void createCollisions(){
-        
-        TiXmlDocument doc;
-        doc.LoadFile(nombreMapa.c_str());
-        TiXmlElement* map = doc.FirstChildElement("map");
-        
-        map->QueryIntAttribute("width", &_width);
-        map->QueryIntAttribute("height", &_height);
-        colisiones = new int*[_height];
-        for(int i = 0;i<_height;i++){
-            colisiones[i] = new int[_width];
-        }
-        TiXmlElement *layer = map->FirstChildElement()->NextSiblingElement("layer");
-        while(layer){
-            std::cout<<layer->Attribute("name")<<std::endl;
-            std::string nombreCapa = layer->Attribute("name");
-            if(nombreCapa.compare("Colision") == 0){
-                break;
-            }
-            layer = layer->NextSiblingElement("layer");
-        }
-        TiXmlElement *nodo = layer->FirstChildElement("data")->FirstChildElement("tile");
-        int gid;
-        for(int i = 0;i<_width;++i){
-            for(int j=0;j<_height;++j){
-                nodo->QueryIntAttribute("gid", &gid);
-                if(gid != 0){
-                    colisiones[i][j] = 1;
-                }else{
-                    colisiones[i][j] = 0;
-                }
-                nodo = nodo->NextSiblingElement("tile");
-            }
-        }
-        /*
-        for(int i=0 ; i < _width ; i++){
-            std::cout<<i<<std::endl;
-        for(int j= 0;j<_height; j++){
-            
-            std::cout<<colisiones[i][j];
-            
-        }
-        std::cout<<std::endl;
-    }*/
-
-    }
+    void createCollisions();
     int **colisiones;
     void createStaticMeshes();
     
 private:
     int mapaActual;
     tmx::MapLoader ml;
-    int cuenta=0;
     std::string nombreMapa;
     b2World *world;
 };

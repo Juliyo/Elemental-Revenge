@@ -26,16 +26,19 @@
 
 using namespace std;
 
-Mapa::Mapa()
-: ml("resources/Mapas") {
+Mapa::Mapa() : ml("resources/Mapas") {   //Ruta de la carpeta con los mapas
 
+}
+Mapa::Mapa(const Mapa& orig) : ml("resources/Mapas") {
 }
 
 void Mapa::mapLoader(std::string mapName) {
     world = InGame::Instance()->physicWorld;
     nombreMapa = "resources/Mapas/" + mapName;
     ml.Load(mapName);
+    //Crea la matriz de colisiones de enteros para el pathfinder
     createCollisions();
+    //Crea los objetos estaticos del mapa para el motor de fisicas
     createStaticMeshes();
 }
 
@@ -66,11 +69,7 @@ void Mapa::render() {
 
 }
 
-Mapa::Mapa(const Mapa& orig) :
-ml("resources/Mapas") {
-}
 // Devuelve una capa concreta del mapa
-
 const tmx::MapLayer& Mapa::GetLayer(const std::string& name) {
     const auto& layers = ml.GetLayers();
     for (const auto& l : layers) {
@@ -80,16 +79,52 @@ const tmx::MapLayer& Mapa::GetLayer(const std::string& name) {
 }
 
 Mapa::~Mapa() {
-    for (int l = 0; l < _numLayers; l++) {
-        for (int y = 0; y < _height; y++) {
-            delete[] _tilemap[l][y];
-        }
-        delete[] _tilemap[l];
+    for (int y = 0; y < _height; y++) {
+        delete[] _tilemap[y];
     }
     delete[] _tilemap;
+
 }
 
-void Mapa::leerMapa(int numMapa, int versionMapa) {
+void Mapa::createCollisions() {
+
+    TiXmlDocument doc;
+    doc.LoadFile(nombreMapa.c_str());
+    TiXmlElement* map = doc.FirstChildElement("map");
+
+    map->QueryIntAttribute("width", &_width);
+    map->QueryIntAttribute("height", &_height);
+    colisiones = new int*[_height];
+    for (int i = 0; i < _height; i++) {
+        colisiones[i] = new int[_width];
+    }
+    TiXmlElement *layer = map->FirstChildElement()->NextSiblingElement("layer");
+    while (layer) {
+        std::cout << layer->Attribute("name") << std::endl;
+        std::string nombreCapa = layer->Attribute("name");
+        if (nombreCapa.compare("Colision") == 0) {
+            break;
+        }
+        layer = layer->NextSiblingElement("layer");
+    }
+    TiXmlElement *nodo = layer->FirstChildElement("data")->FirstChildElement("tile");
+    int gid;
+    for (int i = 0; i < _width; ++i) {
+        for (int j = 0; j < _height; ++j) {
+            nodo->QueryIntAttribute("gid", &gid);
+            if (gid != 0) {
+                colisiones[i][j] = 1;
+            } else {
+                colisiones[i][j] = 0;
+            }
+            nodo = nodo->NextSiblingElement("tile");
+        }
+    }
+
+}
+
+
+/*void Mapa::leerMapa(int numMapa, int versionMapa) {
 
     mapaActual = numMapa;
 
@@ -452,3 +487,4 @@ void Mapa::leerMapa2() {
 int Mapa::getMapaActual() {
     return mapaActual;
 }
+*/

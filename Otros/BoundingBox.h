@@ -63,9 +63,6 @@ public:
         bounding->height = h;
     }
 
-
-    BoundingBox& operator=(const BoundingBox& v);
-
     bool Intersects(const BoundingBox& rec) {
         return bounding->intersects(*(rec.GetRectangle()));
     }

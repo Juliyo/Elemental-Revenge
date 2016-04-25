@@ -27,11 +27,3 @@ BoundingBox::~BoundingBox() {
 	bounding = NULL;
 }
 
-BoundingBox& BoundingBox::operator=(const BoundingBox& v)
-{	
-    bounding->left = v.GetTopLeft().x;
-    bounding->top = v.GetTopLeft().y;
-    bounding->width = v.GetWidth();
-    bounding->height = v.GetHeight();
-    return *this;
-}

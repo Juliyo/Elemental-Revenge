@@ -34,7 +34,7 @@ class Animation
 {
 public:
     Animation();
-
+    
     void addFrame(sf::IntRect rect);
     void setSpriteSheet(std::string ruta);
     void setSpriteSheet(sf::Texture& texture);

@@ -12,7 +12,6 @@
  */
 
 #include "InGame.hpp"
-#include "../Otros/MapFactory.hpp"
 #include "../Otros/tmxHelper.hpp"
 
 InGame* InGame::mInstance = 0;
@@ -65,8 +64,10 @@ InGame::~InGame() {
 }
 
 void InGame::Inicializar() {
-    player = new Player(new BoundingBox(14,50,36,51));
-    //player->SetRectangleColision(14,12,36,52);
+    player = new Player();
+    player->SetRectangleColision(14,12,36,52);
+    player -> Inicializar(1000.f, -1000.f);
+    player->CreateDynamicBody();
     
     try {
         spriteFondo.setTexture("resources/Textures/grasstext.png");
@@ -93,8 +94,8 @@ void InGame::Inicializar() {
         exit(0);
     }
     updateView();
-    player -> Inicializar(850.f, 800.f);
-    level->LoadMap(MapFactory::CreateLevel(Niveles::Level1));
+    
+    level->LoadMap(Niveles::ID::Level2);
     //mapa->leerMapa(1,0);
     
     
@@ -273,7 +274,6 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
    /* for(int i=0;i<player->shapes.size();i++){
         motor->draw(player->shapes.at(i));
     }*/
-    motor->draw(player->playerShape);
     if ((!player->isMovingDown && !player->isMovingLeft && !player->isMovingRight && !player->isMovingUp) || player->hRayoBasico->draw == true) {
         player -> StopAnimation();
     }
