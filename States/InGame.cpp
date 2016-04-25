@@ -35,8 +35,6 @@ InGame::InGame() {
      settings.antialiasingLevel = 8;*/
 
 
-    
-    
     //player->SetScale(0.7,0.7);
     motor->setZoom(0.3f); //1=vista del mundo(nuestra pantalla)
 
@@ -67,7 +65,7 @@ InGame::~InGame() {
 }
 
 void InGame::Inicializar() {
-    player = new Player(new BoundingBox(14,12,36,60));
+    player = new Player(new BoundingBox(14,50,36,51));
     //player->SetRectangleColision(14,12,36,52);
     
     try {
@@ -103,10 +101,11 @@ void InGame::Inicializar() {
 }
 
 void InGame::Update(sf::Time elapsedTime) {
-    physicWorld->Step(1.0f/15.0f,6,2);
+    
     if (!firstTime) {
         
-        //std::cout<<"Objeto: "<<objetosCercanos.size()<<std::endl;
+        physicWorld->Step(elapsedTime.asSeconds(),6,2);
+        
         player -> Update(elapsedTime);
 
         if (player->hRayoBasico->tiempoCast.getTiempo() > player->hRayoBasico->getCast() && aux == true) {
@@ -275,7 +274,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
         motor->draw(player->shapes.at(i));
     }*/
     motor->draw(player->playerShape);
-    if ((!isMovingDown && !isMovingLeft && !isMovingRight && !isMovingUp) || player->hRayoBasico->draw == true) {
+    if ((!player->isMovingDown && !player->isMovingLeft && !player->isMovingRight && !player->isMovingUp) || player->hRayoBasico->draw == true) {
         player -> StopAnimation();
     }
     player -> UpdateAnimation(elapsedTime);
@@ -369,7 +368,6 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
         player->SetFrame(sf::seconds(0.075f));
         player->hRayoBasico->StopAnimation();
     }
-    //printf("%f",player->hRayoBasico->tiempoCast.getTiempo());
 
 
 

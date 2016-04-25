@@ -141,7 +141,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     SetPosition(posX, posY);
     SetSpeed(speedX, speedY);
     SetMaxSpeed(maxSpeedX, maxSpeedY);
-    SetOriginAnimatedSprite(32, 32);
+    SetOriginAnimatedSprite(32, 40);
     SetOriginColision(32,32);
     SetScale(1.0, 1.0);
     //playerShape = sf::RectangleShape(sf::Vector2f(36, 52));

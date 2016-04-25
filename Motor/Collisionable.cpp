@@ -24,11 +24,12 @@ Collisionable::Collisionable(Entity* ent, BoundingBox *rP) {
     physicWorld = InGame::Instance()->physicWorld;
     bodyDef = new b2BodyDef();
     bodyDef->type = b2_dynamicBody;
-    bodyDef->position.Set(ent->GetPosition().x,ent->GetPosition().y);
+    //bodyDef->position.Set(ent->GetPosition().x,ent->GetPosition().y);
+    bodyDef->position.Set(tmx::SfToBoxFloat(1000.f),tmx::SfToBoxFloat(-1000.f));
     bodyDef->fixedRotation = true;
     body = physicWorld->CreateBody(bodyDef);
     shape = new b2PolygonShape();
-    shape->SetAsBox(tmx::SfToBoxFloat(GetRectangleColisionAbsolute().GetWidth() / 2.f), tmx::SfToBoxFloat(GetRectangleColisionAbsolute().GetHeight() / 2.f));
+    shape->SetAsBox(tmx::SfToBoxFloat(rP->GetWidth() / 2.f), tmx::SfToBoxFloat(rP->GetHeight() / 2.f));
     
     fixtureDef = new b2FixtureDef();
     fixtureDef->shape = shape;
@@ -45,8 +46,8 @@ Collisionable::~Collisionable() {
 
 BoundingBox Collisionable::GetRectangleColisionAbsolute() const {
     return BoundingBox(
-            this->entity->GetPosition().x - entOrigin.x + rectColision->GetTopLeft().x,
-            this->entity->GetPosition().y - entOrigin.y + rectColision->GetTopLeft().y,
+            this->entity->GetPosition().x + rectColision->GetTopLeft().x,
+            this->entity->GetPosition().y + rectColision->GetTopLeft().y,
             rectColision->GetWidth(),
             rectColision->GetHeight()
             );

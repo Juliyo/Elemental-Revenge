@@ -38,7 +38,7 @@ void Enemigo::Inicializar(float posX, float posY, float speedX, float speedY, fl
 
 void Enemigo::Update(sf::Vector2f velocity, sf::Time elapsedTime){
 	physicsState.SetSpeed(velocity);
-	physicsState.Update(elapsedTime);
+	//physicsState.Update(elapsedTime);
 }
 
 void Enemigo::Draw(){
