@@ -30,6 +30,12 @@
       <itemPath>Headers/tinystr.h</itemPath>
       <itemPath>Headers/tinyxml.h</itemPath>
     </logicalFolder>
+    <logicalFolder name="f3" displayName="IA" projectFiles="true" kind="ROOT">
+      <itemPath>Headers/Busqueda.cpp</itemPath>
+      <itemPath>Headers/Busqueda.hpp</itemPath>
+      <itemPath>Headers/Nodo.cpp</itemPath>
+      <itemPath>Headers/Nodo.hpp</itemPath>
+    </logicalFolder>
     <logicalFolder name="f1" displayName="Motor" projectFiles="true">
       <itemPath>Motor/Motor2D.cpp</itemPath>
       <itemPath>Motor/Motor2D.hpp</itemPath>
@@ -132,6 +138,10 @@
       </item>
       <item path="Headers/Animation.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/Busqueda.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Headers/Busqueda.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/Carga1.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Carga2.hpp" ex="false" tool="3" flavor2="0">
@@ -147,6 +157,10 @@
       <item path="Headers/InGame.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Menu.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/Nodo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Headers/Nodo.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/PhysicsState.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -279,6 +293,10 @@
       </item>
       <item path="Headers/Animation.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/Busqueda.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Headers/Busqueda.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/Carga1.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Carga2.hpp" ex="false" tool="3" flavor2="0">
@@ -294,6 +312,10 @@
       <item path="Headers/InGame.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Menu.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/Nodo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Headers/Nodo.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/PhysicsState.hpp" ex="false" tool="3" flavor2="0">
       </item>
