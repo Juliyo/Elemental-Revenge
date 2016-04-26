@@ -77,7 +77,7 @@ private:
     
     sf::Texture texturaPlayer;
     
-    float velocity = 150.f;
+    float velocity = 200.f;
     int vida = 15;
 
     
