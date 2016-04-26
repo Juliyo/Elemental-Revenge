@@ -14,6 +14,7 @@
 #include "Melee.hpp"
 #include "../States/InGame.hpp"
 #include "../Headers/Util.hpp"
+#include "../Otros/tmxHelper.hpp"
 Melee::Melee() : Collisionable((Entity*)this) {
 }
 
@@ -123,14 +124,19 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2) {
         movement.x += 100.f;
     if (left)
         movement.x -= 100.f;*/
-    sf::Vector2f nVelocity = Util::Normalize(movement);
-    SetSpeed(nVelocity * Enemigo::GetVelocity());
+    //sf::Vector2f nVelocity = Util::Normalize(movement);
+    //SetSpeed(nVelocity * Enemigo::GetVelocity());
     
     //SetSpeed(movement);
     
-    FindPlayer(elapsedTime);
+    //FindPlayer(elapsedTime);
     //UpdateEnemigo(elapsedTime,mapa);
-    PhysicsState::Update(elapsedTime);
+    //PhysicsState::Update(elapsedTime);
+     //Hay que setear al BodyDef el vector velocidad que hallamos calculado
+    body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(movement) * Enemigo::GetVelocity()));
+    FindPlayer(elapsedTime);
+    //Actualizamos la posicion del player con la posicion del bodyDef
+    SetPosition(tmx::BoxToSfVec(body->GetPosition()));
 }
 
 void Melee::Draw() {

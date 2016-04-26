@@ -73,8 +73,9 @@ void InGame::Inicializar() {
     player->CreateDynamicBody();
     melee = new Melee[5]();
     for(int i=0;i<5;i++){
-        melee[i].Inicializar(1000.f + i*2, 1000.f + i*2,Tipo::ID::Rata);
+        melee[i].Inicializar(1000.f + i*20, -1000.f + i*20,Tipo::ID::Rata);
         melee[i].SetRectangleColision(0,0,37,39);
+        melee[i].CreateDynamicBody();
     }
     
     try {
