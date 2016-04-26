@@ -98,7 +98,7 @@ void InGame::Inicializar() {
     }
     updateView();
     
-    //level->LoadMap(Niveles::ID::Level1);
+    //level->LoadMap(Niveles::ID::Level2);
     video->Inicializar();
     
     

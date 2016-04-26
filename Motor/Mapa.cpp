@@ -109,8 +109,8 @@ void Mapa::createCollisions() {
     }
     TiXmlElement *nodo = layer->FirstChildElement("data")->FirstChildElement("tile");
     int gid;
-    for (int i = 0; i < _width; ++i) {
-        for (int j = 0; j < _height; ++j) {
+    for (int i = 0; i < _height; i++) {
+        for (int j = 0; j < _width; j++) {
             nodo->QueryIntAttribute("gid", &gid);
             if (gid != 0) {
                 colisiones[i][j] = 1;
