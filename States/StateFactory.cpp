@@ -14,6 +14,8 @@
 #include "StateFactory.hpp"
 #include "InGame.hpp"
 #include "Menu.hpp"
+#include "LoadingState.hpp"
+#include "Transition.hpp"
 
 State* StateFactory::CreateState(States::ID id){
     
@@ -21,8 +23,10 @@ State* StateFactory::CreateState(States::ID id){
         return InGame::Instance();
     }else if(id == States::ID::Menu){
         return new Menu();
+    }else if(id == States::ID::Carga){
+        return new LoadingState();
+    }else if(id == States::ID::Transition){
+        return new Transition();
     }
-        
-    
-   
+
 }

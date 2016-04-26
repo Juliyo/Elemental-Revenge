@@ -13,6 +13,9 @@
 
 #include "InGame.hpp"
 #include "../Otros/tmxHelper.hpp"
+#include "Pause.hpp"
+#include "Muerte.hpp"
+#include "StateStack.hpp"
 
 InGame* InGame::mInstance = 0;
 
@@ -95,8 +98,8 @@ void InGame::Inicializar() {
     }
     updateView();
     
-    level->LoadMap(Niveles::ID::Level2);
-    //mapa->leerMapa(1,0);
+    //level->LoadMap(Niveles::ID::Level1);
+    video->Inicializar();
     
     
 }
@@ -417,6 +420,13 @@ void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         player->hRayoAvanzado->aumentaLVL();
     } else if (key == sf::Keyboard::X && isPressed) {
         player->SetPosition(1420,1230);
+    } else if (key == sf::Keyboard::M){
+        //Si pulsamos la M pasamos de nivel
+        StateStack::Instance()->SetCurrentState(States::ID::Transition);
+        player->isMovingDown = false;
+        player->isMovingLeft = false;
+        player->isMovingRight = false;
+        player->isMovingUp = false;
     }
 }
 

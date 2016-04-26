@@ -25,7 +25,7 @@ StateStack* StateStack::Instance() {
 
 StateStack::StateStack() {
     mapStates = new std::map<States::ID, State*>();
-    currentState = States::ID::InGame;
+    currentState = States::ID::Menu;
     
     CreateStates();
     //Solo inicializamos el estado menu
@@ -41,7 +41,8 @@ StateStack::~StateStack() {
 void StateStack::CreateStates() {
     mapStates->insert(std::make_pair(States::ID::Menu , StateFactory::CreateState(States::ID::Menu)));
     mapStates->insert(std::make_pair(States::ID::InGame , StateFactory::CreateState(States::ID::InGame)));
-
+    mapStates->insert(std::make_pair(States::ID::Carga , StateFactory::CreateState(States::ID::Carga)));
+    mapStates->insert(std::make_pair(States::ID::Transition , StateFactory::CreateState(States::ID::Transition)));
 }
 
 State* StateStack::GetCurrentState() const {
@@ -58,18 +59,12 @@ void StateStack::SetCurrentState(States::ID id) {
     if(id != currentState)
     {
         States::ID aux = currentState;
-        
-        /*if(id != States::ID::PauseState && id != States::ID::TowerSelectionState)
-            GetCurrentState()->Clean();*/
 
         currentState = id;
         if(id==States::ID::InGame){
             //Deberiamos limpiar el mapa
         }
         
-      /*  if(aux != States::ID::PauseState && aux != States::ID::TowerSelectionState
-            || aux == States::ID::PauseState && id != States::ID::WorldState)
-            GetCurrentState()->Init();*/
     }
 }
 

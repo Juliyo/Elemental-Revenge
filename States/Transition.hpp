@@ -28,12 +28,16 @@ public:
     Transition(const Transition& orig);
     virtual ~Transition();
 
+    void Inicializar();
+    
     void Update(sf::Time elapsedTime);
+    void Render(float interpolation, sf::Time elapsedTime);
 
+    void HandleEvents(sf::Event& event);
     void handlePlayerInput(sf::Keyboard::Key key, bool isPressed); // Maneja eventos
     void handleMouseInput(sf::Mouse::Button button, bool isPressed); // Maneja eventos
 
-    void render(float interpolation, sf::Time elapsedTime);
+    
 
     void updateView();
 
@@ -47,8 +51,8 @@ public:
     int getIzqODer();
 
 private:
-
     
+    Niveles::ID currentLevel = Niveles::ID::Level1;
     
     //Recursos
     sf::Texture texturaFondo;

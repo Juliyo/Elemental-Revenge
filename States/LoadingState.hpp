@@ -11,23 +11,31 @@
  * Created on 18 de abril de 2016, 12:32
  */
 
-#ifndef CARGA1_HPP
-#define CARGA1_HPP
+#ifndef LOADINGSTATE_HPP
+#define LOADINGSTATE_HPP
 
-//#include "../States/State.hpp"
+#include "../States/State.hpp"
 #include "../Motor/Motor2D.hpp"
 #include "../Motor/Video.hpp"
-class Carga1 /*: public State*/{
+#include "../Otros/ParalellTask.hpp"
+
+class LoadingState : public State{
 public:
-    Carga1();
-    Carga1(const Carga1& orig);
-    virtual ~Carga1();
+    LoadingState();
+    LoadingState(const LoadingState& orig);
+    virtual ~LoadingState();
+    
+    void Inicializar();
+    
+    void HandleEvents(sf::Event& event);
+
+    void Update(sf::Time elapsedTime);
+    void Render(float interpolation, sf::Time elapsedTime);
     
     void transitionCargado();
     void ingameCargado();
     
-    void Update(sf::Time elapsedTime);
-    void render(float interpolation, sf::Time elapsedTime);
+    
 private:
     
 
@@ -49,6 +57,10 @@ private:
     Reloj *reloj1;
     
     Video *video;
+    
+    ParalellTask*   loadingTask;
+    float           seconds;
+    bool            loaded;
 };
 
 #endif /* CARGA1_HPP */

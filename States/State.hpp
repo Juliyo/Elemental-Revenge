@@ -22,7 +22,9 @@
 namespace States{
 	enum ID{
             InGame,
-            Menu
+            Menu,
+            Carga,
+            Transition
 	};
 }
 

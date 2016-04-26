@@ -13,18 +13,43 @@
 
 #include "Transition.hpp"
 #include "btree.hpp"
+#include "StateStack.hpp"
+#include "InGame.hpp"
 
 Transition::Transition() {
     motor = Motor2D::Instance();
-    //Estado de Ingame
-//    EstadoActivo = false;
+    
+    motor->setCenterForView(4, 650, 350);
+    
+    spriteOpcionA = new Sprite();
+    pregunta = new Sprite();
+    spriteOpcionB = new Sprite();
+    nextLevel = new Sprite();
+    spriteRelleno = new Sprite();
+    spriteFondo = new Sprite();
+    mouseSprite = new Sprite();
+    cruzeta1 = new Sprite();
+    cruzeta2 = new Sprite();
+    simbolo = new Sprite();
+    
+    video = new Video("resources/Videos/moltoFondaco/frame-", 9, 145, 110, 1, sf::Vector2f(1.7, 1.7));
 
-    sf::ContextSettings settings;
-    settings.antialiasingLevel = 8;
+    /*musica = new sf::Music();
+    musica->openFromFile("resources/Sounds/history.ogg");
+    musica->setVolume(70);*/
 
-    //motor->setZoomToView(0.5f,1);
-    motor->setCenterForView(3, 650, 350);
 
+
+}
+
+Transition::Transition(const Transition& orig) {
+}
+
+Transition::~Transition() {
+}
+
+void Transition::Inicializar() {
+    video->Inicializar();
     //Carga XML
     TiXmlDocument doc;
     doc.LoadFile("resources/historia.xml");
@@ -45,7 +70,6 @@ Transition::Transition() {
 
     for (int i = 0; i < 6; i++) {
         pregunta1 = pregunta1->NextSiblingElement("pregunta");
-        //std::cout<<respuesta1->GetText()<<std::endl;
         respuesta1 = respuesta1->NextSiblingElement("respuesta1");
         respuesta2 = respuesta2->NextSiblingElement("respuesta2");
         pregunta1->Attribute("id", &key);
@@ -53,6 +77,7 @@ Transition::Transition() {
     }
     //Establecemos la raiz del arbol como el nodo actual
     currentNode = arbol->search(4);
+    
     //Carga texturas
     try {
         texPregunta.loadFromFile(arbol->search(4)->pregunta);
@@ -67,18 +92,6 @@ Transition::Transition() {
         std::cout << "Excepcion: " << e.what() << std::endl;
         exit(0);
     }
-
-    spriteOpcionA = new Sprite();
-    pregunta = new Sprite();
-    spriteOpcionB = new Sprite();
-    nextLevel = new Sprite();
-    spriteRelleno = new Sprite();
-    spriteFondo = new Sprite();
-    mouseSprite = new Sprite();
-    cruzeta1 = new Sprite();
-    cruzeta2 = new Sprite();
-    simbolo = new Sprite();
-
 
     mouseSprite->setTexture(mouseTexture);
     mouseSprite->setScale(0.2, 0.2);
@@ -131,22 +144,8 @@ Transition::Transition() {
     cruzeta2->setTexture(cruzeta);
     cruzeta2->setOrigin(cruzeta.getSize().x / 2, cruzeta.getSize().y / 2);
     cruzeta2->setScale(0.25, 0.25);
-
-    video = new Video("resources/Videos/moltoFondaco/frame-", 9, 145, 110, 1, sf::Vector2f(1.7, 1.7));
-
-    musica = new sf::Music();
-    musica->openFromFile("resources/Sounds/history.ogg");
-    musica->setVolume(70);
-
-
-
 }
 
-Transition::Transition(const Transition& orig) {
-}
-
-Transition::~Transition() {
-}
 
 void Transition::Update(sf::Time elapsedTime) {
     video->setDibujar(true);
@@ -182,7 +181,9 @@ void Transition::Update(sf::Time elapsedTime) {
                 changePregunta();
                 preguntaContestada = true;
                 drawNextLevel = false;
-                /*Cambiamos de nivel*/
+                buttonPressed = false;
+                InGame::Instance()->level->LoadMap(static_cast<Niveles::ID>(level));
+                StateStack::Instance()->SetCurrentState(States::ID::InGame);
                 level++;
             }
         }
@@ -214,7 +215,7 @@ void Transition::Update(sf::Time elapsedTime) {
         spriteOpcionA->setColor(transparent);
         spriteOpcionB->setColor(transparent);
         cruzeta1->setColor(transparent);
-        //simbolo.setColor(transparent);
+        simbolo->setColor(transparent);
         if (transparent.a - 20 < 1) {
 
             fadeEffect = false;
@@ -226,7 +227,8 @@ void Transition::Update(sf::Time elapsedTime) {
             spriteOpcionA->setColor(transparent);
             spriteOpcionB->setColor(transparent);
             cruzeta1->setColor(transparent);
-            //simbolo.setColor(transparent);
+            
+            simbolo->setColor(transparent);
             switch (currentNode->key_value) {
                 case 4:
                     if (izq) {
@@ -248,7 +250,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         spriteOpcionA->setColor(transparent);
                         spriteOpcionB->setColor(transparent);
                         cruzeta1->setColor(transparent);
-                        //simbolo.setColor(transparent);
+                        simbolo->setColor(transparent);
                         mejora = 'a';
 
                     } else {
@@ -270,7 +272,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         spriteOpcionA->setColor(transparent);
                         spriteOpcionB->setColor(transparent);
                         cruzeta1->setColor(transparent);
-                        //simbolo.setColor(transparent);
+                        simbolo->setColor(transparent);
                         mejora = 'f';
                     }
                     break;
@@ -295,7 +297,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         spriteOpcionA->setColor(transparent);
                         spriteOpcionB->setColor(transparent);
                         cruzeta1->setColor(transparent);
-                        //simbolo.setColor(transparent);
+                        simbolo->setColor(transparent);
                         mejora = 'a';
 
                     } else {
@@ -317,7 +319,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         spriteOpcionA->setColor(transparent);
                         spriteOpcionB->setColor(transparent);
                         cruzeta1->setColor(transparent);
-                        //simbolo.setColor(transparent);
+                        simbolo->setColor(transparent);
                         mejora = 'r';
                     }
                     break;
@@ -342,7 +344,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         spriteOpcionA->setColor(transparent);
                         spriteOpcionB->setColor(transparent);
                         cruzeta1->setColor(transparent);
-                        //simbolo.setColor(transparent);
+                        simbolo->setColor(transparent);
                         mejora = 'r';
 
                     } else {
@@ -364,7 +366,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         spriteOpcionA->setColor(transparent);
                         spriteOpcionB->setColor(transparent);
                         cruzeta1->setColor(transparent);
-                        //simbolo.setColor(transparent);
+                        simbolo->setColor(transparent);
                         mejora = 'f';
                     }
                     break;
@@ -389,7 +391,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         spriteOpcionA->setColor(transparent);
                         spriteOpcionB->setColor(transparent);
                         cruzeta1->setColor(transparent);
-                        //simbolo.setColor(transparent);
+                        simbolo->setColor(transparent);
                         mejora = 'r';
 
                     } else {
@@ -411,7 +413,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         spriteOpcionA->setColor(transparent);
                         spriteOpcionB->setColor(transparent);
                         cruzeta1->setColor(transparent);
-                        //simbolo.setColor(transparent);
+                        simbolo->setColor(transparent);
                         mejora = 'f';
                     }
                     break;
@@ -436,7 +438,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         spriteOpcionA->setColor(transparent);
                         spriteOpcionB->setColor(transparent);
                         cruzeta1->setColor(transparent);
-                        //simbolo.setColor(transparent);
+                        simbolo->setColor(transparent);
                         mejora = 'a';
 
                     } else {
@@ -458,7 +460,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         spriteOpcionA->setColor(transparent);
                         spriteOpcionB->setColor(transparent);
                         cruzeta1->setColor(transparent);
-                        //simbolo.setColor(transparent);
+                        simbolo->setColor(transparent);
                         mejora = 'r';
                     }
                     break;
@@ -483,7 +485,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         spriteOpcionA->setColor(transparent);
                         spriteOpcionB->setColor(transparent);
                         cruzeta1->setColor(transparent);
-                        //simbolo.setColor(transparent);
+                        simbolo->setColor(transparent);
                         mejora = 'a';
 
                     } else {
@@ -505,7 +507,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         spriteOpcionA->setColor(transparent);
                         spriteOpcionB->setColor(transparent);
                         cruzeta1->setColor(transparent);
-                        //simbolo.setColor(transparent);
+                        simbolo->setColor(transparent);
                         mejora = 'r';
                     }
                     break;
@@ -530,7 +532,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         spriteOpcionA->setColor(transparent);
                         spriteOpcionB->setColor(transparent);
                         cruzeta1->setColor(transparent);
-                        //simbolo.setColor(transparent);
+                        simbolo->setColor(transparent);
                         mejora = 'f';
 
                     } else {
@@ -552,7 +554,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         spriteOpcionA->setColor(transparent);
                         spriteOpcionB->setColor(transparent);
                         cruzeta1->setColor(transparent);
-                        //simbolo.setColor(transparent);
+                        simbolo->setColor(transparent);
                         mejora = 'r';
                     }
                     break;
@@ -607,7 +609,7 @@ void Transition::Update(sf::Time elapsedTime) {
         spriteOpcionA->setColor(transparent);
         spriteOpcionB->setColor(transparent);
         cruzeta1->setColor(transparent);
-        //simbolo.setColor(transparent);
+        simbolo->setColor(transparent);
         if (transparent.a + 20 > 255) {
             unfadeEffect = false;
             transparent.a = 255;
@@ -618,7 +620,7 @@ void Transition::Update(sf::Time elapsedTime) {
             spriteOpcionA->setColor(transparent);
             spriteOpcionB->setColor(transparent);
             cruzeta1->setColor(transparent);
-            //simbolo.setColor(transparent);
+            simbolo->setColor(transparent);
         } else {
             transparent.a += 20;
         }
@@ -779,7 +781,6 @@ void Transition::changePregunta() {
             pregunta->setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
             pregunta->setPosition(640, 360 - 100);
             cruzeta1->setScale(0.50, 0.50);
-            //std::cout<<"Puta ostia copon"<<std::endl;
             break;
         case 7:
             if (!texturaOpcionA.loadFromFile("resources/UI Elements/O71.png")) {
@@ -815,13 +816,13 @@ void Transition::changePregunta() {
     pregunta->setColor(transparent);
 }
 
-void Transition::render(float interpolation, sf::Time elapsedTime) {
+void Transition::Render(float interpolation, sf::Time elapsedTime) {
 
     motor->clear();
     //Pillamos la view anterior, activamos la del fondo, dibujamos el fondo y volvemos al estado anterior
     motor->SetView(0);
     motor->draw(spriteRelleno);
-    motor->SetView(3);
+    motor->SetView(4);
     updateView();
     //motor->draw(spriteFondo);
     video->PlayVideo();
@@ -843,13 +844,13 @@ void Transition::render(float interpolation, sf::Time elapsedTime) {
     }
 
     motor->SetView(2);
-    motor->SetView(3);
+    motor->SetView(4);
     motor->draw(mouseSprite);
     motor->display();
 }
 
 void Transition::updateView() {
-    sf::FloatRect viewBounds(motor->getCenterFromView(3) - motor->getSizeFromView(3) / 2.f, motor->getSizeFromView(3));
+    sf::FloatRect viewBounds(motor->getCenterFromView(4) - motor->getSizeFromView(4) / 2.f, motor->getSizeFromView(4));
 
     sf::Vector2f position = motor->getMousePosition();
     position.x = std::max(position.x, viewBounds.left);
@@ -857,10 +858,26 @@ void Transition::updateView() {
     position.y = std::max(position.y, viewBounds.top);
     position.y = std::min(position.y, viewBounds.height + viewBounds.top);
     mouseSprite->setPosition(position.x, position.y);
-    motor->setSizeForView(3, 640, 480);
-    motor->SetView(3);
+    motor->setSizeForView(4, 640, 480);
+    motor->SetView(4);
 }
 
+void Transition::HandleEvents(sf::Event& event) {
+    switch (event.type) {
+        /*case sf::Event::KeyPressed:
+            handlePlayerInput(event.key.code,true);
+            break;
+        case sf::Event::KeyReleased:
+            handlePlayerInput(event.key.code,false);
+            break;*/
+        case sf::Event::MouseButtonPressed:
+            handleMouseInput(event.mouseButton.button,true);
+            break;
+        case sf::Event::MouseButtonReleased:
+            handleMouseInput(event.mouseButton.button,false);
+            break;
+    }
+}
 void Transition::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
     if (button == sf::Mouse::Button::Left) {
         buttonPressed = isPressed;

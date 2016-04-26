@@ -25,10 +25,10 @@
 
 namespace Niveles{
     enum ID{
-        Level1,
-        Level2,
-        Level3,
-        Level4
+        Level1 = 0,
+        Level2 = 1,
+        Level3 = 2,
+        Level4 = 3
     };
 }
 

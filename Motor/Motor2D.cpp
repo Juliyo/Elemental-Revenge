@@ -20,6 +20,7 @@ void Motor2D::Inicializar() {
     fondo = new sf::View();
     pantalla = new sf::View();
     HUD = new sf::View();
+    auxiliar = new sf::View();
     transicion = new sf::View();
 }
 
@@ -50,19 +51,22 @@ void Motor2D::SetView(int v) {
             break;
         case 1:
         {
-            mWindow->setView(getLetterboxView(*pantalla, anchoVentana, altoVentana, 640, 480,true));
+            mWindow->setView(getLetterboxView(*pantalla, anchoVentana, altoVentana, 640, 480));
             break;
         }
         case 2:
         {
-            mWindow->setView(getLetterboxView(*HUD, anchoVentana, altoVentana, 640, 480,false));
+            mWindow->setView(getLetterboxView(*HUD, anchoVentana, altoVentana, 640, 480));
             break;
         }
         case 3:
         {
-            mWindow->setView(getLetterboxView(*transicion, anchoVentana, altoVentana, 640, 480,false));
+            mWindow->setView(getLetterboxView(*auxiliar, anchoVentana, altoVentana, 640, 480));
             break;
         }
+        case 4:
+            mWindow->setView(getLetterboxView(*transicion, anchoVentana, altoVentana, 640, 480));
+            break;
     }
 }
 
@@ -103,7 +107,7 @@ bool Motor2D::isWindowOpen() {
     return mWindow->isOpen();
 }
 
-sf::View Motor2D::getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight, bool zoom) {
+sf::View Motor2D::getLetterboxView(sf::View view, int windowWidth, int windowHeight, int viewRatioWidth, int viewRatioHeight  ) {
 
     float windowRatio = windowWidth / (float) windowHeight;
     float viewRatio = viewRatioWidth / (float) viewRatioHeight;
@@ -123,10 +127,6 @@ sf::View Motor2D::getLetterboxView(sf::View view, int windowWidth, int windowHei
     } else {
         sizeY = windowRatio / viewRatio;
         posY = (1 - sizeY) / 2.0;
-    }
-
-    if(zoom){
-        //view.zoom(zoomLevel);
     }
     
     view.setViewport(sf::FloatRect(posX, posY, sizeX, sizeY));
@@ -179,7 +179,13 @@ sf::Vector2f Motor2D::getSizeFromView(int view) {
             return HUD->getSize();
             break;
         }
-        case 3:{
+        case 3:
+        {
+            return auxiliar->getSize();
+            break;
+        }
+        case 4:
+        {
             return transicion->getSize();
             break;
         }
@@ -203,6 +209,11 @@ sf::Vector2f Motor2D::getCenterFromView(int view) {
         }
         case 3:
         {
+            return auxiliar->getCenter();
+            break;
+        }
+        case 4:
+        {
             return transicion->getCenter();
             break;
         }
@@ -225,8 +236,12 @@ void Motor2D::setSizeForView(int view, int x, int y) {
             break;
         }
         case 3:{
-            transicion->setSize(x,y);
+            auxiliar->setSize(x,y);
             break;
+        }
+        case 4:
+        {
+            transicion->setSize(x,y);
         }
     }
 }
@@ -247,6 +262,11 @@ void Motor2D::setCenterForView(int view, int x, int y) {
             break;
         }
         case 3:
+        {
+            auxiliar->setCenter(x,y);
+            break;
+        }
+        case 4:
         {
             transicion->setCenter(x,y);
             break;
