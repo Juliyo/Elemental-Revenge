@@ -134,7 +134,7 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2) {
     //PhysicsState::Update(elapsedTime);
      //Hay que setear al BodyDef el vector velocidad que hallamos calculado
     body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(movement) * Enemigo::GetVelocity()));
-    FindPlayer(elapsedTime);
+    //(elapsedTime);
     //Actualizamos la posicion del player con la posicion del bodyDef
     SetPosition(tmx::BoxToSfVec(body->GetPosition()));
 }
