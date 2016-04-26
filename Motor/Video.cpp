@@ -22,6 +22,7 @@ Video::Video(std::string ruta, int f, int x, int y, int tipo, sf::Vector2f scale
     frames = new Sprite[numFrames];
     current_frame=0;
     dibujar=false;
+
     origin.x = size.x/2;
     origin.y = size.y/2;
     extension = tipo;

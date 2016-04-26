@@ -17,7 +17,7 @@ hRayAdvanced::hRayAdvanced() {
     draw=false;
     animationDurante = new Animation();
     setCast(1);
-    setCD(3);
+    setCD(20);
     if(!hTexture.loadFromFile("resources/Textures/rayo.png")){
         exit(0);
     }
@@ -72,7 +72,7 @@ hRayAdvanced::hRayAdvanced(const hRayAdvanced& orig) {
 hRayAdvanced::~hRayAdvanced() {
 }
 
-void hRayAdvanced::cast(sf::Vector2f posicion) {
+void hRayAdvanced::cast(sf::Vector2f posicion, Hud *hud) {
 
     if(tiempoCd.getTiempo() > hCd || primerCast){
         primerCast=false;
@@ -81,6 +81,7 @@ void hRayAdvanced::cast(sf::Vector2f posicion) {
         hSprite.setPosition(Motor2D::Instance()->getMousePosition().x,Motor2D::Instance()->getMousePosition().y);
         tiempoCast.restart();
         tiempoCd.restart();
+        hud->resetRayo2();
     }
 }
 void hRayAdvanced::DrawWithOutInterpolation(){

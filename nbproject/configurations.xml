@@ -14,7 +14,9 @@
     <logicalFolder name="Headers" displayName="Headers" projectFiles="true">
       <itemPath>Headers/AnimatedSprite.hpp</itemPath>
       <itemPath>Headers/Animation.hpp</itemPath>
+      <itemPath>Headers/Flash.hpp</itemPath>
       <itemPath>Headers/Game.hpp</itemPath>
+      <itemPath>Headers/Heal.hpp</itemPath>
       <itemPath>Headers/Hechizo.hpp</itemPath>
       <itemPath>Headers/Hud.hpp</itemPath>
       <itemPath>Headers/PhysicsState.hpp</itemPath>
@@ -23,8 +25,12 @@
       <itemPath>Headers/StringHelpers.inl</itemPath>
       <itemPath>Headers/Util.hpp</itemPath>
       <itemPath>Headers/btree.hpp</itemPath>
+      <itemPath>Headers/hFireAdvanced.hpp</itemPath>
+      <itemPath>Headers/hFireBasic.hpp</itemPath>
       <itemPath>Headers/hRayAdvanced.hpp</itemPath>
       <itemPath>Headers/hRayBasic.hpp</itemPath>
+      <itemPath>Headers/hWaterAdvanced.hpp</itemPath>
+      <itemPath>Headers/hWaterBasic.hpp</itemPath>
       <itemPath>Headers/tinystr.h</itemPath>
       <itemPath>Headers/tinyxml.h</itemPath>
     </logicalFolder>
@@ -37,6 +43,8 @@
       <itemPath>Motor/Mapa.hpp</itemPath>
       <itemPath>Motor/Motor2D.cpp</itemPath>
       <itemPath>Motor/Motor2D.hpp</itemPath>
+      <itemPath>Motor/ProgressBar.cpp</itemPath>
+      <itemPath>Motor/ProgressBar.hpp</itemPath>
       <itemPath>Motor/Reloj.cpp</itemPath>
       <itemPath>Motor/Reloj.hpp</itemPath>
       <itemPath>Motor/Sprite.cpp</itemPath>
@@ -65,15 +73,21 @@
     <logicalFolder name="f2" displayName="Source Files" projectFiles="true">
       <itemPath>AnimatedSprite.cpp</itemPath>
       <itemPath>Animation.cpp</itemPath>
+      <itemPath>Flash.cpp</itemPath>
       <itemPath>Game.cpp</itemPath>
+      <itemPath>Heal.cpp</itemPath>
       <itemPath>Hechizo.cpp</itemPath>
       <itemPath>Hud.cpp</itemPath>
       <itemPath>PhysicsState.cpp</itemPath>
       <itemPath>Render.cpp</itemPath>
       <itemPath>Util.cpp</itemPath>
       <itemPath>btree.cpp</itemPath>
+      <itemPath>hFireAdvanced.cpp</itemPath>
+      <itemPath>hFireBasic.cpp</itemPath>
       <itemPath>hRayAdvanced.cpp</itemPath>
       <itemPath>hRayBasic.cpp</itemPath>
+      <itemPath>hWaterAdvanced.cpp</itemPath>
+      <itemPath>hWaterBasic.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
       <itemPath>tinystr.cpp</itemPath>
       <itemPath>tinyxml.cpp</itemPath>
@@ -165,13 +179,19 @@
       </item>
       <item path="Entities/Player.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Flash.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="Game.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Headers/AnimatedSprite.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Animation.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/Flash.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/Game.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/Heal.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Hechizo.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -189,13 +209,23 @@
       </item>
       <item path="Headers/btree.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/hFireAdvanced.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/hFireBasic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/hRayAdvanced.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/hRayBasic.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/hWaterAdvanced.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/hWaterBasic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/tinystr.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/tinyxml.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Heal.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Hechizo.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -216,6 +246,10 @@
       <item path="Motor/Motor2D.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Motor/Motor2D.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Motor/ProgressBar.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Motor/ProgressBar.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Motor/Reloj.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -289,9 +323,17 @@
       </item>
       <item path="btree.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="hFireAdvanced.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="hFireBasic.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="hRayAdvanced.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="hRayBasic.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="hWaterAdvanced.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="hWaterBasic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -344,13 +386,19 @@
       </item>
       <item path="Entities/Player.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Flash.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="Game.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Headers/AnimatedSprite.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Animation.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/Flash.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/Game.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/Heal.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Hechizo.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -368,13 +416,23 @@
       </item>
       <item path="Headers/btree.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/hFireAdvanced.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/hFireBasic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/hRayAdvanced.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/hRayBasic.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Headers/hWaterAdvanced.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/hWaterBasic.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Headers/tinystr.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/tinyxml.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Heal.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Hechizo.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -395,6 +453,10 @@
       <item path="Motor/Motor2D.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Motor/Motor2D.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Motor/ProgressBar.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Motor/ProgressBar.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Motor/Reloj.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -468,9 +530,17 @@
       </item>
       <item path="btree.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="hFireAdvanced.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="hFireBasic.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="hRayAdvanced.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="hRayBasic.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="hWaterAdvanced.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="hWaterBasic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>

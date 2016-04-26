@@ -32,6 +32,9 @@ void Motor2D::inicializarVentana(std::string titulo, int ancho, int alto) {
     mWindow->setFramerateLimit(60); //Establecemos maximo real de procesamiento (aunque trabajamos con 60)
     mWindow->setVerticalSyncEnabled(true);
     mWindow->setMouseCursorVisible(false);
+
+    //lightMapTexture.create(640, 480);
+    //lightmap.setTexture(lightMapTexture.getTexture());
 }
 
 Motor2D::Motor2D() {
@@ -78,8 +81,8 @@ void Motor2D::draw(Sprite** sp) {
     draw(*sp);
 }
 
-void Motor2D::draw(const sf::Drawable& drawable) {
-    mWindow->draw(drawable);
+void Motor2D::draw(const sf::Drawable& drawable, const sf::RenderStates& states) {
+    mWindow->draw(drawable, states);
 }
 
 void Motor2D::clear() {

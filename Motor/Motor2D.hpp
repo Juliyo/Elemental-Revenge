@@ -24,6 +24,7 @@
 #ifdef _WIN32
 #include <windows.h>
 #endif
+#include <vector>
 
 
 class Motor2D {
@@ -53,7 +54,7 @@ public:
     void clear();
     void draw(Sprite *sp);
     void draw(Sprite **sp);
-    void draw(const sf::Drawable& drawable);
+    void draw(const sf::Drawable& drawable, const sf::RenderStates& states = sf::RenderStates::Default);
     void display();
 
     void inicializarVentana(std::string titulo, int ancho, int alto);
@@ -77,7 +78,6 @@ private:
     sf::View *auxiliar;
     sf::View *transicion;
     sf::Vector2f *raton;
-    
     float zoomLevel =1.f;
 };
 
