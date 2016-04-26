@@ -2,15 +2,18 @@
 <configurationDescriptor version="97">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="f5" displayName="Entities" projectFiles="true">
+      <itemPath>Entities/Enemigo.cpp</itemPath>
+      <itemPath>Entities/Enemigo.hpp</itemPath>
       <itemPath>Entities/Entity.cpp</itemPath>
       <itemPath>Entities/Entity.hpp</itemPath>
+      <itemPath>Entities/Melee.cpp</itemPath>
+      <itemPath>Entities/Melee.hpp</itemPath>
       <itemPath>Entities/Player.cpp</itemPath>
       <itemPath>Entities/Player.hpp</itemPath>
     </logicalFolder>
     <logicalFolder name="Headers" displayName="Headers" projectFiles="true">
       <itemPath>Headers/AnimatedSprite.hpp</itemPath>
       <itemPath>Headers/Animation.hpp</itemPath>
-      <itemPath>Headers/Enemigo.hpp</itemPath>
       <itemPath>Headers/Game.hpp</itemPath>
       <itemPath>Headers/Hechizo.hpp</itemPath>
       <itemPath>Headers/Hud.hpp</itemPath>
@@ -62,7 +65,6 @@
     <logicalFolder name="f2" displayName="Source Files" projectFiles="true">
       <itemPath>AnimatedSprite.cpp</itemPath>
       <itemPath>Animation.cpp</itemPath>
-      <itemPath>Enemigo.cpp</itemPath>
       <itemPath>Game.cpp</itemPath>
       <itemPath>Hechizo.cpp</itemPath>
       <itemPath>Hud.cpp</itemPath>
@@ -147,11 +149,17 @@
       </item>
       <item path="Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Enemigo.cpp" ex="false" tool="1" flavor2="0">
+      <item path="Entities/Enemigo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Entities/Enemigo.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Entities/Entity.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Entities/Entity.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Entities/Melee.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Entities/Melee.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Entities/Player.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -162,8 +170,6 @@
       <item path="Headers/AnimatedSprite.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Animation.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Headers/Enemigo.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Game.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -322,11 +328,17 @@
       </item>
       <item path="Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Enemigo.cpp" ex="false" tool="1" flavor2="0">
+      <item path="Entities/Enemigo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Entities/Enemigo.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Entities/Entity.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Entities/Entity.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Entities/Melee.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Entities/Melee.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Entities/Player.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -337,8 +349,6 @@
       <item path="Headers/AnimatedSprite.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Animation.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Headers/Enemigo.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Game.hpp" ex="false" tool="3" flavor2="0">
       </item>

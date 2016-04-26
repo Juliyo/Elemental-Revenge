@@ -71,6 +71,11 @@ void InGame::Inicializar() {
     player->SetRectangleColision(14,12,36,52);
     player -> Inicializar(1000.f, -1000.f);
     player->CreateDynamicBody();
+    melee = new Melee[5]();
+    for(int i=0;i<5;i++){
+        melee[i].Inicializar(1000.f + i*2, 1000.f + i*2,Tipo::ID::Rata);
+        melee[i].SetRectangleColision(0,0,37,39);
+    }
     
     try {
         spriteFondo.setTexture("resources/Textures/grasstext.png");
@@ -97,10 +102,8 @@ void InGame::Inicializar() {
         exit(0);
     }
     updateView();
-    
-    //level->LoadMap(Niveles::ID::Level2);
+    level->LoadMap(Niveles::ID::Level1);
     video->Inicializar();
-    
     
 }
 
@@ -111,6 +114,13 @@ void InGame::Update(sf::Time elapsedTime) {
         physicWorld->Step(elapsedTime.asSeconds(),6,2);
         
         player -> Update(elapsedTime);
+
+        
+        for (int i = 0; i < 5; i++) {
+        int x3 = player->getPosition().x - melee[i].getPosition().x;
+        int y3 = player->getPosition().y - melee[i].getPosition().y;
+            melee[i].Update(elapsedTime,x3,y3);
+        }
 
         if (player->hRayoBasico->tiempoCast.getTiempo() > player->hRayoBasico->getCast() && aux == true) {
             isShooting = false;
@@ -277,6 +287,29 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
    /* for(int i=0;i<player->shapes.size();i++){
         motor->draw(player->shapes.at(i));
     }*/
+
+    for (int i = 0; i < 5; i++) {
+        if (melee[i].getSpeed().x == 0 && melee[i].getSpeed().y == 0) {
+            switch (melee[i].cuadrante) {
+            case 1:
+               // melee[i].currentAnimation = &melee->idleAnimationRight;
+                break;
+            case 2:
+                //player->currentAnimation = &player->idleAnimationLeft;
+                break;
+            case 3:
+                //player->currentAnimation = &player->idleAnimationRight;
+                break;
+            case 4:
+                //player->currentAnimation = &player->idleAnimationLeft;
+                break;
+            }
+        }
+        melee[i].PlayAnimation(*melee -> currentAnimation);
+        melee[i].UpdateAnimation(elapsedTime);
+        melee[i].DrawWithInterpolation(interpolation);
+        
+    }
     if ((!player->isMovingDown && !player->isMovingLeft && !player->isMovingRight && !player->isMovingUp) || player->hRayoBasico->draw == true) {
         player -> StopAnimation();
     }
@@ -297,6 +330,12 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     int x = motor->getMousePosition().x - player -> getPosition().x;
     int y = motor->getMousePosition().y - player -> getPosition().y;
     player ->UpdatePlayerAnimation(x, y);
+
+    for (int i = 0; i < 5; i++) {
+        int x2 = player->getPosition().x - melee[i].getPosition().x;
+        int y2 = player->getPosition().y - melee[i].getPosition().y;
+        melee[i].UpdateEnemyAnimation(x2, y2);
+    }
     player -> hRayoAvanzado->PlayAnimation(*player -> hRayoAvanzado-> currentAnimation); //Current animation es un puntero a puntero
     if (player -> hRayoAvanzado->draw == true) {
 

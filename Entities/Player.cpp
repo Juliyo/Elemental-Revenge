@@ -147,10 +147,7 @@ void Player::Update(const sf::Time elapsedTime) {
 }
 
 //void Player::HandleMapCollisions(const sf::Time& elapsedTime) {
-//    //InGame* world = InGame::Instance();
-//    //world->level->updateQuadTree();
-//    //objetosCercanos = world->level->queryQuadTree(*CalculateNextRect(elapsedTime).GetRectangle());
-//    //std::vector<Colision::Type> type;
+//    InGame* world = InGame::Instance();
 //   /* for (int i = 0; i < objetosCercanos.size(); i++) {
 //        BoundingBox bb(objetosCercanos.at(i)->GetAABB());
 //        if (CheckColision(bb, elapsedTime)) {
@@ -170,7 +167,7 @@ void Player::Update(const sf::Time elapsedTime) {
 //        std::cout<<std::endl;
 //    }*/
 //
-//    BoundingBox boundingPlayer = CalculateNextRect(elapsedTime);
+//    //BoundingBox boundingPlayer = CalculateNextRect(elapsedTime);
 //    sf::Vector2i indiceTopLeft = sf::Vector2i(boundingPlayer.GetTopLeft().x/24,boundingPlayer.GetTopLeft().y/24);
 //    sf::Vector2i indiceTopRight = sf::Vector2i(boundingPlayer.GetTopRight().x/24,boundingPlayer.GetTopRight().y/24);
 //    sf::Vector2i indiceBotLeft = sf::Vector2i(boundingPlayer.GetBottomLeft().x/24,boundingPlayer.GetBottomLeft().y/24);
@@ -181,16 +178,12 @@ void Player::Update(const sf::Time elapsedTime) {
 //        //std::cout<<"Colisiona esquina superior izquierda"<<std::endl;
 //        BoundingBox boundingArbol(indiceTopLeft.x*24,indiceTopLeft.y*24,24,24);
 //        
-//        playerShape.setPosition(sf::Vector2f(indiceTopLeft.x*24,indiceTopLeft.y*24));
-//        playerShape.setFillColor(sf::Color::Red);
 //        //Hacer algo
 //        SetSpeed(0,0);
 //    }
 //    else if(colisiones[indiceTopRight.y][indiceTopRight.x] == 1){
 //        //std::cout<<"Colisiona esquina superior derecha"<<std::endl;
 //        BoundingBox boundingArbol((indiceTopRight.x*24),(indiceTopRight.y*24),24,24);
-//        playerShape.setPosition(sf::Vector2f(indiceTopRight.x*24,indiceTopRight.y*24));
-//        playerShape.setFillColor(sf::Color::Red);
 //        //Hacer algo
 //        SetSpeed(0,0);
 //    }

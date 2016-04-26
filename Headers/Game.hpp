@@ -5,8 +5,6 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "../Entities/Player.hpp"
-#include "Enemigo.hpp"
-
 //#include "InGame.hpp"
 //#include "Transition.hpp"
 #include "Pause.hpp"

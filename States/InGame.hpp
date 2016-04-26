@@ -24,6 +24,7 @@
 #include <vector>
 #include <tmx/MapObject.h>
 #include "../Entities/Player.hpp"
+#include "../Entities/Melee.hpp"
 #include <Box2D/Box2D.h>
 
 class InGame:public State {
@@ -68,7 +69,7 @@ private:
     std::pair<States::ID , bool> requestStateChange;
     
     Player			*player;
-    Enemigo			enemigo[20];
+    Melee			*melee;
     
     //Singletones
    /* Pause                       *pause;

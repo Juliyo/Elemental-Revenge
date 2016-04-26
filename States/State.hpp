@@ -16,7 +16,7 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "Enemigo.hpp"
+#include "../Entities/Enemigo.hpp"
 #include <SFML/Window.hpp>
 
 namespace States{
