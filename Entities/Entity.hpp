@@ -23,7 +23,7 @@ public:
     Entity(const Entity& orig);
     virtual ~Entity();
     
-    virtual void Update(const sf::Time elapsedTime) = 0;
+    //virtual void Update(const sf::Time elapsedTime) = 0;
     
 private:
 
