@@ -26,7 +26,7 @@ hRayBasic::hRayBasic() {
     animation = new Animation();
     animationDurante = new Animation();
     PrimeraAnimacion = new Animation();
-    setCD(4);
+    setCD(5);
     setCast(3);
     if (!hTexture.loadFromFile("resources/Textures/RayoSpriteSheet.png")) {
 
@@ -115,4 +115,7 @@ void hRayBasic::cast(sf::Vector2f posicion) {
 
 void hRayBasic::DrawWithInterpolation(float interpolation, const sf::Vector2f &posPrev, const sf::Vector2f &posNew) {
     DrawAnimation(posPrev, posNew, interpolation, &anglePrev, &angleNew);
+}
+void hRayBasic::update(){
+    
 }

@@ -203,7 +203,7 @@ void InGame::renderForMuerte(float interpolation, sf::Time elapsedTime) {
 */
 
     motor->SetView(2); //vista del HUD
-    player -> hud->renderHud();
+    player -> hud->renderHud(elapsedTime);
     if (!video -> getLooped()) {
         video -> PlayVideo();
     }
@@ -251,7 +251,7 @@ void InGame::renderForPause(float interpolation, sf::Time elapsedTime) {
 
 
     motor->SetView(2); //vista del HUD
-    player -> hud->renderHud();
+    player -> hud->renderHud(elapsedTime);
     if (!video -> getLooped()) {
         video -> PlayVideo();
     }
@@ -274,7 +274,19 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
 
 
     motor->draw(spriteFondo);
+	int x = motor->getMousePosition().x - player -> getPosition().x;
+    int y = motor->getMousePosition().y - player -> getPosition().y;
+    player ->UpdatePlayerAnimation(x, y);
 
+//****************************RAYO************************************
+    player->renderRayo( elapsedTime, interpolation);
+    //****************************FUEGO************************************
+    player->renderFuego( elapsedTime, interpolation);
+    //****************************AGUA************************************
+    player->renderAgua( elapsedTime, interpolation);
+    //*********************HEAL**********************************
+    player->renderHeal( elapsedTime, interpolation);
+    //****************************RENDER PLAYER************************************
     /*if (mapa->getMapaActual() == 1) {
         mapa->dibujaMapa1();
     }
@@ -314,112 +326,24 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
         melee->at(i)->DrawWithInterpolation(interpolation);
         
     }
-    if ((!player->isMovingDown && !player->isMovingLeft && !player->isMovingRight && !player->isMovingUp) || player->hRayoBasico->draw == true) {
+    if ((!player->isMovingDown && !player->isMovingLeft && !player->isMovingRight && !player->isMovingUp) && player->castFire.getTiempo() > 0.45f && player->castFire2.getTiempo() > 0.4f) {
         player -> StopAnimation();
     }
     player -> UpdateAnimation(elapsedTime);
+	
+	    //**************************************FLASH**************************
+    player->renderFlash( elapsedTime, interpolation);
+    /////////////////////////////////
     player -> DrawWithInterpolation(interpolation);
-    
-    /*if (mapa->getMapaActual() == 1) {
-        mapa->dibuja2Mapa1();
-    }
-    if (mapa->getMapaActual() == 2) {
-        mapa->dibuja2Mapa2();
-
-    }
-    if (mapa->getMapaActual() == 3) {
-        mapa->dibuja2Mapa3();
-    }*/
-
-    int x = motor->getMousePosition().x - player -> getPosition().x;
-    int y = motor->getMousePosition().y - player -> getPosition().y;
-    player ->UpdatePlayerAnimation(x, y);
 
     for (int i = 0; i < melee->size(); i++) {
         int x2 = player->getPosition().x - melee->at(i)->getPosition().x;
         int y2 = player->getPosition().y - melee->at(i)->getPosition().y;
         melee->at(i)->UpdateEnemyAnimation(x2, y2);
     }
-    player -> hRayoAvanzado->PlayAnimation(*player -> hRayoAvanzado-> currentAnimation); //Current animation es un puntero a puntero
-    if (player -> hRayoAvanzado->draw == true) {
-
-        //player->SetFrame(sf::seconds(0.3f));
-        if (player -> hRayoAvanzado->tiempoCast.getTiempo() < player->hRayoAvanzado->getCast()) {
-            //switch
-            switch (player->cuadrante) {
-                case 1:
-                    player->currentAnimation = &player->castingAnimationUp;
-                    break;
-                case 2:
-                    player->currentAnimation = &player->castingAnimationDown;
-                    break;
-                case 3:
-                    player->currentAnimation = &player->castingAnimationRight;
-                    break;
-                case 4:
-                    player->currentAnimation = &player->castingAnimationLeft;
-                    break;
-            }
-        }
-        player -> hRayoAvanzado -> UpdateAnimation(elapsedTime);
-        if (player -> hRayoAvanzado->tiempoCast.getTiempo() < player -> hRayoAvanzado->getCast()) {
-            player -> hRayoAvanzado->DrawWithOutInterpolation();
-
-        }
-    } else {
-        player->hRayoAvanzado->StopAnimation();
-    }
-    player->hRayoBasico->PlayAnimation(*player->hRayoBasico->currentAnimation);
-    if (player->hRayoBasico->draw == true) {
-        player->SetFrame(sf::seconds(0.125f));
-        //switch
-        switch (player->cuadrante) {
-            case 1:
-                player->currentAnimation = &player->castingAnimationUp;
-                break;
-            case 2:
-                player->currentAnimation = &player->castingAnimationDown;
-                break;
-            case 3:
-                player->currentAnimation = &player->castingAnimationRight;
-                break;
-            case 4:
-                player->currentAnimation = &player->castingAnimationLeft;
-                break;
-        }
-
-
-        player -> hRayoBasico -> UpdateAnimation(elapsedTime);
-        if (player->hRayoBasico->tiempoCast.getTiempo() < player->hRayoBasico->getCast()) {
-            //printf("Posicion del animation:%f-%f\n",player->getPhysics()->GetPosition().x,player->getPhysics()->GetPosition().y);
-            player->hRayoBasico->SetFrame(sf::seconds(0.075f));
-            player->hRayoBasico->currentAnimation = &player->hRayoBasico->animationDurante;
-
-            if (player->hRayoBasico->tiempoCast.getTiempo() < 1.0f) {
-
-
-                player->hRayoBasico->SetFrame(sf::seconds(0.125f));
-                player->hRayoBasico->currentAnimation = &player->hRayoBasico->PrimeraAnimacion;
-
-            }
-
-
-            player->hRayoBasico->DrawWithInterpolation(interpolation, player->GetPreviousPosition(), player->GetPosition());
-        } else {
-
-            player->hRayoBasico->draw = false;
-        }
-
-    } else {
-        player->SetFrame(sf::seconds(0.075f));
-        player->hRayoBasico->StopAnimation();
-    }
-
-
-
-
+    
     motor->SetView(2); //vista del HUD
-    player -> hud->renderHud();
+    player -> hud->renderHud(elapsedTime);
     if (!video -> getLooped()) {
         video -> PlayVideo();
     }
@@ -470,15 +394,96 @@ void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         player->isMovingLeft = false;
         player->isMovingRight = false;
         player->isMovingUp = false;
+    }else if ((key == sf::Keyboard::C) || (key == sf::Keyboard::Num1) && !isPressed) {
+        
+        hActivo = 0;
+        anterior = hActivo;
+    } else if (key == sf::Keyboard::V) {
+        
+        hActivo = 1;
+        anterior = hActivo;
+    } else if (key == sf::Keyboard::B) {
+        
+        hActivo = 2;
+        anterior = hActivo;
+    } else if (key == sf::Keyboard::E) {
+        
+        hActivo = 4;
+        player->isFlashing = isPressed;
+    }
+    else if (key == sf::Keyboard::R) {
+
+        hActivo = 3;
+        isHealing = isPressed;
+    } else if (key == sf::Keyboard::T) {//  QUITAR - SOLO PARA DEBUG
+        player->restaVida(1); //QUITAR - SOLO PARA DEBUG
+    } else if (key == sf::Keyboard::F && isPressed) {
+        player->hRayoBasico->aumentaLVL();
+    } else if (key == sf::Keyboard::G && isPressed) {
+        player->hRayoAvanzado->aumentaLVL();
+    }else if(key == sf::Keyboard::Space && !isPressed){
+        hActivo++;
+        anterior = hActivo;
+        if(hActivo == 3){
+            hActivo = 0;
+            anterior = hActivo;
+        }
+        player->hud->cambiaHechizo(hActivo+1);
     }
 }
 
 void InGame::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
-    if (button == sf::Mouse::Button::Left) {
-        isShooting = isPressed;
-    }
-    if (button == sf::Mouse::Button::Right && isPressed == false) {
-        player->hRayoAvanzado->cast(sf::Vector2f(player->getPosition()));
+switch (hActivo) {
+        case 1:
+        {
+            //hacemos false el resto de casteos por si cambias mientras estabas pulsando
+            fuegoBasicCast = false;
+            fuegoAdvancedCast = false;
+            aguaBasicCast = false;
+            aguaAdvancedCast = false;
+            if (button == sf::Mouse::Button::Left) {
+                printf("Rayo basico \n");
+                isShooting = isPressed;
+            }
+            if (button == sf::Mouse::Button::Right && isPressed == false) {
+                printf("Rayo avanzado \n");
+                player->hRayoAvanzado->cast(sf::Vector2f(player->getPosition()),player->hud);
+            }
+            break;
+        }
+        case 0:
+        {
+            //hacemos false el resto de casteos por si cambias mientras estabas pulsando
+            isShooting = false;
+            aguaBasicCast = false;
+            aguaAdvancedCast = false;
+            if (button == sf::Mouse::Left) {//Traslaciones
+                printf("fuego basico \n");
+                fuegoBasicCast = isPressed;
+            }
+            if (button == sf::Mouse::Right) { //Traslaciones
+                printf("fuego avanzado \n");
+                fuegoAdvancedCast = isPressed;
+            }
+            break;
+        }
+        case 2:
+        {
+            //hacemos false el resto de casteos por si cambias mientras estabas pulsando
+            isShooting = false;
+            fuegoBasicCast = false;
+            fuegoAdvancedCast = false;
+            if (button == sf::Mouse::Left) {//Traslaciones
+                printf("Agua basico \n");
+                aguaBasicCast = isPressed;
+            }
+            if (button == sf::Mouse::Right) { //Traslaciones
+                printf("Agua avanzado \n");
+                aguaAdvancedCast = isPressed;
+            }
+            break;
+        }
+
     }
 }
 

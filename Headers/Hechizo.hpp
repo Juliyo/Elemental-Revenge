@@ -26,6 +26,8 @@ public:
     virtual ~Hechizo();
     Sprite hSprite;
     sf::Texture hTexture;
+    Reloj tiempoCast;
+    Reloj clockCd;
     float angleshot2=0.0f;
     
     //void Draw(sf::RenderWindow& window);
@@ -45,7 +47,7 @@ public:
     bool draw;
     bool dibujar;
     bool primerCast=true;
-    
+    Reloj tiempoCd;
     
 protected:
     float hCd;

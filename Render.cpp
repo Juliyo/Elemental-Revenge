@@ -97,6 +97,13 @@ void Render::DrawAnimation( const sf::Vector2f &posPrev, const sf::Vector2f &pos
     Motor2D::Instance()->draw(animatedSprite);
     
 }
+
+void Render::DrawWithout( sf::Vector2f pos) {
+    animatedSprite.setPosition(pos.x, pos.y);
+    Motor2D::Instance()->draw(animatedSprite);
+}
+
+
 void Render::UpdateAnimation(sf::Time elapsedTime) {
     animatedSprite.update(elapsedTime);
 }
@@ -105,4 +112,41 @@ void Render::UpdateAnimation(sf::Time elapsedTime) {
 void Render::SetFrame(sf::Time time) {
     animatedSprite.setFrameTime(time);
 
+}
+
+void Render::SetScaleAnimation(float x, float y) {
+    animatedSprite.setScale(x, y);
+}
+
+void Render::SetRotationAnimation(float angle) {
+    animatedSprite.setRotation(angle);
+}
+
+void Render::SetOriginAnimation(float x, float y) {
+    animatedSprite.setOrigin(x, y);
+}
+void Render::Draw90(const sf::Vector2f &posPrev, const sf::Vector2f &posNew, float interpolation)
+{
+   
+	renderPos = sf::Vector2f(
+		posPrev.x + ((posNew.x - posPrev.x) * interpolation),
+		posPrev.y + ((posNew.y - posPrev.y) * interpolation));
+
+	sprite.setPosition(renderPos.x, renderPos.y);
+        sprite.setRotation(25);
+   
+        Motor2D::Instance()->draw(sprite);
+        
+	
+}
+
+void Render::SetFrameTime(sf::Time time) {
+    //if(&animatedSprite!=NULL){
+    animatedSprite.setFrameTime(time);
+    //}
+
+}
+
+void Render::SetAngle2(float angle) {
+    animatedSprite.setRotation(angle);
 }

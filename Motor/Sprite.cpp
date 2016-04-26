@@ -59,10 +59,6 @@ void Sprite::setScale(float x, float y) {
     m_sprite.setScale(x, y);
 }
 
-void Sprite::setColor(sf::Color transparent) {
-    m_sprite.setColor(transparent);
-}
-
 void Sprite::setRotation(float angulo) {
     m_sprite.rotate(angulo);
 }
@@ -112,3 +108,12 @@ sf::Texture* Sprite::getTexture() {
 sf::Vector2f Sprite::getPosition() {
     return m_sprite.getPosition();
 }
+
+void Sprite::rotate(float ang) {
+    m_sprite.rotate(ang);
+}
+void Sprite::setColor(sf::Color transparent) {
+    m_sprite.setColor(transparent);
+}
+
+

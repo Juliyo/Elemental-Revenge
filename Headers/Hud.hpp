@@ -16,22 +16,91 @@
 #include <SFML/Graphics.hpp>
 #include "../Motor/Motor2D.hpp"
 #include "../Motor/Text.hpp"
+#include "../Motor/ProgressBar.hpp"
 
-class Hud{
+class Hud {
 public:
-    Hud();
+    Hud(Reloj *cds, float *coolDowns);
     Hud(const Hud& orig);
     virtual ~Hud();
-    void renderHud();
-    sf::FloatRect   viewBounds;
-    sf::Vector2f    position;
-    void            updateHud(int vidas);
+    void renderHud(sf::Time elapsedTime);
+    sf::FloatRect viewBounds;
+    sf::Vector2f position;
+    void updateHud(float vidas);
+    void cambiaHechizo(int activar);
+    void resetRayo2();
+    void resetRayo1();
     
+    void resetAgua1();
+    void resetAgua2();
+    
+    void resetFuego1();
+    void resetFuego2();
+    
+    void resetFlash();
+    
+    void resetCurar();
 private:
-    Sprite      barraVida;
-    sf::IntRect     shapeVida;
-    Sprite      sVida;
-    Text        tVida;
+    Motor2D *m;
+    Sprite barraVida;
+    sf::IntRect shapeVida;
+    Sprite sVida;
+    Reloj *mCds;
+    float *mCoolDowns;
+
+    int activo = 1;
+    
+    //Rayo
+    Sprite      *rayoBueno;
+    Sprite       *rBlanco;
+    Sprite       *rGlare;
+    Sprite       *rRayo;
+    Sprite       *rSombra;
+    
+    //Agua
+    Sprite      *aguaBueno;
+    Sprite       *aBlanco;
+    Sprite       *aGlare;
+    Sprite       *aRayo;
+    Sprite       *aSombra;
+    
+    //Fuego
+    Sprite      *fuegoBueno;
+    Sprite       *fBlanco;
+    Sprite       *fGlare;
+    Sprite       *fRayo;
+    Sprite       *fSombra;
+    
+    //Flash
+    
+    Sprite      *flashBueno;
+    Sprite       *flBlanco;
+    Sprite       *flGlare;
+    Sprite       *flRayo;
+    Sprite       *flSombra;
+    
+    //Curar
+    
+    Sprite      *curarBueno;
+    Sprite       *cuBlanco;
+    Sprite       *cuGlare;
+    Sprite       *cuRayo;
+    Sprite       *cuSombra;
+    
+    void cargarRayo();
+    void cargarAgua();
+    void cargarFuego();
+    void cargarFlash();
+    void cargarCurar();
+    
+    ProgressBar *cRayo1;
+    ProgressBar *cRayo2;
+    ProgressBar *cAgua1;
+    ProgressBar *cAgua2;
+    ProgressBar *cFuego1;
+    ProgressBar *cFuego2;
+    ProgressBar *cFlash;
+    ProgressBar *cCurar;
     
 };
 

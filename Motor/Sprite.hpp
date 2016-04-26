@@ -40,8 +40,12 @@ public:
     sf::Vector2u getTextureSize();
     sf::Texture* getTexture();
     sf::Vector2f getPosition();
+
     sf::Texture* getSfTexture();
     sf::IntRect getTextureRect();
+
+    void rotate(float ang);
+
     
 private:
     sf::Sprite m_sprite;
@@ -50,7 +54,6 @@ private:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const{
         target.draw(m_sprite, states);
     }
-    
 };
 
 #endif /* SPRITE_HPP */

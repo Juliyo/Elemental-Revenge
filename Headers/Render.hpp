@@ -32,8 +32,11 @@ public:
         void Draw( const sf::Vector2f &posPrev, const sf::Vector2f &posNew, float *anglePrev, float *angleNew, float interpolation);
         void DrawAnimation( const sf::Vector2f &posPrev, const sf::Vector2f &posNew, float interpolation, float *anglePrev, float *angleNew);
         void DrawAnimationWithOut( const sf::Vector2f &pos);
+        void DrawWithout( sf::Vector2f pos);
         
-       // void SetOrigin(float x,float y){sprite.setOrigin(x,y);}; 
+        
+        
+        void SetOrigin(float x,float y){sprite.setOrigin(x,y);}; 
         void SetOriginAnimatedSprite(float x,float y){ animatedSprite.setOrigin(x,y); };
         void SetRotation(float angle){ animatedSprite.setRotation(angle); };
         void SetScale(float x, float y){ animatedSprite.setScale(x,y); };
@@ -42,7 +45,17 @@ public:
 	sf::Vector2f GetRenderPosition() const { return renderPos; }
         sf::FloatRect GetGlobalBounds(){
             return animatedSprite.getGlobalBounds();
-        };
+        }
+        void SetFrameTime(sf::Time time);
+        
+        void SetOriginAnimation(float x,float y);;
+        void SetRotationAnimation(float angle);;
+        void SetScaleAnimation(float x, float y);;
+        void Draw90( const sf::Vector2f &posPrev, const sf::Vector2f &posNew, float interpolation);
+        
+        
+        //para el agua
+        void SetAngle2(float angle);
 
 private:
         AnimatedSprite		animatedSprite;

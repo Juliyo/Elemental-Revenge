@@ -18,16 +18,15 @@
 #include "../Motor/Motor2D.hpp"
 #include <SFML/Graphics.hpp>
 #include <math.h>
-
+#include "Hud.hpp"
 
 class hRayAdvanced:public Hechizo {
 public:
     hRayAdvanced();
     hRayAdvanced(const hRayAdvanced& orig);
     virtual ~hRayAdvanced();
-    void cast(sf::Vector2f vector);
-    Reloj tiempoCast;
-    Reloj tiempoCd;
+    void cast(sf::Vector2f vector, Hud *hud);
+    
     
 void DrawWithOutInterpolation();
     Animation **currentAnimation;

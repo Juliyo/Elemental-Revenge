@@ -16,8 +16,8 @@ void info(){
     std::cout << "                           /____/       " << std::endl;
     std::cout << "------------------------------------------------------------------------"<<std::endl;
     std::cout << ""<<std::endl;
-    std::cout << "Version: Hito 2" <<std::endl;
-    std::cout << "Rama: Transiciones Entregable" <<std::endl;
+    std::cout << "Version: Hito 3" <<std::endl;
+    std::cout << "Rama: Final" <<std::endl;
     std::cout << "Instrucciones: Click izquierdo para lanzar un hechizo basico.\nClick derecho para lanzar un hechizo avanzado." <<std::endl;
     std::cout << "Pulsa continuar para iniciar el juego.\nResponde una de las preguntas.\nM -> para pasar al siguiente nivel." <<std::endl;
     std::cout << "P -> Para pausar el juego.\nO -> Para pantalla de muerte\n" <<std::endl;

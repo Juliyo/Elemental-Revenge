@@ -21,7 +21,7 @@ Game::Game() {
     thread2 = new sf::Thread(&Game::cargarMapa, this);
     motor = Motor2D::Instance();
     motor->Inicializar();
-    motor->inicializarVentana("Hito 2 - Intento Motor", 1280, 720);
+    motor->inicializarVentana("Hito 2 - HUD", 1280, 720);
 
     
     stateStack = StateStack::Instance();
@@ -213,6 +213,7 @@ void Game::processEvents() //Captura y procesa eventos
 
             case sf::Event::Closed:
                 motor->closeWindow();
+                
                 break;
 
             case sf::Event::Resized:

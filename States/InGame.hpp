@@ -27,12 +27,13 @@
 #include "../Entities/Melee.hpp"
 #include <Box2D/Box2D.h>
 
-class InGame:public State {
+class InGame : public State {
 public:
     InGame();
     static InGame* Instance();
     InGame(const InGame& orig);
     virtual ~InGame();
+
     void    run();
     
     
@@ -75,18 +76,18 @@ private:
     Muerte                      *muerte;*/
     
     //Recursos
-    sf::Texture                 texturaFondo;
+    sf::Texture texturaFondo;
     //sf::Sprite                  spriteFondo;
-    Sprite                      spriteFondo;
-    sf::Texture                 texturaRelleno;
+    Sprite spriteFondo;
+    sf::Texture texturaRelleno;
     //sf::Sprite                  spriteRelleno;
     Sprite                      spriteRelleno;
     sf::Font                    contFonts;
     sf::Texture                 mouseTexture;
    // sf::Sprite                  mouseSprite;
     Sprite                      mouseSprite;
-    
     //Eventos
+
     bool			isMovingUp;
     bool			isMovingDown;
     bool			isMovingRight;
@@ -96,11 +97,22 @@ private:
     bool                        rayoBasicCast = false;
     
     bool                        noKeyWasPressed = true;
-    bool			firstTime;
+    bool			firstTime=true;
     bool			isInterpolating;
     bool                        isShooting;
     bool                        aux;
     
+    int                         hActivo=0;
+    //fuego
+    bool fuegoBasicCast = false;
+    bool fuegoAdvancedCast = false;
+    //agua
+    bool aguaAdvancedCast = false;
+    bool aguaBasicCast = false;
+    //heal
+
+    bool                        isHealing = false;
+    int                         anterior=0;
     static InGame* mInstance;
 };
 
