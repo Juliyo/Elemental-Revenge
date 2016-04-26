@@ -86,30 +86,30 @@ void Melee::FindPlayer(sf::Time elapsedTime) {
     sf::Vector2i indiceBotRight = sf::Vector2i(boundingEnemigo.GetBottomRight().x/24,boundingEnemigo.GetBottomRight().y/24);
     /*std::cout<<"xTopright"<<indiceTopRight.x<<" , "<<"yTopright"<<indiceTopRight.y<<std::endl;
     std::cout<<"Valor mapa"<<colisiones[indiceTopRight.x][indiceTopRight.y]<<std::endl;*/
-    if(colisiones[indiceTopLeft.y][indiceTopLeft.x] == 1){
+    if(indiceTopLeft.y >= 0 && indiceTopLeft.x >=0 && indiceTopLeft.y < height && indiceTopLeft.x < width && colisiones[indiceTopLeft.y][indiceTopLeft.x] == 1){
         //std::cout<<"Colisiona esquina superior izquierda"<<std::endl;
         BoundingBox boundingArbol(indiceTopLeft.x*24,indiceTopLeft.y*24,24,24);
         
         //Hacer algo
-        SetSpeed(0,0);
+       // SetSpeed(0,0);
     }
-    else if(colisiones[indiceTopRight.y][indiceTopRight.x] == 1){
+    else if(indiceTopRight.y >= 0 && indiceTopRight.x >=0 && indiceTopRight.y < height && indiceTopRight.x < width && colisiones[indiceTopRight.y][indiceTopRight.x] == 1){
         //std::cout<<"Colisiona esquina superior derecha"<<std::endl;
         BoundingBox boundingArbol((indiceTopRight.x*24),(indiceTopRight.y*24),24,24);
         //Hacer algo
-        SetSpeed(0,0);
+        //SetSpeed(0,0);
     }
-    else if(colisiones[indiceBotLeft.y][indiceBotLeft.x] == 1){
+    else if(indiceBotLeft.y >= 0 && indiceBotLeft.x >=0 && indiceBotLeft.y < height && indiceBotLeft.x < width && colisiones[indiceBotLeft.y][indiceBotLeft.x] == 1){
         //std::cout<<"Colisiona esquina inferior izquierda"<<std::endl;
         BoundingBox boundingArbol((indiceBotLeft.x*24),(indiceBotLeft.y*24),24,24);
         
-        SetSpeed(0,0);
+        //SetSpeed(0,0);
     }
-    else if(colisiones[indiceBotRight.y][indiceBotRight.x] == 1){
+    else if(indiceBotRight.y >= 0 && indiceBotRight.x >=0 && indiceBotRight.y < height && indiceBotRight.x < width && colisiones[indiceBotRight.y][indiceBotRight.x] == 1){
         //std::cout<<"Colisiona esquina inferior derecha"<<std::endl;
         BoundingBox boundingArbol((indiceBotRight.x*24),(indiceBotRight.y*24),24,24);
         
-        SetSpeed(0,0);
+        //SetSpeed(0,0);
     }
     
 }
@@ -129,7 +129,7 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2) {
     
     //SetSpeed(movement);
     
-    //FindPlayer(elapsedTime);
+    FindPlayer(elapsedTime);
     //UpdateEnemigo(elapsedTime,mapa);
     //PhysicsState::Update(elapsedTime);
      //Hay que setear al BodyDef el vector velocidad que hallamos calculado
