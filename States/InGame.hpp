@@ -66,10 +66,9 @@ public:
     Video *video;
 private:
     
-    std::pair<States::ID , bool> requestStateChange;
-    
     Player			*player;
-    Melee			*melee;
+    //Melee			*melee;
+    std::vector<Melee*>         *melee;
     
     //Singletones
    /* Pause                       *pause;
