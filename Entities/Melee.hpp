@@ -54,6 +54,7 @@ public:
 private:
     Tipo::ID m_tipo;
     sf::Texture texturaEnemigo;
+    std::vector<Nodo*>  camino;
 };
 
 #endif /* MELEE_HPP */
