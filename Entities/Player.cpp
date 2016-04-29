@@ -391,15 +391,16 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
 
 void Player::Update(const sf::Time elapsedTime) {
     sf::Vector2f movement(0.f, 0.f);
-    if (isMovingUp)
-        movement.y -= GetVelocity();
-    if (isMovingDown)
-        movement.y += GetVelocity();
-    if (isMovingLeft)
-        movement.x -= GetVelocity();
-    if (isMovingRight)
-        movement.x += GetVelocity();
-
+    if(!cantMove){
+        if (isMovingUp)
+            movement.y -= GetVelocity();
+        if (isMovingDown)
+            movement.y += GetVelocity();
+        if (isMovingLeft)
+            movement.x -= GetVelocity();
+        if (isMovingRight)
+            movement.x += GetVelocity();
+    }
     //Hay que setear al BodyDef el vector velocidad que hallamos calculado
     body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(movement) * Player::GetVelocity()));
     //Actualizamos la posicion del player con la posicion del bodyDef
@@ -716,7 +717,8 @@ void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time e
         }
 }
 
-void Player::updateAgua(bool aguaBasicCast, bool aguaAdvancedCast, sf::Time elapsedTime, sf::Vector2f movement) {
+void Player::updateAgua(bool aguaBasicCast, bool aguaAdvancedCast, sf::Time elapsedTime) {
+    sf::Vector2f movement = tmx::BoxToSfVec(body->GetLinearVelocity());
     if (aguaBasicCast) {
         hAguaBasico->cast(sf::Vector2f(getPosition()), hud);
     }
@@ -804,8 +806,6 @@ void Player::updateFlash() {
 void Player::renderRayo(sf::Time elapsedTime,float interpolation) {
      hRayoAvanzado->PlayAnimation(*hRayoAvanzado-> currentAnimation); //Current animation es un puntero a puntero
     if (hRayoAvanzado->draw == true) {
-
-
         if ( hRayoAvanzado->tiempoCast.getTiempo() < hRayoAvanzado->getCast()) {
             //switch
             switch (cuadrante) {
@@ -864,7 +864,6 @@ void Player::renderRayo(sf::Time elapsedTime,float interpolation) {
                 hRayoBasico->currentAnimation = &hRayoBasico->PrimeraAnimacion;
 
             }
-
 
             hRayoBasico->DrawWithInterpolation(interpolation, GetPreviousPosition(), GetPosition());
         } else {
