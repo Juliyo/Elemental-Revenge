@@ -391,15 +391,16 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
 
 void Player::Update(const sf::Time elapsedTime) {
     sf::Vector2f movement(0.f, 0.f);
-    if (isMovingUp)
-        movement.y -= GetVelocity();
-    if (isMovingDown)
-        movement.y += GetVelocity();
-    if (isMovingLeft)
-        movement.x -= GetVelocity();
-    if (isMovingRight)
-        movement.x += GetVelocity();
-
+    if(!cantMove){
+        if (isMovingUp)
+            movement.y -= GetVelocity();
+        if (isMovingDown)
+            movement.y += GetVelocity();
+        if (isMovingLeft)
+            movement.x -= GetVelocity();
+        if (isMovingRight)
+            movement.x += GetVelocity();
+    }
     //Hay que setear al BodyDef el vector velocidad que hallamos calculado
     body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(movement) * Player::GetVelocity()));
     //Actualizamos la posicion del player con la posicion del bodyDef
@@ -698,9 +699,9 @@ void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time e
                 hFuegoAvanzado->lanzado = true;
                 castFire2.restart();
 
-                hFuegoAvanzado->actualSize.x = 0.3;
+                /*hFuegoAvanzado->actualSize.x = 0.3;
                 hFuegoAvanzado->actualSize.y = 0.3;
-                hFuegoAvanzado->SetScale(0.3, 0.3);
+                hFuegoAvanzado->SetScale(0.3, 0.3);*/
                 hFuegoAvanzado->cast(sf::Vector2f(getPosition()));
                 
                 hud->resetFuego2();
@@ -713,13 +714,14 @@ void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time e
         }
 }
 
-void Player::updateAgua(bool aguaBasicCast, bool aguaAdvancedCast, sf::Time elapsedTime, sf::Vector2f movement) {
+void Player::updateAgua(bool aguaBasicCast, bool aguaAdvancedCast, sf::Time elapsedTime) {
+    sf::Vector2f movement = tmx::BoxToSfVec(body->GetLinearVelocity());
     if (aguaBasicCast) {
         hAguaBasico->cast(sf::Vector2f(getPosition()), hud);
     }
     if ( hAguaBasico->tiempoCast.getTiempo() < 0.5f &&  hAguaBasico->dibujar == true) {
-        hAguaBasico->Update(movement, elapsedTime,GetVelocity());
-
+        hAguaBasico->Update(movement, elapsedTime, GetVelocity());
+        
         
         /* **************************PARA LA FUTURA CLASE ENTITY*************************
         if (hAguaBasico->GetGlobalBounds().intersects(enemigo[0].getSprite().getGlobalBounds())) {
@@ -801,8 +803,6 @@ void Player::updateFlash() {
 void Player::renderRayo(sf::Time elapsedTime,float interpolation) {
      hRayoAvanzado->PlayAnimation(*hRayoAvanzado-> currentAnimation); //Current animation es un puntero a puntero
     if (hRayoAvanzado->draw == true) {
-
-
         if ( hRayoAvanzado->tiempoCast.getTiempo() < hRayoAvanzado->getCast()) {
             //switch
             switch (cuadrante) {
@@ -862,7 +862,6 @@ void Player::renderRayo(sf::Time elapsedTime,float interpolation) {
 
             }
 
-
             hRayoBasico->DrawWithInterpolation(interpolation, GetPreviousPosition(), GetPosition());
         } else {
 
@@ -879,7 +878,7 @@ void Player::renderRayo(sf::Time elapsedTime,float interpolation) {
 void Player::renderFuego(sf::Time elapsedTime, float interpolation) {
 if (hFuegoAvanzado->tiempoCast.getTiempo() < hFuegoAvanzado->getCast() && hFuegoAvanzado->lanzado == true) {
         if (hFuegoAvanzado->tiempoCast.getTiempo() > 0.4) {
-            hFuegoAvanzado->SetScale(hFuegoAvanzado->actualSize.x, hFuegoAvanzado->actualSize.y);
+           // hFuegoAvanzado->SetScale(1.0, 1.0);
 
         }
         hFuegoAvanzado->DrawWithInterpolation(interpolation, GetPreviousPosition(), GetPosition());
@@ -914,9 +913,9 @@ if (hFuegoAvanzado->tiempoCast.getTiempo() < hFuegoAvanzado->getCast() && hFuego
 
     if (castFire2.getTiempo() < 0.4f) {
         SetFrameTime(sf::seconds(0.05f));
-        hFuegoAvanzado->SetScale(hFuegoAvanzado->actualSize.x * 1.1, hFuegoAvanzado->actualSize.y * 1.1);
+        /*hFuegoAvanzado->SetScale(hFuegoAvanzado->actualSize.x * 1.1, hFuegoAvanzado->actualSize.y * 1.1);
         hFuegoAvanzado->actualSize.x *= 1.05;
-        hFuegoAvanzado->actualSize.y *= 1.05;
+        hFuegoAvanzado->actualSize.y *= 1.05;*/
         //switch
         switch (cuadrante) {
             case 1:

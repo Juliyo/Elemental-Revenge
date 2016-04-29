@@ -57,7 +57,6 @@ bool Melee::HandleMapCollisions(const sf::Time& elapsedTime) {
         BoundingBox boundingArbol(indiceTopLeft.x*24,indiceTopLeft.y*24,24,24);
         
         //Hacer algo
-                printf("Top left\n");
 
         PhysicsState::SetSpeed(0,0);
         return true;
@@ -69,7 +68,6 @@ bool Melee::HandleMapCollisions(const sf::Time& elapsedTime) {
         //Hacer algo
         PhysicsState::SetSpeed(0,0);
         //printf("Dali\n");
-        printf("Top right\n");
                 return true;
 
 
@@ -78,7 +76,6 @@ bool Melee::HandleMapCollisions(const sf::Time& elapsedTime) {
         //std::cout<<"Colisiona esquina inferior izquierda"<<std::endl;
         BoundingBox boundingArbol((indiceBotLeft.x*24),(indiceBotLeft.y*24),24,24);
 
-        printf("bot left\n");
         PhysicsState::SetSpeed(0,0);
                 return true;
 
@@ -87,13 +84,11 @@ bool Melee::HandleMapCollisions(const sf::Time& elapsedTime) {
     else if(indiceBotRight.x>=0 && indiceBotRight.y>=0 && indiceBotRight.x<width &&  indiceBotRight.y<height && colisiones[indiceBotRight.y][indiceBotRight.x] == 1){
         //std::cout<<"Colisiona esquina inferior derecha"<<std::endl;
         BoundingBox boundingArbol((indiceBotRight.x*24),(indiceBotRight.y*24),24,24);
-        printf("bot right\n");
         PhysicsState::SetSpeed(0,0);
                 return true;
 
 
     }
-    printf("NO HAY COLISION\n");
     return false;
 
 }

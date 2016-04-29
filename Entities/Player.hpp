@@ -55,7 +55,7 @@ public:
 	
     void updateRayo(bool isShooting);
     void updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time elapsedTime);
-    void updateAgua(bool aguaBasicCast, bool aguaAdvancedCast, sf::Time elapsedTime, sf::Vector2f movement);
+    void updateAgua(bool aguaBasicCast, bool aguaAdvancedCast, sf::Time elapsedTime);
     void updateFlash();
     void renderRayo(sf::Time elapsedTime, float interpolation);
     void renderFuego(sf::Time elapsedTime, float interpolation);
@@ -130,6 +130,7 @@ public:
     bool isMovingDown;
     bool isMovingRight;
     bool isMovingLeft;
+    bool cantMove=false;
     
     //heal
     Heal *hHeal;
@@ -146,9 +147,8 @@ private:
     
     float velocity = 200.f;
     int vida = 15;
-	Reloj invulnerable;
+    Reloj invulnerable;
     bool aux;
-    bool cantMove = false;
 };
 
 #endif /* PLAYER_H */

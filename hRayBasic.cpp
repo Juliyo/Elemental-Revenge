@@ -114,6 +114,7 @@ void hRayBasic::cast(sf::Vector2f posicion) {
 }
 
 void hRayBasic::DrawWithInterpolation(float interpolation, const sf::Vector2f &posPrev, const sf::Vector2f &posNew) {
+    std::cout<<"Llega"<<std::endl;
     DrawAnimation(posPrev, posNew, interpolation, &anglePrev, &angleNew);
 }
 void hRayBasic::update(){
