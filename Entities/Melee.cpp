@@ -78,6 +78,7 @@ void Melee::FindPlayer(sf::Time elapsedTime) {
     int **colisiones = world->level->map->colisiones;
     int height = world->level->map->_height;
     int width = world->level->map->_width;
+    
 
     BoundingBox boundingEnemigo = CalculateNextRect(elapsedTime);
     sf::Vector2i indiceTopLeft = sf::Vector2i(boundingEnemigo.GetTopLeft().x/24,boundingEnemigo.GetTopLeft().y/24);
@@ -115,6 +116,7 @@ void Melee::FindPlayer(sf::Time elapsedTime) {
 }
 
 void Melee::Update(const sf::Time elapsedTime, float x1, float x2) {
+    InGame* world = InGame::Instance();
     sf::Vector2f movement(x1, x2);
     /*if (up)
         movement.y -= 100.f;
@@ -128,7 +130,8 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2) {
     //SetSpeed(nVelocity * Enemigo::GetVelocity());
     
     //SetSpeed(movement);
-    encontrarCamino();
+    world->pathfingind->encontrarCamino(world->player->getPosition(),getPosition());
+    camino=world->pathfingind->getCamino();
     FindPlayer(elapsedTime);
     //UpdateEnemigo(elapsedTime,mapa);
     //PhysicsState::Update(elapsedTime);

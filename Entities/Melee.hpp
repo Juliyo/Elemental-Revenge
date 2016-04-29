@@ -16,6 +16,7 @@
 
 #include "Enemigo.hpp"
 #include "../Motor/Collisionable.hpp"
+#include "../Motor/Nodo.hpp"
 namespace Tipo {
 
     enum ID {

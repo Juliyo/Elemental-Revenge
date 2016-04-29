@@ -73,13 +73,16 @@ void InGame::Inicializar() {
     player->CreateDynamicBody();
     melee = new std::vector<Melee*>();
     melee->reserve(50);
+
     
     for(int i=0;i<50;i++){
         melee->push_back(new Melee());
         melee->at(i)->Inicializar(1000.f + i*20, -1000.f + i*20,Tipo::ID::Rata);
         melee->at(i)->SetRectangleColision(0,0,37,39);
         melee->at(i)->CreateDynamicBody();
+        
     }
+        pathfingind=new PathFinding();
     
     try {
         spriteFondo.setTexture("resources/Textures/grasstext.png");

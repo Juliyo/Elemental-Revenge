@@ -26,6 +26,7 @@
 #include "../Entities/Player.hpp"
 #include "../Entities/Melee.hpp"
 #include <Box2D/Box2D.h>
+#include "../Motor/PathFinding.hpp"
 
 class InGame : public State {
 public:
@@ -63,11 +64,13 @@ public:
     sf::Music                   *musica2;
     
     b2World                     *physicWorld;
+    PathFinding                 *pathfingind;
+    Player			*player;
     
     Video *video;
 private:
     
-    Player			*player;
+    
     //Melee			*melee;
     std::vector<Melee*>         *melee;
     
