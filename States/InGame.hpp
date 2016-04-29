@@ -70,7 +70,7 @@ private:
     Player			*player;
     //Melee			*melee;
     std::vector<Melee*>         *melee;
-    
+    std::vector<bool>           *VectorBools;
     //Singletones
    /* Pause                       *pause;
     Muerte                      *muerte;*/

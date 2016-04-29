@@ -30,7 +30,10 @@ public:
     virtual ~Melee();
 
     void Inicializar(float posX, float posY, Tipo::ID tipo,float speedX = 0.f, float speedY = 0.f, float maxSpeedX = 1000.f, float maxSpeedY = 1000.f);
-    void Update(const sf::Time elapsedTime, float x1, float x2);
+    void Update(const sf::Time elapsedTime, float x1, float x2, float multiplicador);
+
+    
+    bool HandleMapCollisions(const sf::Time& elapsedTime);
 
     void Draw();
     void DrawWithInterpolation(float interpolation);

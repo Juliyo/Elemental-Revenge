@@ -19,6 +19,9 @@
 
 class Enemigo : public Entity{
 public:
+    
+
+    
     Enemigo();
     virtual ~Enemigo();
     

@@ -30,6 +30,7 @@ public:
     void Draw();
     void DrawWithInterpolation(float interpolation);
     
+    void HandleMapCollisions(const sf::Time& elapsedTime);
     
     PhysicsState* getPhysics();
     void UpdatePlayerAnimation(int x, int y);

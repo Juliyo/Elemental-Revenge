@@ -72,13 +72,17 @@ void InGame::Inicializar() {
     player -> Inicializar(1000.f, -1000.f);
     player->CreateDynamicBody();
     melee = new std::vector<Melee*>();
-    melee->reserve(50);
+    VectorBools = new std::vector<bool>();
+    VectorBools->reserve(30);
+    melee->reserve(30);
     
-    for(int i=0;i<50;i++){
+    for(int i=0;i<30;i++){
         melee->push_back(new Melee());
         melee->at(i)->Inicializar(1000.f + i*20, -1000.f + i*20,Tipo::ID::Rata);
         melee->at(i)->SetRectangleColision(0,0,37,39);
         melee->at(i)->CreateDynamicBody();
+        bool a=false;
+        VectorBools->push_back(a);
     }
     
     try {
@@ -106,7 +110,7 @@ void InGame::Inicializar() {
         exit(0);
     }
     updateView();
-    level->LoadMap(Niveles::ID::Level3);
+    level->LoadMap(Niveles::ID::Level1);
     video->Inicializar();
     
 }
@@ -119,12 +123,51 @@ void InGame::Update(sf::Time elapsedTime) {
         
         player -> Update(elapsedTime);
 
+        for (int i = 0; i < melee->size(); i++) {
+            
+           VectorBools->at(i)= melee->at(i)->HandleMapCollisions(elapsedTime);
+            
+            
+            
+        }
+
         
         for (int i = 0; i < melee->size(); i++) {
+            
+            if(VectorBools->at(i)==false){
             int x3 = player->getPosition().x - melee->at(i)->getPosition().x;
             int y3 = player->getPosition().y - melee->at(i)->getPosition().y;
-            melee->at(i)->Update(elapsedTime,x3,y3);
+            melee->at(i)->Update(elapsedTime,x3,y3,1);
+            }
+            else{
+
+            int x3;
+            int y3;
+                srand(time(NULL));
+
+                int random = rand() % 4; // v1 in the range 0 to 99
+    
+                if(random==0){
+                    x3=5000;
+                    y3=5000;
+                }
+                 
+                if(random==1){
+                     x3=-5000;
+                    y3=5000;
+                }
+                if(random==2){
+                     x3=-5000;
+                    y3=-5000;
+                }
+                if(random==3){
+                     x3=5000;
+                    y3=-5000;
+                }
+            melee->at(i)->Update(elapsedTime,x3,y3,2);
+            }
         }
+        
 
         if (player->hRayoBasico->tiempoCast.getTiempo() > player->hRayoBasico->getCast() && aux == true) {
             isShooting = false;
