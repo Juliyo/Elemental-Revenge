@@ -59,6 +59,10 @@
     <logicalFolder name="f4" displayName="Otros" projectFiles="true">
       <itemPath>Otros/BoundingBox.cpp</itemPath>
       <itemPath>Otros/BoundingBox.h</itemPath>
+      <itemPath>Otros/ContactListener.cpp</itemPath>
+      <itemPath>Otros/ContactListener.hpp</itemPath>
+      <itemPath>Otros/Dummy.cpp</itemPath>
+      <itemPath>Otros/Dummy.hpp</itemPath>
       <itemPath>Otros/MapFactory.cpp</itemPath>
       <itemPath>Otros/MapFactory.hpp</itemPath>
       <itemPath>Otros/ParalellTask.cpp</itemPath>
@@ -275,6 +279,14 @@
       </item>
       <item path="Otros/BoundingBox.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Otros/ContactListener.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Otros/ContactListener.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Otros/Dummy.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Otros/Dummy.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Otros/MapFactory.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Otros/MapFactory.hpp" ex="false" tool="3" flavor2="0">
@@ -481,6 +493,14 @@
       <item path="Otros/BoundingBox.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Otros/BoundingBox.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Otros/ContactListener.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Otros/ContactListener.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Otros/Dummy.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Otros/Dummy.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Otros/MapFactory.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -41,6 +41,15 @@ public:
     //virtual void OnColision(std::vector<Colision::Type> type) = 0;
     
     b2Body  *body;
+    /******Variables para el motor de físicas*****/
+    b2BodyDef *bodyDef;         //Objeto que representaria a nuestro sprite en el motor de físicas
+        
+    b2PolygonShape *shape;      //Representa un cuadrado o un circulo
+    
+    b2FixtureDef *fixtureDef;   //Añade una shape al BodyDef y define unas propiedades
+                                //fisicas. p ej: friccion, densidad
+    
+    b2World *physicWorld;       //Puntero al objeto principal del motor
 
 protected:
     
@@ -56,16 +65,6 @@ protected:
 
     bool CheckColision(const Collisionable& ent);
     bool CheckColision(const BoundingBox& rec);
-    
-    /******Variables para el motor de físicas*****/
-    b2BodyDef *bodyDef;         //Objeto que representaria a nuestro sprite en el motor de físicas
-        
-    b2PolygonShape *shape;      //Representa un cuadrado o un circulo
-    
-    b2FixtureDef *fixtureDef;   //Añade una shape al BodyDef y define unas propiedades
-                                //fisicas. p ej: friccion, densidad
-    
-    b2World *physicWorld;       //Puntero al objeto principal del motor
     
 };
 

@@ -12,6 +12,8 @@
  */
 
 #include "../Headers/Flash.hpp"
+#include "States/InGame.hpp"
+#include "Otros/tmxHelper.hpp"
 
 Flash::Flash(int animation) {
     dibujar = false;

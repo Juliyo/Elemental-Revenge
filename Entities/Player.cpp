@@ -630,7 +630,18 @@ void Player::heal() {
 }
 
 void Player::Colocar(sf::Vector2f NuevaPosicion) {
-    SetPosition(NuevaPosicion);
+    Dummy* dummy = InGame::Instance()->dummy;
+    //dummy->body->SetTransform(tmx::SfToBoxVec(NuevaPosicion),body->GetAngle());
+    //bool colision = dummy->getCollision(NuevaPosicion);
+    sf::Vector2f resultado = NuevaPosicion - GetPosition();
+    resultado.x = resultado.x * 10;
+    resultado.y = resultado.y * 10;
+    body->ApplyLinearImpulse(tmx::SfToBoxVec(resultado),body->GetWorldCenter(),true);
+    //if(!colision){
+       SetPosition(NuevaPosicion);
+       //body->SetTransform(tmx::SfToBoxVec(NuevaPosicion),body->GetAngle()); 
+    //}
+    
 }
 
 void Player::updateRayo(bool isShooting) {

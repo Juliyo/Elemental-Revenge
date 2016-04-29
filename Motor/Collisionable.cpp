@@ -16,6 +16,7 @@
 #include "SFML/System/Time.hpp"
 #include "../Otros/tmxHelper.hpp"
 #include "../States/InGame.hpp"
+#include "../Otros/Dummy.hpp"
 
 
 Collisionable::Collisionable(Entity* ent) {
@@ -36,7 +37,6 @@ void Collisionable::CreateDynamicBody() {
     bodyDef->type = b2_dynamicBody; 
     bodyDef->position.Set(tmx::SfToBoxFloat(entity->GetPosition().x),tmx::SfToBoxFloat(entity->GetPosition().y));
     bodyDef->fixedRotation = true;
-    
     //Añadimos el objeto al mundo
     body = physicWorld->CreateBody(bodyDef);
     
@@ -44,7 +44,6 @@ void Collisionable::CreateDynamicBody() {
     //del BoundingBox
     shape = new b2PolygonShape();
     shape->SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f));
-    
     //Objeto que le da las propiedades fisicas al bodyDef
     fixtureDef = new b2FixtureDef();
     fixtureDef->shape = shape;
@@ -120,3 +119,6 @@ int Collisionable::GetYDepth(const BoundingBox& rec){
         return abs(rec.GetTopRight().y - bPlayer.GetBottomLeft().y);
     }
 }
+
+
+

@@ -26,6 +26,8 @@
 #include "../Entities/Player.hpp"
 #include "../Entities/Melee.hpp"
 #include <Box2D/Box2D.h>
+#include "../Otros/Dummy.hpp"
+#include "../Otros/ContactListener.hpp"
 
 class InGame : public State {
 public:
@@ -65,9 +67,11 @@ public:
     b2World                     *physicWorld;
     
     Video *video;
+    Player			*player;
+    Dummy                       *dummy;
 private:
     
-    Player			*player;
+    
     //Melee			*melee;
     std::vector<Melee*>         *melee;
     
@@ -114,6 +118,7 @@ private:
     bool                        isHealing = false;
     int                         anterior=0;
     static InGame* mInstance;
+    ContactListener             *ct;
 };
 
 #endif /* INGAME_HPP */

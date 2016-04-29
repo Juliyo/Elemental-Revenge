@@ -62,7 +62,7 @@ public:
     void renderHeal(sf::Time elapsedTime, float interpolation);
     void renderFlash(sf::Time elapsedTime, float interpolation);
 	
-	void Colocar(sf::Vector2f NuevaPosicion);
+    void Colocar(sf::Vector2f NuevaPosicion);
 
     void SetVida(int vida) {
         this->vida = vida;
