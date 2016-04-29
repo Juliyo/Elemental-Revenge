@@ -32,18 +32,7 @@ public:
             costoTotal = costoG + Calcularcosto();
         }
     }
-        Nodo(Nodo nodoPadre, Nodo nodoFinal, float x,float y, float costo) {
-        NodoPadre = nodoPadre;
-        NodoFinal = nodoFinal;
-        posicion = pos;
-        costoG = costo;
-        //calculo de la posicion del nodo en la matriz del mapa 
-        casillaX = posicion.x / 24;
-        casillaY = posicion.y / 24;
-        if (nodoFinal != NULL) {
-            costoTotal = costoG + Calcularcosto();
-        }
-    }
+
     virtual ~Nodo();
 
     Nodo NodoPadre;

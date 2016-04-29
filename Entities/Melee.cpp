@@ -128,7 +128,7 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2) {
     //SetSpeed(nVelocity * Enemigo::GetVelocity());
     
     //SetSpeed(movement);
-    
+    encontrarCamino();
     FindPlayer(elapsedTime);
     //UpdateEnemigo(elapsedTime,mapa);
     //PhysicsState::Update(elapsedTime);
