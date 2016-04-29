@@ -65,9 +65,11 @@ public:
     b2World                     *physicWorld;
     
     Video *video;
-private:
     
     Player			*player;
+private:
+    
+    
     //Melee			*melee;
     std::vector<Melee*>         *melee;
     

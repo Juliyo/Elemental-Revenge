@@ -284,32 +284,6 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
 
     level->render();
     
-    //****************************RAYO************************************
-    player->renderRayo(elapsedTime, interpolation);
-    //****************************FUEGO************************************
-    player->renderFuego(elapsedTime, interpolation);
-    //****************************AGUA************************************
-    player->renderAgua(elapsedTime, interpolation);
-    //*********************HEAL**********************************
-    player->renderHeal(elapsedTime, interpolation);
-    //****************************RENDER PLAYER************************************
-    /*if (mapa->getMapaActual() == 1) {
-        mapa->dibujaMapa1();
-    }
-    if (mapa->getMapaActual() == 2) {
-        mapa->dibujaMapa2();
-    }
-    if (mapa->getMapaActual() == 3) {
-        mapa->dibujaMapa3();
-    }*/
-    
-
-    player -> PlayAnimation(*player -> currentAnimation);
-
-    /* for(int i=0;i<player->shapes.size();i++){
-         motor->draw(player->shapes.at(i));
-     }*/
-
     for (int i = 0; i < melee->size(); i++) {
         if (melee->at(i)->getSpeed().x == 0 && melee->at(i)->getSpeed().y == 0) {
             switch (melee->at(i)->cuadrante) {
@@ -332,6 +306,24 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
         melee->at(i)->DrawWithInterpolation(interpolation);
 
     }
+    //****************************RAYO************************************
+    player->renderRayo(elapsedTime, interpolation);
+    //****************************FUEGO************************************
+    player->renderFuego(elapsedTime, interpolation);
+    //****************************AGUA************************************
+    player->renderAgua(elapsedTime, interpolation);
+    //*********************HEAL**********************************
+    player->renderHeal(elapsedTime, interpolation);
+    //****************************RENDER PLAYER************************************
+    
+
+    player -> PlayAnimation(*player -> currentAnimation);
+
+    /* for(int i=0;i<player->shapes.size();i++){
+         motor->draw(player->shapes.at(i));
+     }*/
+
+    
     if ((!player->isMovingDown && !player->isMovingLeft && !player->isMovingRight && !player->isMovingUp) && player->castFire.getTiempo() > 0.45f && player->castFire2.getTiempo() > 0.4f) {
         player -> StopAnimation();
     }

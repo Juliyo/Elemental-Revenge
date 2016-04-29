@@ -12,14 +12,13 @@
  */
 
 #include "../Headers/hWaterBasic.hpp"
-#ifdef _WIN32
-#include <Windows.h>
 #include <iostream>
 #include "../Headers/AnimatedSprite.hpp"
 #include "../Headers/Animation.hpp"
 #include "Headers/Util.hpp"
 #include "Hud.hpp"
-#endif
+#include "States/InGame.hpp"
+#include "../Otros/tmxHelper.hpp"
 
 hWaterBasic::hWaterBasic() {
     animation = new Animation();
@@ -74,7 +73,6 @@ void hWaterBasic::cast(sf::Vector2f posicion, Hud *hud) {
 
     if (clockCd.getTiempo() > getCD() || primerCast == true) {
         clockCd.restart();
-        
         primerCast = false;
         hud->resetAgua1();
         float angleShot = Motor2D::Instance()->getAngleShot(posicion);
@@ -95,10 +93,13 @@ void hWaterBasic::DrawWithInterpolation(float interpolation) {
 }
 
 void hWaterBasic::Update(sf::Vector2f velocity, sf::Time elapsedTime, float playerV) {
+    Player *player = InGame::Instance()->player;
     /**Hay que normalizar la velocidad**/
-    sf::Vector2f nVelocity = Util::Normalize(velocity);
-    SetSpeed(nVelocity * playerV);
-    PhysicsState::Update(elapsedTime);
+    /*sf::Vector2f nVelocity = Util::Normalize(velocity);
+    SetSpeed(velocity);
+    PhysicsState::Update(elapsedTime);*/
+    sf::Vector2f posicionAgua = tmx::BoxToSfVec(player->body->GetPosition());
+    SetPosition(sf::Vector2f(posicionAgua.x + 10 * cos(angleshot2) * 1.0f,posicionAgua.y + 20 * sin(angleshot2) * 1.0f));
 }
 
 void hWaterBasic::setDibujar(bool NuevoDibujar) {

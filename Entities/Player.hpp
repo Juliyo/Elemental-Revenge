@@ -146,7 +146,7 @@ private:
     
     float velocity = 200.f;
     int vida = 15;
-	Reloj invulnerable;
+    Reloj invulnerable;
     bool aux;
 };
 
