@@ -126,7 +126,7 @@ void InGame::Update(sf::Time elapsedTime) {
         for (int i = 0; i < melee->size(); i++) {
             int x3 = player->getPosition().x - melee->at(i)->getPosition().x;
             int y3 = player->getPosition().y - melee->at(i)->getPosition().y;
-            melee->at(i)->Update(elapsedTime,x3,y3);
+            melee->at(i)->Update(elapsedTime,x3,y3); 
         }
 
         if (player->hRayoBasico->tiempoCast.getTiempo() > player->hRayoBasico->getCast() && aux == true) {
