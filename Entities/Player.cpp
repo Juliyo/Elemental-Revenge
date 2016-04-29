@@ -408,162 +408,159 @@ void Player::Update(const sf::Time elapsedTime) {
 
 }
 
-//void Player::HandleMapCollisions(const sf::Time& elapsedTime) {
-//    InGame* world = InGame::Instance();
-//   /* for (int i = 0; i < objetosCercanos.size(); i++) {
-//        BoundingBox bb(objetosCercanos.at(i)->GetAABB());
-//        if (CheckColision(bb, elapsedTime)) {
-//            type = TypeOfColision(bb, elapsedTime);
-//            OnColision(type);
-//        }
-//    }*/
-//    int tileWidth = 24;
-//    int tileHeight = 24;
-//    int **colisiones = world->level->map->colisiones;
-//    int height = world->level->map->_height;
-//    int width = world->level->map->_width;
-//    /*for(int i=0 ; i < width ; i++){
-//        for(int j= 0;j<height; j++){
-//            std::cout<<colisiones[i][j];
-//        }
-//        std::cout<<std::endl;
-//    }*/
-//
-//    //BoundingBox boundingPlayer = CalculateNextRect(elapsedTime);
-//    sf::Vector2i indiceTopLeft = sf::Vector2i(boundingPlayer.GetTopLeft().x/24,boundingPlayer.GetTopLeft().y/24);
-//    sf::Vector2i indiceTopRight = sf::Vector2i(boundingPlayer.GetTopRight().x/24,boundingPlayer.GetTopRight().y/24);
-//    sf::Vector2i indiceBotLeft = sf::Vector2i(boundingPlayer.GetBottomLeft().x/24,boundingPlayer.GetBottomLeft().y/24);
-//    sf::Vector2i indiceBotRight = sf::Vector2i(boundingPlayer.GetBottomRight().x/24,boundingPlayer.GetBottomRight().y/24);
-//    /*std::cout<<"xTopright"<<indiceTopRight.x<<" , "<<"yTopright"<<indiceTopRight.y<<std::endl;
-//    std::cout<<"Valor mapa"<<colisiones[indiceTopRight.x][indiceTopRight.y]<<std::endl;*/
-//    if(colisiones[indiceTopLeft.y][indiceTopLeft.x] == 1){
-//        //std::cout<<"Colisiona esquina superior izquierda"<<std::endl;
-//        BoundingBox boundingArbol(indiceTopLeft.x*24,indiceTopLeft.y*24,24,24);
-//        
-//        //Hacer algo
-//        SetSpeed(0,0);
-//    }
-//    else if(colisiones[indiceTopRight.y][indiceTopRight.x] == 1){
-//        //std::cout<<"Colisiona esquina superior derecha"<<std::endl;
-//        BoundingBox boundingArbol((indiceTopRight.x*24),(indiceTopRight.y*24),24,24);
-//        //Hacer algo
-//        SetSpeed(0,0);
-//    }
-//    else if(colisiones[indiceBotLeft.y][indiceBotLeft.x] == 1){
-//        //std::cout<<"Colisiona esquina inferior izquierda"<<std::endl;
-//        BoundingBox boundingArbol((indiceBotLeft.x*24),(indiceBotLeft.y*24),24,24);
-//        playerShape.setPosition(sf::Vector2f(indiceBotLeft.x*24,indiceBotLeft.y*24));
-//        playerShape.setFillColor(sf::Color::Red);
-//        
-//        SetSpeed(0,0);
-//    }
-//    else if(colisiones[indiceBotRight.y][indiceBotRight.x] == 1){
-//        //std::cout<<"Colisiona esquina inferior derecha"<<std::endl;
-//        BoundingBox boundingArbol((indiceBotRight.x*24),(indiceBotRight.y*24),24,24);
-//        playerShape.setPosition(sf::Vector2f(indiceBotRight.x*24,indiceBotRight.y*24));
-//        playerShape.setFillColor(sf::Color::Red);
-//        
-//        SetSpeed(0,0);
-//    }
-//    /*sf::Vector2f nextPos = GetNextPosition(elapsedTime);
-//    int top=(int)nextPos.y-16;
-//    int bot=(int)nextPos.y+16;
-//    int left=(int)nextPos.x-16;
-//    int right=(int)nextPos.x+16;
-//    int left_right = (left+right)/2;
-//    int top_bot = (top+bot)/2;
-//    top=top/16;
-//    bot=bot/16;
-//    left=left/16;
-//    right=right/16;
-//    left_right=left_right/16;
-//    top_bot=top_bot/16;
-//    
-//     sf::Vector2f speed2 = speed;
-//    if (mapa->_tilemap[3][top][left_right] != 0 && mapa->_tilemap[3][top_bot][left] != 0) {
-//        posPrev = posNew;
-//    }else if (mapa->_tilemap[3][top][left_right] != 0 && mapa->_tilemap[3][top_bot][right] != 0) {
-//        posPrev = posNew;
-//    }else if (mapa->_tilemap[3][bot][left_right] != 0 && mapa->_tilemap[3][top_bot][left] != 0) {
-//        posPrev = posNew;
-//    }else if (mapa->_tilemap[3][bot][left_right] != 0 && mapa->_tilemap[3][top_bot][right] != 0) {
-//        posPrev = posNew;
-//    }else if (mapa->_tilemap[3][top][left_right] != 0) {
-//        if(speed2.y<0){
-//               speed2.y=0;  
-//             }
-//             posPrev = posNew;
-//             posNew += speed2 * elapsedTime.asSeconds();
-//    }else if (mapa->_tilemap[3][bot][left_right] != 0) {
-//         if(speed2.y>0){
-//               speed2.y=0;  
-//             }
-//             posPrev = posNew;
-//             posNew += speed2 * elapsedTime.asSeconds();
-//    }else if (mapa->_tilemap[3][top_bot][left] != 0) {
-//        if(speed2.x<0){
-//               speed2.x=0;  
-//             }
-//             posPrev = posNew;
-//             posNew += speed2 * elapsedTime.asSeconds();
-//    }else if (mapa->_tilemap[3][top_bot][right] != 0) {
-//                if(speed2.x>0){
-//               speed2.x=0;  
-//             }
-//             posPrev = posNew;
-//             posNew += speed2 * elapsedTime.asSeconds();
-//    }else if (mapa->_tilemap[3][top][left] != 0 && mapa->_tilemap[3][top_bot][left] == 0 && mapa->_tilemap[3][top][left_right] == 0) {
-//             if(speed2.y<0){
-//               speed2.y=0;  
-//             }
-//             if(speed2.x<0){
-//               speed2.x=0;  
-//             }
-//             posPrev = posNew;
-//             posNew += speed2 * elapsedTime.asSeconds();
-//
-//    }else if (mapa->_tilemap[3][top][right] != 0 && mapa->_tilemap[3][top_bot][right] == 0 && mapa->_tilemap[3][top][left_right] == 0) {
-//             if(speed2.y<0){
-//               speed2.y=0;  
-//             }
-//             if(speed2.x>0){
-//               speed2.x=0;  
-//             }
-//             posPrev = posNew;
-//             posNew += speed2 * elapsedTime.asSeconds();
-//
-//             posPrev = posNew;
-//    } else if (mapa->_tilemap[3][bot][left] != 0 && mapa->_tilemap[3][top_bot][left] == 0 && mapa->_tilemap[3][bot][left_right] == 0) {
-//             if(speed2.y>0){
-//               speed2.y=0;  
-//             }
-//             if(speed2.x<0){
-//               speed2.x=0;  
-//             }
-//             posPrev = posNew;
-//             posNew += speed2 * elapsedTime.asSeconds();
-//             
-//
-//    }else if (mapa->_tilemap[3][bot][right] != 0 && mapa->_tilemap[3][top_bot][right] == 0 && mapa->_tilemap[3][bot][left_right] == 0) {
-//             if(speed2.y>0){
-//               speed2.y=0;  
-//             }
-//             if(speed2.x>0){
-//               speed2.x=0;  
-//             }
-//             posPrev = posNew;
-//             posNew += speed2 * elapsedTime.asSeconds();
-//
-//             posPrev = posNew;
-//    } else{
-//        posPrev = posNew;
-//        posNew += speed * elapsedTime.asSeconds();
-//    }*/
-//
-//
-//
-//
-//}
+void Player::HandleMapCollisions(const sf::Time& elapsedTime) {
+    InGame* world = InGame::Instance();
+   /* for (int i = 0; i < objetosCercanos.size(); i++) {
+        BoundingBox bb(objetosCercanos.at(i)->GetAABB());
+        if (CheckColision(bb, elapsedTime)) {
+            type = TypeOfColision(bb, elapsedTime);
+            OnColision(type);
+        }
+    }*/
+    int tileWidth = 24;
+    int tileHeight = 24;
+    int **colisiones = world->level->map->colisiones;
+    int height = world->level->map->_height;
+    int width = world->level->map->_width;
+    /*for(int i=0 ; i < width ; i++){
+        for(int j= 0;j<height; j++){
+            std::cout<<colisiones[i][j];
+        }
+        std::cout<<std::endl;
+    }*/
+
+    BoundingBox boundingPlayer = Collisionable::CalculateNextRect(elapsedTime);
+    sf::Vector2i indiceTopLeft = sf::Vector2i(boundingPlayer.GetTopLeft().x/24,boundingPlayer.GetTopLeft().y/24);
+    sf::Vector2i indiceTopRight = sf::Vector2i(boundingPlayer.GetTopRight().x/24,boundingPlayer.GetTopRight().y/24);
+    sf::Vector2i indiceBotLeft = sf::Vector2i(boundingPlayer.GetBottomLeft().x/24,boundingPlayer.GetBottomLeft().y/24);
+    sf::Vector2i indiceBotRight = sf::Vector2i(boundingPlayer.GetBottomRight().x/24,boundingPlayer.GetBottomRight().y/24);
+    /*std::cout<<"xTopright"<<indiceTopRight.x<<" , "<<"yTopright"<<indiceTopRight.y<<std::endl;
+    std::cout<<"Valor mapa"<<colisiones[indiceTopRight.x][indiceTopRight.y]<<std::endl;*/
+    if(colisiones[indiceTopLeft.y][indiceTopLeft.x] == 1){
+        //std::cout<<"Colisiona esquina superior izquierda"<<std::endl;
+        BoundingBox boundingArbol(indiceTopLeft.x*24,indiceTopLeft.y*24,24,24);
+        
+        //Hacer algo
+        PhysicsState::SetSpeed(0,0);
+    }
+    else if(colisiones[indiceTopRight.y][indiceTopRight.x] == 1){
+        //std::cout<<"Colisiona esquina superior derecha"<<std::endl;
+        BoundingBox boundingArbol((indiceTopRight.x*24),(indiceTopRight.y*24),24,24);
+        //Hacer algo
+        PhysicsState::SetSpeed(0,0);
+    }
+    else if(colisiones[indiceBotLeft.y][indiceBotLeft.x] == 1){
+        //std::cout<<"Colisiona esquina inferior izquierda"<<std::endl;
+        BoundingBox boundingArbol((indiceBotLeft.x*24),(indiceBotLeft.y*24),24,24);
+
+        
+        PhysicsState::SetSpeed(0,0);
+    }
+    else if(colisiones[indiceBotRight.y][indiceBotRight.x] == 1){
+        //std::cout<<"Colisiona esquina inferior derecha"<<std::endl;
+        BoundingBox boundingArbol((indiceBotRight.x*24),(indiceBotRight.y*24),24,24);
+
+        PhysicsState::SetSpeed(0,0);
+    }
+    /*sf::Vector2f nextPos = GetNextPosition(elapsedTime);
+    int top=(int)nextPos.y-16;
+    int bot=(int)nextPos.y+16;
+    int left=(int)nextPos.x-16;
+    int right=(int)nextPos.x+16;
+    int left_right = (left+right)/2;
+    int top_bot = (top+bot)/2;
+    top=top/16;
+    bot=bot/16;
+    left=left/16;
+    right=right/16;
+    left_right=left_right/16;
+    top_bot=top_bot/16;
+    
+     sf::Vector2f speed2 = speed;
+    if (mapa->_tilemap[3][top][left_right] != 0 && mapa->_tilemap[3][top_bot][left] != 0) {
+        posPrev = posNew;
+    }else if (mapa->_tilemap[3][top][left_right] != 0 && mapa->_tilemap[3][top_bot][right] != 0) {
+        posPrev = posNew;
+    }else if (mapa->_tilemap[3][bot][left_right] != 0 && mapa->_tilemap[3][top_bot][left] != 0) {
+        posPrev = posNew;
+    }else if (mapa->_tilemap[3][bot][left_right] != 0 && mapa->_tilemap[3][top_bot][right] != 0) {
+        posPrev = posNew;
+    }else if (mapa->_tilemap[3][top][left_right] != 0) {
+        if(speed2.y<0){
+               speed2.y=0;  
+             }
+             posPrev = posNew;
+             posNew += speed2 * elapsedTime.asSeconds();
+    }else if (mapa->_tilemap[3][bot][left_right] != 0) {
+         if(speed2.y>0){
+               speed2.y=0;  
+             }
+             posPrev = posNew;
+             posNew += speed2 * elapsedTime.asSeconds();
+    }else if (mapa->_tilemap[3][top_bot][left] != 0) {
+        if(speed2.x<0){
+               speed2.x=0;  
+             }
+             posPrev = posNew;
+             posNew += speed2 * elapsedTime.asSeconds();
+    }else if (mapa->_tilemap[3][top_bot][right] != 0) {
+                if(speed2.x>0){
+               speed2.x=0;  
+             }
+             posPrev = posNew;
+             posNew += speed2 * elapsedTime.asSeconds();
+    }else if (mapa->_tilemap[3][top][left] != 0 && mapa->_tilemap[3][top_bot][left] == 0 && mapa->_tilemap[3][top][left_right] == 0) {
+             if(speed2.y<0){
+               speed2.y=0;  
+             }
+             if(speed2.x<0){
+               speed2.x=0;  
+             }
+             posPrev = posNew;
+             posNew += speed2 * elapsedTime.asSeconds();
+
+    }else if (mapa->_tilemap[3][top][right] != 0 && mapa->_tilemap[3][top_bot][right] == 0 && mapa->_tilemap[3][top][left_right] == 0) {
+             if(speed2.y<0){
+               speed2.y=0;  
+             }
+             if(speed2.x>0){
+               speed2.x=0;  
+             }
+             posPrev = posNew;
+             posNew += speed2 * elapsedTime.asSeconds();
+
+             posPrev = posNew;
+    } else if (mapa->_tilemap[3][bot][left] != 0 && mapa->_tilemap[3][top_bot][left] == 0 && mapa->_tilemap[3][bot][left_right] == 0) {
+             if(speed2.y>0){
+               speed2.y=0;  
+             }
+             if(speed2.x<0){
+               speed2.x=0;  
+             }
+             posPrev = posNew;
+             posNew += speed2 * elapsedTime.asSeconds();
+             
+
+    }else if (mapa->_tilemap[3][bot][right] != 0 && mapa->_tilemap[3][top_bot][right] == 0 && mapa->_tilemap[3][bot][left_right] == 0) {
+             if(speed2.y>0){
+               speed2.y=0;  
+             }
+             if(speed2.x>0){
+               speed2.x=0;  
+             }
+             posPrev = posNew;
+             posNew += speed2 * elapsedTime.asSeconds();
+
+             posPrev = posNew;
+    } else{
+        posPrev = posNew;
+        posNew += speed * elapsedTime.asSeconds();
+    }*/
+
+
+
+
+}
 
 void Player::Draw() {
     GetSprite().setPosition(GetPosition().x, GetPosition().y);
@@ -713,9 +710,9 @@ void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time e
                 hFuegoAvanzado->lanzado = true;
                 castFire2.restart();
 
-                hFuegoAvanzado->actualSize.x = 0.3;
+                /*hFuegoAvanzado->actualSize.x = 0.3;
                 hFuegoAvanzado->actualSize.y = 0.3;
-                hFuegoAvanzado->SetScale(0.3, 0.3);
+                hFuegoAvanzado->SetScale(0.3, 0.3);*/
                 hFuegoAvanzado->cast(sf::Vector2f(getPosition()));
                 
                 hud->resetFuego2();
@@ -734,8 +731,8 @@ void Player::updateAgua(bool aguaBasicCast, bool aguaAdvancedCast, sf::Time elap
         hAguaBasico->cast(sf::Vector2f(getPosition()), hud);
     }
     if ( hAguaBasico->tiempoCast.getTiempo() < 0.5f &&  hAguaBasico->dibujar == true) {
-        hAguaBasico->Update(movement, elapsedTime,GetVelocity());
-
+        hAguaBasico->Update(movement, elapsedTime, GetVelocity());
+        
         
         /* **************************PARA LA FUTURA CLASE ENTITY*************************
         if (hAguaBasico->GetGlobalBounds().intersects(enemigo[0].getSprite().getGlobalBounds())) {
@@ -892,7 +889,7 @@ void Player::renderRayo(sf::Time elapsedTime,float interpolation) {
 void Player::renderFuego(sf::Time elapsedTime, float interpolation) {
 if (hFuegoAvanzado->tiempoCast.getTiempo() < hFuegoAvanzado->getCast() && hFuegoAvanzado->lanzado == true) {
         if (hFuegoAvanzado->tiempoCast.getTiempo() > 0.4) {
-            hFuegoAvanzado->SetScale(hFuegoAvanzado->actualSize.x, hFuegoAvanzado->actualSize.y);
+           // hFuegoAvanzado->SetScale(1.0, 1.0);
 
         }
         hFuegoAvanzado->DrawWithInterpolation(interpolation, GetPreviousPosition(), GetPosition());
@@ -927,9 +924,9 @@ if (hFuegoAvanzado->tiempoCast.getTiempo() < hFuegoAvanzado->getCast() && hFuego
 
     if (castFire2.getTiempo() < 0.4f) {
         SetFrameTime(sf::seconds(0.05f));
-        hFuegoAvanzado->SetScale(hFuegoAvanzado->actualSize.x * 1.1, hFuegoAvanzado->actualSize.y * 1.1);
+        /*hFuegoAvanzado->SetScale(hFuegoAvanzado->actualSize.x * 1.1, hFuegoAvanzado->actualSize.y * 1.1);
         hFuegoAvanzado->actualSize.x *= 1.05;
-        hFuegoAvanzado->actualSize.y *= 1.05;
+        hFuegoAvanzado->actualSize.y *= 1.05;*/
         //switch
         switch (cuadrante) {
             case 1:

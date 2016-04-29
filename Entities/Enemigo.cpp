@@ -18,4 +18,3 @@ Enemigo::Enemigo() {
 
 Enemigo::~Enemigo() {
 }
-

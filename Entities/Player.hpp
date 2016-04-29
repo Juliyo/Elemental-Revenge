@@ -30,6 +30,7 @@ public:
     void Draw();
     void DrawWithInterpolation(float interpolation);
     
+    void HandleMapCollisions(const sf::Time& elapsedTime);
     
     PhysicsState* getPhysics();
     void UpdatePlayerAnimation(int x, int y);
@@ -146,7 +147,7 @@ private:
     
     float velocity = 200.f;
     int vida = 15;
-	Reloj invulnerable;
+    Reloj invulnerable;
     bool aux;
 };
 

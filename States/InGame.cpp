@@ -76,13 +76,18 @@ void InGame::Inicializar() {
     dummy = new Dummy();
     dummy->CreateDynamicBody();
     melee = new std::vector<Melee*>();
-    melee->reserve(50);
+    VectorBools = new std::vector<bool>();
+    VectorBools->reserve(30);
+    melee->reserve(30);
+    
+    for(int i=0;i<30;i++){
 
-    for (int i = 0; i < 50; i++) {
         melee->push_back(new Melee());
         melee->at(i)->Inicializar(1000.f + i * 20, -1000.f + i * 20, Tipo::ID::Rata);
         melee->at(i)->SetRectangleColision(0, 0, 37, 39);
         melee->at(i)->CreateDynamicBody();
+        bool a=false;
+        VectorBools->push_back(a);
     }
 
     try {
@@ -110,7 +115,7 @@ void InGame::Inicializar() {
         exit(0);
     }
     updateView();
-    level->LoadMap(Niveles::ID::Level3);
+    level->LoadMap(Niveles::ID::Level1);
     video->Inicializar();
 
 }
@@ -123,12 +128,53 @@ void InGame::Update(sf::Time elapsedTime) {
 
         player -> Update(elapsedTime);
 
+        for (int i = 0; i < melee->size(); i++) {
+            
+           VectorBools->at(i)= melee->at(i)->HandleMapCollisions(elapsedTime);
+            
+            
+            
+        }
+
+        
 
         for (int i = 0; i < melee->size(); i++) {
+            
+            if(VectorBools->at(i)==false){
             int x3 = player->getPosition().x - melee->at(i)->getPosition().x;
             int y3 = player->getPosition().y - melee->at(i)->getPosition().y;
-            melee->at(i)->Update(elapsedTime, x3, y3);
+            melee->at(i)->Update(elapsedTime,x3,y3,1);
+            }
+            else{
+
+            int x3;
+            int y3;
+                srand(time(NULL));
+
+                int random = rand() % 4; // v1 in the range 0 to 99
+    
+                if(random==0){
+                    x3=5000;
+                    y3=5000;
+                }
+                 
+                if(random==1){
+                     x3=-5000;
+                    y3=5000;
+                }
+                if(random==2){
+                     x3=-5000;
+                    y3=-5000;
+                }
+                if(random==3){
+                     x3=5000;
+                    y3=-5000;
+                }
+            melee->at(i)->Update(elapsedTime,x3,y3,2);
+            }
+
         }
+        
 
         //**************************RAYO**********************
         if (hActivo == 1) {
@@ -288,32 +334,6 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
 
     level->render();
     
-    //****************************RAYO************************************
-    player->renderRayo(elapsedTime, interpolation);
-    //****************************FUEGO************************************
-    player->renderFuego(elapsedTime, interpolation);
-    //****************************AGUA************************************
-    player->renderAgua(elapsedTime, interpolation);
-    //*********************HEAL**********************************
-    player->renderHeal(elapsedTime, interpolation);
-    //****************************RENDER PLAYER************************************
-    /*if (mapa->getMapaActual() == 1) {
-        mapa->dibujaMapa1();
-    }
-    if (mapa->getMapaActual() == 2) {
-        mapa->dibujaMapa2();
-    }
-    if (mapa->getMapaActual() == 3) {
-        mapa->dibujaMapa3();
-    }*/
-    
-
-    player -> PlayAnimation(*player -> currentAnimation);
-
-    /* for(int i=0;i<player->shapes.size();i++){
-         motor->draw(player->shapes.at(i));
-     }*/
-
     for (int i = 0; i < melee->size(); i++) {
         if (melee->at(i)->getSpeed().x == 0 && melee->at(i)->getSpeed().y == 0) {
             switch (melee->at(i)->cuadrante) {
@@ -336,6 +356,24 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
         melee->at(i)->DrawWithInterpolation(interpolation);
 
     }
+    //****************************RAYO************************************
+    player->renderRayo(elapsedTime, interpolation);
+    //****************************FUEGO************************************
+    player->renderFuego(elapsedTime, interpolation);
+    //****************************AGUA************************************
+    player->renderAgua(elapsedTime, interpolation);
+    //*********************HEAL**********************************
+    player->renderHeal(elapsedTime, interpolation);
+    //****************************RENDER PLAYER************************************
+    
+
+    player -> PlayAnimation(*player -> currentAnimation);
+
+    /* for(int i=0;i<player->shapes.size();i++){
+         motor->draw(player->shapes.at(i));
+     }*/
+
+    
     if ((!player->isMovingDown && !player->isMovingLeft && !player->isMovingRight && !player->isMovingUp) && player->castFire.getTiempo() > 0.45f && player->castFire2.getTiempo() > 0.4f) {
         player -> StopAnimation();
     }

@@ -71,10 +71,9 @@ public:
     Dummy                       *dummy;
 private:
     
-    
     //Melee			*melee;
     std::vector<Melee*>         *melee;
-    
+    std::vector<bool>           *VectorBools;
     //Singletones
    /* Pause                       *pause;
     Muerte                      *muerte;*/
