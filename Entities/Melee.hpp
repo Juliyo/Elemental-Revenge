@@ -16,6 +16,10 @@
 
 #include "Enemigo.hpp"
 #include "../Motor/Collisionable.hpp"
+#include "../Headers/hFireBasic.hpp"
+#include "Animation.hpp"
+
+
 namespace Tipo {
 
     enum ID {
@@ -54,6 +58,28 @@ public:
     Animation *walkingAnimationLeft;
     Animation *walkingAnimationRight;
     Animation *walkingAnimationUp;
+    
+    
+        //Animaciones fuego1
+    Animation *fuegoAnimationDown;
+    Animation *fuegoAnimationLeft;
+    Animation *fuegoAnimationRight;
+    Animation *fuegoAnimationUp;
+    
+    void updateFuego(bool fuegoBasicCast, sf::Time elapsedTime);
+    void renderFuego(sf::Time elapsedTime, float interpolation);
+
+    int contFuego = 0;
+    Reloj clockCDFire; //Variable de clase para el cd
+    float CDFire = 0.35f;
+    Reloj castFire; //Variable de clase para el casteo
+    Reloj castFire2; //Variable de clase para el casteo
+    bool primercastFuego; //Variable de clase para el primer casteo
+
+    
+    hFireBasic *hFuegoBasico;
+
+    
 private:
     Tipo::ID m_tipo;
     sf::Texture texturaEnemigo;

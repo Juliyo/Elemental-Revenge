@@ -96,6 +96,10 @@ bool Melee::HandleMapCollisions(const sf::Time& elapsedTime) {
 
 void Melee::Inicializar(float posX, float posY, Tipo::ID tipo,float speedX, float speedY, float maxSpeedX, float maxSpeedY) {
     /*Reservamos memoria para los punteros de Animation*/
+    
+    hFuegoBasico = new hFireBasic[50];
+
+    
     m_tipo = tipo;
     walkingAnimationDown = new Animation();
     walkingAnimationLeft = new Animation();
@@ -258,4 +262,45 @@ void Melee::StopAnimation() {
     Render::StopAnimation();
 }
 
+
+
+void Melee::updateFuego(bool fuegoBasicCast, sf::Time elapsedTime) {
+
+        sf::Vector2f movement2(0.f, 0.f);
+        
+        if (fuegoBasicCast) {
+            if (contFuego == 49) {
+                contFuego = 0;
+            }
+            if (clockCDFire.getTiempo() > CDFire || primercastFuego == true) {
+                primercastFuego = false;
+                clockCDFire.restart();
+                hFuegoBasico[contFuego].cast(sf::Vector2f(getPosition()));
+                castFire.restart();
+            }
+            contFuego++;
+        }
+        for (int aux = 0; aux <= 49; aux++) {
+            movement2.x = (40 * cos(hFuegoBasico[aux].angleshot2) * 10.0f);
+            movement2.y = (40 * sin(hFuegoBasico[aux].angleshot2) * 10.0f);
+            hFuegoBasico[aux].Update2(movement2, elapsedTime);
+        }
+        
+}
+
+
+
+
+void Melee::renderFuego(sf::Time elapsedTime, float interpolation) {
+    
+
+    for (int aux = 0; aux <= 49; aux++) {
+        hFuegoBasico[aux].PlayAnimation(hFuegoBasico[aux].animationInicio);
+        hFuegoBasico[aux].UpdateAnimation(elapsedTime);
+        hFuegoBasico[aux].DrawAnimation(hFuegoBasico[aux].GetPreviousPosition(),hFuegoBasico[aux].GetPosition(), interpolation);
+
+    }
+        SetFrameTime(sf::seconds(0.075f));
+    
+}
 
