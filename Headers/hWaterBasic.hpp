@@ -19,11 +19,12 @@
 #include "Hud.hpp"
 
 
-class hWaterBasic:public Hechizo {
+class hWaterBasic:public Hechizo, public Collisionable {
 public:
     hWaterBasic();
-    hWaterBasic(const hWaterBasic& orig);
     virtual ~hWaterBasic();
+    void Collide() override;
+    void EndCollide() override;
     void cast(sf::Vector2f, Hud *hud);
     void DrawWithInterpolation( float interpolation);
     void Update(sf::Vector2f velocity, sf::Time elapsedTime, float playerV);

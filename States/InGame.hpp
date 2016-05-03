@@ -26,6 +26,8 @@
 #include "../Entities/Player.hpp"
 #include "../Entities/Melee.hpp"
 #include <Box2D/Box2D.h>
+#include "../Otros/Dummy.hpp"
+#include "../Otros/ContactListener.hpp"
 
 class InGame : public State {
 public:
@@ -33,14 +35,8 @@ public:
     static InGame* Instance();
     InGame(const InGame& orig);
     virtual ~InGame();
-
-    void    run();
     
-    
-   // void Init();
-   // void Clean();
     void Inicializar();
-
     void LoadResources();
 
     void                        Update(sf::Time elapsedTime);
@@ -52,10 +48,7 @@ public:
     
     void			renderForMuerte(float interpolation, sf::Time elapsedTime);
     
-    void                        SetPlayer(float x, float y);
-    
-    void                        updateView();
-    void                        updateViewForPause();
+   
     Level                       *level;
     sf::Music                   *musica;
     sf::Music                   *musica2;
@@ -63,6 +56,7 @@ public:
     b2World                     *physicWorld;
     Video *video;
     Player			*player;
+    Dummy                       *dummy;
 private:
     std::vector<Melee*>         *melee;
     std::vector<bool>           *VectorBools;
@@ -97,6 +91,7 @@ private:
     int                         anterior=0;
     
     static InGame* mInstance;
+    ContactListener             *ct;
 };
 
 #endif /* INGAME_HPP */

@@ -13,7 +13,7 @@
 
 #include "../Headers/hRayAdvanced.hpp"
 
-hRayAdvanced::hRayAdvanced() {
+hRayAdvanced::hRayAdvanced(): Collisionable((Entity*)this) {
     draw=false;
     animationDurante = new Animation();
     setCast(1);
@@ -66,8 +66,14 @@ hRayAdvanced::hRayAdvanced() {
     
 }
 
-hRayAdvanced::hRayAdvanced(const hRayAdvanced& orig) {
+void hRayAdvanced::Collide() {
+
 }
+
+void hRayAdvanced::EndCollide() {
+
+}
+
 
 hRayAdvanced::~hRayAdvanced() {
 }

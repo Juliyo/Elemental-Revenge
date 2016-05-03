@@ -12,8 +12,10 @@
  */
 
 #include "../Headers/Flash.hpp"
+#include "States/InGame.hpp"
+#include "Otros/tmxHelper.hpp"
 
-Flash::Flash(int animation) {
+Flash::Flash(int animation): Collisionable((Entity*)this) {
     dibujar = false;
     switch (animation) {
         case 1: //Animacion que aparece en la posicion que deja el jugador
@@ -80,11 +82,17 @@ Flash::Flash(int animation) {
     }
 }
 
-Flash::Flash(const Flash& orig) {
-}
-
 Flash::~Flash() {
 }
+
+void Flash::Collide() {
+
+}
+
+void Flash::EndCollide() {
+
+}
+
 
 sf::Vector2f Flash::cast(sf::Vector2f posicion,Hud *hud) {
 

@@ -20,7 +20,7 @@
 #include "States/InGame.hpp"
 #include "../Otros/tmxHelper.hpp"
 
-hWaterBasic::hWaterBasic() {
+hWaterBasic::hWaterBasic(): Collisionable((Entity*)this) {
     animation = new Animation();
 
 
@@ -61,12 +61,17 @@ hWaterBasic::hWaterBasic() {
     setCD(3.0f);
 }
 
-hWaterBasic::hWaterBasic(const hWaterBasic& orig) {
-    
-}
 
 hWaterBasic::~hWaterBasic() {
     
+}
+
+void hWaterBasic::Collide() {
+
+}
+
+void hWaterBasic::EndCollide() {
+
 }
 
 void hWaterBasic::cast(sf::Vector2f posicion, Hud *hud) {

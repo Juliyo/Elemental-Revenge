@@ -20,15 +20,14 @@
 #include <math.h>
 #include "Hud.hpp"
 
-class hRayAdvanced:public Hechizo {
+class hRayAdvanced:public Hechizo, public Collisionable {
 public:
     hRayAdvanced();
-    hRayAdvanced(const hRayAdvanced& orig);
     virtual ~hRayAdvanced();
     void cast(sf::Vector2f vector, Hud *hud);
-    
-    
-void DrawWithOutInterpolation();
+    void Collide() override;
+    void EndCollide() override;
+    void DrawWithOutInterpolation();
     Animation **currentAnimation;
     Animation *animationDurante;
 private:

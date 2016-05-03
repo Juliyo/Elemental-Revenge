@@ -20,7 +20,7 @@
 
 
 
-hRayBasic::hRayBasic() {
+hRayBasic::hRayBasic(): Collisionable((Entity*)this) {
     
     draw = false;
     animation = new Animation();
@@ -87,12 +87,20 @@ hRayBasic::hRayBasic() {
     SetOriginAnimatedSprite(40, -30);
 }
 
-hRayBasic::hRayBasic(const hRayBasic& orig) {
-}
 
 hRayBasic::~hRayBasic() {
 
 }
+
+void hRayBasic::Collide() {
+
+}
+
+void hRayBasic::EndCollide() {
+
+}
+
+
 
 void hRayBasic::cast(sf::Vector2f posicion) {
 

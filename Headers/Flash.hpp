@@ -18,11 +18,12 @@
 #include "../Headers/Animation.hpp"
 #include "Hud.hpp"
 
-class Flash : public Hechizo {
+class Flash : public Hechizo, public Collisionable {
 public:
     Flash(int animation);
-    Flash(const Flash& orig);
     virtual ~Flash();
+    void Collide() override;
+    void EndCollide() override;
     void Draw();
     void DrawWithInterpolation( float interpolation, const sf::Vector2f &posPrev, const sf::Vector2f &posNew);
     sf::Vector2f cast(sf::Vector2f, Hud *hud);

@@ -57,7 +57,9 @@ InGame::InGame() {
     musica2->setVolume(50);*/
     //Inicializar();
     physicWorld = new b2World(tmx::SfToBoxVec(sf::Vector2f(0.f, 0.f)));
-
+    ct = new ContactListener();
+    physicWorld->SetContactListener(ct);
+   
 }
 
 InGame::InGame(const InGame& orig) {
@@ -71,6 +73,8 @@ void InGame::Inicializar() {
     player->SetRectangleColision(14, 12, 36, 52);
     player -> Inicializar(1000.f, -1000.f);
     player->CreateDynamicBody();
+    dummy = new Dummy();
+    dummy->CreateDynamicBody();
     melee = new std::vector<Melee*>();
     VectorBools = new std::vector<bool>();
     VectorBools->reserve(30);

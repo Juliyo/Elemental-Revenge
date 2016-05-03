@@ -21,6 +21,13 @@ Melee::Melee() : Collisionable((Entity*)this) {
 Melee::~Melee() {
 }
 
+void Melee::Collide() {
+
+}
+
+void Melee::EndCollide() {
+
+}
 
 bool Melee::HandleMapCollisions(const sf::Time& elapsedTime) {
     InGame* world = InGame::Instance();

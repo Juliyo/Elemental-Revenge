@@ -22,7 +22,8 @@ public:
     Entity();
     Entity(const Entity& orig);
     virtual ~Entity();
-    
+    virtual void Collide() = 0;
+    virtual void EndCollide() = 0;
     //virtual void Update(const sf::Time elapsedTime) = 0;
     
 private:
