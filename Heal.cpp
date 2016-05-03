@@ -14,7 +14,7 @@
 #include "AnimatedSprite.hpp"
 #include <iostream>
 
-Heal::Heal() {
+Heal::Heal(): Collisionable((Entity*)this) {
     animacion = new Animation();
 
 
@@ -50,11 +50,15 @@ Heal::Heal() {
     
     setCD(5.f);
 }
-
-Heal::Heal(const Heal& orig) {
+Heal::~Heal() {
 }
 
-Heal::~Heal() {
+void Heal::Collide() {
+
+}
+
+void Heal::EndCollide() {
+
 }
 
 bool Heal::cast(Hud *hud) {

@@ -20,14 +20,14 @@
 #include <SFML/Audio.hpp>
 
 
-class hRayBasic:public Hechizo {
+class hRayBasic:public Hechizo, public Collisionable {
 public:
     hRayBasic();
-    hRayBasic(const hRayBasic& orig);
     virtual ~hRayBasic();
     void cast(sf::Vector2f vector);
     void DrawWithInterpolation( float interpolation, const sf::Vector2f &posPrev, const sf::Vector2f &posNew );
-
+    void Collide() override;
+    void EndCollide() override;
     void update();
     
     Reloj tiempoCast;

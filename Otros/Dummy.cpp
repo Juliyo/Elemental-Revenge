@@ -26,6 +26,14 @@ Dummy::Dummy(): Collisionable((Entity*)this) {
 Dummy::~Dummy() {
 }
 
+void Dummy::EndCollide() {
+
+}
+
+void Dummy::Collide() {
+
+}
+
 void Dummy::collide() {
     //touch = true;
 }

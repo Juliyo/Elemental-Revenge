@@ -13,17 +13,13 @@
 
 #ifndef HFIREADVANCED_HPP
 #define HFIREADVANCED_HPP
-
 #include "Hechizo.hpp"
-
-
-
-class hFireAdvanced : public Hechizo {
+class hFireAdvanced : public Hechizo, public Collisionable {
 public:
     hFireAdvanced();
-    hFireAdvanced(const hFireAdvanced& orig);
     virtual ~hFireAdvanced();
-    
+    void Collide() override;
+    void EndCollide() override;
     void cast(sf::Vector2f);
     void DrawWithInterpolation( float interpolation, const sf::Vector2f &posPrev, const sf::Vector2f &posNew);
     bool lanzado=false;

@@ -14,7 +14,7 @@
 #include "hWaterAdvanced.hpp"
 #include "Hud.hpp"
 
-hWaterAdvanced::hWaterAdvanced() {
+hWaterAdvanced::hWaterAdvanced(): Collisionable((Entity*)this) {
 
     animationDurante = new Animation();
     animationDurante->setSpriteSheet("resources/Textures/AguaHardcore.png");
@@ -38,8 +38,14 @@ hWaterAdvanced::hWaterAdvanced() {
 
 }
 
-hWaterAdvanced::hWaterAdvanced(const hWaterAdvanced& orig) {
+void hWaterAdvanced::Collide() {
+
 }
+
+void hWaterAdvanced::EndCollide() {
+
+}
+
 
 hWaterAdvanced::~hWaterAdvanced() {
 }

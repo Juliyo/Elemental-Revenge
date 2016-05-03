@@ -26,7 +26,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
 
     void* bodyUserData = contact->GetFixtureA()->GetBody()->GetUserData();
     if (bodyUserData){
-        static_cast<Dummy*> (bodyUserData)->collide();
+        static_cast<Entity*> (bodyUserData)->Collide();
     }
        
 }
@@ -34,6 +34,6 @@ void ContactListener::BeginContact(b2Contact* contact) {
 void ContactListener::EndContact(b2Contact* contact) {
     void* bodyUserData = contact->GetFixtureA()->GetBody()->GetUserData();
     if (bodyUserData){
-        static_cast<Dummy*> (bodyUserData)->touch = false;
+        static_cast<Entity*> (bodyUserData)->EndCollide();
     }
 }

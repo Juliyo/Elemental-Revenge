@@ -23,15 +23,18 @@ class Player : public Entity, public Collisionable {
 public:
     Player();
     virtual ~Player();
-	
+    void Collide() override;
+    void EndCollide() override;
+
+
     void Inicializar(float posX, float posY, float speedX = 0.f, float speedY = 0.f, float maxSpeedX = 1000.f, float maxSpeedY = 1000.f);
     void Update(const sf::Time elapsedTime);
 
     void Draw();
     void DrawWithInterpolation(float interpolation);
-    
+
     void HandleMapCollisions(const sf::Time& elapsedTime);
-    
+
     PhysicsState* getPhysics();
     void UpdatePlayerAnimation(int x, int y);
     sf::Vector2f getPosition();
@@ -39,7 +42,7 @@ public:
     Animation** getAnimation() {
         return currentAnimation;
     };
-    
+
     float GetVelocity() const {
         return velocity;
     }
@@ -51,8 +54,8 @@ public:
     int GetVida() const {
         return vida;
     }
-	
-	
+
+
     void updateRayo(bool isShooting);
     void updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time elapsedTime);
     void updateAgua(bool aguaBasicCast, bool aguaAdvancedCast, sf::Time elapsedTime);
@@ -62,7 +65,7 @@ public:
     void renderAgua(sf::Time elapsedTime, float interpolation);
     void renderHeal(sf::Time elapsedTime, float interpolation);
     void renderFlash(sf::Time elapsedTime, float interpolation);
-	
+
     void Colocar(sf::Vector2f NuevaPosicion);
 
     void SetVida(int vida) {
@@ -72,7 +75,7 @@ public:
     hRayBasic *hRayoBasico;
     hRayAdvanced *hRayoAvanzado;
 
-	//Fuego
+    //Fuego
     hFireBasic *hFuegoBasico;
     hFireAdvanced *hFuegoAvanzado;
     int contFuego = 0;
@@ -90,8 +93,8 @@ public:
     Animation *walkingAnimationLeft;
     Animation *walkingAnimationRight;
     Animation *walkingAnimationUp;
-	
-	//Fuego
+
+    //Fuego
     Animation *castingAnimationUpFuego;
     Animation *castingAnimationDownFuego;
     Animation *castingAnimationRightFuego;
@@ -124,14 +127,14 @@ public:
     Animation *healingAnimationUp;
     Hud *hud;
     int cuadrante;
-    
+
     //Eventos del player
     bool isMovingUp;
     bool isMovingDown;
     bool isMovingRight;
     bool isMovingLeft;
-    bool cantMove=false;
-    
+    bool cantMove = false;
+
     //heal
     Heal *hHeal;
     int getVida();
@@ -142,9 +145,9 @@ public:
     Flash *flash2;
     bool isFlashing = false;
 private:
-    
+
     sf::Texture texturaPlayer;
-    
+
     float velocity = 200.f;
     int vida = 15;
     Reloj invulnerable;
@@ -152,42 +155,3 @@ private:
 };
 
 #endif /* PLAYER_H */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

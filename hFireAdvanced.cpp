@@ -13,7 +13,7 @@
 
 #include "hFireAdvanced.hpp"
 
-hFireAdvanced::hFireAdvanced() {
+hFireAdvanced::hFireAdvanced(): Collisionable((Entity*)this) {
 
 
     SetTexture("resources/Textures/girofuego.png");
@@ -27,7 +27,12 @@ hFireAdvanced::hFireAdvanced() {
 
 }
 
-hFireAdvanced::hFireAdvanced(const hFireAdvanced& orig) {
+void hFireAdvanced::Collide() {
+
+}
+
+void hFireAdvanced::EndCollide() {
+
 }
 
 hFireAdvanced::~hFireAdvanced() {

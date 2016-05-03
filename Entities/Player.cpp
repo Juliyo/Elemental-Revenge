@@ -11,6 +11,15 @@ Player::~Player() {
 	delete hud;
 }
 
+void Player::Collide() {
+
+}
+
+void Player::EndCollide() {
+
+}
+
+
 void Player::Inicializar(float posX, float posY, float speedX, float speedY, float maxSpeedX, float maxSpeedY) {
     /*Reservamos memoria para los punteros de Animation*/
 

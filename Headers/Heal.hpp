@@ -16,11 +16,12 @@
 #include "Hechizo.hpp"
 #include "Animation.hpp"
 #include "Hud.hpp"
-class Heal: public Hechizo {
+class Heal: public Hechizo, public Collisionable {
 public:
     Heal();
-    Heal(const Heal& orig);
     virtual ~Heal();
+    void Collide() override;
+    void EndCollide() override;
     bool cast(Hud *hud);
     void DrawWithInterpolation( float interpolation, sf::Vector2f pos1,sf::Vector2f pos2);
     

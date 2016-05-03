@@ -13,7 +13,7 @@
 
 #include "../Headers/hFireBasic.hpp"
 
-hFireBasic::hFireBasic() {
+hFireBasic::hFireBasic(): Collisionable((Entity*)this) {
 
 
 
@@ -54,9 +54,10 @@ hFireBasic::hFireBasic() {
     animationInicio->addFrame(sf::IntRect(304, 740, 152, 148));
     animationInicio->addFrame(sf::IntRect(456, 740, 152, 148));
     animationInicio->addFrame(sf::IntRect(608, 740, 152, 148));
-    InicializarAnimatedSprite(sf::seconds(0.02f), true, false);
-    SetOriginAnimation(0, 147 / 2);
-    SetScaleAnimation(0.2, 0.2);
+    Render::InicializarAnimatedSprite(sf::seconds(0.02f), true, false);
+    Render::SetOriginAnimation(0, 147 / 2);
+    Render::SetScaleAnimation(0.2, 0.2);
+    
     //hSprite.setPosition(0, 0);
 
 
@@ -67,7 +68,11 @@ hFireBasic::hFireBasic() {
 
 }
 
-hFireBasic::hFireBasic(const hFireBasic& orig) {
+void hFireBasic::Collide() {
+
+}
+
+void hFireBasic::EndCollide() {
 
 }
 

@@ -18,8 +18,10 @@
 #include "../Motor/Reloj.hpp"
 #include "Render.hpp"
 #include "PhysicsState.hpp"
+#include "../Motor/Collisionable.hpp"
 #include "Animation.hpp"
-class Hechizo : public Render, public PhysicsState {
+
+class Hechizo : public Entity {
 public:
     Hechizo();
     Hechizo(const Hechizo& orig);

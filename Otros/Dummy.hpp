@@ -20,6 +20,9 @@ class Dummy : public Entity,  public Collisionable {
 public:
     Dummy();
     virtual ~Dummy();
+    void Collide() override;
+    void EndCollide() override;
+
     bool touch = false;
     void collide();
     bool getCollision(sf::Vector2f &p);

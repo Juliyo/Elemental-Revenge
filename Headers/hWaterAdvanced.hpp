@@ -20,11 +20,12 @@
 #include "Hud.hpp"
 
 
-class hWaterAdvanced:public Hechizo {
+class hWaterAdvanced:public Hechizo, public Collisionable {
 public:
     hWaterAdvanced();
-    hWaterAdvanced(const hWaterAdvanced& orig);
     virtual ~hWaterAdvanced();
+    void Collide() override;
+    void EndCollide() override;
     void cast(sf::Vector2f pos, Hud *hud);
     void UpdateHechizo(sf::Vector2f velocity, sf::Time elapsedTime);
     void setDibujar(bool NuevoDibujar);
