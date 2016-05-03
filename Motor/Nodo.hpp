@@ -41,6 +41,11 @@ public:
 //        if (colision){
 //            escolision=true;
 //        }
+        InGame* world = InGame::Instance();
+    int **colisiones = world->level->map->colisiones;
+    if(colisiones[casillaY][casillaX]!=0){
+        escolision=true;
+    }
     }
 
     virtual ~Nodo(){
