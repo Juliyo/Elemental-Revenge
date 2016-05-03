@@ -13,19 +13,9 @@
 #include <iostream>
 #include <string>
 #include "Pause.hpp"
-/*Pause* Pause::mInstance = 0;
-
-Pause* Pause::Instance() {
-    if (mInstance == 0) {
-        mInstance = new Pause;
-    }
-    return mInstance;
-}*/
 
 Pause::Pause() {
     motor = Motor2D::Instance();
-    
-//    EstadoActivo = false;
     
     selectedItemIndexPausa = 0;
 
@@ -40,9 +30,16 @@ Pause::Pause() {
     textoPausa = new Text();
     menuPausa = new Text[10];
     
-    //Estado de Ingame
-    //EstadoActivo = false;
     
+}
+
+Pause::Pause(const Pause& orig) {
+}
+
+Pause::~Pause() {
+}
+
+void Pause::Inicializar() {
     float width = 1500;
     float height = 1500;
     colorAzul.r = 112;
@@ -190,13 +187,11 @@ Pause::Pause() {
     spriteRelleno->setScale(1, 2);
 }
 
-Pause::Pause(const Pause& orig) {
+void Pause::Update(sf::Time timeElapsed) {
+
 }
 
-Pause::~Pause() {
-}
-
-void Pause::render(float interpolation, sf::Time elapsedTime) {
+void Pause::Render(float interpolation, sf::Time elapsedTime) {
     motor->draw(spriteFondo);
     if (selectedItemIndexPausa <= 7) {
         motor->draw(spritePersonaje);
@@ -249,7 +244,29 @@ void Pause::render(float interpolation, sf::Time elapsedTime) {
         }
     }
     motor->draw(*textoPausa);
+    motor->SetView(1); //vista del juego
+
+    motor->draw(mouseSprite);
+
+    motor->display();
   //  motor->display();
+}
+
+void Pause::HandleEvents(sf::Event& event) {
+    switch (event.type) {
+        case sf::Event::KeyPressed:
+            handlePlayerInput(event.key.code,true);
+            break;
+        case sf::Event::KeyReleased:
+            handlePlayerInput(event.key.code,false);
+            break;
+        case sf::Event::MouseButtonPressed:
+            handleMouseInput(event.mouseButton.button,true);
+            break;
+        case sf::Event::MouseButtonReleased:
+            handleMouseInput(event.mouseButton.button,false);
+            break;
+    }
 }
 
 void Pause::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
@@ -259,7 +276,59 @@ void Pause::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
         }
     }
 }
+void Pause::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
+    if (key == sf::Keyboard::W) { //Esto lo hago para que cuando no estes presionando cambia a false
+        MoveUp();
+    } else if (key == sf::Keyboard::S) {
+        MoveDown();
+    } else if (key == sf::Keyboard::A) {
+        MoveLeft();
+    } else if (key == sf::Keyboard::D) {
+        MoveRight();
+    } else if (key == sf::Keyboard::Return) {
+        if (selectedItemIndexPausa == 3) {
+            selectedItemIndexPausa = 8;
+        }
+        if (selectedItemIndexPausa == 4) {
+            selectedItemIndexPausa = 9;
+        }
+        if (selectedItemIndexPausa == 5) {
+            selectedItemIndexPausa = 10;
+        }
 
+        if (selectedItemIndexPausa == 1) {
+            selectedItemIndexPausa = 3;
+        }
+    } else if (key == sf::Keyboard::Escape) {
+        if (selectedItemIndexPausa < 3) {
+            //mWindow->close();
+        }
+        if (selectedItemIndexPausa > 3 && selectedItemIndexPausa < 7) {
+            selectedItemIndexPausa = 1;
+        }
+        if (selectedItemIndexPausa >= 7) {
+
+            if (selectedItemIndexPausa == 8) {
+                selectedItemIndexPausa = 3;
+            }
+            if (selectedItemIndexPausa == 9) {
+                selectedItemIndexPausa = 4;
+            }
+            if (selectedItemIndexPausa == 10) {
+
+                selectedItemIndexPausa = 5;
+            }
+        }
+    }
+
+    if (key == sf::Keyboard::Return) {
+        if (selectedItemIndexPausa == 6) {
+            selectedItemIndexPausa = 1;
+            menuPausa[6].setColor(colorAzul);
+            menuPausa[3].setColor(sf::Color::White);
+        }
+    }
+}
 
 void Pause::MoveUp() {
     if (selectedItemIndexPausa < 3) {
@@ -355,56 +424,4 @@ void Pause::MoveRight() {
 }
 
 
-void Pause::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
-    if (key == sf::Keyboard::W) { //Esto lo hago para que cuando no estes presionando cambia a false
-        MoveUp();
-    } else if (key == sf::Keyboard::S) {
-        MoveDown();
-    } else if (key == sf::Keyboard::A) {
-        MoveLeft();
-    } else if (key == sf::Keyboard::D) {
-        MoveRight();
-    } else if (key == sf::Keyboard::Return) {
-        if (selectedItemIndexPausa == 3) {
-            selectedItemIndexPausa = 8;
-        }
-        if (selectedItemIndexPausa == 4) {
-            selectedItemIndexPausa = 9;
-        }
-        if (selectedItemIndexPausa == 5) {
-            selectedItemIndexPausa = 10;
-        }
 
-        if (selectedItemIndexPausa == 1) {
-            selectedItemIndexPausa = 3;
-        }
-    } else if (key == sf::Keyboard::Escape) {
-        if (selectedItemIndexPausa < 3) {
-            //mWindow->close();
-        }
-        if (selectedItemIndexPausa > 3 && selectedItemIndexPausa < 7) {
-            selectedItemIndexPausa = 1;
-        }
-        if (selectedItemIndexPausa >= 7) {
-
-            if (selectedItemIndexPausa == 8) {
-                selectedItemIndexPausa = 3;
-            }
-            if (selectedItemIndexPausa == 9) {
-                selectedItemIndexPausa = 4;
-            }
-            if (selectedItemIndexPausa == 10) {
-
-                selectedItemIndexPausa = 5;
-            }
-        }
-    }
-
-    if (key == sf::Keyboard::Return) {
-        if (selectedItemIndexPausa == 6) {
-            selectedItemIndexPausa = 1;
-            menuPausa[6].setColor(colorAzul);
-            menuPausa[3].setColor(sf::Color::White);
-        }
-    }
-}

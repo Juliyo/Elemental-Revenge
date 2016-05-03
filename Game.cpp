@@ -1,6 +1,5 @@
 #include "Game.hpp"
 #include <SFML/System.hpp>
-#include "Pause.hpp"
 #include "../Motor/Mapa.hpp"
 
 #include <cmath>
@@ -96,7 +95,9 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
 
 void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
 {
-    
+    if(stateStack->currentState == States::ID::Pause){ //Si estamos en pause renderizamos tambien InGame
+        stateStack->GetState(States::ID::InGame)->Render(interpolation,elapsedTime);
+    }
     stateStack->GetCurrentState()->Render(interpolation,elapsedTime);
  /*   if (estadoInGame == true && EstadoInGame->EstadoActivo) {
         if (!EstadoPause->EstadoActivo && !EstadoMuerte->EstadoActivo) { //No esta ni muerte ni pause activo

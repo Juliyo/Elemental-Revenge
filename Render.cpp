@@ -60,12 +60,11 @@ void Render::DrawAnimation( const sf::Vector2f &posPrev, const sf::Vector2f &pos
 	
 }
 //Renderizar sprites animados sin interpolación
-void Render::DrawAnimationWithOut( const sf::Vector2f &pos)
+void Render::DrawAnimationWithOut(const sf::Vector2f &pos)
 {
 	renderPos = sf::Vector2f(pos);
-
 	animatedSprite.setPosition(renderPos.x, renderPos.y);
-         Motor2D::Instance()->draw(animatedSprite);
+        Motor2D::Instance()->draw(animatedSprite);
 }
 //Renderizar sprites sin animar con interpolación en rotación
 void Render::Draw( const sf::Vector2f& posPrev, const sf::Vector2f& posNew, float* anglePrev, float* angleNew, float interpolation) {
@@ -97,12 +96,6 @@ void Render::DrawAnimation( const sf::Vector2f &posPrev, const sf::Vector2f &pos
     Motor2D::Instance()->draw(animatedSprite);
     
 }
-
-void Render::DrawWithout( sf::Vector2f pos) {
-    animatedSprite.setPosition(pos.x, pos.y);
-    Motor2D::Instance()->draw(animatedSprite);
-}
-
 
 void Render::UpdateAnimation(sf::Time elapsedTime) {
     animatedSprite.update(elapsedTime);

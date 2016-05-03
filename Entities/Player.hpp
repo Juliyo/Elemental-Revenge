@@ -33,7 +33,7 @@ public:
     void HandleMapCollisions(const sf::Time& elapsedTime);
     
     PhysicsState* getPhysics();
-    void UpdatePlayerAnimation(int x, int y);
+    void UpdatePlayerAnimation();
     sf::Vector2f getPosition();
 
     Animation** getAnimation() {

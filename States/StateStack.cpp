@@ -43,6 +43,7 @@ void StateStack::CreateStates() {
     mapStates->insert(std::make_pair(States::ID::InGame , StateFactory::CreateState(States::ID::InGame)));
     mapStates->insert(std::make_pair(States::ID::Carga , StateFactory::CreateState(States::ID::Carga)));
     mapStates->insert(std::make_pair(States::ID::Transition , StateFactory::CreateState(States::ID::Transition)));
+    mapStates->insert(std::make_pair(States::ID::Pause , StateFactory::CreateState(States::ID::Pause)));
 }
 
 State* StateStack::GetCurrentState() const {

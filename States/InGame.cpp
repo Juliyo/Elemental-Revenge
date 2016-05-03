@@ -38,7 +38,7 @@ InGame::InGame() {
 
 
     //player->SetScale(0.7,0.7);
-    motor->setZoom(0.3f); //1=vista del mundo(nuestra pantalla)
+    // motor->setZoom(0.3f); //1=vista del mundo(nuestra pantalla)
 
     //updateView();
 
@@ -75,14 +75,14 @@ void InGame::Inicializar() {
     VectorBools = new std::vector<bool>();
     VectorBools->reserve(30);
     melee->reserve(30);
-    
-    for(int i=0;i<30;i++){
+
+    for (int i = 0; i < 30; i++) {
 
         melee->push_back(new Melee());
         melee->at(i)->Inicializar(1000.f + i * 20, -1000.f + i * 20, Tipo::ID::Rata);
         melee->at(i)->SetRectangleColision(0, 0, 37, 39);
         melee->at(i)->CreateDynamicBody();
-        bool a=false;
+        bool a = false;
         VectorBools->push_back(a);
     }
 
@@ -98,19 +98,12 @@ void InGame::Inicializar() {
         spriteRelleno.setSmooth(true);
         spriteRelleno.setScale(1, 2);
 
-        mouseSprite.setTexture("resources/Textures/mouse.png");
-        mouseSprite.setSmooth(true);
-        mouseSprite.setScale(0.2, 0.2);
-        mouseSprite.setPosition(20, 20);
-        mouseSprite.setOrigin(64, 64);
-
         contFonts.loadFromFile("resources/Fonts/Sansation.ttf");
 
     } catch (std::runtime_error& e) {
         std::cout << "Excepcion: " << e.what() << std::endl;
         exit(0);
     }
-    updateView();
     level->LoadMap(Niveles::ID::Level1);
     video->Inicializar();
 
@@ -125,52 +118,51 @@ void InGame::Update(sf::Time elapsedTime) {
         player -> Update(elapsedTime);
 
         for (int i = 0; i < melee->size(); i++) {
-            
-           VectorBools->at(i)= melee->at(i)->HandleMapCollisions(elapsedTime);
-            
-            
-            
+
+            VectorBools->at(i) = melee->at(i)->HandleMapCollisions(elapsedTime);
+
+
+
         }
 
-        
+
 
         for (int i = 0; i < melee->size(); i++) {
-            
-            if(VectorBools->at(i)==false){
-            int x3 = player->getPosition().x - melee->at(i)->getPosition().x;
-            int y3 = player->getPosition().y - melee->at(i)->getPosition().y;
-            melee->at(i)->Update(elapsedTime,x3,y3,1);
-            }
-            else{
 
-            int x3;
-            int y3;
+            if (VectorBools->at(i) == false) {
+                int x3 = player->getPosition().x - melee->at(i)->getPosition().x;
+                int y3 = player->getPosition().y - melee->at(i)->getPosition().y;
+                melee->at(i)->Update(elapsedTime, x3, y3, 1);
+            } else {
+
+                int x3;
+                int y3;
                 srand(time(NULL));
 
                 int random = rand() % 4; // v1 in the range 0 to 99
-    
-                if(random==0){
-                    x3=5000;
-                    y3=5000;
+
+                if (random == 0) {
+                    x3 = 5000;
+                    y3 = 5000;
                 }
-                 
-                if(random==1){
-                     x3=-5000;
-                    y3=5000;
+
+                if (random == 1) {
+                    x3 = -5000;
+                    y3 = 5000;
                 }
-                if(random==2){
-                     x3=-5000;
-                    y3=-5000;
+                if (random == 2) {
+                    x3 = -5000;
+                    y3 = -5000;
                 }
-                if(random==3){
-                     x3=5000;
-                    y3=-5000;
+                if (random == 3) {
+                    x3 = 5000;
+                    y3 = -5000;
                 }
-            melee->at(i)->Update(elapsedTime,x3,y3,2);
+                melee->at(i)->Update(elapsedTime, x3, y3, 2);
             }
 
         }
-        
+
 
         //**************************RAYO**********************
         if (hActivo == 1) {
@@ -206,7 +198,7 @@ void InGame::Update(sf::Time elapsedTime) {
             video->setDibujar(true);
         }
 
-    }else{
+    } else {
         hActivo = 0;
     }
 
@@ -220,37 +212,11 @@ void InGame::renderForMuerte(float interpolation, sf::Time elapsedTime) {
     motor->draw(spriteRelleno);
     motor->SetView(1);
 
-    updateViewForPause();
+    //updateViewForPause();
 
 
     motor->draw(spriteFondo);
-
-    /**********************ARREGLAR***************************/
-    /*if (mapa->getMapaActual() == 1) {
-        mapa->dibujaMapa1();
-
-    }
-    if (mapa->getMapaActual() == 2) {
-        mapa->dibujaMapa2();
-
-    }
-    if (mapa->getMapaActual() == 3) {
-        mapa->dibujaMapa3();
-    }
-    /*********************************************************/
     player -> DrawAnimationWithOut(player->GetSpriteAnimated().getPosition());
-
-    /* if (mapa->getMapaActual() == 1) {
-         mapa->dibuja2Mapa1();
-     }
-     if (mapa->getMapaActual() == 2) {
-         mapa->dibuja2Mapa2();
-
-     }
-     if (mapa->getMapaActual() == 3) {
-         mapa->dibuja2Mapa3();
-     }
-     */
 
     motor->SetView(2); //vista del HUD
     player -> hud->renderHud(elapsedTime);
@@ -260,55 +226,7 @@ void InGame::renderForMuerte(float interpolation, sf::Time elapsedTime) {
     //    muerte->render(interpolation, elapsedTime);
     motor->SetView(1); //vista del juego
 
-    motor->draw(mouseSprite);
-
-    motor->display();
-}
-
-void InGame::renderForPause(float interpolation, sf::Time elapsedTime) {
-    motor->clear();
-    motor->SetView(0); //bordes
-    motor->draw(spriteRelleno);
-    motor->SetView(1);
-
-    updateViewForPause();
-
-
-    motor->draw(spriteFondo);
-
-    /*if (mapa->getMapaActual() == 1) {
-        mapa->dibujaMapa1();
-    }
-    if (mapa->getMapaActual() == 2) {
-        mapa->dibujaMapa2();
-    }
-    if (mapa->getMapaActual() == 3) {
-        mapa->dibujaMapa3();
-    }*/
-
-    player -> DrawAnimationWithOut(player->GetSpriteAnimated().getPosition());
-
-    /*if (mapa->getMapaActual() == 1) {
-        mapa->dibuja2Mapa1();
-    }
-    if (mapa->getMapaActual() == 2) {
-        mapa->dibuja2Mapa2();
-
-    }
-    if (mapa->getMapaActual() == 3) {
-        mapa->dibuja2Mapa3();
-    }*/
-
-
-    motor->SetView(2); //vista del HUD
-    player -> hud->renderHud(elapsedTime);
-    if (!video -> getLooped()) {
-        video -> PlayVideo();
-    }
-    //    pause->render(interpolation, elapsedTime);
-    motor->SetView(1); //vista del juego
-
-    motor->draw(mouseSprite);
+  //  motor->draw(mouseSprite);
 
     motor->display();
 }
@@ -319,17 +237,24 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     motor->SetView(0); //bordes
     motor->draw(spriteRelleno);
     motor->SetView(1);
-
-    updateView();
-
+    if (StateStack::Instance()->currentState != States::ID::Pause) {
+        //Si no esta Pause activo updateamos la vista normal
+        motor->UpdateMouseAndView();
+    } else {
+        //Si esta Pause activo no centramos la vista
+        motor->UpdateMouse();
+    }
 
     motor->draw(spriteFondo);
-    int x = motor->getMousePosition().x - player -> getPosition().x;
-    int y = motor->getMousePosition().y - player -> getPosition().y;
-    player ->UpdatePlayerAnimation(x, y);
 
+    //Updatea el sprite del jugador en funcino del cuadrante del Mouse 
+    if (StateStack::Instance()->currentState != States::ID::Pause) {
+        player ->UpdatePlayerAnimation();
+    }
+
+    //Renderiza el mapa
     level->render();
-    
+
     for (int i = 0; i < melee->size(); i++) {
         if (melee->at(i)->getSpeed().x == 0 && melee->at(i)->getSpeed().y == 0) {
             switch (melee->at(i)->cuadrante) {
@@ -349,7 +274,13 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
         }
         melee->at(i)->PlayAnimation(*melee->at(i)->currentAnimation);
         melee->at(i)->UpdateAnimation(elapsedTime);
-        melee->at(i)->DrawWithInterpolation(interpolation);
+        if (StateStack::Instance()->currentState != States::ID::Pause) {
+            melee->at(i)->DrawWithInterpolation(interpolation);
+        } else {
+            melee->at(i)->DrawAnimationWithOut(melee->at(i)->GetRenderPosition());
+            melee->at(i)->StopAnimation();
+        }
+
 
     }
     //****************************RAYO************************************
@@ -360,42 +291,44 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     player->renderAgua(elapsedTime, interpolation);
     //*********************HEAL**********************************
     player->renderHeal(elapsedTime, interpolation);
-    //****************************RENDER PLAYER************************************
-    
 
+    //****************************RENDER PLAYER************************************//
     player -> PlayAnimation(*player -> currentAnimation);
-
-    /* for(int i=0;i<player->shapes.size();i++){
-         motor->draw(player->shapes.at(i));
-     }*/
-
-    
     if ((!player->isMovingDown && !player->isMovingLeft && !player->isMovingRight && !player->isMovingUp) && player->castFire.getTiempo() > 0.45f && player->castFire2.getTiempo() > 0.4f) {
         player -> StopAnimation();
     }
     player -> UpdateAnimation(elapsedTime);
+    if (StateStack::Instance()->currentState != States::ID::Pause) {
+        player -> DrawWithInterpolation(interpolation);
+    } else {
+        player -> DrawAnimationWithOut(player -> GetRenderPosition());
+    }
 
     //**************************************FLASH**************************
     player->renderFlash(elapsedTime, interpolation);
-    /////////////////////////////////
-    player -> DrawWithInterpolation(interpolation);
 
+    //****************************RENDER ENEMIGOS************************************//
     for (int i = 0; i < melee->size(); i++) {
         int x2 = player->getPosition().x - melee->at(i)->getPosition().x;
         int y2 = player->getPosition().y - melee->at(i)->getPosition().y;
         melee->at(i)->UpdateEnemyAnimation(x2, y2);
     }
-
+    /////////////////////////////////
     motor->SetView(2); //vista del HUD
     player -> hud->renderHud(elapsedTime);
+
     if (!video -> getLooped()) {
         video -> PlayVideo();
     }
-    motor->SetView(1); //vista del juego
+    //Si el Pause está activo es el Pause el que hace el Display
+    if (StateStack::Instance()->currentState != States::ID::Pause) {
+        motor->SetView(1); //vista del juego
 
-    motor->draw(mouseSprite);
+        motor->DrawMouse();
 
-    motor->display();
+        motor->display();
+    }
+
 }
 
 void InGame::HandleEvents(sf::Event& event) {
@@ -471,6 +404,10 @@ void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
             anterior = hActivo;
         }
         player->hud->cambiaHechizo(hActivo + 1);
+    } else if (key == sf::Keyboard::P) {
+        StateStack::Instance()->GetState(States::ID::Pause)->Inicializar();
+        StateStack::Instance()->SetCurrentState(States::ID::Pause);
+
     }
 }
 
@@ -527,43 +464,4 @@ void InGame::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
         }
 
     }
-}
-
-void InGame::updateView() {
-
-    sf::FloatRect viewBounds(motor->getCenterFromView(1) - motor->getSizeFromView(1) / 2.f, motor->getSizeFromView(1));
-
-    sf::Vector2f position = motor->getMousePosition();
-    position.x = std::max(position.x, viewBounds.left);
-    position.x = std::min(position.x, viewBounds.width + viewBounds.left);
-    position.y = std::max(position.y, viewBounds.top);
-    position.y = std::min(position.y, viewBounds.height + viewBounds.top);
-
-    mouseSprite.setPosition(position.x, position.y);
-
-    float camera_x = (position.x + (player -> getPosition().x * 6)) / 7; //Media dando prioridad al jugador
-    float camera_y = (position.y + player -> getPosition().y * 6) / 7;
-    float x = (motor->getCenterFromView(1).x + 0.1 * (camera_x - motor->getCenterFromView(1).x)); //Lo mismo que la funcion lerp
-    float y = (motor->getCenterFromView(1).y + 0.1 * (camera_y - motor->getCenterFromView(1).y));
-    motor->setCenterForView(1, x, y);
-    motor->setSizeForView(1, 640, 480);
-    motor->SetView(1);
-}
-
-void InGame::updateViewForPause() {
-    sf::FloatRect viewBounds(motor->getCenterFromView(1) - motor->getSizeFromView(1) / 2.f, motor->getSizeFromView(1));
-
-    sf::Vector2f position = motor->getMousePosition();
-    position.x = std::max(position.x, viewBounds.left);
-    position.x = std::min(position.x, viewBounds.width + viewBounds.left);
-    position.y = std::max(position.y, viewBounds.top);
-    position.y = std::min(position.y, viewBounds.height + viewBounds.top);
-
-    mouseSprite.setPosition(position.x, position.y);
-
-}
-
-void InGame::SetPlayer(float x, float y) {
-    player->SetPosition(x, y);
-
 }
