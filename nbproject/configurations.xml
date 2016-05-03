@@ -167,6 +167,8 @@
       </item>
       <item path="Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="DisparoEnemigo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="Entities/Enemigo.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Entities/Enemigo.hpp" ex="false" tool="3" flavor2="0">
@@ -190,6 +192,8 @@
       <item path="Headers/AnimatedSprite.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Animation.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/DisparoEnemigo.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Flash.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -382,6 +386,8 @@
       </item>
       <item path="Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="DisparoEnemigo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="Entities/Enemigo.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Entities/Enemigo.hpp" ex="false" tool="3" flavor2="0">
@@ -405,6 +411,8 @@
       <item path="Headers/AnimatedSprite.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Animation.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/DisparoEnemigo.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Flash.hpp" ex="false" tool="3" flavor2="0">
       </item>

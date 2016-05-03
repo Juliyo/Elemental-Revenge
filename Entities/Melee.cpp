@@ -101,6 +101,8 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo,float speedX, floa
     walkingAnimationLeft = new Animation();
     walkingAnimationRight = new Animation();
     walkingAnimationUp = new Animation();
+    
+    disparo = new DisparoEnemigo();
 
     walkingAnimationDown->setSpriteSheet("resources/Textures/ninjapeq.png");
     walkingAnimationDown->addFrame(sf::IntRect(0, 0, 34, 32));

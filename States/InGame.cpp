@@ -12,6 +12,7 @@
  */
 
 #include "InGame.hpp"
+#include "math.h"
 #include "../Otros/tmxHelper.hpp"
 #include "Pause.hpp"
 #include "Muerte.hpp"
@@ -77,10 +78,10 @@ void InGame::Inicializar() {
     dummy->CreateDynamicBody();
     melee = new std::vector<Melee*>();
     VectorBools = new std::vector<bool>();
-    VectorBools->reserve(30);
-    melee->reserve(30);
+    VectorBools->reserve(1);
+    melee->reserve(1);
     
-    for(int i=0;i<30;i++){
+    for(int i=0;i<1;i++){
 
         melee->push_back(new Melee());
         melee->at(i)->Inicializar(1000.f + i * 20, -1000.f + i * 20, Tipo::ID::Rata);
@@ -136,6 +137,19 @@ void InGame::Update(sf::Time elapsedTime) {
             
         }
 
+        
+        for (int i = 0; i < melee->size(); i++) {
+            
+            int x4 = player->getPosition().x - melee->at(i)->getPosition().x;
+            int y4 = player->getPosition().y - melee->at(i)->getPosition().y;
+            
+            if(sqrt(pow(x4,2)+pow(y4,2))<175){
+                printf("HUELO SANGRE\n");
+                melee->at(i)->disparo->Disparar(melee->at(i)->getPosition().x,melee->at(i)->getPosition().y);
+            }
+
+        }
+        
         
 
         for (int i = 0; i < melee->size(); i++) {
@@ -366,7 +380,10 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     player->renderHeal(elapsedTime, interpolation);
     //****************************RENDER PLAYER************************************
     
+    melee->at(0)->disparo->RenderDisparo();
 
+    
+    
     player -> PlayAnimation(*player -> currentAnimation);
 
     /* for(int i=0;i<player->shapes.size();i++){

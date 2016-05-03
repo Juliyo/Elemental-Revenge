@@ -15,7 +15,9 @@
 #define MELEE_HPP
 
 #include "Enemigo.hpp"
+#include "DisparoEnemigo.hpp"
 #include "../Motor/Collisionable.hpp"
+
 namespace Tipo {
 
     enum ID {
@@ -49,6 +51,11 @@ public:
     bool empujado2;
     Reloj tiempoempujado;
     int cuadrante = 2;
+    
+    
+    
+    DisparoEnemigo *disparo;
+    
     Animation **currentAnimation;
     Animation *walkingAnimationDown;
     Animation *walkingAnimationLeft;
