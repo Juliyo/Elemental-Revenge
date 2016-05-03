@@ -19,6 +19,3 @@ Nodo::Nodo() {
 Nodo::Nodo(const Nodo& orig) {
 }
 
-Nodo::~Nodo() {
-}
-

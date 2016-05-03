@@ -72,12 +72,12 @@ void InGame::Inicializar() {
     player -> Inicializar(1000.f, -1000.f);
     player->CreateDynamicBody();
     melee = new std::vector<Melee*>();
-    melee->reserve(50);
+    melee->reserve(3);
 
     
-    for(int i=0;i<50;i++){
+    for(int i=0;i<3;i++){
         melee->push_back(new Melee());
-        melee->at(i)->Inicializar(1000.f + i*20, -1000.f + i*20,Tipo::ID::Rata);
+        melee->at(i)->Inicializar(1000.f + i*20, -1000.f + i*20,Tipo::ID::Rata,0.f,0.f);
         melee->at(i)->SetRectangleColision(0,0,37,39);
         melee->at(i)->CreateDynamicBody();
         

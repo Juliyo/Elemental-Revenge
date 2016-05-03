@@ -61,7 +61,7 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo,float speedX, floa
     Render::InicializarAnimatedSprite(sf::seconds(0.075f), true, false);
     PhysicsState::SetPosition(posX, posY);
     PhysicsState::SetSpeed(speedX, speedY);
-    Enemigo::SetVelocity(100);
+    Enemigo::SetVelocity(0);
     Enemigo::SetVida(5);
     PhysicsState::SetMaxSpeed(maxSpeedX, maxSpeedY);
     Render::SetOriginAnimatedSprite(17, 16);
@@ -130,8 +130,13 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2) {
     //SetSpeed(nVelocity * Enemigo::GetVelocity());
     
     //SetSpeed(movement);
-    world->pathfingind->encontrarCamino(world->player->getPosition(),getPosition());
+    world->pathfingind->encontrarCamino(world->player->GetPosition(),this->GetPosition());
     camino=world->pathfingind->getCamino();
+    
+    for(int i=0;i<camino.size();i++){
+         std::cout<<"Nodo "<<i<<" "<<camino.at(i)->casillaX<<","<<camino.at(i)->casillaY<<"    Meta "<<camino.at(i)->NodoFinal->casillaX<<","<<camino.at(i)->NodoFinal->casillaY<<std::endl;
+    }
+    
     FindPlayer(elapsedTime);
     //UpdateEnemigo(elapsedTime,mapa);
     //PhysicsState::Update(elapsedTime);
