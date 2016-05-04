@@ -20,8 +20,8 @@ Nodo::Nodo(const Nodo& orig) {
 }
 
 Nodo::~Nodo() {
-    NodoPadre = NULL;
-    NodoFinal = NULL;
+    //NodoPadre = NULL;
+    //NodoFinal = NULL;
 
 }
 
@@ -34,18 +34,18 @@ sf::Vector2f Nodo::getPosition() {
 }
 
 bool Nodo::esIgual(Nodo nodo) {
-    return (posicion == nodo.posicion);
+    return (casillaX==nodo.casillaX && casillaY==nodo.casillaY);
 }
 
 Nodo Nodo::devuelveNodo() {
     return *this;
 }
 
-Nodo::Nodo(Nodo* nodoPadre, Nodo* nodoFinal, sf::Vector2f pos, float costo) {
+Nodo::Nodo(Nodo nodoPadre, Nodo nodoFinal, sf::Vector2f pos, float costo) {
 
     /* NodoPadre=new Nodo();
      NodoFinal=new Nodo();*/
-
+    nulo=false;
     NodoPadre = nodoPadre;
     NodoFinal = nodoFinal;
     posicion = pos;
@@ -53,7 +53,7 @@ Nodo::Nodo(Nodo* nodoPadre, Nodo* nodoFinal, sf::Vector2f pos, float costo) {
     //calculo de la posicion del nodo en la matriz del mapa 
     casillaX = posicion.x / 24;
     casillaY = posicion.y / 24;
-    if (nodoFinal != NULL) {
+    if (nodoFinal.nulo != true) {
         costoTotal = costoG + Calcularcosto();
     }
 

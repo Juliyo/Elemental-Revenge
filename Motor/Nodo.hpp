@@ -20,15 +20,17 @@
 class Nodo {
 public:
     Nodo();
+
+    
     Nodo(const Nodo& orig);
 
-    Nodo(Nodo *nodoPadre, Nodo *nodoFinal, sf::Vector2f pos, float costo);
+    Nodo(Nodo nodoPadre, Nodo nodoFinal, sf::Vector2f pos, float costo);
 
     virtual ~Nodo();
     Nodo devuelveNodo();
     
-    Nodo *NodoPadre;
-    Nodo *NodoFinal;
+    Nodo NodoPadre;
+    Nodo NodoFinal;
     float costoTotal;
     float costoG;
     bool Cerrado = false;
@@ -36,6 +38,7 @@ public:
     int casillaY;
     sf::Vector2f posicion;
     bool escolision=false;
+    bool nulo=true;
     
 
     float Calcularcosto();
@@ -43,8 +46,10 @@ public:
     sf::Vector2f getPosition();
 
     void setPosition(sf::Vector2f pos);
- bool esIgual(Nodo nodo);
- 
+    bool esIgual(Nodo nodo);
+    sf::Vector2i GetCasilla(){
+        return sf::Vector2i(casillaX,casillaY);
+    }
  //metodo para borrar
 //  for (std::vector< int >::iterator it = v.begin() ; it != v.end(); ++it)
 //   {
