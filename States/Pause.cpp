@@ -41,6 +41,8 @@ Pause::~Pause() {
 }
 
 void Pause::Inicializar() {
+    tecladoActivo = false;
+    ratonSelecciona = false;
     float width = 1500;
     float height = 1500;
     colorAzul.r = 112;
@@ -189,7 +191,51 @@ void Pause::Inicializar() {
 }
 
 void Pause::Update(sf::Time timeElapsed) {
+    sf::Color color2(112, 112, 112);
+    printf(" Raton: %f,%f \n menupausa: %f,%f\n",motor->getMousePosition().x,motor->getMousePosition().y,menuPausa[2].getPosition().x,menuPausa[2].getPosition().y);
+        if (motor->GetMouseSprite()->getGlobalBounds().intersects(menuPausa[0].getGlobalBounds())) {
+            printf("entro en if 1");
+            ratonSelecciona = true;
+            if (!tecladoActivo) {
+                menuPausa[0].setColor(sf::Color::White);
+                menuPausa[1].setColor(color2);
+                menuPausa[2].setColor(color2);
+                selectedItemIndexPausa = 0;
+            } else {
+                tecladoActivo = false;
+            }
+        } else if (motor->GetMouseSprite()->getGlobalBounds().intersects(menuPausa[1].getGlobalBounds())) {
+            printf("entro en if 2");
+            ratonSelecciona = true;
+            if (!tecladoActivo) {
+                menuPausa[0].setColor(color2);
+                menuPausa[1].setColor(sf::Color::White);
+                menuPausa[2].setColor(color2);
+                selectedItemIndexPausa = 1;
+            } else {
+                tecladoActivo = false;
+            }
+        } else if (motor->GetMouseSprite()->getGlobalBounds().intersects(menuPausa[2].getGlobalBounds())) {
+           
+            ratonSelecciona = true;
+            if (!tecladoActivo) {
+                menuPausa[0].setColor(color2);
+                menuPausa[1].setColor(color2);
+                menuPausa[2].setColor(sf::Color::White);
 
+                selectedItemIndexPausa = 2;
+            } else {
+                tecladoActivo = false;
+            }
+        } else {
+            ratonSelecciona = false;
+            if (!tecladoActivo) {
+                menuPausa[0].setColor(color2);
+                menuPausa[1].setColor(color2);
+                menuPausa[2].setColor(color2);
+            }
+        }
+    
 }
 
 void Pause::Render(float interpolation, sf::Time elapsedTime) {
@@ -247,7 +293,7 @@ void Pause::Render(float interpolation, sf::Time elapsedTime) {
     motor->draw(*textoPausa);
     motor->SetView(1); //vista del juego
 
-    motor->draw(mouseSprite);
+    motor-> DrawMouse();
 
     motor->display();
   //  motor->display();
@@ -278,18 +324,35 @@ void Pause::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
     }
 }
 void Pause::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
+    if(isPressed==false){
     if (key == sf::Keyboard::W) { //Esto lo hago para que cuando no estes presionando cambia a false
-        MoveUp();
+        if (!ratonSelecciona) {
+            tecladoActivo = true;
+            MoveUp();
+        }
     } else if (key == sf::Keyboard::S) {
-        MoveDown();
+        if (!ratonSelecciona) {
+            tecladoActivo = true;
+            MoveDown();
+        }
     } else if (key == sf::Keyboard::A) {
-        MoveLeft();
+        if (!ratonSelecciona) {
+            tecladoActivo = true;
+            MoveLeft();
+        }
     } else if (key == sf::Keyboard::D) {
-        MoveRight();
+        if (!ratonSelecciona) {
+            tecladoActivo = true;
+            MoveRight();
+        }
     } else if (key == sf::Keyboard::Return) {
         printf("%d\n",selectedItemIndexPausa);
         if (selectedItemIndexPausa == 0) {
              StateStack::Instance()->SetCurrentState(States::ID::InGame);
+        }
+        
+        if (selectedItemIndexPausa == 2) {
+             StateStack::Instance()->SetCurrentState(States::ID::Menu);
         }
         if (selectedItemIndexPausa == 3) {
             selectedItemIndexPausa = 8;
@@ -332,6 +395,7 @@ void Pause::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
             menuPausa[6].setColor(colorAzul);
             menuPausa[3].setColor(sf::Color::White);
         }
+    }
     }
 }
 

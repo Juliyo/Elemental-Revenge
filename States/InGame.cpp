@@ -79,7 +79,6 @@ void InGame::Inicializar() {
     VectorBools = new std::vector<bool>();
     VectorBools->reserve(30);
     melee->reserve(30);
-
     for (int i = 0; i < 30; i++) {
 
         melee->push_back(new Melee());
@@ -103,6 +102,7 @@ void InGame::Inicializar() {
         spriteRelleno.setScale(1, 2);
 
         contFonts.loadFromFile("resources/Fonts/Sansation.ttf");
+        
 
     } catch (std::runtime_error& e) {
         std::cout << "Excepcion: " << e.what() << std::endl;
@@ -110,6 +110,9 @@ void InGame::Inicializar() {
     }
     level->LoadMap(Niveles::ID::Level1);
     video->Inicializar();
+    
+    
+
 
 }
 

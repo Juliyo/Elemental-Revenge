@@ -1031,7 +1031,6 @@ void Player::renderFlash(sf::Time elapsedTime, float interpolation) {
     }
 
 
-    DrawWithInterpolation(interpolation);
 
     //no hago play animation todo el rato porque no interesa ya que no haremos un getGlobalBounds del flash
     if (flash2->dibujar == true) {

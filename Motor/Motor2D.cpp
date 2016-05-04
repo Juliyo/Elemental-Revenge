@@ -103,6 +103,7 @@ void Motor2D::display() {
 }
 
 sf::Vector2f Motor2D::getMousePosition() {
+
     return mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow));
 }
 
@@ -322,5 +323,8 @@ void Motor2D::UpdateMouse() {
 
 void Motor2D::DrawMouse() {
     draw(mouseSprite);
+}
+Sprite* Motor2D::GetMouseSprite() {
+    return mouseSprite;
 }
 

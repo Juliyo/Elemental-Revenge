@@ -157,7 +157,9 @@ void Hud::cargarRayo() {
     rBlanco->setPosition(500, 910);
     rBlanco->setScale(0.3, 0.4);
     
+    printf("llego a textura del rayo HUD\n");
     rayoBueno->setTexture("resources/Textures/hud/rayo.png", true);
+    printf("termino a textura del rayo HUD\n");
     rayoBueno->setOrigin(rayoBueno->getTextureSize().x / 2, rayoBueno->getTextureSize().y / 2);
     rayoBueno->setPosition(500, 910);
     rayoBueno->setScale(0.3, 0.4);

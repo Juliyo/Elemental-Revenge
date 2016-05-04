@@ -39,6 +39,7 @@ public:
     int getAnchoVentana();
     int getAltoVentana();
     void setZoom(float zoom);
+    Sprite* GetMouseSprite();
 
     sf::Vector2f getCenterFromView(int view);
     sf::Vector2f getSizeFromView(int view);

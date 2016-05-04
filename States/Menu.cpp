@@ -70,7 +70,7 @@ void Menu::Inicializar() {
     texturaFondo.setSmooth(true);
     texturaFondo.setRepeated(1);
     spriteFondo->setTexture(texturaFondo);
-
+    
     mouseSprite->setTexture(mouseTexture);
     mouseSprite->setScale(0.2, 0.2);
     mouseSprite->setPosition(20, 20);
@@ -326,6 +326,8 @@ void Menu::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
 
 void Menu::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
 
+    
+    if(isPressed==false){
     if (key == sf::Keyboard::W) { //Esto lo hago para que cuando no estes presionando cambia a false
         if (!ratonSelecciona) {
             tecladoActivo = true;
@@ -338,6 +340,13 @@ void Menu::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         }
 
     } else if (key == sf::Keyboard::Return) {
+        
+        if (selectedItemIndex == 0) {
+
+            StateStack::Instance()->SetCurrentState(States::ID::Carga);
+            StateStack::Instance()->GetState(States::ID::Carga)->Inicializar();
+        }
+        
         if (selectedItemIndex == 1) {
             selectedItemIndex = 3;
         }
@@ -351,6 +360,7 @@ void Menu::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         } else {
             selectedItemIndex = 1;
         }
+    }
     }
 }
 

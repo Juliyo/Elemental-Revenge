@@ -82,6 +82,8 @@ private:
     Text *textoPausa;
     sf::Color colorAzul;
     
+    bool tecladoActivo;
+    bool ratonSelecciona;
     //static Pause *mInstance;
 };
 
