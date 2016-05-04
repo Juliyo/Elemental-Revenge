@@ -25,6 +25,7 @@ public:
     virtual ~Collisionable();
     
     void CreateDynamicBody();
+    void CreateKinematicBody();
 
     void SetRectangleColision(float x, float y, float w, float h);
     void SetOriginColision(float x, float y);

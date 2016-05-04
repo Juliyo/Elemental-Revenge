@@ -37,3 +37,7 @@ void ContactListener::EndContact(b2Contact* contact) {
         static_cast<Entity*> (bodyUserData)->EndCollide();
     }
 }
+
+bool ContactListener::ShouldCollide(b2Fixture* fixtureA, b2Fixture* fixtureB) {
+    //return true;
+}

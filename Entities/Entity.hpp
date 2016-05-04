@@ -16,12 +16,18 @@
 
 #include "../Headers/PhysicsState.hpp"
 #include "../Headers/Render.hpp"
-
+enum _entityCategory {
+    BOUNDARY =          0x0001,
+    PLAYER =            0x0002,
+    ENEMIGO =           0x0004,
+    HECHIZO =           0x0008
+};
 class Entity : public PhysicsState, public Render{
 public:
     Entity();
     Entity(const Entity& orig);
     virtual ~Entity();
+    
     virtual void Collide() = 0;
     virtual void EndCollide() = 0;
     //virtual void Update(const sf::Time elapsedTime) = 0;

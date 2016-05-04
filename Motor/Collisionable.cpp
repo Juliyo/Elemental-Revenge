@@ -53,6 +53,27 @@ void Collisionable::CreateDynamicBody() {
     
 }
 
+void Collisionable::CreateKinematicBody(){
+    physicWorld = InGame::Instance()->physicWorld;
+    bodyDef = new b2BodyDef();
+    bodyDef->type = b2_kinematicBody;
+    bodyDef->position.Set(tmx::SfToBoxFloat(entity->GetPosition().x),tmx::SfToBoxFloat(entity->GetPosition().y));
+    bodyDef->fixedRotation = true;
+    //Añadimos el objeto al mundo
+    body = physicWorld->CreateBody(bodyDef);
+    
+    //Se crea una shape, le damos las dimensiones pasandole la mitad del ancho y la mitad del alto
+    //del BoundingBox
+    shape = new b2PolygonShape();
+    shape->SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f));
+    //Objeto que le da las propiedades fisicas al bodyDef
+    fixtureDef = new b2FixtureDef();
+    fixtureDef->shape = shape;
+    fixtureDef->density = 1.0f;
+    fixtureDef->friction = 0.0f;
+    body->CreateFixture(fixtureDef);
+}
+
 void Collisionable::SetOriginColision(float x, float y) {
     entOrigin.x = x;
     entOrigin.y = y;

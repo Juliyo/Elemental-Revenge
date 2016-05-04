@@ -410,7 +410,7 @@ void Player::Update(const sf::Time elapsedTime) {
         if (isMovingRight)
             movement.x += GetVelocity();
     }
-    //Hay que setear al BodyDef el vector velocidad que hallamos calculado
+    //Hay que setear al BodyDef el vector velocidad que hayamos calculado
     body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(movement) * Player::GetVelocity()));
     //Actualizamos la posicion del player con la posicion del bodyDef
     SetPosition(tmx::BoxToSfVec(body->GetPosition()));
@@ -705,8 +705,8 @@ void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time e
             contFuego++;
         }
         for (int aux = 0; aux <= 49; aux++) {
-            movement2.x = (40 * cos(hFuegoBasico[aux].angleshot2) * 10.0f);
-            movement2.y = (40 * sin(hFuegoBasico[aux].angleshot2) * 10.0f);
+            movement2.x = (4 * cos(hFuegoBasico[aux].angleshot2) * 10.0f);
+            movement2.y = (4 * sin(hFuegoBasico[aux].angleshot2) * 10.0f);
             hFuegoBasico[aux].Update2(movement2, elapsedTime);
         }
         if (fuegoAdvancedCast) {

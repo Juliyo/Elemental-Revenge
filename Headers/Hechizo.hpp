@@ -20,6 +20,8 @@
 #include "PhysicsState.hpp"
 #include "../Motor/Collisionable.hpp"
 #include "Animation.hpp"
+#include "../Otros/tmxHelper.hpp"
+#include "../Headers/Util.hpp"
 
 class Hechizo : public Entity {
 public:

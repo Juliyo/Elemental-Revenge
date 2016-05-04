@@ -15,6 +15,7 @@
 #include "../States/InGame.hpp"
 #include "../Headers/Util.hpp"
 #include "../Otros/tmxHelper.hpp"
+
 Melee::Melee() : Collisionable((Entity*)this) {
 }
 
@@ -31,13 +32,13 @@ void Melee::EndCollide() {
 
 bool Melee::HandleMapCollisions(const sf::Time& elapsedTime) {
     InGame* world = InGame::Instance();
-   /* for (int i = 0; i < objetosCercanos.size(); i++) {
-        BoundingBox bb(objetosCercanos.at(i)->GetAABB());
-        if (CheckColision(bb, elapsedTime)) {
-            type = TypeOfColision(bb, elapsedTime);
-            OnColision(type);
-        }
-    }*/
+    /* for (int i = 0; i < objetosCercanos.size(); i++) {
+         BoundingBox bb(objetosCercanos.at(i)->GetAABB());
+         if (CheckColision(bb, elapsedTime)) {
+             type = TypeOfColision(bb, elapsedTime);
+             OnColision(type);
+         }
+     }*/
     int tileWidth = 24;
     int tileHeight = 24;
     int **colisiones = world->level->map->colisiones;
@@ -51,57 +52,52 @@ bool Melee::HandleMapCollisions(const sf::Time& elapsedTime) {
     }*/
 
     BoundingBox boundingPlayer = Collisionable::CalculateNextRect(elapsedTime);
-    sf::Vector2i indiceTopLeft = sf::Vector2i(boundingPlayer.GetTopLeft().x/24,boundingPlayer.GetTopLeft().y/24);
-    sf::Vector2i indiceTopRight = sf::Vector2i(boundingPlayer.GetTopRight().x/24,boundingPlayer.GetTopRight().y/24);
-    sf::Vector2i indiceBotLeft = sf::Vector2i(boundingPlayer.GetBottomLeft().x/24,boundingPlayer.GetBottomLeft().y/24);
-    sf::Vector2i indiceBotRight = sf::Vector2i(boundingPlayer.GetBottomRight().x/24,boundingPlayer.GetBottomRight().y/24);
+    sf::Vector2i indiceTopLeft = sf::Vector2i(boundingPlayer.GetTopLeft().x / 24, boundingPlayer.GetTopLeft().y / 24);
+    sf::Vector2i indiceTopRight = sf::Vector2i(boundingPlayer.GetTopRight().x / 24, boundingPlayer.GetTopRight().y / 24);
+    sf::Vector2i indiceBotLeft = sf::Vector2i(boundingPlayer.GetBottomLeft().x / 24, boundingPlayer.GetBottomLeft().y / 24);
+    sf::Vector2i indiceBotRight = sf::Vector2i(boundingPlayer.GetBottomRight().x / 24, boundingPlayer.GetBottomRight().y / 24);
     /*std::cout<<"xTopright"<<indiceTopRight.x<<" , "<<"yTopright"<<indiceTopRight.y<<std::endl;
     std::cout<<"Valor mapa"<<colisiones[indiceTopRight.x][indiceTopRight.y]<<std::endl;*/
-    
-    
-    if(indiceTopLeft.x>=0 && indiceTopLeft.y>=0 && indiceTopLeft.x<width &&  indiceTopLeft.y<height && colisiones[indiceTopLeft.y][indiceTopLeft.x] == 1){
+
+
+    if (indiceTopLeft.x >= 0 && indiceTopLeft.y >= 0 && indiceTopLeft.x < width && indiceTopLeft.y < height && colisiones[indiceTopLeft.y][indiceTopLeft.x] == 1) {
         //std::cout<<"Colisiona esquina superior izquierda"<<std::endl;
-        BoundingBox boundingArbol(indiceTopLeft.x*24,indiceTopLeft.y*24,24,24);
-        
+        BoundingBox boundingArbol(indiceTopLeft.x * 24, indiceTopLeft.y * 24, 24, 24);
+
         //Hacer algo
 
-        PhysicsState::SetSpeed(0,0);
+        PhysicsState::SetSpeed(0, 0);
         return true;
-        
-    }
-    else if(indiceTopRight.x>=0 && indiceTopRight.y>=0 && indiceTopRight.x<width &&  indiceTopRight.y<height && colisiones[indiceTopRight.y][indiceTopRight.x] == 1){
+
+    } else if (indiceTopRight.x >= 0 && indiceTopRight.y >= 0 && indiceTopRight.x < width && indiceTopRight.y < height && colisiones[indiceTopRight.y][indiceTopRight.x] == 1) {
         //std::cout<<"Colisiona esquina superior derecha"<<std::endl;
-        BoundingBox boundingArbol((indiceTopRight.x*24),(indiceTopRight.y*24),24,24);
+        BoundingBox boundingArbol((indiceTopRight.x * 24), (indiceTopRight.y * 24), 24, 24);
         //Hacer algo
-        PhysicsState::SetSpeed(0,0);
+        PhysicsState::SetSpeed(0, 0);
         //printf("Dali\n");
-                return true;
+        return true;
 
 
-    }
-    else if(indiceBotLeft.x>=0 && indiceBotLeft.y>=0 && indiceBotLeft.x<width &&  indiceBotLeft.y<height && colisiones[indiceBotLeft.y][indiceBotLeft.x] == 1){
+    } else if (indiceBotLeft.x >= 0 && indiceBotLeft.y >= 0 && indiceBotLeft.x < width && indiceBotLeft.y < height && colisiones[indiceBotLeft.y][indiceBotLeft.x] == 1) {
         //std::cout<<"Colisiona esquina inferior izquierda"<<std::endl;
-        BoundingBox boundingArbol((indiceBotLeft.x*24),(indiceBotLeft.y*24),24,24);
+        BoundingBox boundingArbol((indiceBotLeft.x * 24), (indiceBotLeft.y * 24), 24, 24);
 
-        PhysicsState::SetSpeed(0,0);
-                return true;
+        PhysicsState::SetSpeed(0, 0);
+        return true;
 
 
-    }
-    else if(indiceBotRight.x>=0 && indiceBotRight.y>=0 && indiceBotRight.x<width &&  indiceBotRight.y<height && colisiones[indiceBotRight.y][indiceBotRight.x] == 1){
+    } else if (indiceBotRight.x >= 0 && indiceBotRight.y >= 0 && indiceBotRight.x < width && indiceBotRight.y < height && colisiones[indiceBotRight.y][indiceBotRight.x] == 1) {
         //std::cout<<"Colisiona esquina inferior derecha"<<std::endl;
-        BoundingBox boundingArbol((indiceBotRight.x*24),(indiceBotRight.y*24),24,24);
-        PhysicsState::SetSpeed(0,0);
-                return true;
-
+        BoundingBox boundingArbol((indiceBotRight.x * 24), (indiceBotRight.y * 24), 24, 24);
+        PhysicsState::SetSpeed(0, 0);
+        return true;
 
     }
     return false;
 
 }
 
-
-void Melee::Inicializar(float posX, float posY, Tipo::ID tipo,float speedX, float speedY, float maxSpeedX, float maxSpeedY) {
+void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, float speedY, float maxSpeedX, float maxSpeedY) {
     /*Reservamos memoria para los punteros de Animation*/
     m_tipo = tipo;
     walkingAnimationDown = new Animation();
@@ -160,38 +156,35 @@ void Melee::FindPlayer(sf::Time elapsedTime) {
     int width = world->level->map->_width;
 
     BoundingBox boundingEnemigo = CalculateNextRect(elapsedTime);
-    sf::Vector2i indiceTopLeft = sf::Vector2i(boundingEnemigo.GetTopLeft().x/24,boundingEnemigo.GetTopLeft().y/24);
-    sf::Vector2i indiceTopRight = sf::Vector2i(boundingEnemigo.GetTopRight().x/24,boundingEnemigo.GetTopRight().y/24);
-    sf::Vector2i indiceBotLeft = sf::Vector2i(boundingEnemigo.GetBottomLeft().x/24,boundingEnemigo.GetBottomLeft().y/24);
-    sf::Vector2i indiceBotRight = sf::Vector2i(boundingEnemigo.GetBottomRight().x/24,boundingEnemigo.GetBottomRight().y/24);
+    sf::Vector2i indiceTopLeft = sf::Vector2i(boundingEnemigo.GetTopLeft().x / 24, boundingEnemigo.GetTopLeft().y / 24);
+    sf::Vector2i indiceTopRight = sf::Vector2i(boundingEnemigo.GetTopRight().x / 24, boundingEnemigo.GetTopRight().y / 24);
+    sf::Vector2i indiceBotLeft = sf::Vector2i(boundingEnemigo.GetBottomLeft().x / 24, boundingEnemigo.GetBottomLeft().y / 24);
+    sf::Vector2i indiceBotRight = sf::Vector2i(boundingEnemigo.GetBottomRight().x / 24, boundingEnemigo.GetBottomRight().y / 24);
     /*std::cout<<"xTopright"<<indiceTopRight.x<<" , "<<"yTopright"<<indiceTopRight.y<<std::endl;
     std::cout<<"Valor mapa"<<colisiones[indiceTopRight.x][indiceTopRight.y]<<std::endl;*/
-    if(indiceTopLeft.y >= 0 && indiceTopLeft.x >=0 && indiceTopLeft.y < height && indiceTopLeft.x < width && colisiones[indiceTopLeft.y][indiceTopLeft.x] == 1){
+    if (indiceTopLeft.y >= 0 && indiceTopLeft.x >= 0 && indiceTopLeft.y < height && indiceTopLeft.x < width && colisiones[indiceTopLeft.y][indiceTopLeft.x] == 1) {
         //std::cout<<"Colisiona esquina superior izquierda"<<std::endl;
-        BoundingBox boundingArbol(indiceTopLeft.x*24,indiceTopLeft.y*24,24,24);
-        
+        BoundingBox boundingArbol(indiceTopLeft.x * 24, indiceTopLeft.y * 24, 24, 24);
+
         //Hacer algo
-       // SetSpeed(0,0);
-    }
-    else if(indiceTopRight.y >= 0 && indiceTopRight.x >=0 && indiceTopRight.y < height && indiceTopRight.x < width && colisiones[indiceTopRight.y][indiceTopRight.x] == 1){
+        // SetSpeed(0,0);
+    } else if (indiceTopRight.y >= 0 && indiceTopRight.x >= 0 && indiceTopRight.y < height && indiceTopRight.x < width && colisiones[indiceTopRight.y][indiceTopRight.x] == 1) {
         //std::cout<<"Colisiona esquina superior derecha"<<std::endl;
-        BoundingBox boundingArbol((indiceTopRight.x*24),(indiceTopRight.y*24),24,24);
+        BoundingBox boundingArbol((indiceTopRight.x * 24), (indiceTopRight.y * 24), 24, 24);
         //Hacer algo
         //SetSpeed(0,0);
-    }
-    else if(indiceBotLeft.y >= 0 && indiceBotLeft.x >=0 && indiceBotLeft.y < height && indiceBotLeft.x < width && colisiones[indiceBotLeft.y][indiceBotLeft.x] == 1){
+    } else if (indiceBotLeft.y >= 0 && indiceBotLeft.x >= 0 && indiceBotLeft.y < height && indiceBotLeft.x < width && colisiones[indiceBotLeft.y][indiceBotLeft.x] == 1) {
         //std::cout<<"Colisiona esquina inferior izquierda"<<std::endl;
-        BoundingBox boundingArbol((indiceBotLeft.x*24),(indiceBotLeft.y*24),24,24);
-        
+        BoundingBox boundingArbol((indiceBotLeft.x * 24), (indiceBotLeft.y * 24), 24, 24);
+
         //SetSpeed(0,0);
-    }
-    else if(indiceBotRight.y >= 0 && indiceBotRight.x >=0 && indiceBotRight.y < height && indiceBotRight.x < width && colisiones[indiceBotRight.y][indiceBotRight.x] == 1){
+    } else if (indiceBotRight.y >= 0 && indiceBotRight.x >= 0 && indiceBotRight.y < height && indiceBotRight.x < width && colisiones[indiceBotRight.y][indiceBotRight.x] == 1) {
         //std::cout<<"Colisiona esquina inferior derecha"<<std::endl;
-        BoundingBox boundingArbol((indiceBotRight.x*24),(indiceBotRight.y*24),24,24);
-        
+        BoundingBox boundingArbol((indiceBotRight.x * 24), (indiceBotRight.y * 24), 24, 24);
+
         //SetSpeed(0,0);
     }
-    
+
 }
 
 void Melee::Update(const sf::Time elapsedTime, float x1, float x2, float multiplicador) {
@@ -206,25 +199,23 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2, float multipl
         movement.x -= 100.f;*/
     //sf::Vector2f nVelocity = Util::Normalize(movement);
     //SetSpeed(nVelocity * Enemigo::GetVelocity());
-    
+
     //SetSpeed(movement);
-    
+
     FindPlayer(elapsedTime);
     //UpdateEnemigo(elapsedTime,mapa);
     //PhysicsState::Update(elapsedTime);
-     //Hay que setear al BodyDef el vector velocidad que hallamos calculado
-    body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(movement) *multiplicador* Enemigo::GetVelocity()));
+    //Hay que setear al BodyDef el vector velocidad que hallamos calculado
+    body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(movement) * multiplicador * Enemigo::GetVelocity()));
     PhysicsState::SetSpeed(tmx::BoxToSfVec(body->GetLinearVelocity()));
-   // FindPlayer(elapsedTime);
+    // FindPlayer(elapsedTime);
     //Actualizamos la posicion del player con la posicion del bodyDef
     SetPosition(tmx::BoxToSfVec(body->GetPosition()));
 }
 
-
-
 void Melee::Draw() {
-     Render::GetSprite().setPosition(PhysicsState::GetPosition().x, PhysicsState::GetPosition().y);
-     Motor2D::Instance()->draw(&GetSprite());
+    Render::GetSprite().setPosition(PhysicsState::GetPosition().x, PhysicsState::GetPosition().y);
+    Motor2D::Instance()->draw(&GetSprite());
 }
 
 void Melee::DrawWithInterpolation(float interpolation) {
@@ -232,29 +223,29 @@ void Melee::DrawWithInterpolation(float interpolation) {
 }
 
 void Melee::PlayAnimation(Animation* animation) {
-   Render::PlayAnimation(animation);
-   
+    Render::PlayAnimation(animation);
+
 }
 
 void Melee::UpdateEnemyAnimation(int x, int y) {
     // 1 -> Arriba
-   // 2 -> Abajo
-   // 3 -> Derecha
-   // 4 -> Izquierda
-   
-   if (abs(y) > abs(x) && y <= 0) {
-       cuadrante = 1;
-       currentAnimation = &walkingAnimationUp;
-   } else if (abs(y) > abs(x) && y > 0) {
-       currentAnimation = &walkingAnimationDown;
-       cuadrante = 2;
-   } else if (abs(x) > abs(y) && x > 0) {
-       currentAnimation = &walkingAnimationRight;
-       cuadrante = 3;
-   } else {
-       currentAnimation = &walkingAnimationLeft;
-       cuadrante = 4;
-   }
+    // 2 -> Abajo
+    // 3 -> Derecha
+    // 4 -> Izquierda
+
+    if (abs(y) > abs(x) && y <= 0) {
+        cuadrante = 1;
+        currentAnimation = &walkingAnimationUp;
+    } else if (abs(y) > abs(x) && y > 0) {
+        currentAnimation = &walkingAnimationDown;
+        cuadrante = 2;
+    } else if (abs(x) > abs(y) && x > 0) {
+        currentAnimation = &walkingAnimationRight;
+        cuadrante = 3;
+    } else {
+        currentAnimation = &walkingAnimationLeft;
+        cuadrante = 4;
+    }
 }
 
 void Melee::UpdateAnimation(sf::Time elapsedTime) {

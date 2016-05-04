@@ -58,7 +58,8 @@ InGame::InGame() {
     //Inicializar();
     physicWorld = new b2World(tmx::SfToBoxVec(sf::Vector2f(0.f, 0.f)));
     ct = new ContactListener();
-    physicWorld->SetContactListener(ct);
+    //physicWorld->SetContactListener(ct);
+    physicWorld->SetContactFilter(ct);
    
 }
 
@@ -71,7 +72,7 @@ InGame::~InGame() {
 void InGame::Inicializar() {
     player = new Player();
     player->SetRectangleColision(14, 12, 36, 52);
-    player -> Inicializar(1000.f, -1000.f);
+    player -> Inicializar(-100.f, -100.f);
     player->CreateDynamicBody();
     dummy = new Dummy();
     dummy->CreateDynamicBody();
@@ -80,7 +81,7 @@ void InGame::Inicializar() {
     VectorBools->reserve(30);
     melee->reserve(30);
     
-    for(int i=0;i<30;i++){
+    for(int i=0;i<0;i++){
 
         melee->push_back(new Melee());
         melee->at(i)->Inicializar(1000.f + i * 20, -1000.f + i * 20, Tipo::ID::Rata);

@@ -16,7 +16,7 @@
 hFireBasic::hFireBasic(): Collisionable((Entity*)this) {
 
 
-
+    
     animationInicio = new Animation();
     animationInicio->setSpriteSheet("resources/Textures/FuegoSpriteSheet.png");
     animationInicio->addFrame(sf::IntRect(0, 0, 152, 148));
@@ -57,6 +57,7 @@ hFireBasic::hFireBasic(): Collisionable((Entity*)this) {
     Render::InicializarAnimatedSprite(sf::seconds(0.02f), true, false);
     Render::SetOriginAnimation(0, 147 / 2);
     Render::SetScaleAnimation(0.2, 0.2);
+    CreateKinematicBody();
     
     //hSprite.setPosition(0, 0);
 
@@ -69,7 +70,7 @@ hFireBasic::hFireBasic(): Collisionable((Entity*)this) {
 }
 
 void hFireBasic::Collide() {
-
+    std::cout<<"Colision!"<<std::endl;
 }
 
 void hFireBasic::EndCollide() {
@@ -81,14 +82,13 @@ hFireBasic::~hFireBasic() {
 
 void hFireBasic::cast(sf::Vector2f posicion) {
 
-
+    
     SetPosition(posicion);
-
+    
     float angleShot = Motor2D::Instance()->getAngleShot(posicion);
     angleshot2 = angleShot; //so it goes in a straight line
+    body->SetTransform(tmx::SfToBoxVec(posicion),0);
     SetRotationAnimation(angleShot * 180 / 3.14);
-
-
 }
 
 void hFireBasic::DrawWithInterpolation(float interpolation) {
@@ -97,5 +97,10 @@ void hFireBasic::DrawWithInterpolation(float interpolation) {
 
 void hFireBasic::Update2(sf::Vector2f velocity, sf::Time elapsedTime) {
     SetSpeed(velocity);
-    Update(elapsedTime);
+    //sf::Vector2f movement(0.f, 0.f);
+     //Hay que setear al BodyDef el vector velocidad que hallamos calculado
+    body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(velocity)*200.f));
+    //Actualizamos la posicion del player con la posicion del bodyDef
+    SetPosition(tmx::BoxToSfVec(body->GetPosition()));
+    //Update(elapsedTime);
 }
