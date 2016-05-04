@@ -33,15 +33,15 @@ sf::Vector2f Nodo::getPosition() {
     return posicion;
 }
 
-bool Nodo::esIgual(Nodo nodo) {
-    return (casillaX==nodo.casillaX && casillaY==nodo.casillaY);
+bool Nodo::esIgual(Nodo *nodo) {
+    return (casillaX==nodo->casillaX && casillaY==nodo->casillaY);
 }
 
 Nodo Nodo::devuelveNodo() {
     return *this;
 }
 
-Nodo::Nodo(Nodo nodoPadre, Nodo nodoFinal, sf::Vector2f pos, float costo) {
+Nodo::Nodo(Nodo *nodoPadre, Nodo *nodoFinal, sf::Vector2f pos, float costo) {
 
     /* NodoPadre=new Nodo();
      NodoFinal=new Nodo();*/
@@ -53,7 +53,7 @@ Nodo::Nodo(Nodo nodoPadre, Nodo nodoFinal, sf::Vector2f pos, float costo) {
     //calculo de la posicion del nodo en la matriz del mapa 
     casillaX = posicion.x / 24;
     casillaY = posicion.y / 24;
-    if (nodoFinal.nulo != true) {
+    if (nodoFinal != NULL) {
         costoTotal = costoG + Calcularcosto();
     }
 
@@ -61,14 +61,14 @@ Nodo::Nodo(Nodo nodoPadre, Nodo nodoFinal, sf::Vector2f pos, float costo) {
     //        if (colision){
     //            escolision=true;
     //        }
-    InGame *world = InGame::Instance();
+   /* InGame *world = InGame::Instance();
     int **colisiones = world->level->map->colisiones;
         int height = world->level->map->_height;
     int width = world->level->map->_width;
     if (casillaY >= 0 && casillaX >=0 && casillaY < height && casillaX < width && colisiones[casillaY][casillaX] != 0) {
         escolision = true;
         std::cout << "Hay colison en la casilla " << casillaX << "," << casillaY << std::endl;
-    }
+    }*/
 }
 
 float Nodo::Calcularcosto() {

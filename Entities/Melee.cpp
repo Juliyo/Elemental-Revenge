@@ -15,13 +15,14 @@
 #include "../States/InGame.hpp"
 #include "../Headers/Util.hpp"
 #include "../Otros/tmxHelper.hpp"
+
 Melee::Melee() : Collisionable((Entity*)this) {
 }
 
 Melee::~Melee() {
 }
 
-void Melee::Inicializar(float posX, float posY, Tipo::ID tipo,float speedX, float speedY, float maxSpeedX, float maxSpeedY) {
+void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, float speedY, float maxSpeedX, float maxSpeedY) {
     /*Reservamos memoria para los punteros de Animation*/
     m_tipo = tipo;
     walkingAnimationDown = new Animation();
@@ -70,13 +71,13 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo,float speedX, floa
     empujado = false;
     empujado2 = false;
     inicio.restart();
-    
+
     //srand(inicio.getTiempo());
-    color.r=rand()%255;
-    color.g=rand()%255;
-    color.b=rand()%255;
-    
-    
+    color.r = rand() % 255;
+    color.g = rand() % 255;
+    color.b = rand() % 255;
+
+
 }
 
 void Melee::FindPlayer(sf::Time elapsedTime) {
@@ -86,41 +87,38 @@ void Melee::FindPlayer(sf::Time elapsedTime) {
     int **colisiones = world->level->map->colisiones;
     int height = world->level->map->_height;
     int width = world->level->map->_width;
-    
+
 
     BoundingBox boundingEnemigo = CalculateNextRect(elapsedTime);
-    sf::Vector2i indiceTopLeft = sf::Vector2i(boundingEnemigo.GetTopLeft().x/24,boundingEnemigo.GetTopLeft().y/24);
-    sf::Vector2i indiceTopRight = sf::Vector2i(boundingEnemigo.GetTopRight().x/24,boundingEnemigo.GetTopRight().y/24);
-    sf::Vector2i indiceBotLeft = sf::Vector2i(boundingEnemigo.GetBottomLeft().x/24,boundingEnemigo.GetBottomLeft().y/24);
-    sf::Vector2i indiceBotRight = sf::Vector2i(boundingEnemigo.GetBottomRight().x/24,boundingEnemigo.GetBottomRight().y/24);
+    sf::Vector2i indiceTopLeft = sf::Vector2i(boundingEnemigo.GetTopLeft().x / 24, boundingEnemigo.GetTopLeft().y / 24);
+    sf::Vector2i indiceTopRight = sf::Vector2i(boundingEnemigo.GetTopRight().x / 24, boundingEnemigo.GetTopRight().y / 24);
+    sf::Vector2i indiceBotLeft = sf::Vector2i(boundingEnemigo.GetBottomLeft().x / 24, boundingEnemigo.GetBottomLeft().y / 24);
+    sf::Vector2i indiceBotRight = sf::Vector2i(boundingEnemigo.GetBottomRight().x / 24, boundingEnemigo.GetBottomRight().y / 24);
     /*std::cout<<"xTopright"<<indiceTopRight.x<<" , "<<"yTopright"<<indiceTopRight.y<<std::endl;
     std::cout<<"Valor mapa"<<colisiones[indiceTopRight.x][indiceTopRight.y]<<std::endl;*/
-    if(indiceTopLeft.y >= 0 && indiceTopLeft.x >=0 && indiceTopLeft.y < height && indiceTopLeft.x < width && colisiones[indiceTopLeft.y][indiceTopLeft.x] == 1){
+    if (indiceTopLeft.y >= 0 && indiceTopLeft.x >= 0 && indiceTopLeft.y < height && indiceTopLeft.x < width && colisiones[indiceTopLeft.y][indiceTopLeft.x] == 1) {
         //std::cout<<"Colisiona esquina superior izquierda"<<std::endl;
-        BoundingBox boundingArbol(indiceTopLeft.x*24,indiceTopLeft.y*24,24,24);
-        
+        BoundingBox boundingArbol(indiceTopLeft.x * 24, indiceTopLeft.y * 24, 24, 24);
+
         //Hacer algo
-       // SetSpeed(0,0);
-    }
-    else if(indiceTopRight.y >= 0 && indiceTopRight.x >=0 && indiceTopRight.y < height && indiceTopRight.x < width && colisiones[indiceTopRight.y][indiceTopRight.x] == 1){
+        // SetSpeed(0,0);
+    } else if (indiceTopRight.y >= 0 && indiceTopRight.x >= 0 && indiceTopRight.y < height && indiceTopRight.x < width && colisiones[indiceTopRight.y][indiceTopRight.x] == 1) {
         //std::cout<<"Colisiona esquina superior derecha"<<std::endl;
-        BoundingBox boundingArbol((indiceTopRight.x*24),(indiceTopRight.y*24),24,24);
+        BoundingBox boundingArbol((indiceTopRight.x * 24), (indiceTopRight.y * 24), 24, 24);
         //Hacer algo
         //SetSpeed(0,0);
-    }
-    else if(indiceBotLeft.y >= 0 && indiceBotLeft.x >=0 && indiceBotLeft.y < height && indiceBotLeft.x < width && colisiones[indiceBotLeft.y][indiceBotLeft.x] == 1){
+    } else if (indiceBotLeft.y >= 0 && indiceBotLeft.x >= 0 && indiceBotLeft.y < height && indiceBotLeft.x < width && colisiones[indiceBotLeft.y][indiceBotLeft.x] == 1) {
         //std::cout<<"Colisiona esquina inferior izquierda"<<std::endl;
-        BoundingBox boundingArbol((indiceBotLeft.x*24),(indiceBotLeft.y*24),24,24);
-        
+        BoundingBox boundingArbol((indiceBotLeft.x * 24), (indiceBotLeft.y * 24), 24, 24);
+
         //SetSpeed(0,0);
-    }
-    else if(indiceBotRight.y >= 0 && indiceBotRight.x >=0 && indiceBotRight.y < height && indiceBotRight.x < width && colisiones[indiceBotRight.y][indiceBotRight.x] == 1){
+    } else if (indiceBotRight.y >= 0 && indiceBotRight.x >= 0 && indiceBotRight.y < height && indiceBotRight.x < width && colisiones[indiceBotRight.y][indiceBotRight.x] == 1) {
         //std::cout<<"Colisiona esquina inferior derecha"<<std::endl;
-        BoundingBox boundingArbol((indiceBotRight.x*24),(indiceBotRight.y*24),24,24);
-        
+        BoundingBox boundingArbol((indiceBotRight.x * 24), (indiceBotRight.y * 24), 24, 24);
+
         //SetSpeed(0,0);
     }
-    
+
 }
 
 void Melee::Update(const sf::Time elapsedTime, float x1, float x2) {
@@ -136,41 +134,47 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2) {
         movement.x -= 100.f;*/
     //sf::Vector2f nVelocity = Util::Normalize(movement);
     //SetSpeed(nVelocity * Enemigo::GetVelocity());
-    
+
     //SetSpeed(movement);
-    if(inicio.getTiempo()>10.0f){
-            world->pathfingind->encontrarCamino(world->player->GetPosition(),this->GetPosition());
-    camino=world->pathfingind->getCamino();
-    inicio.restart();
-    nodoactual=0;
-    shapesDebug.clear();
-    
-    for(int i=0;i<camino.size();i++){
-         std::cout<<"Nodo "<<i<<" "<<camino.at(i)->casillaX<<","<<camino.at(i)->casillaY<<"    Meta "<<camino.at(i)->NodoFinal->casillaX<<","<<camino.at(i)->NodoFinal->casillaY<<std::endl;
-         sf::RectangleShape shape;
-         shape.setPosition(camino.at(i)->posicion);
-         
-         shape.setSize(sf::Vector2f(24,24));
-         shape.setOrigin(12.f,12.f);
-         shape.setFillColor(color);
-         shapesDebug.push_back(shape);
-    }
+    if (inicio.getTiempo() > 15.0f) {
+        camino = world->pathfingind->buscaCamino(world->player->GetPosition(), this->GetPosition());
+        //camino = world->pathfingind->getCamino();
+        inicio.restart();
+        nodoactual = 0;
+        shapesDebug.clear();
+        InGame *world = InGame::Instance();
+
+        int height = world->level->map->_height;
+        int width = world->level->map->_width;
+        /*if (camino != NULL) {
+            for (int i = 0; i < camino->size(); i++) {
+                //std::cout << "Nodo " << i << " " << camino->at(i).casillaX << "," << camino->at(i).casillaY << "    Meta " << camino->at(i)->NodoFinal->casillaX << "," << camino->at(i).NodoFinal->casillaY << std::endl;
+                sf::RectangleShape shape;
+                shape.setPosition(sf::Vector2f(camino->at(i).x*width, camino->at(i).y * height));
+
+                shape.setSize(sf::Vector2f(24, 24));
+                shape.setOrigin(12.f, 12.f);
+                shape.setFillColor(color);
+                shapesDebug.push_back(shape);
+            }
+        }*/
+
     }
 
-    
+
     FindPlayer(elapsedTime);
     //UpdateEnemigo(elapsedTime,mapa);
     //PhysicsState::Update(elapsedTime);
-     //Hay que setear al BodyDef el vector velocidad que hallamos calculado
+    //Hay que setear al BodyDef el vector velocidad que hallamos calculado
     body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(movement) * Enemigo::GetVelocity()));
-   // FindPlayer(elapsedTime);
+    // FindPlayer(elapsedTime);
     //Actualizamos la posicion del player con la posicion del bodyDef
     SetPosition(tmx::BoxToSfVec(body->GetPosition()));
 }
 
 void Melee::Draw() {
-     Render::GetSprite().setPosition(PhysicsState::GetPosition().x, PhysicsState::GetPosition().y);
-     Motor2D::Instance()->draw(&GetSprite());
+    Render::GetSprite().setPosition(PhysicsState::GetPosition().x, PhysicsState::GetPosition().y);
+    Motor2D::Instance()->draw(&GetSprite());
 }
 
 void Melee::DrawWithInterpolation(float interpolation) {
@@ -178,29 +182,29 @@ void Melee::DrawWithInterpolation(float interpolation) {
 }
 
 void Melee::PlayAnimation(Animation* animation) {
-   Render::PlayAnimation(animation);
-   
+    Render::PlayAnimation(animation);
+
 }
 
 void Melee::UpdateEnemyAnimation(int x, int y) {
     // 1 -> Arriba
-   // 2 -> Abajo
-   // 3 -> Derecha
-   // 4 -> Izquierda
-   
-   if (abs(y) > abs(x) && y <= 0) {
-       cuadrante = 1;
-       currentAnimation = &walkingAnimationUp;
-   } else if (abs(y) > abs(x) && y > 0) {
-       currentAnimation = &walkingAnimationDown;
-       cuadrante = 2;
-   } else if (abs(x) > abs(y) && x > 0) {
-       currentAnimation = &walkingAnimationRight;
-       cuadrante = 3;
-   } else {
-       currentAnimation = &walkingAnimationLeft;
-       cuadrante = 4;
-   }
+    // 2 -> Abajo
+    // 3 -> Derecha
+    // 4 -> Izquierda
+
+    if (abs(y) > abs(x) && y <= 0) {
+        cuadrante = 1;
+        currentAnimation = &walkingAnimationUp;
+    } else if (abs(y) > abs(x) && y > 0) {
+        currentAnimation = &walkingAnimationDown;
+        cuadrante = 2;
+    } else if (abs(x) > abs(y) && x > 0) {
+        currentAnimation = &walkingAnimationRight;
+        cuadrante = 3;
+    } else {
+        currentAnimation = &walkingAnimationLeft;
+        cuadrante = 4;
+    }
 }
 
 void Melee::UpdateAnimation(sf::Time elapsedTime) {

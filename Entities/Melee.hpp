@@ -57,7 +57,7 @@ public:
 private:
     Tipo::ID m_tipo;
     sf::Texture texturaEnemigo;
-    std::vector<Nodo*>  camino;
+    std::vector<sf::Vector2i>  *camino;
     Reloj inicio;
     int nodoactual=0;
     

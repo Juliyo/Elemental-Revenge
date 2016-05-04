@@ -24,13 +24,13 @@ public:
     
     Nodo(const Nodo& orig);
 
-    Nodo(Nodo nodoPadre, Nodo nodoFinal, sf::Vector2f pos, float costo);
+    Nodo(Nodo *nodoPadre, Nodo *nodoFinal, sf::Vector2f pos, float costo);
 
     virtual ~Nodo();
     Nodo devuelveNodo();
     
-    Nodo NodoPadre;
-    Nodo NodoFinal;
+    Nodo *NodoPadre;
+    Nodo *NodoFinal;
     float costoTotal;
     float costoG;
     bool Cerrado = false;
@@ -46,10 +46,15 @@ public:
     sf::Vector2f getPosition();
 
     void setPosition(sf::Vector2f pos);
-    bool esIgual(Nodo nodo);
+    bool esIgual(Nodo *nodo);
     sf::Vector2i GetCasilla(){
         return sf::Vector2i(casillaX,casillaY);
     }
+    bool operator==(const Nodo& right) const {
+        bool result = false; // Compare right and *this here
+        return *this == right;
+    }
+
  //metodo para borrar
 //  for (std::vector< int >::iterator it = v.begin() ; it != v.end(); ++it)
 //   {

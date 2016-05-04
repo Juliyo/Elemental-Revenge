@@ -33,13 +33,21 @@ public:
 
     void adicionarNodoAListaAbierta(Nodo *nodo);
 
-    std::vector<sf::Vector2i> buscaCamino(sf::Vector2f posenemigo, sf::Vector2f posjugador);
+    std::vector<sf::Vector2i>* buscaCamino(sf::Vector2f posenemigo, sf::Vector2f posjugador);
 
-    std::vector<Nodo> encontrarNodosAdyacentes(Nodo nodoActual, Nodo nodoFinal);
+    std::vector<Nodo*>* encontrarNodosAdyacentes(Nodo *nodoActual, Nodo *nodoFinal);
 private:
-    std::vector<Nodo> nodosCerrados;
-    std::vector<Nodo> listaAbierta;
+    //std::vector<Nodo> nodosCerrados;
+    std::vector<Nodo*> listaAbierta;
     std::vector<sf::Vector2i> listaCerrada;
+
+    template <typename T>
+    const bool Contains(std::vector<T>& Vec, const T& Element) {
+        if (std::find(Vec.begin(), Vec.end(), Element) != Vec.end())
+            return true;
+
+        return false;
+    }
     //Nodo *NodoInicio;
     //Nodo *NodoFinal;
     //Nodo *NodoActual;
@@ -49,7 +57,7 @@ private:
     int toTieso = 15;
     int toTorsio = 10;
 
-    std::vector<Nodo*> nodosAbiertos;
+    //std::vector<Nodo*> nodosAbiertos;
 
 };
 

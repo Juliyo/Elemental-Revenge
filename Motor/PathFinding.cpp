@@ -12,6 +12,8 @@
  */
 
 #include "PathFinding.hpp"
+#include "../States/InGame.hpp"
+#include <algorithm>
 
 PathFinding::PathFinding() {
 }
@@ -121,19 +123,20 @@ void PathFinding::encontrarCamino(sf::Vector2f posjugador, sf::Vector2f posenemi
 
 ///nuevooo
 
-void PathFinding::adicionarNodoAListaAbierta(Nodo* nodo) {
+void PathFinding::adicionarNodoAListaAbierta(Nodo *nodo) {
     int indice = 0;
-    float costo = nodo.costoTotal;
-    while ((listaAbierta.size() > indice) && (costo < listaAbierta.at(indice).costoTotal)) {
+    float costo = nodo->costoTotal;
+    while ((listaAbierta.size() > indice) && (costo < listaAbierta.at(indice)->costoTotal)) {
         indice++;
     }
-    listaAbierta.insert(indice, nodo);
+    auto it = listaAbierta.begin();
+    listaAbierta.insert(it, nodo);
 }
 
-std::vector<Nodo> PathFinding::encontrarNodosAdyacentes(Nodo nodoActual, Nodo nodoFinal) {
-    std::vector<Nodo> nodosAdyacentes;
-    int X = nodoActual.GetCasilla().x;
-    int Y = nodoActual.GetCasilla().y;
+std::vector<Nodo*>* PathFinding::encontrarNodosAdyacentes(Nodo *nodoActual, Nodo *nodoFinal) {
+    std::vector<Nodo*> *nodosAdyacentes = new std::vector<Nodo*>();
+    int X = nodoActual->GetCasilla().x;
+    int Y = nodoActual->GetCasilla().y;
 
     bool arribaIzquierda = true;
     bool arribaDerecha = true;
@@ -147,93 +150,97 @@ std::vector<Nodo> PathFinding::encontrarNodosAdyacentes(Nodo nodoActual, Nodo no
     int tileAncho = 24;
     int tileAlto = 24;
 
+    bool condicion = Y >= 0 && X >=0 && Y < height && X < width;
     //Izquierda
-    if (X >= 0 && colisiones[Y][X - 1] != 0) {
-        nodosAdyacentes.push_back(Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho * (X - 1), tileAlto * Y), toTieso + nodoActual.costoG));
+    if (condicion && colisiones[Y][X - 1] != 1) {
+        nodosAdyacentes->push_back(new Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho * (X - 1), tileAlto * Y), toTieso + nodoActual->costoG));
     } else {
         arribaIzquierda = false;
         abajoDerecha = false;
     }
-
+    
     //Derecha
-    if (X < width && colisiones[Y][X + 1] != 0) {
-        nodosAdyacentes.push_back(Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho * (X + 1), tileAlto * Y), toTieso + nodoActual.costoG));
+    if (condicion && colisiones[Y][X + 1] != 1) {
+        nodosAdyacentes->push_back(new Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho * (X + 1), tileAlto * Y), toTieso + nodoActual->costoG));
     } else {
         arribaDerecha = false;
         abajoDerecha = false;
     }
 
     //Arriba
-    if (Y >= 0 && colisiones[Y - 1][X] != 0) {
-        nodosAdyacentes.push_back(Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho*X, tileAlto * (Y - 1)), toTieso + nodoActual.costoG));
+    if (condicion && colisiones[Y - 1][X] != 1) {
+        nodosAdyacentes->push_back(new Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho*X, tileAlto * (Y - 1)), toTieso + nodoActual->costoG));
     } else {
         arribaIzquierda = false;
         arribaDerecha = false;
     }
 
     //Abajo
-    if (Y < height && colisiones[Y + 1][X] != 0) {
-        nodosAdyacentes.push_back(Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho*X, tileAlto * (Y + 1)), toTieso + nodoActual.costoG));
+    if (condicion && colisiones[Y + 1][X] != 1) {
+        nodosAdyacentes->push_back(new Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho*X, tileAlto * (Y + 1)), toTieso + nodoActual->costoG));
     } else {
         arribaDerecha = false;
         abajoDerecha = false;
     }
 
     //Diagonal
-    if (arribaIzquierda && colisiones[Y - 1][X - 1] != 0) {
-        nodosAdyacentes.push_back(Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho * (X - 1), tileAlto * (Y - 1)), toTorsio + nodoActual.costoG));
+    if (condicion && arribaIzquierda && colisiones[Y - 1][X - 1] != 1) {
+        nodosAdyacentes->push_back(new Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho * (X - 1), tileAlto * (Y - 1)), toTorsio + nodoActual->costoG));
     }
-    if (arribaDerecha && colisiones[Y + 1][X + 1] != 0) {
-        nodosAdyacentes.push_back(Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho * (X + 1), tileAlto * (Y - 1)), toTieso + nodoActual.costoG));
+    if (condicion && arribaDerecha && colisiones[Y + 1][X + 1] != 1) {
+        nodosAdyacentes->push_back(new Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho * (X + 1), tileAlto * (Y - 1)), toTorsio + nodoActual->costoG));
     }
-    if (abajoIzquierda && colisiones[Y + 1][X - 1] != 0) {
-        nodosAdyacentes.push_back(Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho * (X - 1), tileAlto * (Y + 1)), toTieso + nodoActual.costoG));
+    if (condicion && abajoIzquierda && colisiones[Y + 1][X - 1] != 1) {
+        nodosAdyacentes->push_back(new Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho * (X - 1), tileAlto * (Y + 1)), toTorsio + nodoActual->costoG));
     }
-    if (abajoDerecha && colisiones[Y - 1][X + 1] != 0) {
-        nodosAdyacentes.push_back(Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho * (X + 1), tileAlto * (Y + 1)), toTieso + nodoActual.costoG));
+    if (condicion && abajoDerecha && colisiones[Y - 1][X + 1] != 1) {
+        nodosAdyacentes->push_back(new Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho * (X + 1), tileAlto * (Y + 1)), toTorsio + nodoActual->costoG));
     }
     return nodosAdyacentes;
 }
 
 
-std::vector<sf::Vector2i> PathFinding::buscaCamino(sf::Vector2f posenemigo, sf::Vector2f posjugador) {
+std::vector<sf::Vector2i>* PathFinding::buscaCamino(sf::Vector2f posenemigo, sf::Vector2f posjugador) {
     listaAbierta.clear();
     listaCerrada.clear();
 
 
-    Nodo nodoFinal(Nodo(), NULL, posjugador, 0);
-    Nodo nodoInicial(NULL, nodoFinal, posenemigo, 0);
+    Nodo *nodoFinal = new Nodo(NULL, NULL, posjugador, 0);
+    Nodo *nodoInicial = new Nodo(NULL, nodoFinal, posenemigo, 0);
 
-    adicionarNodoAListaAbierta(&nodoInicial);
+    adicionarNodoAListaAbierta(nodoInicial);
 
     while (listaAbierta.size() > 0) {
-        Nodo nodoActual = listaAbierta.at(listaAbierta.size() - 1);
-        if (nodoActual.esIgual(nodoFinal)) {
-            std::vector<sf::Vector2f> mejorCamino;
+        Nodo *nodoActual = listaAbierta.at(listaAbierta.size() - 1);
+        if (nodoActual->esIgual(nodoFinal)) {
+            std::vector<sf::Vector2i> *mejorCamino = new std::vector<sf::Vector2i>();
             while (nodoActual != NULL) {
-                mejorCamino.insert(0, nodoActual.GetCasilla());
-                nodoActual = nodoActual.NodoPadre;
+                auto it = mejorCamino->begin();
+                mejorCamino->insert(it, nodoActual->GetCasilla());
+                nodoActual = nodoActual->NodoPadre;
             }
             return mejorCamino;
         }
-        listaAbierta.erase(listaAbierta.size() - 1);
+        //auto it = listaAbierta.end();
+        listaAbierta.pop_back();
 
-        std::vector<Nodo> nodosAdyacentes = encontrarNodosAdyacentes(nodoActual, nodoFinal);
+        std::vector<Nodo*> *nodosAdyacentes = encontrarNodosAdyacentes(nodoActual, nodoFinal);
         //esto es un for each
-        for (auto nodoPosible = nodosAdyacentes.begin(); nodoPosible != nodosAdyacentes.end(); ++nodoPosible) {
+        for (int i = 0; nodosAdyacentes->size();i++) {
+            
             //si este if no va hay que crearnos uno nosotros para comparar eso
-            if (!std::find(listaCerrada.begin(), listaCerrada.end(), nodoPosible->GetCasilla()) != listaCerrada.end()) {
-                if (std::find(listaAbierta.begin(), listaAbierta.end(), nodoPosible) != listaAbierta.end()) {
-                    if (nodoPosible->costoG >= nodoPosible->costoTotal) {
+           /* if (Contains(listaCerrada,nodosAdyacentes->at(i)->GetCasilla())) {
+                if (Contains(listaAbierta,nodosAdyacentes->at(i))) {
+                    if (nodosAdyacentes->at(i)->costoG >= nodosAdyacentes->at(i)->costoTotal) {
                         continue;
                     }
 
                 }
-                adicionarNodoAListaAbierta(*nodoPosible);
-            }
+                adicionarNodoAListaAbierta(nodosAdyacentes->at(i));
+            }*/
 
         }
-        listaCerrada.push_back(nodoActual.GetCasilla());
+        listaCerrada.push_back(nodoActual->GetCasilla());
     }
     return NULL;
 
