@@ -13,6 +13,7 @@
 #include <iostream>
 #include <string>
 #include "Pause.hpp"
+#include "StateStack.hpp"
 
 Pause::Pause() {
     motor = Motor2D::Instance();
@@ -286,6 +287,10 @@ void Pause::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
     } else if (key == sf::Keyboard::D) {
         MoveRight();
     } else if (key == sf::Keyboard::Return) {
+        printf("%d\n",selectedItemIndexPausa);
+        if (selectedItemIndexPausa == 0) {
+             StateStack::Instance()->SetCurrentState(States::ID::InGame);
+        }
         if (selectedItemIndexPausa == 3) {
             selectedItemIndexPausa = 8;
         }

@@ -46,6 +46,7 @@ void ParalellTask::RunTask() {
             StateStack::Instance()->GetState(States::ID::Transition)->Inicializar();
             mTexto->setString("Juego++");
             StateStack::Instance()->GetState(States::ID::InGame)->Inicializar();
+            StateStack::Instance()->GetState(States::ID::Pause)->Inicializar();
             loading = true;
         }
         if (mElapsedTime.getElapsedTime().asSeconds() >= 5.f && loading) {

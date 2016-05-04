@@ -409,7 +409,6 @@ void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         }
         player->hud->cambiaHechizo(hActivo + 1);
     } else if (key == sf::Keyboard::P) {
-        StateStack::Instance()->GetState(States::ID::Pause)->Inicializar();
         StateStack::Instance()->SetCurrentState(States::ID::Pause);
 
     }
