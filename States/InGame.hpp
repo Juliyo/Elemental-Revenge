@@ -24,7 +24,7 @@
 #include <vector>
 #include <tmx/MapObject.h>
 #include "../Entities/Player.hpp"
-#include "../Entities/Melee.hpp"
+#include "../Entities/Boss.hpp"
 #include <Box2D/Box2D.h>
 #include "../Otros/Dummy.hpp"
 #include "../Otros/ContactListener.hpp"
@@ -71,8 +71,8 @@ public:
     Dummy                       *dummy;
 private:
     
-    //Melee			*melee;
-    std::vector<Melee*>         *melee;
+    //Boss			*boss;
+    std::vector<Boss*>         *boss;
     std::vector<bool>           *VectorBools;
     //Singletones
    /* Pause                       *pause;

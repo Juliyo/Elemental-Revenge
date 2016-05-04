@@ -76,17 +76,17 @@ void InGame::Inicializar() {
     player->CreateDynamicBody();
     dummy = new Dummy();
     dummy->CreateDynamicBody();
-    melee = new std::vector<Melee*>();
+    boss = new std::vector<Boss*>();
     VectorBools = new std::vector<bool>();
     VectorBools->reserve(1);
-    melee->reserve(1);
+    boss->reserve(1);
     
     for(int i=0;i<1;i++){
 
-        melee->push_back(new Melee());
-        melee->at(i)->Inicializar(1000.f + i * 20, -1000.f + i * 20, Tipo::ID::Rata);
-        melee->at(i)->SetRectangleColision(0, 0, 37, 39);
-        melee->at(i)->CreateDynamicBody();
+        boss->push_back(new Boss());
+        boss->at(i)->Inicializar(1000.f + i * 20, -1000.f + i * 20);
+        boss->at(i)->SetRectangleColision(0, 0, 37, 39);
+        boss->at(i)->CreateDynamicBody();
         bool a=false;
         VectorBools->push_back(a);
     }
@@ -129,37 +129,37 @@ void InGame::Update(sf::Time elapsedTime) {
 
         player -> Update(elapsedTime);
 
-        for (int i = 0; i < melee->size(); i++) {
+        for (int i = 0; i < boss->size(); i++) {
             
-           VectorBools->at(i)= melee->at(i)->HandleMapCollisions(elapsedTime);
+           VectorBools->at(i)= boss->at(i)->HandleMapCollisions(elapsedTime);
             
             
             
         }
 
         
-        for (int i = 0; i < melee->size(); i++) {
+        for (int i = 0; i < boss->size(); i++) {
 
-            float x4 = player->getPosition().x - melee->at(i)->getPosition().x;
-            float y4 = player->getPosition().y - melee->at(i)->getPosition().y;
+            float x4 = player->getPosition().x - boss->at(i)->getPosition().x;
+            float y4 = player->getPosition().y - boss->at(i)->getPosition().y;
             
             if(sqrt(pow(x4,2)+pow(y4,2))<250){
-                melee->at(i)->updateDisparoEnemigo(true, elapsedTime, player->getPosition().x, player->getPosition().y);
+                boss->at(i)->updateAtaqueBossB(true, elapsedTime, player->getPosition().x, player->getPosition().y);
             }
             else{
-                melee->at(i)->updateDisparoEnemigo(false, elapsedTime, player->getPosition().x, player->getPosition().y);
+                boss->at(i)->updateAtaqueBossB(false, elapsedTime, player->getPosition().x, player->getPosition().y);
             }
 
         }
         
 
 
-        for (int i = 0; i < melee->size(); i++) {
+        for (int i = 0; i < boss->size(); i++) {
             
             if(VectorBools->at(i)==false){
-            int x3 = player->getPosition().x - melee->at(i)->getPosition().x;
-            int y3 = player->getPosition().y - melee->at(i)->getPosition().y;
-            melee->at(i)->Update(elapsedTime,x3,y3,1);
+            int x3 = player->getPosition().x - boss->at(i)->getPosition().x;
+            int y3 = player->getPosition().y - boss->at(i)->getPosition().y;
+            boss->at(i)->Update(elapsedTime,x3,y3,1);
             }
             else{
 
@@ -186,7 +186,7 @@ void InGame::Update(sf::Time elapsedTime) {
                      x3=5000;
                     y3=-5000;
                 }
-            melee->at(i)->Update(elapsedTime,x3,y3,2);
+            boss->at(i)->Update(elapsedTime,x3,y3,2);
             }
 
         }
@@ -350,11 +350,11 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
 
     level->render();
     
-    for (int i = 0; i < melee->size(); i++) {
-        if (melee->at(i)->getSpeed().x == 0 && melee->at(i)->getSpeed().y == 0) {
-            switch (melee->at(i)->cuadrante) {
+    for (int i = 0; i < boss->size(); i++) {
+        if (boss->at(i)->getSpeed().x == 0 && boss->at(i)->getSpeed().y == 0) {
+            switch (boss->at(i)->cuadrante) {
                 case 1:
-                    // melee[i].currentAnimation = &melee->idleAnimationRight;
+                    // boss[i].currentAnimation = &boss->idleAnimationRight;
                     break;
                 case 2:
                     //player->currentAnimation = &player->idleAnimationLeft;
@@ -367,9 +367,9 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
                     break;
             }
         }
-        melee->at(i)->PlayAnimation(*melee->at(i)->currentAnimation);
-        melee->at(i)->UpdateAnimation(elapsedTime);
-        melee->at(i)->DrawWithInterpolation(interpolation);
+        boss->at(i)->PlayAnimation(*boss->at(i)->currentAnimation);
+        boss->at(i)->UpdateAnimation(elapsedTime);
+        boss->at(i)->DrawWithInterpolation(interpolation);
 
     }
     //****************************RAYO************************************
@@ -402,10 +402,10 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     /////////////////////////////////
     player -> DrawWithInterpolation(interpolation);
 
-    for (int i = 0; i < melee->size(); i++) {
-        int x2 = player->getPosition().x - melee->at(i)->getPosition().x;
-        int y2 = player->getPosition().y - melee->at(i)->getPosition().y;
-        melee->at(i)->UpdateEnemyAnimation(x2, y2);
+    for (int i = 0; i < boss->size(); i++) {
+        int x2 = player->getPosition().x - boss->at(i)->getPosition().x;
+        int y2 = player->getPosition().y - boss->at(i)->getPosition().y;
+        boss->at(i)->UpdateEnemyAnimation(x2, y2);
     }
 
     motor->SetView(2); //vista del HUD
@@ -419,7 +419,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     
     for(int i=0; i<50; i++){
     
-    melee->at(0)->disparo[i].RenderDisparo(interpolation);
+    boss->at(0)->renderAtaqueB(elapsedTime, interpolation);
     }
     motor->display();
 }

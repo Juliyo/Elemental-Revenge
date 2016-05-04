@@ -2,6 +2,8 @@
 <configurationDescriptor version="97">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="f5" displayName="Entities" projectFiles="true">
+      <itemPath>Entities/Boss.cpp</itemPath>
+      <itemPath>Entities/Boss.hpp</itemPath>
       <itemPath>Entities/Enemigo.cpp</itemPath>
       <itemPath>Entities/Enemigo.hpp</itemPath>
       <itemPath>Entities/Entity.cpp</itemPath>
@@ -14,6 +16,8 @@
     <logicalFolder name="Headers" displayName="Headers" projectFiles="true">
       <itemPath>Headers/AnimatedSprite.hpp</itemPath>
       <itemPath>Headers/Animation.hpp</itemPath>
+      <itemPath>Headers/AtaqueBossA.hpp</itemPath>
+      <itemPath>Headers/AtaqueBossB.hpp</itemPath>
       <itemPath>Headers/DisparoEnemigo.hpp</itemPath>
       <itemPath>Headers/Flash.hpp</itemPath>
       <itemPath>Headers/Game.hpp</itemPath>
@@ -78,6 +82,8 @@
     <logicalFolder name="f2" displayName="Source Files" projectFiles="true">
       <itemPath>AnimatedSprite.cpp</itemPath>
       <itemPath>Animation.cpp</itemPath>
+      <itemPath>AtaqueBossA.cpp</itemPath>
+      <itemPath>AtaqueBossB.cpp</itemPath>
       <itemPath>DisparoEnemigo.cpp</itemPath>
       <itemPath>Flash.cpp</itemPath>
       <itemPath>Game.cpp</itemPath>
@@ -169,7 +175,15 @@
       </item>
       <item path="Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="AtaqueBossA.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="AtaqueBossB.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="DisparoEnemigo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Entities/Boss.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Entities/Boss.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Entities/Enemigo.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -194,6 +208,10 @@
       <item path="Headers/AnimatedSprite.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Animation.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/AtaqueBossA.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/AtaqueBossB.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/DisparoEnemigo.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -388,7 +406,15 @@
       </item>
       <item path="Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="AtaqueBossA.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="AtaqueBossB.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="DisparoEnemigo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Entities/Boss.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Entities/Boss.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Entities/Enemigo.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -413,6 +439,10 @@
       <item path="Headers/AnimatedSprite.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Animation.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/AtaqueBossA.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/AtaqueBossB.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/DisparoEnemigo.hpp" ex="false" tool="3" flavor2="0">
       </item>
