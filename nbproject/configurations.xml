@@ -18,6 +18,7 @@
       <itemPath>Headers/Animation.hpp</itemPath>
       <itemPath>Headers/AtaqueBossA.hpp</itemPath>
       <itemPath>Headers/AtaqueBossB.hpp</itemPath>
+      <itemPath>Headers/AtaqueBossC.hpp</itemPath>
       <itemPath>Headers/DisparoEnemigo.hpp</itemPath>
       <itemPath>Headers/Flash.hpp</itemPath>
       <itemPath>Headers/Game.hpp</itemPath>
@@ -84,6 +85,7 @@
       <itemPath>Animation.cpp</itemPath>
       <itemPath>AtaqueBossA.cpp</itemPath>
       <itemPath>AtaqueBossB.cpp</itemPath>
+      <itemPath>AtaqueBossC.cpp</itemPath>
       <itemPath>DisparoEnemigo.cpp</itemPath>
       <itemPath>Flash.cpp</itemPath>
       <itemPath>Game.cpp</itemPath>
@@ -179,6 +181,8 @@
       </item>
       <item path="AtaqueBossB.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="AtaqueBossC.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="DisparoEnemigo.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Entities/Boss.cpp" ex="false" tool="1" flavor2="0">
@@ -212,6 +216,8 @@
       <item path="Headers/AtaqueBossA.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/AtaqueBossB.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/AtaqueBossC.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/DisparoEnemigo.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -410,6 +416,8 @@
       </item>
       <item path="AtaqueBossB.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="AtaqueBossC.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="DisparoEnemigo.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Entities/Boss.cpp" ex="false" tool="1" flavor2="0">
@@ -443,6 +451,8 @@
       <item path="Headers/AtaqueBossA.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/AtaqueBossB.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/AtaqueBossC.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/DisparoEnemigo.hpp" ex="false" tool="3" flavor2="0">
       </item>

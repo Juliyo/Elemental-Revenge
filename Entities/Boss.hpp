@@ -18,6 +18,7 @@
 
 #include "../Headers/AtaqueBossA.hpp"
 #include "../Headers/AtaqueBossB.hpp"
+#include "../Headers/AtaqueBossC.hpp"
 
 #include "../Motor/Collisionable.hpp"
 
@@ -35,6 +36,7 @@ public:
     
     void updateAtaqueBossA(bool disparado, sf::Time elapsedTime,float x4,float y4);
     void updateAtaqueBossB(bool disparado, sf::Time elapsedTime,float x4,float y4);
+    void updateAtaqueBossC(bool disparado, sf::Time elapsedTime,float x4,float y4);
     
     bool HandleMapCollisions(const sf::Time& elapsedTime);
 
@@ -50,6 +52,7 @@ public:
     
     void renderAtaqueA(sf::Time elapsedTime, float interpolation);
     void renderAtaqueB(sf::Time elapsedTime, float interpolation);
+    void renderAtaqueC(sf::Time elapsedTime, float interpolation);
     
     bool empujado;
     bool empujado2;
@@ -63,12 +66,16 @@ public:
     Reloj clockCdDisparo; 
     float CdDisparo = 2.5f;
     float CdDisparoRayo = 5.0f;
+    float CdDisparoEspiral = 5.0f;
+    
+    int rotacion=0;
     
     bool primercastDisparo; //Variable de clase para el primer casteo
 
     
     AtaqueBossA *disparo;
     AtaqueBossB *rayo;
+    AtaqueBossC *espiral;
     
     Animation **currentAnimation;
     Animation *walkingAnimationDown;

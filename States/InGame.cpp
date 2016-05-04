@@ -144,10 +144,10 @@ void InGame::Update(sf::Time elapsedTime) {
             float y4 = player->getPosition().y - boss->at(i)->getPosition().y;
             
             if(sqrt(pow(x4,2)+pow(y4,2))<250){
-                boss->at(i)->updateAtaqueBossB(true, elapsedTime, player->getPosition().x, player->getPosition().y);
+                boss->at(i)->updateAtaqueBossC(true, elapsedTime, player->getPosition().x, player->getPosition().y);
             }
             else{
-                boss->at(i)->updateAtaqueBossB(false, elapsedTime, player->getPosition().x, player->getPosition().y);
+                boss->at(i)->updateAtaqueBossC(false, elapsedTime, player->getPosition().x, player->getPosition().y);
             }
 
         }
@@ -419,7 +419,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     
     for(int i=0; i<50; i++){
     
-    boss->at(0)->renderAtaqueB(elapsedTime, interpolation);
+    boss->at(0)->renderAtaqueC(elapsedTime, interpolation);
     }
     motor->display();
 }
