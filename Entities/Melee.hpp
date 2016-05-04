@@ -52,10 +52,15 @@ public:
     Animation *walkingAnimationLeft;
     Animation *walkingAnimationRight;
     Animation *walkingAnimationUp;
+    std::vector<sf::RectangleShape> shapesDebug;
+    sf::Color color;
 private:
     Tipo::ID m_tipo;
     sf::Texture texturaEnemigo;
     std::vector<Nodo*>  camino;
+    Reloj inicio;
+    int nodoactual=0;
+    
 };
 
 #endif /* MELEE_HPP */

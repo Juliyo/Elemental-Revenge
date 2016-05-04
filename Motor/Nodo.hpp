@@ -16,46 +16,16 @@
 #include <iostream>
 #include "SFML/System.hpp"
 #include <vector>
+
 class Nodo {
 public:
     Nodo();
     Nodo(const Nodo& orig);
 
-    Nodo(Nodo *nodoPadre, Nodo *nodoFinal, sf::Vector2f pos, float costo) {
-        
-       /* NodoPadre=new Nodo();
-        NodoFinal=new Nodo();*/
-        
-        NodoPadre = nodoPadre;
-        NodoFinal = nodoFinal;
-        posicion = pos;
-        costoG = costo;
-        //calculo de la posicion del nodo en la matriz del mapa 
-        casillaX = posicion.x / 24;
-        casillaY = posicion.y / 24;
-        if (nodoFinal != NULL) {
-            costoTotal = costoG + Calcularcosto();
-        }
-        
-        //TODO sacar si en este nodo hay colision en el mapa, es decir es un arbol, una pared,etc
-//        if (colision){
-//            escolision=true;
-//        }
-        InGame* world = InGame::Instance();
-    int **colisiones = world->level->map->colisiones;
-    if(colisiones[casillaY][casillaX]!=0){
-        escolision=true;
-    }
-    }
+    Nodo(Nodo *nodoPadre, Nodo *nodoFinal, sf::Vector2f pos, float costo);
 
-    virtual ~Nodo(){
-        NodoPadre=NULL;
-        NodoFinal=NULL;
-        
-    }
-    Nodo devuelveNodo(){
-        return *this;
-    }
+    virtual ~Nodo();
+    Nodo devuelveNodo();
     
     Nodo *NodoPadre;
     Nodo *NodoFinal;
@@ -68,20 +38,12 @@ public:
     bool escolision=false;
     
 
-    float Calcularcosto() {
-        return abs(casillaX - NodoFinal->casillaX) + abs(casillaY - NodoFinal->casillaY);
-    }
+    float Calcularcosto();
 
-    sf::Vector2f getPosition() {
-        return posicion;
-    }
+    sf::Vector2f getPosition();
 
-    void setPosition(sf::Vector2f pos) {
-        posicion = pos;
-    }
- bool esIgual(Nodo nodo){
- return (posicion == nodo.posicion);
-}
+    void setPosition(sf::Vector2f pos);
+ bool esIgual(Nodo nodo);
  
  //metodo para borrar
 //  for (std::vector< int >::iterator it = v.begin() ; it != v.end(); ++it)

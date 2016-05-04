@@ -327,6 +327,9 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
         melee->at(i)->PlayAnimation(*melee->at(i)->currentAnimation);
         melee->at(i)->UpdateAnimation(elapsedTime);
         melee->at(i)->DrawWithInterpolation(interpolation);
+        for(int j=0;j<melee->at(i)->shapesDebug.size();j++){
+            motor->draw(melee->at(i)->shapesDebug.at(j));
+        }
         
     }
     if ((!player->isMovingDown && !player->isMovingLeft && !player->isMovingRight && !player->isMovingUp) && player->castFire.getTiempo() > 0.45f && player->castFire2.getTiempo() > 0.4f) {

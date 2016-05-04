@@ -33,13 +33,15 @@ public:
     NodoFinal = new Nodo(NULL, NULL, posjugador, 0.f);
     NodoInicio = new Nodo(NULL, NodoFinal, posenemigo, 0.f);
     NodoActual = new Nodo();
+    NodoAnterior = new Nodo();
     NodoSiguiente = new Nodo();
     //nodosCerrados = new std::vector<Nodo*>();
     //nodosAbiertos = new std::vector<Nodo*>();
 
 
     NodoActual = NodoInicio;
-    float peso;
+    NodoAnterior = NodoInicio;
+    float peso=-1;
 
     //lo primero es vaciar el camino por si ya se habia llamado al metodo
     nodosCerrados.clear();
@@ -50,16 +52,17 @@ public:
         //nodosAbiertos = new std::vector<Nodo*>();
         nodosAbiertos.clear();
         calcularListaAbiertos();
+        peso=-1;
         for (int i = 0; i < 8; i++) {
             if (nodosAbiertos.at(i)->escolision == false) {
 
-                if (i == 1) {
+                if (peso == -1) {
                     peso = nodosAbiertos.at(i)->costoTotal;
                     NodoSiguiente = nodosAbiertos.at(i);
                     siguiente=i;
                     // NodoSiguiente = NodoActual->nodosAbiertos->at(i)->devuelveNodo();
                 } else {
-                    if (peso > nodosAbiertos.at(i)->costoTotal) {
+                    if (peso > nodosAbiertos.at(i)->costoTotal && ((nodosAbiertos.at(i)->casillaX!=NodoAnterior->casillaX) && (nodosAbiertos.at(i)->casillaY!=NodoAnterior->casillaY) )) {
                         peso = nodosAbiertos.at(i)->costoTotal;
                         //NodoSiguiente = NodoActual->nodosAbiertos->at(i)->devuelveNodo();
                         NodoSiguiente = nodosAbiertos.at(i);
@@ -84,6 +87,7 @@ public:
         nodosCerrados.push_back(NodoSiguiente);
         //aqui podriamos hacer un delete de todo lo del nodo actual para vaciar memoria ya que con este algoritmo
         //nunca vamos a volver hacia atras y los nodos por los que pasamos ya no los vamos a utilizar mas.
+        NodoAnterior=NodoActual;
         NodoActual = NodoSiguiente;
 
     }//fin while
@@ -103,6 +107,7 @@ private:
     Nodo *NodoInicio;
     Nodo *NodoFinal;
     Nodo *NodoActual;
+    Nodo *NodoAnterior;
     Nodo *NodoSiguiente;
     int siguiente;
     

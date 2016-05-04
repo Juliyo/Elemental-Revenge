@@ -69,6 +69,14 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo,float speedX, floa
 
     empujado = false;
     empujado2 = false;
+    inicio.restart();
+    
+    //srand(inicio.getTiempo());
+    color.r=rand()%255;
+    color.g=rand()%255;
+    color.b=rand()%255;
+    
+    
 }
 
 void Melee::FindPlayer(sf::Time elapsedTime) {
@@ -130,12 +138,25 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2) {
     //SetSpeed(nVelocity * Enemigo::GetVelocity());
     
     //SetSpeed(movement);
-    world->pathfingind->encontrarCamino(world->player->GetPosition(),this->GetPosition());
+    if(inicio.getTiempo()>10.0f){
+            world->pathfingind->encontrarCamino(world->player->GetPosition(),this->GetPosition());
     camino=world->pathfingind->getCamino();
+    inicio.restart();
+    nodoactual=0;
+    shapesDebug.clear();
     
     for(int i=0;i<camino.size();i++){
          std::cout<<"Nodo "<<i<<" "<<camino.at(i)->casillaX<<","<<camino.at(i)->casillaY<<"    Meta "<<camino.at(i)->NodoFinal->casillaX<<","<<camino.at(i)->NodoFinal->casillaY<<std::endl;
+         sf::RectangleShape shape;
+         shape.setPosition(camino.at(i)->posicion);
+         
+         shape.setSize(sf::Vector2f(24,24));
+         shape.setOrigin(12.f,12.f);
+         shape.setFillColor(color);
+         shapesDebug.push_back(shape);
     }
+    }
+
     
     FindPlayer(elapsedTime);
     //UpdateEnemigo(elapsedTime,mapa);
