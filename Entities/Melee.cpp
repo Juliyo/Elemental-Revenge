@@ -102,7 +102,7 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo,float speedX, floa
     walkingAnimationRight = new Animation();
     walkingAnimationUp = new Animation();
     
-    disparo = new DisparoEnemigo();
+    disparo = new DisparoEnemigo[50];
 
     walkingAnimationDown->setSpriteSheet("resources/Textures/ninjapeq.png");
     walkingAnimationDown->addFrame(sf::IntRect(0, 0, 34, 32));
@@ -261,3 +261,29 @@ void Melee::StopAnimation() {
 }
 
 
+
+void Melee::updateDisparoEnemigo(bool disparado, sf::Time elapsedTime,float x4,float y4) {
+
+        sf::Vector2f movement2(0.f, 0.f);
+        
+        if (disparado) {
+            
+            if (numDisparo == 49) {
+                numDisparo = 0;
+            }
+            
+            if (clockCdDisparo.getTiempo() > CdDisparo || primercastDisparo == true) {
+                primercastDisparo = false;
+                clockCdDisparo.restart();
+                disparo[numDisparo].Disparar(sf::Vector2f(getPosition()),sf::Vector2f(x4,y4));
+                castDisparo.restart();
+            }
+            numDisparo++;
+        }
+        for (int aux = 0; aux <= 49; aux++) {
+            movement2.x = (40 * cos(disparo[aux].angleshot2) * 10.0f);
+            movement2.y = (40 * sin(disparo[aux].angleshot2) * 10.0f);
+            disparo[aux].Update2(movement2, elapsedTime);
+        }
+
+}

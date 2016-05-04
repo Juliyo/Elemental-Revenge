@@ -139,18 +139,20 @@ void InGame::Update(sf::Time elapsedTime) {
 
         
         for (int i = 0; i < melee->size(); i++) {
+
+            float x4 = player->getPosition().x - melee->at(i)->getPosition().x;
+            float y4 = player->getPosition().y - melee->at(i)->getPosition().y;
             
-            int x4 = player->getPosition().x - melee->at(i)->getPosition().x;
-            int y4 = player->getPosition().y - melee->at(i)->getPosition().y;
-            
-            if(sqrt(pow(x4,2)+pow(y4,2))<175){
-                printf("HUELO SANGRE\n");
-                melee->at(i)->disparo->Disparar(melee->at(i)->getPosition().x,melee->at(i)->getPosition().y);
+            if(sqrt(pow(x4,2)+pow(y4,2))<250){
+                melee->at(i)->updateDisparoEnemigo(true, elapsedTime, player->getPosition().x, player->getPosition().y);
+            }
+            else{
+                melee->at(i)->updateDisparoEnemigo(false, elapsedTime, player->getPosition().x, player->getPosition().y);
             }
 
         }
         
-        
+
 
         for (int i = 0; i < melee->size(); i++) {
             
@@ -380,7 +382,6 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     player->renderHeal(elapsedTime, interpolation);
     //****************************RENDER PLAYER************************************
     
-    melee->at(0)->disparo->RenderDisparo();
 
     
     
@@ -415,7 +416,11 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     motor->SetView(1); //vista del juego
 
     motor->draw(mouseSprite);
-
+    
+    for(int i=0; i<50; i++){
+    
+    melee->at(0)->disparo[i].RenderDisparo(interpolation);
+    }
     motor->display();
 }
 

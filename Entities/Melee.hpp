@@ -15,7 +15,9 @@
 #define MELEE_HPP
 
 #include "Enemigo.hpp"
-#include "DisparoEnemigo.hpp"
+
+#include "../Headers/DisparoEnemigo.hpp"
+
 #include "../Motor/Collisionable.hpp"
 
 namespace Tipo {
@@ -35,6 +37,8 @@ public:
     void Update(const sf::Time elapsedTime, float x1, float x2, float multiplicador);
 
     
+    void updateDisparoEnemigo(bool disparado, sf::Time elapsedTime,float x4,float y4);
+    
     bool HandleMapCollisions(const sf::Time& elapsedTime);
 
     void Draw();
@@ -52,7 +56,14 @@ public:
     Reloj tiempoempujado;
     int cuadrante = 2;
     
+    int numDisparo=0;
     
+    Reloj castDisparo; //Variable de clase para el casteo
+    Reloj clockCdDisparo; 
+    float CdDisparo = 0.7f;
+    
+    bool primercastDisparo; //Variable de clase para el primer casteo
+
     
     DisparoEnemigo *disparo;
     

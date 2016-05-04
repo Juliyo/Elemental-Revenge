@@ -332,13 +332,6 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
 
 
 
-
-
-
-
-
-
-
     healingAnimationLeft->setSpriteSheet("resources/Textures/player.png");
     healingAnimationLeft->addFrame(sf::IntRect(384, 64, 64, 64));
     healingAnimationLeft->addFrame(sf::IntRect(0, 64, 64, 64));

@@ -16,10 +16,11 @@
 
 #include "SFML/Graphics/CircleShape.hpp"
 
-
+#include "Render.hpp"
+#include "PhysicsState.hpp"
 #include "../Motor/Motor2D.hpp"
 
-class DisparoEnemigo {
+class DisparoEnemigo : public Render, public PhysicsState {
 public:
     DisparoEnemigo();
     DisparoEnemigo(const DisparoEnemigo& orig);
@@ -28,12 +29,14 @@ public:
     Motor2D *motor;
 
     float angleshot2=0.0f;
+    
+    void Update2(sf::Vector2f velocity, sf::Time elapsedTime);
 
     sf::CircleShape disparo;
     
-    void Disparar(float x, float y);
-    void Update();
-    void RenderDisparo();
+    
+    void Disparar(sf::Vector2f vector,sf::Vector2f vectorPlayer);
+    void RenderDisparo(float interpolation);
     
     
     
