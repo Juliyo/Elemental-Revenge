@@ -116,6 +116,53 @@
       <itemPath>States/Transition.cpp</itemPath>
       <itemPath>States/Transition.hpp</itemPath>
     </logicalFolder>
+    <logicalFolder name="f6" displayName="Widgets" projectFiles="true" kind="ROOT">
+      <logicalFolder name="f2" displayName="Layout" projectFiles="true" kind="ROOT">
+        <itemPath>Widgets/Layouts/FormLayout.cpp</itemPath>
+        <itemPath>Widgets/Layouts/FormLayout.hpp</itemPath>
+        <itemPath>Widgets/Layouts/HBoxLayout.cpp</itemPath>
+        <itemPath>Widgets/Layouts/HBoxLayout.hpp</itemPath>
+        <itemPath>Widgets/Layouts/Layout.cpp</itemPath>
+        <itemPath>Widgets/Layouts/Layout.hpp</itemPath>
+        <itemPath>Widgets/Layouts/VBoxLayout.cpp</itemPath>
+        <itemPath>Widgets/Layouts/VBoxLayout.hpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f1" displayName="Utils" projectFiles="true" kind="ROOT">
+        <itemPath>Widgets/Utils/Arrow.cpp</itemPath>
+        <itemPath>Widgets/Utils/Arrow.hpp</itemPath>
+        <itemPath>Widgets/Utils/Box.cpp</itemPath>
+        <itemPath>Widgets/Utils/Box.hpp</itemPath>
+        <itemPath>Widgets/Utils/Cross.cpp</itemPath>
+        <itemPath>Widgets/Utils/Cross.hpp</itemPath>
+        <itemPath>Widgets/Utils/ItemBox.hpp</itemPath>
+        <itemPath>Widgets/Utils/ItemBox.inl</itemPath>
+      </logicalFolder>
+      <itemPath>Widgets/Button.cpp</itemPath>
+      <itemPath>Widgets/Button.hpp</itemPath>
+      <itemPath>Widgets/CheckBox.cpp</itemPath>
+      <itemPath>Widgets/CheckBox.hpp</itemPath>
+      <itemPath>Widgets/ComboBox.hpp</itemPath>
+      <itemPath>Widgets/ComboBox.inl</itemPath>
+      <itemPath>Widgets/Gui.hpp</itemPath>
+      <itemPath>Widgets/Image.cpp</itemPath>
+      <itemPath>Widgets/Image.hpp</itemPath>
+      <itemPath>Widgets/Label.cpp</itemPath>
+      <itemPath>Widgets/Label.hpp</itemPath>
+      <itemPath>Widgets/Menu.cpp</itemPath>
+      <itemPath>Widgets/Menu.hpp</itemPath>
+      <itemPath>Widgets/OptionsBox.hpp</itemPath>
+      <itemPath>Widgets/OptionsBox.inl</itemPath>
+      <itemPath>Widgets/ProgressBar.cpp</itemPath>
+      <itemPath>Widgets/ProgressBar.hpp</itemPath>
+      <itemPath>Widgets/Slider.cpp</itemPath>
+      <itemPath>Widgets/Slider.hpp</itemPath>
+      <itemPath>Widgets/SpriteButton.cpp</itemPath>
+      <itemPath>Widgets/SpriteButton.hpp</itemPath>
+      <itemPath>Widgets/Theme.cpp</itemPath>
+      <itemPath>Widgets/Theme.hpp</itemPath>
+      <itemPath>Widgets/Widget.cpp</itemPath>
+      <itemPath>Widgets/Widget.hpp</itemPath>
+    </logicalFolder>
   </logicalFolder>
   <sourceRootList>
     <Elem>Headers</Elem>
@@ -339,6 +386,88 @@
       </item>
       <item path="Util.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="Widgets/Button.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/Button.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/CheckBox.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/CheckBox.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/ComboBox.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/ComboBox.inl" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/Gui.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/Image.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/Image.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/Label.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/Label.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/Layouts/FormLayout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/Layouts/FormLayout.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/Layouts/HBoxLayout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/Layouts/HBoxLayout.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/Layouts/Layout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/Layouts/Layout.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/Layouts/VBoxLayout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/Layouts/VBoxLayout.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/Menu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/Menu.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/OptionsBox.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/OptionsBox.inl" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/ProgressBar.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/ProgressBar.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/Slider.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/Slider.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/SpriteButton.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/SpriteButton.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/Theme.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/Theme.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/Utils/Arrow.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/Utils/Arrow.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/Utils/Box.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/Utils/Box.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/Utils/Cross.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/Utils/Cross.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/Utils/ItemBox.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/Utils/ItemBox.inl" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/Widget.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/Widget.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="btree.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="hFireAdvanced.cpp" ex="false" tool="1" flavor2="0">
@@ -557,6 +686,88 @@
       <item path="States/Transition.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Util.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/Button.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/Button.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/CheckBox.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/CheckBox.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/ComboBox.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/ComboBox.inl" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/Gui.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/Image.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/Image.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/Label.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/Label.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/Layouts/FormLayout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/Layouts/FormLayout.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/Layouts/HBoxLayout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/Layouts/HBoxLayout.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/Layouts/Layout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/Layouts/Layout.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/Layouts/VBoxLayout.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/Layouts/VBoxLayout.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/Menu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/Menu.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/OptionsBox.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/OptionsBox.inl" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/ProgressBar.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/ProgressBar.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/Slider.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/Slider.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/SpriteButton.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/SpriteButton.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/Theme.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/Theme.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/Utils/Arrow.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/Utils/Arrow.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/Utils/Box.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/Utils/Box.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/Utils/Cross.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/Utils/Cross.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/Utils/ItemBox.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/Utils/ItemBox.inl" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Widgets/Widget.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Widgets/Widget.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="btree.cpp" ex="false" tool="1" flavor2="0">
       </item>

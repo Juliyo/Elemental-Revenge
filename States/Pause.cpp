@@ -31,7 +31,6 @@ Pause::Pause() {
     textoPausa = new Text();
     menuPausa = new Text[10];
     
-    
 }
 
 Pause::Pause(const Pause& orig) {
@@ -188,8 +187,47 @@ void Pause::Inicializar() {
     spriteRelleno->setTexture(texturaRelleno);
     spriteRelleno->setTextRect(0, 0, 1024, 2048);
     spriteRelleno->setScale(1, 2);
-}
+    
+        sf::RenderWindow app(sf::VideoMode(640, 480), "SFML Widgets");
+    	gui::Menu menu(app);
+	menu.setPosition(10, 10);
 
+	gui::Theme::loadFont("resources/tahoma.ttf");
+	gui::Theme::loadTexture("resources/texture.png");
+	gui::Theme::textSize = 11;
+	gui::Theme::click.textColor      = mkcolor("#191B18");
+	gui::Theme::click.textColorHover = mkcolor("#191B18");
+	gui::Theme::click.textColorFocus = mkcolor("#000");
+	gui::Theme::input.textColor =        mkcolor("#000");
+	gui::Theme::input.textColorHover = mkcolor("#000");
+	gui::Theme::input.textColorFocus = mkcolor("#000");
+	gui::Theme::PADDING = 2.f;
+	gui::Theme::windowBgColor = mkcolor("#dddbde");
+
+	gui::HBoxLayout* hbox = menu.addHBoxLayout();
+	gui::FormLayout* form = hbox->addFormLayout();
+        
+        gui::Slider* sliderRotation = new gui::Slider();
+	sliderRotation->setQuantum(1);
+	form->addRow("Rotation", sliderRotation, 1);
+}
+sf::Color Pause::mkcolor(const std::string& hexcolor)
+{
+	sf::Color color = sf::Color::Black;
+	if (hexcolor.size() == 7) // #ffffff
+	{
+		color.r = strtoul(hexcolor.substr(1, 2).c_str(), NULL, 16);
+		color.g = strtoul(hexcolor.substr(3, 2).c_str(), NULL, 16);
+		color.b = strtoul(hexcolor.substr(5, 2).c_str(), NULL, 16);
+	}
+	else if (hexcolor.size() == 4) // #fff
+	{
+		color.r = strtoul(hexcolor.substr(1, 1).c_str(), NULL, 16) * 17;
+		color.g = strtoul(hexcolor.substr(2, 1).c_str(), NULL, 16) * 17;
+		color.b = strtoul(hexcolor.substr(3, 1).c_str(), NULL, 16) * 17;
+	}
+	return color;
+}
 void Pause::Update(sf::Time timeElapsed) {
     sf::Color color2(112, 112, 112);
     printf(" Raton: %f,%f \n menupausa: %f,%f\n",motor->getMousePosition().x,motor->getMousePosition().y,menuPausa[2].getPosition().x,menuPausa[2].getPosition().y);
@@ -292,9 +330,9 @@ void Pause::Render(float interpolation, sf::Time elapsedTime) {
     }
     motor->draw(*textoPausa);
     motor->SetView(1); //vista del juego
-
+    
     motor-> DrawMouse();
-
+    
     motor->display();
   //  motor->display();
 }

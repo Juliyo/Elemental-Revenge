@@ -18,6 +18,9 @@
 #include "AnimatedSprite.hpp"
 #include "../Motor/Motor2D.hpp"
 #include "../Motor/Text.hpp"
+#include "../Widgets/Menu.hpp"
+#include "../Widgets/Theme.hpp"
+#include "../Widgets/Gui.hpp"
 
 #define MAX_NUMBER_OF_ITEMS 3   
 
@@ -41,7 +44,7 @@ public:
     void MoveDown();
     void MoveLeft();
     void MoveRight();
-    
+    sf::Color mkcolor(const std::string& hexcolor);
 
     int getSetectedItemIndexPause() {
         return selectedItemIndexPausa;
@@ -52,10 +55,12 @@ public:
     };
     
     Motor2D *motor;
-    
 private:
     AnimatedSprite *animatedSprite;
     Animation *animation;
+    
+    /*sf::RenderWindow *app;
+    gui::Menu menu;*/
     
     //Sprites
     Sprite *spriteRelleno;
