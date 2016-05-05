@@ -113,7 +113,7 @@ void InGame::Update(sf::Time elapsedTime) {
 
     if (!firstTime) {
 
-        physicWorld->Step(elapsedTime.asSeconds(), 6, 2);
+        physicWorld->Step(elapsedTime.asSeconds(), 8, 4);
 
         player -> Update(elapsedTime);
 

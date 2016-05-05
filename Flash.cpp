@@ -15,12 +15,7 @@
 #include "States/InGame.hpp"
 #include "Otros/tmxHelper.hpp"
 
-void Flash::CreateBody() {
-
-}
-
-
-Flash::Flash(int animation): Collisionable((Entity*)this) {
+Flash::Flash(int animation) {
     dibujar = false;
     switch (animation) {
         case 1: //Animacion que aparece en la posicion que deja el jugador
