@@ -48,6 +48,24 @@ private:
 
         return false;
     }
+    bool BuscarNodoEnListaAbierta(Nodo *nodo){
+        for(int i = 0; i < listaAbierta.size();i++){
+            if(listaAbierta.at(i)->esIgual(nodo)){
+                return true;
+                break;
+            }
+        }
+        return false;
+    }
+    bool buscarCasilla(sf::Vector2i casilla){
+       bool encontrado=false;
+       for(int i=0;i<listaCerrada.size();i++){
+           if(listaCerrada.at(i).x==casilla.x && listaCerrada.at(i).y==casilla.y ){
+               encontrado==true;
+           }
+       }
+       return encontrado;
+   }
     //Nodo *NodoInicio;
     //Nodo *NodoFinal;
     //Nodo *NodoActual;

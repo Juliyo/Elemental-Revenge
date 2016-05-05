@@ -130,7 +130,7 @@ void PathFinding::adicionarNodoAListaAbierta(Nodo *nodo) {
         indice++;
     }
     auto it = listaAbierta.begin();
-    listaAbierta.insert(it, nodo);
+    listaAbierta.insert(it + indice, nodo);
 }
 
 std::vector<Nodo*>* PathFinding::encontrarNodosAdyacentes(Nodo *nodoActual, Nodo *nodoFinal) {
@@ -151,7 +151,7 @@ std::vector<Nodo*>* PathFinding::encontrarNodosAdyacentes(Nodo *nodoActual, Nodo
     int tileAncho = 24;
     int tileAlto = 24;
 
-    bool condicion = Y >= 0 && X >=0 && Y < height && X < width;
+bool condicion = Y >= 0 && X >=0 && Y < height && X < width;
     //Izquierda
     if (condicion && colisiones[Y][X - 1] != 1) {
         nodosAdyacentes->push_back(new Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho * (X - 1), tileAlto * Y), toTieso + nodoActual->costoG));
@@ -236,8 +236,8 @@ std::vector<sf::Vector2i>* PathFinding::buscaCamino(sf::Vector2f posenemigo, sf:
         for (int i = 0; i<nodosAdyacentes->size();i++) {
             //std::cout<<"tam nodos adyaccentes "<<nodosAdyacentes->size()<<"Num de iteracion= "<<i<<std::endl;
             //si este if no va hay que crearnos uno nosotros para comparar eso
-            if (Contains(listaCerrada,nodosAdyacentes->at(i)->GetCasilla())) {
-                if (Contains(listaAbierta,nodosAdyacentes->at(i))) {
+            if (!buscarCasilla(nodosAdyacentes->at(i)->GetCasilla())) {
+                if (BuscarNodoEnListaAbierta(nodosAdyacentes->at(i))) {
                     if (nodosAdyacentes->at(i)->costoG >= nodosAdyacentes->at(i)->costoTotal) {
                         continue;
                     }

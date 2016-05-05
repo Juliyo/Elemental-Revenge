@@ -137,7 +137,7 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2) {
 
     //SetSpeed(movement);
     if (inicio.getTiempo() > 15.0f) {
-        camino = world->pathfingind->buscaCamino(world->player->GetPosition(), this->GetPosition());
+        camino = world->pathfingind->buscaCamino(this->GetPosition(), world->player->GetPosition());
         //camino = world->pathfingind->getCamino();
         inicio.restart();
         nodoactual = 0;
@@ -148,7 +148,7 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2) {
         int width = world->level->map->_width;
         if (camino != NULL) {
             for (int i = 0; i < camino->size(); i++) {
-                std::cout << "Nodo " << i << " " << camino->at(i).x << "," << camino->at(i).y << "    Meta " << world->player->GetPosition().x/24 << "," << world->player->GetPosition().y/24 << std::endl;
+                std::cout << "Nodo " << i << " " << camino->at(i).x << "," << camino->at(i).y << "    Meta " << ceil(world->player->GetPosition().x/24) << "," << ceil(world->player->GetPosition().y/24) << std::endl;
                 sf::RectangleShape shape;
                 shape.setPosition(sf::Vector2f(camino->at(i).x*width, camino->at(i).y * height));
 
