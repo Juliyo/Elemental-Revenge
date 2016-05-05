@@ -39,6 +39,7 @@ public:
     int getAnchoVentana();
     int getAltoVentana();
     void setZoom(float zoom);
+    Sprite* GetMouseSprite();
 
     sf::Vector2f getCenterFromView(int view);
     sf::Vector2f getSizeFromView(int view);
@@ -68,6 +69,11 @@ public:
     //Conetenedor de las texturas
     std::map<int, sf::Texture*> Textures;    
     int key = 0;
+    
+    //Updatea la vista de la camara usando la posicion del jugador
+    void UpdateMouseAndView();
+    void UpdateMouse();
+    void DrawMouse();
 private:
     int anchoVentana;
     int altoVentana;
@@ -79,6 +85,8 @@ private:
     sf::View *transicion;
     sf::Vector2f *raton;
     float zoomLevel =1.f;
+    
+    Sprite *mouseSprite;
 };
 
 #endif /* MOTOR2D_HPP */

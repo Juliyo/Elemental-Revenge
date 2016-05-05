@@ -17,6 +17,7 @@
 #include "SFML/System.hpp"
 #include "AnimatedSprite.hpp"
 #include "../Motor/Motor2D.hpp"
+#include "../Motor/Text.hpp"
 
 #define MAX_NUMBER_OF_ITEMS 3   
 
@@ -26,14 +27,21 @@ public:
     //static Pause* Instance();
     Pause(const Pause& orig);
     virtual ~Pause();
+    void Inicializar();
 
-    void render(float interpolation, sf::Time elapsedTime);
+    void Render(float interpolation, sf::Time elapsedTime);
+    void Update(sf::Time timeElapsed);
+
+    
+    void HandleEvents(sf::Event& event);
     void handleMouseInput(sf::Mouse::Button button, bool isPressed); // Maneja eventos
+    void handlePlayerInput(sf::Keyboard::Key key, bool isPressed); // Maneja eventos
+    
     void MoveUp();
     void MoveDown();
     void MoveLeft();
     void MoveRight();
-    void handlePlayerInput(sf::Keyboard::Key key, bool isPressed); // Maneja eventos
+    
 
     int getSetectedItemIndexPause() {
         return selectedItemIndexPausa;
@@ -74,6 +82,8 @@ private:
     Text *textoPausa;
     sf::Color colorAzul;
     
+    bool tecladoActivo;
+    bool ratonSelecciona;
     //static Pause *mInstance;
 };
 

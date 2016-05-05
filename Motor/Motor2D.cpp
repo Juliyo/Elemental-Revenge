@@ -6,6 +6,7 @@
  */
 
 #include "Motor2D.hpp"
+#include "../States/InGame.hpp"
 Motor2D* Motor2D::mInstance = 0;
 
 Motor2D* Motor2D::Instance() {
@@ -22,6 +23,14 @@ void Motor2D::Inicializar() {
     HUD = new sf::View();
     auxiliar = new sf::View();
     transicion = new sf::View();
+    
+    mouseSprite = new Sprite();
+    mouseSprite->setTexture("resources/Textures/mouse.png");
+    mouseSprite->setSmooth(true);
+    mouseSprite->setScale(0.2, 0.2);
+    mouseSprite->setPosition(20, 20);
+    mouseSprite->setOrigin(64, 64);
+    
 }
 
 void Motor2D::inicializarVentana(std::string titulo, int ancho, int alto) {
@@ -94,6 +103,7 @@ void Motor2D::display() {
 }
 
 sf::Vector2f Motor2D::getMousePosition() {
+
     return mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow));
 }
 
@@ -276,3 +286,45 @@ void Motor2D::setCenterForView(int view, int x, int y) {
         }
     }
 }
+
+void Motor2D::UpdateMouseAndView() {
+    float playerPosX = InGame::Instance()->player->getPosition().x;
+    float playerPosY = InGame::Instance()->player->getPosition().y;
+
+    sf::FloatRect viewBounds(getCenterFromView(1) - getSizeFromView(1) / 2.f, getSizeFromView(1));
+
+    sf::Vector2f position = getMousePosition();
+    position.x = std::max(position.x, viewBounds.left);
+    position.x = std::min(position.x, viewBounds.width + viewBounds.left);
+    position.y = std::max(position.y, viewBounds.top);
+    position.y = std::min(position.y, viewBounds.height + viewBounds.top);
+
+    mouseSprite->setPosition(position.x, position.y);
+
+    float camera_x = (position.x + (playerPosX * 6)) / 7; //Media dando prioridad al jugador
+    float camera_y = (position.y + playerPosY * 6) / 7;
+    float x = (getCenterFromView(1).x + 0.1 * (camera_x - getCenterFromView(1).x)); //Lo mismo que la funcion lerp
+    float y = (getCenterFromView(1).y + 0.1 * (camera_y - getCenterFromView(1).y));
+    setCenterForView(1, x, y);
+    setSizeForView(1, 640, 480);
+    SetView(1);
+}
+
+void Motor2D::UpdateMouse() {
+    sf::FloatRect viewBounds(getCenterFromView(1) - getSizeFromView(1) / 2.f, getSizeFromView(1));
+    sf::Vector2f position = getMousePosition();
+    position.x = std::max(position.x, viewBounds.left);
+    position.x = std::min(position.x, viewBounds.width + viewBounds.left);
+    position.y = std::max(position.y, viewBounds.top);
+    position.y = std::min(position.y, viewBounds.height + viewBounds.top);
+
+    mouseSprite->setPosition(position.x, position.y);
+}
+
+void Motor2D::DrawMouse() {
+    draw(mouseSprite);
+}
+Sprite* Motor2D::GetMouseSprite() {
+    return mouseSprite;
+}
+

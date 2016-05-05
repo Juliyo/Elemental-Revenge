@@ -35,14 +35,8 @@ public:
     static InGame* Instance();
     InGame(const InGame& orig);
     virtual ~InGame();
-
-    void    run();
     
-    
-   // void Init();
-   // void Clean();
     void Inicializar();
-
     void LoadResources();
 
     void                        Update(sf::Time elapsedTime);
@@ -52,48 +46,28 @@ public:
     void			handlePlayerInput(sf::Keyboard::Key key, bool isPressed);  // Maneja eventos
     void			handleMouseInput(sf::Mouse::Button button, bool isPressed);  // Maneja eventos
     
-    
-    void			renderForPause(float interpolation, sf::Time elapsedTime);
     void			renderForMuerte(float interpolation, sf::Time elapsedTime);
     
-    void                        SetPlayer(float x, float y);
-    
-    void                        updateView();
-    void                        updateViewForPause();
+   
     Level                       *level;
     sf::Music                   *musica;
     sf::Music                   *musica2;
     
     b2World                     *physicWorld;
-    
     Video *video;
     Player			*player;
 private:
-    
-    //Melee			*melee;
     std::vector<Melee*>         *melee;
     std::vector<bool>           *VectorBools;
-    //Singletones
-   /* Pause                       *pause;
-    Muerte                      *muerte;*/
     
     //Recursos
     sf::Texture texturaFondo;
-    //sf::Sprite                  spriteFondo;
-    Sprite spriteFondo;
     sf::Texture texturaRelleno;
-    //sf::Sprite                  spriteRelleno;
+    Sprite spriteFondo;
     Sprite                      spriteRelleno;
     sf::Font                    contFonts;
-    sf::Texture                 mouseTexture;
-   // sf::Sprite                  mouseSprite;
-    Sprite                      mouseSprite;
+    
     //Eventos
-
-    bool			isMovingUp;
-    bool			isMovingDown;
-    bool			isMovingRight;
-    bool			isMovingLeft;
     
     bool                        rayoAdvancedCast = false;
     bool                        rayoBasicCast = false;
@@ -106,15 +80,15 @@ private:
     
     int                         hActivo=0;
     //fuego
-    bool fuegoBasicCast = false;
-    bool fuegoAdvancedCast = false;
+    bool                        fuegoBasicCast = false;
+    bool                        fuegoAdvancedCast = false;
     //agua
-    bool aguaAdvancedCast = false;
-    bool aguaBasicCast = false;
+    bool                        aguaAdvancedCast = false;
+    bool                    aguaBasicCast = false;
     //heal
-
     bool                        isHealing = false;
     int                         anterior=0;
+    
     static InGame* mInstance;
     ContactListener             *ct;
 };

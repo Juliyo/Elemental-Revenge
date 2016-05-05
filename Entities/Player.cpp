@@ -32,7 +32,7 @@ Player::Player() : Collisionable((Entity*)this) {
 }
 
 Player::~Player() {
-	delete hud;
+    delete hud;
 }
 
 std::string Player::getClassName() {
@@ -604,9 +604,12 @@ sf::Vector2f Player::getPosition() {
     return GetSpriteAnimated().getPosition();
 }
 
-void Player::UpdatePlayerAnimation(int x, int y) {
+void Player::UpdatePlayerAnimation() {
     //sf::Vector2f distancia(mouseSprite.getPosition().y - player -> GetRenderPosition().y, mouseSprite.getPosition().x - player -> GetRenderPosition().x);
-
+    float playerPosX = InGame::Instance()->player->getPosition().x;
+    float playerPosY = InGame::Instance()->player->getPosition().y;
+    int x = Motor2D::Instance()->getMousePosition().x - playerPosX;
+    int y = Motor2D::Instance()->getMousePosition().y - playerPosY;
     // 1 -> Arriba
     // 2 -> Abajo
     // 3 -> Derecha
@@ -1048,7 +1051,6 @@ void Player::renderFlash(sf::Time elapsedTime, float interpolation) {
     }
 
 
-    DrawWithInterpolation(interpolation);
 
     //no hago play animation todo el rato porque no interesa ya que no haremos un getGlobalBounds del flash
     if (flash2->dibujar == true) {

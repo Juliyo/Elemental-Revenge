@@ -76,6 +76,7 @@ void LoadingState::Inicializar() {
     mensaje->setScale(0.6,0.6);
     
     loadingTask = new ParalellTask();
+    
     loadingTask->Execute(mensaje);
 }
 

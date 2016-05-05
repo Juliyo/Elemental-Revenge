@@ -7,7 +7,6 @@
 #include "../Entities/Player.hpp"
 //#include "InGame.hpp"
 //#include "Transition.hpp"
-#include "Pause.hpp"
 #include "Carga2.hpp"
 #include "../Motor/Motor2D.hpp"
 #include "../Motor/Reloj.hpp"
@@ -52,7 +51,7 @@ private:
     //InGame *EstadoInGame;
     //Transition *EstadoTransition;
     //Menu *EstadoMenu;
-    Pause *EstadoPause;
+    //Pause *EstadoPause;
     Muerte *EstadoMuerte;
     //LoadingState *EstadoCarga1;
     Carga2 *EstadoCarga2;

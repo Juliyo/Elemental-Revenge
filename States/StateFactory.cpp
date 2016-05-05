@@ -16,6 +16,7 @@
 #include "Menu.hpp"
 #include "LoadingState.hpp"
 #include "Transition.hpp"
+#include "Pause.hpp"
 
 State* StateFactory::CreateState(States::ID id){
     
@@ -27,6 +28,8 @@ State* StateFactory::CreateState(States::ID id){
         return new LoadingState();
     }else if(id == States::ID::Transition){
         return new Transition();
+    }else if(id == States::ID::Pause){
+        return new Pause();
     }
 
 }

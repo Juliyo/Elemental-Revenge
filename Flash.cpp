@@ -155,7 +155,7 @@ void Flash::cast2(Reloj *clockCD2) {
 }
 
 void Flash::Draw() {
-    DrawWithout( GetPosition());
+    DrawAnimationWithOut(GetPosition());
 }
 
 void Flash::DrawWithInterpolation( float interpolation, const sf::Vector2f &posPrev, const sf::Vector2f &posNew) {

@@ -24,7 +24,8 @@ namespace States{
             InGame,
             Menu,
             Carga,
-            Transition
+            Transition,
+            Pause
 	};
 }
 
