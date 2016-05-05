@@ -66,12 +66,20 @@ public:
     Reloj clockCdDisparo; 
     float CdDisparo = 2.5f;
     float CdDisparoRayo = 5.0f;
-    float CdDisparoEspiral = 5.0f;
+    float CdDisparoEspiral = 10.0f;
     
-    int rotacion=0;
-    
-    bool primercastDisparo; //Variable de clase para el primer casteo
+    int rotacion[50];
+    int rotacion2[50];
+    int rotacion3[50];
 
+    bool primercastDisparo; //Variable de clase para el primer casteo
+    int setOriginEspiral=0;
+    int setOriginEspiral2=0;
+    int setOriginEspiral3=0;
+    
+    int numBolasEspiral=0;
+    int numBolasEspiral2=0;
+    int numBolasEspiral3=0;
     
     AtaqueBossA *disparo;
     AtaqueBossB *rayo;

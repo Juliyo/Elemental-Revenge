@@ -55,7 +55,7 @@ sf::Vector2f PhysicsState::GetNextPosition(sf::Time elapsedTime) const {
 void PhysicsState::Update(sf::Time elapsedTime)
 {
 	/*  COLISIONES  */
-    std::cout<<speed.x<<" , "<<speed.y<<std::endl;
+    //std::cout<<speed.x<<" , "<<speed.y<<std::endl;
 	posPrev = posNew;
         posNew += speed * elapsedTime.asSeconds();
         

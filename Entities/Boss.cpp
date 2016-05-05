@@ -107,7 +107,17 @@ void Boss::Inicializar(float posX, float posY,float speedX, float speedY, float 
     
     disparo = new AtaqueBossA[50];
     rayo = new AtaqueBossB;
-    espiral = new AtaqueBossC[50];
+    espiral = new AtaqueBossC[150];
+    
+    for(int i=0; i<50;i++){
+        rotacion[i]=0;
+    }
+    for(int i=50; i<100;i++){
+        rotacion2[i]=120;
+    }
+    for(int i=100; i<150;i++){
+        rotacion3[i]=240;
+    }
 
     walkingAnimationDown->setSpriteSheet("resources/Textures/ninjapeq.png");
     walkingAnimationDown->addFrame(sf::IntRect(0, 0, 34, 32));
@@ -181,10 +191,13 @@ void Boss::renderAtaqueB(sf::Time elapsedTime, float interpolation) {
 
 void Boss::renderAtaqueC(sf::Time elapsedTime, float interpolation) {
 
-        espiral->PlayAnimation(espiral->animationAtaque);
-        espiral->UpdateAnimation(elapsedTime);
-        espiral->DrawAnimation(espiral->GetPreviousPosition(),espiral->GetPosition(), interpolation);
+    
+        for (int aux = 0; aux <= 149; aux++) {
 
+        espiral[aux].PlayAnimation(espiral->animationAtaque);
+        espiral[aux].UpdateAnimation(elapsedTime);
+        espiral[aux].DrawAnimation(espiral->GetPreviousPosition(),espiral->GetPosition(), interpolation);
+        }
 }
 
 
@@ -369,24 +382,155 @@ void Boss::updateAtaqueBossC(bool disparado, sf::Time elapsedTime,float x4,float
         sf::Vector2f movement2(0.f, 0.f);
         
         if (disparado) {
-            
-            
 
-            
             if (clockCdDisparo.getTiempo() > CdDisparoEspiral) {
-                espiral->SetPosition(getPosition().x-10, getPosition().y-60);
+               // espiral->SetPosition(getPosition().x-10, getPosition().y-60);
                 primercastDisparo = false;
-                espiral->SetPosition(getPosition().x, getPosition().y);
-                espiral->SetOriginAnimation(getPosition().x-750, getPosition().y-750);
+                
+                ///LINEA 1 DE BOLAS
+                if(setOriginEspiral<2){
+                espiral[0].SetPosition(getPosition().x, getPosition().y);
+                espiral[0].SetOriginAnimation(getPosition().x-750, getPosition().y-750);
+                setOriginEspiral++;
+                }
+                else{
+                numBolasEspiral++;
+                espiral[numBolasEspiral].SetPosition(getPosition().x, getPosition().y);
+                espiral[numBolasEspiral].SetOriginAnimation(espiral[numBolasEspiral-1].GetSpriteAnimated().getOrigin().x-320,espiral[numBolasEspiral-1].GetSpriteAnimated().getOrigin().y);
+                }
+                
+                ///LINEA 2 DE BOLAS   
+                if(setOriginEspiral2<2){
+                espiral[50].SetPosition(getPosition().x, getPosition().y);
+                espiral[50].SetOriginAnimation(getPosition().x-750, getPosition().y-750);
+                setOriginEspiral2++;
+                }
+                else{
+                numBolasEspiral2++;
+                espiral[50+numBolasEspiral2].SetPosition(getPosition().x, getPosition().y);
+                espiral[50+numBolasEspiral2].SetOriginAnimation(espiral[50+numBolasEspiral2-1].GetSpriteAnimated().getOrigin().x-320,espiral[50+numBolasEspiral-1].GetSpriteAnimated().getOrigin().y);
+                }
+                
+                
+                ///LINEA 3 DE BOLAS
+                if(setOriginEspiral3<2){
+                espiral[100].SetPosition(getPosition().x, getPosition().y);
+                espiral[100].SetOriginAnimation(getPosition().x-750, getPosition().y-750);
+                
+                setOriginEspiral3++;
+                }
+                else{
+                numBolasEspiral3++;
+                espiral[100+numBolasEspiral3].SetPosition(getPosition().x, getPosition().y);
+                espiral[numBolasEspiral3+100].SetOriginAnimation(espiral[100+numBolasEspiral3-1].GetSpriteAnimated().getOrigin().x-320,espiral[100+numBolasEspiral3-1].GetSpriteAnimated().getOrigin().y);
+                }
+                
+                
                 clockCdDisparo.restart();
                 //espiral->Disparar(sf::Vector2f(getPosition()),sf::Vector2f(x4,y4));
                 castDisparo.restart();
             }
             
+            for(int i=0; i<=numBolasEspiral;i++){
             //espiral->SetPosition(espiral->GetPosition().x-1,espiral->GetPosition().y-1);
-            espiral->SetRotation(rotacion);
-            rotacion+=5;
-            espiral->SetPosition(getPosition().x, getPosition().y);
+            espiral[i].SetRotation(rotacion[i]);
+            rotacion[i]+=5;
+            espiral[i].SetPosition(getPosition().x, getPosition().y);
+            
+            if(rotacion[i]%360==45){
+                espiral[i].SetOriginAnimation(espiral[i].GetSpriteAnimated().getOrigin().x+20,espiral[i].GetSpriteAnimated().getOrigin().y);
+            }
+            if(rotacion[i]%360==90){
+                espiral[i].SetOriginAnimation(espiral[i].GetSpriteAnimated().getOrigin().x+20,espiral[i].GetSpriteAnimated().getOrigin().y);
+            }
+            if(rotacion[i]%360==135){
+                espiral[i].SetOriginAnimation(espiral[i].GetSpriteAnimated().getOrigin().x+20,espiral[i].GetSpriteAnimated().getOrigin().y);
+            }
+            if(rotacion[i]%360==180){
+                espiral[i].SetOriginAnimation(espiral[i].GetSpriteAnimated().getOrigin().x+20,espiral[i].GetSpriteAnimated().getOrigin().y);
+            }
+            if(rotacion[i]%360==225){
+                espiral[i].SetOriginAnimation(espiral[i].GetSpriteAnimated().getOrigin().x+20,espiral[i].GetSpriteAnimated().getOrigin().y);
+            }
+            if(rotacion[i]%360==270){
+                espiral[i].SetOriginAnimation(espiral[i].GetSpriteAnimated().getOrigin().x+20,espiral[i].GetSpriteAnimated().getOrigin().y);
+            }            
+            if(rotacion[i]%360==315){
+                espiral[i].SetOriginAnimation(espiral[i].GetSpriteAnimated().getOrigin().x+20,espiral[i].GetSpriteAnimated().getOrigin().y);
+            }
+            if(rotacion[i]%360==0){
+                espiral[i].SetOriginAnimation(espiral[i].GetSpriteAnimated().getOrigin().x+20,espiral[i].GetSpriteAnimated().getOrigin().y);
+            }
+
+            }
+            
+            for(int i=50; i<=50+numBolasEspiral2;i++){
+            //espiral->SetPosition(espiral->GetPosition().x-1,espiral->GetPosition().y-1);
+            espiral[i].SetRotation(rotacion2[i]);
+            rotacion2[i]+=5;
+            espiral[i].SetPosition(getPosition().x, getPosition().y);
+            
+            if(rotacion2[i]%360==45){
+                espiral[i].SetOriginAnimation(espiral[i].GetSpriteAnimated().getOrigin().x+20,espiral[i].GetSpriteAnimated().getOrigin().y);
+            }
+            if(rotacion2[i]%360==90){
+                espiral[i].SetOriginAnimation(espiral[i].GetSpriteAnimated().getOrigin().x+20,espiral[i].GetSpriteAnimated().getOrigin().y);
+            }
+            if(rotacion2[i]%360==135){
+                espiral[i].SetOriginAnimation(espiral[i].GetSpriteAnimated().getOrigin().x+20,espiral[i].GetSpriteAnimated().getOrigin().y);
+            }
+            if(rotacion2[i]%360==180){
+                espiral[i].SetOriginAnimation(espiral[i].GetSpriteAnimated().getOrigin().x+20,espiral[i].GetSpriteAnimated().getOrigin().y);
+            }
+            if(rotacion2[i]%360==225){
+                espiral[i].SetOriginAnimation(espiral[i].GetSpriteAnimated().getOrigin().x+20,espiral[i].GetSpriteAnimated().getOrigin().y);
+            }
+            if(rotacion2[i]%360==270){
+                espiral[i].SetOriginAnimation(espiral[i].GetSpriteAnimated().getOrigin().x+20,espiral[i].GetSpriteAnimated().getOrigin().y);
+            }            
+            if(rotacion2[i]%360==315){
+                espiral[i].SetOriginAnimation(espiral[i].GetSpriteAnimated().getOrigin().x+20,espiral[i].GetSpriteAnimated().getOrigin().y);
+            }
+            if(rotacion2[i]%360==0){
+                espiral[i].SetOriginAnimation(espiral[i].GetSpriteAnimated().getOrigin().x+20,espiral[i].GetSpriteAnimated().getOrigin().y);
+            }
+
+            }
+            
+            for(int i=100; i<=100+numBolasEspiral3;i++){
+            //espiral->SetPosition(espiral->GetPosition().x-1,espiral->GetPosition().y-1);
+            espiral[i].SetRotation(rotacion3[i]);
+            rotacion3[i]+=5;
+            espiral[i].SetPosition(getPosition().x, getPosition().y);
+            
+            if(rotacion3[i]%360==45){
+                espiral[i].SetOriginAnimation(espiral[i].GetSpriteAnimated().getOrigin().x+20,espiral[i].GetSpriteAnimated().getOrigin().y);
+            }
+            if(rotacion3[i]%360==90){
+                espiral[i].SetOriginAnimation(espiral[i].GetSpriteAnimated().getOrigin().x+20,espiral[i].GetSpriteAnimated().getOrigin().y);
+            }
+            if(rotacion3[i]%360==135){
+                espiral[i].SetOriginAnimation(espiral[i].GetSpriteAnimated().getOrigin().x+20,espiral[i].GetSpriteAnimated().getOrigin().y);
+            }
+            if(rotacion3[i]%360==180){
+                espiral[i].SetOriginAnimation(espiral[i].GetSpriteAnimated().getOrigin().x+20,espiral[i].GetSpriteAnimated().getOrigin().y);
+            }
+            if(rotacion3[i]%360==225){
+                espiral[i].SetOriginAnimation(espiral[i].GetSpriteAnimated().getOrigin().x+20,espiral[i].GetSpriteAnimated().getOrigin().y);
+            }
+            if(rotacion3[i]%360==270){
+                espiral[i].SetOriginAnimation(espiral[i].GetSpriteAnimated().getOrigin().x+20,espiral[i].GetSpriteAnimated().getOrigin().y);
+            }            
+            if(rotacion3[i]%360==315){
+                espiral[i].SetOriginAnimation(espiral[i].GetSpriteAnimated().getOrigin().x+20,espiral[i].GetSpriteAnimated().getOrigin().y);
+            }
+            if(rotacion3[i]%360==0){
+                espiral[i].SetOriginAnimation(espiral[i].GetSpriteAnimated().getOrigin().x+20,espiral[i].GetSpriteAnimated().getOrigin().y);
+            }
+
+            }
+            
+            
         }
 
 

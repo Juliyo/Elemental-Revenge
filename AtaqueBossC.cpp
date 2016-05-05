@@ -62,6 +62,8 @@ AtaqueBossC::AtaqueBossC() {
     SetOriginAnimation(0, 147 / 2);
     SetScaleAnimation(0.325, 0.325);
     
+
+    
     
 }
 
