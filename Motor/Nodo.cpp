@@ -51,8 +51,8 @@ Nodo::Nodo(Nodo *nodoPadre, Nodo *nodoFinal, sf::Vector2f pos, float costo) {
     posicion = pos;
     costoG = costo;
     //calculo de la posicion del nodo en la matriz del mapa 
-    casillaX = posicion.x / 24;
-    casillaY = posicion.y / 24;
+    casillaX = ceil(posicion.x / 24);
+    casillaY = ceil(posicion.y / 24);
     if (nodoFinal != NULL) {
         costoTotal = costoG + Calcularcosto();
     }

@@ -119,7 +119,7 @@ void PathFinding::encontrarCamino(sf::Vector2f posjugador, sf::Vector2f posenemi
 
 
 }
-*/
+ */
 
 ///nuevooo
 
@@ -132,7 +132,6 @@ void PathFinding::adicionarNodoAListaAbierta(Nodo *nodo) {
     auto it = listaAbierta.begin();
     listaAbierta.insert(it + indice, nodo);
 }
-
 
 std::vector<Nodo*>* PathFinding::encontrarNodosAdyacentes(Nodo *nodoActual, Nodo *nodoFinal) {
     //printf("Encontrar Nodos Adyaccentes Inicio Metodo \n");
@@ -152,60 +151,62 @@ std::vector<Nodo*>* PathFinding::encontrarNodosAdyacentes(Nodo *nodoActual, Nodo
     int tileAncho = 24;
     int tileAlto = 24;
 
-bool condicion = Y >= 0 && X >=0 && Y < height && X < width;
+    bool condicion = Y >= 0 && X >= 0 && Y < height && X < width;
     //Izquierda
-    if (condicion && colisiones[Y][X - 1] != 1) {
-        nodosAdyacentes->push_back(new Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho * (X - 1), tileAlto * Y), toTieso + nodoActual->costoG));
-    } else {
-        arribaIzquierda = false;
-        abajoDerecha = false;
-    }
-    
-    //Derecha
-    if (condicion && colisiones[Y][X + 1] != 1) {
-        nodosAdyacentes->push_back(new Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho * (X + 1), tileAlto * Y), toTieso + nodoActual->costoG));
-    } else {
-        arribaDerecha = false;
-        abajoDerecha = false;
+    if (condicion) {
+        if (colisiones[Y][X - 1] != 1) {
+            nodosAdyacentes->push_back(new Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho * (X - 1), tileAlto * Y), toTieso + nodoActual->costoG));
+        } else {
+            arribaIzquierda = false;
+            abajoDerecha = false;
+        }
+
+        //Derecha
+        if (colisiones[Y][X + 1] != 1) {
+            nodosAdyacentes->push_back(new Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho * (X + 1), tileAlto * Y), toTieso + nodoActual->costoG));
+        } else {
+            arribaDerecha = false;
+            abajoDerecha = false;
+        }
+
+        //Arriba
+        if (colisiones[Y - 1][X] != 1) {
+            nodosAdyacentes->push_back(new Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho*X, tileAlto * (Y - 1)), toTieso + nodoActual->costoG));
+        } else {
+            arribaIzquierda = false;
+            arribaDerecha = false;
+        }
+
+        //Abajo
+        if (colisiones[Y + 1][X] != 1) {
+            nodosAdyacentes->push_back(new Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho*X, tileAlto * (Y + 1)), toTieso + nodoActual->costoG));
+        } else {
+            arribaDerecha = false;
+            abajoDerecha = false;
+        }
+
+        //Diagonal
+        if (arribaIzquierda && colisiones[Y - 1][X - 1] != 1) {
+            nodosAdyacentes->push_back(new Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho * (X - 1), tileAlto * (Y - 1)), toTorsio + nodoActual->costoG));
+        }
+        if (arribaDerecha && colisiones[Y + 1][X + 1] != 1) {
+            nodosAdyacentes->push_back(new Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho * (X + 1), tileAlto * (Y - 1)), toTorsio + nodoActual->costoG));
+        }
+        if (abajoIzquierda && colisiones[Y + 1][X - 1] != 1) {
+            nodosAdyacentes->push_back(new Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho * (X - 1), tileAlto * (Y + 1)), toTorsio + nodoActual->costoG));
+        }
+        if (abajoDerecha && colisiones[Y - 1][X + 1] != 1) {
+            nodosAdyacentes->push_back(new Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho * (X + 1), tileAlto * (Y + 1)), toTorsio + nodoActual->costoG));
+        }
     }
 
-    //Arriba
-    if (condicion && colisiones[Y - 1][X] != 1) {
-        nodosAdyacentes->push_back(new Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho*X, tileAlto * (Y - 1)), toTieso + nodoActual->costoG));
-    } else {
-        arribaIzquierda = false;
-        arribaDerecha = false;
-    }
 
-    //Abajo
-    if (condicion && colisiones[Y + 1][X] != 1) {
-        nodosAdyacentes->push_back(new Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho*X, tileAlto * (Y + 1)), toTieso + nodoActual->costoG));
-    } else {
-        arribaDerecha = false;
-        abajoDerecha = false;
-    }
-
-    //Diagonal
-    if (condicion && arribaIzquierda && colisiones[Y - 1][X - 1] != 1) {
-        nodosAdyacentes->push_back(new Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho * (X - 1), tileAlto * (Y - 1)), toTorsio + nodoActual->costoG));
-    }
-    if (condicion && arribaDerecha && colisiones[Y + 1][X + 1] != 1) {
-        nodosAdyacentes->push_back(new Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho * (X + 1), tileAlto * (Y - 1)), toTorsio + nodoActual->costoG));
-    }
-    if (condicion && abajoIzquierda && colisiones[Y + 1][X - 1] != 1) {
-        nodosAdyacentes->push_back(new Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho * (X - 1), tileAlto * (Y + 1)), toTorsio + nodoActual->costoG));
-    }
-    if (condicion && abajoDerecha && colisiones[Y - 1][X + 1] != 1) {
-        nodosAdyacentes->push_back(new Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho * (X + 1), tileAlto * (Y + 1)), toTorsio + nodoActual->costoG));
-    }
-    
     //printf("Encontrar Nodos Adyaccentes Final metodo \n");
-//    for(int j=0;j<nodosAdyacentes->size();j++){
-//        std::cout<<"Nodo "<<j<<" "<<nodosAdyacentes->at(j)->GetCasilla().x<<","<<nodosAdyacentes->at(j)->GetCasilla().y<<"    Meta    "<<nodoFinal->GetCasilla().x<<","<<nodoFinal->GetCasilla().y<<std::endl;
-//    }
+    //    for(int j=0;j<nodosAdyacentes->size();j++){
+    //        std::cout<<"Nodo "<<j<<" "<<nodosAdyacentes->at(j)->GetCasilla().x<<","<<nodosAdyacentes->at(j)->GetCasilla().y<<"    Meta    "<<nodoFinal->GetCasilla().x<<","<<nodoFinal->GetCasilla().y<<std::endl;
+    //    }
     return nodosAdyacentes;
 }
-
 
 std::vector<sf::Vector2i>* PathFinding::buscaCamino(sf::Vector2f posenemigo, sf::Vector2f posjugador) {
     listaAbierta.clear();
@@ -218,6 +219,17 @@ std::vector<sf::Vector2i>* PathFinding::buscaCamino(sf::Vector2f posenemigo, sf:
     adicionarNodoAListaAbierta(nodoInicial);
 
     while (listaAbierta.size() > 0) {
+        /*if(listaCerrada.size() > 20){
+           /* Nodo *nodoActual = listaAbierta.at(listaAbierta.size() - 1);
+            std::vector<sf::Vector2i> *mejorCamino = new std::vector<sf::Vector2i>();
+            while (nodoActual != NULL) {
+                auto it = mejorCamino->begin();
+                mejorCamino->insert(it, nodoActual->GetCasilla());
+                nodoActual = nodoActual->NodoPadre;
+            }
+            return mejorCamino;
+            return &listaCerrada;
+        }*/
         Nodo *nodoActual = listaAbierta.at(listaAbierta.size() - 1);
         if (nodoActual->esIgual(nodoFinal)) {
             std::vector<sf::Vector2i> *mejorCamino = new std::vector<sf::Vector2i>();
@@ -233,18 +245,17 @@ std::vector<sf::Vector2i>* PathFinding::buscaCamino(sf::Vector2f posenemigo, sf:
 
         std::vector<Nodo*> *nodosAdyacentes = encontrarNodosAdyacentes(nodoActual, nodoFinal);
         //esto es un for each
-        
-        for (int i = 0; i<nodosAdyacentes->size();i++) {
+
+        for (int i = 0; i < nodosAdyacentes->size(); i++) {
             //std::cout<<"tam nodos adyaccentes "<<nodosAdyacentes->size()<<"Num de iteracion= "<<i<<std::endl;
-            //si este if no va hay que crearnos uno nosotros para comparar eso
             if (!buscarCasilla(nodosAdyacentes->at(i)->GetCasilla())) {
                 if (BuscarNodoEnListaAbierta(nodosAdyacentes->at(i))) {
-                    if (nodosAdyacentes->at(i)->costoG >= nodosAdyacentes->at(i)->costoTotal) {
+                    if (nodosAdyacentes->at(i)->costoG >= nodoActual->costoG) {
                         continue;
                     }
-
                 }
                 adicionarNodoAListaAbierta(nodosAdyacentes->at(i));
+                
             }
 
         }

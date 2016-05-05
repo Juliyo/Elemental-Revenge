@@ -22,7 +22,7 @@ std::string MapFactory::CreateLevel(Niveles::ID id) {
         std::string m = "LVL22.tmx";
         return m;
     } else if (id == Niveles::Level3) {
-        std::string m = "CasaAbandonadaV2.tmx";
+        std::string m = "CasaAbandonadaV2prueba.tmx";
         return m;
     } else if (id == Niveles::Level4) {
         std::string m = "mansionV2.tmx";
