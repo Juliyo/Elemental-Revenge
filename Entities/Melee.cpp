@@ -146,9 +146,9 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2) {
 
         int height = world->level->map->_height;
         int width = world->level->map->_width;
-        /*if (camino != NULL) {
+        if (camino != NULL) {
             for (int i = 0; i < camino->size(); i++) {
-                //std::cout << "Nodo " << i << " " << camino->at(i).casillaX << "," << camino->at(i).casillaY << "    Meta " << camino->at(i)->NodoFinal->casillaX << "," << camino->at(i).NodoFinal->casillaY << std::endl;
+                std::cout << "Nodo " << i << " " << camino->at(i).x << "," << camino->at(i).y << "    Meta " << world->player->GetPosition().x/24 << "," << world->player->GetPosition().y/24 << std::endl;
                 sf::RectangleShape shape;
                 shape.setPosition(sf::Vector2f(camino->at(i).x*width, camino->at(i).y * height));
 
@@ -157,7 +157,7 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2) {
                 shape.setFillColor(color);
                 shapesDebug.push_back(shape);
             }
-        }*/
+        }
 
     }
 

@@ -134,6 +134,7 @@ void PathFinding::adicionarNodoAListaAbierta(Nodo *nodo) {
 }
 
 std::vector<Nodo*>* PathFinding::encontrarNodosAdyacentes(Nodo *nodoActual, Nodo *nodoFinal) {
+    //printf("Encontrar Nodos Adyaccentes Inicio Metodo \n");
     std::vector<Nodo*> *nodosAdyacentes = new std::vector<Nodo*>();
     int X = nodoActual->GetCasilla().x;
     int Y = nodoActual->GetCasilla().y;
@@ -196,6 +197,11 @@ std::vector<Nodo*>* PathFinding::encontrarNodosAdyacentes(Nodo *nodoActual, Nodo
     if (condicion && abajoDerecha && colisiones[Y - 1][X + 1] != 1) {
         nodosAdyacentes->push_back(new Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho * (X + 1), tileAlto * (Y + 1)), toTorsio + nodoActual->costoG));
     }
+    
+    //printf("Encontrar Nodos Adyaccentes Final metodo \n");
+//    for(int j=0;j<nodosAdyacentes->size();j++){
+//        std::cout<<"Nodo "<<j<<" "<<nodosAdyacentes->at(j)->GetCasilla().x<<","<<nodosAdyacentes->at(j)->GetCasilla().y<<"    Meta    "<<nodoFinal->GetCasilla().x<<","<<nodoFinal->GetCasilla().y<<std::endl;
+//    }
     return nodosAdyacentes;
 }
 
@@ -226,10 +232,11 @@ std::vector<sf::Vector2i>* PathFinding::buscaCamino(sf::Vector2f posenemigo, sf:
 
         std::vector<Nodo*> *nodosAdyacentes = encontrarNodosAdyacentes(nodoActual, nodoFinal);
         //esto es un for each
-        for (int i = 0; nodosAdyacentes->size();i++) {
-            
+        
+        for (int i = 0; i<nodosAdyacentes->size();i++) {
+            //std::cout<<"tam nodos adyaccentes "<<nodosAdyacentes->size()<<"Num de iteracion= "<<i<<std::endl;
             //si este if no va hay que crearnos uno nosotros para comparar eso
-           /* if (Contains(listaCerrada,nodosAdyacentes->at(i)->GetCasilla())) {
+            if (Contains(listaCerrada,nodosAdyacentes->at(i)->GetCasilla())) {
                 if (Contains(listaAbierta,nodosAdyacentes->at(i))) {
                     if (nodosAdyacentes->at(i)->costoG >= nodosAdyacentes->at(i)->costoTotal) {
                         continue;
@@ -237,10 +244,11 @@ std::vector<sf::Vector2i>* PathFinding::buscaCamino(sf::Vector2f posenemigo, sf:
 
                 }
                 adicionarNodoAListaAbierta(nodosAdyacentes->at(i));
-            }*/
+            }
 
         }
         listaCerrada.push_back(nodoActual->GetCasilla());
+        //printf("Dentro del While \n");
     }
     return NULL;
 
