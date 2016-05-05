@@ -26,8 +26,9 @@ public:
     virtual ~hRayBasic();
     void cast(sf::Vector2f vector);
     void DrawWithInterpolation( float interpolation, const sf::Vector2f &posPrev, const sf::Vector2f &posNew );
-    void Collide() override;
-    void EndCollide() override;
+    std::string getClassName() override;
+    void CreateBody() override;
+
     void update();
     
     Reloj tiempoCast;

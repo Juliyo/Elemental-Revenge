@@ -20,8 +20,9 @@ class Heal: public Hechizo, public Collisionable {
 public:
     Heal();
     virtual ~Heal();
-    void Collide() override;
-    void EndCollide() override;
+    std::string getClassName() override;
+    void CreateBody() override;
+
     bool cast(Hud *hud);
     void DrawWithInterpolation( float interpolation, sf::Vector2f pos1,sf::Vector2f pos2);
     

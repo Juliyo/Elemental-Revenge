@@ -3,6 +3,30 @@
 #include "../States/InGame.hpp"
 #include "../Otros/tmxHelper.hpp"
 
+void Player::CreateBody() {
+    physicWorld = InGame::Instance()->physicWorld;
+    
+    //Creamos un objeto dinamico
+    bodyDef = new b2BodyDef();
+    bodyDef->type = b2_dynamicBody; 
+    bodyDef->position.Set(tmx::SfToBoxFloat(entity->GetPosition().x),tmx::SfToBoxFloat(entity->GetPosition().y));
+    bodyDef->fixedRotation = true;
+    //Añadimos el objeto al mundo
+    body = physicWorld->CreateBody(bodyDef);
+    body->SetUserData(this);
+    //Se crea una shape, le damos las dimensiones pasandole la mitad del ancho y la mitad del alto
+    //del BoundingBox
+    shape = new b2PolygonShape();
+    shape->SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f));
+    //Objeto que le da las propiedades fisicas al bodyDef
+    fixtureDef = new b2FixtureDef();
+    fixtureDef->shape = shape;
+    fixtureDef->density = 1.0f;
+    fixtureDef->friction = 0.0f;
+    body->CreateFixture(fixtureDef);
+}
+
+
 Player::Player() : Collisionable((Entity*)this) {
 
 }
@@ -11,12 +35,8 @@ Player::~Player() {
 	delete hud;
 }
 
-void Player::Collide() {
-
-}
-
-void Player::EndCollide() {
-
+std::string Player::getClassName() {
+    return "Player";
 }
 
 

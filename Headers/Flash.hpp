@@ -22,8 +22,9 @@ class Flash : public Hechizo, public Collisionable {
 public:
     Flash(int animation);
     virtual ~Flash();
-    void Collide() override;
-    void EndCollide() override;
+    std::string getClassName() override;
+    void CreateBody() override;
+
     void Draw();
     void DrawWithInterpolation( float interpolation, const sf::Vector2f &posPrev, const sf::Vector2f &posNew);
     sf::Vector2f cast(sf::Vector2f, Hud *hud);

@@ -68,7 +68,6 @@ public:
     
     Video *video;
     Player			*player;
-    Dummy                       *dummy;
 private:
     
     //Melee			*melee;

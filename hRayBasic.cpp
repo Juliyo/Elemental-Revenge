@@ -18,7 +18,9 @@
 #include <SFML/Window/Mouse.hpp>
 #include <math.h>
 
+void hRayBasic::CreateBody() {
 
+}
 
 hRayBasic::hRayBasic(): Collisionable((Entity*)this) {
     
@@ -92,15 +94,9 @@ hRayBasic::~hRayBasic() {
 
 }
 
-void hRayBasic::Collide() {
+std::string hRayBasic::getClassName() {
 
 }
-
-void hRayBasic::EndCollide() {
-
-}
-
-
 
 void hRayBasic::cast(sf::Vector2f posicion) {
 

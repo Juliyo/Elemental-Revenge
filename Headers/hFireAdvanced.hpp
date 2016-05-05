@@ -18,8 +18,9 @@ class hFireAdvanced : public Hechizo, public Collisionable {
 public:
     hFireAdvanced();
     virtual ~hFireAdvanced();
-    void Collide() override;
-    void EndCollide() override;
+    std::string getClassName() override;
+    void CreateBody() override;
+
     void cast(sf::Vector2f);
     void DrawWithInterpolation( float interpolation, const sf::Vector2f &posPrev, const sf::Vector2f &posNew);
     bool lanzado=false;

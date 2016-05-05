@@ -23,8 +23,9 @@ class hWaterBasic:public Hechizo, public Collisionable {
 public:
     hWaterBasic();
     virtual ~hWaterBasic();
-    void Collide() override;
-    void EndCollide() override;
+    std::string getClassName() override;
+    void CreateBody() override;
+
     void cast(sf::Vector2f, Hud *hud);
     void DrawWithInterpolation( float interpolation);
     void Update(sf::Vector2f velocity, sf::Time elapsedTime, float playerV);

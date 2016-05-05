@@ -15,6 +15,11 @@
 #include "States/InGame.hpp"
 #include "Otros/tmxHelper.hpp"
 
+void Flash::CreateBody() {
+
+}
+
+
 Flash::Flash(int animation): Collisionable((Entity*)this) {
     dibujar = false;
     switch (animation) {
@@ -85,11 +90,7 @@ Flash::Flash(int animation): Collisionable((Entity*)this) {
 Flash::~Flash() {
 }
 
-void Flash::Collide() {
-
-}
-
-void Flash::EndCollide() {
+std::string Flash::getClassName() {
 
 }
 

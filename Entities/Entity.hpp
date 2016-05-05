@@ -16,6 +16,7 @@
 
 #include "../Headers/PhysicsState.hpp"
 #include "../Headers/Render.hpp"
+#include <string.h>
 enum _entityCategory {
     BOUNDARY =          0x0001,
     PLAYER =            0x0002,
@@ -27,10 +28,8 @@ public:
     Entity();
     Entity(const Entity& orig);
     virtual ~Entity();
-    
-    virtual void Collide() = 0;
-    virtual void EndCollide() = 0;
     //virtual void Update(const sf::Time elapsedTime) = 0;
+    virtual std::string getClassName() = 0;
     
 private:
 

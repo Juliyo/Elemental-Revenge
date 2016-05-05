@@ -24,8 +24,9 @@ class hWaterAdvanced:public Hechizo, public Collisionable {
 public:
     hWaterAdvanced();
     virtual ~hWaterAdvanced();
-    void Collide() override;
-    void EndCollide() override;
+    std::string getClassName() override;
+    void CreateBody() override;
+
     void cast(sf::Vector2f pos, Hud *hud);
     void UpdateHechizo(sf::Vector2f velocity, sf::Time elapsedTime);
     void setDibujar(bool NuevoDibujar);

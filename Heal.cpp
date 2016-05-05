@@ -13,12 +13,11 @@
 #include "../Headers/Heal.hpp"
 #include "AnimatedSprite.hpp"
 #include <iostream>
-
+void Heal::CreateBody(){
+    
+}
 Heal::Heal(): Collisionable((Entity*)this) {
     animacion = new Animation();
-
-
-
     animacion->setSpriteSheet("resources/Textures/heal.png");
     animacion->addFrame(sf::IntRect(0,0,256,256));
     animacion->addFrame(sf::IntRect(256,0,256,256));
@@ -53,11 +52,7 @@ Heal::Heal(): Collisionable((Entity*)this) {
 Heal::~Heal() {
 }
 
-void Heal::Collide() {
-
-}
-
-void Heal::EndCollide() {
+std::string Heal::getClassName() {
 
 }
 

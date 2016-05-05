@@ -13,6 +13,10 @@
 
 #include "hFireAdvanced.hpp"
 
+void hFireAdvanced::CreateBody() {
+
+}
+
 hFireAdvanced::hFireAdvanced(): Collisionable((Entity*)this) {
 
 
@@ -27,13 +31,10 @@ hFireAdvanced::hFireAdvanced(): Collisionable((Entity*)this) {
 
 }
 
-void hFireAdvanced::Collide() {
+std::string hFireAdvanced::getClassName() {
 
 }
 
-void hFireAdvanced::EndCollide() {
-
-}
 
 hFireAdvanced::~hFireAdvanced() {
 }

@@ -13,6 +13,7 @@
 
 #include "ContactListener.hpp"
 #include "../Otros/Dummy.hpp"
+#include "../Entities/Player.hpp"
 ContactListener::ContactListener() {
 }
 
@@ -24,20 +25,49 @@ ContactListener::~ContactListener() {
 
 void ContactListener::BeginContact(b2Contact* contact) {
 
-    void* bodyUserData = contact->GetFixtureA()->GetBody()->GetUserData();
-    if (bodyUserData){
-        static_cast<Entity*> (bodyUserData)->Collide();
-    }
+    
        
 }
 
 void ContactListener::EndContact(b2Contact* contact) {
-    void* bodyUserData = contact->GetFixtureA()->GetBody()->GetUserData();
-    if (bodyUserData){
-        static_cast<Entity*> (bodyUserData)->EndCollide();
-    }
+    
 }
 
 bool ContactListener::ShouldCollide(b2Fixture* fixtureA, b2Fixture* fixtureB) {
-    //return true;
+    std::cout<<static_cast<Entity*> (fixtureA->GetBody()->GetUserData())->getClassName()<<std::endl;
+    std::string claseA = "";
+    std::string claseB = "";
+    if(fixtureA->GetBody()->GetUserData()){
+        claseA = static_cast<Entity*> (fixtureA->GetBody()->GetUserData())->getClassName();
+    }
+    if(fixtureB->GetBody()->GetUserData()){
+        claseB = static_cast<Entity*> (fixtureB->GetBody()->GetUserData())->getClassName();
+    }
+
+    if(claseA == "Player"){
+        if(claseB == ""){
+            return true;
+        }else if(claseB == "Melee"){
+            Player *p = static_cast<Player*> (fixtureA->GetBody()->GetUserData());
+            p->restaVida(1);
+            return true;
+        }else if(claseB == "hFireBasic"){
+            return false;
+        }
+    }
+    if(claseA == "hFireBasic"){
+        if(claseB == "Player"){
+            return false;
+        }
+    }
+    if(claseA == "Melee"){
+        if(claseB == "Player"){
+           //Player *p = static_cast<Player*> (fixtureA->GetBody()->GetUserData());
+           //p->restaVida(1);
+           return true;
+        }
+    }
+
+    
+    return true;
 }

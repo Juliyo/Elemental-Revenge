@@ -23,8 +23,9 @@ class Player : public Entity, public Collisionable {
 public:
     Player();
     virtual ~Player();
-    void Collide() override;
-    void EndCollide() override;
+    std::string getClassName() override;
+    void CreateBody() override;
+
 
 
     void Inicializar(float posX, float posY, float speedX = 0.f, float speedY = 0.f, float maxSpeedX = 1000.f, float maxSpeedY = 1000.f);

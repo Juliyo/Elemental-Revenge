@@ -24,9 +24,10 @@ class hRayAdvanced:public Hechizo, public Collisionable {
 public:
     hRayAdvanced();
     virtual ~hRayAdvanced();
+    std::string getClassName() override;
+    void CreateBody() override;
+
     void cast(sf::Vector2f vector, Hud *hud);
-    void Collide() override;
-    void EndCollide() override;
     void DrawWithOutInterpolation();
     Animation **currentAnimation;
     Animation *animationDurante;

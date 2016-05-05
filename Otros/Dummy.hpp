@@ -20,8 +20,8 @@ class Dummy : public Entity,  public Collisionable {
 public:
     Dummy();
     virtual ~Dummy();
-    void Collide() override;
-    void EndCollide() override;
+    std::string getClassName() override;
+
 
     bool touch = false;
     void collide();

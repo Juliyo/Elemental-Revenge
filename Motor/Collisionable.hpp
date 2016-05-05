@@ -24,6 +24,8 @@ public:
     Collisionable(Entity* ent);     
     virtual ~Collisionable();
     
+    virtual void CreateBody() = 0;
+    
     void CreateDynamicBody();
     void CreateKinematicBody();
 

@@ -26,13 +26,10 @@ Dummy::Dummy(): Collisionable((Entity*)this) {
 Dummy::~Dummy() {
 }
 
-void Dummy::EndCollide() {
+std::string Dummy::getClassName() {
 
 }
 
-void Dummy::Collide() {
-
-}
 
 void Dummy::collide() {
     //touch = true;

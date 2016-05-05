@@ -12,6 +12,31 @@
  */
 
 #include "../Headers/hFireBasic.hpp"
+#include "../States/InGame.hpp"
+
+void hFireBasic::CreateBody() {
+    physicWorld = InGame::Instance()->physicWorld;
+    
+    //Creamos un objeto dinamico
+    bodyDef = new b2BodyDef();
+    bodyDef->type = b2_dynamicBody; 
+    bodyDef->position.Set(tmx::SfToBoxFloat(entity->GetPosition().x),tmx::SfToBoxFloat(entity->GetPosition().y));
+    bodyDef->fixedRotation = true;
+    //Añadimos el objeto al mundo
+    body = physicWorld->CreateBody(bodyDef);
+    body->SetUserData(this);
+    //Se crea una shape, le damos las dimensiones pasandole la mitad del ancho y la mitad del alto
+    //del BoundingBox
+    shape = new b2PolygonShape();
+    shape->SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f));
+    //Objeto que le da las propiedades fisicas al bodyDef
+    fixtureDef = new b2FixtureDef();
+    fixtureDef->shape = shape;
+    fixtureDef->density = 1.0f;
+    fixtureDef->friction = 0.0f;
+    body->CreateFixture(fixtureDef);
+}
+
 
 hFireBasic::hFireBasic(): Collisionable((Entity*)this) {
 
@@ -57,7 +82,7 @@ hFireBasic::hFireBasic(): Collisionable((Entity*)this) {
     Render::InicializarAnimatedSprite(sf::seconds(0.02f), true, false);
     Render::SetOriginAnimation(0, 147 / 2);
     Render::SetScaleAnimation(0.2, 0.2);
-    CreateKinematicBody();
+    CreateBody();
     
     //hSprite.setPosition(0, 0);
 
@@ -69,13 +94,10 @@ hFireBasic::hFireBasic(): Collisionable((Entity*)this) {
 
 }
 
-void hFireBasic::Collide() {
-    std::cout<<"Colision!"<<std::endl;
+std::string hFireBasic::getClassName() {
+    return "hFireBasic";
 }
 
-void hFireBasic::EndCollide() {
-
-}
 
 hFireBasic::~hFireBasic() {
 }

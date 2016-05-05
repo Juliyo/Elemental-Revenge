@@ -14,6 +14,11 @@
 #include "hWaterAdvanced.hpp"
 #include "Hud.hpp"
 
+void hWaterAdvanced::CreateBody() {
+
+}
+
+
 hWaterAdvanced::hWaterAdvanced(): Collisionable((Entity*)this) {
 
     animationDurante = new Animation();
@@ -38,14 +43,9 @@ hWaterAdvanced::hWaterAdvanced(): Collisionable((Entity*)this) {
 
 }
 
-void hWaterAdvanced::Collide() {
+std::string hWaterAdvanced::getClassName() {
 
 }
-
-void hWaterAdvanced::EndCollide() {
-
-}
-
 
 hWaterAdvanced::~hWaterAdvanced() {
 }
