@@ -19,6 +19,7 @@
 #include "SFML/System.hpp"
 #include <vector>
 
+
 class PathFinding {
 public:
     PathFinding();

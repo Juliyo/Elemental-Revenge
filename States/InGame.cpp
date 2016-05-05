@@ -73,13 +73,13 @@ void InGame::Inicializar() {
     player->CreateDynamicBody();
     melee = new std::vector<Melee*>();
     melee->reserve(1);
-
     
     for(int i=0;i<1;i++){
         melee->push_back(new Melee());
         melee->at(i)->Inicializar(1000.f + i*20, -1000.f + i*20,Tipo::ID::Rata,0.f,0.f);
         melee->at(i)->SetRectangleColision(0,0,37,39);
         melee->at(i)->CreateDynamicBody();
+        
         
     }
         pathfingind=new PathFinding();

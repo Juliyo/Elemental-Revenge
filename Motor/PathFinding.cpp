@@ -133,6 +133,7 @@ void PathFinding::adicionarNodoAListaAbierta(Nodo *nodo) {
     listaAbierta.insert(it + indice, nodo);
 }
 
+
 std::vector<Nodo*>* PathFinding::encontrarNodosAdyacentes(Nodo *nodoActual, Nodo *nodoFinal) {
     //printf("Encontrar Nodos Adyaccentes Inicio Metodo \n");
     std::vector<Nodo*> *nodosAdyacentes = new std::vector<Nodo*>();

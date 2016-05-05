@@ -36,8 +36,6 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, flo
     walkingAnimationDown->addFrame(sf::IntRect(68, 0, 34, 32));
     walkingAnimationDown->addFrame(sf::IntRect(102, 0, 34, 32));
 
-
-
     walkingAnimationLeft->setSpriteSheet("resources/Textures/ninjapeq.png");
     walkingAnimationLeft->addFrame(sf::IntRect(0, 0, 34, 32));
     walkingAnimationLeft->addFrame(sf::IntRect(34, 0, 34, 32));
