@@ -309,6 +309,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
         player -> DrawWithInterpolation(interpolation);
     } else {
         player -> DrawAnimationWithOut(player -> GetRenderPosition());
+        player -> StopAnimation();
     }
 
     //**************************************FLASH**************************
