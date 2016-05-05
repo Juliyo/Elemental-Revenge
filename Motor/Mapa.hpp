@@ -37,29 +37,11 @@ public:
     Mapa();
     Mapa(const Mapa& orig);
     virtual ~Mapa();
-    void leerMapa(int numMapa, int versionMapa);
-    void leerMapa2();
-    void dibujaMapa1();
-    void dibuja2Mapa1();
-    
-    void dibujaMapa2();
-    void dibuja2Mapa2();
-    
-    void dibujaMapa3();
-    void dibuja2Mapa3();
-    
-    int getMapaActual();
-    
-    sf::Sprite  getMap();
-    int _numLayers=0;
-    int ***_tilemap;
+
     int _height;
     int _width;
     int _tileHeigth;
     int _tileWidth;
-    sf::Sprite ****_tilemapSprite;
-    sf::Texture _tilesetTexture;
-    sf::Sprite *_tilesetSprite;
     void mapLoader(std::string mapName);
     void render();
     const tmx::MapLayer& GetLayer(const std::string& name);
@@ -74,7 +56,7 @@ public:
     void createCollisions();
     int **colisiones;
     void createStaticMeshes();
-    
+    void CreateMelees();
 private:
     int mapaActual;
     tmx::MapLoader ml;

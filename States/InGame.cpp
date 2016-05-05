@@ -72,21 +72,18 @@ InGame::~InGame() {
 void InGame::Inicializar() {
     player = new Player();
     player->SetRectangleColision(14, 12, 36, 52);
-    player -> Inicializar(-100.f, -100.f);
+    player -> Inicializar(1000.f, -1000.f);
     player->CreateBody();
     melee = new std::vector<Melee*>();
-    VectorBools = new std::vector<bool>();
-    VectorBools->reserve(30);
-    melee->reserve(30);
+    /*melee->reserve(30);
     for (int i = 0; i < 30; i++) {
 
         melee->push_back(new Melee());
         melee->at(i)->Inicializar(1000.f + i * 20, -1000.f + i * 20, Tipo::ID::Rata);
         melee->at(i)->SetRectangleColision(0, 0, 37, 39);
         melee->at(i)->CreateBody();
-        bool a = false;
-        VectorBools->push_back(a);
-    }
+    }*/
+    
 
     try {
         spriteFondo.setTexture("resources/Textures/grasstext.png");
@@ -108,11 +105,8 @@ void InGame::Inicializar() {
         exit(0);
     }
     level->LoadMap(Niveles::ID::Level1);
+    level->map->CreateMelees();
     video->Inicializar();
-
-
-
-
 }
 
 void InGame::Update(sf::Time elapsedTime) {

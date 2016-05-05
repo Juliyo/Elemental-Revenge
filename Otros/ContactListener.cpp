@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -83,12 +83,14 @@ void ContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldManifold
     if(claseA == "hFireBasic"){
         if(claseB == "Melee"){
             //contact->SetEnabled(false);
+        }else if(claseB == "Player"){
+            ///contact->SetEnabled(false);
         }
     }
 }
 
-void ContactListener::EndContact(b2Contact* contact) {
-    
+void ContactListener::EndContact(b2Contact* contact) { 
+
 }
 
 bool ContactListener::ShouldCollide(b2Fixture* fixtureA, b2Fixture* fixtureB) {

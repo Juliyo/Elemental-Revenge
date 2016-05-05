@@ -41,7 +41,7 @@ void Melee::CreateBody() {
     //Objeto que le da las propiedades fisicas al bodyDef
     fixtureDef = new b2FixtureDef();
     fixtureDef->shape = shape;
-    fixtureDef->density = 1.0f;
+    fixtureDef->density = 0.25f;
     fixtureDef->friction = 0.0f;
     body->CreateFixture(fixtureDef);
 }

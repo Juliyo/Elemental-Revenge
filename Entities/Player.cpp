@@ -5,11 +5,11 @@
 
 void Player::CreateBody() {
     physicWorld = InGame::Instance()->physicWorld;
-    
+
     //Creamos un objeto dinamico
     bodyDef = new b2BodyDef();
-    bodyDef->type = b2_dynamicBody; 
-    bodyDef->position.Set(tmx::SfToBoxFloat(entity->GetPosition().x),tmx::SfToBoxFloat(entity->GetPosition().y));
+    bodyDef->type = b2_dynamicBody;
+    bodyDef->position.Set(tmx::SfToBoxFloat(entity->GetPosition().x), tmx::SfToBoxFloat(entity->GetPosition().y));
     bodyDef->fixedRotation = true;
     //Añadimos el objeto al mundo
     body = physicWorld->CreateBody(bodyDef);
@@ -26,7 +26,6 @@ void Player::CreateBody() {
     body->CreateFixture(fixtureDef);
 }
 
-
 Player::Player() : Collisionable((Entity*)this) {
 
 }
@@ -39,7 +38,6 @@ std::string Player::getClassName() {
     return "Player";
 }
 
-
 void Player::Inicializar(float posX, float posY, float speedX, float speedY, float maxSpeedX, float maxSpeedY) {
     /*Reservamos memoria para los punteros de Animation*/
 
@@ -49,21 +47,21 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationUp = new Animation();
 
     //casteo rayo
-    castingAnimationUpRayo= new Animation();
-    castingAnimationDownRayo= new Animation();
-    castingAnimationRightRayo= new Animation();
-    castingAnimationLeftRayo= new Animation();
+    castingAnimationUpRayo = new Animation();
+    castingAnimationDownRayo = new Animation();
+    castingAnimationRightRayo = new Animation();
+    castingAnimationLeftRayo = new Animation();
     //casteo Fuego
-    castingAnimationUpFuego= new Animation();
-    castingAnimationDownFuego= new Animation();
-    castingAnimationRightFuego= new Animation();
-    castingAnimationLeftFuego= new Animation();
+    castingAnimationUpFuego = new Animation();
+    castingAnimationDownFuego = new Animation();
+    castingAnimationRightFuego = new Animation();
+    castingAnimationLeftFuego = new Animation();
     //casteo Agua
-    castingAnimationUpAgua= new Animation();
-    castingAnimationDownAgua= new Animation();
-    castingAnimationRightAgua= new Animation();
-    castingAnimationLeftAgua= new Animation();
-    
+    castingAnimationUpAgua = new Animation();
+    castingAnimationDownAgua = new Animation();
+    castingAnimationRightAgua = new Animation();
+    castingAnimationLeftAgua = new Animation();
+
     //fuego
     fuegoAnimationDown = new Animation();
     fuegoAnimationLeft = new Animation();
@@ -82,27 +80,27 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
 
     hRayoBasico = new hRayBasic();
     hRayoAvanzado = new hRayAdvanced();
-    
-    
+
+
     hFuegoBasico = new hFireBasic[15];
     hFuegoAvanzado = new hFireAdvanced();
-   
-    
-    hAguaBasico=new hWaterBasic();
-    hAguaAvanzado = new hWaterAdvanced();
-    
-    hHeal = new Heal();
-    
-    flash = new Flash(1);//Animacion que aparece en la posicion que deja el jugador
-    flash2 = new Flash(2);//Animacion que aparece a la posicion en que se ha movido el jugador
 
-    
+
+    hAguaBasico = new hWaterBasic();
+    hAguaAvanzado = new hWaterAdvanced();
+
+    hHeal = new Heal();
+
+    flash = new Flash(1); //Animacion que aparece en la posicion que deja el jugador
+    flash2 = new Flash(2); //Animacion que aparece a la posicion en que se ha movido el jugador
+
+
     Reloj *relojes = new Reloj[6];
     relojes[0] = hRayoBasico->tiempoCd;
     relojes[1] = hRayoAvanzado->tiempoCd;
-    
+
     float *cds = new float[8];
-    
+
     cds[0] = hRayoBasico->getCD();
     cds[1] = hRayoAvanzado->getCD();
     cds[2] = hAguaBasico->getCD();
@@ -111,16 +109,16 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     cds[5] = hFuegoAvanzado->getCD();
     cds[6] = flash->getCD();
     cds[7] = hHeal->getCD();
-    
-    
-    hud = new Hud(relojes,cds);
 
-    if(!texturaPlayer.loadFromFile("resources/Textures/player.png")){
-       std::cout<<"Error cargando la textura: "<<"resources/Textures/player.png"<<std::endl;
-       exit(0);
+
+    hud = new Hud(relojes, cds);
+
+    if (!texturaPlayer.loadFromFile("resources/Textures/player.png")) {
+        std::cout << "Error cargando la textura: " << "resources/Textures/player.png" << std::endl;
+        exit(0);
     }
     texturaPlayer.setSmooth(true);
-    
+
 
     walkingAnimationDown->setSpriteSheet("resources/Textures/player.png");
     walkingAnimationDown->addFrame(sf::IntRect(512, 640, 64, 64));
@@ -133,8 +131,8 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationDown->addFrame(sf::IntRect(384, 640, 64, 64));
     walkingAnimationDown->addFrame(sf::IntRect(448, 640, 64, 64));
     walkingAnimationDown->addFrame(sf::IntRect(512, 640, 64, 64));
-   
-    
+
+
 
 
     walkingAnimationLeft->setSpriteSheet("resources/Textures/player.png");
@@ -148,7 +146,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationLeft->addFrame(sf::IntRect(384, 576, 64, 64));
     walkingAnimationLeft->addFrame(sf::IntRect(448, 576, 64, 64));
     walkingAnimationLeft->addFrame(sf::IntRect(512, 576, 64, 64));
-    
+
 
     walkingAnimationRight->setSpriteSheet("resources/Textures/player.png");
     walkingAnimationRight->addFrame(sf::IntRect(512, 704, 64, 64));
@@ -160,8 +158,8 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationRight->addFrame(sf::IntRect(320, 704, 64, 64));
     walkingAnimationRight->addFrame(sf::IntRect(384, 704, 64, 64));
     walkingAnimationRight->addFrame(sf::IntRect(448, 704, 64, 64));
-    
-    
+
+
 
 
     walkingAnimationUp->setSpriteSheet("resources/Textures/player.png");
@@ -175,7 +173,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationUp->addFrame(sf::IntRect(384, 512, 64, 64));
     walkingAnimationUp->addFrame(sf::IntRect(448, 512, 64, 64));
     walkingAnimationUp->addFrame(sf::IntRect(512, 512, 64, 64));
-    
+
     //casteo Rayo
     castingAnimationUpRayo->setSpriteSheet("resources/Textures/player.png");
     castingAnimationUpRayo->addFrame(sf::IntRect(320, 768, 64, 64));
@@ -185,8 +183,8 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     castingAnimationUpRayo->addFrame(sf::IntRect(192, 768, 64, 64));
     castingAnimationUpRayo->addFrame(sf::IntRect(256, 768, 64, 64));
     castingAnimationUpRayo->addFrame(sf::IntRect(320, 768, 64, 64));
-  
- 
+
+
     castingAnimationDownRayo->setSpriteSheet("resources/Textures/player.png");
     castingAnimationDownRayo->addFrame(sf::IntRect(320, 896, 64, 64));
     castingAnimationDownRayo->addFrame(sf::IntRect(0, 896, 64, 64));
@@ -195,8 +193,8 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     castingAnimationDownRayo->addFrame(sf::IntRect(192, 896, 64, 64));
     castingAnimationDownRayo->addFrame(sf::IntRect(256, 896, 64, 64));
     castingAnimationDownRayo->addFrame(sf::IntRect(320, 896, 64, 64));
- 
-    
+
+
     castingAnimationRightRayo->setSpriteSheet("resources/Textures/player.png");
     castingAnimationRightRayo->addFrame(sf::IntRect(320, 960, 64, 64));
     castingAnimationRightRayo->addFrame(sf::IntRect(0, 960, 64, 64));
@@ -205,8 +203,8 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     castingAnimationRightRayo->addFrame(sf::IntRect(192, 960, 64, 64));
     castingAnimationRightRayo->addFrame(sf::IntRect(256, 960, 64, 64));
     castingAnimationRightRayo->addFrame(sf::IntRect(320, 960, 64, 64));
-  
-   
+
+
     castingAnimationLeftRayo->setSpriteSheet("resources/Textures/player.png");
     castingAnimationLeftRayo->addFrame(sf::IntRect(320, 832, 64, 64));
     castingAnimationLeftRayo->addFrame(sf::IntRect(0, 832, 64, 64));
@@ -215,7 +213,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     castingAnimationLeftRayo->addFrame(sf::IntRect(192, 832, 64, 64));
     castingAnimationLeftRayo->addFrame(sf::IntRect(256, 832, 64, 64));
     castingAnimationLeftRayo->addFrame(sf::IntRect(320, 832, 64, 64));
- 
+
     //Casteo Agua
     //casteo
     castingAnimationUpAgua->setSpriteSheet("resources/Textures/player.png");
@@ -227,8 +225,8 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     castingAnimationUpAgua->addFrame(sf::IntRect(256, 256, 64, 64));
     castingAnimationUpAgua->addFrame(sf::IntRect(320, 256, 64, 64));
     castingAnimationUpAgua->addFrame(sf::IntRect(384, 256, 64, 64));
-    castingAnimationUpAgua->addFrame(sf::IntRect(448, 256, 64, 64));  
-    
+    castingAnimationUpAgua->addFrame(sf::IntRect(448, 256, 64, 64));
+
     castingAnimationDownAgua->setSpriteSheet("resources/Textures/player.png");
     castingAnimationDownAgua->addFrame(sf::IntRect(448, 384, 64, 64));
     castingAnimationDownAgua->addFrame(sf::IntRect(0, 384, 64, 64));
@@ -239,8 +237,8 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     castingAnimationDownAgua->addFrame(sf::IntRect(320, 384, 64, 64));
     castingAnimationDownAgua->addFrame(sf::IntRect(384, 384, 64, 64));
     castingAnimationDownAgua->addFrame(sf::IntRect(448, 384, 64, 64));
-    
-    
+
+
     castingAnimationRightAgua->setSpriteSheet("resources/Textures/player.png");
     castingAnimationRightAgua->addFrame(sf::IntRect(448, 448, 64, 64));
     castingAnimationRightAgua->addFrame(sf::IntRect(0, 448, 64, 64));
@@ -251,7 +249,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     castingAnimationRightAgua->addFrame(sf::IntRect(320, 448, 64, 64));
     castingAnimationRightAgua->addFrame(sf::IntRect(384, 448, 64, 64));
     castingAnimationRightAgua->addFrame(sf::IntRect(448, 448, 64, 64));
-    
+
     castingAnimationLeftAgua->setSpriteSheet("resources/Textures/player.png");
     castingAnimationLeftAgua->addFrame(sf::IntRect(448, 320, 64, 64));
     castingAnimationLeftAgua->addFrame(sf::IntRect(0, 320, 64, 64));
@@ -262,7 +260,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     castingAnimationLeftAgua->addFrame(sf::IntRect(320, 320, 64, 64));
     castingAnimationLeftAgua->addFrame(sf::IntRect(384, 320, 64, 64));
     castingAnimationLeftAgua->addFrame(sf::IntRect(448, 320, 64, 64));
-    
+
     /////////////////////////////////
     //Fuegooo
     //castingAnimationLeftFuego
@@ -274,7 +272,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     fuegoAnimationUp->addFrame(sf::IntRect(192, 768, 64, 64));
     fuegoAnimationUp->addFrame(sf::IntRect(256, 768, 64, 64));
     fuegoAnimationUp->addFrame(sf::IntRect(320, 768, 64, 64));
-  
+
     fuegoAnimationDown->setSpriteSheet("resources/Textures/player.png");
     //fuegoAnimationDown->addFrame(sf::IntRect(320, 896, 64, 64));
     fuegoAnimationDown->addFrame(sf::IntRect(0, 896, 64, 64));
@@ -283,9 +281,9 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     fuegoAnimationDown->addFrame(sf::IntRect(192, 896, 64, 64));
     fuegoAnimationDown->addFrame(sf::IntRect(256, 896, 64, 64));
     fuegoAnimationDown->addFrame(sf::IntRect(320, 896, 64, 64));
- 
-    
-    
+
+
+
     fuegoAnimationRight->setSpriteSheet("resources/Textures/player.png");
     //fuegoAnimationRight->addFrame(sf::IntRect(320, 960, 64, 64));
     fuegoAnimationRight->addFrame(sf::IntRect(0, 960, 64, 64));
@@ -294,9 +292,9 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     fuegoAnimationRight->addFrame(sf::IntRect(192, 960, 64, 64));
     fuegoAnimationRight->addFrame(sf::IntRect(256, 960, 64, 64));
     fuegoAnimationRight->addFrame(sf::IntRect(320, 960, 64, 64));
-  
-    
-    
+
+
+
     fuegoAnimationLeft->setSpriteSheet("resources/Textures/player.png");
     //fuegoAnimationLeft->addFrame(sf::IntRect(320, 832, 64, 64));
     fuegoAnimationLeft->addFrame(sf::IntRect(0, 832, 64, 64));
@@ -347,9 +345,9 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     fuego2AnimationUp->addFrame(sf::IntRect(256, 0, 64, 64));
     fuego2AnimationUp->addFrame(sf::IntRect(320, 0, 64, 64));
     fuego2AnimationUp->addFrame(sf::IntRect(384, 0, 64, 64));
-    
+
     //casteo heal
-    
+
 
     healingAnimationDown->setSpriteSheet("resources/Textures/player.png");
     healingAnimationDown->addFrame(sf::IntRect(384, 128, 64, 64));
@@ -400,21 +398,21 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     healingAnimationUp->addFrame(sf::IntRect(256, 0, 64, 64));
     healingAnimationUp->addFrame(sf::IntRect(320, 0, 64, 64));
     healingAnimationUp->addFrame(sf::IntRect(384, 0, 64, 64));
-    
+
     currentAnimation = &walkingAnimationDown;
 
     InicializarAnimatedSprite(sf::seconds(0.075f), true, false);
     SetPosition(posX, posY);
     SetSpeed(speedX, speedY);
     SetMaxSpeed(maxSpeedX, maxSpeedY);
-    SetOriginAnimatedSprite(32,40);
+    SetOriginAnimatedSprite(32, 40);
     SetOriginColision(32, 40);
 
 }
 
 void Player::Update(const sf::Time elapsedTime) {
     sf::Vector2f movement(0.f, 0.f);
-    if(!cantMove){
+    if (!cantMove) {
         if (isMovingUp)
             movement.y -= GetVelocity();
         if (isMovingDown)
@@ -433,13 +431,13 @@ void Player::Update(const sf::Time elapsedTime) {
 
 void Player::HandleMapCollisions(const sf::Time& elapsedTime) {
     InGame* world = InGame::Instance();
-   /* for (int i = 0; i < objetosCercanos.size(); i++) {
-        BoundingBox bb(objetosCercanos.at(i)->GetAABB());
-        if (CheckColision(bb, elapsedTime)) {
-            type = TypeOfColision(bb, elapsedTime);
-            OnColision(type);
-        }
-    }*/
+    /* for (int i = 0; i < objetosCercanos.size(); i++) {
+         BoundingBox bb(objetosCercanos.at(i)->GetAABB());
+         if (CheckColision(bb, elapsedTime)) {
+             type = TypeOfColision(bb, elapsedTime);
+             OnColision(type);
+         }
+     }*/
     int tileWidth = 24;
     int tileHeight = 24;
     int **colisiones = world->level->map->colisiones;
@@ -453,37 +451,34 @@ void Player::HandleMapCollisions(const sf::Time& elapsedTime) {
     }*/
 
     BoundingBox boundingPlayer = Collisionable::CalculateNextRect(elapsedTime);
-    sf::Vector2i indiceTopLeft = sf::Vector2i(boundingPlayer.GetTopLeft().x/24,boundingPlayer.GetTopLeft().y/24);
-    sf::Vector2i indiceTopRight = sf::Vector2i(boundingPlayer.GetTopRight().x/24,boundingPlayer.GetTopRight().y/24);
-    sf::Vector2i indiceBotLeft = sf::Vector2i(boundingPlayer.GetBottomLeft().x/24,boundingPlayer.GetBottomLeft().y/24);
-    sf::Vector2i indiceBotRight = sf::Vector2i(boundingPlayer.GetBottomRight().x/24,boundingPlayer.GetBottomRight().y/24);
+    sf::Vector2i indiceTopLeft = sf::Vector2i(boundingPlayer.GetTopLeft().x / 24, boundingPlayer.GetTopLeft().y / 24);
+    sf::Vector2i indiceTopRight = sf::Vector2i(boundingPlayer.GetTopRight().x / 24, boundingPlayer.GetTopRight().y / 24);
+    sf::Vector2i indiceBotLeft = sf::Vector2i(boundingPlayer.GetBottomLeft().x / 24, boundingPlayer.GetBottomLeft().y / 24);
+    sf::Vector2i indiceBotRight = sf::Vector2i(boundingPlayer.GetBottomRight().x / 24, boundingPlayer.GetBottomRight().y / 24);
     /*std::cout<<"xTopright"<<indiceTopRight.x<<" , "<<"yTopright"<<indiceTopRight.y<<std::endl;
     std::cout<<"Valor mapa"<<colisiones[indiceTopRight.x][indiceTopRight.y]<<std::endl;*/
-    if(colisiones[indiceTopLeft.y][indiceTopLeft.x] == 1){
+    if (colisiones[indiceTopLeft.y][indiceTopLeft.x] == 1) {
         //std::cout<<"Colisiona esquina superior izquierda"<<std::endl;
-        BoundingBox boundingArbol(indiceTopLeft.x*24,indiceTopLeft.y*24,24,24);
-        
+        BoundingBox boundingArbol(indiceTopLeft.x * 24, indiceTopLeft.y * 24, 24, 24);
+
         //Hacer algo
-        PhysicsState::SetSpeed(0,0);
-    }
-    else if(colisiones[indiceTopRight.y][indiceTopRight.x] == 1){
+        PhysicsState::SetSpeed(0, 0);
+    } else if (colisiones[indiceTopRight.y][indiceTopRight.x] == 1) {
         //std::cout<<"Colisiona esquina superior derecha"<<std::endl;
-        BoundingBox boundingArbol((indiceTopRight.x*24),(indiceTopRight.y*24),24,24);
+        BoundingBox boundingArbol((indiceTopRight.x * 24), (indiceTopRight.y * 24), 24, 24);
         //Hacer algo
-        PhysicsState::SetSpeed(0,0);
-    }
-    else if(colisiones[indiceBotLeft.y][indiceBotLeft.x] == 1){
+        PhysicsState::SetSpeed(0, 0);
+    } else if (colisiones[indiceBotLeft.y][indiceBotLeft.x] == 1) {
         //std::cout<<"Colisiona esquina inferior izquierda"<<std::endl;
-        BoundingBox boundingArbol((indiceBotLeft.x*24),(indiceBotLeft.y*24),24,24);
+        BoundingBox boundingArbol((indiceBotLeft.x * 24), (indiceBotLeft.y * 24), 24, 24);
 
-        
-        PhysicsState::SetSpeed(0,0);
-    }
-    else if(colisiones[indiceBotRight.y][indiceBotRight.x] == 1){
+
+        PhysicsState::SetSpeed(0, 0);
+    } else if (colisiones[indiceBotRight.y][indiceBotRight.x] == 1) {
         //std::cout<<"Colisiona esquina inferior derecha"<<std::endl;
-        BoundingBox boundingArbol((indiceBotRight.x*24),(indiceBotRight.y*24),24,24);
+        BoundingBox boundingArbol((indiceBotRight.x * 24), (indiceBotRight.y * 24), 24, 24);
 
-        PhysicsState::SetSpeed(0,0);
+        PhysicsState::SetSpeed(0, 0);
     }
     /*sf::Vector2f nextPos = GetNextPosition(elapsedTime);
     int top=(int)nextPos.y-16;
@@ -623,13 +618,14 @@ void Player::UpdatePlayerAnimation() {
         cuadrante = 4;
     }
 }
+
 int Player::getVida() {
     return vida;
 }
 
 int Player::restaVida(int a) {
 
-    if (invulnerable.getTiempo() > 0.5f && (vida-a) >= 0) {
+    if (invulnerable.getTiempo() > 0.5f && (vida - a) >= 0) {
         //std::cout <<"Resto vidas";
         vida -= a;
         hud->updateHud(vida);
@@ -653,112 +649,112 @@ void Player::heal() {
 }
 
 void Player::Colocar(sf::Vector2f NuevaPosicion) {
-//    Dummy* dummy = InGame::Instance()->dummy;
+    //    Dummy* dummy = InGame::Instance()->dummy;
     //dummy->body->SetTransform(tmx::SfToBoxVec(NuevaPosicion),body->GetAngle());
     //bool colision = dummy->getCollision(NuevaPosicion);
     sf::Vector2f resultado = NuevaPosicion - GetPosition();
     resultado.x = resultado.x * 10;
     resultado.y = resultado.y * 10;
-    body->ApplyLinearImpulse(tmx::SfToBoxVec(resultado),body->GetWorldCenter(),true);
+    body->ApplyLinearImpulse(tmx::SfToBoxVec(resultado), body->GetWorldCenter(), true);
     //if(!colision){
-       SetPosition(NuevaPosicion);
-       //body->SetTransform(tmx::SfToBoxVec(NuevaPosicion),body->GetAngle()); 
+    SetPosition(NuevaPosicion);
+    //body->SetTransform(tmx::SfToBoxVec(NuevaPosicion),body->GetAngle()); 
     //}
-    
+
 }
 
 void Player::updateRayo(bool isShooting) {
-          
-            
-            if (hRayoBasico->tiempoCast.getTiempo() > hRayoBasico->getCast() && aux == true) {
-                isShooting = false;
-                hRayoBasico->primerCast = false;
-            }
 
-            if ((isShooting && hRayoBasico->tiempoCd.getTiempo() > hRayoBasico->getCD()) || (isShooting && hRayoBasico->primerCast == true)) {//Entra si dispara y el tiempo de enfriamiento ha pasado
-                hRayoBasico->primerCast = false;
-                if (aux == false) {//si es la primera vez que pulsa el boton
-                    hRayoBasico->tiempoCast.restart();
-                    aux = true; //no entra mas aqui para no hacer restart del cast
-                }
-                
-                hRayoBasico->cast(sf::Vector2f(getPosition())); //siempre que entra aqui pintas
 
-            } else {//entras si no disparas o si no ha pasado el tiempo de enfriamiento
-                if (aux == true) {//entras si acabas de soltar el raton
-                    hRayoBasico->tiempoCd.restart();
-                    //if(hRayoBasico->primerCast)
-                       hud->resetRayo1(); 
-                    //}
-                    
-                    // std::cout<<"Inicio den CD"<<std::endl;
-                    aux = false; //no entra mas aqui para no hacer restart dl cd
-                }
-                hRayoBasico->draw = false;
-            }
-            //avanzado
+    if (hRayoBasico->tiempoCast.getTiempo() > hRayoBasico->getCast() && aux == true) {
+        isShooting = false;
+        hRayoBasico->primerCast = false;
+    }
 
-            if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && hRayoAvanzado->tiempoCast.getTiempo() > hRayoBasico->getCast()) {
-                hRayoAvanzado->draw = false;
-                hRayoAvanzado->StopAnimation();
-            }
+    if ((isShooting && hRayoBasico->tiempoCd.getTiempo() > hRayoBasico->getCD()) || (isShooting && hRayoBasico->primerCast == true)) {//Entra si dispara y el tiempo de enfriamiento ha pasado
+        hRayoBasico->primerCast = false;
+        if (aux == false) {//si es la primera vez que pulsa el boton
+            hRayoBasico->tiempoCast.restart();
+            aux = true; //no entra mas aqui para no hacer restart del cast
+        }
+
+        hRayoBasico->cast(sf::Vector2f(getPosition())); //siempre que entra aqui pintas
+
+    } else {//entras si no disparas o si no ha pasado el tiempo de enfriamiento
+        if (aux == true) {//entras si acabas de soltar el raton
+            hRayoBasico->tiempoCd.restart();
+            //if(hRayoBasico->primerCast)
+            hud->resetRayo1();
+            //}
+
+            // std::cout<<"Inicio den CD"<<std::endl;
+            aux = false; //no entra mas aqui para no hacer restart dl cd
+        }
+        hRayoBasico->draw = false;
+    }
+    //avanzado
+
+    if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && hRayoAvanzado->tiempoCast.getTiempo() > hRayoBasico->getCast()) {
+        hRayoAvanzado->draw = false;
+        hRayoAvanzado->StopAnimation();
+    }
 }
 
 void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time elapsedTime) {
 
-        sf::Vector2f movement2(0.f, 0.f);
-        
-        if (fuegoBasicCast) {
-            if (contFuego == 14) {
-                contFuego = 0;
-            }
-            if (clockCDFire.getTiempo() > CDFire || primercastFuego == true) {
-                primercastFuego = false;
-                clockCDFire.restart();
-                hFuegoBasico[contFuego].SetEstado(Estado::ID::Vivo);
-                hFuegoBasico[contFuego].cast(sf::Vector2f(getPosition()));
-                castFire.restart();
-                hud->resetFuego1();
-            }
-            contFuego++;
+    sf::Vector2f movement2(0.f, 0.f);
+
+    if (fuegoBasicCast) {
+        if (contFuego == 14) {
+            contFuego = 0;
         }
-        for (int aux = 0; aux <= 14; aux++) {
-            //Si la bala esta viva updateamos su movimiento
-            if(hFuegoBasico[aux].GetEstado() == Estado::ID::Vivo){
-                movement2.x = (4 * cos(hFuegoBasico[aux].angleshot2) * 10.0f);
-                movement2.y = (4 * sin(hFuegoBasico[aux].angleshot2) * 10.0f);
-               hFuegoBasico[aux].Update2(movement2, elapsedTime); 
-            }else if(hFuegoBasico[aux].GetEstado() == Estado::ID::Muriendo){
-                //Si la bala esta desapareciendo comprobamos hasta que desaparezca
-                hFuegoBasico[aux].ComprobarSiMuerto();
-            }
-            
+        if (clockCDFire.getTiempo() > CDFire || primercastFuego == true) {
+            primercastFuego = false;
+            clockCDFire.restart();
+            hFuegoBasico[contFuego].SetEstado(Estado::ID::Vivo);
+            hFuegoBasico[contFuego].cast(sf::Vector2f(getPosition()));
+            castFire.restart();
+            hud->resetFuego1();
         }
-        
-        
-        if (fuegoAdvancedCast) {
-
-            if (hFuegoAvanzado->clockCd.getTiempo() > hFuegoAvanzado->getCD() || hFuegoAvanzado->primerCast == true) {
-
-                hFuegoAvanzado->primerCast = false;
-                hFuegoAvanzado->tiempoCast.restart();
-                hFuegoAvanzado->clockCd.restart();
-                hFuegoAvanzado->lanzado = true;
-                castFire2.restart();
-
-                /*hFuegoAvanzado->actualSize.x = 0.3;
-                hFuegoAvanzado->actualSize.y = 0.3;
-                hFuegoAvanzado->SetScale(0.3, 0.3);*/
-                hFuegoAvanzado->cast(sf::Vector2f(getPosition()));
-                
-                hud->resetFuego2();
-            }
+        contFuego++;
+    }
+    for (int aux = 0; aux <= 14; aux++) {
+        //Si la bala esta viva updateamos su movimiento
+        if (hFuegoBasico[aux].GetEstado() == Estado::ID::Vivo) {
+            movement2.x = (4 * cos(hFuegoBasico[aux].angleshot2) * 10.0f);
+            movement2.y = (4 * sin(hFuegoBasico[aux].angleshot2) * 10.0f);
+            hFuegoBasico[aux].Update2(movement2, elapsedTime);
+        } else if (hFuegoBasico[aux].GetEstado() == Estado::ID::Muriendo) {
+            //Si la bala esta desapareciendo comprobamos hasta que desaparezca
+            hFuegoBasico[aux].ComprobarSiMuerto();
         }
 
-        if (hFuegoAvanzado->lanzado == true) {
+    }
 
+
+    if (fuegoAdvancedCast) {
+
+        if (hFuegoAvanzado->clockCd.getTiempo() > hFuegoAvanzado->getCD() || hFuegoAvanzado->primerCast == true) {
+
+            hFuegoAvanzado->primerCast = false;
+            hFuegoAvanzado->tiempoCast.restart();
+            hFuegoAvanzado->clockCd.restart();
+            hFuegoAvanzado->lanzado = true;
+            castFire2.restart();
+
+            /*hFuegoAvanzado->actualSize.x = 0.3;
+            hFuegoAvanzado->actualSize.y = 0.3;
+            hFuegoAvanzado->SetScale(0.3, 0.3);*/
             hFuegoAvanzado->cast(sf::Vector2f(getPosition()));
+
+            hud->resetFuego2();
         }
+    }
+
+    if (hFuegoAvanzado->lanzado == true) {
+
+        hFuegoAvanzado->cast(sf::Vector2f(getPosition()));
+    }
 }
 
 void Player::updateAgua(bool aguaBasicCast, bool aguaAdvancedCast, sf::Time elapsedTime) {
@@ -766,10 +762,10 @@ void Player::updateAgua(bool aguaBasicCast, bool aguaAdvancedCast, sf::Time elap
     if (aguaBasicCast) {
         hAguaBasico->cast(sf::Vector2f(getPosition()), hud);
     }
-    if ( hAguaBasico->tiempoCast.getTiempo() < 0.5f &&  hAguaBasico->dibujar == true) {
+    if (hAguaBasico->tiempoCast.getTiempo() < 0.5f && hAguaBasico->dibujar == true) {
         hAguaBasico->Update(movement, elapsedTime, GetVelocity());
-        
-        
+
+
         /* **************************PARA LA FUTURA CLASE ENTITY*************************
         if (hAguaBasico->GetGlobalBounds().intersects(enemigo[0].getSprite().getGlobalBounds())) {
             enemigo[0].empujado = true;
@@ -802,55 +798,55 @@ void Player::updateAgua(bool aguaBasicCast, bool aguaAdvancedCast, sf::Time elap
         if (enemigo[1].tiempoempujado.getTiempo() > 0.5) {
             enemigo[1].empujado = false;
         }
-*/
+         */
     }
 
     sf::Vector2f movement4(0.f, 0.f);
     if (aguaAdvancedCast) { //onMouseButtonRealeased
-        hAguaAvanzado->cast(sf::Vector2f(getPosition()),hud);
+        hAguaAvanzado->cast(sf::Vector2f(getPosition()), hud);
     }
     if (hAguaAvanzado->tiempoCast.getTiempo() < 2.5 && hAguaAvanzado->dibujar == true) {
         movement4.x = (40 * cos(hAguaAvanzado->angleshot2) * 11.0f);
         movement4.y = (40 * sin(hAguaAvanzado->angleshot2) * 11.0f);
         hAguaAvanzado->UpdateHechizo(movement4, elapsedTime);
-        
-        
-/* **************************PARA LA FUTURA CLASE ENTITY*************************
-        if (hAguaAvanzado->GetGlobalBounds().intersects(enemigo[0].getSprite().getGlobalBounds())) {
-            enemigo[0].empujado2 = true;
-            enemigo[0].tiempoempujado.restart();
-        }
 
-        if (enemigo[0].empujado2 == true) {
-            sf::Vector2f movement4(0.f, 0.f);
-            movement4.x = 300 * (cos(hAguaAvanzado->angleshot2) * 1.0f);
-            movement4.y = 300 * (sin(hAguaAvanzado->angleshot2) * 1.0f);
-            enemigo[0].Update(movement4, elapsedTime);
-        }
 
-        if (enemigo[0].tiempoempujado.getTiempo() > 0.5) {
-            enemigo[0].empujado2 = false;
-        }
-        */
-    }    
+        /* **************************PARA LA FUTURA CLASE ENTITY*************************
+                if (hAguaAvanzado->GetGlobalBounds().intersects(enemigo[0].getSprite().getGlobalBounds())) {
+                    enemigo[0].empujado2 = true;
+                    enemigo[0].tiempoempujado.restart();
+                }
+
+                if (enemigo[0].empujado2 == true) {
+                    sf::Vector2f movement4(0.f, 0.f);
+                    movement4.x = 300 * (cos(hAguaAvanzado->angleshot2) * 1.0f);
+                    movement4.y = 300 * (sin(hAguaAvanzado->angleshot2) * 1.0f);
+                    enemigo[0].Update(movement4, elapsedTime);
+                }
+
+                if (enemigo[0].tiempoempujado.getTiempo() > 0.5) {
+                    enemigo[0].empujado2 = false;
+                }
+         */
+    }
 }
 
 void Player::updateFlash() {
-        if (isFlashing) {
-            //Como el player se ha movido 'casteamos' la animacion del otro flash
-            flash2->cast2(&flash->clockCd);
-            sf::Vector2f prueba =flash->cast(sf::Vector2f(getPosition()),hud);
-            if(prueba.x != getPosition().x && prueba.y != getPosition().y){
-                Colocar(prueba);
-            } 
+    if (isFlashing) {
+        //Como el player se ha movido 'casteamos' la animacion del otro flash
+        flash2->cast2(&flash->clockCd);
+        sf::Vector2f prueba = flash->cast(sf::Vector2f(getPosition()), hud);
+        if (prueba.x != getPosition().x && prueba.y != getPosition().y) {
+            Colocar(prueba);
         }
-        
+    }
+
 }
 
-void Player::renderRayo(sf::Time elapsedTime,float interpolation) {
-     hRayoAvanzado->PlayAnimation(*hRayoAvanzado-> currentAnimation); //Current animation es un puntero a puntero
+void Player::renderRayo(sf::Time elapsedTime, float interpolation) {
+    hRayoAvanzado->PlayAnimation(*hRayoAvanzado-> currentAnimation); //Current animation es un puntero a puntero
     if (hRayoAvanzado->draw == true) {
-        if ( hRayoAvanzado->tiempoCast.getTiempo() < hRayoAvanzado->getCast()) {
+        if (hRayoAvanzado->tiempoCast.getTiempo() < hRayoAvanzado->getCast()) {
             //switch
             switch (cuadrante) {
                 case 1:
@@ -895,7 +891,7 @@ void Player::renderRayo(sf::Time elapsedTime,float interpolation) {
         }
 
 
-         hRayoBasico -> UpdateAnimation(elapsedTime);
+        hRayoBasico -> UpdateAnimation(elapsedTime);
         if (hRayoBasico->tiempoCast.getTiempo() < hRayoBasico->getCast()) {
 
             hRayoBasico->SetFrame(sf::seconds(0.075f));
@@ -923,25 +919,26 @@ void Player::renderRayo(sf::Time elapsedTime,float interpolation) {
 }
 
 void Player::renderFuego(sf::Time elapsedTime, float interpolation) {
-if (hFuegoAvanzado->tiempoCast.getTiempo() < hFuegoAvanzado->getCast() && hFuegoAvanzado->lanzado == true) {
+    if (hFuegoAvanzado->tiempoCast.getTiempo() < hFuegoAvanzado->getCast() && hFuegoAvanzado->lanzado == true) {
         if (hFuegoAvanzado->tiempoCast.getTiempo() > 0.4) {
-           // hFuegoAvanzado->SetScale(1.0, 1.0);
+            // hFuegoAvanzado->SetScale(1.0, 1.0);
 
         }
         hFuegoAvanzado->DrawWithInterpolation(interpolation, GetPreviousPosition(), GetPosition());
     }
     for (int aux = 0; aux <= 14; aux++) {
-        
-        if(hFuegoBasico[aux].GetEstado() == Estado::ID::Vivo){
+
+        if (hFuegoBasico[aux].GetEstado() == Estado::ID::Vivo) {
             hFuegoBasico[aux].PlayAnimation(*hFuegoBasico[aux].currentAnimation);
             hFuegoBasico[aux].UpdateAnimation(elapsedTime);
-            hFuegoBasico[aux].DrawAnimation(hFuegoBasico[aux].GetPreviousPosition(),hFuegoBasico[aux].GetPosition(), interpolation);
-        }else if(hFuegoBasico[aux].GetEstado() == Estado::ID::Muriendo){
+            hFuegoBasico[aux].DrawAnimation(hFuegoBasico[aux].GetPreviousPosition(), hFuegoBasico[aux].GetPosition(), interpolation);
+        } else if (hFuegoBasico[aux].GetEstado() == Estado::ID::Muriendo) {
             hFuegoBasico[aux].PlayAnimation(*hFuegoBasico[aux].currentAnimation);
             hFuegoBasico[aux].UpdateAnimation(elapsedTime);
             hFuegoBasico[aux].DrawAnimationWithOut(hFuegoBasico[aux].GetRenderPosition());
-        }else{
+        } else {
             hFuegoBasico[aux].StopAnimation();
+            //hFuegoBasico[aux].DrawAnimationWithOut(hFuegoBasico[aux].GetRenderPosition());
         }
 
     }
@@ -1089,7 +1086,7 @@ void Player::renderHeal(sf::Time elapsedTime, float interpolation) {
         //Vemos en que cuadrante estamos
         switch (cuadrante) {
             case 1:
-                 currentAnimation = &healingAnimationUp;
+                currentAnimation = &healingAnimationUp;
                 break;
             case 2:
                 currentAnimation = &healingAnimationDown;

@@ -33,7 +33,7 @@ void hFireBasic::CreateBody() {
     //Objeto que le da las propiedades fisicas al bodyDef
     fixtureDef = new b2FixtureDef();
     fixtureDef->shape = shape;
-    fixtureDef->density = 1.0f;
+    fixtureDef->density = 0.5f;
     fixtureDef->friction = 0.0f;
     body->CreateFixture(fixtureDef);
 }
@@ -91,9 +91,10 @@ hFireBasic::hFireBasic(): Collisionable((Entity*)this) {
     currentAnimation = &animationInicio;
     
     Render::InicializarAnimatedSprite(sf::seconds(0.02f), true, false);
-    Render::SetOriginAnimation(0, 147 / 2);
+    Render::SetOriginAnimatedSprite(76, 74);
     Render::SetScaleAnimation(0.2, 0.2);
     SetRectangleColision(0,0,30,29);
+    SetOriginColision(14,15);
     CreateBody();
     SetEstado(Estado::ID::Vivo);
     explosionTiempo = new Reloj();
@@ -108,6 +109,7 @@ hFireBasic::~hFireBasic() {
 }
 
 void hFireBasic::cast(sf::Vector2f posicion) {
+    body->SetActive(true);
     currentAnimation = &animationInicio;
     Render::SetOriginAnimation(0, 73);
     Render::SetFrameTime(sf::seconds(0.02f));
@@ -134,6 +136,8 @@ void hFireBasic::Update2(sf::Vector2f velocity, sf::Time elapsedTime) {
 }
 void hFireBasic::Colision() {
     if(GetEstado() == Estado::Vivo){
+        //SetPosition(sf::Vector2f(0,0));
+        //body->SetTransform(tmx::SfToBoxVec(sf::Vector2f(0,0)),0);
         explosionTiempo->restart();
         currentAnimation = &animationFin;
         Render::SetOriginAnimation(86, 79);

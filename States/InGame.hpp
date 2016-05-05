@@ -56,8 +56,9 @@ public:
     b2World                     *physicWorld;
     Video *video;
     Player			*player;
-private:
     std::vector<Melee*>         *melee;
+private:
+    
     std::vector<bool>           *VectorBools;
     
     //Recursos
