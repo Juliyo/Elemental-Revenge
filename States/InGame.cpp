@@ -60,7 +60,7 @@ InGame::InGame() {
     ct = new ContactListener();
     physicWorld->SetContactListener(ct);
     physicWorld->SetContactFilter(ct);
-   
+
 }
 
 InGame::InGame(const InGame& orig) {
@@ -84,7 +84,7 @@ void InGame::Inicializar() {
         melee->at(i)->Inicializar(1000.f + i * 20, -1000.f + i * 20, Tipo::ID::Rata);
         melee->at(i)->SetRectangleColision(0, 0, 37, 39);
         melee->at(i)->CreateBody();
-        bool a=false;
+        bool a = false;
         VectorBools->push_back(a);
     }
 
@@ -101,7 +101,7 @@ void InGame::Inicializar() {
         spriteRelleno.setScale(1, 2);
 
         contFonts.loadFromFile("resources/Fonts/Sansation.ttf");
-        
+
 
     } catch (std::runtime_error& e) {
         std::cout << "Excepcion: " << e.what() << std::endl;
@@ -109,8 +109,8 @@ void InGame::Inicializar() {
     }
     level->LoadMap(Niveles::ID::Level1);
     video->Inicializar();
-    
-    
+
+
 
 
 }
@@ -124,49 +124,11 @@ void InGame::Update(sf::Time elapsedTime) {
         player -> Update(elapsedTime);
 
         for (int i = 0; i < melee->size(); i++) {
-
-            VectorBools->at(i) = melee->at(i)->HandleMapCollisions(elapsedTime);
-
-
-
-        }
-
-
-
-        for (int i = 0; i < melee->size(); i++) {
-
-            if (VectorBools->at(i) == false) {
-                int x3 = player->getPosition().x - melee->at(i)->getPosition().x;
-                int y3 = player->getPosition().y - melee->at(i)->getPosition().y;
+            int x3 = player->getPosition().x - melee->at(i)->getPosition().x;
+            int y3 = player->getPosition().y - melee->at(i)->getPosition().y;
+            if (melee->at(i)->GetEstado() == Estado::ID::Vivo) {
                 melee->at(i)->Update(elapsedTime, x3, y3, 1);
-            } else {
-
-                int x3;
-                int y3;
-                srand(time(NULL));
-
-                int random = rand() % 4; // v1 in the range 0 to 99
-
-                if (random == 0) {
-                    x3 = 5000;
-                    y3 = 5000;
-                }
-
-                if (random == 1) {
-                    x3 = -5000;
-                    y3 = 5000;
-                }
-                if (random == 2) {
-                    x3 = -5000;
-                    y3 = -5000;
-                }
-                if (random == 3) {
-                    x3 = 5000;
-                    y3 = -5000;
-                }
-                melee->at(i)->Update(elapsedTime, x3, y3, 2);
             }
-
         }
 
 
@@ -232,7 +194,7 @@ void InGame::renderForMuerte(float interpolation, sf::Time elapsedTime) {
     //    muerte->render(interpolation, elapsedTime);
     motor->SetView(1); //vista del juego
 
-  //  motor->draw(mouseSprite);
+    //  motor->draw(mouseSprite);
 
     motor->display();
 }

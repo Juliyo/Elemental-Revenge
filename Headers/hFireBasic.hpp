@@ -22,15 +22,18 @@ public:
     hFireBasic();
     virtual ~hFireBasic();
     void CreateBody() override;
-
+    std::string getClassName() override;
+    
     void cast(sf::Vector2f);
     void DrawWithInterpolation(float interpolation);
-    std::string getClassName() override;
-
+    void Colision();
+    void ComprobarSiMuerto();
     void Update2(sf::Vector2f velocity, sf::Time elapsedTime);
-    //Animation **currentAnimation;
+    Animation **currentAnimation;
     Animation *animationInicio;
+    Animation *animationFin;
 private:
+    Reloj *explosionTiempo;
 };
 
 #endif /* HFIREBASIC_HPP */

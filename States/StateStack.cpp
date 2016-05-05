@@ -25,7 +25,7 @@ StateStack* StateStack::Instance() {
 
 StateStack::StateStack() {
     mapStates = new std::map<States::ID, State*>();
-    currentState = States::ID::Menu;
+    currentState = States::ID::InGame;
     
     CreateStates();
     //Solo inicializamos el estado menu

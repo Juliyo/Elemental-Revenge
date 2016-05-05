@@ -17,6 +17,7 @@
 #include "../Otros/tmxHelper.hpp"
 
 Melee::Melee() : Collisionable((Entity*)this) {
+    SetVida(2);
 }
 
 Melee::~Melee() {
@@ -161,6 +162,7 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, flo
     PhysicsState::SetMaxSpeed(maxSpeedX, maxSpeedY);
     Render::SetOriginAnimatedSprite(17, 16);
     SetOriginColision(17, 16);
+    SetEstado(Estado::ID::Vivo);
 
     empujado = false;
     empujado2 = false;

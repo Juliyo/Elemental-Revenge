@@ -83,8 +83,10 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     hRayoBasico = new hRayBasic();
     hRayoAvanzado = new hRayAdvanced();
     
-    hFuegoBasico = new hFireBasic[50];
+    
+    hFuegoBasico = new hFireBasic[15];
     hFuegoAvanzado = new hFireAdvanced();
+   
     
     hAguaBasico=new hWaterBasic();
     hAguaAvanzado = new hWaterAdvanced();
@@ -389,14 +391,6 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     healingAnimationRight->addFrame(sf::IntRect(384, 192, 64, 64));
 
 
-
-
-
-
-
-
-
-
     healingAnimationUp->setSpriteSheet("resources/Textures/player.png");
     healingAnimationUp->addFrame(sf::IntRect(384, 0, 64, 64));
     healingAnimationUp->addFrame(sf::IntRect(0, 0, 64, 64));
@@ -413,7 +407,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     SetPosition(posX, posY);
     SetSpeed(speedX, speedY);
     SetMaxSpeed(maxSpeedX, maxSpeedY);
-	SetOriginAnimatedSprite(32,40);
+    SetOriginAnimatedSprite(32,40);
     SetOriginColision(32, 40);
 
 }
@@ -659,7 +653,7 @@ void Player::heal() {
 }
 
 void Player::Colocar(sf::Vector2f NuevaPosicion) {
-    Dummy* dummy = InGame::Instance()->dummy;
+//    Dummy* dummy = InGame::Instance()->dummy;
     //dummy->body->SetTransform(tmx::SfToBoxVec(NuevaPosicion),body->GetAngle());
     //bool colision = dummy->getCollision(NuevaPosicion);
     sf::Vector2f resultado = NuevaPosicion - GetPosition();
@@ -715,23 +709,33 @@ void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time e
         sf::Vector2f movement2(0.f, 0.f);
         
         if (fuegoBasicCast) {
-            if (contFuego == 49) {
+            if (contFuego == 14) {
                 contFuego = 0;
             }
             if (clockCDFire.getTiempo() > CDFire || primercastFuego == true) {
                 primercastFuego = false;
                 clockCDFire.restart();
+                hFuegoBasico[contFuego].SetEstado(Estado::ID::Vivo);
                 hFuegoBasico[contFuego].cast(sf::Vector2f(getPosition()));
                 castFire.restart();
                 hud->resetFuego1();
             }
             contFuego++;
         }
-        for (int aux = 0; aux <= 49; aux++) {
-            movement2.x = (4 * cos(hFuegoBasico[aux].angleshot2) * 10.0f);
-            movement2.y = (4 * sin(hFuegoBasico[aux].angleshot2) * 10.0f);
-            hFuegoBasico[aux].Update2(movement2, elapsedTime);
+        for (int aux = 0; aux <= 14; aux++) {
+            //Si la bala esta viva updateamos su movimiento
+            if(hFuegoBasico[aux].GetEstado() == Estado::ID::Vivo){
+                movement2.x = (4 * cos(hFuegoBasico[aux].angleshot2) * 10.0f);
+                movement2.y = (4 * sin(hFuegoBasico[aux].angleshot2) * 10.0f);
+               hFuegoBasico[aux].Update2(movement2, elapsedTime); 
+            }else if(hFuegoBasico[aux].GetEstado() == Estado::ID::Muriendo){
+                //Si la bala esta desapareciendo comprobamos hasta que desaparezca
+                hFuegoBasico[aux].ComprobarSiMuerto();
+            }
+            
         }
+        
+        
         if (fuegoAdvancedCast) {
 
             if (hFuegoAvanzado->clockCd.getTiempo() > hFuegoAvanzado->getCD() || hFuegoAvanzado->primerCast == true) {
@@ -926,10 +930,19 @@ if (hFuegoAvanzado->tiempoCast.getTiempo() < hFuegoAvanzado->getCast() && hFuego
         }
         hFuegoAvanzado->DrawWithInterpolation(interpolation, GetPreviousPosition(), GetPosition());
     }
-    for (int aux = 0; aux <= 49; aux++) {
-        hFuegoBasico[aux].PlayAnimation(hFuegoBasico[aux].animationInicio);
-        hFuegoBasico[aux].UpdateAnimation(elapsedTime);
-        hFuegoBasico[aux].DrawAnimation(hFuegoBasico[aux].GetPreviousPosition(),hFuegoBasico[aux].GetPosition(), interpolation);
+    for (int aux = 0; aux <= 14; aux++) {
+        
+        if(hFuegoBasico[aux].GetEstado() == Estado::ID::Vivo){
+            hFuegoBasico[aux].PlayAnimation(*hFuegoBasico[aux].currentAnimation);
+            hFuegoBasico[aux].UpdateAnimation(elapsedTime);
+            hFuegoBasico[aux].DrawAnimation(hFuegoBasico[aux].GetPreviousPosition(),hFuegoBasico[aux].GetPosition(), interpolation);
+        }else if(hFuegoBasico[aux].GetEstado() == Estado::ID::Muriendo){
+            hFuegoBasico[aux].PlayAnimation(*hFuegoBasico[aux].currentAnimation);
+            hFuegoBasico[aux].UpdateAnimation(elapsedTime);
+            hFuegoBasico[aux].DrawAnimationWithOut(hFuegoBasico[aux].GetRenderPosition());
+        }else{
+            hFuegoBasico[aux].StopAnimation();
+        }
 
     }
     if (castFire.getTiempo() < 0.45f) {

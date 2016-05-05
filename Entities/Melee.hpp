@@ -46,6 +46,14 @@ public:
     void PlayAnimation(Animation *animation);
     void UpdateAnimation(sf::Time elapsedTime);
     void StopAnimation();
+    
+    void RestarVida(int a){
+        if((GetVida()-a) >= 0) {
+            SetVida(GetVida()-a);
+        }else{
+            SetEstado(Estado::ID::Muerto);
+        }
+    }
 
     bool empujado;
     bool empujado2;

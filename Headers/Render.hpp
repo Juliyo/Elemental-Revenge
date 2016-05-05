@@ -53,7 +53,9 @@ public:
         void SetScaleAnimation(float x, float y);;
         void Draw90( const sf::Vector2f &posPrev, const sf::Vector2f &posNew, float interpolation);
         
-        
+        void SetLooped(bool loop){
+            animatedSprite.setLooped(loop);
+        }
         //para el agua
         void SetAngle2(float angle);
 

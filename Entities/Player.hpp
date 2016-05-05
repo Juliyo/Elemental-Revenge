@@ -79,6 +79,8 @@ public:
     //Fuego
     hFireBasic *hFuegoBasico;
     hFireAdvanced *hFuegoAvanzado;
+    
+    
     int contFuego = 0;
     Reloj clockCDFire; //Variable de clase para el cd
     float CDFire = 0.35f;

@@ -18,10 +18,7 @@
 
 
 class Enemigo : public Entity{
-public:
-    
-
-    
+public:    
     Enemigo();
     virtual ~Enemigo();
     
@@ -58,12 +55,12 @@ protected:
     void SetVelocity(float velocity) {
         this->velocity = velocity;
     }
-
+    protected:
+        int Estado = 0;
     private:
         int vida;
         float damage;
         float velocity;
-        
 };
 
 #endif /* ENEMIGO_HPP */
