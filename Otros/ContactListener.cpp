@@ -64,6 +64,11 @@ void ContactListener::BeginContact(b2Contact* contact) {
             hFireBasic *f = static_cast<hFireBasic*> (fixtureA->GetBody()->GetUserData());
             f->Colision();
         }
+    }else if(claseA == ""){
+        if(claseB == "hFireBasic"){
+            hFireBasic *f = static_cast<hFireBasic*> (fixtureB->GetBody()->GetUserData());
+            f->Colision();
+        }
     }
     
        

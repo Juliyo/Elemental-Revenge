@@ -48,6 +48,7 @@ public:
     b2BodyDef *bodyDef;         //Objeto que representaria a nuestro sprite en el motor de físicas
         
     b2PolygonShape *shape;      //Representa un cuadrado o un circulo
+    b2CircleShape *circleShape;
     
     b2FixtureDef *fixtureDef;   //Añade una shape al BodyDef y define unas propiedades
                                 //fisicas. p ej: friccion, densidad

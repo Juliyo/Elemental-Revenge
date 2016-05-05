@@ -28,13 +28,14 @@ void hFireBasic::CreateBody() {
     body->SetUserData(this);
     //Se crea una shape, le damos las dimensiones pasandole la mitad del ancho y la mitad del alto
     //del BoundingBox
-    shape = new b2PolygonShape();
-    shape->SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f));
+    circleShape = new b2CircleShape();
+    circleShape->m_radius = tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f);
+    //shape->SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f));
     //Objeto que le da las propiedades fisicas al bodyDef
     fixtureDef = new b2FixtureDef();
-    fixtureDef->shape = shape;
-    fixtureDef->density = 0.5f;
-    fixtureDef->friction = 0.0f;
+    fixtureDef->shape = circleShape;
+    fixtureDef->density = 1.0f;
+    fixtureDef->friction = 1.0f;
     body->CreateFixture(fixtureDef);
 }
 
@@ -109,7 +110,6 @@ hFireBasic::~hFireBasic() {
 }
 
 void hFireBasic::cast(sf::Vector2f posicion) {
-    body->SetActive(true);
     currentAnimation = &animationInicio;
     Render::SetOriginAnimation(0, 73);
     Render::SetFrameTime(sf::seconds(0.02f));

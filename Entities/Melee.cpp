@@ -36,11 +36,12 @@ void Melee::CreateBody() {
     body->SetUserData(this);
     //Se crea una shape, le damos las dimensiones pasandole la mitad del ancho y la mitad del alto
     //del BoundingBox
-    shape = new b2PolygonShape();
-    shape->SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f));
+    circleShape = new b2CircleShape();
+    circleShape->m_radius = tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f);
+    //shape->SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f));
     //Objeto que le da las propiedades fisicas al bodyDef
     fixtureDef = new b2FixtureDef();
-    fixtureDef->shape = shape;
+    fixtureDef->shape = circleShape;
     fixtureDef->density = 0.25f;
     fixtureDef->friction = 0.0f;
     body->CreateFixture(fixtureDef);
