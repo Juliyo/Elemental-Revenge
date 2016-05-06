@@ -6,28 +6,26 @@
 
 /* 
  * File:   Sound.hpp
- * Author: Julio
+ * Author: kike
  *
- * Created on 6 de mayo de 2016, 12:04
+ * Created on 6 de mayo de 2016, 16:54
  */
 
 #ifndef SOUND_HPP
 #define SOUND_HPP
-#include <map>
 #include "SFML/Audio/Sound.hpp"
 #include "SFML/Audio/SoundBuffer.hpp"
 
 class Sound {
 public:
-    Sound();
+    Sound(std::string str);
     Sound(const Sound& orig);
     virtual ~Sound();
-    static Sound* Instance(); // Singleton
-    void load();
-    void play(std::string ruta);
+    sf::Sound getSound();
+    sf::SoundBuffer getBuffer();
 private:
-    static Sound* mInstance;
-    std::map<std::string,sf::Sound*> *sonidos;
+    sf::Sound* sound;
+    sf::SoundBuffer* buffer;
 };
 
 #endif /* SOUND_HPP */

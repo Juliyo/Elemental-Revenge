@@ -25,7 +25,8 @@ namespace States{
             Menu,
             Carga,
             Transition,
-            Pause
+            Pause,
+            Muerte
 	};
 }
 

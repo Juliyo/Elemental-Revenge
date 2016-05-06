@@ -17,6 +17,7 @@
 #include "LoadingState.hpp"
 #include "Transition.hpp"
 #include "Pause.hpp"
+#include "Muerte.hpp"
 
 State* StateFactory::CreateState(States::ID id){
     
@@ -30,6 +31,8 @@ State* StateFactory::CreateState(States::ID id){
         return new Transition();
     }else if(id == States::ID::Pause){
         return new Pause();
+    }else if(id == States::ID::Muerte){
+        return new Muerte();
     }
 
 }

@@ -95,7 +95,7 @@ void Game::update(sf::Time elapsedTime) //Actualiza la fisica
 
 void Game::render(float interpolation, sf::Time elapsedTime) //Dibuja
 {
-    if(stateStack->currentState == States::ID::Pause){ //Si estamos en pause renderizamos tambien InGame
+    if(stateStack->currentState == States::ID::Pause || stateStack->currentState == States::ID::Muerte){ //Si estamos en pause renderizamos tambien InGame
         stateStack->GetState(States::ID::InGame)->Render(interpolation,elapsedTime);
     }
     stateStack->GetCurrentState()->Render(interpolation,elapsedTime);

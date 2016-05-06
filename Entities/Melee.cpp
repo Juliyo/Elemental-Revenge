@@ -323,7 +323,7 @@ void Melee::RestarVida(int a) {
         SetVida(GetVida() - a);
     } else {
             currentAnimation = &animationMuerte;
-
+            body->SetActive(false);
         SetEstado(Estado::ID::Muerto);
     }
 }
