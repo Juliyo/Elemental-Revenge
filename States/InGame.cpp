@@ -171,8 +171,10 @@ void InGame::Update(sf::Time elapsedTime) {
 
     firstTime = false;
 
-    //if(player->GetVida()==0)
-    //StateStack::Instance()->SetCurrentState(States::ID::Menu);
+    if(player->GetVida()==0){
+    StateStack::Instance()->SetCurrentState(States::ID::Muerte);
+    
+    }
 }
 
 void InGame::renderForMuerte(float interpolation, sf::Time elapsedTime) {
@@ -206,7 +208,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     motor->SetView(0); //bordes
     motor->draw(spriteRelleno);
     motor->SetView(1);
-    if (StateStack::Instance()->currentState != States::ID::Pause) {
+    if (StateStack::Instance()->currentState != States::ID::Pause && StateStack::Instance()->currentState != States::ID::Muerte) {
         //Si no esta Pause activo updateamos la vista normal
         motor->UpdateMouseAndView();
     } else {
@@ -217,7 +219,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     motor->draw(spriteFondo);
 
     //Updatea el sprite del jugador en funcino del cuadrante del Mouse 
-    if (StateStack::Instance()->currentState != States::ID::Pause) {
+    if (StateStack::Instance()->currentState != States::ID::Pause && StateStack::Instance()->currentState != States::ID::Muerte) {
         player ->UpdatePlayerAnimation();
     }
 
@@ -243,7 +245,8 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
         }
         melee->at(i)->PlayAnimation(*melee->at(i)->currentAnimation);
         melee->at(i)->UpdateAnimation(elapsedTime);
-        if (StateStack::Instance()->currentState != States::ID::Pause) {
+    if (StateStack::Instance()->currentState != States::ID::Pause && StateStack::Instance()->currentState != States::ID::Muerte) {
+
             if(melee->at(i)->GetEstado()!=Estado::ID::Muerto){
             melee->at(i)->DrawWithInterpolation(interpolation);
             }
@@ -273,7 +276,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
         player -> StopAnimation();
     }
     player -> UpdateAnimation(elapsedTime);
-    if (StateStack::Instance()->currentState != States::ID::Pause) {
+    if (StateStack::Instance()->currentState != States::ID::Pause && StateStack::Instance()->currentState != States::ID::Muerte) {
         player -> DrawWithInterpolation(interpolation);
     } else {
         player -> DrawAnimationWithOut(player -> GetRenderPosition());
@@ -298,7 +301,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
         video -> PlayVideo();
     }
     //Si el Pause está activo es el Pause el que hace el Display
-    if (StateStack::Instance()->currentState != States::ID::Pause) {
+    if (StateStack::Instance()->currentState != States::ID::Pause && StateStack::Instance()->currentState != States::ID::Muerte) {
         motor->SetView(1); //vista del juego
 
         motor->DrawMouse();
