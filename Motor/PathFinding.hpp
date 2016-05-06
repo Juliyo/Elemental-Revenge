@@ -43,7 +43,7 @@ public:
 private:
     //std::vector<Nodo> nodosCerrados;
     std::vector<Nodo*> listaAbierta;
-    std::vector<sf::Vector2i> listaAbiertaV;
+    //std::vector<sf::Vector2i> listaAbiertaV;
     std::vector<sf::Vector2i> listaCerrada;
 
 

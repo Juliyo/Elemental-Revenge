@@ -134,8 +134,14 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2) {
     //SetSpeed(nVelocity * Enemigo::GetVelocity());
 
     //SetSpeed(movement);
-    //if (inicio.getTiempo() > 2.0f) {
+    if (inicio.getTiempo() > 1.0f ) {
         camino = world->pathfingind->buscaCamino(this->GetPosition(), world->player->GetPosition());
+        float x=world->player->GetPosition().x-this->GetPosition().x;
+        float y=world->player->GetPosition().y-this->GetPosition().y;
+        float dist=sqrt(pow(x,2)+pow(y,2));
+        if(dist<600){
+            
+        
         //camino = world->pathfingind->getCamino();
         inicio.restart();
         nodoactual = 0;
@@ -162,11 +168,11 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2) {
                 shapesDebug.push_back(shape);
             }
         }
+    }
+    }
 
-    //}
 
-
-    FindPlayer(elapsedTime);
+    //FindPlayer(elapsedTime);
     //UpdateEnemigo(elapsedTime,mapa);
     //PhysicsState::Update(elapsedTime);
     //Hay que setear al BodyDef el vector velocidad que hallamos calculado
