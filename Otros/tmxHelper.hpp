@@ -23,6 +23,8 @@
 #include <vector>
 #include <queue>
 
+#include "../Entities/Entity.hpp"
+
 namespace tmx {
     b2Vec2 SfToBoxVec(const sf::Vector2f& vec);
     sf::Vector2f BoxToSfVec(const b2Vec2& vec);

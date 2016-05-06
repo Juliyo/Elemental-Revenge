@@ -13,7 +13,7 @@
 
 #include "../Headers/hFireBasic.hpp"
 #include "../States/InGame.hpp"
-
+#include "../Motor/Sound.hpp"
 void hFireBasic::CreateBody() {
     physicWorld = InGame::Instance()->physicWorld;
     
@@ -36,6 +36,8 @@ void hFireBasic::CreateBody() {
     fixtureDef->shape = circleShape;
     fixtureDef->density = 1.0f;
     fixtureDef->friction = 1.0f;
+    fixtureDef->filter.categoryBits = Filtro::_entityCategory::HECHIZO;
+    fixtureDef->filter.maskBits = Filtro::_entityCategory::ENEMIGO | Filtro::_entityCategory::BOUNDARY;
     body->CreateFixture(fixtureDef);
 }
 
@@ -110,6 +112,8 @@ hFireBasic::~hFireBasic() {
 }
 
 void hFireBasic::cast(sf::Vector2f posicion) {
+    Sound *sonido = Sound::Instance();
+    sonido->play("resources/Sounds/Pistola.wav");
     currentAnimation = &animationInicio;
     Render::SetOriginAnimation(0, 73);
     Render::SetFrameTime(sf::seconds(0.02f));

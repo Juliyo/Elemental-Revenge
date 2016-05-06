@@ -16,6 +16,7 @@
 #include "Pause.hpp"
 #include "Muerte.hpp"
 #include "StateStack.hpp"
+#include "../Motor/Sound.hpp"
 
 InGame* InGame::mInstance = 0;
 
@@ -32,6 +33,7 @@ InGame::InGame() {
     music= Music::Instance();
     music->Load(MUSICA::ID::Mapa1);
     music->Play();
+    Sound::Instance()->load();
     /* pause = Pause::Instance();
      muerte = Muerte::Instance();*/
 
@@ -62,7 +64,7 @@ InGame::InGame() {
     physicWorld = new b2World(tmx::SfToBoxVec(sf::Vector2f(0.f, 0.f)));
     ct = new ContactListener();
     physicWorld->SetContactListener(ct);
-    physicWorld->SetContactFilter(ct);
+    //physicWorld->SetContactFilter(ct);
 
 }
 
@@ -244,7 +246,14 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
         melee->at(i)->PlayAnimation(*melee->at(i)->currentAnimation);
         melee->at(i)->UpdateAnimation(elapsedTime);
     if (StateStack::Instance()->currentState != States::ID::Pause && StateStack::Instance()->currentState != States::ID::Muerte) {
+
+            if(melee->at(i)->GetEstado()!=Estado::ID::Muerto){
             melee->at(i)->DrawWithInterpolation(interpolation);
+            }
+            else{
+            melee->at(i)->DrawAnimationWithOut(melee->at(i)->GetRenderPosition());
+            //melee->at(i)->StopAnimation();
+            }
         } else {
             melee->at(i)->DrawAnimationWithOut(melee->at(i)->GetRenderPosition());
             melee->at(i)->StopAnimation();
