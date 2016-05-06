@@ -25,7 +25,7 @@ StateStack* StateStack::Instance() {
 
 StateStack::StateStack() {
     mapStates = new std::map<States::ID, State*>();
-    currentState = States::ID::InGame;
+    currentState = States::ID::Menu;
     
     CreateStates();
     //Solo inicializamos el estado menu
@@ -44,6 +44,7 @@ void StateStack::CreateStates() {
     mapStates->insert(std::make_pair(States::ID::Carga , StateFactory::CreateState(States::ID::Carga)));
     mapStates->insert(std::make_pair(States::ID::Transition , StateFactory::CreateState(States::ID::Transition)));
     mapStates->insert(std::make_pair(States::ID::Pause , StateFactory::CreateState(States::ID::Pause)));
+    mapStates->insert(std::make_pair(States::ID::Muerte , StateFactory::CreateState(States::ID::Muerte)));
 }
 
 State* StateStack::GetCurrentState() const {
