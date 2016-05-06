@@ -60,7 +60,7 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, flo
     Render::InicializarAnimatedSprite(sf::seconds(0.075f), true, false);
     PhysicsState::SetPosition(posX, posY);
     PhysicsState::SetSpeed(speedX, speedY);
-    Enemigo::SetVelocity(0);
+    Enemigo::SetVelocity(100);
     Enemigo::SetVida(5);
     PhysicsState::SetMaxSpeed(maxSpeedX, maxSpeedY);
     Render::SetOriginAnimatedSprite(17, 16);
@@ -134,13 +134,13 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2) {
     //SetSpeed(nVelocity * Enemigo::GetVelocity());
 
     //SetSpeed(movement);
-    if (inicio.getTiempo() > 5.0f) {
+    //if (inicio.getTiempo() > 2.0f) {
         camino = world->pathfingind->buscaCamino(this->GetPosition(), world->player->GetPosition());
         //camino = world->pathfingind->getCamino();
         inicio.restart();
         nodoactual = 0;
         shapesDebug.clear();
-        InGame *world = InGame::Instance();
+        //InGame *world = InGame::Instance();
 
         int height = world->level->map->_height;
         int width = world->level->map->_width;
@@ -163,7 +163,7 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2) {
             }
         }
 
-    }
+    //}
 
 
     FindPlayer(elapsedTime);

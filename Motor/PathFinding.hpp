@@ -77,6 +77,7 @@ private:
     // int siguiente;
     int toTieso = 10;
     int toTorsio = 15;
+    int iteraciones=0;
 
     //std::vector<Nodo*> nodosAbiertos;
 

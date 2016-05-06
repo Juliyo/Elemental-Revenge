@@ -232,7 +232,13 @@ std::vector<sf::Vector2i>* PathFinding::buscaCamino(sf::Vector2f posenemigo, sf:
             return mejorCamino;
             return &listaCerrada;
         }*/
+
         Nodo *nodoActual = listaAbierta.at(listaAbierta.size() - 1);
+                if(listaCerrada.size()>19){
+                    //std::cout<<"Tam lista cerrada "<<listaCerrada.size()<<std::endl;
+            iteraciones=0;
+            nodoFinal=listaAbierta.at(listaAbierta.size() - 1);
+        }
         if (nodoActual->esIgual(nodoFinal)) {
             std::vector<sf::Vector2i> *mejorCamino = new std::vector<sf::Vector2i>();
             while (nodoActual != NULL) {
@@ -270,6 +276,7 @@ std::vector<sf::Vector2i>* PathFinding::buscaCamino(sf::Vector2f posenemigo, sf:
         }
         listaCerrada.push_back(nodoActual->GetCasilla());
         //printf("Dentro del While \n");
+        iteraciones++;
     }
     return NULL;
 
