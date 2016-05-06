@@ -19,8 +19,6 @@ Menu::Menu() {
     
     motor = Motor2D::Instance();
     
-    musica = new sf::Music();
-    
     spriteFondoMenu = new Sprite();
     spriteFondo = new Sprite();
     spriteRelleno = new Sprite();
@@ -29,7 +27,6 @@ Menu::Menu() {
     mancha = new Sprite[3];
     
     textTitulo = new Text();
-    musicaFondo = new sf::Music();
     
    
 }
@@ -148,11 +145,6 @@ void Menu::Inicializar() {
 
     selectedItemIndex = 0;
 
-    musica->play();
-    
-    musicaFondo->openFromFile("resources/Sounds/Magicka.ogg");
-    musicaFondo->play();
-    musicaFondo->setVolume(30);
 }
 
 sf::Vector2f Menu::getPosition() {
@@ -379,15 +371,9 @@ void Menu::updateView() {
     motor->SetView(3);
 }
 
-void Menu::pararMusica() {
-
-    musica->stop();
-}
 
 void Menu::cargarAnimacionesMenu() {
     if (random == 0) {
-        musica->openFromFile("resources/Sounds/Cascada.ogg");
-        musica->setVolume(7);
         if (!texturaAnimation.loadFromFile("resources/MenuInicio/SpritesheetMenu.png")) {
             std::cout << "Error cargando la textura: " << "resources/MenuInicio/SpritesheetMenu.png" << std::endl;
             exit(0);
@@ -411,8 +397,6 @@ void Menu::cargarAnimacionesMenu() {
 
     if (random == 1) {
 
-        musica->openFromFile("resources/Sounds/CasaFuego.ogg");
-        musica->setVolume(7);
 
 
 //        EstadoActivo = true;
@@ -467,9 +451,6 @@ void Menu::cargarAnimacionesMenu() {
     }
 
     if (random == 2) {
-        musica->openFromFile("resources/Sounds/Truenos.ogg");
-        musica->setVolume(7);
-
 //        EstadoActivo = true;
         tecladoActivo = false;
         ratonSelecciona = false;

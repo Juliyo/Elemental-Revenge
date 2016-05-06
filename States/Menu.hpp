@@ -65,7 +65,6 @@ public:
     void pararMusica();
 
     Motor2D *motor;
-    sf::Music *musicaFondo;
 
     sf::View mWorldView;
     sf::View mBackgroundView;
@@ -78,7 +77,6 @@ private:
     bool tecladoActivo;
     bool ratonSelecciona;
 
-    sf::Music *musica;
     
 
     //Animations

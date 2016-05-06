@@ -46,7 +46,6 @@ public:
 
     node *currentNode;
     node *firstNode;
-    sf::Music *musica;
 
     int getIzqODer();
 

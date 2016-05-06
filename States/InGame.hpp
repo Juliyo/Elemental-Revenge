@@ -51,8 +51,6 @@ public:
     
    
     Level                       *level;
-    sf::Music                   *musica;
-    sf::Music                   *musica2;
     Music                       *music;
     b2World                     *physicWorld;
     Video *video;
