@@ -33,12 +33,9 @@ InGame::InGame() {
     music= Music::Instance();
     music->Load(MUSICA::ID::Mapa1);
     music->Play();
-<<<<<<< HEAD
-    Sound::Instance()->load();
+
     pathfingind=new PathFinding();
-=======
     SoundManager::Instance()->load();
->>>>>>> origin/Box2D
     /* pause = Pause::Instance();
      muerte = Muerte::Instance();*/
 

@@ -21,8 +21,8 @@ public:
     Sound(std::string str);
     Sound(const Sound& orig);
     virtual ~Sound();
-    sf::Sound getSound();
-    sf::SoundBuffer getBuffer();
+    sf::Sound* getSound();
+    sf::SoundBuffer* getBuffer();
 private:
     sf::Sound* sound;
     sf::SoundBuffer* buffer;

@@ -27,12 +27,12 @@ Sound::Sound(const Sound& orig) {
 Sound::~Sound() {
 }
 
-sf::SoundBuffer Sound::getBuffer() {
-    return *buffer;
+sf::SoundBuffer* Sound::getBuffer() {
+    return buffer;
 }
 
-sf::Sound Sound::getSound() {
-    return *sound;
+sf::Sound* Sound::getSound() {
+    return sound;
 }
 
 

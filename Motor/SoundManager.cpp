@@ -40,8 +40,8 @@ void SoundManager::load() {
 
 void SoundManager::play(std::string ruta) {
     std::map<std::string,Sound*>::iterator it =sonidos->find(ruta);
-    sf::Sound sonido=it->second->getSound();
-    sonido.setBuffer(it->second->getBuffer());
-    sonido.setVolume(100);
-    sonido.play();
+    sf::Sound* sonido=it->second->getSound();
+    sonido->setBuffer(*it->second->getBuffer());
+    sonido->setVolume(100);
+    sonido->play();
 }
