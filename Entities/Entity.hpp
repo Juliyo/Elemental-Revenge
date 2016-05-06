@@ -47,6 +47,7 @@ public:
         estado = est;
     }
     
+    
 private:
     //Todas las entitys empiezan en este estado
     Estado::ID estado;

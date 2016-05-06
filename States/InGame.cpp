@@ -166,6 +166,8 @@ void InGame::Update(sf::Time elapsedTime) {
 
     firstTime = false;
 
+    //if(player->GetVida()==0)
+    //StateStack::Instance()->SetCurrentState(States::ID::Menu);
 }
 
 void InGame::renderForMuerte(float interpolation, sf::Time elapsedTime) {
@@ -274,6 +276,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     for (int i = 0; i < melee->size(); i++) {
         int x2 = player->getPosition().x - melee->at(i)->getPosition().x;
         int y2 = player->getPosition().y - melee->at(i)->getPosition().y;
+        if(melee->at(i)->GetEstado()==Estado::ID::Vivo)
         melee->at(i)->UpdateEnemyAnimation(x2, y2);
     }
     /////////////////////////////////

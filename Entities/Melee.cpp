@@ -125,6 +125,7 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, flo
     walkingAnimationLeft = new Animation();
     walkingAnimationRight = new Animation();
     walkingAnimationUp = new Animation();
+    animationMuerte = new Animation();
 
     walkingAnimationDown->setSpriteSheet("resources/Textures/ninjapeq.png");
     walkingAnimationDown->addFrame(sf::IntRect(0, 0, 34, 32));
@@ -134,27 +135,34 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, flo
 
 
 
-    walkingAnimationLeft->setSpriteSheet("resources/Textures/ninjapeq.png");
-    walkingAnimationLeft->addFrame(sf::IntRect(0, 0, 34, 32));
-    walkingAnimationLeft->addFrame(sf::IntRect(34, 0, 34, 32));
-    walkingAnimationLeft->addFrame(sf::IntRect(68, 0, 34, 32));
-    walkingAnimationLeft->addFrame(sf::IntRect(102, 0, 34, 32));
+    walkingAnimationLeft->setSpriteSheet("resources/Textures/walkingNinjaLeft.png");
+    walkingAnimationLeft->addFrame(sf::IntRect(0, 0, 34, 34));
+    walkingAnimationLeft->addFrame(sf::IntRect(35, 0, 34, 34));
+    walkingAnimationLeft->addFrame(sf::IntRect(70, 0, 34, 34));
+    walkingAnimationLeft->addFrame(sf::IntRect(105, 0, 32, 34));
+    walkingAnimationLeft->addFrame(sf::IntRect(138, 0, 34, 34));
+    walkingAnimationLeft->addFrame(sf::IntRect(173, 0, 34, 34));
 
-    walkingAnimationRight->setSpriteSheet("resources/Textures/ninjapeq.png");
-    walkingAnimationRight->addFrame(sf::IntRect(0, 0, 34, 32));
-    walkingAnimationRight->addFrame(sf::IntRect(34, 0, 34, 32));
-    walkingAnimationRight->addFrame(sf::IntRect(68, 0, 34, 32));
-    walkingAnimationRight->addFrame(sf::IntRect(102, 0, 34, 32));
+    walkingAnimationRight->setSpriteSheet("resources/Textures/walkingNinjaRight.png");
+    walkingAnimationRight->addFrame(sf::IntRect(0, 0, 34, 34));
+    walkingAnimationRight->addFrame(sf::IntRect(35, 0, 34, 34));
+    walkingAnimationRight->addFrame(sf::IntRect(70, 0, 32, 34));
+    walkingAnimationRight->addFrame(sf::IntRect(103, 0, 34, 34));
+    walkingAnimationRight->addFrame(sf::IntRect(138, 0, 34, 34));
+    walkingAnimationRight->addFrame(sf::IntRect(173, 0, 34, 34));
 
 
-    walkingAnimationUp->setSpriteSheet("resources/Textures/ninjapeq.png");
+    walkingAnimationUp->setSpriteSheet("resources/Textures/ninjapeq2.png");
     walkingAnimationUp->addFrame(sf::IntRect(0, 0, 34, 32));
     walkingAnimationUp->addFrame(sf::IntRect(34, 0, 34, 32));
     walkingAnimationUp->addFrame(sf::IntRect(68, 0, 34, 32));
     walkingAnimationUp->addFrame(sf::IntRect(102, 0, 34, 32));
+    
+    animationMuerte->setSpriteSheet("resources/Textures/ninjaMuerto.png");
+    animationMuerte->addFrame(sf::IntRect(0,0,43,32));
 
 
-    currentAnimation = &walkingAnimationDown;
+    currentAnimation = &animationMuerte;
     Render::InicializarAnimatedSprite(sf::seconds(0.075f), true, false);
     PhysicsState::SetPosition(posX, posY);
     PhysicsState::SetSpeed(speedX, speedY);
@@ -254,7 +262,7 @@ void Melee::UpdateEnemyAnimation(int x, int y) {
     // 2 -> Abajo
     // 3 -> Derecha
     // 4 -> Izquierda
-
+/*
     if (abs(y) > abs(x) && y <= 0) {
         cuadrante = 1;
         currentAnimation = &walkingAnimationUp;
@@ -262,6 +270,15 @@ void Melee::UpdateEnemyAnimation(int x, int y) {
         currentAnimation = &walkingAnimationDown;
         cuadrante = 2;
     } else if (abs(x) > abs(y) && x > 0) {
+        currentAnimation = &walkingAnimationRight;
+        cuadrante = 3;
+    } else {
+        currentAnimation = &walkingAnimationLeft;
+        cuadrante = 4;
+    }*/
+    
+    
+       if (x > 0) {
         currentAnimation = &walkingAnimationRight;
         cuadrante = 3;
     } else {
@@ -278,4 +295,13 @@ void Melee::StopAnimation() {
     Render::StopAnimation();
 }
 
+void Melee::RestarVida(int a) {
+    if ((GetVida() - a) >= 0) {
+        SetVida(GetVida() - a);
+    } else {
+            currentAnimation = &animationMuerte;
+
+        SetEstado(Estado::ID::Muerto);
+    }
+}
 

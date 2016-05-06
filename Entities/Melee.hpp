@@ -47,13 +47,7 @@ public:
     void UpdateAnimation(sf::Time elapsedTime);
     void StopAnimation();
     
-    void RestarVida(int a){
-        if((GetVida()-a) >= 0) {
-            SetVida(GetVida()-a);
-        }else{
-            SetEstado(Estado::ID::Muerto);
-        }
-    }
+    void RestarVida(int a);
 
     bool empujado;
     bool empujado2;
@@ -64,6 +58,7 @@ public:
     Animation *walkingAnimationLeft;
     Animation *walkingAnimationRight;
     Animation *walkingAnimationUp;
+    Animation *animationMuerte;
 private:
     Tipo::ID m_tipo;
     sf::Texture texturaEnemigo;
