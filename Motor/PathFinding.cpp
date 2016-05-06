@@ -130,7 +130,9 @@ void PathFinding::adicionarNodoAListaAbierta(Nodo *nodo) {
         indice++;
     }
     auto it = listaAbierta.begin();
+    auto it2 = listaAbiertaV.begin();
     listaAbierta.insert(it + indice, nodo);
+    listaAbiertaV.insert(it2 + indice, nodo->GetCasilla());
 }
 
 std::vector<Nodo*>* PathFinding::encontrarNodosAdyacentes(Nodo *nodoActual, Nodo *nodoFinal) {
@@ -189,13 +191,13 @@ std::vector<Nodo*>* PathFinding::encontrarNodosAdyacentes(Nodo *nodoActual, Nodo
         if (arribaIzquierda && colisiones[Y - 1][X - 1] != 1) {
             nodosAdyacentes->push_back(new Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho * (X - 1), tileAlto * (Y - 1)), toTorsio + nodoActual->costoG));
         }
-        if (arribaDerecha && colisiones[Y + 1][X + 1] != 1) {
+        if (arribaDerecha && colisiones[Y - 1][X + 1] != 1) {
             nodosAdyacentes->push_back(new Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho * (X + 1), tileAlto * (Y - 1)), toTorsio + nodoActual->costoG));
         }
         if (abajoIzquierda && colisiones[Y + 1][X - 1] != 1) {
             nodosAdyacentes->push_back(new Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho * (X - 1), tileAlto * (Y + 1)), toTorsio + nodoActual->costoG));
         }
-        if (abajoDerecha && colisiones[Y - 1][X + 1] != 1) {
+        if (abajoDerecha && colisiones[Y + 1][X + 1] != 1) {
             nodosAdyacentes->push_back(new Nodo(nodoActual, nodoFinal, sf::Vector2f(tileAncho * (X + 1), tileAlto * (Y + 1)), toTorsio + nodoActual->costoG));
         }
     }
@@ -211,7 +213,7 @@ std::vector<Nodo*>* PathFinding::encontrarNodosAdyacentes(Nodo *nodoActual, Nodo
 std::vector<sf::Vector2i>* PathFinding::buscaCamino(sf::Vector2f posenemigo, sf::Vector2f posjugador) {
     listaAbierta.clear();
     listaCerrada.clear();
-
+    listaAbiertaV.clear();
 
     Nodo *nodoFinal = new Nodo(NULL, NULL, posjugador, 0);
     Nodo *nodoInicial = new Nodo(NULL, nodoFinal, posenemigo, 0);
@@ -242,18 +244,25 @@ std::vector<sf::Vector2i>* PathFinding::buscaCamino(sf::Vector2f posenemigo, sf:
         }
         //auto it = listaAbierta.end();
         listaAbierta.pop_back();
-
+        listaAbiertaV.pop_back();
         std::vector<Nodo*> *nodosAdyacentes = encontrarNodosAdyacentes(nodoActual, nodoFinal);
         //esto es un for each
 
         for (int i = 0; i < nodosAdyacentes->size(); i++) {
             //std::cout<<"tam nodos adyaccentes "<<nodosAdyacentes->size()<<"Num de iteracion= "<<i<<std::endl;
-            if (!buscarCasilla(nodosAdyacentes->at(i)->GetCasilla())) {
-                if (BuscarNodoEnListaAbierta(nodosAdyacentes->at(i))) {
+            if (std::find(listaCerrada.begin(), listaCerrada.end(), nodosAdyacentes->at(i)->GetCasilla()) == listaCerrada.end()) {
+                
+                //if (std::find(listaAbierta.begin(), listaAbierta.end(),nodosAdyacentes->at(i))) { //si esta en la lista entra en el if
+                if (std::find(listaAbiertaV.begin(), listaAbiertaV.end(), nodosAdyacentes->at(i)->GetCasilla()) != listaAbiertaV.end()) {
                     if (nodosAdyacentes->at(i)->costoG >= nodoActual->costoG) {
                         continue;
                     }
                 }
+//                for(int j=0;j<listaAbierta.size();j++){
+//                    if(listaAbierta.at(j)->operator ==(*nodosAdyacentes->at(i))){
+//                        continue;
+//                    }
+//                }
                 adicionarNodoAListaAbierta(nodosAdyacentes->at(i));
                 
             }

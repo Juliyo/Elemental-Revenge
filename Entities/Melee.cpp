@@ -134,7 +134,7 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2) {
     //SetSpeed(nVelocity * Enemigo::GetVelocity());
 
     //SetSpeed(movement);
-    if (inicio.getTiempo() > 15.0f) {
+    if (inicio.getTiempo() > 5.0f) {
         camino = world->pathfingind->buscaCamino(this->GetPosition(), world->player->GetPosition());
         //camino = world->pathfingind->getCamino();
         inicio.restart();

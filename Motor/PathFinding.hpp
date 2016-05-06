@@ -26,6 +26,9 @@ public:
     PathFinding(const PathFinding& orig);
     virtual ~PathFinding();
 
+    
+
+    
     //void encontrarCamino(sf::Vector2f posjugador, sf::Vector2f posenemigo);
 
     //std::vector<Nodo*> getCamino();
@@ -40,15 +43,11 @@ public:
 private:
     //std::vector<Nodo> nodosCerrados;
     std::vector<Nodo*> listaAbierta;
+    std::vector<sf::Vector2i> listaAbiertaV;
     std::vector<sf::Vector2i> listaCerrada;
 
-    template <typename T>
-    const bool Contains(std::vector<T>& Vec, const T& Element) {
-        if (std::find(Vec.begin(), Vec.end(), Element) != Vec.end())
-            return true;
 
-        return false;
-    }
+
     bool BuscarNodoEnListaAbierta(Nodo *nodo){
         bool encontrado = false;
         for(int i = 0; i < listaAbierta.size();i++){
@@ -69,6 +68,7 @@ private:
        }
        return encontrado;
    }
+    
     //Nodo *NodoInicio;
     //Nodo *NodoFinal;
     //Nodo *NodoActual;

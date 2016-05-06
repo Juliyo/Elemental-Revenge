@@ -75,3 +75,13 @@ float Nodo::Calcularcosto() {
     return abs(casillaX - NodoFinal->casillaX) + abs(casillaY - NodoFinal->casillaY);
 }
 
+bool operator== ( const Nodo &n1, const Nodo &n2) 
+{
+    
+        return n1.GetCasilla() == n2.GetCasilla();
+}
+
+/*bool operator== ( const Nodo &n1, const Nodo &n2) 
+{
+        return !n1 == n2;
+}*/

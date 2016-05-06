@@ -47,13 +47,14 @@ public:
 
     void setPosition(sf::Vector2f pos);
     bool esIgual(Nodo *nodo);
-    sf::Vector2i GetCasilla(){
+    sf::Vector2i GetCasilla() const{
         return sf::Vector2i(casillaX,casillaY);
     }
-    bool operator==(const Nodo& right) const {
-        bool result = false; // Compare right and *this here
-        return *this == right;
-    }
+   friend bool operator== ( const Nodo &n1, const Nodo &n2);
+   friend bool operator!= ( const Nodo &n1, const Nodo &n2);
+
+
+
 
  //metodo para borrar
 //  for (std::vector< int >::iterator it = v.begin() ; it != v.end(); ++it)
