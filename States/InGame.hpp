@@ -16,6 +16,7 @@
 
 #include "State.hpp"
 #include "../Motor/Motor2D.hpp"
+#include "../Motor/Music.hpp"
 #include "../Motor/Video.hpp"
 #include "SFML/System.hpp"
 #include <../Motor/Mapa.hpp>
@@ -52,7 +53,7 @@ public:
     Level                       *level;
     sf::Music                   *musica;
     sf::Music                   *musica2;
-    
+    Music                       *music;
     b2World                     *physicWorld;
     Video *video;
     Player			*player;

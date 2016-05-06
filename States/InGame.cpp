@@ -29,6 +29,9 @@ InGame* InGame::Instance() {
 
 InGame::InGame() {
     motor = Motor2D::Instance();
+    music= Music::Instance();
+    music->Load(MUSICA::ID::Mapa1);
+    music->Play();
     /* pause = Pause::Instance();
      muerte = Muerte::Instance();*/
 

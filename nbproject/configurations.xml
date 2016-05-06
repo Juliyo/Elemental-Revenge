@@ -43,6 +43,8 @@
       <itemPath>Motor/Mapa.hpp</itemPath>
       <itemPath>Motor/Motor2D.cpp</itemPath>
       <itemPath>Motor/Motor2D.hpp</itemPath>
+      <itemPath>Motor/Music.cpp</itemPath>
+      <itemPath>Motor/Music.hpp</itemPath>
       <itemPath>Motor/ProgressBar.cpp</itemPath>
       <itemPath>Motor/ProgressBar.hpp</itemPath>
       <itemPath>Motor/Reloj.cpp</itemPath>
@@ -252,6 +254,10 @@
       <item path="Motor/Motor2D.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Motor/Motor2D.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Motor/Music.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Motor/Music.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Motor/ProgressBar.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -471,6 +477,10 @@
       <item path="Motor/Motor2D.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Motor/Motor2D.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Motor/Music.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Motor/Music.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Motor/ProgressBar.cpp" ex="false" tool="1" flavor2="0">
       </item>
