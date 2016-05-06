@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="210" height="170" tilewidth="24" tileheight="24" nextobjectid="150">
- <tileset firstgid="1" name="tilesetAbandonada2New" tilewidth="24" tileheight="24" tilecount="2160" columns="60">
+ <tileset firstgid="1" name="tilesetAbandonada2New" tilewidth="24" tileheight="24" tilecount="960" columns="60">
   <image source="tilesetAbandonada2New.png" width="1440" height="384"/>
  </tileset>
  <layer name="Suelos" width="210" height="170">
@@ -107115,7 +107115,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="Colision" width="210" height="170" visible="0">
+ <layer name="Colision" width="210" height="170">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>

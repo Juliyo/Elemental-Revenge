@@ -128,35 +128,8 @@ void InGame::Update(sf::Time elapsedTime) {
             int y3 = player->getPosition().y - melee->at(i)->getPosition().y;
             melee->at(i)->Update(elapsedTime,x3,y3); 
         }
+        
 
-        if (player->hRayoBasico->tiempoCast.getTiempo() > player->hRayoBasico->getCast() && aux == true) {
-            isShooting = false;
-            player->hRayoBasico->primerCast = false;
-        }
-
-        if ((isShooting && player->hRayoBasico->tiempoCd.getTiempo() > player->hRayoBasico->getCD()) || (isShooting && player->hRayoBasico->primerCast == true)) {//Entra si dispara y el tiempo de enfriamiento ha pasado
-            player->hRayoBasico->primerCast = false;
-            if (aux == false) {//si es la primera vez que pulsa el boton
-                player->hRayoBasico->tiempoCast.restart();
-
-                aux = true; //no entra mas aqui para no hacer restart del cast
-            }
-            player->hRayoBasico->cast(sf::Vector2f(player->getPosition())); //siempre que entra aqui pintas
-
-        } else {//entras si no disparas o si no ha pasado el tiempo de enfriamiento
-            if (aux == true) {//entras si acabas de soltar el raton
-                player->hRayoBasico->tiempoCd.restart();
-                // std::cout<<"Inicio den CD"<<std::endl;
-                aux = false; //no entra mas aqui para no hacer restart dl cd
-            }
-            player->hRayoBasico->draw = false;
-        }
-        //avanzado
-
-        if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && player->hRayoAvanzado->tiempoCast.getTiempo() > player->hRayoBasico->getCast()) {
-            player->hRayoAvanzado->draw = false;
-            player->hRayoAvanzado->StopAnimation();
-        }
         if (!video -> getLooped()) {
             video->setDibujar(true);
         }
@@ -324,12 +297,13 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
                 break;
             }
         }
+       /* for(int j=0;j<melee->at(i)->shapesDebug.size();j++){
+            motor->draw(melee->at(i)->shapesDebug.at(j));
+        }*/
         melee->at(i)->PlayAnimation(*melee->at(i)->currentAnimation);
         melee->at(i)->UpdateAnimation(elapsedTime);
         melee->at(i)->DrawWithInterpolation(interpolation);
-        for(int j=0;j<melee->at(i)->shapesDebug.size();j++){
-            motor->draw(melee->at(i)->shapesDebug.at(j));
-        }
+        
         
     }
     if ((!player->isMovingDown && !player->isMovingLeft && !player->isMovingRight && !player->isMovingUp) && player->castFire.getTiempo() > 0.45f && player->castFire2.getTiempo() > 0.4f) {

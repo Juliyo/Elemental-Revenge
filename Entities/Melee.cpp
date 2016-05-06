@@ -60,7 +60,7 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, flo
     Render::InicializarAnimatedSprite(sf::seconds(0.075f), true, false);
     PhysicsState::SetPosition(posX, posY);
     PhysicsState::SetSpeed(speedX, speedY);
-    Enemigo::SetVelocity(100);
+    Enemigo::SetVelocity(250);
     Enemigo::SetVida(5);
     PhysicsState::SetMaxSpeed(maxSpeedX, maxSpeedY);
     Render::SetOriginAnimatedSprite(17, 16);
@@ -69,7 +69,7 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, flo
     empujado = false;
     empujado2 = false;
     inicio.restart();
-
+    camino = NULL;
     //srand(inicio.getTiempo());
     color.r = rand() % 255;
     color.g = rand() % 255;
@@ -121,60 +121,55 @@ void Melee::FindPlayer(sf::Time elapsedTime) {
 
 void Melee::Update(const sf::Time elapsedTime, float x1, float x2) {
     InGame* world = InGame::Instance();
-    sf::Vector2f movement(x1, x2);
-    /*if (up)
-        movement.y -= 100.f;
-    if (down)
-        movement.y += 100.f;
-    if (right)
-        movement.x += 100.f;
-    if (left)
-        movement.x -= 100.f;*/
-    //sf::Vector2f nVelocity = Util::Normalize(movement);
-    //SetSpeed(nVelocity * Enemigo::GetVelocity());
-
-    //SetSpeed(movement);
-    if (inicio.getTiempo() > 1.0f ) {
+    sf::Vector2f movement(0, 0);
+    if (inicio.getTiempo() > 0.5f) {
+        float x = world->player->GetPosition().x - this->GetPosition().x;
+        float y = world->player->GetPosition().y - this->GetPosition().y;
+        float dist = sqrt(pow(x, 2) + pow(y, 2));
+        if (dist < 800) {
         camino = world->pathfingind->buscaCamino(this->GetPosition(), world->player->GetPosition());
-        float x=world->player->GetPosition().x-this->GetPosition().x;
-        float y=world->player->GetPosition().y-this->GetPosition().y;
-        float dist=sqrt(pow(x,2)+pow(y,2));
-        if(dist<600){
-            
-        
-        //camino = world->pathfingind->getCamino();
-        inicio.restart();
-        nodoactual = 0;
-        shapesDebug.clear();
-        //InGame *world = InGame::Instance();
+            inicio.restart();
+            nodoactual = 0;
+            shapesDebug.clear();
 
-        int height = world->level->map->_height;
-        int width = world->level->map->_width;
-        if (camino != NULL) {
-            for (int i = 0; i < camino->size(); i++) {
-                //std::cout << "Nodo " << i << " " << camino->at(i).x << "," << camino->at(i).y << "    Meta " << ceil(world->player->GetPosition().x/24) << "," << ceil(world->player->GetPosition().y/24) << std::endl;
-                sf::RectangleShape shape;
-                shape.setPosition(sf::Vector2f(camino->at(i).x*24, camino->at(i).y * 24));
-                float x = camino->at(i).x*width;
-                float y = camino->at(i).y * height;
-                float posjx = world->player->GetPosition().x;
-                float posjy = world->player->GetPosition().y;
-                float casillaX = camino->at(i).x;
-                float casillaY = camino->at(i).y;
-                
-                shape.setSize(sf::Vector2f(24, 24));
-                shape.setOrigin(12.f, 12.f);
-                shape.setFillColor(color);
-                shapesDebug.push_back(shape);
+            int height = world->level->map->_height;
+            int width = world->level->map->_width;
+            if (camino != NULL) {
+                for (int i = 0; i < camino->size(); i++) {
+                    //std::cout << "Nodo " << i << " " << camino->at(i).x << "," << camino->at(i).y << "    Meta " << ceil(world->player->GetPosition().x/24) << "," << ceil(world->player->GetPosition().y/24) << std::endl;
+                    sf::RectangleShape shape;
+                    shape.setPosition(sf::Vector2f(camino->at(i).x * 24, camino->at(i).y * 24));
+                    shape.setSize(sf::Vector2f(24, 24));
+                    shape.setOrigin(12.f, 12.f);
+                    shape.setFillColor(color);
+                    shapesDebug.push_back(shape);
+                }
             }
         }
     }
+    if (camino != NULL) {
+        if(nodoactual < camino->size() - 2){
+            //std::cout<<"Origen: "<<ceil(GetPosition().x/24)<<" , "<<ceil(GetPosition().x/24)<<std::endl;
+            //std::cout<<"Destino: "<<camino->at(nodoactual+1).y<<" , "<<camino->at(nodoactual+1).y<<std::endl;
+        if(round(GetPosition().x/24) == camino->at(nodoactual+1).x && round(GetPosition().y/24) == camino->at(nodoactual+1).y){
+            nodoactual++;
+            
+        }else if(round(GetPosition().x/24) == camino->at(nodoactual+2).x && round(GetPosition().y/24) == camino->at(nodoactual+2).y){
+            nodoactual+=2;
+        }else{
+            float x = camino->at(nodoactual+1).x - this->GetPosition().x/24;
+            float y = camino->at(nodoactual+1).y - this->GetPosition().y/24;
+            movement.x = x;
+            movement.y = y;
+        }
+        }
+        
+        
+        //std::cout<<x<<" , "<<y<<std::endl;
     }
 
 
-    //FindPlayer(elapsedTime);
-    //UpdateEnemigo(elapsedTime,mapa);
-    //PhysicsState::Update(elapsedTime);
+
     //Hay que setear al BodyDef el vector velocidad que hallamos calculado
     body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(movement) * Enemigo::GetVelocity()));
     // FindPlayer(elapsedTime);
