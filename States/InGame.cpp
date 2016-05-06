@@ -244,7 +244,13 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
         melee->at(i)->PlayAnimation(*melee->at(i)->currentAnimation);
         melee->at(i)->UpdateAnimation(elapsedTime);
         if (StateStack::Instance()->currentState != States::ID::Pause) {
+            if(melee->at(i)->GetEstado()!=Estado::ID::Muerto){
             melee->at(i)->DrawWithInterpolation(interpolation);
+            }
+            else{
+            melee->at(i)->DrawAnimationWithOut(melee->at(i)->GetRenderPosition());
+            //melee->at(i)->StopAnimation();
+            }
         } else {
             melee->at(i)->DrawAnimationWithOut(melee->at(i)->GetRenderPosition());
             melee->at(i)->StopAnimation();
