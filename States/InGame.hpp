@@ -29,6 +29,7 @@
 #include <Box2D/Box2D.h>
 #include "../Otros/Dummy.hpp"
 #include "../Otros/ContactListener.hpp"
+#include "../Motor/PathFinding.hpp"
 
 class InGame : public State {
 public:
@@ -56,6 +57,7 @@ public:
     Video *video;
     Player			*player;
     std::vector<Melee*>         *melee;
+    PathFinding                 *pathfingind;
 private:
     
     std::vector<bool>           *VectorBools;

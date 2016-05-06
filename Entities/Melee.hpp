@@ -59,9 +59,14 @@ public:
     Animation *walkingAnimationRight;
     Animation *walkingAnimationUp;
     Animation *animationMuerte;
+    std::vector<sf::RectangleShape> shapesDebug;
+    sf::Color color;
 private:
     Tipo::ID m_tipo;
     sf::Texture texturaEnemigo;
+    std::vector<sf::Vector2i>  *camino;
+    Reloj inicio;
+    int nodoactual=0;
 };
 
 #endif /* MELEE_HPP */

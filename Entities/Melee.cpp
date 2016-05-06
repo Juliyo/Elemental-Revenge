@@ -221,21 +221,41 @@ void Melee::FindPlayer(sf::Time elapsedTime) {
 }
 
 void Melee::Update(const sf::Time elapsedTime, float x1, float x2, float multiplicador) {
+    InGame* world = InGame::Instance();
     sf::Vector2f movement(x1, x2);
-    /*if (up)
-        movement.y -= 100.f;
-    if (down)
-        movement.y += 100.f;
-    if (right)
-        movement.x += 100.f;
-    if (left)
-        movement.x -= 100.f;*/
-    //sf::Vector2f nVelocity = Util::Normalize(movement);
-    //SetSpeed(nVelocity * Enemigo::GetVelocity());
+    if (inicio.getTiempo() > 15.0f) {
+        camino = world->pathfingind->buscaCamino(this->GetPosition(), world->player->GetPosition());
+        //camino = world->pathfingind->getCamino();
+        inicio.restart();
+        nodoactual = 0;
+        shapesDebug.clear();
+        InGame *world = InGame::Instance();
 
+        int height = world->level->map->_height;
+        int width = world->level->map->_width;
+        if (camino != NULL) {
+            for (int i = 0; i < camino->size(); i++) {
+                //std::cout << "Nodo " << i << " " << camino->at(i).x << "," << camino->at(i).y << "    Meta " << ceil(world->player->GetPosition().x/24) << "," << ceil(world->player->GetPosition().y/24) << std::endl;
+                sf::RectangleShape shape;
+                shape.setPosition(sf::Vector2f(camino->at(i).x*24, camino->at(i).y * 24));
+                float x = camino->at(i).x*width;
+                float y = camino->at(i).y * height;
+                float posjx = world->player->GetPosition().x;
+                float posjy = world->player->GetPosition().y;
+                float casillaX = camino->at(i).x;
+                float casillaY = camino->at(i).y;
+                
+                shape.setSize(sf::Vector2f(24, 24));
+                shape.setOrigin(12.f, 12.f);
+                shape.setFillColor(color);
+                shapesDebug.push_back(shape);
+            }
+        }
+
+    }
     //SetSpeed(movement);
 
-    FindPlayer(elapsedTime);
+    //FindPlayer(elapsedTime);
     //UpdateEnemigo(elapsedTime,mapa);
     //PhysicsState::Update(elapsedTime);
     //Hay que setear al BodyDef el vector velocidad que hallamos calculado

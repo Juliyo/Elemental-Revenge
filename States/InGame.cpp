@@ -34,6 +34,7 @@ InGame::InGame() {
     music->Load(MUSICA::ID::Mapa1);
     music->Play();
     Sound::Instance()->load();
+    pathfingind=new PathFinding();
     /* pause = Pause::Instance();
      muerte = Muerte::Instance();*/
 
