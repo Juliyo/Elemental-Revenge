@@ -16,7 +16,7 @@
 #include "Pause.hpp"
 #include "Muerte.hpp"
 #include "StateStack.hpp"
-#include "../Motor/Sound.hpp"
+#include "../Motor/SoundManager.hpp"
 
 InGame* InGame::mInstance = 0;
 
@@ -33,7 +33,7 @@ InGame::InGame() {
     music= Music::Instance();
     music->Load(MUSICA::ID::Mapa1);
     music->Play();
-    Sound::Instance()->load();
+    SoundManager::Instance()->load();
     /* pause = Pause::Instance();
      muerte = Muerte::Instance();*/
 
