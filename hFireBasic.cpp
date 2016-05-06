@@ -36,6 +36,8 @@ void hFireBasic::CreateBody() {
     fixtureDef->shape = circleShape;
     fixtureDef->density = 1.0f;
     fixtureDef->friction = 1.0f;
+    fixtureDef->filter.categoryBits = Filtro::_entityCategory::HECHIZO;
+    fixtureDef->filter.maskBits = Filtro::_entityCategory::ENEMIGO | Filtro::_entityCategory::BOUNDARY;
     body->CreateFixture(fixtureDef);
 }
 

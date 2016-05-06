@@ -44,6 +44,9 @@ void Melee::CreateBody() {
     fixtureDef->shape = circleShape;
     fixtureDef->density = 0.25f;
     fixtureDef->friction = 0.0f;
+    fixtureDef->filter.categoryBits = Filtro::_entityCategory::ENEMIGO;
+    fixtureDef->filter.maskBits = Filtro::_entityCategory::PLAYER | Filtro::_entityCategory::BOUNDARY | Filtro::_entityCategory::HECHIZO | Filtro::_entityCategory::ENEMIGO;
+    
     body->CreateFixture(fixtureDef);
 }
 

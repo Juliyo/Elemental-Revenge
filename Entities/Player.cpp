@@ -23,6 +23,9 @@ void Player::CreateBody() {
     fixtureDef->shape = shape;
     fixtureDef->density = 1.0f;
     fixtureDef->friction = 0.0f;
+    //fixtureDef->filter.groupIndex = Filtro::_entityCategory::PLAYER;
+    fixtureDef->filter.categoryBits = Filtro::_entityCategory::PLAYER;
+    fixtureDef->filter.maskBits = Filtro::_entityCategory::ENEMIGO | Filtro::_entityCategory::BOUNDARY;
     body->CreateFixture(fixtureDef);
 }
 

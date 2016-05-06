@@ -64,7 +64,7 @@ InGame::InGame() {
     physicWorld = new b2World(tmx::SfToBoxVec(sf::Vector2f(0.f, 0.f)));
     ct = new ContactListener();
     physicWorld->SetContactListener(ct);
-    physicWorld->SetContactFilter(ct);
+    //physicWorld->SetContactFilter(ct);
 
 }
 

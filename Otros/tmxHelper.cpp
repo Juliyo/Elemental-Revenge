@@ -116,6 +116,8 @@ b2Body* BodyCreator::Add(const MapObject& object, b2World& world, b2BodyType bod
 	{
 		b2FixtureDef f;
 		f.density = 1.f;
+                f.filter.categoryBits = Filtro::_entityCategory::BOUNDARY;
+                f.filter.maskBits = Filtro::_entityCategory::ENEMIGO | Filtro::_entityCategory::HECHIZO | Filtro::_entityCategory::PLAYER;
 		bodyDef.position = SfToBoxVec(object.GetCentre());
 		if (shapeType == Circle)
 		{
