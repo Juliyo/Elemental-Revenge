@@ -59,6 +59,7 @@ public:
         int nodoactual=0;
     bool bueno=true;
     bool encola=false;
+    float distancia=900;
 private:
     Tipo::ID m_tipo;
     sf::Texture texturaEnemigo;

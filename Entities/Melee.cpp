@@ -122,11 +122,11 @@ void Melee::FindPlayer(sf::Time elapsedTime) {
 void Melee::Update(const sf::Time elapsedTime, float x1, float x2) {
     InGame* world = InGame::Instance();
     sf::Vector2f movement(0, 0);
-    if (inicio.getTiempo() > 0.5f) {
+   // if (inicio.getTiempo() > 0.5f) {
         float x = world->player->GetPosition().x - this->GetPosition().x;
         float y = world->player->GetPosition().y - this->GetPosition().y;
-        float dist = sqrt(pow(x, 2) + pow(y, 2));
-        if (dist < 800) {
+         distancia = sqrt(pow(x, 2) + pow(y, 2));
+        if (distancia < 650) {
             //std::cout<<"Enemigo:"<<this->GetPosition().x/24<<","<<this->GetPosition().y/24<<"  Meta:"<<world->player->GetPosition().x/24<<","<<world->player->GetPosition().y/24<<std::endl;
         //posiblecamino = world->pathfingind->buscaCamino(this->GetPosition(), world->player->GetPosition());
             if(!encola){
@@ -166,7 +166,7 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2) {
                 }
             }
         }
-    }
+   // }
     if (camino != NULL) {
         if(nodoactual < camino->size() - 2){
             //std::cout<<"Origen: "<<ceil(GetPosition().x/24)<<" , "<<ceil(GetPosition().x/24)<<std::endl;

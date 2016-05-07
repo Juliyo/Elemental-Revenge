@@ -20,11 +20,11 @@
 InGame* InGame::mInstance = 0;
 
 InGame* InGame::Instance() {
-	if(mInstance == 0){
-            mInstance = new InGame();
-        }
-        
-	return mInstance;
+    if (mInstance == 0) {
+        mInstance = new InGame();
+    }
+
+    return mInstance;
 }
 
 InGame::InGame() {
@@ -32,7 +32,7 @@ InGame::InGame() {
     /* pause = Pause::Instance();
      muerte = Muerte::Instance();*/
 
-    
+
     /* sf::ContextSettings settings;
      settings.antialiasingLevel = 8;*/
 
@@ -46,10 +46,10 @@ InGame::InGame() {
     /*motor->setCenterForView(1, 900,850);
     motor->SetView(1);*/
     level = new Level();
-    
-    colaMelees= new std::deque<Melee*>();
-    
-    
+
+    colaMelees = new std::deque<Melee*>();
+
+
     video = new Video("resources/Videos/nubes/nube", 30, 495, 500, 0, sf::Vector2f(0.8, 1.4), true, sf::Vector2f(1280, 720));
     /*musica = new sf::Music();
     musica->openFromFile("resources/Sounds/InGame.ogg");
@@ -60,7 +60,7 @@ InGame::InGame() {
     musica2->setVolume(50);*/
     //Inicializar();
     physicWorld = new b2World(tmx::SfToBoxVec(sf::Vector2f(0.f, 0.f)));
-    
+
 }
 
 InGame::InGame(const InGame& orig) {
@@ -71,22 +71,22 @@ InGame::~InGame() {
 
 void InGame::Inicializar() {
     player = new Player();
-    player->SetRectangleColision(14,12,36,52);
+    player->SetRectangleColision(14, 12, 36, 52);
     player -> Inicializar(1100.f, -1100.f);
     player->CreateDynamicBody();
     melee = new std::vector<Melee*>();
     melee->reserve(12);
-    
-    for(int i=0;i<12;i++){
+
+    for (int i = 0; i < 12; i++) {
         melee->push_back(new Melee());
-        melee->at(i)->Inicializar(1000.f + i*20, -1000.f + i*20,Tipo::ID::Rata,0.f,0.f);
-        melee->at(i)->SetRectangleColision(0,0,37,39);
+        melee->at(i)->Inicializar(1000.f + i * 20, -1000.f + i * 20, Tipo::ID::Rata, 0.f, 0.f);
+        melee->at(i)->SetRectangleColision(0, 0, 37, 39);
         melee->at(i)->CreateDynamicBody();
-        
-        
+
+
     }
-        pathfingind=new PathFinding();
-    
+    pathfingind = new PathFinding();
+
     try {
         spriteFondo.setTexture("resources/Textures/grasstext.png");
         spriteFondo.setSmooth(true);
@@ -114,24 +114,24 @@ void InGame::Inicializar() {
     updateView();
     level->LoadMap(Niveles::ID::Level3);
     video->Inicializar();
-    
+
 }
 
 void InGame::Update(sf::Time elapsedTime) {
-    
+
     if (!firstTime) {
-        
-        physicWorld->Step(elapsedTime.asSeconds(),6,2);
-        
+
+        physicWorld->Step(elapsedTime.asSeconds(), 6, 2);
+
         player -> Update(elapsedTime);
-       // std::cout<<"Cambio de update"<<std::endl;
+        // std::cout<<"Cambio de update"<<std::endl;
         primerosDeLaCola();
         for (int i = 0; i < melee->size(); i++) {
             int x3 = player->getPosition().x - melee->at(i)->getPosition().x;
             int y3 = player->getPosition().y - melee->at(i)->getPosition().y;
-            melee->at(i)->Update(elapsedTime,x3,y3); 
+            melee->at(i)->Update(elapsedTime, x3, y3);
         }
-        
+
 
         if (!video -> getLooped()) {
             video->setDibujar(true);
@@ -169,24 +169,24 @@ void InGame::renderForMuerte(float interpolation, sf::Time elapsedTime) {
     /*********************************************************/
     player -> DrawAnimationWithOut(player->GetSpriteAnimated().getPosition());
 
-   /* if (mapa->getMapaActual() == 1) {
-        mapa->dibuja2Mapa1();
-    }
-    if (mapa->getMapaActual() == 2) {
-        mapa->dibuja2Mapa2();
+    /* if (mapa->getMapaActual() == 1) {
+         mapa->dibuja2Mapa1();
+     }
+     if (mapa->getMapaActual() == 2) {
+         mapa->dibuja2Mapa2();
 
-    }
-    if (mapa->getMapaActual() == 3) {
-        mapa->dibuja2Mapa3();
-    }
-*/
+     }
+     if (mapa->getMapaActual() == 3) {
+         mapa->dibuja2Mapa3();
+     }
+     */
 
     motor->SetView(2); //vista del HUD
     player -> hud->renderHud(elapsedTime);
     if (!video -> getLooped()) {
         video -> PlayVideo();
     }
-//    muerte->render(interpolation, elapsedTime);
+    //    muerte->render(interpolation, elapsedTime);
     motor->SetView(1); //vista del juego
 
     motor->draw(mouseSprite);
@@ -234,7 +234,7 @@ void InGame::renderForPause(float interpolation, sf::Time elapsedTime) {
     if (!video -> getLooped()) {
         video -> PlayVideo();
     }
-//    pause->render(interpolation, elapsedTime);
+    //    pause->render(interpolation, elapsedTime);
     motor->SetView(1); //vista del juego
 
     motor->draw(mouseSprite);
@@ -253,18 +253,18 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
 
 
     motor->draw(spriteFondo);
-	int x = motor->getMousePosition().x - player -> getPosition().x;
+    int x = motor->getMousePosition().x - player -> getPosition().x;
     int y = motor->getMousePosition().y - player -> getPosition().y;
     player ->UpdatePlayerAnimation(x, y);
 
-//****************************RAYO************************************
-    player->renderRayo( elapsedTime, interpolation);
+    //****************************RAYO************************************
+    player->renderRayo(elapsedTime, interpolation);
     //****************************FUEGO************************************
-    player->renderFuego( elapsedTime, interpolation);
+    player->renderFuego(elapsedTime, interpolation);
     //****************************AGUA************************************
-    player->renderAgua( elapsedTime, interpolation);
+    player->renderAgua(elapsedTime, interpolation);
     //*********************HEAL**********************************
-    player->renderHeal( elapsedTime, interpolation);
+    player->renderHeal(elapsedTime, interpolation);
     //****************************RENDER PLAYER************************************
     /*if (mapa->getMapaActual() == 1) {
         mapa->dibujaMapa1();
@@ -276,47 +276,47 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
         mapa->dibujaMapa3();
     }*/
     level->render();
-    
+
     player -> PlayAnimation(*player -> currentAnimation);
-    
-   /* for(int i=0;i<player->shapes.size();i++){
-        motor->draw(player->shapes.at(i));
-    }*/
+
+    /* for(int i=0;i<player->shapes.size();i++){
+         motor->draw(player->shapes.at(i));
+     }*/
 
     for (int i = 0; i < melee->size(); i++) {
         if (melee->at(i)->getSpeed().x == 0 && melee->at(i)->getSpeed().y == 0) {
             switch (melee->at(i)->cuadrante) {
-            case 1:
-               // melee[i].currentAnimation = &melee->idleAnimationRight;
-                break;
-            case 2:
-                //player->currentAnimation = &player->idleAnimationLeft;
-                break;
-            case 3:
-                //player->currentAnimation = &player->idleAnimationRight;
-                break;
-            case 4:
-                //player->currentAnimation = &player->idleAnimationLeft;
-                break;
+                case 1:
+                    // melee[i].currentAnimation = &melee->idleAnimationRight;
+                    break;
+                case 2:
+                    //player->currentAnimation = &player->idleAnimationLeft;
+                    break;
+                case 3:
+                    //player->currentAnimation = &player->idleAnimationRight;
+                    break;
+                case 4:
+                    //player->currentAnimation = &player->idleAnimationLeft;
+                    break;
             }
         }
-        for(int j=0;j<melee->at(i)->shapesDebug.size();j++){
+        for (int j = 0; j < melee->at(i)->shapesDebug.size(); j++) {
             motor->draw(melee->at(i)->shapesDebug.at(j));
         }
-        
+
         melee->at(i)->PlayAnimation(*melee->at(i)->currentAnimation);
         melee->at(i)->UpdateAnimation(elapsedTime);
         melee->at(i)->DrawWithInterpolation(interpolation);
-        
-        
+
+
     }
     if ((!player->isMovingDown && !player->isMovingLeft && !player->isMovingRight && !player->isMovingUp) && player->castFire.getTiempo() > 0.45f && player->castFire2.getTiempo() > 0.4f) {
         player -> StopAnimation();
     }
     player -> UpdateAnimation(elapsedTime);
-	
-	    //**************************************FLASH**************************
-    player->renderFlash( elapsedTime, interpolation);
+
+    //**************************************FLASH**************************
+    player->renderFlash(elapsedTime, interpolation);
     /////////////////////////////////
     player -> DrawWithInterpolation(interpolation);
 
@@ -325,7 +325,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
         int y2 = player->getPosition().y - melee->at(i)->getPosition().y;
         melee->at(i)->UpdateEnemyAnimation(x2, y2);
     }
-    
+
     motor->SetView(2); //vista del HUD
     player -> hud->renderHud(elapsedTime);
     if (!video -> getLooped()) {
@@ -341,16 +341,16 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
 void InGame::HandleEvents(sf::Event& event) {
     switch (event.type) {
         case sf::Event::KeyPressed:
-            handlePlayerInput(event.key.code,true);
+            handlePlayerInput(event.key.code, true);
             break;
         case sf::Event::KeyReleased:
-            handlePlayerInput(event.key.code,false);
+            handlePlayerInput(event.key.code, false);
             break;
         case sf::Event::MouseButtonPressed:
-            handleMouseInput(event.mouseButton.button,true);
+            handleMouseInput(event.mouseButton.button, true);
             break;
         case sf::Event::MouseButtonReleased:
-            handleMouseInput(event.mouseButton.button,false);
+            handleMouseInput(event.mouseButton.button, false);
             break;
     }
 }
@@ -370,32 +370,31 @@ void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
     } else if (key == sf::Keyboard::T && isPressed) {
         player->hRayoAvanzado->aumentaLVL();
     } else if (key == sf::Keyboard::X && isPressed) {
-        player->SetPosition(1420,1230);
-    } else if (key == sf::Keyboard::M){
+        player->SetPosition(1420, 1230);
+    } else if (key == sf::Keyboard::M) {
         //Si pulsamos la M pasamos de nivel
         StateStack::Instance()->SetCurrentState(States::ID::Transition);
         player->isMovingDown = false;
         player->isMovingLeft = false;
         player->isMovingRight = false;
         player->isMovingUp = false;
-    }else if ((key == sf::Keyboard::C) || (key == sf::Keyboard::Num1) && !isPressed) {
-        
+    } else if ((key == sf::Keyboard::C) || (key == sf::Keyboard::Num1) && !isPressed) {
+
         hActivo = 0;
         anterior = hActivo;
     } else if (key == sf::Keyboard::V) {
-        
+
         hActivo = 1;
         anterior = hActivo;
     } else if (key == sf::Keyboard::B) {
-        
+
         hActivo = 2;
         anterior = hActivo;
     } else if (key == sf::Keyboard::E) {
-        
+
         hActivo = 4;
         player->isFlashing = isPressed;
-    }
-    else if (key == sf::Keyboard::R) {
+    } else if (key == sf::Keyboard::R) {
 
         hActivo = 3;
         isHealing = isPressed;
@@ -405,19 +404,19 @@ void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         player->hRayoBasico->aumentaLVL();
     } else if (key == sf::Keyboard::G && isPressed) {
         player->hRayoAvanzado->aumentaLVL();
-    }else if(key == sf::Keyboard::Space && !isPressed){
+    } else if (key == sf::Keyboard::Space && !isPressed) {
         hActivo++;
         anterior = hActivo;
-        if(hActivo == 3){
+        if (hActivo == 3) {
             hActivo = 0;
             anterior = hActivo;
         }
-        player->hud->cambiaHechizo(hActivo+1);
+        player->hud->cambiaHechizo(hActivo + 1);
     }
 }
 
 void InGame::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
-switch (hActivo) {
+    switch (hActivo) {
         case 1:
         {
             //hacemos false el resto de casteos por si cambias mientras estabas pulsando
@@ -431,7 +430,7 @@ switch (hActivo) {
             }
             if (button == sf::Mouse::Button::Right && isPressed == false) {
                 printf("Rayo avanzado \n");
-                player->hRayoAvanzado->cast(sf::Vector2f(player->getPosition()),player->hud);
+                player->hRayoAvanzado->cast(sf::Vector2f(player->getPosition()), player->hud);
             }
             break;
         }
@@ -513,24 +512,26 @@ void InGame::SetPlayer(float x, float y) {
 void InGame::primerosDeLaCola() {
     int ite = 0;
     while (ite < 2) {
-        if(colaMelees->size()>0){
-                    colaMelees->at(0)->posiblecamino = pathfingind->buscaCamino(colaMelees->at(0)->GetPosition(), player->GetPosition());
-        if (colaMelees->at(0)->bueno) {
-            colaMelees->at(0)->camino = colaMelees->at(0)->posiblecamino;
-            colaMelees->at(0)->nodoactual = 0;
-        }
+        if (colaMelees->size() > 0) {
+            if (colaMelees->at(0)->distancia < 650) {
+                colaMelees->at(0)->posiblecamino = pathfingind->buscaCamino(colaMelees->at(0)->GetPosition(), player->GetPosition());
+                if (colaMelees->at(0)->bueno) {
+                    colaMelees->at(0)->camino = colaMelees->at(0)->posiblecamino;
+                    colaMelees->at(0)->nodoactual = 0;
+                }
 
 
-        colaMelees->at(0)->bueno = !colaMelees->at(0)->bueno;
-        colaMelees->at(0)->encola=false;
-       // printf("BORRO ENEMIGO DE COLA\n");
-        //std::cout<<"Calculo la cola "<<std::endl;
-        colaMelees->pop_front();
-        //std::cout<<"cola size: "<<colaMelees->size()<<std::endl;
-        ite++;
-        }
-        else{
-            ite=10;
+                colaMelees->at(0)->bueno = !colaMelees->at(0)->bueno;
+            }
+
+            colaMelees->at(0)->encola = false;
+            // printf("BORRO ENEMIGO DE COLA\n");
+            //std::cout<<"Calculo la cola "<<std::endl;
+            colaMelees->pop_front();
+            //std::cout<<"cola size: "<<colaMelees->size()<<std::endl;
+            ite++;
+        } else {
+            ite = 10;
         }
 
     }
