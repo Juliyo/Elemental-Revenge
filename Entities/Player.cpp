@@ -103,7 +103,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
 
     Reloj *relojes = new Reloj[6];
     relojes[0] = hRayoBasico->tiempoCd;
-    relojes[1] = hRayoAvanzado->tiempoCd;
+    relojes[1] = hRayoAvanzado->clockCd;
 
     float *cds = new float[8];
 
@@ -725,10 +725,11 @@ void Player::updateRayo(bool isShooting, bool RayoAvanzadoCast, float cdRayoBasi
     //avanzado
     if(RayoAvanzadoCast){
         hRayoAvanzado->cast(sf::Vector2f(getPosition()), hud, cdRayoAvanzadoPausa);
-
+        printf("CD FUEGO DESDE PAUSA: %f\n", cdRayoAvanzadoPausa);
+        printf("CD FUEGO CD NUEVO: %f\n", hRayoAvanzado->clockCd.getTiempo());
     }
 
-    if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && hRayoAvanzado->tiempoCast.getTiempo() > hRayoBasico->getCast()) {
+    if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && hRayoAvanzado->clockCd.getTiempo() > hRayoBasico->getCast()) {
         hRayoAvanzado->draw = false;
         hRayoAvanzado->StopAnimation();
     }
@@ -790,10 +791,7 @@ void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time e
         }
     }
 
-    if (hFuegoAvanzado->lanzado == true) {
-
-        hFuegoAvanzado->cast(sf::Vector2f(getPosition()));
-    }
+    
 }
 
 void Player::updateAgua(bool aguaBasicCast, bool aguaAdvancedCast, sf::Time elapsedTime, float cdAguaBasicoPausa,float cdAguaAvanzadoPausa) {

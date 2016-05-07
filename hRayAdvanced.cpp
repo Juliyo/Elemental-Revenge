@@ -82,7 +82,7 @@ hRayAdvanced::~hRayAdvanced() {
 
 void hRayAdvanced::cast(sf::Vector2f posicion, Hud *hud, float cdRayoAvanzadoPausa) {
 
-    if((tiempoCd.getTiempo()+cdRayoAvanzadoPausa) > hCd || primerCast){
+    if((clockCd.getTiempo()+cdRayoAvanzadoPausa) > getCD() || primerCast){
         primerCast=false;
         draw=true;
         

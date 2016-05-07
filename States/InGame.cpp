@@ -147,12 +147,12 @@ void InGame::Update(sf::Time elapsedTime) {
             player->updateRayo(isShooting, rayoAdvancedCast, cdRayoBasicoPausa, cdRayoAvanzadoPausa);
         }
 
-            if((player->hRayoAvanzado->tiempoCd.getTiempo()+cdRayoAvanzadoPausa) > player->hRayoAvanzado->hCd && rayoAdvancedCast){
-                printf("FDS");
-        player->hRayoAvanzado->tiempoCd.restart();
-        player->hud->resetRayo2();
-        if(cdRayoAvanzadoPausa>0){
-            cdRayoAvanzadoPausa=0;
+            if((player->hRayoAvanzado->clockCd.getTiempo()+cdRayoAvanzadoPausa) > player->hRayoAvanzado->getCD() && rayoAdvancedCast){
+
+                player->hRayoAvanzado->clockCd.restart();
+                player->hud->resetRayo2();
+            if(cdRayoAvanzadoPausa>0){
+                cdRayoAvanzadoPausa=0;
             }
         }
         
