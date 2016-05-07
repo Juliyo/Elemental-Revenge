@@ -658,11 +658,12 @@ int Player::getVida() {
 
 int Player::restaVida(int a) {
 
-    if (invulnerable.getTiempo() > 0.5f && (vida - a) >= 0) {
+    if (invulnerable.getTiempo() > 0.25f && (vida - a) >= 0) {
         //std::cout <<"Resto vidas";
         vida -= a;
         hud->updateHud(vida);
         invulnerable.restart();
+        Render::GetSpriteAnimated().setColor(sf::Color(255,255,255,128));
     }
 
     if(vida==0){

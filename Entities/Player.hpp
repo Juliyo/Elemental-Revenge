@@ -157,7 +157,7 @@ private:
 
     sf::Texture texturaPlayer;
 
-    float velocity = 200.f;
+    float velocity = 150.f;
     int vida = 15;
     Reloj invulnerable;
     bool aux;

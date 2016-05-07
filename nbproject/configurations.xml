@@ -43,8 +43,6 @@
       <itemPath>Motor/Mapa.hpp</itemPath>
       <itemPath>Motor/Motor2D.cpp</itemPath>
       <itemPath>Motor/Motor2D.hpp</itemPath>
-      <itemPath>Motor/Music.cpp</itemPath>
-      <itemPath>Motor/Music.hpp</itemPath>
       <itemPath>Motor/Nodo.cpp</itemPath>
       <itemPath>Motor/Nodo.hpp</itemPath>
       <itemPath>Motor/PathFinding.cpp</itemPath>
@@ -53,10 +51,6 @@
       <itemPath>Motor/ProgressBar.hpp</itemPath>
       <itemPath>Motor/Reloj.cpp</itemPath>
       <itemPath>Motor/Reloj.hpp</itemPath>
-      <itemPath>Motor/Sound.cpp</itemPath>
-      <itemPath>Motor/Sound.hpp</itemPath>
-      <itemPath>Motor/SoundManager.cpp</itemPath>
-      <itemPath>Motor/SoundManager.hpp</itemPath>
       <itemPath>Motor/Sprite.cpp</itemPath>
       <itemPath>Motor/Sprite.hpp</itemPath>
       <itemPath>Motor/Text.cpp</itemPath>
@@ -69,10 +63,6 @@
     <logicalFolder name="f4" displayName="Otros" projectFiles="true">
       <itemPath>Otros/BoundingBox.cpp</itemPath>
       <itemPath>Otros/BoundingBox.h</itemPath>
-      <itemPath>Otros/ContactListener.cpp</itemPath>
-      <itemPath>Otros/ContactListener.hpp</itemPath>
-      <itemPath>Otros/Dummy.cpp</itemPath>
-      <itemPath>Otros/Dummy.hpp</itemPath>
       <itemPath>Otros/MapFactory.cpp</itemPath>
       <itemPath>Otros/MapFactory.hpp</itemPath>
       <itemPath>Otros/ParalellTask.cpp</itemPath>
@@ -115,10 +105,6 @@
       <itemPath>States/LoadingState.hpp</itemPath>
       <itemPath>States/Menu.cpp</itemPath>
       <itemPath>States/Menu.hpp</itemPath>
-      <itemPath>States/Muerte.cpp</itemPath>
-      <itemPath>States/Muerte.hpp</itemPath>
-      <itemPath>States/Pause.cpp</itemPath>
-      <itemPath>States/Pause.hpp</itemPath>
       <itemPath>States/State.cpp</itemPath>
       <itemPath>States/State.hpp</itemPath>
       <itemPath>States/StateFactory.cpp</itemPath>

@@ -25,28 +25,29 @@ Melee::~Melee() {
 
 void Melee::CreateBody() {
     physicWorld = InGame::Instance()->physicWorld;
-    
+
     //Creamos un objeto dinamico
     bodyDef = new b2BodyDef();
-    bodyDef->type = b2_dynamicBody; 
-    bodyDef->position.Set(tmx::SfToBoxFloat(entity->GetPosition().x),tmx::SfToBoxFloat(entity->GetPosition().y));
+    bodyDef->type = b2_dynamicBody;
+    bodyDef->position.Set(tmx::SfToBoxFloat(entity->GetPosition().x), tmx::SfToBoxFloat(entity->GetPosition().y));
     bodyDef->fixedRotation = true;
     //Añadimos el objeto al mundo
     body = physicWorld->CreateBody(bodyDef);
     body->SetUserData(this);
     //Se crea una shape, le damos las dimensiones pasandole la mitad del ancho y la mitad del alto
     //del BoundingBox
-    circleShape = new b2CircleShape();
-    circleShape->m_radius = tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f);
-    //shape->SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f));
+    //circleShape = new b2CircleShape();
+    //circleShape->m_radius = tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f);
+    shape = new b2PolygonShape();
+    shape->SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f));
     //Objeto que le da las propiedades fisicas al bodyDef
     fixtureDef = new b2FixtureDef();
-    fixtureDef->shape = circleShape;
+    fixtureDef->shape = shape;
     fixtureDef->density = 0.25f;
     fixtureDef->friction = 0.0f;
     fixtureDef->filter.categoryBits = Filtro::_entityCategory::ENEMIGO;
     fixtureDef->filter.maskBits = Filtro::_entityCategory::PLAYER | Filtro::_entityCategory::BOUNDARY | Filtro::_entityCategory::HECHIZO | Filtro::_entityCategory::ENEMIGO;
-    
+
     body->CreateFixture(fixtureDef);
 }
 
@@ -160,16 +161,16 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, flo
     walkingAnimationUp->addFrame(sf::IntRect(34, 0, 34, 32));
     walkingAnimationUp->addFrame(sf::IntRect(68, 0, 34, 32));
     walkingAnimationUp->addFrame(sf::IntRect(102, 0, 34, 32));
-    
+
     animationMuerte->setSpriteSheet("resources/Textures/ninjaMuerto.png");
-    animationMuerte->addFrame(sf::IntRect(0,0,43,32));
+    animationMuerte->addFrame(sf::IntRect(0, 0, 43, 32));
 
-
+    camino = NULL;
     currentAnimation = &animationMuerte;
     Render::InicializarAnimatedSprite(sf::seconds(0.075f), true, false);
     PhysicsState::SetPosition(posX, posY);
     PhysicsState::SetSpeed(speedX, speedY);
-    Enemigo::SetVelocity(100);
+    Enemigo::SetVelocity(250);
     Enemigo::SetVida(5);
     PhysicsState::SetMaxSpeed(maxSpeedX, maxSpeedY);
     Render::SetOriginAnimatedSprite(17, 16);
@@ -222,45 +223,57 @@ void Melee::FindPlayer(sf::Time elapsedTime) {
 
 void Melee::Update(const sf::Time elapsedTime, float x1, float x2, float multiplicador) {
     InGame* world = InGame::Instance();
-    sf::Vector2f movement(x1, x2);
-    if (inicio.getTiempo() > 15.0f) {
-        camino = world->pathfingind->buscaCamino(this->GetPosition(), world->player->GetPosition());
-        //camino = world->pathfingind->getCamino();
-        inicio.restart();
-        nodoactual = 0;
-        shapesDebug.clear();
-        InGame *world = InGame::Instance();
+    sf::Vector2f movement(0, 0);
+    if (inicio.getTiempo() > 0.1f) {
+        float x = world->player->GetPosition().x - this->GetPosition().x;
+        float y = world->player->GetPosition().y - this->GetPosition().y;
+        float dist = sqrt(pow(x, 2) + pow(y, 2));
+        if (dist < 800) {
+            camino = world->pathfingind->buscaCamino(this->GetPosition(), world->player->GetPosition());
+            inicio.restart();
+            nodoactual = 0;
+            shapesDebug.clear();
 
-        int height = world->level->map->_height;
-        int width = world->level->map->_width;
-        if (camino != NULL) {
-            for (int i = 0; i < camino->size(); i++) {
-                //std::cout << "Nodo " << i << " " << camino->at(i).x << "," << camino->at(i).y << "    Meta " << ceil(world->player->GetPosition().x/24) << "," << ceil(world->player->GetPosition().y/24) << std::endl;
-                sf::RectangleShape shape;
-                shape.setPosition(sf::Vector2f(camino->at(i).x*24, camino->at(i).y * 24));
-                float x = camino->at(i).x*width;
-                float y = camino->at(i).y * height;
-                float posjx = world->player->GetPosition().x;
-                float posjy = world->player->GetPosition().y;
-                float casillaX = camino->at(i).x;
-                float casillaY = camino->at(i).y;
-                
-                shape.setSize(sf::Vector2f(24, 24));
-                shape.setOrigin(12.f, 12.f);
-                shape.setFillColor(color);
-                shapesDebug.push_back(shape);
+            int height = world->level->map->_height;
+            int width = world->level->map->_width;
+            /*if (camino != NULL) {
+                for (int i = 0; i < camino->size(); i++) {
+                    //std::cout << "Nodo " << i << " " << camino->at(i).x << "," << camino->at(i).y << "    Meta " << ceil(world->player->GetPosition().x/24) << "," << ceil(world->player->GetPosition().y/24) << std::endl;
+                    sf::RectangleShape shape;
+                    shape.setPosition(sf::Vector2f(camino->at(i).x * 24, camino->at(i).y * 24));
+                    shape.setSize(sf::Vector2f(24, 24));
+                    shape.setOrigin(12.f, 12.f);
+                    shape.setFillColor(color);
+                    shapesDebug.push_back(shape);
+                }
+            }*/
+        }
+    }
+    if (camino != NULL) {
+        if (nodoactual < camino->size() - 2) {
+            //std::cout<<"Origen: "<<ceil(GetPosition().x/24)<<" , "<<ceil(GetPosition().x/24)<<std::endl;
+            //std::cout<<"Destino: "<<camino->at(nodoactual+1).y<<" , "<<camino->at(nodoactual+1).y<<std::endl;
+            if (round(GetPosition().x / 24) == camino->at(nodoactual + 1).x && round(GetPosition().y / 24) == camino->at(nodoactual + 1).y) {
+                nodoactual++;
+
+            } else if (round(GetPosition().x / 24) == camino->at(nodoactual + 2).x && round(GetPosition().y / 24) == camino->at(nodoactual + 2).y) {
+                nodoactual += 2;
+            } else {
+                float x = camino->at(nodoactual + 1).x - this->GetPosition().x / 24;
+                float y = camino->at(nodoactual + 1).y - this->GetPosition().y / 24;
+                movement.x = x;
+                movement.y = y;
             }
         }
 
-    }
-    //SetSpeed(movement);
 
-    //FindPlayer(elapsedTime);
-    //UpdateEnemigo(elapsedTime,mapa);
-    //PhysicsState::Update(elapsedTime);
+        //std::cout<<x<<" , "<<y<<std::endl;
+    }
+
+
+
     //Hay que setear al BodyDef el vector velocidad que hallamos calculado
-    body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(movement) * multiplicador * Enemigo::GetVelocity()));
-    PhysicsState::SetSpeed(tmx::BoxToSfVec(body->GetLinearVelocity()));
+    body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(movement) * Enemigo::GetVelocity()));
     // FindPlayer(elapsedTime);
     //Actualizamos la posicion del player con la posicion del bodyDef
     SetPosition(tmx::BoxToSfVec(body->GetPosition()));
@@ -285,23 +298,23 @@ void Melee::UpdateEnemyAnimation(int x, int y) {
     // 2 -> Abajo
     // 3 -> Derecha
     // 4 -> Izquierda
-/*
-    if (abs(y) > abs(x) && y <= 0) {
-        cuadrante = 1;
-        currentAnimation = &walkingAnimationUp;
-    } else if (abs(y) > abs(x) && y > 0) {
-        currentAnimation = &walkingAnimationDown;
-        cuadrante = 2;
-    } else if (abs(x) > abs(y) && x > 0) {
-        currentAnimation = &walkingAnimationRight;
-        cuadrante = 3;
-    } else {
-        currentAnimation = &walkingAnimationLeft;
-        cuadrante = 4;
-    }*/
-    
-    
-       if (x > 0) {
+    /*
+        if (abs(y) > abs(x) && y <= 0) {
+            cuadrante = 1;
+            currentAnimation = &walkingAnimationUp;
+        } else if (abs(y) > abs(x) && y > 0) {
+            currentAnimation = &walkingAnimationDown;
+            cuadrante = 2;
+        } else if (abs(x) > abs(y) && x > 0) {
+            currentAnimation = &walkingAnimationRight;
+            cuadrante = 3;
+        } else {
+            currentAnimation = &walkingAnimationLeft;
+            cuadrante = 4;
+        }*/
+
+
+    if (x > 0) {
         currentAnimation = &walkingAnimationRight;
         cuadrante = 3;
     } else {
@@ -322,8 +335,8 @@ void Melee::RestarVida(int a) {
     if ((GetVida() - a) >= 0) {
         SetVida(GetVida() - a);
     } else {
-            currentAnimation = &animationMuerte;
-            body->SetActive(false);
+        currentAnimation = &animationMuerte;
+        // body->SetActive(false);
         SetEstado(Estado::ID::Muerto);
     }
 }
