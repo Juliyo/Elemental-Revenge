@@ -60,7 +60,7 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, flo
     Render::InicializarAnimatedSprite(sf::seconds(0.075f), true, false);
     PhysicsState::SetPosition(posX, posY);
     PhysicsState::SetSpeed(speedX, speedY);
-    Enemigo::SetVelocity(250);
+    Enemigo::SetVelocity(100);
     Enemigo::SetVida(5);
     PhysicsState::SetMaxSpeed(maxSpeedX, maxSpeedY);
     Render::SetOriginAnimatedSprite(17, 16);
@@ -127,15 +127,22 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2) {
         float y = world->player->GetPosition().y - this->GetPosition().y;
         float dist = sqrt(pow(x, 2) + pow(y, 2));
         if (dist < 800) {
-            std::cout<<"Enemigo:"<<this->GetPosition().x/24<<","<<this->GetPosition().y/24<<"  Meta:"<<world->player->GetPosition().x/24<<","<<world->player->GetPosition().y/24<<std::endl;
-        posiblecamino = world->pathfingind->buscaCamino(this->GetPosition(), world->player->GetPosition());
-        if(bueno){
-            camino=posiblecamino;
-            nodoactual = 0;
-        }
-            
-        
-        bueno=!bueno;
+            //std::cout<<"Enemigo:"<<this->GetPosition().x/24<<","<<this->GetPosition().y/24<<"  Meta:"<<world->player->GetPosition().x/24<<","<<world->player->GetPosition().y/24<<std::endl;
+        //posiblecamino = world->pathfingind->buscaCamino(this->GetPosition(), world->player->GetPosition());
+            if(!encola){
+                    world->colaMelees->push_back(this);
+                    encola=true;
+                    //printf("METO ENEMIGO A LA COLA\n");
+                   // std::cout<<"cola size: "<<world->colaMelees->size()<<std::endl;
+            }
+
+//        if(bueno){
+//            camino=posiblecamino;
+//            nodoactual = 0;
+//        }
+//            
+//        
+//        bueno=!bueno;
         
             inicio.restart();
             
@@ -151,8 +158,9 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2) {
                     shape.setSize(sf::Vector2f(24, 24));
                     shape.setOrigin(12.f, 12.f);
                     shape.setFillColor(color);
+
                     shapesDebug.push_back(shape);
-                    std::cout<<"Camino        "<<i<<": "<<camino->at(i).x<<","<<camino->at(i).y<<std::endl;
+                    //std::cout<<"Camino        "<<i<<": "<<camino->at(i).x<<","<<camino->at(i).y<<std::endl;
                     //if(i<posiblecamino->size())
                     //std::cout<<"Psible Camino "<<i<<": "<<posiblecamino->at(i).x<<","<<posiblecamino->at(i).y<<std::endl;
                 }

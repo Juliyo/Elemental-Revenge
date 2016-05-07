@@ -35,77 +35,81 @@ public:
     InGame(const InGame& orig);
     virtual ~InGame();
 
-    void    run();
-    
-    
-   // void Init();
-   // void Clean();
+    void run();
+
+
+    // void Init();
+    // void Clean();
     void Inicializar();
 
     void LoadResources();
 
-    void                        Update(sf::Time elapsedTime);
-    void			Render(float interpolation, sf::Time elapsedTime);
-    
-    void                        HandleEvents(sf::Event& event);
-    void			handlePlayerInput(sf::Keyboard::Key key, bool isPressed);  // Maneja eventos
-    void			handleMouseInput(sf::Mouse::Button button, bool isPressed);  // Maneja eventos
-    
-    
-    void			renderForPause(float interpolation, sf::Time elapsedTime);
-    void			renderForMuerte(float interpolation, sf::Time elapsedTime);
-    
-    void                        SetPlayer(float x, float y);
-    
-    void                        updateView();
-    void                        updateViewForPause();
-    Level                       *level;
-    sf::Music                   *musica;
-    sf::Music                   *musica2;
-    
-    b2World                     *physicWorld;
-    PathFinding                 *pathfingind;
-    Player			*player;
-    
+    void Update(sf::Time elapsedTime);
+    void Render(float interpolation, sf::Time elapsedTime);
+
+    void HandleEvents(sf::Event& event);
+    void handlePlayerInput(sf::Keyboard::Key key, bool isPressed); // Maneja eventos
+    void handleMouseInput(sf::Mouse::Button button, bool isPressed); // Maneja eventos
+
+
+    void renderForPause(float interpolation, sf::Time elapsedTime);
+    void renderForMuerte(float interpolation, sf::Time elapsedTime);
+
+    void SetPlayer(float x, float y);
+
+    void updateView();
+    void updateViewForPause();
+
+    void primerosDeLaCola();
+    Level *level;
+    sf::Music *musica;
+    sf::Music *musica2;
+
+    b2World *physicWorld;
+    PathFinding *pathfingind;
+    Player *player;
+
     Video *video;
+    std::deque<Melee*> *colaMelees;
+
 private:
-    
-    
+
+
     //Melee			*melee;
-    std::vector<Melee*>         *melee;
-    
+    std::vector<Melee*> *melee;
+
     //Singletones
-   /* Pause                       *pause;
-    Muerte                      *muerte;*/
-    
+    /* Pause                       *pause;
+     Muerte                      *muerte;*/
+
     //Recursos
     sf::Texture texturaFondo;
     //sf::Sprite                  spriteFondo;
     Sprite spriteFondo;
     sf::Texture texturaRelleno;
     //sf::Sprite                  spriteRelleno;
-    Sprite                      spriteRelleno;
-    sf::Font                    contFonts;
-    sf::Texture                 mouseTexture;
-   // sf::Sprite                  mouseSprite;
-    Sprite                      mouseSprite;
+    Sprite spriteRelleno;
+    sf::Font contFonts;
+    sf::Texture mouseTexture;
+    // sf::Sprite                  mouseSprite;
+    Sprite mouseSprite;
     //Eventos
 
-    bool			isMovingUp;
-    bool			isMovingDown;
-    bool			isMovingRight;
-    bool			isMovingLeft;
-    
-    bool                        rayoAdvancedCast = false;
-    bool                        rayoBasicCast = false;
-    
-    bool                        noKeyWasPressed = true;
-    bool			firstTime=true;
-    bool			isInterpolating;
-    bool                        isShooting;
-    bool                        aux;
-    
-    int                         hActivo=0;
+    bool isMovingUp;
+    bool isMovingDown;
+    bool isMovingRight;
+    bool isMovingLeft;
+
+    bool rayoAdvancedCast = false;
+    bool rayoBasicCast = false;
+
+    bool noKeyWasPressed = true;
+    bool firstTime = true;
+    bool isInterpolating;
+    bool isShooting;
+    bool aux;
+
+    int hActivo = 0;
     //fuego
     bool fuegoBasicCast = false;
     bool fuegoAdvancedCast = false;
@@ -114,8 +118,8 @@ private:
     bool aguaBasicCast = false;
     //heal
 
-    bool                        isHealing = false;
-    int                         anterior=0;
+    bool isHealing = false;
+    int anterior = 0;
     static InGame* mInstance;
 };
 

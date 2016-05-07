@@ -47,6 +47,9 @@ InGame::InGame() {
     motor->SetView(1);*/
     level = new Level();
     
+    colaMelees= new std::deque<Melee*>();
+    
+    
     video = new Video("resources/Videos/nubes/nube", 30, 495, 500, 0, sf::Vector2f(0.8, 1.4), true, sf::Vector2f(1280, 720));
     /*musica = new sf::Music();
     musica->openFromFile("resources/Sounds/InGame.ogg");
@@ -69,12 +72,12 @@ InGame::~InGame() {
 void InGame::Inicializar() {
     player = new Player();
     player->SetRectangleColision(14,12,36,52);
-    player -> Inicializar(1000.f, -1000.f);
+    player -> Inicializar(1100.f, -1100.f);
     player->CreateDynamicBody();
     melee = new std::vector<Melee*>();
-    melee->reserve(1);
+    melee->reserve(12);
     
-    for(int i=0;i<1;i++){
+    for(int i=0;i<12;i++){
         melee->push_back(new Melee());
         melee->at(i)->Inicializar(1000.f + i*20, -1000.f + i*20,Tipo::ID::Rata,0.f,0.f);
         melee->at(i)->SetRectangleColision(0,0,37,39);
@@ -121,8 +124,8 @@ void InGame::Update(sf::Time elapsedTime) {
         physicWorld->Step(elapsedTime.asSeconds(),6,2);
         
         player -> Update(elapsedTime);
-
-        
+       // std::cout<<"Cambio de update"<<std::endl;
+        primerosDeLaCola();
         for (int i = 0; i < melee->size(); i++) {
             int x3 = player->getPosition().x - melee->at(i)->getPosition().x;
             int y3 = player->getPosition().y - melee->at(i)->getPosition().y;
@@ -504,5 +507,32 @@ void InGame::updateViewForPause() {
 
 void InGame::SetPlayer(float x, float y) {
     player->SetPosition(x, y);
+
+}
+
+void InGame::primerosDeLaCola() {
+    int ite = 0;
+    while (ite < 2) {
+        if(colaMelees->size()>0){
+                    colaMelees->at(0)->posiblecamino = pathfingind->buscaCamino(colaMelees->at(0)->GetPosition(), player->GetPosition());
+        if (colaMelees->at(0)->bueno) {
+            colaMelees->at(0)->camino = colaMelees->at(0)->posiblecamino;
+            colaMelees->at(0)->nodoactual = 0;
+        }
+
+
+        colaMelees->at(0)->bueno = !colaMelees->at(0)->bueno;
+        colaMelees->at(0)->encola=false;
+       // printf("BORRO ENEMIGO DE COLA\n");
+        //std::cout<<"Calculo la cola "<<std::endl;
+        colaMelees->pop_front();
+        //std::cout<<"cola size: "<<colaMelees->size()<<std::endl;
+        ite++;
+        }
+        else{
+            ite=10;
+        }
+
+    }
 
 }
