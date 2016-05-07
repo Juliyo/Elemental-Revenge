@@ -281,15 +281,17 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
         player -> StopAnimation();
     }
     player -> UpdateAnimation(elapsedTime);
-    if (StateStack::Instance()->currentState != States::ID::Pause) {
+    if (StateStack::Instance()->currentState != States::ID::Pause && StateStack::Instance()->currentState != States::ID::Muerte) {
         player -> DrawWithInterpolation(interpolation);
     } else {
 
         
         player -> DrawAnimationWithOut(player -> GetRenderPosition());
+            if (StateStack::Instance()->currentState == States::ID::Pause) {
+
         player -> StopAnimation();
 
-        
+            }
     }
 
     //**************************************FLASH**************************
