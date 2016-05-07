@@ -306,6 +306,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
 
         melee->at(i)->PlayAnimation(*melee->at(i)->currentAnimation);
         melee->at(i)->UpdateAnimation(elapsedTime);
+        melee->at(i)->CambiarVectorVelocidad();
         melee->at(i)->DrawWithInterpolation(interpolation);
 
 

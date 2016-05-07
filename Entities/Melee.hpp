@@ -43,6 +43,8 @@ public:
     void UpdateAnimation(sf::Time elapsedTime);
     void StopAnimation();
 
+    void CambiarVectorVelocidad();
+    
     bool empujado;
     bool empujado2;
     Reloj tiempoempujado;

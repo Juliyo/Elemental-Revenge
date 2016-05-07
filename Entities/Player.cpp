@@ -384,7 +384,7 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     SetPosition(posX, posY);
     SetSpeed(speedX, speedY);
     SetMaxSpeed(maxSpeedX, maxSpeedY);
-	SetOriginAnimatedSprite(32,40);
+    SetOriginAnimatedSprite(32,40);
     SetOriginColision(32, 40);
 
 }
