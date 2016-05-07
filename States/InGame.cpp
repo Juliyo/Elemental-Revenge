@@ -81,6 +81,7 @@ void InGame::Inicializar() {
     player->SetRectangleColision(14, 12, 36, 52);
     player -> Inicializar(1000.f, -1000.f);
     player->CreateBody();
+    player->SetEstado(Estado::ID::Vivo);
     melee = new std::vector<Melee*>();
     /*melee->reserve(30);
     for (int i = 0; i < 30; i++) {
@@ -175,8 +176,8 @@ void InGame::Update(sf::Time elapsedTime) {
 
     if(player->GetVida()==0){
     StateStack::Instance()->SetCurrentState(States::ID::Muerte);
-    
     }
+
 }
 
 void InGame::renderForMuerte(float interpolation, sf::Time elapsedTime) {
@@ -258,7 +259,9 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
             }
         } else {
             melee->at(i)->DrawAnimationWithOut(melee->at(i)->GetRenderPosition());
+                if(StateStack::Instance()->currentState == States::ID::Pause){
             melee->at(i)->StopAnimation();
+                }
         }
 
 
@@ -278,11 +281,15 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
         player -> StopAnimation();
     }
     player -> UpdateAnimation(elapsedTime);
-    if (StateStack::Instance()->currentState != States::ID::Pause && StateStack::Instance()->currentState != States::ID::Muerte) {
+    if (StateStack::Instance()->currentState != States::ID::Pause) {
         player -> DrawWithInterpolation(interpolation);
     } else {
+
+        
         player -> DrawAnimationWithOut(player -> GetRenderPosition());
         player -> StopAnimation();
+
+        
     }
 
     //**************************************FLASH**************************
@@ -309,6 +316,12 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
         motor->DrawMouse();
 
         motor->display();
+    }
+    
+    if(player->relojMuriendo.getTiempo()>0.7f && player->GetEstado()==Estado::ID::Muriendo){
+        
+        player->SetEstado(Estado::ID::Muerto);
+        player->currentAnimation=&player->Muerto;
     }
 
 }

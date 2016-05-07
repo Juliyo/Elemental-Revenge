@@ -204,6 +204,7 @@ void Menu::Render(float interpolation, sf::Time elapsedTime) {
     motor->draw(spriteRelleno);
     motor->SetView(3);
 
+    
     updateView();
     motor->draw(rectanguloFondo);
     motor->draw(spriteFondo);
@@ -246,6 +247,7 @@ void Menu::Render(float interpolation, sf::Time elapsedTime) {
     }
     motor->SetView(2);
     motor->SetView(3);
+    printf("POSICION RATON: %f, %f\n", mouseSprite->getPosition().x, mouseSprite->getPosition().y);
     motor->draw(mouseSprite);
     motor->display();
 }
@@ -360,11 +362,12 @@ void Menu::updateView() {
     sf::FloatRect viewBounds(motor->getCenterFromView(1) - motor->getSizeFromView(1) / 2.f, motor->getSizeFromView(1));
 
     sf::Vector2f position = motor->getMousePosition();
+        printf("POSICION RATON NO SPRITE: %f, %f\n", position.x, position.y);
+
     position.x = std::max(position.x, viewBounds.left);
     position.x = std::min(position.x, viewBounds.width + viewBounds.left);
     position.y = std::max(position.y, viewBounds.top);
     position.y = std::min(position.y, viewBounds.height + viewBounds.top);
-
     mouseSprite->setPosition(position.x, position.y);
 
     motor->setSizeForView(3, 640, 480);

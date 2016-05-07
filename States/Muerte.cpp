@@ -128,6 +128,7 @@ void Muerte::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
 }
 
 void Muerte::Update(sf::Time timeElapsed) {
+    
 
 }
 

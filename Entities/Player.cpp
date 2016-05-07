@@ -80,6 +80,9 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     healingAnimationRight = new Animation();
     healingAnimationUp = new Animation();
 
+    animationMuerte = new Animation();
+    Muerto = new Animation();
+    
 
     hRayoBasico = new hRayBasic();
     hRayoAvanzado = new hRayAdvanced();
@@ -402,6 +405,33 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     healingAnimationUp->addFrame(sf::IntRect(320, 0, 64, 64));
     healingAnimationUp->addFrame(sf::IntRect(384, 0, 64, 64));
 
+    animationMuerte->setSpriteSheet("resources/Textures/player.png");
+    animationMuerte->addFrame(sf::IntRect(0, 1280, 64, 64));
+    animationMuerte->addFrame(sf::IntRect(64, 1280, 64, 64));
+    animationMuerte->addFrame(sf::IntRect(128, 1280, 64, 64));
+    animationMuerte->addFrame(sf::IntRect(192, 1280, 64, 64));
+    animationMuerte->addFrame(sf::IntRect(256, 1280, 64, 64));
+    animationMuerte->addFrame(sf::IntRect(320, 1280, 64, 64));
+    animationMuerte->addFrame(sf::IntRect(320, 1280, 64, 64));
+    animationMuerte->addFrame(sf::IntRect(320, 1280, 64, 64));
+    animationMuerte->addFrame(sf::IntRect(320, 1280, 64, 64));
+    animationMuerte->addFrame(sf::IntRect(320, 1280, 64, 64));
+    animationMuerte->addFrame(sf::IntRect(320, 1280, 64, 64));
+    animationMuerte->addFrame(sf::IntRect(320, 1280, 64, 64));
+    animationMuerte->addFrame(sf::IntRect(320, 1280, 64, 64));
+    animationMuerte->addFrame(sf::IntRect(320, 1280, 64, 64));
+    animationMuerte->addFrame(sf::IntRect(320, 1280, 64, 64));
+    animationMuerte->addFrame(sf::IntRect(320, 1280, 64, 64));
+    animationMuerte->addFrame(sf::IntRect(320, 1280, 64, 64));
+    animationMuerte->addFrame(sf::IntRect(320, 1280, 64, 64));
+    animationMuerte->addFrame(sf::IntRect(320, 1280, 64, 64));
+
+    Muerto->setSpriteSheet("resources/Textures/player.png");
+    Muerto->addFrame(sf::IntRect(320, 1280, 64, 64));
+    Muerto->addFrame(sf::IntRect(320, 1280, 64, 64));
+
+
+    
     currentAnimation = &walkingAnimationDown;
 
     InicializarAnimatedSprite(sf::seconds(0.075f), true, false);
@@ -635,6 +665,11 @@ int Player::restaVida(int a) {
         invulnerable.restart();
     }
 
+    if(vida==0){
+        SetEstado(Estado::ID::Muriendo);
+        relojMuriendo.restart();
+        currentAnimation = &animationMuerte;
+    }
 
     return vida;
 }

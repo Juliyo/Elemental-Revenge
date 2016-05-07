@@ -128,6 +128,12 @@ public:
     Animation *healingAnimationLeft;
     Animation *healingAnimationRight;
     Animation *healingAnimationUp;
+    
+    Animation *animationMuerte;
+    Animation *Muerto;
+
+    Reloj relojMuriendo;
+    
     Hud *hud;
     int cuadrante;
 
