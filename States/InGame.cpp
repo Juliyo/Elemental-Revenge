@@ -259,9 +259,9 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
             }
         }
     }
-    for(int i=0;i < meleeShapes->size();i++){
+   /* for(int i=0;i < meleeShapes->size();i++){
         motor->draw(*meleeShapes->at(i));
-    }
+    }*/
     //****************************RAYO************************************
     player->renderRayo(elapsedTime, interpolation);
     //****************************FUEGO************************************
@@ -292,9 +292,6 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     player->renderFlash(elapsedTime, interpolation);
 
     
-    for (int i = 0; i < melee->size(); i++) {
-        
-    }
     /////////////////////////////////
     motor->SetView(2); //vista del HUD
     player -> hud->renderHud(elapsedTime);

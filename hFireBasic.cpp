@@ -22,7 +22,7 @@ void hFireBasic::CreateBody() {
     bodyDef.type = b2_dynamicBody; 
     bodyDef.position = (tmx::SfToBoxVec(entity->GetPosition()));
     bodyDef.fixedRotation = true;
-    bodyDef.bullet = true;
+    //bodyDef.bullet = true;
     //Añadimos el objeto al mundo
     body = physicWorld->CreateBody(&bodyDef);
     body->SetUserData(this);

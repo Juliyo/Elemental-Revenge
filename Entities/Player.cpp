@@ -755,6 +755,7 @@ void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time e
             movement2.x = (4 * cos(hFuegoBasico[aux].angleshot2) * 10.0f);
             movement2.y = (4 * sin(hFuegoBasico[aux].angleshot2) * 10.0f);
             hFuegoBasico[aux].Update2(movement2, elapsedTime);
+            shapesFuego->at(aux)->setPosition(tmx::BoxToSfVec(hFuegoBasico[aux].body->GetPosition()));
         } else if (hFuegoBasico[aux].GetEstado() == Estado::ID::Muriendo) {
             //Ademadas hacemos que su cuerpo no interactue
             hFuegoBasico[aux].body->SetActive(false);
@@ -975,9 +976,9 @@ void Player::renderFuego(sf::Time elapsedTime, float interpolation) {
         }
 
     }
-    for(int i=0;i < shapesFuego->size();i++){
+    /*for(int i=0;i < shapesFuego->size();i++){
         Motor2D::Instance()->draw(*shapesFuego->at(i));
-    }
+    }*/
     
     if (castFire.getTiempo() < 0.45f) {
         SetFrameTime(sf::seconds(0.075f));
