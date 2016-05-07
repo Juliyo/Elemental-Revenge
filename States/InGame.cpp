@@ -263,7 +263,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
                 int y2 = player->getPosition().y - melee->at(i)->getPosition().y;
                 //if (melee->at(i)->GetEstado() == Estado::ID::Vivo){
                 melee->at(i)->UpdateEnemyAnimation(x2, y2);
-                //}
+                melee->at(i)->CambiarVectorVelocidad();
                 melee->at(i)->DrawWithInterpolation(interpolation);
             } else {
                 melee->at(i)->DrawAnimationWithOut(melee->at(i)->GetRenderPosition());

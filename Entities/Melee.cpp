@@ -130,6 +130,31 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, flo
     empujado2 = false;
 }
 
+void Melee::CambiarVectorVelocidad() {
+    sf::Vector2f movement(0, 0);
+    if (camino != NULL) {
+        if (nodoactual < camino->size() - 2) {
+            //std::cout<<"Origen: "<<ceil(GetPosition().x/24)<<" , "<<ceil(GetPosition().x/24)<<std::endl;
+            //std::cout<<"Destino: "<<camino->at(nodoactual+1).y<<" , "<<camino->at(nodoactual+1).y<<std::endl;
+            if (round(GetPosition().x / 24) == camino->at(nodoactual + 1).x && round(GetPosition().y / 24) == camino->at(nodoactual + 1).y) {
+                nodoactual++;
+
+            } else if (round(GetPosition().x / 24) == camino->at(nodoactual + 2).x && round(GetPosition().y / 24) == camino->at(nodoactual + 2).y) {
+                nodoactual ++;
+            } else {
+                float x = camino->at(nodoactual + 1).x * 24 - this->GetPosition().x;
+                float y = camino->at(nodoactual + 1).y * 24 - this->GetPosition().y;
+                movement.x = x;
+                movement.y = y;
+            }
+        }
+        //Hay que setear al BodyDef el vector velocidad que hallamos calculado
+        body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(movement) * Enemigo::GetVelocity()));
+
+        //std::cout<<x<<" , "<<y<<std::endl;
+    }
+}
+
 void Melee::Update(const sf::Time elapsedTime, float x1, float x2, float multiplicador) {
     InGame* world = InGame::Instance();
     sf::Vector2f movement(0, 0);
@@ -201,7 +226,7 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2, float multipl
 
 
     //Hay que setear al BodyDef el vector velocidad que hallamos calculado
-    body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(movement) * Enemigo::GetVelocity()));
+    //body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(movement) * Enemigo::GetVelocity()));
     // FindPlayer(elapsedTime);
     //Actualizamos la posicion del player con la posicion del bodyDef
     SetPosition(tmx::BoxToSfVec(body->GetPosition()));

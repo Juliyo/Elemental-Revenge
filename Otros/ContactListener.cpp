@@ -47,11 +47,11 @@ void ContactListener::BeginContact(b2Contact* contact) {
            Player *p = static_cast<Player*> (fixtureB->GetBody()->GetUserData());
            p->restaVida(1);
         }else if(claseB == "hFireBasic"){
-            //Melee *m = static_cast<Melee*> (fixtureA->GetBody()->GetUserData());
-            //m->RestarVida(1);
+            Melee *m = static_cast<Melee*> (fixtureA->GetBody()->GetUserData());
+            m->RestarVida(1);
             
-           // hFireBasic *f = static_cast<hFireBasic*> (fixtureB->GetBody()->GetUserData());
-            //f->Colision();
+            hFireBasic *f = static_cast<hFireBasic*> (fixtureB->GetBody()->GetUserData());
+            f->Colision();
         }
     }else if(claseA == "hFireBasic"){
         if(claseB == "Melee"){
