@@ -139,7 +139,11 @@ void InGame::Update(sf::Time elapsedTime) {
             player->updateRayo(isShooting);
         }
         //*****************************FUEGO**********************************************  
-        player->updateFuego(fuegoBasicCast, fuegoAdvancedCast, elapsedTime);
+        player->updateFuego(fuegoBasicCast, fuegoAdvancedCast, elapsedTime, cdFuegoAvanzadoPausa);
+        if ((player->hFuegoAvanzado->clockCd.getTiempo()+cdFuegoAvanzadoPausa) > player->hFuegoAvanzado->getCD() && cdFuegoAvanzadoPausa>0) {
+
+            cdFuegoAvanzadoPausa=0;
+        }
         //********************************AGUA*****************************************
         player->updateAgua(aguaBasicCast, aguaAdvancedCast, elapsedTime);
         //********************************HUD*****************************************
@@ -266,6 +270,21 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
 
 
     }
+    
+
+    
+    if (StateStack::Instance()->currentState == States::ID::InGame && cambioInGame2Pausa==false) {
+        cambioInGame2Pausa=true;
+        player->hFuegoAvanzado->clockCd.restart();
+    }
+
+    
+    if (StateStack::Instance()->currentState == States::ID::Pause && cambioInGame2Pausa==true) {
+    cdFuegoAvanzadoPausa=player->hFuegoAvanzado->clockCd.getTiempo();
+    printf("CD ACTUAL FUEGO AVANZADO: %f\n", cdFuegoAvanzadoPausa);
+    cambioInGame2Pausa=false;
+    }
+    
     //****************************RAYO************************************
     player->renderRayo(elapsedTime, interpolation);
     //****************************FUEGO************************************

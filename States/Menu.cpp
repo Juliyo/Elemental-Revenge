@@ -247,7 +247,6 @@ void Menu::Render(float interpolation, sf::Time elapsedTime) {
     }
     motor->SetView(2);
     motor->SetView(3);
-    printf("POSICION RATON: %f, %f\n", mouseSprite->getPosition().x, mouseSprite->getPosition().y);
     motor->draw(mouseSprite);
     motor->display();
 }
@@ -362,7 +361,6 @@ void Menu::updateView() {
     sf::FloatRect viewBounds(motor->getCenterFromView(1) - motor->getSizeFromView(1) / 2.f, motor->getSizeFromView(1));
 
     sf::Vector2f position = motor->getMousePosition();
-        printf("POSICION RATON NO SPRITE: %f, %f\n", position.x, position.y);
 
     position.x = std::max(position.x, viewBounds.left);
     position.x = std::min(position.x, viewBounds.width + viewBounds.left);

@@ -192,7 +192,6 @@ void Pause::Inicializar() {
 
 void Pause::Update(sf::Time timeElapsed) {
     sf::Color color2(112, 112, 112);
-    printf(" Raton: %f,%f \n menupausa: %f,%f\n",motor->getMousePosition().x,motor->getMousePosition().y,menuPausa[2].getPosition().x,menuPausa[2].getPosition().y);
         if (motor->GetMouseSprite()->getGlobalBounds().intersects(menuPausa[0].getGlobalBounds())) {
             printf("entro en if 1");
             ratonSelecciona = true;

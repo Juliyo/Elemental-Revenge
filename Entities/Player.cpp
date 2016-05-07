@@ -739,7 +739,7 @@ void Player::updateRayo(bool isShooting) {
     }
 }
 
-void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time elapsedTime) {
+void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time elapsedTime, float cdFuegoAvanzadoPausa) {
 
     sf::Vector2f movement2(0.f, 0.f);
 
@@ -773,7 +773,7 @@ void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time e
 
     if (fuegoAdvancedCast) {
 
-        if (hFuegoAvanzado->clockCd.getTiempo() > hFuegoAvanzado->getCD() || hFuegoAvanzado->primerCast == true) {
+        if ((hFuegoAvanzado->clockCd.getTiempo()+cdFuegoAvanzadoPausa) > hFuegoAvanzado->getCD() || hFuegoAvanzado->primerCast == true) {
 
             hFuegoAvanzado->primerCast = false;
             hFuegoAvanzado->tiempoCast.restart();

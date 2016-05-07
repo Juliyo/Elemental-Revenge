@@ -50,7 +50,11 @@ public:
     
     void			renderForMuerte(float interpolation, sf::Time elapsedTime);
     
+    bool                        cambioInGame2Pausa=true;
    
+    
+    float                       cdFuegoAvanzadoPausa=0;
+    
     Level                       *level;
     Music                       *music;
     b2World                     *physicWorld;
