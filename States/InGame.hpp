@@ -48,7 +48,7 @@ public:
     void			handlePlayerInput(sf::Keyboard::Key key, bool isPressed);  // Maneja eventos
     void			handleMouseInput(sf::Mouse::Button button, bool isPressed);  // Maneja eventos
     
-    
+    void primerosDeLaCola();
     bool                        cambioInGame2Pausa=true;
    
     
@@ -69,6 +69,7 @@ public:
     std::vector<Melee*>         *melee;
     std::vector<sf::CircleShape*> *meleeShapes;
     PathFinding                 *pathfingind;
+    std::deque<Melee*>          *colaMelees;
 private:
     
     std::vector<bool>           *VectorBools;
