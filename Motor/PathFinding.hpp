@@ -38,6 +38,7 @@ public:
     void adicionarNodoAListaAbierta(Nodo *nodo);
 
     std::vector<sf::Vector2i>* buscaCamino(sf::Vector2f posenemigo, sf::Vector2f posjugador);
+        std::vector<sf::Vector2i>* buscaCamino2(sf::Vector2f posenemigo, sf::Vector2f posjugador);
 
     std::vector<Nodo*>* encontrarNodosAdyacentes(Nodo *nodoActual, Nodo *nodoFinal);
 private:
@@ -77,7 +78,7 @@ private:
     // int siguiente;
     int toTieso = 10;
     int toTorsio = 15;
-    int iteraciones=0;
+    
 
     //std::vector<Nodo*> nodosAbiertos;
 
