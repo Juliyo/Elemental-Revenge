@@ -14,6 +14,7 @@
 #ifndef HFIREADVANCED_HPP
 #define HFIREADVANCED_HPP
 #include "Hechizo.hpp"
+
 class hFireAdvanced : public Hechizo, public Collisionable {
 public:
     hFireAdvanced();

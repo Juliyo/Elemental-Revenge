@@ -56,9 +56,10 @@ void ContactListener::BeginContact(b2Contact* contact) {
     }else if(claseA == "hFireBasic"){
         if(claseB == "Melee"){
             Melee *m = static_cast<Melee*> (fixtureB->GetBody()->GetUserData());
-            m->RestarVida(1);
-            
             hFireBasic *f = static_cast<hFireBasic*> (fixtureA->GetBody()->GetUserData());
+            m->RestarVida(f->getDamage());
+            
+            
             f->Colision();
         }else if(claseB == ""){
             hFireBasic *f = static_cast<hFireBasic*> (fixtureA->GetBody()->GetUserData());
@@ -68,6 +69,12 @@ void ContactListener::BeginContact(b2Contact* contact) {
         if(claseB == "hFireBasic"){
             hFireBasic *f = static_cast<hFireBasic*> (fixtureB->GetBody()->GetUserData());
             f->Colision();
+        }
+    }else if(claseA == "hFireAdvanced"){
+        if(claseB == "Melee"){
+            Melee *m = static_cast<Melee*> (fixtureB->GetBody()->GetUserData());
+            hFireAdvanced *f = static_cast<hFireAdvanced*> (fixtureA->GetBody()->GetUserData());
+            m->RestarVida(f->getDamage());
         }
     }
 }

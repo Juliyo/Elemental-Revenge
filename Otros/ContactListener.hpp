@@ -15,7 +15,7 @@
 #define CONTACTLISTENER_HPP
 #include <Box2D/Box2D.h>
 
-class ContactListener : public b2ContactListener, public b2ContactFilter {
+class ContactListener : public b2ContactListener {
 public:
     ContactListener();
     ContactListener(const ContactListener& orig);
