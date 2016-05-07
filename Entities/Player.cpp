@@ -693,7 +693,7 @@ void Player::Colocar(sf::Vector2f NuevaPosicion) {
 
 }
 
-void Player::updateRayo(bool isShooting) {
+void Player::updateRayo(bool isShooting, bool RayoAvanzadoCast, float cdRayoBasicoPausa, float cdRayoAvanzadoPausa) {
 
 
     if (hRayoBasico->tiempoCast.getTiempo() > hRayoBasico->getCast() && aux == true) {
@@ -723,6 +723,10 @@ void Player::updateRayo(bool isShooting) {
         hRayoBasico->draw = false;
     }
     //avanzado
+    if(RayoAvanzadoCast){
+        hRayoAvanzado->cast(sf::Vector2f(getPosition()), hud, cdRayoAvanzadoPausa);
+
+    }
 
     if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && hRayoAvanzado->tiempoCast.getTiempo() > hRayoBasico->getCast()) {
         hRayoAvanzado->draw = false;
@@ -730,22 +734,21 @@ void Player::updateRayo(bool isShooting) {
     }
 }
 
-void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time elapsedTime, float cdFuegoAvanzadoPausa) {
+void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time elapsedTime, float cdFuegoAvanzadoPausa, float cdFuegoBasicoPausa) {
 
     sf::Vector2f movement2(0.f, 0.f);
 
     if (fuegoBasicCast) {
+
         if (contFuego == 14) {
             contFuego = 0;
         }
-        if (clockCDFire.getTiempo() > CDFire || primercastFuego == true) {
+        if ((clockCDFire.getTiempo()+cdFuegoBasicoPausa) > CDFire || primercastFuego == true) {
             primercastFuego = false;
-            clockCDFire.restart();
             hFuegoBasico[contFuego].SetEstado(Estado::ID::Vivo);
             hFuegoBasico[contFuego].body->SetActive(true);
             hFuegoBasico[contFuego].cast(sf::Vector2f(getPosition()));
             castFire.restart();
-            hud->resetFuego1();
         }
         contFuego++;
     }
@@ -767,8 +770,10 @@ void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time e
 
 
     if (fuegoAdvancedCast) {
+       /* 
         printf("CD FUEGO DESDE PAUSA: %f\n", cdFuegoAvanzadoPausa);
         printf("CD FUEGO CD NUEVO: %f\n", hFuegoAvanzado->clockCd.getTiempo());
+        */
 
         if ((hFuegoAvanzado->clockCd.getTiempo()+cdFuegoAvanzadoPausa) > hFuegoAvanzado->getCD() || hFuegoAvanzado->primerCast == true) {
 
@@ -791,10 +796,12 @@ void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time e
     }
 }
 
-void Player::updateAgua(bool aguaBasicCast, bool aguaAdvancedCast, sf::Time elapsedTime) {
+void Player::updateAgua(bool aguaBasicCast, bool aguaAdvancedCast, sf::Time elapsedTime, float cdAguaBasicoPausa,float cdAguaAvanzadoPausa) {
     sf::Vector2f movement = tmx::BoxToSfVec(body->GetLinearVelocity());
     if (aguaBasicCast) {
-        hAguaBasico->cast(sf::Vector2f(getPosition()), hud);
+        printf("CD AGUA DESDE PAUSA: %f\n", cdAguaBasicoPausa);
+        printf("CD AGUA CD NUEVO: %f\n", hAguaBasico->clockCd.getTiempo());
+        hAguaBasico->cast(sf::Vector2f(getPosition()), hud, cdAguaBasicoPausa);
     }
     if (hAguaBasico->tiempoCast.getTiempo() < 0.5f && hAguaBasico->dibujar == true) {
         hAguaBasico->Update(movement, elapsedTime, GetVelocity());
@@ -837,7 +844,7 @@ void Player::updateAgua(bool aguaBasicCast, bool aguaAdvancedCast, sf::Time elap
 
     sf::Vector2f movement4(0.f, 0.f);
     if (aguaAdvancedCast) { //onMouseButtonRealeased
-        hAguaAvanzado->cast(sf::Vector2f(getPosition()), hud);
+        hAguaAvanzado->cast(sf::Vector2f(getPosition()), hud, cdAguaAvanzadoPausa);
     }
     if (hAguaAvanzado->tiempoCast.getTiempo() < 2.5 && hAguaAvanzado->dibujar == true) {
         movement4.x = (40 * cos(hAguaAvanzado->angleshot2) * 11.0f);

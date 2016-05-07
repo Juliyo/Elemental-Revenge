@@ -75,12 +75,10 @@ std::string hWaterBasic::getClassName() {
 }
 
 
-void hWaterBasic::cast(sf::Vector2f posicion, Hud *hud) {
+void hWaterBasic::cast(sf::Vector2f posicion, Hud *hud, float cdAguaBasicoPausa) {
 
-    if (clockCd.getTiempo() > getCD() || primerCast == true) {
-        clockCd.restart();
+    if ((clockCd.getTiempo()+cdAguaBasicoPausa) > getCD() || primerCast == true) {
         primerCast = false;
-        hud->resetAgua1();
         float angleShot = Motor2D::Instance()->getAngleShot(posicion);
         SetAngle(angleshot2, angleShot);
         angleshot2 = angleShot;

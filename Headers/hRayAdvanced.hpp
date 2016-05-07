@@ -27,7 +27,7 @@ public:
     std::string getClassName() override;
     void CreateBody() override;
 
-    void cast(sf::Vector2f vector, Hud *hud);
+    void cast(sf::Vector2f vector, Hud *hud, float cdRayoAvanzadoPausa);
     void DrawWithOutInterpolation();
     Animation **currentAnimation;
     Animation *animationDurante;

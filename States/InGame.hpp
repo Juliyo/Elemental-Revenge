@@ -53,6 +53,13 @@ public:
    
     
     float                       cdFuegoAvanzadoPausa=0;
+    float                       cdFuegoBasicoPausa=0;    
+    float                       cdAguaAvanzadoPausa=0;
+    float                       cdAguaBasicoPausa=0;
+    float                       cdRayoBasicoPausa=0;
+    float                       cdRayoAvanzadoPausa=0;
+    
+    bool auxRayo;
     
     Level                       *level;
     Music                       *music;

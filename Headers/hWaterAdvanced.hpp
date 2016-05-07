@@ -27,7 +27,7 @@ public:
     std::string getClassName() override;
     void CreateBody() override;
 
-    void cast(sf::Vector2f pos, Hud *hud);
+    void cast(sf::Vector2f pos, Hud *hud, float cdAguaAvanzadoPausa);
     void UpdateHechizo(sf::Vector2f velocity, sf::Time elapsedTime);
     void setDibujar(bool NuevoDibujar);
     void DrawWithInterpolation( float interpolation);

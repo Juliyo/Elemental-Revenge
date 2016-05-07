@@ -21,7 +21,7 @@ hRayAdvanced::hRayAdvanced(): Collisionable((Entity*)this) {
     draw=false;
     animationDurante = new Animation();
     setCast(1);
-    setCD(20);
+    setCD(4);
     
     printf("llego a textura del rayo HRAYADVANCED\n");
     if(!hTexture.loadFromFile("resources/Textures/rayo.png")){
@@ -80,16 +80,15 @@ std::string hRayAdvanced::getClassName() {
 hRayAdvanced::~hRayAdvanced() {
 }
 
-void hRayAdvanced::cast(sf::Vector2f posicion, Hud *hud) {
+void hRayAdvanced::cast(sf::Vector2f posicion, Hud *hud, float cdRayoAvanzadoPausa) {
 
-    if(tiempoCd.getTiempo() > hCd || primerCast){
+    if((tiempoCd.getTiempo()+cdRayoAvanzadoPausa) > hCd || primerCast){
         primerCast=false;
         draw=true;
         
         hSprite.setPosition(Motor2D::Instance()->getMousePosition().x,Motor2D::Instance()->getMousePosition().y);
         tiempoCast.restart();
-        tiempoCd.restart();
-        hud->resetRayo2();
+
     }
 }
 void hRayAdvanced::DrawWithOutInterpolation(){

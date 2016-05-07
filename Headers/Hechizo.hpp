@@ -52,9 +52,10 @@ public:
     bool dibujar;
     bool primerCast=true;
     Reloj tiempoCd;
+    float hCd;
+
     
 protected:
-    float hCd;
     float hCast;
     float hDamage;
     int hLVL;

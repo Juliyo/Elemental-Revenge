@@ -144,10 +144,20 @@ void InGame::Update(sf::Time elapsedTime) {
 
         //**************************RAYO**********************
         if (hActivo == 1) {
-            player->updateRayo(isShooting);
+            player->updateRayo(isShooting, rayoAdvancedCast, cdRayoBasicoPausa, cdRayoAvanzadoPausa);
         }
+
+            if((player->hRayoAvanzado->tiempoCd.getTiempo()+cdRayoAvanzadoPausa) > player->hRayoAvanzado->hCd && rayoAdvancedCast){
+                printf("FDS");
+        player->hRayoAvanzado->tiempoCd.restart();
+        player->hud->resetRayo2();
+        if(cdRayoAvanzadoPausa>0){
+            cdRayoAvanzadoPausa=0;
+            }
+        }
+        
         //*****************************FUEGO**********************************************  
-        player->updateFuego(fuegoBasicCast, fuegoAdvancedCast, elapsedTime, cdFuegoAvanzadoPausa);
+        player->updateFuego(fuegoBasicCast, fuegoAdvancedCast, elapsedTime, cdFuegoAvanzadoPausa, cdFuegoBasicoPausa);
         if ((player->hFuegoAvanzado->clockCd.getTiempo()+cdFuegoAvanzadoPausa) > player->hFuegoAvanzado->getCD() && fuegoAdvancedCast) {
             player->hFuegoAvanzado->clockCd.restart();
             player->hud->resetFuego2();
@@ -155,8 +165,29 @@ void InGame::Update(sf::Time elapsedTime) {
             cdFuegoAvanzadoPausa=0;
             }
         }
+        if ((player->clockCDFire.getTiempo()+cdFuegoBasicoPausa) > player->CDFire && fuegoBasicCast) {
+            player->clockCDFire.restart();
+            player->hud->resetFuego1();
+            if(cdFuegoBasicoPausa>0){
+            cdFuegoBasicoPausa=0;
+            }
+        }
         //********************************AGUA*****************************************
-        player->updateAgua(aguaBasicCast, aguaAdvancedCast, elapsedTime);
+        player->updateAgua(aguaBasicCast, aguaAdvancedCast, elapsedTime, cdAguaBasicoPausa, cdAguaAvanzadoPausa );
+        if ((player->hAguaBasico->clockCd.getTiempo()+cdAguaBasicoPausa) > player->hAguaBasico->getCD() && aguaBasicCast) {
+            player->hAguaBasico->clockCd.restart();
+            player->hud->resetAgua1();
+            if(cdAguaBasicoPausa>0){
+            cdAguaBasicoPausa=0;
+            }
+        }
+        if ((player->hAguaAvanzado->clockCd.getTiempo()+cdAguaAvanzadoPausa) > player->hAguaAvanzado->getCD() && aguaAdvancedCast) {
+            player->hAguaAvanzado->clockCd.restart();
+            player->hud->resetAgua2();
+            if(cdAguaAvanzadoPausa>0){
+            cdAguaAvanzadoPausa=0;
+            }
+        }
         //********************************HUD*****************************************
         //player->hud->Update();
         //*********************HEAL**********************************
@@ -250,12 +281,23 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     if (StateStack::Instance()->currentState == States::ID::InGame && cambioInGame2Pausa==false) {
         cambioInGame2Pausa=true;
         player->hFuegoAvanzado->clockCd.restart();
+        player->clockCDFire.restart();
+        player->hAguaBasico->clockCd.restart();
+        player->hAguaAvanzado->clockCd.restart();
+        player->hRayoAvanzado->clockCd.restart();
+        player->hRayoBasico->clockCd.restart();
     }
 
     
     if (StateStack::Instance()->currentState == States::ID::Pause && cambioInGame2Pausa==true) {
-    cdFuegoAvanzadoPausa=player->hFuegoAvanzado->clockCd.getTiempo();
-    printf("CD ACTUAL FUEGO AVANZADO: %f\n", cdFuegoAvanzadoPausa);
+    cdFuegoAvanzadoPausa+=player->hFuegoAvanzado->clockCd.getTiempo();
+    cdFuegoBasicoPausa+=player->clockCDFire.getTiempo();
+    cdAguaAvanzadoPausa+=player->hAguaAvanzado->clockCd.getTiempo();
+    cdAguaBasicoPausa+=player->hAguaBasico->clockCd.getTiempo();    
+    cdRayoAvanzadoPausa+=player->hRayoAvanzado->clockCd.getTiempo();
+    cdRayoBasicoPausa+=player->hRayoBasico->clockCd.getTiempo();
+    
+
     cambioInGame2Pausa=false;
     }
     
@@ -409,9 +451,9 @@ void InGame::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
                 printf("Rayo basico \n");
                 isShooting = isPressed;
             }
-            if (button == sf::Mouse::Button::Right && isPressed == false) {
+            if (button == sf::Mouse::Button::Right) {
                 printf("Rayo avanzado \n");
-                player->hRayoAvanzado->cast(sf::Vector2f(player->getPosition()), player->hud);
+                rayoAdvancedCast=isPressed;
             }
             break;
         }

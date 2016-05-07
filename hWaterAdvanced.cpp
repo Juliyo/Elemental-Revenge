@@ -50,14 +50,12 @@ std::string hWaterAdvanced::getClassName() {
 hWaterAdvanced::~hWaterAdvanced() {
 }
 
-void hWaterAdvanced::cast(sf::Vector2f posicion, Hud *hud) {
+void hWaterAdvanced::cast(sf::Vector2f posicion, Hud *hud, float cdAguaAvanzadoPausa) {
 
-    if (clockCd.getTiempo() > hCd || primerCast == true) {
+    if ((clockCd.getTiempo()+cdAguaAvanzadoPausa) > hCd || primerCast == true) {
         primerCast = false;
-        clockCd.restart();
         tiempoInicio.restart();
         SetPosition(posicion);
-        hud->resetAgua2();
         float angleShot = Motor2D::Instance()->getAngleShot(posicion);
         angleshot2 = angleShot;
         

@@ -57,9 +57,9 @@ public:
     }
 
 
-    void updateRayo(bool isShooting);
-    void updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time elapsedTime, float cdFuegoAvanzadoPausa);
-    void updateAgua(bool aguaBasicCast, bool aguaAdvancedCast, sf::Time elapsedTime);
+    void updateRayo(bool isShooting, bool RayoAvanzadoCast, float cdRayoBasicoPausa,float cdRayoAvanzadoCast);
+    void updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time elapsedTime, float cdFuegoAvanzadoPausa, float cdFuegoBasicoPausa);
+    void updateAgua(bool aguaBasicCast, bool aguaAdvancedCast, sf::Time elapsedTime, float cdAguaAvanzadoPausa, float cdAguaBasicoPausa);
     void updateFlash();
     void renderRayo(sf::Time elapsedTime, float interpolation);
     void renderFuego(sf::Time elapsedTime, float interpolation);
@@ -154,6 +154,8 @@ public:
     Flash *flash;
     Flash *flash2;
     bool isFlashing = false;
+        bool aux;
+
 private:
 
     sf::Texture texturaPlayer;
@@ -161,7 +163,6 @@ private:
     float velocity = 150.f;
     int vida = 15;
     Reloj invulnerable;
-    bool aux;
 };
 
 #endif /* PLAYER_H */
