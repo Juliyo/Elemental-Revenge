@@ -789,11 +789,6 @@ void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time e
 
         }
     }
-
-    if (hFuegoAvanzado->lanzado == true) {
-
-        hFuegoAvanzado->cast(sf::Vector2f(getPosition()));
-    }
 }
 
 void Player::updateAgua(bool aguaBasicCast, bool aguaAdvancedCast, sf::Time elapsedTime, float cdAguaBasicoPausa,float cdAguaAvanzadoPausa) {

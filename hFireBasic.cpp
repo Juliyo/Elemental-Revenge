@@ -13,7 +13,8 @@
 
 #include "../Headers/hFireBasic.hpp"
 #include "../States/InGame.hpp"
-#include "../Motor/SoundManager.hpp"
+
+
 void hFireBasic::CreateBody() {
     physicWorld = InGame::Instance()->physicWorld;
     

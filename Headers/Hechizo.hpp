@@ -22,6 +22,7 @@
 #include "Animation.hpp"
 #include "../Otros/tmxHelper.hpp"
 #include "../Headers/Util.hpp"
+#include "../Motor/SoundManager.hpp"
 
 class Hechizo : public Entity {
 public:
