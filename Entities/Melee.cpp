@@ -21,105 +21,54 @@ Melee::Melee() : Collisionable((Entity*)this) {
 }
 
 Melee::~Melee() {
+    
+    currentAnimation = NULL;
+    walkingAnimationDown = NULL;
+    walkingAnimationLeft = NULL;
+    walkingAnimationRight = NULL;
+    walkingAnimationUp = NULL;
+    animationMuerte = NULL;
+    
 }
 
 void Melee::CreateBody() {
     physicWorld = InGame::Instance()->physicWorld;
 
     //Creamos un objeto dinamico
-    bodyDef = new b2BodyDef();
-    bodyDef->type = b2_dynamicBody;
-    bodyDef->position.Set(tmx::SfToBoxFloat(entity->GetPosition().x), tmx::SfToBoxFloat(entity->GetPosition().y));
-    bodyDef->fixedRotation = true;
+    //bodyDef = new b2BodyDef();
+    bodyDef.type = b2_dynamicBody;
+    bodyDef.position = (tmx::SfToBoxVec(entity->GetPosition()));
+    bodyDef.fixedRotation = true;
     //Añadimos el objeto al mundo
-    body = physicWorld->CreateBody(bodyDef);
+    body = physicWorld->CreateBody(&bodyDef);
     body->SetUserData(this);
     //Se crea una shape, le damos las dimensiones pasandole la mitad del ancho y la mitad del alto
     //del BoundingBox
     //circleShape = new b2CircleShape();
-    //circleShape->m_radius = tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f);
-    shape = new b2PolygonShape();
-    shape->SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f));
+    circleShape.m_radius = tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f);
+    sf::CircleShape *rs = new sf::CircleShape();
+    rs->setPosition(entity->GetPosition());
+    rs->setRadius(rectColision->GetWidth() / 2.f);
+    rs->setFillColor(sf::Color::Transparent);
+    rs->setOutlineColor(sf::Color::Red);
+    rs->setOrigin(rectColision->GetWidth() / 2.f,rectColision->GetHeight() / 2.f);
+    rs->setOutlineThickness(2);
+    InGame::Instance()->meleeShapes->push_back(rs);
+    //shape = new b2PolygonShape();
+    //shape.SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f));
     //Objeto que le da las propiedades fisicas al bodyDef
-    fixtureDef = new b2FixtureDef();
-    fixtureDef->shape = shape;
-    fixtureDef->density = 0.25f;
-    fixtureDef->friction = 0.0f;
-    fixtureDef->filter.categoryBits = Filtro::_entityCategory::ENEMIGO;
-    fixtureDef->filter.maskBits = Filtro::_entityCategory::PLAYER | Filtro::_entityCategory::BOUNDARY | Filtro::_entityCategory::HECHIZO | Filtro::_entityCategory::ENEMIGO;
+    //fixtureDef = new b2FixtureDef();
+    fixtureDef.shape = &circleShape;
+    fixtureDef.density = 0.25f;
+    fixtureDef.friction = 0.0f;
+    fixtureDef.filter.categoryBits = Filtro::_entityCategory::ENEMIGO;
+    fixtureDef.filter.maskBits = Filtro::_entityCategory::PLAYER | Filtro::_entityCategory::BOUNDARY | Filtro::_entityCategory::HECHIZO | Filtro::_entityCategory::ENEMIGO;
 
-    body->CreateFixture(fixtureDef);
+    body->CreateFixture(&fixtureDef);
 }
 
 std::string Melee::getClassName() {
     return "Melee";
-}
-
-bool Melee::HandleMapCollisions(const sf::Time& elapsedTime) {
-    InGame* world = InGame::Instance();
-    /* for (int i = 0; i < objetosCercanos.size(); i++) {
-         BoundingBox bb(objetosCercanos.at(i)->GetAABB());
-         if (CheckColision(bb, elapsedTime)) {
-             type = TypeOfColision(bb, elapsedTime);
-             OnColision(type);
-         }
-     }*/
-    int tileWidth = 24;
-    int tileHeight = 24;
-    int **colisiones = world->level->map->colisiones;
-    int height = world->level->map->_height;
-    int width = world->level->map->_width;
-    /*for(int i=0 ; i < width ; i++){
-        for(int j= 0;j<height; j++){
-            std::cout<<colisiones[i][j];
-        }
-        std::cout<<std::endl;
-    }*/
-
-    BoundingBox boundingPlayer = Collisionable::CalculateNextRect(elapsedTime);
-    sf::Vector2i indiceTopLeft = sf::Vector2i(boundingPlayer.GetTopLeft().x / 24, boundingPlayer.GetTopLeft().y / 24);
-    sf::Vector2i indiceTopRight = sf::Vector2i(boundingPlayer.GetTopRight().x / 24, boundingPlayer.GetTopRight().y / 24);
-    sf::Vector2i indiceBotLeft = sf::Vector2i(boundingPlayer.GetBottomLeft().x / 24, boundingPlayer.GetBottomLeft().y / 24);
-    sf::Vector2i indiceBotRight = sf::Vector2i(boundingPlayer.GetBottomRight().x / 24, boundingPlayer.GetBottomRight().y / 24);
-    /*std::cout<<"xTopright"<<indiceTopRight.x<<" , "<<"yTopright"<<indiceTopRight.y<<std::endl;
-    std::cout<<"Valor mapa"<<colisiones[indiceTopRight.x][indiceTopRight.y]<<std::endl;*/
-
-
-    if (indiceTopLeft.x >= 0 && indiceTopLeft.y >= 0 && indiceTopLeft.x < width && indiceTopLeft.y < height && colisiones[indiceTopLeft.y][indiceTopLeft.x] == 1) {
-        //std::cout<<"Colisiona esquina superior izquierda"<<std::endl;
-        BoundingBox boundingArbol(indiceTopLeft.x * 24, indiceTopLeft.y * 24, 24, 24);
-
-        //Hacer algo
-
-        PhysicsState::SetSpeed(0, 0);
-        return true;
-
-    } else if (indiceTopRight.x >= 0 && indiceTopRight.y >= 0 && indiceTopRight.x < width && indiceTopRight.y < height && colisiones[indiceTopRight.y][indiceTopRight.x] == 1) {
-        //std::cout<<"Colisiona esquina superior derecha"<<std::endl;
-        BoundingBox boundingArbol((indiceTopRight.x * 24), (indiceTopRight.y * 24), 24, 24);
-        //Hacer algo
-        PhysicsState::SetSpeed(0, 0);
-        //printf("Dali\n");
-        return true;
-
-
-    } else if (indiceBotLeft.x >= 0 && indiceBotLeft.y >= 0 && indiceBotLeft.x < width && indiceBotLeft.y < height && colisiones[indiceBotLeft.y][indiceBotLeft.x] == 1) {
-        //std::cout<<"Colisiona esquina inferior izquierda"<<std::endl;
-        BoundingBox boundingArbol((indiceBotLeft.x * 24), (indiceBotLeft.y * 24), 24, 24);
-
-        PhysicsState::SetSpeed(0, 0);
-        return true;
-
-
-    } else if (indiceBotRight.x >= 0 && indiceBotRight.y >= 0 && indiceBotRight.x < width && indiceBotRight.y < height && colisiones[indiceBotRight.y][indiceBotRight.x] == 1) {
-        //std::cout<<"Colisiona esquina inferior derecha"<<std::endl;
-        BoundingBox boundingArbol((indiceBotRight.x * 24), (indiceBotRight.y * 24), 24, 24);
-        PhysicsState::SetSpeed(0, 0);
-        return true;
-
-    }
-    return false;
-
 }
 
 void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, float speedY, float maxSpeedX, float maxSpeedY) {
@@ -181,46 +130,6 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, flo
     empujado2 = false;
 }
 
-void Melee::FindPlayer(sf::Time elapsedTime) {
-    InGame* world = InGame::Instance();
-    int tileWidth = 24;
-    int tileHeight = 24;
-    int **colisiones = world->level->map->colisiones;
-    int height = world->level->map->_height;
-    int width = world->level->map->_width;
-
-    BoundingBox boundingEnemigo = CalculateNextRect(elapsedTime);
-    sf::Vector2i indiceTopLeft = sf::Vector2i(boundingEnemigo.GetTopLeft().x / 24, boundingEnemigo.GetTopLeft().y / 24);
-    sf::Vector2i indiceTopRight = sf::Vector2i(boundingEnemigo.GetTopRight().x / 24, boundingEnemigo.GetTopRight().y / 24);
-    sf::Vector2i indiceBotLeft = sf::Vector2i(boundingEnemigo.GetBottomLeft().x / 24, boundingEnemigo.GetBottomLeft().y / 24);
-    sf::Vector2i indiceBotRight = sf::Vector2i(boundingEnemigo.GetBottomRight().x / 24, boundingEnemigo.GetBottomRight().y / 24);
-    /*std::cout<<"xTopright"<<indiceTopRight.x<<" , "<<"yTopright"<<indiceTopRight.y<<std::endl;
-    std::cout<<"Valor mapa"<<colisiones[indiceTopRight.x][indiceTopRight.y]<<std::endl;*/
-    if (indiceTopLeft.y >= 0 && indiceTopLeft.x >= 0 && indiceTopLeft.y < height && indiceTopLeft.x < width && colisiones[indiceTopLeft.y][indiceTopLeft.x] == 1) {
-        //std::cout<<"Colisiona esquina superior izquierda"<<std::endl;
-        BoundingBox boundingArbol(indiceTopLeft.x * 24, indiceTopLeft.y * 24, 24, 24);
-
-        //Hacer algo
-        // SetSpeed(0,0);
-    } else if (indiceTopRight.y >= 0 && indiceTopRight.x >= 0 && indiceTopRight.y < height && indiceTopRight.x < width && colisiones[indiceTopRight.y][indiceTopRight.x] == 1) {
-        //std::cout<<"Colisiona esquina superior derecha"<<std::endl;
-        BoundingBox boundingArbol((indiceTopRight.x * 24), (indiceTopRight.y * 24), 24, 24);
-        //Hacer algo
-        //SetSpeed(0,0);
-    } else if (indiceBotLeft.y >= 0 && indiceBotLeft.x >= 0 && indiceBotLeft.y < height && indiceBotLeft.x < width && colisiones[indiceBotLeft.y][indiceBotLeft.x] == 1) {
-        //std::cout<<"Colisiona esquina inferior izquierda"<<std::endl;
-        BoundingBox boundingArbol((indiceBotLeft.x * 24), (indiceBotLeft.y * 24), 24, 24);
-
-        //SetSpeed(0,0);
-    } else if (indiceBotRight.y >= 0 && indiceBotRight.x >= 0 && indiceBotRight.y < height && indiceBotRight.x < width && colisiones[indiceBotRight.y][indiceBotRight.x] == 1) {
-        //std::cout<<"Colisiona esquina inferior derecha"<<std::endl;
-        BoundingBox boundingArbol((indiceBotRight.x * 24), (indiceBotRight.y * 24), 24, 24);
-
-        //SetSpeed(0,0);
-    }
-
-}
-
 void Melee::Update(const sf::Time elapsedTime, float x1, float x2, float multiplicador) {
     InGame* world = InGame::Instance();
     sf::Vector2f movement(0, 0);
@@ -229,7 +138,7 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2, float multipl
         float y = world->player->GetPosition().y - this->GetPosition().y;
         float dist = sqrt(pow(x, 2) + pow(y, 2));
         if (dist < 800) {
-            camino = world->pathfingind->buscaCamino(this->GetPosition(), world->player->GetPosition());
+            //camino = world->pathfingind->buscaCamino(this->GetPosition(), world->player->GetPosition());
             inicio.restart();
             nodoactual = 0;
             shapesDebug.clear();
@@ -332,12 +241,16 @@ void Melee::StopAnimation() {
 }
 
 void Melee::RestarVida(int a) {
+    int vida = GetVida();
     if ((GetVida() - a) >= 0) {
-        SetVida(GetVida() - a);
+        //if (invulnerable.getTiempo() > 5.f) {
+            SetVida(GetVida() - a);
+            invulnerable.restart();
+        //}
     } else {
         currentAnimation = &animationMuerte;
         // body->SetActive(false);
-        SetEstado(Estado::ID::Muerto);
+        SetEstado(Estado::ID::Muriendo);
     }
 }
 

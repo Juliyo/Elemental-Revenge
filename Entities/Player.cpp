@@ -7,30 +7,30 @@ void Player::CreateBody() {
     physicWorld = InGame::Instance()->physicWorld;
 
     //Creamos un objeto dinamico
-    bodyDef = new b2BodyDef();
-    bodyDef->type = b2_dynamicBody;
-    bodyDef->position.Set(tmx::SfToBoxFloat(entity->GetPosition().x), tmx::SfToBoxFloat(entity->GetPosition().y));
-    bodyDef->fixedRotation = true;
+    //bodyDef = new b2BodyDef();
+    bodyDef.type = b2_dynamicBody;
+    bodyDef.position.Set(tmx::SfToBoxFloat(entity->GetPosition().x), tmx::SfToBoxFloat(entity->GetPosition().y));
+    bodyDef.fixedRotation = true;
     //Añadimos el objeto al mundo
-    body = physicWorld->CreateBody(bodyDef);
+    body = physicWorld->CreateBody(&bodyDef);
     body->SetUserData(this);
     //Se crea una shape, le damos las dimensiones pasandole la mitad del ancho y la mitad del alto
     //del BoundingBox
-    shape = new b2PolygonShape();
-    shape->SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f));
+    //shape = new b2PolygonShape();
+    shape.SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f));
     //Objeto que le da las propiedades fisicas al bodyDef
-    fixtureDef = new b2FixtureDef();
-    fixtureDef->shape = shape;
-    fixtureDef->density = 1.0f;
-    fixtureDef->friction = 0.0f;
+    //fixtureDef = new b2FixtureDef();
+    fixtureDef.shape = &shape;
+    fixtureDef.density = 1.0f;
+    fixtureDef.friction = 0.0f;
     //fixtureDef->filter.groupIndex = Filtro::_entityCategory::PLAYER;
-    fixtureDef->filter.categoryBits = Filtro::_entityCategory::PLAYER;
-    fixtureDef->filter.maskBits = Filtro::_entityCategory::ENEMIGO | Filtro::_entityCategory::BOUNDARY;
-    body->CreateFixture(fixtureDef);
+    fixtureDef.filter.categoryBits = Filtro::_entityCategory::PLAYER;
+    fixtureDef.filter.maskBits = Filtro::_entityCategory::ENEMIGO | Filtro::_entityCategory::BOUNDARY;
+    body->CreateFixture(&fixtureDef);
 }
 
 Player::Player() : Collisionable((Entity*)this) {
-
+    shapesFuego = new std::vector<sf::CircleShape*>();
 }
 
 Player::~Player() {
@@ -364,15 +364,6 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     healingAnimationDown->addFrame(sf::IntRect(256, 128, 64, 64));
     healingAnimationDown->addFrame(sf::IntRect(320, 128, 64, 64));
     healingAnimationDown->addFrame(sf::IntRect(384, 128, 64, 64));
-
-
-
-
-
-
-
-
-
 
     healingAnimationLeft->setSpriteSheet("resources/Textures/player.png");
     healingAnimationLeft->addFrame(sf::IntRect(384, 64, 64, 64));
@@ -751,6 +742,7 @@ void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time e
             primercastFuego = false;
             clockCDFire.restart();
             hFuegoBasico[contFuego].SetEstado(Estado::ID::Vivo);
+            hFuegoBasico[contFuego].body->SetActive(true);
             hFuegoBasico[contFuego].cast(sf::Vector2f(getPosition()));
             castFire.restart();
             hud->resetFuego1();
@@ -764,6 +756,8 @@ void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time e
             movement2.y = (4 * sin(hFuegoBasico[aux].angleshot2) * 10.0f);
             hFuegoBasico[aux].Update2(movement2, elapsedTime);
         } else if (hFuegoBasico[aux].GetEstado() == Estado::ID::Muriendo) {
+            //Ademadas hacemos que su cuerpo no interactue
+            hFuegoBasico[aux].body->SetActive(false);
             //Si la bala esta desapareciendo comprobamos hasta que desaparezca
             hFuegoBasico[aux].ComprobarSiMuerto();
         }
@@ -981,6 +975,10 @@ void Player::renderFuego(sf::Time elapsedTime, float interpolation) {
         }
 
     }
+    for(int i=0;i < shapesFuego->size();i++){
+        Motor2D::Instance()->draw(*shapesFuego->at(i));
+    }
+    
     if (castFire.getTiempo() < 0.45f) {
         SetFrameTime(sf::seconds(0.075f));
         //switch

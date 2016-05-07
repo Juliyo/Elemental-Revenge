@@ -18,28 +18,36 @@ void hFireBasic::CreateBody() {
     physicWorld = InGame::Instance()->physicWorld;
     
     //Creamos un objeto dinamico
-    bodyDef = new b2BodyDef();
-    bodyDef->type = b2_dynamicBody; 
-    bodyDef->position.Set(tmx::SfToBoxFloat(entity->GetPosition().x),tmx::SfToBoxFloat(entity->GetPosition().y));
-    bodyDef->fixedRotation = true;
-    bodyDef->bullet = true;
+    //bodyDef = new b2BodyDef();
+    bodyDef.type = b2_dynamicBody; 
+    bodyDef.position = (tmx::SfToBoxVec(entity->GetPosition()));
+    bodyDef.fixedRotation = true;
+    bodyDef.bullet = true;
     //Añadimos el objeto al mundo
-    body = physicWorld->CreateBody(bodyDef);
+    body = physicWorld->CreateBody(&bodyDef);
     body->SetUserData(this);
     //Se crea una shape, le damos las dimensiones pasandole la mitad del ancho y la mitad del alto
     //del BoundingBox
     //circleShape = new b2CircleShape();
-    //circleShape->m_radius = tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f);
-    shape = new b2PolygonShape();
-    shape->SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f));
+    circleShape.m_radius = tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f);
+    sf::CircleShape *rs = new sf::CircleShape();
+    rs->setPosition(entity->GetPosition());
+    rs->setRadius(rectColision->GetWidth() / 2.f);
+    rs->setFillColor(sf::Color::Transparent);
+    rs->setOutlineColor(sf::Color::Red);
+    rs->setOrigin(rectColision->GetWidth() / 2.f,rectColision->GetHeight() / 2.f);
+    rs->setOutlineThickness(2);
+    InGame::Instance()->player->shapesFuego->push_back(rs);
+    //shape = new b2PolygonShape();
+    //shape.SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f));
     //Objeto que le da las propiedades fisicas al bodyDef
-    fixtureDef = new b2FixtureDef();
-    fixtureDef->shape = shape;
-    fixtureDef->density = 1.0f;
-    fixtureDef->friction = 1.0f;
-    fixtureDef->filter.categoryBits = Filtro::_entityCategory::HECHIZO;
-    fixtureDef->filter.maskBits = Filtro::_entityCategory::ENEMIGO | Filtro::_entityCategory::BOUNDARY;
-    body->CreateFixture(fixtureDef);
+    //fixtureDef = new b2FixtureDef();
+    fixtureDef.shape = &circleShape;
+    fixtureDef.density = 1.0f;
+    fixtureDef.friction = 1.0f;
+    fixtureDef.filter.categoryBits = Filtro::_entityCategory::HECHIZO;
+    fixtureDef.filter.maskBits = Filtro::_entityCategory::ENEMIGO | Filtro::_entityCategory::BOUNDARY;
+    body->CreateFixture(&fixtureDef);
 }
 
 
@@ -94,11 +102,12 @@ hFireBasic::hFireBasic(): Collisionable((Entity*)this) {
     
     currentAnimation = &animationInicio;
     
+    
     Render::InicializarAnimatedSprite(sf::seconds(0.02f), true, false);
     Render::SetOriginAnimatedSprite(76, 74);
+    SetOriginColision(14,15);
     Render::SetScaleAnimation(0.2, 0.2);
     SetRectangleColision(0,0,30,29);
-    SetOriginColision(14,15);
     CreateBody();
     SetEstado(Estado::ID::Vivo);
     explosionTiempo = new Reloj();
@@ -116,7 +125,7 @@ void hFireBasic::cast(sf::Vector2f posicion) {
     SoundManager *sonido = SoundManager::Instance();
     sonido->play("resources/Sounds/Pistola.wav");
     currentAnimation = &animationInicio;
-    Render::SetOriginAnimation(0, 73);
+    Render::SetOriginAnimatedSprite(76, 74);
     Render::SetFrameTime(sf::seconds(0.02f));
     Render::SetScaleAnimation(0.2, 0.2);
     SetPosition(posicion);
@@ -145,10 +154,10 @@ void hFireBasic::Colision() {
         //body->SetTransform(tmx::SfToBoxVec(sf::Vector2f(0,0)),0);
         explosionTiempo->restart();
         currentAnimation = &animationFin;
-        Render::SetOriginAnimation(86, 79);
+        Render::SetOriginAnimatedSprite(86, 79);
         Render::SetFrameTime(sf::seconds(0.15f));
         Render::SetLooped(false);
-        Render::SetScaleAnimation(0.6, 0.6);
+        Render::SetScaleAnimation(0.4, 0.4);
         SetEstado(Estado::ID::Muriendo);
     }
     

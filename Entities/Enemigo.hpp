@@ -56,7 +56,8 @@ protected:
         this->velocity = velocity;
     }
     protected:
-        int Estado = 0;
+        Reloj invulnerable;
+        
     private:
         int vida;
         float damage;

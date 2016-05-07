@@ -30,11 +30,11 @@ InGame* InGame::Instance() {
 
 InGame::InGame() {
     motor = Motor2D::Instance();
-    music= Music::Instance();
+    music = Music::Instance();
     music->Load(MUSICA::ID::Mapa1);
     music->Play();
 
-    pathfingind=new PathFinding();
+    pathfingind = new PathFinding();
     SoundManager::Instance()->load();
     /* pause = Pause::Instance();
      muerte = Muerte::Instance();*/
@@ -78,11 +78,12 @@ InGame::~InGame() {
 
 void InGame::Inicializar() {
     player = new Player();
-    player->SetRectangleColision(14, 12, 36, 52);
     player -> Inicializar(1000.f, -1000.f);
+    player->SetRectangleColision(14, 12, 36, 52);
     player->CreateBody();
     player->SetEstado(Estado::ID::Vivo);
     melee = new std::vector<Melee*>();
+    meleeShapes = new std::vector<sf::CircleShape*>();
     /*melee->reserve(30);
     for (int i = 0; i < 30; i++) {
 
@@ -91,7 +92,7 @@ void InGame::Inicializar() {
         melee->at(i)->SetRectangleColision(0, 0, 37, 39);
         melee->at(i)->CreateBody();
     }*/
-    
+
 
     try {
         spriteFondo.setTexture("resources/Textures/grasstext.png");
@@ -125,14 +126,21 @@ void InGame::Update(sf::Time elapsedTime) {
 
         player -> Update(elapsedTime);
 
-        for (int i = 0; i < melee->size(); i++) {
-            int x3 = player->getPosition().x - melee->at(i)->getPosition().x;
-            int y3 = player->getPosition().y - melee->at(i)->getPosition().y;
-            if (melee->at(i)->GetEstado() == Estado::ID::Vivo) {
-                melee->at(i)->Update(elapsedTime, x3, y3, 1);
+        //**************************ENEMIGOS**********************//
+        for (std::vector<Melee*>::iterator it = melee->begin();it != melee->end(); ++it) {
+            int x3 = player->getPosition().x - (*it)->getPosition().x;
+            int y3 = player->getPosition().y - (*it)->getPosition().y;
+            if ((*it)->GetEstado() == Estado::ID::Vivo) {
+                (*it)->Update(elapsedTime, x3, y3, 1);
+            }else if((*it)->GetEstado() == Estado::ID::Muriendo){
+                //Si acaba de morir lo borramos del mundo y lo matamos
+                (*it)->body->GetWorld()->DestroyBody((*it)->body);
+                (*it)->SetEstado(Estado::ID::Muerto);
             }
         }
-
+        for(int i=0; i<meleeShapes->size();i++){
+            meleeShapes->at(i)->setPosition(tmx::BoxToSfVec(melee->at(i)->body->GetPosition()));
+        }
 
         //**************************RAYO**********************
         if (hActivo == 1) {
@@ -145,7 +153,6 @@ void InGame::Update(sf::Time elapsedTime) {
         //********************************HUD*****************************************
         //player->hud->Update();
         //*********************HEAL**********************************
-
         if (isHealing) {
             player->heal();
         } else {
@@ -174,8 +181,8 @@ void InGame::Update(sf::Time elapsedTime) {
 
     firstTime = false;
 
-    if(player->GetVida()==0){
-    StateStack::Instance()->SetCurrentState(States::ID::Muerte);
+    if (player->GetVida() == 0) {
+        StateStack::Instance()->SetCurrentState(States::ID::Muerte);
     }
 
 }
@@ -229,42 +236,31 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     //Renderiza el mapa
     level->render();
 
+    //****************************RENDER ENEMIGOS************************************//
     for (int i = 0; i < melee->size(); i++) {
-        if (melee->at(i)->getSpeed().x == 0 && melee->at(i)->getSpeed().y == 0) {
-            switch (melee->at(i)->cuadrante) {
-                case 1:
-                    // melee[i].currentAnimation = &melee->idleAnimationRight;
-                    break;
-                case 2:
-                    //player->currentAnimation = &player->idleAnimationLeft;
-                    break;
-                case 3:
-                    //player->currentAnimation = &player->idleAnimationRight;
-                    break;
-                case 4:
-                    //player->currentAnimation = &player->idleAnimationLeft;
-                    break;
-            }
-        }
         melee->at(i)->PlayAnimation(*melee->at(i)->currentAnimation);
         melee->at(i)->UpdateAnimation(elapsedTime);
-    if (StateStack::Instance()->currentState != States::ID::Pause && StateStack::Instance()->currentState != States::ID::Muerte) {
-
-            if(melee->at(i)->GetEstado()!=Estado::ID::Muerto){
-            melee->at(i)->DrawWithInterpolation(interpolation);
+        //Si estamos en Pause o Muerte render con interpolacion
+        if (StateStack::Instance()->currentState != States::ID::Pause && StateStack::Instance()->currentState != States::ID::Muerte) {
+            if (melee->at(i)->GetEstado() != Estado::ID::Muerto) {
+                int x2 = player->getPosition().x - melee->at(i)->getPosition().x;
+                int y2 = player->getPosition().y - melee->at(i)->getPosition().y;
+                //if (melee->at(i)->GetEstado() == Estado::ID::Vivo){
+                melee->at(i)->UpdateEnemyAnimation(x2, y2);
+                //}
+                melee->at(i)->DrawWithInterpolation(interpolation);
+            } else {
+                melee->at(i)->DrawAnimationWithOut(melee->at(i)->GetRenderPosition());
             }
-            else{
+        } else {    //Si no renderizamos sin interpolacion
             melee->at(i)->DrawAnimationWithOut(melee->at(i)->GetRenderPosition());
-            //melee->at(i)->StopAnimation();
+            if (StateStack::Instance()->currentState == States::ID::Pause) {
+                melee->at(i)->StopAnimation();
             }
-        } else {
-            melee->at(i)->DrawAnimationWithOut(melee->at(i)->GetRenderPosition());
-                if(StateStack::Instance()->currentState == States::ID::Pause){
-            melee->at(i)->StopAnimation();
-                }
         }
-
-
+    }
+    for(int i=0;i < meleeShapes->size();i++){
+        motor->draw(*meleeShapes->at(i));
     }
     //****************************RAYO************************************
     player->renderRayo(elapsedTime, interpolation);
@@ -284,25 +280,20 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     if (StateStack::Instance()->currentState != States::ID::Pause && StateStack::Instance()->currentState != States::ID::Muerte) {
         player -> DrawWithInterpolation(interpolation);
     } else {
-
-        
         player -> DrawAnimationWithOut(player -> GetRenderPosition());
-            if (StateStack::Instance()->currentState == States::ID::Pause) {
+        if (StateStack::Instance()->currentState == States::ID::Pause) {
 
-        player -> StopAnimation();
+            player -> StopAnimation();
 
-            }
+        }
     }
 
     //**************************************FLASH**************************
     player->renderFlash(elapsedTime, interpolation);
 
-    //****************************RENDER ENEMIGOS************************************//
+    
     for (int i = 0; i < melee->size(); i++) {
-        int x2 = player->getPosition().x - melee->at(i)->getPosition().x;
-        int y2 = player->getPosition().y - melee->at(i)->getPosition().y;
-        if(melee->at(i)->GetEstado()==Estado::ID::Vivo)
-        melee->at(i)->UpdateEnemyAnimation(x2, y2);
+        
     }
     /////////////////////////////////
     motor->SetView(2); //vista del HUD
@@ -319,11 +310,11 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
 
         motor->display();
     }
-    
-    if(player->relojMuriendo.getTiempo()>0.7f && player->GetEstado()==Estado::ID::Muriendo){
-        
+
+    if (player->relojMuriendo.getTiempo() > 0.7f && player->GetEstado() == Estado::ID::Muriendo) {
+
         player->SetEstado(Estado::ID::Muerto);
-        player->currentAnimation=&player->Muerto;
+        player->currentAnimation = &player->Muerto;
     }
 
 }

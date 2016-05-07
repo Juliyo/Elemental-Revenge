@@ -270,12 +270,12 @@ std::vector<sf::Vector2i>* PathFinding::buscaCamino(sf::Vector2f posenemigo, sf:
             //std::cout<<"tam nodos adyaccentes "<<nodosAdyacentes->size()<<"Num de iteracion= "<<i<<std::endl;
             if (std::find(listaCerrada.begin(), listaCerrada.end(), nodosAdyacentes->at(i)->GetCasilla()) == listaCerrada.end()) {
                 
-                //if (std::find(listaAbierta.begin(), listaAbierta.end(),nodosAdyacentes->at(i))) { //si esta en la lista entra en el if
-//                if (BuscarNodoEnListaAbierta(nodosAdyacentes->at(i))) {
-//                    if (nodosAdyacentes->at(i)->costoG >= nodoActual->costoG) {
-//                        continue;
-//                    }
-//                }
+               // if (std::find(listaAbierta.begin(), listaAbierta.end(),nodosAdyacentes->at(i))) { //si esta en la lista entra en el if
+                if (BuscarNodoEnListaAbierta(nodosAdyacentes->at(i))) {
+                    if (nodosAdyacentes->at(i)->costoG >= nodoActual->costoG) {
+                        continue;
+                    }
+                }
 //                for(int j=0;j<listaAbierta.size();j++){
 //                    if(listaAbierta.at(j)->operator ==(*nodosAdyacentes->at(i))){
 //                        continue;

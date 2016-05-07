@@ -317,10 +317,6 @@
       </item>
       <item path="Otros/ContactListener.hpp" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="Otros/Dummy.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Otros/Dummy.hpp" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Otros/MapFactory.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Otros/MapFactory.hpp" ex="false" tool="3" flavor2="0">
@@ -559,10 +555,6 @@
       <item path="Otros/ContactListener.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Otros/ContactListener.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Otros/Dummy.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="Otros/Dummy.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Otros/MapFactory.cpp" ex="false" tool="1" flavor2="0">
       </item>

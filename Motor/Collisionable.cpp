@@ -33,28 +33,28 @@ void Collisionable::CreateDynamicBody() {
     physicWorld = InGame::Instance()->physicWorld;
     
     //Creamos un objeto dinamico
-    bodyDef = new b2BodyDef();
-    bodyDef->type = b2_dynamicBody; 
-    bodyDef->position.Set(tmx::SfToBoxFloat(entity->GetPosition().x),tmx::SfToBoxFloat(entity->GetPosition().y));
-    bodyDef->fixedRotation = true;
+    //bodyDef = new b2BodyDef();
+    bodyDef.type = b2_dynamicBody; 
+    bodyDef.position.Set(tmx::SfToBoxFloat(entity->GetPosition().x),tmx::SfToBoxFloat(entity->GetPosition().y));
+    bodyDef.fixedRotation = true;
     //Añadimos el objeto al mundo
-    body = physicWorld->CreateBody(bodyDef);
+    body = physicWorld->CreateBody(&bodyDef);
     
     //Se crea una shape, le damos las dimensiones pasandole la mitad del ancho y la mitad del alto
     //del BoundingBox
-    shape = new b2PolygonShape();
-    shape->SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f));
+    //shape = new b2PolygonShape();
+    shape.SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f));
     //Objeto que le da las propiedades fisicas al bodyDef
-    fixtureDef = new b2FixtureDef();
-    fixtureDef->shape = shape;
-    fixtureDef->density = 1.0f;
-    fixtureDef->friction = 0.0f;
-    body->CreateFixture(fixtureDef);
+    //fixtureDef = new b2FixtureDef();
+    fixtureDef.shape = &shape;
+    fixtureDef.density = 1.0f;
+    fixtureDef.friction = 0.0f;
+    body->CreateFixture(&fixtureDef);
     
 }
 
 void Collisionable::CreateKinematicBody(){
-    physicWorld = InGame::Instance()->physicWorld;
+    /*physicWorld = InGame::Instance()->physicWorld;
     bodyDef = new b2BodyDef();
     bodyDef->type = b2_kinematicBody;
     bodyDef->position.Set(tmx::SfToBoxFloat(entity->GetPosition().x),tmx::SfToBoxFloat(entity->GetPosition().y));
@@ -71,7 +71,7 @@ void Collisionable::CreateKinematicBody(){
     fixtureDef->shape = shape;
     fixtureDef->density = 1.0f;
     fixtureDef->friction = 0.0f;
-    body->CreateFixture(fixtureDef);
+    body->CreateFixture(fixtureDef);*/
 }
 
 void Collisionable::SetOriginColision(float x, float y) {
@@ -81,8 +81,8 @@ void Collisionable::SetOriginColision(float x, float y) {
 
 BoundingBox Collisionable::GetRectangleColisionAbsolute() const {
     return BoundingBox(
-            this->entity->GetPosition().x - entOrigin.x + rectColision->GetTopLeft().x,
-            this->entity->GetPosition().y - entOrigin.x + rectColision->GetTopLeft().y,
+            this->entity->GetPosition().x + entOrigin.x + rectColision->GetTopLeft().x,
+            this->entity->GetPosition().y + entOrigin.x + rectColision->GetTopLeft().y,
             rectColision->GetWidth(),
             rectColision->GetHeight()
             );

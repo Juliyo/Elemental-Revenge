@@ -64,8 +64,8 @@ void Mapa::CreateMelees() {
             melees->reserve(l.objects.size());
             for (const auto& o : l.objects) {
                 Melee *melee = new Melee();
-                melee->Inicializar(o.GetPosition().x, o.GetPosition().y*-1, Tipo::ID::Rata);
-                melee->SetRectangleColision(0, 0, 37, 39);
+                melee->Inicializar(o.GetCentre().x, o.GetCentre().y, Tipo::ID::Rata);
+                melee->SetRectangleColision(0, 0, 34, 34);
                 melee->CreateBody();
                 melees->push_back(melee);
             }

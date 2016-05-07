@@ -22,7 +22,7 @@ public:
     virtual ~ContactListener();
     void BeginContact(b2Contact* contact) override;
     void EndContact(b2Contact* contact) override;
-    bool ShouldCollide(b2Fixture* fixtureA, b2Fixture* fixtureB) override;
+   // bool ShouldCollide(b2Fixture* fixtureA, b2Fixture* fixtureB) override;
     void PreSolve(b2Contact* contact, const b2Manifold* oldManifold) override;
 
 private:

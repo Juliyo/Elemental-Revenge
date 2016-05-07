@@ -34,13 +34,8 @@ public:
     void Update(const sf::Time elapsedTime, float x1, float x2, float multiplicador);
     void CreateBody() override;
 
-    
-    bool HandleMapCollisions(const sf::Time& elapsedTime);
-
     void Draw();
     void DrawWithInterpolation(float interpolation);
-
-    void FindPlayer(sf::Time elapsedTime);
     
     void UpdateEnemyAnimation(int x, int y);
     void PlayAnimation(Animation *animation);

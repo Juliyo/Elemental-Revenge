@@ -54,9 +54,10 @@ public:
     Level                       *level;
     Music                       *music;
     b2World                     *physicWorld;
-    Video *video;
+    Video                       *video;
     Player			*player;
     std::vector<Melee*>         *melee;
+    std::vector<sf::CircleShape*> *meleeShapes;
     PathFinding                 *pathfingind;
 private:
     
@@ -86,7 +87,7 @@ private:
     bool                        fuegoAdvancedCast = false;
     //agua
     bool                        aguaAdvancedCast = false;
-    bool                    aguaBasicCast = false;
+    bool                        aguaBasicCast = false;
     //heal
     bool                        isHealing = false;
     int                         anterior=0;

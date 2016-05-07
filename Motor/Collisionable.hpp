@@ -45,23 +45,23 @@ public:
     
     b2Body  *body;
     /******Variables para el motor de físicas*****/
-    b2BodyDef *bodyDef;         //Objeto que representaria a nuestro sprite en el motor de físicas
+    b2BodyDef bodyDef;         //Objeto que representaria a nuestro sprite en el motor de físicas
         
-    b2PolygonShape *shape;      //Representa un cuadrado o un circulo
-    b2CircleShape *circleShape;
+    b2PolygonShape shape;      //Representa un cuadrado o un circulo
+    b2CircleShape circleShape;
     
-    b2FixtureDef *fixtureDef;   //Añade una shape al BodyDef y define unas propiedades
+    b2FixtureDef fixtureDef;   //Añade una shape al BodyDef y define unas propiedades
                                 //fisicas. p ej: friccion, densidad
     
     b2World *physicWorld;       //Puntero al objeto principal del motor
-
+sf::Vector2f entOrigin = sf::Vector2f(0,0);
 protected:
     
     //Puntero al bounding box de la entidad collisionable
     BoundingBox* rectColision;
     Entity* entity;
     //Origin del sprite, en caso de que no se de valor sera 0,0
-    sf::Vector2f entOrigin = sf::Vector2f(0,0);
+    
     
     //Metodos que llaman al intersects de sfml y devuelve true si intersecciona
     bool CheckColision(const Collisionable& ent, const sf::Time& elapsedTime);

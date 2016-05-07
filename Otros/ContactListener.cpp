@@ -47,11 +47,11 @@ void ContactListener::BeginContact(b2Contact* contact) {
            Player *p = static_cast<Player*> (fixtureB->GetBody()->GetUserData());
            p->restaVida(1);
         }else if(claseB == "hFireBasic"){
-            Melee *m = static_cast<Melee*> (fixtureA->GetBody()->GetUserData());
-            m->RestarVida(1);
+            //Melee *m = static_cast<Melee*> (fixtureA->GetBody()->GetUserData());
+            //m->RestarVida(1);
             
-            hFireBasic *f = static_cast<hFireBasic*> (fixtureB->GetBody()->GetUserData());
-            f->Colision();
+           // hFireBasic *f = static_cast<hFireBasic*> (fixtureB->GetBody()->GetUserData());
+            //f->Colision();
         }
     }else if(claseA == "hFireBasic"){
         if(claseB == "Melee"){
@@ -70,8 +70,6 @@ void ContactListener::BeginContact(b2Contact* contact) {
             f->Colision();
         }
     }
-    
-       
 }
 
 void ContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldManifold) {
@@ -98,7 +96,7 @@ void ContactListener::EndContact(b2Contact* contact) {
 
 }
 
-bool ContactListener::ShouldCollide(b2Fixture* fixtureA, b2Fixture* fixtureB) {
+/*bool ContactListener::ShouldCollide(b2Fixture* fixtureA, b2Fixture* fixtureB) {
     //std::cout<<static_cast<Entity*> (fixtureA->GetBody()->GetUserData())->getClassName()<<std::endl;
     std::string claseA = "";
     std::string claseB = "";
@@ -139,4 +137,4 @@ bool ContactListener::ShouldCollide(b2Fixture* fixtureA, b2Fixture* fixtureB) {
 
     
     return true;
-}
+}*/
