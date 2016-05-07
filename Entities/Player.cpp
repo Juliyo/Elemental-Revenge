@@ -772,12 +772,13 @@ void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time e
 
 
     if (fuegoAdvancedCast) {
+        printf("CD FUEGO DESDE PAUSA: %f\n", cdFuegoAvanzadoPausa);
+        printf("CD FUEGO CD NUEVO: %f\n", hFuegoAvanzado->clockCd.getTiempo());
 
         if ((hFuegoAvanzado->clockCd.getTiempo()+cdFuegoAvanzadoPausa) > hFuegoAvanzado->getCD() || hFuegoAvanzado->primerCast == true) {
 
             hFuegoAvanzado->primerCast = false;
             hFuegoAvanzado->tiempoCast.restart();
-            hFuegoAvanzado->clockCd.restart();
             hFuegoAvanzado->lanzado = true;
             castFire2.restart();
 
@@ -786,7 +787,6 @@ void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time e
             hFuegoAvanzado->SetScale(0.3, 0.3);*/
             hFuegoAvanzado->cast(sf::Vector2f(getPosition()));
 
-            hud->resetFuego2();
         }
     }
 

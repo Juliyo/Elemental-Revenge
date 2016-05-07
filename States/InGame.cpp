@@ -140,9 +140,12 @@ void InGame::Update(sf::Time elapsedTime) {
         }
         //*****************************FUEGO**********************************************  
         player->updateFuego(fuegoBasicCast, fuegoAdvancedCast, elapsedTime, cdFuegoAvanzadoPausa);
-        if ((player->hFuegoAvanzado->clockCd.getTiempo()+cdFuegoAvanzadoPausa) > player->hFuegoAvanzado->getCD() && cdFuegoAvanzadoPausa>0) {
-
+        if ((player->hFuegoAvanzado->clockCd.getTiempo()+cdFuegoAvanzadoPausa) > player->hFuegoAvanzado->getCD() && fuegoAdvancedCast) {
+            player->hFuegoAvanzado->clockCd.restart();
+            player->hud->resetFuego2();
+            if(cdFuegoAvanzadoPausa>0){
             cdFuegoAvanzadoPausa=0;
+            }
         }
         //********************************AGUA*****************************************
         player->updateAgua(aguaBasicCast, aguaAdvancedCast, elapsedTime);
