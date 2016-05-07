@@ -869,11 +869,11 @@ void Player::updateAgua(bool aguaBasicCast, bool aguaAdvancedCast, sf::Time elap
     }
 }
 
-void Player::updateFlash() {
+void Player::updateFlash(float cdFlashPausa) {
     if (isFlashing) {
         //Como el player se ha movido 'casteamos' la animacion del otro flash
-        flash2->cast2(&flash->clockCd);
-        sf::Vector2f prueba = flash->cast(sf::Vector2f(getPosition()), hud);
+        flash2->cast2(&flash->clockCd, cdFlashPausa);
+        sf::Vector2f prueba = flash->cast(sf::Vector2f(getPosition()), hud,cdFlashPausa);
         if (prueba.x != getPosition().x && prueba.y != getPosition().y) {
             Colocar(prueba);
         }

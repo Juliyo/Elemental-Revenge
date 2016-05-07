@@ -26,8 +26,8 @@ public:
 
     void Draw();
     void DrawWithInterpolation( float interpolation, const sf::Vector2f &posPrev, const sf::Vector2f &posNew);
-    sf::Vector2f cast(sf::Vector2f, Hud *hud);
-    void cast2(Reloj *clockCD2);
+    sf::Vector2f cast(sf::Vector2f, Hud *hud,float cdFlashPausa);
+    void cast2(Reloj *clockCD2,float cdFlashPausa);
     Animation *flashingAnimation;
     Animation *flashingAnimation2;
     

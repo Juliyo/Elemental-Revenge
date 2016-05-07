@@ -59,6 +59,8 @@ public:
     float                       cdRayoBasicoPausa=0;
     float                       cdRayoAvanzadoPausa=0;
     
+    float                       cdFlashPausa=0;
+    
     bool auxRayo;
     
     Level                       *level;

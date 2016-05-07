@@ -206,10 +206,19 @@ void InGame::Update(sf::Time elapsedTime) {
         }
         //******************************FLASH********************************************** 
         if (hActivo == 4)
-            player->updateFlash();
+            player->updateFlash(cdFlashPausa);
         if (hActivo == 4 && !player->isFlashing) {
             printf("Desactivo Flash \n paso a anterior:%d\n", anterior);
             hActivo = anterior;
+        }
+        if ((player->flash->clockCd.getTiempo()+cdFlashPausa) > player->flash->getCD() && hActivo == 4) {
+        printf("CD Flash DESDE PAUSA: %f\n", cdFlashPausa);
+        printf("CD Flash CD NUEVO: %f\n", player->flash->clockCd.getTiempo());
+        player->flash->clockCd.restart();
+         player->hud->resetFlash();
+         if(cdFlashPausa>0){
+            cdFlashPausa=0;
+            }
         }
 
         if (!video -> getLooped()) {
@@ -289,6 +298,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
         player->hAguaAvanzado->clockCd.restart();
         player->hRayoAvanzado->clockCd.restart();
         player->hRayoBasico->clockCd.restart();
+        player->flash->clockCd.restart();
     }
 
     
@@ -299,6 +309,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     cdAguaBasicoPausa+=player->hAguaBasico->clockCd.getTiempo();    
     cdRayoAvanzadoPausa+=player->hRayoAvanzado->clockCd.getTiempo();
     cdRayoBasicoPausa+=player->hRayoBasico->clockCd.getTiempo();
+    cdFlashPausa+=player->flash->clockCd.getTiempo();
     
 
     cambioInGame2Pausa=false;

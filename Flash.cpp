@@ -90,15 +90,14 @@ std::string Flash::getClassName() {
 }
 
 
-sf::Vector2f Flash::cast(sf::Vector2f posicion,Hud *hud) {
+sf::Vector2f Flash::cast(sf::Vector2f posicion,Hud *hud, float cdFlashPausa) {
 
 
-    if (clockCd.getTiempo() > getCD() || primerCast == true) {
+    if ((clockCd.getTiempo()+cdFlashPausa) > getCD() || primerCast == true) {
         primerCast = false;
         dibujar = true;
         SetPosition(posicion);
-        clockCd.restart();
-        hud->resetFlash();
+
         tiempoCast.restart();
         sf::Vector2f vectorFinal;
         sf::Vector2f mousePosition=Motor2D::Instance()->getMousePosition();
@@ -139,8 +138,8 @@ sf::Vector2f Flash::cast(sf::Vector2f posicion,Hud *hud) {
 
 }
 
-void Flash::cast2(Reloj *clockCD2) {
-    if (clockCD2->getTiempo() > getCD() || primerCast == true) {
+void Flash::cast2(Reloj *clockCD2, float cdFlashPausa) {
+    if ((clockCD2->getTiempo()+cdFlashPausa) > getCD() || primerCast == true) {
         
         primerCast = false;
         dibujar = true;
