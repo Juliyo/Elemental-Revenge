@@ -60,8 +60,9 @@ Hud::Hud(const Hud& orig) {
 
 
 
-void Hud::renderHud(sf::Time elapsedTime) {
+void Hud::renderHud(sf::Time elapsedTime,bool inPause) {
 
+    if(!inPause){
     cRayo1->update(elapsedTime);
     cRayo2->update(elapsedTime);
     cAgua1->update(elapsedTime);
@@ -70,7 +71,7 @@ void Hud::renderHud(sf::Time elapsedTime) {
     cFuego2->update(elapsedTime);
     cCurar->update(elapsedTime);
     cFlash->update(elapsedTime);
-
+    }
     m->draw(barraVida);
     m->draw(sVida);
 

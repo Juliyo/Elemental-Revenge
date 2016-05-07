@@ -48,7 +48,6 @@ public:
     void			handlePlayerInput(sf::Keyboard::Key key, bool isPressed);  // Maneja eventos
     void			handleMouseInput(sf::Mouse::Button button, bool isPressed);  // Maneja eventos
     
-    void			renderForMuerte(float interpolation, sf::Time elapsedTime);
     
     bool                        cambioInGame2Pausa=true;
    

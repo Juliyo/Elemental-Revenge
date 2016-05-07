@@ -184,33 +184,6 @@ void InGame::Update(sf::Time elapsedTime) {
 
 }
 
-void InGame::renderForMuerte(float interpolation, sf::Time elapsedTime) {
-    motor->clear();
-    motor->SetView(0); //bordes
-    motor->draw(spriteRelleno);
-    motor->SetView(1);
-
-    //updateViewForPause();
-
-
-    motor->draw(spriteFondo);
-    player -> DrawAnimationWithOut(player->GetSpriteAnimated().getPosition());
-
-    motor->SetView(2); //vista del HUD
-    
-    
-    player -> hud->renderHud(elapsedTime);
-    if (!video -> getLooped()) {
-        video -> PlayVideo();
-    }
-    //    muerte->render(interpolation, elapsedTime);
-    motor->SetView(1); //vista del juego
-
-    //  motor->draw(mouseSprite);
-
-    motor->display();
-}
-
 void InGame::Render(float interpolation, sf::Time elapsedTime) {
 
     motor->clear();
@@ -327,9 +300,11 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     }
     /////////////////////////////////
     motor->SetView(2); //vista del HUD
-        if (StateStack::Instance()->currentState != States::ID::Pause) {
-
-    player -> hud->renderHud(elapsedTime);
+        if (StateStack::Instance()->currentState == States::ID::Pause) {
+             player -> hud->renderHud(elapsedTime,true);
+        }
+        else{
+            player -> hud->renderHud(elapsedTime,false);
         }
     if (!video -> getLooped()) {
         video -> PlayVideo();
