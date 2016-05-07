@@ -197,6 +197,8 @@ void InGame::renderForMuerte(float interpolation, sf::Time elapsedTime) {
     player -> DrawAnimationWithOut(player->GetSpriteAnimated().getPosition());
 
     motor->SetView(2); //vista del HUD
+    
+    
     player -> hud->renderHud(elapsedTime);
     if (!video -> getLooped()) {
         video -> PlayVideo();
@@ -325,8 +327,10 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     }
     /////////////////////////////////
     motor->SetView(2); //vista del HUD
-    player -> hud->renderHud(elapsedTime);
+        if (StateStack::Instance()->currentState != States::ID::Pause) {
 
+    player -> hud->renderHud(elapsedTime);
+        }
     if (!video -> getLooped()) {
         video -> PlayVideo();
     }
