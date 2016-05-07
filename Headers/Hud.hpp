@@ -23,7 +23,7 @@ public:
     Hud(Reloj *cds, float *coolDowns);
     Hud(const Hud& orig);
     virtual ~Hud();
-    void renderHud(sf::Time elapsedTime);
+    void renderHud(sf::Time elapsedTime,bool inPause);
     sf::FloatRect viewBounds;
     sf::Vector2f position;
     void updateHud(float vidas);

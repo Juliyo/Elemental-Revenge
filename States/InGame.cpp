@@ -147,7 +147,14 @@ void InGame::Update(sf::Time elapsedTime) {
             player->updateRayo(isShooting);
         }
         //*****************************FUEGO**********************************************  
-        player->updateFuego(fuegoBasicCast, fuegoAdvancedCast, elapsedTime);
+        player->updateFuego(fuegoBasicCast, fuegoAdvancedCast, elapsedTime, cdFuegoAvanzadoPausa);
+        if ((player->hFuegoAvanzado->clockCd.getTiempo()+cdFuegoAvanzadoPausa) > player->hFuegoAvanzado->getCD() && fuegoAdvancedCast) {
+            player->hFuegoAvanzado->clockCd.restart();
+            player->hud->resetFuego2();
+            if(cdFuegoAvanzadoPausa>0){
+            cdFuegoAvanzadoPausa=0;
+            }
+        }
         //********************************AGUA*****************************************
         player->updateAgua(aguaBasicCast, aguaAdvancedCast, elapsedTime);
         //********************************HUD*****************************************
@@ -185,31 +192,6 @@ void InGame::Update(sf::Time elapsedTime) {
         StateStack::Instance()->SetCurrentState(States::ID::Muerte);
     }
 
-}
-
-void InGame::renderForMuerte(float interpolation, sf::Time elapsedTime) {
-    motor->clear();
-    motor->SetView(0); //bordes
-    motor->draw(spriteRelleno);
-    motor->SetView(1);
-
-    //updateViewForPause();
-
-
-    motor->draw(spriteFondo);
-    player -> DrawAnimationWithOut(player->GetSpriteAnimated().getPosition());
-
-    motor->SetView(2); //vista del HUD
-    player -> hud->renderHud(elapsedTime);
-    if (!video -> getLooped()) {
-        video -> PlayVideo();
-    }
-    //    muerte->render(interpolation, elapsedTime);
-    motor->SetView(1); //vista del juego
-
-    //  motor->draw(mouseSprite);
-
-    motor->display();
 }
 
 void InGame::Render(float interpolation, sf::Time elapsedTime) {
@@ -262,6 +244,21 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
    /* for(int i=0;i < meleeShapes->size();i++){
         motor->draw(*meleeShapes->at(i));
     }*/
+    
+
+    
+    if (StateStack::Instance()->currentState == States::ID::InGame && cambioInGame2Pausa==false) {
+        cambioInGame2Pausa=true;
+        player->hFuegoAvanzado->clockCd.restart();
+    }
+
+    
+    if (StateStack::Instance()->currentState == States::ID::Pause && cambioInGame2Pausa==true) {
+    cdFuegoAvanzadoPausa=player->hFuegoAvanzado->clockCd.getTiempo();
+    printf("CD ACTUAL FUEGO AVANZADO: %f\n", cdFuegoAvanzadoPausa);
+    cambioInGame2Pausa=false;
+    }
+    
     //****************************RAYO************************************
     player->renderRayo(elapsedTime, interpolation);
     //****************************FUEGO************************************
@@ -294,8 +291,12 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     
     /////////////////////////////////
     motor->SetView(2); //vista del HUD
-    player -> hud->renderHud(elapsedTime);
-
+        if (StateStack::Instance()->currentState == States::ID::Pause) {
+             player -> hud->renderHud(elapsedTime,true);
+        }
+        else{
+            player -> hud->renderHud(elapsedTime,false);
+        }
     if (!video -> getLooped()) {
         video -> PlayVideo();
     }
