@@ -72,9 +72,9 @@ void InGame::Inicializar() {
     player -> Inicializar(1000.f, -1000.f);
     player->CreateDynamicBody();
     melee = new std::vector<Melee*>();
-    melee->reserve(10);
+    melee->reserve(1);
     
-    for(int i=0;i<10;i++){
+    for(int i=0;i<1;i++){
         melee->push_back(new Melee());
         melee->at(i)->Inicializar(1000.f + i*20, -1000.f + i*20,Tipo::ID::Rata,0.f,0.f);
         melee->at(i)->SetRectangleColision(0,0,37,39);
@@ -297,9 +297,10 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
                 break;
             }
         }
-       /* for(int j=0;j<melee->at(i)->shapesDebug.size();j++){
+        for(int j=0;j<melee->at(i)->shapesDebug.size();j++){
             motor->draw(melee->at(i)->shapesDebug.at(j));
-        }*/
+        }
+        
         melee->at(i)->PlayAnimation(*melee->at(i)->currentAnimation);
         melee->at(i)->UpdateAnimation(elapsedTime);
         melee->at(i)->DrawWithInterpolation(interpolation);

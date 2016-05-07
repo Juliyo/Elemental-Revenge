@@ -58,8 +58,10 @@ private:
     Tipo::ID m_tipo;
     sf::Texture texturaEnemigo;
     std::vector<sf::Vector2i>  *camino;
+    std::vector<sf::Vector2i>  *posiblecamino;
     Reloj inicio;
     int nodoactual=0;
+    bool bueno=true;
     
 };
 

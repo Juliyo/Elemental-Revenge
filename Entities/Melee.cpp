@@ -127,14 +127,23 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2) {
         float y = world->player->GetPosition().y - this->GetPosition().y;
         float dist = sqrt(pow(x, 2) + pow(y, 2));
         if (dist < 800) {
-        camino = world->pathfingind->buscaCamino(this->GetPosition(), world->player->GetPosition());
-            inicio.restart();
+            std::cout<<"Enemigo:"<<this->GetPosition().x/24<<","<<this->GetPosition().y/24<<"  Meta:"<<world->player->GetPosition().x/24<<","<<world->player->GetPosition().y/24<<std::endl;
+        posiblecamino = world->pathfingind->buscaCamino(this->GetPosition(), world->player->GetPosition());
+        if(bueno){
+            camino=posiblecamino;
             nodoactual = 0;
+        }
+            
+        
+        bueno=!bueno;
+        
+            inicio.restart();
+            
             shapesDebug.clear();
 
             int height = world->level->map->_height;
             int width = world->level->map->_width;
-            /*if (camino != NULL) {
+            if (camino != NULL) {
                 for (int i = 0; i < camino->size(); i++) {
                     //std::cout << "Nodo " << i << " " << camino->at(i).x << "," << camino->at(i).y << "    Meta " << ceil(world->player->GetPosition().x/24) << "," << ceil(world->player->GetPosition().y/24) << std::endl;
                     sf::RectangleShape shape;
@@ -143,8 +152,11 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2) {
                     shape.setOrigin(12.f, 12.f);
                     shape.setFillColor(color);
                     shapesDebug.push_back(shape);
+                    std::cout<<"Camino        "<<i<<": "<<camino->at(i).x<<","<<camino->at(i).y<<std::endl;
+                    //if(i<posiblecamino->size())
+                    //std::cout<<"Psible Camino "<<i<<": "<<posiblecamino->at(i).x<<","<<posiblecamino->at(i).y<<std::endl;
                 }
-            }*/
+            }
         }
     }
     if (camino != NULL) {

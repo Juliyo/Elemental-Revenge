@@ -248,7 +248,10 @@ std::vector<sf::Vector2i>* PathFinding::buscaCamino(sf::Vector2f posenemigo, sf:
                 mejorCamino->insert(it, nodoActual->GetCasilla());
                 nodoActual = nodoActual->NodoPadre;
             }
-            return mejorCamino;
+          
+                return mejorCamino;
+            
+            
         }
         }
         if (nodoActual->esIgual(nodoFinal)) {
