@@ -130,22 +130,62 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, flo
     empujado2 = false;
 }
 
+void Melee::CambiarVectorVelocidad() {
+    sf::Vector2f movement(0, 0);
+    if (camino != NULL) {
+        if (nodoactual < camino->size() - 2) {
+            //std::cout<<"Origen: "<<ceil(GetPosition().x/24)<<" , "<<ceil(GetPosition().x/24)<<std::endl;
+            //std::cout<<"Destino: "<<camino->at(nodoactual+1).y<<" , "<<camino->at(nodoactual+1).y<<std::endl;
+            if (round(GetPosition().x / 24) == camino->at(nodoactual + 1).x && round(GetPosition().y / 24) == camino->at(nodoactual + 1).y) {
+                nodoactual++;
+
+            } else if (round(GetPosition().x / 24) == camino->at(nodoactual + 2).x && round(GetPosition().y / 24) == camino->at(nodoactual + 2).y) {
+                nodoactual ++;
+            } else {
+                float x = camino->at(nodoactual + 1).x * 24 - this->GetPosition().x;
+                float y = camino->at(nodoactual + 1).y * 24 - this->GetPosition().y;
+                movement.x = x;
+                movement.y = y;
+            }
+        }
+        //Hay que setear al BodyDef el vector velocidad que hallamos calculado
+        body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(movement) * Enemigo::GetVelocity()));
+
+        //std::cout<<x<<" , "<<y<<std::endl;
+    }
+}
+
 void Melee::Update(const sf::Time elapsedTime, float x1, float x2, float multiplicador) {
     InGame* world = InGame::Instance();
     sf::Vector2f movement(0, 0);
-    if (inicio.getTiempo() > 0.1f) {
+   // if (inicio.getTiempo() > 0.5f) {
         float x = world->player->GetPosition().x - this->GetPosition().x;
         float y = world->player->GetPosition().y - this->GetPosition().y;
-        float dist = sqrt(pow(x, 2) + pow(y, 2));
-        if (dist < 800) {
-            //camino = world->pathfingind->buscaCamino(this->GetPosition(), world->player->GetPosition());
+         distancia = sqrt(pow(x, 2) + pow(y, 2));
+        if (distancia < 500) {
+            //std::cout<<"Enemigo:"<<this->GetPosition().x/24<<","<<this->GetPosition().y/24<<"  Meta:"<<world->player->GetPosition().x/24<<","<<world->player->GetPosition().y/24<<std::endl;
+        //posiblecamino = world->pathfingind->buscaCamino(this->GetPosition(), world->player->GetPosition());
+            if(!encola){
+                    world->colaMelees->push_back(this);
+                    encola=true;
+                    //printf("METO ENEMIGO A LA COLA\n");
+                   // std::cout<<"cola size: "<<world->colaMelees->size()<<std::endl;
+            }
+
+//        if(bueno){
+//            camino=posiblecamino;
+//            nodoactual = 0;
+//        }
+//            
+//        
+//        bueno=!bueno;
+        
             inicio.restart();
-            nodoactual = 0;
+            
             shapesDebug.clear();
 
-            int height = world->level->map->_height;
-            int width = world->level->map->_width;
-            /*if (camino != NULL) {
+
+            if (camino != NULL) {
                 for (int i = 0; i < camino->size(); i++) {
                     //std::cout << "Nodo " << i << " " << camino->at(i).x << "," << camino->at(i).y << "    Meta " << ceil(world->player->GetPosition().x/24) << "," << ceil(world->player->GetPosition().y/24) << std::endl;
                     sf::RectangleShape shape;
@@ -153,11 +193,15 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2, float multipl
                     shape.setSize(sf::Vector2f(24, 24));
                     shape.setOrigin(12.f, 12.f);
                     shape.setFillColor(color);
+
                     shapesDebug.push_back(shape);
+                    //std::cout<<"Camino        "<<i<<": "<<camino->at(i).x<<","<<camino->at(i).y<<std::endl;
+                    //if(i<posiblecamino->size())
+                    //std::cout<<"Psible Camino "<<i<<": "<<posiblecamino->at(i).x<<","<<posiblecamino->at(i).y<<std::endl;
                 }
-            }*/
+            }
         }
-    }
+   // }
     if (camino != NULL) {
         if (nodoactual < camino->size() - 2) {
             //std::cout<<"Origen: "<<ceil(GetPosition().x/24)<<" , "<<ceil(GetPosition().x/24)<<std::endl;
@@ -182,7 +226,7 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2, float multipl
 
 
     //Hay que setear al BodyDef el vector velocidad que hallamos calculado
-    body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(movement) * Enemigo::GetVelocity()));
+    //body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(movement) * Enemigo::GetVelocity()));
     // FindPlayer(elapsedTime);
     //Actualizamos la posicion del player con la posicion del bodyDef
     SetPosition(tmx::BoxToSfVec(body->GetPosition()));

@@ -791,7 +791,6 @@ void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time e
         }
     }
 
-    
 }
 
 void Player::updateAgua(bool aguaBasicCast, bool aguaAdvancedCast, sf::Time elapsedTime, float cdAguaBasicoPausa,float cdAguaAvanzadoPausa) {

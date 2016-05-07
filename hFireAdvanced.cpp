@@ -41,8 +41,9 @@ hFireAdvanced::~hFireAdvanced() {
 
 void hFireAdvanced::cast(sf::Vector2f posicion) {
 
-
-
+    printf("llego me cago en todo\n");
+    SoundManager *sonido = SoundManager::Instance();
+    sonido->play("resources/Sounds/FireBall.wav");
     hSprite.setPosition(posicion.x, posicion.y);
     hSprite.setRotation(90);
 

@@ -36,6 +36,7 @@ SoundManager::~SoundManager() {
 
 void SoundManager::load() {
     sonidos->insert(std::make_pair("resources/Sounds/Pistola.wav" , new Sound("resources/Sounds/Pistola.wav")));
+    sonidos->insert(std::make_pair("resources/Sounds/FireBall.wav" , new Sound("resources/Sounds/FireBall.wav")));
 }
 
 void SoundManager::play(std::string ruta) {

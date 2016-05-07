@@ -36,6 +36,7 @@ InGame::InGame() {
 
     pathfingind = new PathFinding();
     SoundManager::Instance()->load();
+     colaMelees = new std::deque<Melee*>();
     /* pause = Pause::Instance();
      muerte = Muerte::Instance();*/
 
@@ -126,6 +127,8 @@ void InGame::Update(sf::Time elapsedTime) {
 
         player -> Update(elapsedTime);
 
+         primerosDeLaCola();
+        
         //**************************ENEMIGOS**********************//
         for (std::vector<Melee*>::iterator it = melee->begin();it != melee->end(); ++it) {
             int x3 = player->getPosition().x - (*it)->getPosition().x;
@@ -260,7 +263,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
                 int y2 = player->getPosition().y - melee->at(i)->getPosition().y;
                 //if (melee->at(i)->GetEstado() == Estado::ID::Vivo){
                 melee->at(i)->UpdateEnemyAnimation(x2, y2);
-                //}
+                melee->at(i)->CambiarVectorVelocidad();
                 melee->at(i)->DrawWithInterpolation(interpolation);
             } else {
                 melee->at(i)->DrawAnimationWithOut(melee->at(i)->GetRenderPosition());
@@ -491,4 +494,34 @@ void InGame::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
         }
 
     }
+}
+
+
+void InGame::primerosDeLaCola() {
+    int ite = 0;
+    while (ite < 2) {
+        if (colaMelees->size() > 0) {
+            if (colaMelees->at(0)->distancia < 500) {
+                colaMelees->at(0)->posiblecamino = pathfingind->buscaCamino(colaMelees->at(0)->GetPosition(), player->GetPosition());
+                if (colaMelees->at(0)->bueno) {
+                    colaMelees->at(0)->camino = colaMelees->at(0)->posiblecamino;
+                    colaMelees->at(0)->nodoactual = 0;
+                }
+
+
+                colaMelees->at(0)->bueno = !colaMelees->at(0)->bueno;
+            }
+
+            colaMelees->at(0)->encola = false;
+            // printf("BORRO ENEMIGO DE COLA\n");
+            //std::cout<<"Calculo la cola "<<std::endl;
+            colaMelees->pop_front();
+            //std::cout<<"cola size: "<<colaMelees->size()<<std::endl;
+            ite++;
+        } else {
+            ite = 10;
+        }
+
+    }
+
 }

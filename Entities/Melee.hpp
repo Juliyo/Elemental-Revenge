@@ -43,6 +43,7 @@ public:
     void StopAnimation();
     
     void RestarVida(int a);
+    void CambiarVectorVelocidad();
 
     bool empujado;
     bool empujado2;
@@ -56,12 +57,20 @@ public:
     Animation *animationMuerte;
     std::vector<sf::RectangleShape> shapesDebug;
     sf::Color color;
+    
+    std::vector<sf::Vector2i>  *camino;
+    std::vector<sf::Vector2i>  *posiblecamino;
+    int nodoactual=0;
+    bool bueno=true;
+    bool encola=false;
+    float distancia=900;
+    
 private:
     Tipo::ID m_tipo;
     sf::Texture texturaEnemigo;
-    std::vector<sf::Vector2i>  *camino;
+    
     Reloj inicio;
-    int nodoactual=0;
+    
 };
 
 #endif /* MELEE_HPP */
