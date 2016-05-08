@@ -154,16 +154,19 @@ public:
     Flash *flash;
     Flash *flash2;
     bool isFlashing = false;
-        bool aux;
+    bool aux;
+    
+    Reloj invulnerable;
+    Reloj damaged;
 
 private:
 
     sf::Texture texturaPlayer;
-
     float velocity = 250.f;
     int vida = 15;
-    Reloj invulnerable;
-    Reloj damaged;
+    
+    
+    
 };
 
 #endif /* PLAYER_H */
