@@ -207,6 +207,8 @@ void InGame::Update(sf::Time elapsedTime) {
 
                 player->hRayoBasico->clockCd.restart();
                 player->hud->resetRayo1();
+                 player->hRayoBasico->primeraVez=true;
+                 player->hRayoBasico->stopSound();
             if(cdRayoBasicoPausa>0){
                 cdRayoBasicoPausa=0;
             }
@@ -285,6 +287,9 @@ void InGame::Update(sf::Time elapsedTime) {
     firstTime = false;
 
     if (player->GetVida() == 0) {
+     SoundManager *sonido = SoundManager::Instance();
+    sonido->play("resources/Sounds/Muerte.wav");
+        
         StateStack::Instance()->SetCurrentState(States::ID::Muerte);
     }
 
@@ -548,6 +553,8 @@ void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         }
         player->hud->cambiaHechizo(hActivo + 1);
     } else if (key == sf::Keyboard::P) {
+        SoundManager *sonido = SoundManager::Instance();
+    sonido->play("resources/Sounds/Pausa.wav");
         StateStack::Instance()->SetCurrentState(States::ID::Pause);
 
     }

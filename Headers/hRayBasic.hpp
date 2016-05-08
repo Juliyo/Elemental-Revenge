@@ -29,6 +29,7 @@ public:
     std::string getClassName() override;
     void CreateBody() override;
 
+    void stopSound();
     void update();
     
     Reloj tiempoCast;
@@ -40,8 +41,7 @@ public:
     Animation *animationDurante;
     Animation *PrimeraAnimacion;
     //void cast(sf::Vector2f vector, sf::RenderWindow *w);
-    sf::SoundBuffer buffer;
-    sf::Sound sound;
+    bool primeraVez=true;
 private:
     
 };

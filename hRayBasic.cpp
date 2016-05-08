@@ -107,6 +107,12 @@ void hRayBasic::cast(sf::Vector2f posicion) {
     sound.setBuffer(buffer);
     sound.play();
 */
+    if(primeraVez){
+    SoundManager *sonido = SoundManager::Instance();
+    sonido->play("resources/Sounds/Rbasico.wav");
+    primeraVez=false;
+    }
+
     draw = true;
     float angleShot = Motor2D::Instance()->getAngleShot(posicion);
 
@@ -116,6 +122,12 @@ void hRayBasic::cast(sf::Vector2f posicion) {
 
     angleshot2 = angleShot; //so it goes in a straight line
 }
+
+void hRayBasic::stopSound() {
+    SoundManager *sonido = SoundManager::Instance();
+    sonido->stop("resources/Sounds/Rbasico.wav");
+}
+
 
 void hRayBasic::DrawWithInterpolation(float interpolation, const sf::Vector2f &posPrev, const sf::Vector2f &posNew) {
     std::cout<<"Llega"<<std::endl;
