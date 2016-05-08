@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="130" height="130" tilewidth="24" tileheight="24" nextobjectid="367">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="130" height="130" tilewidth="24" tileheight="24" nextobjectid="377">
  <tileset firstgid="1" name="tilesetReboot2" tilewidth="24" tileheight="24" tilecount="2750" columns="50">
   <image source="tileset322.png" width="1211" height="1331"/>
  </tileset>
@@ -67773,5 +67773,17 @@
   <object id="364" x="1780" y="1995" width="24" height="24"/>
   <object id="365" x="1193" y="1898" width="24" height="24"/>
   <object id="366" x="1346" y="1640" width="24" height="24"/>
+ </objectgroup>
+ <objectgroup name="Casters">
+  <object id="367" x="2157.58" y="1193.94" width="24.2424" height="27.2727"/>
+  <object id="368" x="581.818" y="2033.33" width="27.2727" height="27.2727"/>
+  <object id="369" x="612.121" y="2151.52" width="27.2727" height="33.3333"/>
+  <object id="370" x="684.848" y="2230.3" width="27.2727" height="27.2727"/>
+  <object id="371" x="1024.24" y="2360.61" width="30.303" height="24.2424"/>
+  <object id="372" x="978.788" y="2430.3" width="24.2424" height="30.303"/>
+  <object id="373" x="909.091" y="2530.3" width="24.2424" height="30.303"/>
+  <object id="374" x="690.909" y="2396.97" width="33.3333" height="27.2727"/>
+  <object id="375" x="733.333" y="2484.85" width="27.2727" height="24.2424"/>
+  <object id="376" x="1045.45" y="2096.97" width="33.3333" height="33.3333"/>
  </objectgroup>
 </map>

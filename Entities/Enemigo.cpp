@@ -14,6 +14,8 @@
 #include "Enemigo.hpp"
 
 Enemigo::Enemigo() {
+    camino=NULL;
+    posiblecamino=NULL;
 }
 
 Enemigo::~Enemigo() {

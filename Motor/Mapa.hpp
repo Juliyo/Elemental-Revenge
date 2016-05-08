@@ -57,6 +57,7 @@ public:
     int **colisiones;
     void createStaticMeshes();
     void CreateMelees();
+    void CreateCasters();
 private:
     int mapaActual;
     tmx::MapLoader ml;

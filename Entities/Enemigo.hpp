@@ -32,6 +32,13 @@ public:
         return GetSprite();
     };
     
+    std::vector<sf::Vector2i>  *camino;
+    std::vector<sf::Vector2i>  *posiblecamino;
+    int nodoactual=0;
+    bool bueno=true;
+    bool encola=false;
+    float distancia=900;
+    
 protected:
     float GetDamage() const {
         return damage;

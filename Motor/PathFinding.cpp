@@ -353,7 +353,9 @@ std::vector<sf::Vector2i>* PathFinding::buscaCamino2(sf::Vector2f posenemigo, sf
             while (nodoActual != NULL) {
                 auto it = mejorCamino->begin();
                 mejorCamino->insert(it, nodoActual->GetCasilla());
+               // std::cout<<"Camino Final: "<<nodoActual->GetCasilla().x<<","<<nodoActual->GetCasilla().y<<std::endl;
                 nodoActual = nodoActual->NodoPadre;
+                
             }
            
             return mejorCamino;

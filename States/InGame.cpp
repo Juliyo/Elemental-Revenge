@@ -34,7 +34,7 @@ InGame::InGame() {
 
     pathfingind = new PathFinding();
     SoundManager::Instance()->load();
-     colaMelees = new std::deque<Melee*>();
+    colaEnemigos = new std::deque<Enemigo*>();
     /* pause = Pause::Instance();
      muerte = Muerte::Instance();*/
 
@@ -82,6 +82,7 @@ void InGame::Inicializar() {
     player->CreateBody();
     player->SetEstado(Estado::ID::Vivo);
     melee = new std::vector<Melee*>();
+    caster = new std::vector<Caster*>();
     meleeShapes = new std::vector<sf::CircleShape*>();
     /*melee->reserve(30);
     for (int i = 0; i < 30; i++) {
@@ -114,10 +115,15 @@ void InGame::Inicializar() {
     }
     level->LoadMap(Niveles::ID::Level1);
     level->map->CreateMelees();
+    level->map->CreateCasters();
     video->Inicializar();
 }
 
 void InGame::Update(sf::Time elapsedTime) {
+    
+                                                 
+                     
+
 
     if (!firstTime) {
 
@@ -125,68 +131,107 @@ void InGame::Update(sf::Time elapsedTime) {
 
         player -> Update(elapsedTime);
 
-         primerosDeLaCola();
-        
-        //**************************ENEMIGOS**********************//
-        for (std::vector<Melee*>::iterator it = melee->begin();it != melee->end(); ++it) {
+        primerosDeLaCola();
+
+        //**************************ENEMIGOS MELEES**********************//
+          
+        for (std::vector<Melee*>::iterator it = melee->begin(); it != melee->end(); ++it) {
             int x3 = player->getPosition().x - (*it)->getPosition().x;
             int y3 = player->getPosition().y - (*it)->getPosition().y;
+            
             if ((*it)->GetEstado() == Estado::ID::Vivo) {
                 (*it)->Update(elapsedTime, x3, y3, 1);
-            }else if((*it)->GetEstado() == Estado::ID::Muriendo){
+                
+                
+            } else if ((*it)->GetEstado() == Estado::ID::Muriendo) {
                 //Si acaba de morir lo borramos del mundo y lo matamos
                 (*it)->body->GetWorld()->DestroyBody((*it)->body);
                 (*it)->SetEstado(Estado::ID::Muerto);
             }
         }
-        for(int i=0; i<meleeShapes->size();i++){
-            meleeShapes->at(i)->setPosition(tmx::BoxToSfVec(melee->at(i)->body->GetPosition()));
+//        try {
+//        for (int i = 0; i < meleeShapes->size(); i++) {
+//            meleeShapes->at(i)->setPosition(tmx::BoxToSfVec(melee->at(i)->body->GetPosition()));
+//        }
+//                } catch (const std::out_of_range& oor) {
+//                    std::cerr << "ERROR DE MIERDAAAAA Out of Range error: " << oor.what() << '\n';
+//                }
+        //NUEVO
+
+        //**************************ENEMIGOS CASTER**********************//
+
+        for (std::vector<Caster*>::iterator it = caster->begin(); it != caster->end(); ++it) {
+            int x3 = player->getPosition().x - (*it)->getPosition().x;
+            int y3 = player->getPosition().y - (*it)->getPosition().y;
+            if ((*it)->GetEstado() == Estado::ID::Vivo) {
+(*it)->Update(elapsedTime, x3, y3, 1);
+            } else if ((*it)->GetEstado() == Estado::ID::Muriendo) {
+                //Si acaba de morir lo borramos del mundo y lo matamos
+                (*it)->body->GetWorld()->DestroyBody((*it)->body);
+                (*it)->SetEstado(Estado::ID::Muerto);
+            }
         }
+
+
+        for (int i = 0; i < caster->size(); i++) {
+
+            float x4 = player->getPosition().x - caster->at(i)->getPosition().x;
+            float y4 = player->getPosition().y - caster->at(i)->getPosition().y;
+
+            if (sqrt(pow(x4, 2) + pow(y4, 2)) < 250) {
+                caster->at(i)->updateDisparoEnemigo(true, elapsedTime, player->getPosition().x, player->getPosition().y);
+            } else {
+                caster->at(i)->updateDisparoEnemigo(false, elapsedTime, player->getPosition().x, player->getPosition().y);
+            }
+
+        }
+
+        ///
 
         //**************************RAYO**********************
         if (hActivo == 1) {
             player->updateRayo(isShooting, rayoAdvancedCast, cdRayoBasicoPausa, cdRayoAvanzadoPausa);
         }
 
-            if((player->hRayoAvanzado->clockCd.getTiempo()+cdRayoAvanzadoPausa) > player->hRayoAvanzado->getCD() && rayoAdvancedCast){
+        if ((player->hRayoAvanzado->clockCd.getTiempo() + cdRayoAvanzadoPausa) > player->hRayoAvanzado->getCD() && rayoAdvancedCast) {
 
-                player->hRayoAvanzado->clockCd.restart();
-                player->hud->resetRayo2();
-            if(cdRayoAvanzadoPausa>0){
-                cdRayoAvanzadoPausa=0;
+            player->hRayoAvanzado->clockCd.restart();
+            player->hud->resetRayo2();
+            if (cdRayoAvanzadoPausa > 0) {
+                cdRayoAvanzadoPausa = 0;
             }
         }
-        
+
         //*****************************FUEGO**********************************************  
         player->updateFuego(fuegoBasicCast, fuegoAdvancedCast, elapsedTime, cdFuegoAvanzadoPausa, cdFuegoBasicoPausa);
-        if ((player->hFuegoAvanzado->clockCd.getTiempo()+cdFuegoAvanzadoPausa) > player->hFuegoAvanzado->getCD() && fuegoAdvancedCast) {
+        if ((player->hFuegoAvanzado->clockCd.getTiempo() + cdFuegoAvanzadoPausa) > player->hFuegoAvanzado->getCD() && fuegoAdvancedCast) {
             player->hFuegoAvanzado->clockCd.restart();
             player->hud->resetFuego2();
-            if(cdFuegoAvanzadoPausa>0){
-            cdFuegoAvanzadoPausa=0;
+            if (cdFuegoAvanzadoPausa > 0) {
+                cdFuegoAvanzadoPausa = 0;
             }
         }
-        if ((player->clockCDFire.getTiempo()+cdFuegoBasicoPausa) > player->CDFire && fuegoBasicCast) {
+        if ((player->clockCDFire.getTiempo() + cdFuegoBasicoPausa) > player->CDFire && fuegoBasicCast) {
             player->clockCDFire.restart();
             player->hud->resetFuego1();
-            if(cdFuegoBasicoPausa>0){
-            cdFuegoBasicoPausa=0;
+            if (cdFuegoBasicoPausa > 0) {
+                cdFuegoBasicoPausa = 0;
             }
         }
         //********************************AGUA*****************************************
-        player->updateAgua(aguaBasicCast, aguaAdvancedCast, elapsedTime, cdAguaBasicoPausa, cdAguaAvanzadoPausa );
-        if ((player->hAguaBasico->clockCd.getTiempo()+cdAguaBasicoPausa) > player->hAguaBasico->getCD() && aguaBasicCast) {
+        player->updateAgua(aguaBasicCast, aguaAdvancedCast, elapsedTime, cdAguaBasicoPausa, cdAguaAvanzadoPausa);
+        if ((player->hAguaBasico->clockCd.getTiempo() + cdAguaBasicoPausa) > player->hAguaBasico->getCD() && aguaBasicCast) {
             player->hAguaBasico->clockCd.restart();
             player->hud->resetAgua1();
-            if(cdAguaBasicoPausa>0){
-            cdAguaBasicoPausa=0;
+            if (cdAguaBasicoPausa > 0) {
+                cdAguaBasicoPausa = 0;
             }
         }
-        if ((player->hAguaAvanzado->clockCd.getTiempo()+cdAguaAvanzadoPausa) > player->hAguaAvanzado->getCD() && aguaAdvancedCast) {
+        if ((player->hAguaAvanzado->clockCd.getTiempo() + cdAguaAvanzadoPausa) > player->hAguaAvanzado->getCD() && aguaAdvancedCast) {
             player->hAguaAvanzado->clockCd.restart();
             player->hud->resetAgua2();
-            if(cdAguaAvanzadoPausa>0){
-            cdAguaAvanzadoPausa=0;
+            if (cdAguaAvanzadoPausa > 0) {
+                cdAguaAvanzadoPausa = 0;
             }
         }
         //********************************HUD*****************************************
@@ -209,13 +254,13 @@ void InGame::Update(sf::Time elapsedTime) {
             printf("Desactivo Flash \n paso a anterior:%d\n", anterior);
             hActivo = anterior;
         }
-        if ((player->flash->clockCd.getTiempo()+cdFlashPausa) > player->flash->getCD() && hActivo == 4) {
-        printf("CD Flash DESDE PAUSA: %f\n", cdFlashPausa);
-        printf("CD Flash CD NUEVO: %f\n", player->flash->clockCd.getTiempo());
-        player->flash->clockCd.restart();
-         player->hud->resetFlash();
-         if(cdFlashPausa>0){
-            cdFlashPausa=0;
+        if ((player->flash->clockCd.getTiempo() + cdFlashPausa) > player->flash->getCD() && hActivo == 4) {
+            printf("CD Flash DESDE PAUSA: %f\n", cdFlashPausa);
+            printf("CD Flash CD NUEVO: %f\n", player->flash->clockCd.getTiempo());
+            player->flash->clockCd.restart();
+            player->hud->resetFlash();
+            if (cdFlashPausa > 0) {
+                cdFlashPausa = 0;
             }
         }
 
@@ -259,7 +304,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     //Renderiza el mapa
     level->render();
 
-    //****************************RENDER ENEMIGOS************************************//
+    //****************************RENDER ENEMIGOS MELEE************************************//
     for (int i = 0; i < melee->size(); i++) {
         melee->at(i)->PlayAnimation(*melee->at(i)->currentAnimation);
         melee->at(i)->UpdateAnimation(elapsedTime);
@@ -271,25 +316,56 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
                 //if (melee->at(i)->GetEstado() == Estado::ID::Vivo){
                 melee->at(i)->UpdateEnemyAnimation(x2, y2);
                 melee->at(i)->CambiarVectorVelocidad();
+ 
+               
                 melee->at(i)->DrawWithInterpolation(interpolation);
             } else {
                 melee->at(i)->DrawAnimationWithOut(melee->at(i)->GetRenderPosition());
             }
-        } else {    //Si no renderizamos sin interpolacion
+        } else { //Si no renderizamos sin interpolacion
             melee->at(i)->DrawAnimationWithOut(melee->at(i)->GetRenderPosition());
             if (StateStack::Instance()->currentState == States::ID::Pause) {
                 melee->at(i)->StopAnimation();
             }
         }
     }
-   /* for(int i=0;i < meleeShapes->size();i++){
-        motor->draw(*meleeShapes->at(i));
-    }*/
-    
+    /* for(int i=0;i < meleeShapes->size();i++){
+         motor->draw(*meleeShapes->at(i));
+     }*/
 
-    
-    if (StateStack::Instance()->currentState == States::ID::InGame && cambioInGame2Pausa==false) {
-        cambioInGame2Pausa=true;
+
+    //****************************RENDER ENEMIGOS CASTERS************************************//
+    for (int i = 0; i < caster->size(); i++) {
+        if (caster->at(i)->getSpeed().x == 0 && caster->at(i)->getSpeed().y == 0) {
+            switch (caster->at(i)->cuadrante) {
+                case 1:
+                    // melee[i].currentAnimation = &melee->idleAnimationRight;
+                    break;
+                case 2:
+                    //player->currentAnimation = &player->idleAnimationLeft;
+                    break;
+                case 3:
+                    //player->currentAnimation = &player->idleAnimationRight;
+                    break;
+                case 4:
+                    //player->currentAnimation = &player->idleAnimationLeft;
+                    break;
+            }
+        }
+        caster->at(i)->PlayAnimation(*caster->at(i)->currentAnimation);
+        caster->at(i)->UpdateAnimation(elapsedTime);
+        caster->at(i)->CambiarVectorVelocidad();
+        caster->at(i)->DrawWithInterpolation(interpolation);
+
+    }
+
+
+
+
+
+
+    if (StateStack::Instance()->currentState == States::ID::InGame && cambioInGame2Pausa == false) {
+        cambioInGame2Pausa = true;
         player->hFuegoAvanzado->clockCd.restart();
         player->clockCDFire.restart();
         player->hAguaBasico->clockCd.restart();
@@ -299,20 +375,20 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
         player->flash->clockCd.restart();
     }
 
-    
-    if (StateStack::Instance()->currentState == States::ID::Pause && cambioInGame2Pausa==true) {
-    cdFuegoAvanzadoPausa+=player->hFuegoAvanzado->clockCd.getTiempo();
-    cdFuegoBasicoPausa+=player->clockCDFire.getTiempo();
-    cdAguaAvanzadoPausa+=player->hAguaAvanzado->clockCd.getTiempo();
-    cdAguaBasicoPausa+=player->hAguaBasico->clockCd.getTiempo();    
-    cdRayoAvanzadoPausa+=player->hRayoAvanzado->clockCd.getTiempo();
-    cdRayoBasicoPausa+=player->hRayoBasico->clockCd.getTiempo();
-    cdFlashPausa+=player->flash->clockCd.getTiempo();
-    
 
-    cambioInGame2Pausa=false;
+    if (StateStack::Instance()->currentState == States::ID::Pause && cambioInGame2Pausa == true) {
+        cdFuegoAvanzadoPausa += player->hFuegoAvanzado->clockCd.getTiempo();
+        cdFuegoBasicoPausa += player->clockCDFire.getTiempo();
+        cdAguaAvanzadoPausa += player->hAguaAvanzado->clockCd.getTiempo();
+        cdAguaBasicoPausa += player->hAguaBasico->clockCd.getTiempo();
+        cdRayoAvanzadoPausa += player->hRayoAvanzado->clockCd.getTiempo();
+        cdRayoBasicoPausa += player->hRayoBasico->clockCd.getTiempo();
+        cdFlashPausa += player->flash->clockCd.getTiempo();
+
+
+        cambioInGame2Pausa = false;
     }
-    
+
     //****************************RAYO************************************
     player->renderRayo(elapsedTime, interpolation);
     //****************************FUEGO************************************
@@ -342,15 +418,28 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     //**************************************FLASH**************************
     player->renderFlash(elapsedTime, interpolation);
 
-    
+
+    //**************************************Disparo Caster************************** 
+    for (int i = 0; i < caster->size(); i++) {
+        int x2 = player->getPosition().x - caster->at(i)->getPosition().x;
+        int y2 = player->getPosition().y - caster->at(i)->getPosition().y;
+        caster->at(i)->UpdateEnemyAnimation(x2, y2);
+    }
+    for (int i = 0; i < 50; i++) {
+
+        caster->at(0)->disparo[i].RenderDisparo(interpolation);
+    }
+
+
+
+
     /////////////////////////////////
     motor->SetView(2); //vista del HUD
-        if (StateStack::Instance()->currentState == States::ID::Pause) {
-             player -> hud->renderHud(elapsedTime,true);
-        }
-        else{
-            player -> hud->renderHud(elapsedTime,false);
-        }
+    if (StateStack::Instance()->currentState == States::ID::Pause) {
+        player -> hud->renderHud(elapsedTime, true);
+    } else {
+        player -> hud->renderHud(elapsedTime, false);
+    }
     if (!video -> getLooped()) {
         video -> PlayVideo();
     }
@@ -465,7 +554,7 @@ void InGame::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
             }
             if (button == sf::Mouse::Button::Right) {
                 printf("Rayo avanzado \n");
-                rayoAdvancedCast=isPressed;
+                rayoAdvancedCast = isPressed;
             }
             break;
         }
@@ -505,27 +594,34 @@ void InGame::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
     }
 }
 
-
 void InGame::primerosDeLaCola() {
     int ite = 0;
     while (ite < 6) {
-        if (colaMelees->size() > 0) {
-            if (colaMelees->at(0)->distancia < 500) {
-                colaMelees->at(0)->posiblecamino = pathfingind->buscaCamino(colaMelees->at(0)->GetPosition(), player->GetPosition());
-                if (colaMelees->at(0)->bueno) {
-                    colaMelees->at(0)->camino = colaMelees->at(0)->posiblecamino;
-                    colaMelees->at(0)->nodoactual = 0;
+        if (colaEnemigos->size() > 0) {
+            if ((colaEnemigos->at(0)->distancia < 500 && colaEnemigos->at(0)->getClassName() == "Melee")) {
+                colaEnemigos->at(0)->posiblecamino = pathfingind->buscaCamino(colaEnemigos->at(0)->GetPosition(), player->GetPosition());
+                if (colaEnemigos->at(0)->bueno) {
+                    colaEnemigos->at(0)->camino = colaEnemigos->at(0)->posiblecamino;
+                    colaEnemigos->at(0)->nodoactual = 0;
                 }
 
 
-                colaMelees->at(0)->bueno = !colaMelees->at(0)->bueno;
+                colaEnemigos->at(0)->bueno = !colaEnemigos->at(0)->bueno;
             }
+            else if ((colaEnemigos->at(0)->distancia < 700 && colaEnemigos->at(0)->getClassName() == "Caster")) {
 
-            colaMelees->at(0)->encola = false;
-            // printf("BORRO ENEMIGO DE COLA\n");
-            //std::cout<<"Calculo la cola "<<std::endl;
-            colaMelees->pop_front();
-            //std::cout<<"cola size: "<<colaMelees->size()<<std::endl;
+                colaEnemigos->at(0)->posiblecamino = pathfingind->buscaCamino2(colaEnemigos->at(0)->GetPosition(), player->GetPosition());
+                if (colaEnemigos->at(0)->bueno) {
+                    colaEnemigos->at(0)->camino = colaEnemigos->at(0)->posiblecamino;
+                    colaEnemigos->at(0)->nodoactual = 0;
+                }
+               
+
+                colaEnemigos->at(0)->bueno = !colaEnemigos->at(0)->bueno;
+            }
+             ite--;
+            colaEnemigos->at(0)->encola = false;
+            colaEnemigos->pop_front();
             ite++;
         } else {
             ite = 10;

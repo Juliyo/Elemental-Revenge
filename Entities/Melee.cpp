@@ -115,6 +115,7 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, flo
     animationMuerte->addFrame(sf::IntRect(0, 0, 43, 32));
 
     camino = NULL;
+    posiblecamino=NULL;
     currentAnimation = &animationMuerte;
     Render::InicializarAnimatedSprite(sf::seconds(0.075f), true, false);
     PhysicsState::SetPosition(posX, posY);
@@ -133,15 +134,13 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, flo
 void Melee::CambiarVectorVelocidad() {
     sf::Vector2f movement(0, 0);
     if (camino != NULL) {
-        if (nodoactual < camino->size() - 2) {
+        if (nodoactual < camino->size() -1 && camino->size()>0) {
             //std::cout<<"Origen: "<<ceil(GetPosition().x/24)<<" , "<<ceil(GetPosition().x/24)<<std::endl;
             //std::cout<<"Destino: "<<camino->at(nodoactual+1).y<<" , "<<camino->at(nodoactual+1).y<<std::endl;
             if (round(GetPosition().x / 24) == camino->at(nodoactual + 1).x && round(GetPosition().y / 24) == camino->at(nodoactual + 1).y) {
                 nodoactual++;
 
-            } else if (round(GetPosition().x / 24) == camino->at(nodoactual + 2).x && round(GetPosition().y / 24) == camino->at(nodoactual + 2).y) {
-                nodoactual ++;
-            } else {
+            }else {
                 float x = camino->at(nodoactual + 1).x * 24 - this->GetPosition().x;
                 float y = camino->at(nodoactual + 1).y * 24 - this->GetPosition().y;
                 movement.x = x;
@@ -166,7 +165,7 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2, float multipl
             //std::cout<<"Enemigo:"<<this->GetPosition().x/24<<","<<this->GetPosition().y/24<<"  Meta:"<<world->player->GetPosition().x/24<<","<<world->player->GetPosition().y/24<<std::endl;
         //posiblecamino = world->pathfingind->buscaCamino(this->GetPosition(), world->player->GetPosition());
             if(!encola){
-                    world->colaMelees->push_back(this);
+                    world->colaEnemigos->push_back((Enemigo*)this);
                     encola=true;
                     //printf("METO ENEMIGO A LA COLA\n");
                    // std::cout<<"cola size: "<<world->colaMelees->size()<<std::endl;
@@ -202,29 +201,6 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2, float multipl
             }
         }
    // }
-    if (camino != NULL) {
-        if (nodoactual < camino->size() - 2) {
-            //std::cout<<"Origen: "<<ceil(GetPosition().x/24)<<" , "<<ceil(GetPosition().x/24)<<std::endl;
-            //std::cout<<"Destino: "<<camino->at(nodoactual+1).y<<" , "<<camino->at(nodoactual+1).y<<std::endl;
-            if (round(GetPosition().x / 24) == camino->at(nodoactual + 1).x && round(GetPosition().y / 24) == camino->at(nodoactual + 1).y) {
-                nodoactual++;
-
-            } else if (round(GetPosition().x / 24) == camino->at(nodoactual + 2).x && round(GetPosition().y / 24) == camino->at(nodoactual + 2).y) {
-                nodoactual += 2;
-            } else {
-                float x = camino->at(nodoactual + 1).x - this->GetPosition().x / 24;
-                float y = camino->at(nodoactual + 1).y - this->GetPosition().y / 24;
-                movement.x = x;
-                movement.y = y;
-            }
-        }
-
-
-        //std::cout<<x<<" , "<<y<<std::endl;
-    }
-
-
-
     //Hay que setear al BodyDef el vector velocidad que hallamos calculado
     //body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(movement) * Enemigo::GetVelocity()));
     // FindPlayer(elapsedTime);

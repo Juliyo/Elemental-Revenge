@@ -26,6 +26,7 @@
 #include <tmx/MapObject.h>
 #include "../Entities/Player.hpp"
 #include "../Entities/Melee.hpp"
+#include "../Entities/Caster.hpp"
 #include <Box2D/Box2D.h>
 #include "../Otros/Dummy.hpp"
 #include "../Otros/ContactListener.hpp"
@@ -69,9 +70,10 @@ public:
     Video                       *video;
     Player			*player;
     std::vector<Melee*>         *melee;
+    std::vector<Caster*>         *caster;
     std::vector<sf::CircleShape*> *meleeShapes;
     PathFinding                 *pathfingind;
-    std::deque<Melee*>          *colaMelees;
+    std::deque<Enemigo*>          *colaEnemigos;
 private:
     
     std::vector<bool>           *VectorBools;
