@@ -36,6 +36,10 @@ void Caster::Inicializar(float posX, float posY, Tipo::Caster tipo, float speedX
     animationMuerte = new Animation();
     disparo = new DisparoEnemigo[50];
 
+    if(tipo==Tipo::Caster::Mago){
+        
+    
+    
     walkingAnimationDown->setSpriteSheet("resources/Textures/ninjapeq.png");
     walkingAnimationDown->addFrame(sf::IntRect(0, 0, 34, 32));
     walkingAnimationDown->addFrame(sf::IntRect(34, 0, 34, 32));
@@ -44,21 +48,22 @@ void Caster::Inicializar(float posX, float posY, Tipo::Caster tipo, float speedX
 
 
 
-    walkingAnimationLeft->setSpriteSheet("resources/Textures/walkingNinjaLeft.png");
-    walkingAnimationLeft->addFrame(sf::IntRect(0, 0, 34, 34));
-    walkingAnimationLeft->addFrame(sf::IntRect(35, 0, 34, 34));
-    walkingAnimationLeft->addFrame(sf::IntRect(70, 0, 34, 34));
-    walkingAnimationLeft->addFrame(sf::IntRect(105, 0, 32, 34));
-    walkingAnimationLeft->addFrame(sf::IntRect(138, 0, 34, 34));
-    walkingAnimationLeft->addFrame(sf::IntRect(173, 0, 34, 34));
+    walkingAnimationLeft->setSpriteSheet("resources/Textures/magoenemigo.png");
+    walkingAnimationLeft->addFrame(sf::IntRect(0, 69, 67, 69));
+    walkingAnimationLeft->addFrame(sf::IntRect(67, 69, 66, 69));
+    walkingAnimationLeft->addFrame(sf::IntRect(133, 69, 66, 69));
+    walkingAnimationLeft->addFrame(sf::IntRect(199, 69, 66, 69));
 
-    walkingAnimationRight->setSpriteSheet("resources/Textures/walkingNinjaRight.png");
-    walkingAnimationRight->addFrame(sf::IntRect(0, 0, 34, 34));
-    walkingAnimationRight->addFrame(sf::IntRect(35, 0, 34, 34));
-    walkingAnimationRight->addFrame(sf::IntRect(70, 0, 32, 34));
-    walkingAnimationRight->addFrame(sf::IntRect(103, 0, 34, 34));
-    walkingAnimationRight->addFrame(sf::IntRect(138, 0, 34, 34));
-    walkingAnimationRight->addFrame(sf::IntRect(173, 0, 34, 34));
+
+    walkingAnimationRight->setSpriteSheet("resources/Textures/magoenemigo.png");
+    walkingAnimationRight->addFrame(sf::IntRect(0, 0, 66, 69));
+    walkingAnimationRight->addFrame(sf::IntRect(66, 0, 66, 69));
+    walkingAnimationRight->addFrame(sf::IntRect(132, 0, 66, 69));
+    walkingAnimationRight->addFrame(sf::IntRect(198, 0, 67, 69));
+
+
+    animationMuerte->setSpriteSheet("resources/Textures/magoenemigo.png");
+    animationMuerte->addFrame(sf::IntRect(0, 138, 76, 40));
 
 
     walkingAnimationUp->setSpriteSheet("resources/Textures/ninjapeq2.png");
@@ -66,10 +71,48 @@ void Caster::Inicializar(float posX, float posY, Tipo::Caster tipo, float speedX
     walkingAnimationUp->addFrame(sf::IntRect(34, 0, 34, 32));
     walkingAnimationUp->addFrame(sf::IntRect(68, 0, 34, 32));
     walkingAnimationUp->addFrame(sf::IntRect(102, 0, 34, 32));
+    
+    
+    
+    }else{
+            
+    walkingAnimationDown->setSpriteSheet("resources/Textures/ninjapeq.png");
+    walkingAnimationDown->addFrame(sf::IntRect(0, 0, 34, 32));
+    walkingAnimationDown->addFrame(sf::IntRect(34, 0, 34, 32));
+    walkingAnimationDown->addFrame(sf::IntRect(68, 0, 34, 32));
+    walkingAnimationDown->addFrame(sf::IntRect(102, 0, 34, 32));
 
-    animationMuerte->setSpriteSheet("resources/Textures/ninjaMuerto.png");
-    animationMuerte->addFrame(sf::IntRect(0, 0, 43, 32));
 
+
+    walkingAnimationLeft->setSpriteSheet("resources/Textures/bandidos.png");
+    walkingAnimationLeft->addFrame(sf::IntRect(0, 17, 17, 17));
+    walkingAnimationLeft->addFrame(sf::IntRect(17, 17, 17, 17));
+    walkingAnimationLeft->addFrame(sf::IntRect(34, 17, 17, 17));
+    walkingAnimationLeft->addFrame(sf::IntRect(51, 17, 16, 17));
+    walkingAnimationLeft->addFrame(sf::IntRect(67, 17, 17, 17));
+    walkingAnimationLeft->addFrame(sf::IntRect(84, 17, 17, 17));
+
+    walkingAnimationRight->setSpriteSheet("resources/Textures/bandidos.png");
+    walkingAnimationRight->addFrame(sf::IntRect(0, 0, 17, 17));
+    walkingAnimationRight->addFrame(sf::IntRect(17, 0, 17, 17));
+    walkingAnimationRight->addFrame(sf::IntRect(34, 0, 16, 17));
+    walkingAnimationRight->addFrame(sf::IntRect(50, 0, 17, 17));
+    walkingAnimationRight->addFrame(sf::IntRect(67, 0, 17, 17));
+    walkingAnimationRight->addFrame(sf::IntRect(84, 0, 17, 17));
+
+
+    animationMuerte->setSpriteSheet("resources/Textures/bandidos.png");
+    animationMuerte->addFrame(sf::IntRect(0, 34, 19, 14));
+
+
+    walkingAnimationUp->setSpriteSheet("resources/Textures/ninjapeq2.png");
+    walkingAnimationUp->addFrame(sf::IntRect(0, 0, 34, 32));
+    walkingAnimationUp->addFrame(sf::IntRect(34, 0, 34, 32));
+    walkingAnimationUp->addFrame(sf::IntRect(68, 0, 34, 32));
+    walkingAnimationUp->addFrame(sf::IntRect(102, 0, 34, 32));
+    }
+    
+    
     camino = NULL;
     posiblecamino=NULL;
     currentAnimation = &animationMuerte;
@@ -82,7 +125,13 @@ void Caster::Inicializar(float posX, float posY, Tipo::Caster tipo, float speedX
     Render::SetOriginAnimatedSprite(17, 16);
     SetOriginColision(17, 16);
     SetEstado(Estado::ID::Vivo);
-
+    
+    if(tipo==Tipo::Caster::Mago){
+            SetScaleAnimation(0.5,0.5);
+    }
+    if(tipo==Tipo::Caster::Bandido){
+            SetScaleAnimation(1.7,1.7);
+    }
     empujado = false;
     empujado2 = false;
 }
@@ -256,7 +305,7 @@ void Caster::UpdateEnemyAnimation(int x, int y) {
    // 2 -> Abajo
    // 3 -> Derecha
    // 4 -> Izquierda
-   
+   /*
    if (abs(y) > abs(x) && y <= 0) {
        cuadrante = 1;
        currentAnimation = &walkingAnimationUp;
@@ -269,7 +318,15 @@ void Caster::UpdateEnemyAnimation(int x, int y) {
    } else {
        currentAnimation = &walkingAnimationLeft;
        cuadrante = 4;
-   }
+   }*/
+    
+       if (x > 0) {
+        currentAnimation = &walkingAnimationRight;
+        cuadrante = 3;
+    } else {
+        currentAnimation = &walkingAnimationLeft;
+        cuadrante = 4;
+    }
 }
 
 void Caster::UpdateAnimation(sf::Time elapsedTime) {

@@ -147,7 +147,7 @@ void Mapa::CreateCasters() {
             casters->reserve(l.objects.size());
             for (const auto& o : l.objects) {
                 Caster *caster = new Caster();
-                caster->Inicializar(o.GetCentre().x, o.GetCentre().y, Tipo::Caster::Julinyo);
+                caster->Inicializar(o.GetCentre().x, o.GetCentre().y, Tipo::Caster::Mago);
                 caster->SetRectangleColision(0, 0, 34, 34);
                 caster->CreateBody();
                 casters->push_back(caster);

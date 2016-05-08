@@ -22,8 +22,8 @@
 namespace Tipo {
 
     enum Caster {
-        Pepi = 0,
-        Julinyo = 1,
+        Mago = 0,
+        Bandido = 1,
     };
 }
 
