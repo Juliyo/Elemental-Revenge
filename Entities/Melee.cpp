@@ -79,6 +79,8 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, flo
     walkingAnimationRight = new Animation();
     walkingAnimationUp = new Animation();
     animationMuerte = new Animation();
+    
+    if(tipo==Tipo::ID::Ninja){
 
     walkingAnimationDown->setSpriteSheet("resources/Textures/ninjapeq.png");
     walkingAnimationDown->addFrame(sf::IntRect(0, 0, 34, 32));
@@ -113,7 +115,30 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, flo
 
     animationMuerte->setSpriteSheet("resources/Textures/ninjaMuerto.png");
     animationMuerte->addFrame(sf::IntRect(0, 0, 43, 32));
+    }
+    else{
+    walkingAnimationLeft->setSpriteSheet("resources/Textures/ratas.png");
+    walkingAnimationLeft->addFrame(sf::IntRect(0, 20, 27, 20));
+    walkingAnimationLeft->addFrame(sf::IntRect(27, 20, 28, 20));
+    walkingAnimationLeft->addFrame(sf::IntRect(55, 20, 29, 20));
+    walkingAnimationLeft->addFrame(sf::IntRect(84, 20, 30, 20));
+    walkingAnimationLeft->addFrame(sf::IntRect(114, 20, 26, 20));
+    walkingAnimationLeft->addFrame(sf::IntRect(140, 20, 22, 20));
 
+    walkingAnimationRight->setSpriteSheet("resources/Textures/ratas.png");
+    walkingAnimationRight->addFrame(sf::IntRect(0, 0, 22, 20));
+    walkingAnimationRight->addFrame(sf::IntRect(22, 0, 26, 20));
+    walkingAnimationRight->addFrame(sf::IntRect(48, 0, 30, 20));
+    walkingAnimationRight->addFrame(sf::IntRect(78, 0, 29, 20));
+    walkingAnimationRight->addFrame(sf::IntRect(107, 0, 28, 20));
+    walkingAnimationRight->addFrame(sf::IntRect(135, 0, 27, 20));
+    
+    
+    animationMuerte->setSpriteSheet("resources/Textures/ratas.png");
+    animationMuerte->addFrame(sf::IntRect(0, 40, 25, 14));
+    
+    
+    }
     camino = NULL;
     posiblecamino = NULL;
     currentAnimation = &animationMuerte;
