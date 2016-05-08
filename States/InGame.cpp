@@ -346,33 +346,27 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
 
     //****************************RENDER ENEMIGOS CASTERS************************************//
     for (int i = 0; i < caster->size(); i++) {
-        if (caster->at(i)->getSpeed().x == 0 && caster->at(i)->getSpeed().y == 0) {
-            switch (caster->at(i)->cuadrante) {
-                case 1:
-                    // melee[i].currentAnimation = &melee->idleAnimationRight;
-                    break;
-                case 2:
-                    //player->currentAnimation = &player->idleAnimationLeft;
-                    break;
-                case 3:
-                    //player->currentAnimation = &player->idleAnimationRight;
-                    break;
-                case 4:
-                    //player->currentAnimation = &player->idleAnimationLeft;
-                    break;
-            }
-        }
         caster->at(i)->PlayAnimation(*caster->at(i)->currentAnimation);
         caster->at(i)->UpdateAnimation(elapsedTime);
-        caster->at(i)->CambiarVectorVelocidad();
-        caster->at(i)->DrawWithInterpolation(interpolation);
+         if (StateStack::Instance()->currentState != States::ID::Pause && StateStack::Instance()->currentState != States::ID::Muerte) {
+            if (caster->at(i)->GetEstado() != Estado::ID::Muerto) {
+                int x2 = player->getPosition().x - caster->at(i)->getPosition().x;
+                int y2 = player->getPosition().y - caster->at(i)->getPosition().y;
+                caster->at(i)->UpdateEnemyAnimation(x2, y2);
+                caster->at(i)->CambiarVectorVelocidad();
+
+                caster->at(i)->DrawWithInterpolation(interpolation);
+            } else {
+                caster->at(i)->DrawAnimationWithOut(caster->at(i)->GetRenderPosition());
+            }
+        } else { //Si no renderizamos sin interpolacion
+            caster->at(i)->DrawAnimationWithOut(caster->at(i)->GetRenderPosition());
+            if (StateStack::Instance()->currentState == States::ID::Pause) {
+                caster->at(i)->StopAnimation();
+            }
+        }
 
     }
-
-
-
-
-
 
     if (StateStack::Instance()->currentState == States::ID::InGame && cambioInGame2Pausa == false) {
         cambioInGame2Pausa = true;
@@ -430,23 +424,14 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
 
 
     //**************************************Disparo Caster************************** 
-    for (int i = 0; i < caster->size(); i++) {
-        int x2 = player->getPosition().x - caster->at(i)->getPosition().x;
-        int y2 = player->getPosition().y - caster->at(i)->getPosition().y;
-        caster->at(i)->UpdateEnemyAnimation(x2, y2);
-    }
-    
-    for(int j=0;j<caster->size();j++){
-    for (int i = 0; i < 50; i++) {
-
-        caster->at(j)->disparo[i].RenderDisparo(interpolation);
-    }
+    for (int j = 0; j < caster->size(); j++) {
+        if (caster->at(j)->GetEstado() != Estado::ID::Muerto) {
+            for (int i = 0; i < 50; i++) {
+                caster->at(j)->disparo[i].RenderDisparo(interpolation);
+            }
+        }
 
     }
-
-
-
-
     /////////////////////////////////
     motor->SetView(2); //vista del HUD
     if (StateStack::Instance()->currentState == States::ID::Pause) {

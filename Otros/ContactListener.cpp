@@ -93,7 +93,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
             Caster *m = static_cast<Caster*> (fixtureB->GetBody()->GetUserData());
             hFireBasic *f = static_cast<hFireBasic*> (fixtureA->GetBody()->GetUserData());
             m->RestarVida(f->getDamage());
- 
+            
             f->Colision();
         }
     }else if(claseA == ""){
