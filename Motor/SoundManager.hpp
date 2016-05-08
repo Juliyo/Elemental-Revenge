@@ -25,6 +25,8 @@ public:
     static SoundManager* Instance(); // Singleton
     void load();
     void play(std::string ruta);
+    void stop(std::string ruta);
+    void setVolumen(std::string ruta,float vol);
 private:
     static SoundManager* mInstance;
     std::map<std::string,Sound*> *sonidos;

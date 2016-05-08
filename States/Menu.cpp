@@ -13,6 +13,8 @@
 
 #include "Menu.hpp"
 #include "StateStack.hpp"
+#include "../Motor/SoundManager.hpp"
+#include "../Motor/Music.hpp"
 
 
 Menu::Menu() {
@@ -41,6 +43,11 @@ void Menu::Inicializar() {
     srand(time(NULL));
 
     random = rand() % 3; // v1 in the range 0 to 99
+    
+    Music *music = Music::Instance();
+    music->Stop();
+    music->Load(MUSICA::ID::Menu);
+    music->Play();
     
     cargarAnimacionesMenu();
 
@@ -308,6 +315,16 @@ void Menu::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
             //selectedItemIndex = 3;
             //Si estamos en el Menu lanzamos el estado ingame
            // StateStack::Instance()->GetState(States::ID::Carga)->Inicializar();
+            SoundManager *sonido = SoundManager::Instance();
+            if(random==0)
+            sonido->stop("resources/Sounds/Cascada.ogg");
+            
+            if(random==1)
+            sonido->stop("resources/Sounds/CasaFuego.ogg");
+            
+            if(random==2)
+            sonido->stop("resources/Sounds/Truenos.ogg");
+            
             StateStack::Instance()->SetCurrentState(States::ID::Carga);
             StateStack::Instance()->GetState(States::ID::Carga)->Inicializar();
         }
@@ -375,6 +392,9 @@ void Menu::updateView() {
 
 void Menu::cargarAnimacionesMenu() {
     if (random == 0) {
+        SoundManager *sonido = SoundManager::Instance();
+        sonido->setVolumen("resources/Sounds/Cascada.ogg",20);
+        sonido->play("resources/Sounds/Cascada.ogg");
         if (!texturaAnimation.loadFromFile("resources/MenuInicio/SpritesheetMenu.png")) {
             std::cout << "Error cargando la textura: " << "resources/MenuInicio/SpritesheetMenu.png" << std::endl;
             exit(0);
@@ -383,7 +403,7 @@ void Menu::cargarAnimacionesMenu() {
 
         texturaAnimation.setSmooth(true);
 
-        animationMenu->setSpriteSheet("resources/MenuInicio/SpritesheetMenu.png");
+        animationMenu->setSpriteSheet("resources/MenuInicio/SpritesheetMenu.ogg");
         animationMenu->addFrame(sf::IntRect(0, 0, 800, 336));
         animationMenu->addFrame(sf::IntRect(800, 0, 800, 336));
         animationMenu->addFrame(sf::IntRect(0, 336, 800, 336));
@@ -397,7 +417,9 @@ void Menu::cargarAnimacionesMenu() {
     }
 
     if (random == 1) {
-
+            SoundManager *sonido = SoundManager::Instance();
+            sonido->setVolumen("resources/Sounds/CasaFuego.ogg",20);
+             sonido->play("resources/Sounds/CasaFuego.ogg");
 
 
 //        EstadoActivo = true;
@@ -452,6 +474,9 @@ void Menu::cargarAnimacionesMenu() {
     }
 
     if (random == 2) {
+              SoundManager *sonido = SoundManager::Instance();
+              sonido->setVolumen("resources/Sounds/Truenos.ogg",20);
+             sonido->play("resources/Sounds/Truenos.ogg");
 //        EstadoActivo = true;
         tecladoActivo = false;
         ratonSelecciona = false;

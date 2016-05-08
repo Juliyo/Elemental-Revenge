@@ -15,6 +15,7 @@
 #include "btree.hpp"
 #include "StateStack.hpp"
 #include "InGame.hpp"
+#include "../Motor/Music.hpp"
 
 Transition::Transition() {
     motor = Motor2D::Instance();
@@ -144,6 +145,11 @@ void Transition::Inicializar() {
     cruzeta2->setTexture(cruzeta);
     cruzeta2->setOrigin(cruzeta.getSize().x / 2, cruzeta.getSize().y / 2);
     cruzeta2->setScale(0.25, 0.25);
+    
+    Music *music = Music::Instance();
+    music->Stop();
+    music->Load(MUSICA::ID::Transiciones);
+    music->Play();
 }
 
 
@@ -184,6 +190,10 @@ void Transition::Update(sf::Time elapsedTime) {
                 buttonPressed = false;
                 InGame::Instance()->level->LoadMap(static_cast<Niveles::ID>(level));
                 StateStack::Instance()->SetCurrentState(States::ID::InGame);
+                    Music *music = Music::Instance();
+                    music->Stop();
+                    music->Load(MUSICA::ID::Mapa1);
+                    music->Play();
                 level++;
             }
         }

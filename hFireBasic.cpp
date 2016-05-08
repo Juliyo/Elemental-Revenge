@@ -124,7 +124,7 @@ hFireBasic::~hFireBasic() {
 
 void hFireBasic::cast(sf::Vector2f posicion) {
     SoundManager *sonido = SoundManager::Instance();
-    sonido->play("resources/Sounds/Pistola.wav");
+    sonido->play("resources/Sounds/Fbasico.wav");
     currentAnimation = &animationInicio;
     Render::SetOriginAnimatedSprite(76, 74);
     Render::SetFrameTime(sf::seconds(0.02f));

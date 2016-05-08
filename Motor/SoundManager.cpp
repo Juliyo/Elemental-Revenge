@@ -35,14 +35,28 @@ SoundManager::~SoundManager() {
 }
 
 void SoundManager::load() {
-    sonidos->insert(std::make_pair("resources/Sounds/Pistola.wav" , new Sound("resources/Sounds/Pistola.wav")));
-    sonidos->insert(std::make_pair("resources/Sounds/FireBall.wav" , new Sound("resources/Sounds/FireBall.wav")));
+    sonidos->insert(std::make_pair("resources/Sounds/Cascada.ogg" , new Sound("resources/Sounds/Cascada.ogg")));
+    sonidos->insert(std::make_pair("resources/Sounds/CasaFuego.ogg" , new Sound("resources/Sounds/CasaFuego.ogg")));
+    sonidos->insert(std::make_pair("resources/Sounds/Truenos.ogg" , new Sound("resources/Sounds/Truenos.ogg")));
+    sonidos->insert(std::make_pair("resources/Sounds/Fbasico.wav" , new Sound("resources/Sounds/Fbasico.wav")));
+    sonidos->insert(std::make_pair("resources/Sounds/Favanzado.wav" , new Sound("resources/Sounds/Favanzado.wav")));
 }
 
 void SoundManager::play(std::string ruta) {
     std::map<std::string,Sound*>::iterator it =sonidos->find(ruta);
     sf::Sound* sonido=it->second->getSound();
     sonido->setBuffer(*it->second->getBuffer());
-    sonido->setVolume(100);
     sonido->play();
+}
+
+void SoundManager::stop(std::string ruta) {
+    std::map<std::string,Sound*>::iterator it =sonidos->find(ruta);
+    sf::Sound* sonido=it->second->getSound();
+    sonido->stop();
+}
+
+void SoundManager::setVolumen(std::string ruta,float vol) {
+    std::map<std::string,Sound*>::iterator it =sonidos->find(ruta);
+    sf::Sound* sonido=it->second->getSound();
+    sonido->setVolume(vol);
 }
