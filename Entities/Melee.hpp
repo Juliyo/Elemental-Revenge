@@ -57,6 +57,7 @@ public:
     Animation *animationMuerte;
     std::vector<sf::RectangleShape> shapesDebug;
     sf::Color color;
+    Animation *paloninja;
     
     
 private:

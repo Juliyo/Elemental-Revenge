@@ -28,6 +28,7 @@ Melee::~Melee() {
     walkingAnimationRight = NULL;
     walkingAnimationUp = NULL;
     animationMuerte = NULL;
+    paloninja=NULL;
 
 }
 
@@ -79,6 +80,7 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, flo
     walkingAnimationRight = new Animation();
     walkingAnimationUp = new Animation();
     animationMuerte = new Animation();
+    paloninja= new Animation();
 
     if (tipo == Tipo::ID::Ninja) {
 
