@@ -287,15 +287,10 @@ void Caster::updateDisparoEnemigo(bool disparado, sf::Time elapsedTime, float x4
 }
 
 void Caster::RestarVida(int a) {
-<<<<<<< HEAD
 
-    if ((GetVida() - a) >= 0) {
-        SetVida(GetVida() - a);
-=======
     
     if ((GetVida() - a) > 0) {
             SetVida(GetVida() - a);
->>>>>>> origin/Box2D
     } else {
        // std::cout<<"CAMBIO LA ANIMACION A MUERTEEEEEEEEEEEEEEE\n"<<std::endl;
        // std::cout<<"CAMBIO LA ANIMACION A MUERTEEEEEEEEEEEEEEE\n"<<std::endl;
