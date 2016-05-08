@@ -246,7 +246,9 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
         melee->at(i)->UpdateAnimation(elapsedTime);
         if (StateStack::Instance()->currentState != States::ID::Pause) {
             if(melee->at(i)->GetEstado()!=Estado::ID::Muerto){
+                 melee->at(i)->CambiarVectorVelocidad();
             melee->at(i)->DrawWithInterpolation(interpolation);
+            
             }
             else{
             melee->at(i)->DrawAnimationWithOut(melee->at(i)->GetRenderPosition());

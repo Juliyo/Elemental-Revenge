@@ -221,8 +221,8 @@ std::vector<sf::Vector2i>* PathFinding::buscaCamino(sf::Vector2f posenemigo, sf:
     adicionarNodoAListaAbierta(nodoInicial);
 
     while (listaAbierta.size() > 0) {
-        /*if(listaCerrada.size() > 20){
-           /* Nodo *nodoActual = listaAbierta.at(listaAbierta.size() - 1);
+        if(listaCerrada.size() > 100){
+            Nodo *nodoActual = listaAbierta.at(listaAbierta.size() - 1);
             std::vector<sf::Vector2i> *mejorCamino = new std::vector<sf::Vector2i>();
             while (nodoActual != NULL) {
                 auto it = mejorCamino->begin();
@@ -231,7 +231,7 @@ std::vector<sf::Vector2i>* PathFinding::buscaCamino(sf::Vector2f posenemigo, sf:
             }
             return mejorCamino;
             return &listaCerrada;
-        }*/
+        }
         Nodo *nodoActual = listaAbierta.at(listaAbierta.size() - 1);
         if (nodoActual->esIgual(nodoFinal)) {
             std::vector<sf::Vector2i> *mejorCamino = new std::vector<sf::Vector2i>();

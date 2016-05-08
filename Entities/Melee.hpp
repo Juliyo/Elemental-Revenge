@@ -48,6 +48,7 @@ public:
     void StopAnimation();
     
     void RestarVida(int a);
+    void CambiarVectorVelocidad();
 
     bool empujado;
     bool empujado2;

@@ -169,12 +169,13 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, flo
     Render::InicializarAnimatedSprite(sf::seconds(0.075f), true, false);
     PhysicsState::SetPosition(posX, posY);
     PhysicsState::SetSpeed(speedX, speedY);
-    Enemigo::SetVelocity(100);
+    Enemigo::SetVelocity(250);
     Enemigo::SetVida(5);
     PhysicsState::SetMaxSpeed(maxSpeedX, maxSpeedY);
     Render::SetOriginAnimatedSprite(17, 16);
     SetOriginColision(17, 16);
     SetEstado(Estado::ID::Vivo);
+    camino = NULL;
 
     empujado = false;
     empujado2 = false;
@@ -219,11 +220,35 @@ void Melee::FindPlayer(sf::Time elapsedTime) {
     }
 
 }
+void Melee::CambiarVectorVelocidad() {
+    sf::Vector2f movement(0, 0);
+    if (camino != NULL) {
+        if (nodoactual < camino->size() - 2) {
+            //std::cout<<"Origen: "<<ceil(GetPosition().x/24)<<" , "<<ceil(GetPosition().x/24)<<std::endl;
+            //std::cout<<"Destino: "<<camino->at(nodoactual+1).y<<" , "<<camino->at(nodoactual+1).y<<std::endl;
+            if (round(GetPosition().x / 24) == camino->at(nodoactual + 1).x && round(GetPosition().y / 24) == camino->at(nodoactual + 1).y) {
+                nodoactual++;
+
+            } else if (round(GetPosition().x / 24) == camino->at(nodoactual + 2).x && round(GetPosition().y / 24) == camino->at(nodoactual + 2).y) {
+                nodoactual ++;
+            } else {
+                float x = camino->at(nodoactual + 1).x * 24 - this->GetPosition().x;
+                float y = camino->at(nodoactual + 1).y * 24 - this->GetPosition().y;
+                movement.x = x;
+                movement.y = y;
+            }
+        }
+        //Hay que setear al BodyDef el vector velocidad que hallamos calculado
+        body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(movement) * Enemigo::GetVelocity()));
+
+        //std::cout<<x<<" , "<<y<<std::endl;
+    }
+}
 
 void Melee::Update(const sf::Time elapsedTime, float x1, float x2, float multiplicador) {
     InGame* world = InGame::Instance();
     sf::Vector2f movement(x1, x2);
-    if (inicio.getTiempo() > 15.0f) {
+    if (inicio.getTiempo() > 0.5f) {
         camino = world->pathfingind->buscaCamino(this->GetPosition(), world->player->GetPosition());
         //camino = world->pathfingind->getCamino();
         inicio.restart();
@@ -254,12 +279,32 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2, float multipl
 
     }
     //SetSpeed(movement);
+    if (camino != NULL) {
+        if (nodoactual < camino->size() - 2) {
+            //std::cout<<"Origen: "<<ceil(GetPosition().x/24)<<" , "<<ceil(GetPosition().x/24)<<std::endl;
+            //std::cout<<"Destino: "<<camino->at(nodoactual+1).y<<" , "<<camino->at(nodoactual+1).y<<std::endl;
+            if (round(GetPosition().x / 24) == camino->at(nodoactual + 1).x && round(GetPosition().y / 24) == camino->at(nodoactual + 1).y) {
+                nodoactual++;
+
+            } else if (round(GetPosition().x / 24) == camino->at(nodoactual + 2).x && round(GetPosition().y / 24) == camino->at(nodoactual + 2).y) {
+                nodoactual += 2;
+            } else {
+                float x = camino->at(nodoactual + 1).x - this->GetPosition().x / 24;
+                float y = camino->at(nodoactual + 1).y - this->GetPosition().y / 24;
+                movement.x = x;
+                movement.y = y;
+            }
+        }
+
+
+        //std::cout<<x<<" , "<<y<<std::endl;
+    }
 
     //FindPlayer(elapsedTime);
     //UpdateEnemigo(elapsedTime,mapa);
     //PhysicsState::Update(elapsedTime);
     //Hay que setear al BodyDef el vector velocidad que hallamos calculado
-    body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(movement) * multiplicador * Enemigo::GetVelocity()));
+    //body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(movement) * multiplicador * Enemigo::GetVelocity()));
     PhysicsState::SetSpeed(tmx::BoxToSfVec(body->GetLinearVelocity()));
     // FindPlayer(elapsedTime);
     //Actualizamos la posicion del player con la posicion del bodyDef
