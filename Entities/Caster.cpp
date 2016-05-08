@@ -61,8 +61,8 @@ void Caster::Inicializar(float posX, float posY, Tipo::Caster tipo, float speedX
     walkingAnimationRight->addFrame(sf::IntRect(132, 0, 66, 69));
     walkingAnimationRight->addFrame(sf::IntRect(198, 0, 67, 69));
 
-
-    animationMuerte->setSpriteSheet("resources/Textures/magoenemigo.png");
+//cambiar esto
+    animationMuerte->setSpriteSheet("resources/Textures/ninjapeq2.png");
     animationMuerte->addFrame(sf::IntRect(0, 138, 76, 40));
 
 
@@ -367,9 +367,12 @@ void Caster::updateDisparoEnemigo(bool disparado, sf::Time elapsedTime,float x4,
 
 void Caster::RestarVida(int a) {
     
-    if ((GetVida() - a) >= 0) {
+    if ((GetVida() - a) > 0) {
             SetVida(GetVida() - a);
     } else {
+       // std::cout<<"CAMBIO LA ANIMACION A MUERTEEEEEEEEEEEEEEE\n"<<std::endl;
+       // std::cout<<"CAMBIO LA ANIMACION A MUERTEEEEEEEEEEEEEEE\n"<<std::endl;
+       // std::cout<<"CAMBIO LA ANIMACION A MUERTEEEEEEEEEEEEEEE\n"<<std::endl;
         currentAnimation = &animationMuerte;
         SetEstado(Estado::ID::Muriendo);
     }

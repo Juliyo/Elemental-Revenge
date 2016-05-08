@@ -106,6 +106,10 @@ void ContactListener::BeginContact(b2Contact* contact) {
             Melee *m = static_cast<Melee*> (fixtureB->GetBody()->GetUserData());
             hFireAdvanced *f = static_cast<hFireAdvanced*> (fixtureA->GetBody()->GetUserData());
             m->RestarVida(f->getDamage());
+        }else if(claseB == "Caster"){
+            Caster *m = static_cast<Caster*> (fixtureB->GetBody()->GetUserData());
+            hFireAdvanced *f = static_cast<hFireAdvanced*> (fixtureA->GetBody()->GetUserData());
+            m->RestarVida(f->getDamage());
         }
     }
 }
