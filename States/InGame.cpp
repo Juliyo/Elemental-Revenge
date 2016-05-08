@@ -164,7 +164,7 @@ void InGame::Update(sf::Time elapsedTime) {
             int x3 = player->getPosition().x - (*it)->getPosition().x;
             int y3 = player->getPosition().y - (*it)->getPosition().y;
             if ((*it)->GetEstado() == Estado::ID::Vivo) {
-(*it)->Update(elapsedTime, x3, y3, 1);
+                (*it)->Update(elapsedTime, x3, y3, 1);
             } else if ((*it)->GetEstado() == Estado::ID::Muriendo) {
                 //Si acaba de morir lo borramos del mundo y lo matamos
                 (*it)->body->GetWorld()->DestroyBody((*it)->body);

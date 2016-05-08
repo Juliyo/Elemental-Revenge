@@ -83,6 +83,8 @@ hRayAdvanced::~hRayAdvanced() {
 void hRayAdvanced::cast(sf::Vector2f posicion, Hud *hud, float cdRayoAvanzadoPausa) {
 
     if((clockCd.getTiempo()+cdRayoAvanzadoPausa) > getCD() || primerCast){
+        SoundManager *sonido = SoundManager::Instance();
+        sonido->play("resources/Sounds/Ravanzado.wav");
         primerCast=false;
         draw=true;
         
