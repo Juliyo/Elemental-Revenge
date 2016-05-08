@@ -297,7 +297,7 @@ void Melee::StopAnimation() {
 
 void Melee::RestarVida(int a) {
     int vida = GetVida();
-    if ((GetVida() - a) >= 0) {
+    if ((GetVida() - a) > 0) {
         SetVida(GetVida() - a);
     } else {
         currentAnimation = &animationMuerte;

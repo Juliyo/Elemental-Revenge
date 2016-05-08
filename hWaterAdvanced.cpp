@@ -53,6 +53,8 @@ hWaterAdvanced::~hWaterAdvanced() {
 void hWaterAdvanced::cast(sf::Vector2f posicion, Hud *hud, float cdAguaAvanzadoPausa) {
 
     if ((clockCd.getTiempo()+cdAguaAvanzadoPausa) > hCd || primerCast == true) {
+                SoundManager *sonido = SoundManager::Instance();
+        sonido->play("resources/Sounds/Aavanzado.wav");
         primerCast = false;
         tiempoInicio.restart();
         SetPosition(posicion);

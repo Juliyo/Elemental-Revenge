@@ -106,6 +106,7 @@ void Caster::Inicializar(float posX, float posY, Tipo::Caster tipo, float speedX
         walkingAnimationUp->addFrame(sf::IntRect(34, 0, 34, 32));
         walkingAnimationUp->addFrame(sf::IntRect(68, 0, 34, 32));
         walkingAnimationUp->addFrame(sf::IntRect(102, 0, 34, 32));
+
     }
 
 
@@ -286,10 +287,19 @@ void Caster::updateDisparoEnemigo(bool disparado, sf::Time elapsedTime, float x4
 }
 
 void Caster::RestarVida(int a) {
+<<<<<<< HEAD
 
     if ((GetVida() - a) >= 0) {
         SetVida(GetVida() - a);
+=======
+    
+    if ((GetVida() - a) > 0) {
+            SetVida(GetVida() - a);
+>>>>>>> origin/Box2D
     } else {
+       // std::cout<<"CAMBIO LA ANIMACION A MUERTEEEEEEEEEEEEEEE\n"<<std::endl;
+       // std::cout<<"CAMBIO LA ANIMACION A MUERTEEEEEEEEEEEEEEE\n"<<std::endl;
+       // std::cout<<"CAMBIO LA ANIMACION A MUERTEEEEEEEEEEEEEEE\n"<<std::endl;
         currentAnimation = &animationMuerte;
         SetEstado(Estado::ID::Muriendo);
     }

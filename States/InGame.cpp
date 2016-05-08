@@ -164,7 +164,7 @@ void InGame::Update(sf::Time elapsedTime) {
             int x3 = player->getPosition().x - (*it)->getPosition().x;
             int y3 = player->getPosition().y - (*it)->getPosition().y;
             if ((*it)->GetEstado() == Estado::ID::Vivo) {
-(*it)->Update(elapsedTime, x3, y3, 1);
+                (*it)->Update(elapsedTime, x3, y3, 1);
             } else if ((*it)->GetEstado() == Estado::ID::Muriendo) {
                 //Si acaba de morir lo borramos del mundo y lo matamos
                 (*it)->body->GetWorld()->DestroyBody((*it)->body);
@@ -207,6 +207,8 @@ void InGame::Update(sf::Time elapsedTime) {
 
                 player->hRayoBasico->clockCd.restart();
                 player->hud->resetRayo1();
+                 player->hRayoBasico->primeraVez=true;
+                 player->hRayoBasico->stopSound();
             if(cdRayoBasicoPausa>0){
                 cdRayoBasicoPausa=0;
             }
@@ -285,6 +287,9 @@ void InGame::Update(sf::Time elapsedTime) {
     firstTime = false;
 
     if (player->GetVida() == 0) {
+     SoundManager *sonido = SoundManager::Instance();
+    sonido->play("resources/Sounds/Muerte.wav");
+        
         StateStack::Instance()->SetCurrentState(States::ID::Muerte);
     }
 
@@ -544,6 +549,8 @@ void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         }
         player->hud->cambiaHechizo(hActivo + 1);
     } else if (key == sf::Keyboard::P) {
+        SoundManager *sonido = SoundManager::Instance();
+    sonido->play("resources/Sounds/Pausa.wav");
         StateStack::Instance()->SetCurrentState(States::ID::Pause);
 
     }
