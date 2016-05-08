@@ -61,13 +61,24 @@ void Mapa::CreateMelees() {
     for (const auto& l : layers) {
         if (l.name == "Melees") //static bodies which make up the map geometry
         {
+            
             melees->reserve(l.objects.size());
             for (const auto& o : l.objects) {
-                Melee *melee = new Melee();
-                melee->Inicializar(o.GetCentre().x, o.GetCentre().y, Tipo::ID::Rata);
-                melee->SetRectangleColision(0, 0, 34, 34);
-                melee->CreateBody();
-                melees->push_back(melee);
+                int random = rand() % 2; // v1 in the range 0 to 99
+                if (random == 0) {
+                    Melee *melee = new Melee();
+                    melee->Inicializar(o.GetCentre().x, o.GetCentre().y, Tipo::ID::Rata);
+                    melee->SetRectangleColision(0, 0, 40, 34);
+                    melee->CreateBody();
+                    melees->push_back(melee);
+                } else {
+                    Melee *melee = new Melee();
+                    melee->Inicializar(o.GetCentre().x, o.GetCentre().y, Tipo::ID::Ninja);
+                    melee->SetRectangleColision(0, 0, 34, 34);
+                    melee->CreateBody();
+                    melees->push_back(melee);
+                }
+                
             }
         }
     }

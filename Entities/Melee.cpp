@@ -21,14 +21,14 @@ Melee::Melee() : Collisionable((Entity*)this) {
 }
 
 Melee::~Melee() {
-    
+
     currentAnimation = NULL;
     walkingAnimationDown = NULL;
     walkingAnimationLeft = NULL;
     walkingAnimationRight = NULL;
     walkingAnimationUp = NULL;
     animationMuerte = NULL;
-    
+
 }
 
 void Melee::CreateBody() {
@@ -51,7 +51,7 @@ void Melee::CreateBody() {
     rs->setRadius(rectColision->GetWidth() / 2.f);
     rs->setFillColor(sf::Color::Transparent);
     rs->setOutlineColor(sf::Color::Red);
-    rs->setOrigin(rectColision->GetWidth() / 2.f,rectColision->GetHeight() / 2.f);
+    rs->setOrigin(rectColision->GetWidth() / 2.f, rectColision->GetHeight() / 2.f);
     rs->setOutlineThickness(2);
     InGame::Instance()->meleeShapes->push_back(rs);
     //shape = new b2PolygonShape();
@@ -79,80 +79,89 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, flo
     walkingAnimationRight = new Animation();
     walkingAnimationUp = new Animation();
     animationMuerte = new Animation();
-    
-    if(tipo==Tipo::ID::Ninja){
 
-    walkingAnimationDown->setSpriteSheet("resources/Textures/ninjapeq.png");
-    walkingAnimationDown->addFrame(sf::IntRect(0, 0, 34, 32));
-    walkingAnimationDown->addFrame(sf::IntRect(34, 0, 34, 32));
-    walkingAnimationDown->addFrame(sf::IntRect(68, 0, 34, 32));
-    walkingAnimationDown->addFrame(sf::IntRect(102, 0, 34, 32));
+    if (tipo == Tipo::ID::Ninja) {
 
-
-
-    walkingAnimationLeft->setSpriteSheet("resources/Textures/walkingNinjaLeft.png");
-    walkingAnimationLeft->addFrame(sf::IntRect(0, 0, 34, 34));
-    walkingAnimationLeft->addFrame(sf::IntRect(35, 0, 34, 34));
-    walkingAnimationLeft->addFrame(sf::IntRect(70, 0, 34, 34));
-    walkingAnimationLeft->addFrame(sf::IntRect(105, 0, 32, 34));
-    walkingAnimationLeft->addFrame(sf::IntRect(138, 0, 34, 34));
-    walkingAnimationLeft->addFrame(sf::IntRect(173, 0, 34, 34));
-
-    walkingAnimationRight->setSpriteSheet("resources/Textures/walkingNinjaRight.png");
-    walkingAnimationRight->addFrame(sf::IntRect(0, 0, 34, 34));
-    walkingAnimationRight->addFrame(sf::IntRect(35, 0, 34, 34));
-    walkingAnimationRight->addFrame(sf::IntRect(70, 0, 32, 34));
-    walkingAnimationRight->addFrame(sf::IntRect(103, 0, 34, 34));
-    walkingAnimationRight->addFrame(sf::IntRect(138, 0, 34, 34));
-    walkingAnimationRight->addFrame(sf::IntRect(173, 0, 34, 34));
+        walkingAnimationDown->setSpriteSheet("resources/Textures/ninjapeq.png");
+        walkingAnimationDown->addFrame(sf::IntRect(0, 0, 34, 32));
+        walkingAnimationDown->addFrame(sf::IntRect(34, 0, 34, 32));
+        walkingAnimationDown->addFrame(sf::IntRect(68, 0, 34, 32));
+        walkingAnimationDown->addFrame(sf::IntRect(102, 0, 34, 32));
 
 
-    walkingAnimationUp->setSpriteSheet("resources/Textures/ninjapeq2.png");
-    walkingAnimationUp->addFrame(sf::IntRect(0, 0, 34, 32));
-    walkingAnimationUp->addFrame(sf::IntRect(34, 0, 34, 32));
-    walkingAnimationUp->addFrame(sf::IntRect(68, 0, 34, 32));
-    walkingAnimationUp->addFrame(sf::IntRect(102, 0, 34, 32));
 
-    animationMuerte->setSpriteSheet("resources/Textures/ninjaMuerto.png");
-    animationMuerte->addFrame(sf::IntRect(0, 0, 43, 32));
-    }
-    else{
-    walkingAnimationLeft->setSpriteSheet("resources/Textures/ratas.png");
-    walkingAnimationLeft->addFrame(sf::IntRect(0, 20, 27, 20));
-    walkingAnimationLeft->addFrame(sf::IntRect(27, 20, 28, 20));
-    walkingAnimationLeft->addFrame(sf::IntRect(55, 20, 29, 20));
-    walkingAnimationLeft->addFrame(sf::IntRect(84, 20, 30, 20));
-    walkingAnimationLeft->addFrame(sf::IntRect(114, 20, 26, 20));
-    walkingAnimationLeft->addFrame(sf::IntRect(140, 20, 22, 20));
+        walkingAnimationLeft->setSpriteSheet("resources/Textures/walkingNinjaLeft.png");
+        walkingAnimationLeft->addFrame(sf::IntRect(0, 0, 34, 34));
+        walkingAnimationLeft->addFrame(sf::IntRect(35, 0, 34, 34));
+        walkingAnimationLeft->addFrame(sf::IntRect(70, 0, 34, 34));
+        walkingAnimationLeft->addFrame(sf::IntRect(105, 0, 32, 34));
+        walkingAnimationLeft->addFrame(sf::IntRect(138, 0, 34, 34));
+        walkingAnimationLeft->addFrame(sf::IntRect(173, 0, 34, 34));
 
-    walkingAnimationRight->setSpriteSheet("resources/Textures/ratas.png");
-    walkingAnimationRight->addFrame(sf::IntRect(0, 0, 22, 20));
-    walkingAnimationRight->addFrame(sf::IntRect(22, 0, 26, 20));
-    walkingAnimationRight->addFrame(sf::IntRect(48, 0, 30, 20));
-    walkingAnimationRight->addFrame(sf::IntRect(78, 0, 29, 20));
-    walkingAnimationRight->addFrame(sf::IntRect(107, 0, 28, 20));
-    walkingAnimationRight->addFrame(sf::IntRect(135, 0, 27, 20));
-    
-    
-    animationMuerte->setSpriteSheet("resources/Textures/ratas.png");
-    animationMuerte->addFrame(sf::IntRect(0, 40, 25, 14));
-    
-    
+        walkingAnimationRight->setSpriteSheet("resources/Textures/walkingNinjaRight.png");
+        walkingAnimationRight->addFrame(sf::IntRect(0, 0, 34, 34));
+        walkingAnimationRight->addFrame(sf::IntRect(35, 0, 34, 34));
+        walkingAnimationRight->addFrame(sf::IntRect(70, 0, 32, 34));
+        walkingAnimationRight->addFrame(sf::IntRect(103, 0, 34, 34));
+        walkingAnimationRight->addFrame(sf::IntRect(138, 0, 34, 34));
+        walkingAnimationRight->addFrame(sf::IntRect(173, 0, 34, 34));
+
+
+        walkingAnimationUp->setSpriteSheet("resources/Textures/ninjapeq2.png");
+        walkingAnimationUp->addFrame(sf::IntRect(0, 0, 34, 32));
+        walkingAnimationUp->addFrame(sf::IntRect(34, 0, 34, 32));
+        walkingAnimationUp->addFrame(sf::IntRect(68, 0, 34, 32));
+        walkingAnimationUp->addFrame(sf::IntRect(102, 0, 34, 32));
+
+        animationMuerte->setSpriteSheet("resources/Textures/ninjaMuerto.png");
+        animationMuerte->addFrame(sf::IntRect(0, 0, 43, 32));
+        
+        currentAnimation = &animationMuerte;
+        Render::InicializarAnimatedSprite(sf::seconds(0.075f), true, false);
+        PhysicsState::SetPosition(posX, posY);
+        PhysicsState::SetSpeed(speedX, speedY);
+        Enemigo::SetVelocity(150);
+        Enemigo::SetVida(2);
+        PhysicsState::SetMaxSpeed(maxSpeedX, maxSpeedY);
+        Render::SetOriginAnimatedSprite(11, 10);
+        SetOriginColision(20, 17);
+        SetEstado(Estado::ID::Vivo);
+    } else {
+        walkingAnimationLeft->setSpriteSheet("resources/Textures/ratas.png");
+        walkingAnimationLeft->addFrame(sf::IntRect(0, 20, 27, 20));
+        walkingAnimationLeft->addFrame(sf::IntRect(27, 20, 28, 20));
+        walkingAnimationLeft->addFrame(sf::IntRect(55, 20, 29, 20));
+        walkingAnimationLeft->addFrame(sf::IntRect(84, 20, 30, 20));
+        walkingAnimationLeft->addFrame(sf::IntRect(114, 20, 26, 20));
+        walkingAnimationLeft->addFrame(sf::IntRect(140, 20, 22, 20));
+
+        walkingAnimationRight->setSpriteSheet("resources/Textures/ratas.png");
+        walkingAnimationRight->addFrame(sf::IntRect(0, 0, 22, 20));
+        walkingAnimationRight->addFrame(sf::IntRect(22, 0, 26, 20));
+        walkingAnimationRight->addFrame(sf::IntRect(48, 0, 30, 20));
+        walkingAnimationRight->addFrame(sf::IntRect(78, 0, 29, 20));
+        walkingAnimationRight->addFrame(sf::IntRect(107, 0, 28, 20));
+        walkingAnimationRight->addFrame(sf::IntRect(135, 0, 27, 20));
+
+
+        animationMuerte->setSpriteSheet("resources/Textures/ratas.png");
+        animationMuerte->addFrame(sf::IntRect(0, 40, 25, 14));
+        
+        currentAnimation = &animationMuerte;
+        Render::InicializarAnimatedSprite(sf::seconds(0.075f), true, false);
+        PhysicsState::SetPosition(posX, posY);
+        PhysicsState::SetSpeed(speedX, speedY);
+        Enemigo::SetVelocity(150);
+        Enemigo::SetVida(5);
+        PhysicsState::SetMaxSpeed(maxSpeedX, maxSpeedY);
+        Render::SetOriginAnimatedSprite(17, 16);
+        SetOriginColision(17, 16);
+        SetEstado(Estado::ID::Vivo);
+        SetScaleAnimation(1.7f,1.7f);
+
     }
     camino = NULL;
-    posiblecamino=NULL;
-
-    currentAnimation = &animationMuerte;
-    Render::InicializarAnimatedSprite(sf::seconds(0.075f), true, false);
-    PhysicsState::SetPosition(posX, posY);
-    PhysicsState::SetSpeed(speedX, speedY);
-    Enemigo::SetVelocity(150);
-    Enemigo::SetVida(5);
-    PhysicsState::SetMaxSpeed(maxSpeedX, maxSpeedY);
-    Render::SetOriginAnimatedSprite(17, 16);
-    SetOriginColision(17, 16);
-    SetEstado(Estado::ID::Vivo);
-
+    posiblecamino = NULL;
     empujado = false;
     empujado2 = false;
 }
@@ -160,13 +169,13 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, flo
 void Melee::CambiarVectorVelocidad() {
     sf::Vector2f movement(0, 0);
     if (camino != NULL) {
-        if (nodoactual < camino->size() -1 && camino->size()>0) {
+        if (nodoactual < camino->size() - 1 && camino->size() > 0) {
             //std::cout<<"Origen: "<<ceil(GetPosition().x/24)<<" , "<<ceil(GetPosition().x/24)<<std::endl;
             //std::cout<<"Destino: "<<camino->at(nodoactual+1).y<<" , "<<camino->at(nodoactual+1).y<<std::endl;
             if (round(GetPosition().x / 24) == camino->at(nodoactual + 1).x && round(GetPosition().y / 24) == camino->at(nodoactual + 1).y) {
                 nodoactual++;
 
-            }else {
+            } else {
                 float x = camino->at(nodoactual + 1).x * 24 - this->GetPosition().x;
                 float y = camino->at(nodoactual + 1).y * 24 - this->GetPosition().y;
                 movement.x = x;
@@ -183,50 +192,50 @@ void Melee::CambiarVectorVelocidad() {
 void Melee::Update(const sf::Time elapsedTime, float x1, float x2, float multiplicador) {
     InGame* world = InGame::Instance();
     sf::Vector2f movement(0, 0);
-   // if (inicio.getTiempo() > 0.5f) {
-        float x = world->player->GetPosition().x - this->GetPosition().x;
-        float y = world->player->GetPosition().y - this->GetPosition().y;
-         distancia = sqrt(pow(x, 2) + pow(y, 2));
-        if (distancia < 500) {
-            //std::cout<<"Enemigo:"<<this->GetPosition().x/24<<","<<this->GetPosition().y/24<<"  Meta:"<<world->player->GetPosition().x/24<<","<<world->player->GetPosition().y/24<<std::endl;
+    // if (inicio.getTiempo() > 0.5f) {
+    float x = world->player->GetPosition().x - this->GetPosition().x;
+    float y = world->player->GetPosition().y - this->GetPosition().y;
+    distancia = sqrt(pow(x, 2) + pow(y, 2));
+    if (distancia < 500) {
+        //std::cout<<"Enemigo:"<<this->GetPosition().x/24<<","<<this->GetPosition().y/24<<"  Meta:"<<world->player->GetPosition().x/24<<","<<world->player->GetPosition().y/24<<std::endl;
         //posiblecamino = world->pathfingind->buscaCamino(this->GetPosition(), world->player->GetPosition());
-            if(!encola){
-                    world->colaEnemigos->push_back((Enemigo*)this);
-                    encola=true;
-                    //printf("METO ENEMIGO A LA COLA\n");
-                   // std::cout<<"cola size: "<<world->colaMelees->size()<<std::endl;
-            }
+        if (!encola) {
+            world->colaEnemigos->push_back((Enemigo*)this);
+            encola = true;
+            //printf("METO ENEMIGO A LA COLA\n");
+            // std::cout<<"cola size: "<<world->colaMelees->size()<<std::endl;
+        }
 
-//        if(bueno){
-//            camino=posiblecamino;
-//            nodoactual = 0;
-//        }
-//            
-//        
-//        bueno=!bueno;
-        
-            inicio.restart();
-            
-            shapesDebug.clear();
+        //        if(bueno){
+        //            camino=posiblecamino;
+        //            nodoactual = 0;
+        //        }
+        //            
+        //        
+        //        bueno=!bueno;
+
+        inicio.restart();
+
+        shapesDebug.clear();
 
 
-            if (camino != NULL) {
-                for (int i = 0; i < camino->size(); i++) {
-                    //std::cout << "Nodo " << i << " " << camino->at(i).x << "," << camino->at(i).y << "    Meta " << ceil(world->player->GetPosition().x/24) << "," << ceil(world->player->GetPosition().y/24) << std::endl;
-                    sf::RectangleShape shape;
-                    shape.setPosition(sf::Vector2f(camino->at(i).x * 24, camino->at(i).y * 24));
-                    shape.setSize(sf::Vector2f(24, 24));
-                    shape.setOrigin(12.f, 12.f);
-                    shape.setFillColor(color);
+        if (camino != NULL) {
+            for (int i = 0; i < camino->size(); i++) {
+                //std::cout << "Nodo " << i << " " << camino->at(i).x << "," << camino->at(i).y << "    Meta " << ceil(world->player->GetPosition().x/24) << "," << ceil(world->player->GetPosition().y/24) << std::endl;
+                sf::RectangleShape shape;
+                shape.setPosition(sf::Vector2f(camino->at(i).x * 24, camino->at(i).y * 24));
+                shape.setSize(sf::Vector2f(24, 24));
+                shape.setOrigin(12.f, 12.f);
+                shape.setFillColor(color);
 
-                    shapesDebug.push_back(shape);
-                    //std::cout<<"Camino        "<<i<<": "<<camino->at(i).x<<","<<camino->at(i).y<<std::endl;
-                    //if(i<posiblecamino->size())
-                    //std::cout<<"Psible Camino "<<i<<": "<<posiblecamino->at(i).x<<","<<posiblecamino->at(i).y<<std::endl;
-                }
+                shapesDebug.push_back(shape);
+                //std::cout<<"Camino        "<<i<<": "<<camino->at(i).x<<","<<camino->at(i).y<<std::endl;
+                //if(i<posiblecamino->size())
+                //std::cout<<"Psible Camino "<<i<<": "<<posiblecamino->at(i).x<<","<<posiblecamino->at(i).y<<std::endl;
             }
         }
-   // }
+    }
+    // }
     //Hay que setear al BodyDef el vector velocidad que hallamos calculado
     //body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(movement) * Enemigo::GetVelocity()));
     // FindPlayer(elapsedTime);
@@ -289,7 +298,7 @@ void Melee::StopAnimation() {
 void Melee::RestarVida(int a) {
     int vida = GetVida();
     if ((GetVida() - a) >= 0) {
-            SetVida(GetVida() - a);
+        SetVida(GetVida() - a);
     } else {
         currentAnimation = &animationMuerte;
         SetEstado(Estado::ID::Muriendo);
