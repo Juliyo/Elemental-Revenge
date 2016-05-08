@@ -426,11 +426,22 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     //**************************************Disparo Caster************************** 
     for (int j = 0; j < caster->size(); j++) {
         if (caster->at(j)->GetEstado() != Estado::ID::Muerto) {
-            for (int i = 0; i < 50; i++) {
+            for (int i = 0; i < 14; i++) {
                 caster->at(j)->disparo[i].RenderDisparo(interpolation);
+                if (caster->at(j)->disparo[i].GetEstado() == Estado::ID::Vivo) {
+                    caster->at(j)->disparo[i].PlayAnimation(*caster->at(j)->disparo[i].currentAnimation);
+                    caster->at(j)->disparo[i].UpdateAnimation(elapsedTime);
+                   caster->at(j)->disparo[i].DrawAnimation(caster->at(j)->disparo[i].GetPreviousPosition(), caster->at(j)->disparo[i].GetPosition(), interpolation);
+                } /*else if (hFuegoBasico[aux].GetEstado() == Estado::ID::Muriendo) {
+                    hFuegoBasico[aux].PlayAnimation(*hFuegoBasico[aux].currentAnimation);
+                    hFuegoBasico[aux].UpdateAnimation(elapsedTime);
+                    hFuegoBasico[aux].DrawAnimationWithOut(hFuegoBasico[aux].GetRenderPosition());
+                } else {
+                    hFuegoBasico[aux].StopAnimation();
+                    //hFuegoBasico[aux].DrawAnimationWithOut(hFuegoBasico[aux].GetRenderPosition());
+                }*/
             }
         }
-
     }
     /////////////////////////////////
     motor->SetView(2); //vista del HUD

@@ -19,11 +19,12 @@
 #include "Render.hpp"
 #include "PhysicsState.hpp"
 #include "../Motor/Motor2D.hpp"
+#include "Hechizo.hpp"
+#include "../Motor/Collisionable.hpp"
 
-class DisparoEnemigo : public Render, public PhysicsState {
+class DisparoEnemigo : public Hechizo, public Collisionable {
 public:
     DisparoEnemigo();
-    DisparoEnemigo(const DisparoEnemigo& orig);
     virtual ~DisparoEnemigo();
     
     Motor2D *motor;
@@ -31,17 +32,19 @@ public:
     float angleshot2=0.0f;
     
     void Update2(sf::Vector2f velocity, sf::Time elapsedTime);
-
-    sf::CircleShape disparo;
+    void CreateBody() override;
+    std::string getClassName() override;
     
     
     void Disparar(sf::Vector2f vector,sf::Vector2f vectorPlayer);
     void RenderDisparo(float interpolation);
     
-    
+    Animation **currentAnimation;
+    Animation *animationInicio;
+    Animation *animationFin;
     
 private:
-
+    Reloj *explosionTiempo;
 };
 
 #endif /* DISPAROENEMIGO_HPP */

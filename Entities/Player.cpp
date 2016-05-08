@@ -891,9 +891,9 @@ void Player::renderFuego(sf::Time elapsedTime, float interpolation) {
     }
     
     
-        for(int i=0;i < shapesFuego->size();i++){
-        Motor2D::Instance()->draw(*shapesFuego->at(i));
-    }
+//        for(int i=0;i < shapesFuego->size();i++){
+//        Motor2D::Instance()->draw(*shapesFuego->at(i));
+//    }
     
 }
 
