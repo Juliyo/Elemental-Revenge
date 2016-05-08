@@ -52,6 +52,8 @@ Transition::~Transition() {
 void Transition::Inicializar() {
     video->Inicializar();
     //Carga XML
+    
+    level=0;
     TiXmlDocument doc;
     doc.LoadFile("resources/historia.xml");
     TiXmlElement* pregunta1 = doc.FirstChildElement("pregunta");
