@@ -508,7 +508,7 @@ void InGame::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
 
 void InGame::primerosDeLaCola() {
     int ite = 0;
-    while (ite < 10) {
+    while (ite < 6) {
         if (colaMelees->size() > 0) {
             if (colaMelees->at(0)->distancia < 500) {
                 colaMelees->at(0)->posiblecamino = pathfingind->buscaCamino(colaMelees->at(0)->GetPosition(), player->GetPosition());
