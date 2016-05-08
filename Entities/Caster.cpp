@@ -337,7 +337,7 @@ void Caster::CambiarVectorVelocidad() {
             }
         } 
         }else{ //si la distancia es menor esta muy cerca por lo que se alejara un poco, si se pasa vuelve a calcular tu camino con el if de arriba se acercaria de nuevo al player
-            std::cout<<"Randooom"<<std::endl;
+            //std::cout<<"Randooom"<<std::endl;
             int x3;
             int y3;
                 srand(time(NULL));

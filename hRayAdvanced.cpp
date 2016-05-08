@@ -21,7 +21,7 @@ hRayAdvanced::hRayAdvanced(): Collisionable((Entity*)this) {
     draw=false;
     animationDurante = new Animation();
     setCast(1);
-    setCD(4);
+    setCD(20);
     
     printf("llego a textura del rayo HRAYADVANCED\n");
     if(!hTexture.loadFromFile("resources/Textures/rayo.png")){

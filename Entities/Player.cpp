@@ -2,6 +2,7 @@
 #include "Util.hpp"
 #include "../States/InGame.hpp"
 #include "../Otros/tmxHelper.hpp"
+#include "../Motor/SoundManager.hpp"
 
 void Player::CreateBody() {
     physicWorld = InGame::Instance()->physicWorld;
@@ -498,13 +499,16 @@ int Player::getVida() {
 
 int Player::restaVida(int a) {
     if (invulnerable.getTiempo() > 0.25f && (vida - a) >= 0) {
-        //std::cout <<"Resto vidas";
-        //vida -= a;
+
+        vida -= a;
+
         hud->updateHud(vida);
         invulnerable.restart();
         SetEstado(Estado::ID::Damaged);
         ActiveShader(true);
         //Render::GetSpriteAnimated().setColor(sf::Color(255,255,0,255));
+        SoundManager *sonido = SoundManager::Instance();
+        sonido->play("resources/Sounds/Damage.wav");
         damaged.restart();
     }
 
@@ -544,15 +548,16 @@ void Player::Colocar(sf::Vector2f NuevaPosicion) {
 
 }
 
-void Player::updateRayo(bool isShooting, bool RayoAvanzadoCast, float cdRayoBasicoPausa, float cdRayoAvanzadoPausa) {
+bool Player::updateRayo(bool isShooting, bool RayoAvanzadoCast, float cdRayoBasicoPausa, float cdRayoAvanzadoPausa) {
 
+    bool k=false;
 
     if (hRayoBasico->tiempoCast.getTiempo() > hRayoBasico->getCast() && aux == true) {
         isShooting = false;
         hRayoBasico->primerCast = false;
     }
 
-    if ((isShooting && hRayoBasico->tiempoCd.getTiempo() > hRayoBasico->getCD()) || (isShooting && hRayoBasico->primerCast == true)) {//Entra si dispara y el tiempo de enfriamiento ha pasado
+    if ((isShooting && (hRayoBasico->clockCd.getTiempo()+cdRayoBasicoPausa) > hRayoBasico->getCD()) || (isShooting && hRayoBasico->primerCast == true)) {//Entra si dispara y el tiempo de enfriamiento ha pasado
         hRayoBasico->primerCast = false;
         if (aux == false) {//si es la primera vez que pulsa el boton
             hRayoBasico->tiempoCast.restart();
@@ -563,11 +568,12 @@ void Player::updateRayo(bool isShooting, bool RayoAvanzadoCast, float cdRayoBasi
 
     } else {//entras si no disparas o si no ha pasado el tiempo de enfriamiento
         if (aux == true) {//entras si acabas de soltar el raton
-            hRayoBasico->tiempoCd.restart();
+           // hRayoBasico->tiempoCd.restart();
             //if(hRayoBasico->primerCast)
-            hud->resetRayo1();
-            //}
+            //hud->resetRayo1();
+                        k=true;
 
+            //}
             // std::cout<<"Inicio den CD"<<std::endl;
             aux = false; //no entra mas aqui para no hacer restart dl cd
         }
@@ -584,6 +590,9 @@ void Player::updateRayo(bool isShooting, bool RayoAvanzadoCast, float cdRayoBasi
         hRayoAvanzado->draw = false;
         hRayoAvanzado->StopAnimation();
     }
+    
+    
+    return k;
 }
 
 void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time elapsedTime, float cdFuegoAvanzadoPausa, float cdFuegoBasicoPausa) {

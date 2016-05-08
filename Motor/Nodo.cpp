@@ -20,8 +20,8 @@ Nodo::Nodo(const Nodo& orig) {
 }
 
 Nodo::~Nodo() {
-    //NodoPadre = NULL;
-    //NodoFinal = NULL;
+    NodoPadre = NULL;
+    NodoFinal = NULL;
 
 }
 

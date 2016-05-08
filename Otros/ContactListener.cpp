@@ -40,11 +40,36 @@ void ContactListener::BeginContact(b2Contact* contact) {
     if(claseA == "Player"){
         if(claseB == "Melee"){
             Player *p = static_cast<Player*> (fixtureA->GetBody()->GetUserData());
+            if(p->invulnerable.getTiempo() > 0.25f){
+                b2Vec2 toTarget = fixtureA->GetBody()->GetPosition() - fixtureB->GetBody()->GetPosition();
+                toTarget.Normalize();
+                b2Vec2 desiredVel = 3.f*toTarget;
+                b2Vec2 currentVel = fixtureA->GetBody()->GetLinearVelocity();
+                b2Vec2 thrust = desiredVel - currentVel;
+                fixtureA->GetBody()->ApplyForceToCenter(2.5f*thrust,true);
+            }
             p->restaVida(1);
+            /*b2Vec2 direccionImpulso = fixtureA->GetBody()->GetPosition() - fixtureB->GetBody()->GetPosition();
+            direccionImpulso.Normalize(); 
+            direccionImpulso.x *= 1.05f;
+            direccionImpulso.y *= 1.05f;
+            fixtureA->GetBody()->ApplyLinearImpulse(direccionImpulso,fixtureA->GetBody()->GetWorldCenter(),true);*/
+            // Get the distance to the target.
+            
+            
+            
         }
     }else if(claseA == "Melee"){
         if(claseB == "Player"){
            Player *p = static_cast<Player*> (fixtureB->GetBody()->GetUserData());
+           if(p->invulnerable.getTiempo() > 0.25f){
+                b2Vec2 toTarget = fixtureB->GetBody()->GetPosition() - fixtureA->GetBody()->GetPosition();
+                toTarget.Normalize();
+                b2Vec2 desiredVel = 3.f*toTarget;
+                b2Vec2 currentVel = fixtureB->GetBody()->GetLinearVelocity();
+                b2Vec2 thrust = desiredVel - currentVel;
+                fixtureB->GetBody()->ApplyForceToCenter(2.5f*thrust,true);
+            }
            p->restaVida(1);
         }else if(claseB == "hFireBasic"){
             Melee *m = static_cast<Melee*> (fixtureA->GetBody()->GetUserData());
@@ -58,8 +83,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
             Melee *m = static_cast<Melee*> (fixtureB->GetBody()->GetUserData());
             hFireBasic *f = static_cast<hFireBasic*> (fixtureA->GetBody()->GetUserData());
             m->RestarVida(f->getDamage());
-            
-            
+ 
             f->Colision();
         }else if(claseB == ""){
             hFireBasic *f = static_cast<hFireBasic*> (fixtureA->GetBody()->GetUserData());
@@ -75,6 +99,23 @@ void ContactListener::BeginContact(b2Contact* contact) {
             Melee *m = static_cast<Melee*> (fixtureB->GetBody()->GetUserData());
             hFireAdvanced *f = static_cast<hFireAdvanced*> (fixtureA->GetBody()->GetUserData());
             m->RestarVida(f->getDamage());
+        }
+    }
+}
+void ContactListener::EndContact(b2Contact* contact) { 
+    std::string claseA = "";
+    std::string claseB = "";
+    b2Fixture* fixtureA = contact->GetFixtureA();
+    b2Fixture* fixtureB = contact->GetFixtureB();
+    if(fixtureA->GetBody()->GetUserData()){
+        claseA = static_cast<Entity*> (fixtureA->GetBody()->GetUserData())->getClassName();
+    }
+    if(fixtureB->GetBody()->GetUserData()){
+        claseB = static_cast<Entity*> (fixtureB->GetBody()->GetUserData())->getClassName();
+    }
+    if(claseA == "Player"){
+        if(claseB == "Melee"){
+            
         }
     }
 }
@@ -99,9 +140,7 @@ void ContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldManifold
     }
 }
 
-void ContactListener::EndContact(b2Contact* contact) { 
 
-}
 
 /*bool ContactListener::ShouldCollide(b2Fixture* fixtureA, b2Fixture* fixtureB) {
     //std::cout<<static_cast<Entity*> (fixtureA->GetBody()->GetUserData())->getClassName()<<std::endl;

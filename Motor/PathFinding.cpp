@@ -297,6 +297,12 @@ std::vector<sf::Vector2i>* PathFinding::buscaCamino(sf::Vector2f posenemigo, sf:
         //printf("Dentro del While \n");
         
     }
+    
+    while(!listaAbierta.empty()){
+        delete listaAbierta.back(), listaAbierta.pop_back();
+    }
+    listaCerrada.clear();
+    
     return NULL;
 
 }
