@@ -144,8 +144,9 @@ void InGame::Update(sf::Time elapsedTime) {
         }
 
         //**************************RAYO**********************
+         bool k=false;
         if (hActivo == 1) {
-            player->updateRayo(isShooting, rayoAdvancedCast, cdRayoBasicoPausa, cdRayoAvanzadoPausa);
+            k=player->updateRayo(isShooting, rayoAdvancedCast, cdRayoBasicoPausa, cdRayoAvanzadoPausa);
         }
 
             if((player->hRayoAvanzado->clockCd.getTiempo()+cdRayoAvanzadoPausa) > player->hRayoAvanzado->getCD() && rayoAdvancedCast){
@@ -156,7 +157,14 @@ void InGame::Update(sf::Time elapsedTime) {
                 cdRayoAvanzadoPausa=0;
             }
         }
-        
+        if((player->hRayoBasico->clockCd.getTiempo()+cdRayoBasicoPausa) > player->hRayoBasico->getCD() && k){
+
+                player->hRayoBasico->clockCd.restart();
+                player->hud->resetRayo1();
+            if(cdRayoBasicoPausa>0){
+                cdRayoBasicoPausa=0;
+            }
+        }
         //*****************************FUEGO**********************************************  
         player->updateFuego(fuegoBasicCast, fuegoAdvancedCast, elapsedTime, cdFuegoAvanzadoPausa, cdFuegoBasicoPausa);
         if ((player->hFuegoAvanzado->clockCd.getTiempo()+cdFuegoAvanzadoPausa) > player->hFuegoAvanzado->getCD() && fuegoAdvancedCast) {
