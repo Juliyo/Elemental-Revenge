@@ -500,7 +500,7 @@ int Player::getVida() {
 int Player::restaVida(int a) {
     if (invulnerable.getTiempo() > 0.25f && (vida - a) >= 0) {
 
-        vida -= a;
+        //vida -= a;
 
         hud->updateHud(vida);
         invulnerable.restart();
@@ -840,9 +840,9 @@ void Player::renderFuego(sf::Time elapsedTime, float interpolation) {
         }
 
     }
-    /*for(int i=0;i < shapesFuego->size();i++){
-        Motor2D::Instance()->draw(*shapesFuego->at(i));
-    }*/
+//    for(int i=0;i < shapesFuego->size();i++){
+//        Motor2D::Instance()->draw(*shapesFuego->at(i));
+//    }
     
     if (castFire.getTiempo() < 0.45f) {
         SetFrameTime(sf::seconds(0.075f));
@@ -889,6 +889,12 @@ void Player::renderFuego(sf::Time elapsedTime, float interpolation) {
     } else {
         SetFrameTime(sf::seconds(0.075f));
     }
+    
+    
+        for(int i=0;i < shapesFuego->size();i++){
+        Motor2D::Instance()->draw(*shapesFuego->at(i));
+    }
+    
 }
 
 void Player::renderAgua(sf::Time elapsedTime, float interpolation) {

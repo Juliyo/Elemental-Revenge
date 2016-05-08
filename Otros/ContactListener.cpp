@@ -15,6 +15,7 @@
 #include "../Otros/Dummy.hpp"
 #include "../Entities/Player.hpp"
 #include "../Entities/Melee.hpp"
+#include "../Entities/Caster.hpp"
 
 ContactListener::ContactListener() {
 }
@@ -87,6 +88,12 @@ void ContactListener::BeginContact(b2Contact* contact) {
             f->Colision();
         }else if(claseB == ""){
             hFireBasic *f = static_cast<hFireBasic*> (fixtureA->GetBody()->GetUserData());
+            f->Colision();
+        }else if(claseB == "Caster"){
+            Caster *m = static_cast<Caster*> (fixtureB->GetBody()->GetUserData());
+            hFireBasic *f = static_cast<hFireBasic*> (fixtureA->GetBody()->GetUserData());
+            m->RestarVida(f->getDamage());
+ 
             f->Colision();
         }
     }else if(claseA == ""){

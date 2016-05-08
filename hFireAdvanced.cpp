@@ -37,6 +37,7 @@ void hFireAdvanced::CreateBody() {
     rs->setOutlineColor(sf::Color::Red);
     rs->setOrigin(rectColision->GetWidth() / 2.f,rectColision->GetHeight() / 2.f);
     rs->setOutlineThickness(2);
+    
     InGame::Instance()->player->shapesFuego->push_back(rs);
     //shape = new b2PolygonShape();
     //shape.SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f));
@@ -62,6 +63,9 @@ hFireAdvanced::hFireAdvanced(): Collisionable((Entity*)this) {
     hDamage = 5;
     //actualSize = sf::Vector2f(0.3, 0.3);
     primerCast = true;
+    SetRectangleColision(0,0,250*0.1,248*0.1);
+    SetOriginColision(250*0.1/2,248*0.1/2);
+    
     CreateBody();
 
 }

@@ -120,7 +120,7 @@ void Caster::Inicializar(float posX, float posY, Tipo::Caster tipo, float speedX
     PhysicsState::SetPosition(posX, posY);
     PhysicsState::SetSpeed(speedX, speedY);
     Enemigo::SetVelocity(150);
-    Enemigo::SetVida(5);
+    Enemigo::SetVida(2);
     PhysicsState::SetMaxSpeed(maxSpeedX, maxSpeedY);
     Render::SetOriginAnimatedSprite(17, 16);
     SetOriginColision(17, 16);
@@ -366,7 +366,7 @@ void Caster::updateDisparoEnemigo(bool disparado, sf::Time elapsedTime,float x4,
 }
 
 void Caster::RestarVida(int a) {
-    int vida = GetVida();
+    
     if ((GetVida() - a) >= 0) {
             SetVida(GetVida() - a);
     } else {
@@ -397,7 +397,7 @@ void Caster::CambiarVectorVelocidad() {
             //std::cout<<"Randooom"<<std::endl;
             int x3;
             int y3;
-                srand(time(NULL));
+                srand(time(1/25));
 
                 int random = rand() % 4; // v1 in the range 0 to 99
     

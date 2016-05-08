@@ -435,9 +435,13 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
         int y2 = player->getPosition().y - caster->at(i)->getPosition().y;
         caster->at(i)->UpdateEnemyAnimation(x2, y2);
     }
+    
+    for(int j=0;j<caster->size();j++){
     for (int i = 0; i < 50; i++) {
 
-        caster->at(0)->disparo[i].RenderDisparo(interpolation);
+        caster->at(j)->disparo[i].RenderDisparo(interpolation);
+    }
+
     }
 
 
