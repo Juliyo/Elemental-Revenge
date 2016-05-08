@@ -78,6 +78,8 @@ std::string hWaterBasic::getClassName() {
 void hWaterBasic::cast(sf::Vector2f posicion, Hud *hud, float cdAguaBasicoPausa) {
 
     if ((clockCd.getTiempo()+cdAguaBasicoPausa) > getCD() || primerCast == true) {
+        SoundManager *sonido = SoundManager::Instance();
+        sonido->play("resources/Sounds/Abasico.wav");
         primerCast = false;
         float angleShot = Motor2D::Instance()->getAngleShot(posicion);
         SetAngle(angleshot2, angleShot);

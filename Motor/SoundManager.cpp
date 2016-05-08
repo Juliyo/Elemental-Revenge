@@ -43,8 +43,10 @@ void SoundManager::load() {
     sonidos->insert(std::make_pair("resources/Sounds/Truenos.ogg" , new Sound("resources/Sounds/Truenos.ogg")));
     sonidos->insert(std::make_pair("resources/Sounds/Fbasico.wav" , new Sound("resources/Sounds/Fbasico.wav")));
     sonidos->insert(std::make_pair("resources/Sounds/Rbasico.wav" , new Sound("resources/Sounds/Rbasico.wav")));
+    sonidos->insert(std::make_pair("resources/Sounds/Abasico.wav" , new Sound("resources/Sounds/Abasico.wav")));
     sonidos->insert(std::make_pair("resources/Sounds/Favanzado.wav" , new Sound("resources/Sounds/Favanzado.wav")));
     sonidos->insert(std::make_pair("resources/Sounds/Ravanzado.wav" , new Sound("resources/Sounds/Ravanzado.wav")));
+    sonidos->insert(std::make_pair("resources/Sounds/Aavanzado.wav" , new Sound("resources/Sounds/Aavanzado.wav")));
 }
 
 void SoundManager::play(std::string ruta) {
