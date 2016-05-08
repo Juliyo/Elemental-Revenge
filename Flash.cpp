@@ -94,6 +94,8 @@ sf::Vector2f Flash::cast(sf::Vector2f posicion,Hud *hud, float cdFlashPausa) {
 
 
     if ((clockCd.getTiempo()+cdFlashPausa) > getCD() || primerCast == true) {
+        SoundManager *sonido = SoundManager::Instance();
+        sonido->play("resources/Sounds/flash.wav");
         primerCast = false;
         dibujar = true;
         SetPosition(posicion);

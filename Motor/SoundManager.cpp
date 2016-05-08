@@ -47,6 +47,7 @@ void SoundManager::load() {
     sonidos->insert(std::make_pair("resources/Sounds/Favanzado.wav" , new Sound("resources/Sounds/Favanzado.wav")));
     sonidos->insert(std::make_pair("resources/Sounds/Ravanzado.wav" , new Sound("resources/Sounds/Ravanzado.wav")));
     sonidos->insert(std::make_pair("resources/Sounds/Aavanzado.wav" , new Sound("resources/Sounds/Aavanzado.wav")));
+    sonidos->insert(std::make_pair("resources/Sounds/flash.wav" , new Sound("resources/Sounds/flash.wav")));
 }
 
 void SoundManager::play(std::string ruta) {
