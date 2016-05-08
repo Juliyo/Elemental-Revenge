@@ -43,7 +43,7 @@ public:
 
     sf::Texture* getSfTexture();
     sf::IntRect getTextureRect();
-
+    
     void rotate(float ang);
 
     

@@ -138,9 +138,6 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationDown->addFrame(sf::IntRect(448, 640, 64, 64));
     walkingAnimationDown->addFrame(sf::IntRect(512, 640, 64, 64));
 
-
-
-
     walkingAnimationLeft->setSpriteSheet("resources/Textures/player.png");
     walkingAnimationLeft->addFrame(sf::IntRect(512, 576, 64, 64));
     walkingAnimationLeft->addFrame(sf::IntRect(0, 576, 64, 64));
@@ -153,7 +150,6 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationLeft->addFrame(sf::IntRect(448, 576, 64, 64));
     walkingAnimationLeft->addFrame(sf::IntRect(512, 576, 64, 64));
 
-
     walkingAnimationRight->setSpriteSheet("resources/Textures/player.png");
     walkingAnimationRight->addFrame(sf::IntRect(512, 704, 64, 64));
     walkingAnimationRight->addFrame(sf::IntRect(0, 704, 64, 64));
@@ -164,9 +160,6 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     walkingAnimationRight->addFrame(sf::IntRect(320, 704, 64, 64));
     walkingAnimationRight->addFrame(sf::IntRect(384, 704, 64, 64));
     walkingAnimationRight->addFrame(sf::IntRect(448, 704, 64, 64));
-
-
-
 
     walkingAnimationUp->setSpriteSheet("resources/Textures/player.png");
     walkingAnimationUp->addFrame(sf::IntRect(512, 512, 64, 64));
@@ -353,8 +346,6 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     fuego2AnimationUp->addFrame(sf::IntRect(384, 0, 64, 64));
 
     //casteo heal
-
-
     healingAnimationDown->setSpriteSheet("resources/Textures/player.png");
     healingAnimationDown->addFrame(sf::IntRect(384, 128, 64, 64));
     healingAnimationDown->addFrame(sf::IntRect(0, 128, 64, 64));
@@ -431,6 +422,10 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     SetMaxSpeed(maxSpeedX, maxSpeedY);
     SetOriginAnimatedSprite(32, 40);
     SetOriginColision(32, 40);
+    
+    //Cargamos shader del player para el colo
+    LoadShader("resources/Shader/fs.frag");
+    ActiveShader(false);
 
 }
 
@@ -446,6 +441,10 @@ void Player::Update(const sf::Time elapsedTime) {
         if (isMovingRight)
             movement.x += GetVelocity();
     }
+    if(GetEstado() == Estado::Damaged && damaged.getTiempo() > 0.06f){
+        ActiveShader(false);
+        SetEstado(Estado::ID::Vivo);
+    }
     //Hay que setear al BodyDef el vector velocidad que hayamos calculado
     body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(movement) * Player::GetVelocity()));
     //Actualizamos la posicion del player con la posicion del bodyDef
@@ -453,156 +452,6 @@ void Player::Update(const sf::Time elapsedTime) {
 
 }
 
-void Player::HandleMapCollisions(const sf::Time& elapsedTime) {
-    InGame* world = InGame::Instance();
-    /* for (int i = 0; i < objetosCercanos.size(); i++) {
-         BoundingBox bb(objetosCercanos.at(i)->GetAABB());
-         if (CheckColision(bb, elapsedTime)) {
-             type = TypeOfColision(bb, elapsedTime);
-             OnColision(type);
-         }
-     }*/
-    int tileWidth = 24;
-    int tileHeight = 24;
-    int **colisiones = world->level->map->colisiones;
-    int height = world->level->map->_height;
-    int width = world->level->map->_width;
-    /*for(int i=0 ; i < width ; i++){
-        for(int j= 0;j<height; j++){
-            std::cout<<colisiones[i][j];
-        }
-        std::cout<<std::endl;
-    }*/
-
-    BoundingBox boundingPlayer = Collisionable::CalculateNextRect(elapsedTime);
-    sf::Vector2i indiceTopLeft = sf::Vector2i(boundingPlayer.GetTopLeft().x / 24, boundingPlayer.GetTopLeft().y / 24);
-    sf::Vector2i indiceTopRight = sf::Vector2i(boundingPlayer.GetTopRight().x / 24, boundingPlayer.GetTopRight().y / 24);
-    sf::Vector2i indiceBotLeft = sf::Vector2i(boundingPlayer.GetBottomLeft().x / 24, boundingPlayer.GetBottomLeft().y / 24);
-    sf::Vector2i indiceBotRight = sf::Vector2i(boundingPlayer.GetBottomRight().x / 24, boundingPlayer.GetBottomRight().y / 24);
-    /*std::cout<<"xTopright"<<indiceTopRight.x<<" , "<<"yTopright"<<indiceTopRight.y<<std::endl;
-    std::cout<<"Valor mapa"<<colisiones[indiceTopRight.x][indiceTopRight.y]<<std::endl;*/
-    if (colisiones[indiceTopLeft.y][indiceTopLeft.x] == 1) {
-        //std::cout<<"Colisiona esquina superior izquierda"<<std::endl;
-        BoundingBox boundingArbol(indiceTopLeft.x * 24, indiceTopLeft.y * 24, 24, 24);
-
-        //Hacer algo
-        PhysicsState::SetSpeed(0, 0);
-    } else if (colisiones[indiceTopRight.y][indiceTopRight.x] == 1) {
-        //std::cout<<"Colisiona esquina superior derecha"<<std::endl;
-        BoundingBox boundingArbol((indiceTopRight.x * 24), (indiceTopRight.y * 24), 24, 24);
-        //Hacer algo
-        PhysicsState::SetSpeed(0, 0);
-    } else if (colisiones[indiceBotLeft.y][indiceBotLeft.x] == 1) {
-        //std::cout<<"Colisiona esquina inferior izquierda"<<std::endl;
-        BoundingBox boundingArbol((indiceBotLeft.x * 24), (indiceBotLeft.y * 24), 24, 24);
-
-
-        PhysicsState::SetSpeed(0, 0);
-    } else if (colisiones[indiceBotRight.y][indiceBotRight.x] == 1) {
-        //std::cout<<"Colisiona esquina inferior derecha"<<std::endl;
-        BoundingBox boundingArbol((indiceBotRight.x * 24), (indiceBotRight.y * 24), 24, 24);
-
-        PhysicsState::SetSpeed(0, 0);
-    }
-    /*sf::Vector2f nextPos = GetNextPosition(elapsedTime);
-    int top=(int)nextPos.y-16;
-    int bot=(int)nextPos.y+16;
-    int left=(int)nextPos.x-16;
-    int right=(int)nextPos.x+16;
-    int left_right = (left+right)/2;
-    int top_bot = (top+bot)/2;
-    top=top/16;
-    bot=bot/16;
-    left=left/16;
-    right=right/16;
-    left_right=left_right/16;
-    top_bot=top_bot/16;
-    
-     sf::Vector2f speed2 = speed;
-    if (mapa->_tilemap[3][top][left_right] != 0 && mapa->_tilemap[3][top_bot][left] != 0) {
-        posPrev = posNew;
-    }else if (mapa->_tilemap[3][top][left_right] != 0 && mapa->_tilemap[3][top_bot][right] != 0) {
-        posPrev = posNew;
-    }else if (mapa->_tilemap[3][bot][left_right] != 0 && mapa->_tilemap[3][top_bot][left] != 0) {
-        posPrev = posNew;
-    }else if (mapa->_tilemap[3][bot][left_right] != 0 && mapa->_tilemap[3][top_bot][right] != 0) {
-        posPrev = posNew;
-    }else if (mapa->_tilemap[3][top][left_right] != 0) {
-        if(speed2.y<0){
-               speed2.y=0;  
-             }
-             posPrev = posNew;
-             posNew += speed2 * elapsedTime.asSeconds();
-    }else if (mapa->_tilemap[3][bot][left_right] != 0) {
-         if(speed2.y>0){
-               speed2.y=0;  
-             }
-             posPrev = posNew;
-             posNew += speed2 * elapsedTime.asSeconds();
-    }else if (mapa->_tilemap[3][top_bot][left] != 0) {
-        if(speed2.x<0){
-               speed2.x=0;  
-             }
-             posPrev = posNew;
-             posNew += speed2 * elapsedTime.asSeconds();
-    }else if (mapa->_tilemap[3][top_bot][right] != 0) {
-                if(speed2.x>0){
-               speed2.x=0;  
-             }
-             posPrev = posNew;
-             posNew += speed2 * elapsedTime.asSeconds();
-    }else if (mapa->_tilemap[3][top][left] != 0 && mapa->_tilemap[3][top_bot][left] == 0 && mapa->_tilemap[3][top][left_right] == 0) {
-             if(speed2.y<0){
-               speed2.y=0;  
-             }
-             if(speed2.x<0){
-               speed2.x=0;  
-             }
-             posPrev = posNew;
-             posNew += speed2 * elapsedTime.asSeconds();
-
-    }else if (mapa->_tilemap[3][top][right] != 0 && mapa->_tilemap[3][top_bot][right] == 0 && mapa->_tilemap[3][top][left_right] == 0) {
-             if(speed2.y<0){
-               speed2.y=0;  
-             }
-             if(speed2.x>0){
-               speed2.x=0;  
-             }
-             posPrev = posNew;
-             posNew += speed2 * elapsedTime.asSeconds();
-
-             posPrev = posNew;
-    } else if (mapa->_tilemap[3][bot][left] != 0 && mapa->_tilemap[3][top_bot][left] == 0 && mapa->_tilemap[3][bot][left_right] == 0) {
-             if(speed2.y>0){
-               speed2.y=0;  
-             }
-             if(speed2.x<0){
-               speed2.x=0;  
-             }
-             posPrev = posNew;
-             posNew += speed2 * elapsedTime.asSeconds();
-             
-
-    }else if (mapa->_tilemap[3][bot][right] != 0 && mapa->_tilemap[3][top_bot][right] == 0 && mapa->_tilemap[3][bot][left_right] == 0) {
-             if(speed2.y>0){
-               speed2.y=0;  
-             }
-             if(speed2.x>0){
-               speed2.x=0;  
-             }
-             posPrev = posNew;
-             posNew += speed2 * elapsedTime.asSeconds();
-
-             posPrev = posNew;
-    } else{
-        posPrev = posNew;
-        posNew += speed * elapsedTime.asSeconds();
-    }*/
-
-
-
-
-}
 
 void Player::Draw() {
     GetSprite().setPosition(GetPosition().x, GetPosition().y);
@@ -648,13 +497,15 @@ int Player::getVida() {
 }
 
 int Player::restaVida(int a) {
-
     if (invulnerable.getTiempo() > 0.25f && (vida - a) >= 0) {
         //std::cout <<"Resto vidas";
         vida -= a;
         hud->updateHud(vida);
         invulnerable.restart();
-        Render::GetSpriteAnimated().setColor(sf::Color(255,255,255,128));
+        SetEstado(Estado::ID::Damaged);
+        ActiveShader(true);
+        //Render::GetSpriteAnimated().setColor(sf::Color(255,255,0,255));
+        damaged.restart();
     }
 
     if(vida==0){

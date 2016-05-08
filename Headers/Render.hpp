@@ -31,6 +31,7 @@ public:
         void DrawAnimation( const sf::Vector2f &posPrev, const sf::Vector2f &posNew, float interpolation); 
         void Draw( const sf::Vector2f &posPrev, const sf::Vector2f &posNew, float *anglePrev, float *angleNew, float interpolation);
         void DrawAnimation( const sf::Vector2f &posPrev, const sf::Vector2f &posNew, float interpolation, float *anglePrev, float *angleNew);
+       // void Draw(const sf::Vector2f &posPrev, const sf::Vector2f &posNew, float interpolation);
         void DrawAnimationWithOut( const sf::Vector2f &pos);
         void DrawWithout( sf::Vector2f pos);
         
@@ -58,10 +59,27 @@ public:
         }
         //para el agua
         void SetAngle2(float angle);
+        void ActiveShader(bool a){
+            has_shader = a;
+        }
+        //Cargar shader para el color blanco 
+        void LoadShader(std::string ruta){
+            m_shader = new sf::Shader();
+            if(!m_shader->loadFromFile(ruta,sf::Shader::Fragment)){
+                std::cout<<"Error cargando fragment shader"<<std::endl;
+            }
+            m_shader->setParameter("texture", sf::Shader::CurrentTexture);
+            
+        }
+        sf::Shader* GetShader(){
+            return m_shader;
+        }
 
 private:
         AnimatedSprite		animatedSprite;
 	Sprite                  sprite;
+        sf::Shader              *m_shader;
+        bool                    has_shader = false;;
 	sf::Vector2f            renderPos;
         float                   renderAngle;
 	

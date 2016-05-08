@@ -32,7 +32,8 @@ namespace Estado {
     enum ID {
         Vivo,
         Muerto,
-        Muriendo
+        Muriendo,
+        Damaged
     };
 }
 

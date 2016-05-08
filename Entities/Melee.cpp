@@ -119,7 +119,7 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, flo
     Render::InicializarAnimatedSprite(sf::seconds(0.075f), true, false);
     PhysicsState::SetPosition(posX, posY);
     PhysicsState::SetSpeed(speedX, speedY);
-    Enemigo::SetVelocity(250);
+    Enemigo::SetVelocity(150);
     Enemigo::SetVida(5);
     PhysicsState::SetMaxSpeed(maxSpeedX, maxSpeedY);
     Render::SetOriginAnimatedSprite(17, 16);
@@ -287,13 +287,9 @@ void Melee::StopAnimation() {
 void Melee::RestarVida(int a) {
     int vida = GetVida();
     if ((GetVida() - a) >= 0) {
-        //if (invulnerable.getTiempo() > 5.f) {
             SetVida(GetVida() - a);
-            invulnerable.restart();
-        //}
     } else {
         currentAnimation = &animationMuerte;
-        // body->SetActive(false);
         SetEstado(Estado::ID::Muriendo);
     }
 }

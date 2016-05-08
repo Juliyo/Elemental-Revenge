@@ -56,7 +56,15 @@ void Render::DrawAnimation( const sf::Vector2f &posPrev, const sf::Vector2f &pos
 		posPrev.x + ((posNew.x - posPrev.x) * interpolation),
 		posPrev.y + ((posNew.y - posPrev.y) * interpolation));
 	animatedSprite.setPosition(renderPos.x, renderPos.y);
-        Motor2D::Instance()->draw(animatedSprite);
+        sf::RenderStates rs;
+        if(has_shader){
+            rs.shader = m_shader;
+            Motor2D::Instance()->draw(animatedSprite,rs);
+        }else{
+            Motor2D::Instance()->draw(animatedSprite);
+        }
+        
+        
 	
 }
 //Renderizar sprites animados sin interpolación
