@@ -62,6 +62,14 @@ void ContactListener::BeginContact(b2Contact* contact) {
     }else if(claseA == "Melee"){
         if(claseB == "Player"){
            Player *p = static_cast<Player*> (fixtureB->GetBody()->GetUserData());
+           if(p->invulnerable.getTiempo() > 0.25f){
+                b2Vec2 toTarget = fixtureB->GetBody()->GetPosition() - fixtureA->GetBody()->GetPosition();
+                toTarget.Normalize();
+                b2Vec2 desiredVel = 3.f*toTarget;
+                b2Vec2 currentVel = fixtureB->GetBody()->GetLinearVelocity();
+                b2Vec2 thrust = desiredVel - currentVel;
+                fixtureB->GetBody()->ApplyForceToCenter(2.5f*thrust,true);
+            }
            p->restaVida(1);
         }else if(claseB == "hFireBasic"){
             Melee *m = static_cast<Melee*> (fixtureA->GetBody()->GetUserData());

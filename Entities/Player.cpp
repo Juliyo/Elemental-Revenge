@@ -504,12 +504,9 @@ int Player::restaVida(int a) {
         invulnerable.restart();
         SetEstado(Estado::ID::Damaged);
         ActiveShader(true);
-<<<<<<< HEAD
-=======
         //Render::GetSpriteAnimated().setColor(sf::Color(255,255,0,255));
         SoundManager *sonido = SoundManager::Instance();
         sonido->play("resources/Sounds/Damage.wav");
->>>>>>> origin/Box2D
         damaged.restart();
     }
 

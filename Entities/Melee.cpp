@@ -115,6 +115,7 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, flo
     animationMuerte->addFrame(sf::IntRect(0, 0, 43, 32));
 
     camino = NULL;
+    posiblecamino = NULL;
     currentAnimation = &animationMuerte;
     Render::InicializarAnimatedSprite(sf::seconds(0.075f), true, false);
     PhysicsState::SetPosition(posX, posY);
