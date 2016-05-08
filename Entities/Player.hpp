@@ -57,7 +57,7 @@ public:
     }
 
 
-    void updateRayo(bool isShooting, bool RayoAvanzadoCast, float cdRayoBasicoPausa,float cdRayoAvanzadoCast);
+    bool updateRayo(bool isShooting, bool RayoAvanzadoCast, float cdRayoBasicoPausa,float cdRayoAvanzadoCast);
     void updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time elapsedTime, float cdFuegoAvanzadoPausa, float cdFuegoBasicoPausa);
     void updateAgua(bool aguaBasicCast, bool aguaAdvancedCast, sf::Time elapsedTime, float cdAguaAvanzadoPausa, float cdAguaBasicoPausa);
     void updateFlash(float cdFlashPausa);
