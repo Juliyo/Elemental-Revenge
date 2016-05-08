@@ -2,6 +2,7 @@
 #include "Util.hpp"
 #include "../States/InGame.hpp"
 #include "../Otros/tmxHelper.hpp"
+#include "../Motor/SoundManager.hpp"
 
 void Player::CreateBody() {
     physicWorld = InGame::Instance()->physicWorld;
@@ -505,6 +506,8 @@ int Player::restaVida(int a) {
         SetEstado(Estado::ID::Damaged);
         ActiveShader(true);
         //Render::GetSpriteAnimated().setColor(sf::Color(255,255,0,255));
+        SoundManager *sonido = SoundManager::Instance();
+        sonido->play("resources/Sounds/Damage.wav");
         damaged.restart();
     }
 

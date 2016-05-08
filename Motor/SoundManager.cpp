@@ -36,6 +36,7 @@ SoundManager::~SoundManager() {
 
 void SoundManager::load() {
     sonidos->insert(std::make_pair("resources/Sounds/Cascada.ogg" , new Sound("resources/Sounds/Cascada.ogg")));
+    sonidos->insert(std::make_pair("resources/Sounds/Damage.wav" , new Sound("resources/Sounds/Damage.wav")));
     sonidos->insert(std::make_pair("resources/Sounds/CasaFuego.ogg" , new Sound("resources/Sounds/CasaFuego.ogg")));
     sonidos->insert(std::make_pair("resources/Sounds/Truenos.ogg" , new Sound("resources/Sounds/Truenos.ogg")));
     sonidos->insert(std::make_pair("resources/Sounds/Fbasico.wav" , new Sound("resources/Sounds/Fbasico.wav")));
