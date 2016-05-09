@@ -63,7 +63,7 @@ void Update(const sf::Time elapsedTime, float x1, float x2, float multiplicador)
     
     Reloj castDisparo; //Variable de clase para el casteo
     Reloj clockCdDisparo; 
-    float CdDisparo = 0.7f;
+    float CdDisparo;
     
     bool primercastDisparo; //Variable de clase para el primer casteo
 

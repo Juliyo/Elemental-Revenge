@@ -62,7 +62,9 @@ public:
     void updateAgua(bool aguaBasicCast, bool aguaAdvancedCast, sf::Time elapsedTime, float cdAguaAvanzadoPausa, float cdAguaBasicoPausa);
     void updateFlash(float cdFlashPausa);
     void renderRayo(sf::Time elapsedTime, float interpolation);
-    void renderFuego(sf::Time elapsedTime, float interpolation);
+    
+    void renderFuegoBasico(sf::Time elapsedTime, float interpolation);
+    void renderFuegoAvanzado(sf::Time elapsedTime, float interpolation);
     void renderAgua(sf::Time elapsedTime, float interpolation);
     void renderHeal(sf::Time elapsedTime, float interpolation);
     void renderFlash(sf::Time elapsedTime, float interpolation);

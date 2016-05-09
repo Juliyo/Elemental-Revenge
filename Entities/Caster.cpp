@@ -33,9 +33,11 @@ void Caster::Inicializar(float posX, float posY, Tipo::Caster tipo, float speedX
     disparo = new DisparoEnemigo[15];
 
     if (tipo == Tipo::Caster::Mago) {
-
-
-
+        //8 Maximo
+        //5 Minimo
+        int randNum = rand()%(8-5 + 1) + 5;
+        CdDisparo = (float)randNum;
+        
         walkingAnimationDown->setSpriteSheet("resources/Textures/ninjapeq.png");
         walkingAnimationDown->addFrame(sf::IntRect(0, 0, 34, 32));
         walkingAnimationDown->addFrame(sf::IntRect(34, 0, 34, 32));
@@ -71,7 +73,10 @@ void Caster::Inicializar(float posX, float posY, Tipo::Caster tipo, float speedX
 
 
     } else {
-
+        
+        int randNum = rand()%(8-5 + 1) + 5;
+        CdDisparo = (float)randNum;
+        
         walkingAnimationDown->setSpriteSheet("resources/Textures/ninjapeq.png");
         walkingAnimationDown->addFrame(sf::IntRect(0, 0, 34, 32));
         walkingAnimationDown->addFrame(sf::IntRect(34, 0, 34, 32));
@@ -148,14 +153,14 @@ void Caster::CreateBody() {
     //del BoundingBox
     //circleShape = new b2CircleShape();
     circleShape.m_radius = tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f);
-    sf::CircleShape *rs = new sf::CircleShape();
+    /*sf::CircleShape *rs = new sf::CircleShape();
     rs->setPosition(entity->GetPosition());
     rs->setRadius(rectColision->GetWidth() / 2.f);
     rs->setFillColor(sf::Color::Transparent);
     rs->setOutlineColor(sf::Color::Red);
     rs->setOrigin(rectColision->GetWidth() / 2.f, rectColision->GetHeight() / 2.f);
     rs->setOutlineThickness(2);
-    InGame::Instance()->meleeShapes->push_back(rs);
+    InGame::Instance()->meleeShapes->push_back(rs);*/
     //shape = new b2PolygonShape();
     //shape.SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f));
     //Objeto que le da las propiedades fisicas al bodyDef
@@ -266,7 +271,7 @@ void Caster::updateDisparoEnemigo(bool disparado, sf::Time elapsedTime, float x4
 
     if (disparado) {
 
-        if (numDisparo == 14) {
+        if (numDisparo == 4) {
             numDisparo = 0;
         }
 
@@ -278,10 +283,19 @@ void Caster::updateDisparoEnemigo(bool disparado, sf::Time elapsedTime, float x4
         }
         numDisparo++;
     }
-    for (int aux = 0; aux <= 14; aux++) {
-        movement2.x = (40 * cos(disparo[aux].angleshot2) * 10.0f);
-        movement2.y = (40 * sin(disparo[aux].angleshot2) * 10.0f);
-        disparo[aux].Update2(movement2, elapsedTime);
+    for (int aux = 0; aux < 5; aux++) {
+        //Si la bala esta viva updateamos su movimiento
+        if (disparo[aux].GetEstado() == Estado::ID::Vivo) {
+            movement2.x = (40 * cos(disparo[aux].angleshot2) * 10.0f);
+            movement2.y = (40 * sin(disparo[aux].angleshot2) * 10.0f);
+            disparo[aux].Update2(movement2, elapsedTime);
+        } else if (disparo[aux].GetEstado() == Estado::ID::Muriendo) {
+            //Ademadas hacemos que su cuerpo no interactue
+            disparo[aux].body->SetActive(false);
+            //Si la bala esta desapareciendo comprobamos hasta que desaparezca
+            disparo[aux].ComprobarSiMuerto();
+        }
+
     }
 
 }

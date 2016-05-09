@@ -23,6 +23,7 @@ namespace Filtro {
     enum _entityCategory {
         BOUNDARY = 0x0001,
         PLAYER = 0x0002,
+        DISPAROENE = 0x0003,
         ENEMIGO = 0x0004,
         HECHIZO = 0x0008
     };
