@@ -36,7 +36,7 @@ public:
         void DrawWithout( sf::Vector2f pos);
         
         
-        
+        void SetPause(){animatedSprite.pause();};
         void SetOrigin(float x,float y){sprite.setOrigin(x,y);}; 
         void SetOriginAnimatedSprite(float x,float y){ animatedSprite.setOrigin(x,y); };
         void SetRotation(float angle){ animatedSprite.setRotation(angle); };

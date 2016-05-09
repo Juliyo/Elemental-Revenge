@@ -30,15 +30,14 @@ void hFireAdvanced::CreateBody() {
     //del BoundingBox
     //circleShape = new b2CircleShape();
     circleShape.m_radius = tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f);
-    sf::CircleShape *rs = new sf::CircleShape();
+    /*sf::CircleShape *rs = new sf::CircleShape();
     rs->setPosition(InGame::Instance()->player->GetPosition().x,InGame::Instance()->player->GetPosition().y*-1);
     rs->setRadius(rectColision->GetWidth() / 2.f);
     rs->setFillColor(sf::Color::Transparent);
     rs->setOutlineColor(sf::Color::Blue);
     rs->setOrigin(rectColision->GetWidth() / 2.f,rectColision->GetHeight() / 2.f);
     rs->setOutlineThickness(2);
-    
-    InGame::Instance()->player->shapesFuego->push_back(rs);
+    InGame::Instance()->player->shapesFuego->push_back(rs);*/
     //shape = new b2PolygonShape();
     //shape.SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f));
     //Objeto que le da las propiedades fisicas al bodyDef
@@ -80,14 +79,13 @@ hFireAdvanced::~hFireAdvanced() {
 }
 
 void hFireAdvanced::cast(sf::Vector2f posicion) {
-
+    body->SetActive(true);
     printf("llego me cago en todo\n");
     SoundManager *sonido = SoundManager::Instance();
     sonido->play("resources/Sounds/Favanzado.wav");
     hSprite.setPosition(posicion.x, posicion.y);
     body->SetTransform(tmx::SfToBoxVec(posicion),0);
     hSprite.setRotation(90);
-    InGame::Instance()->player->shapesFuego->at(0)->setPosition(posicion.x,posicion.y);
 
 }
 

@@ -70810,12 +70810,12 @@
   <object id="255" x="408" y="2040" width="48" height="72"/>
   <object id="256" x="408" y="2112" width="48" height="72"/>
   <object id="257" x="456" y="2112" width="48" height="72"/>
-  <object id="258" x="456" y="2184" width="48" height="360"/>
-  <object id="259" x="504" y="2184" width="48" height="360"/>
-  <object id="260" x="552" y="2328" width="48" height="216"/>
+  <object id="258" x="288" y="2184" width="216" height="648"/>
+  <object id="259" x="504" y="2184" width="48" height="648"/>
+  <object id="260" x="552" y="2328" width="48" height="504"/>
   <object id="262" x="600" y="2328" width="48" height="288"/>
   <object id="263" x="648" y="2544" width="48" height="72"/>
-  <object id="264" x="624" y="2616" width="504" height="72"/>
+  <object id="264" x="600" y="2616" width="528" height="216"/>
   <object id="265" x="1080" y="2544" width="192" height="72"/>
   <object id="267" x="1128" y="2256" width="144" height="288"/>
   <object id="268" x="1224" y="2112" width="48" height="144"/>

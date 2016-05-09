@@ -29,7 +29,8 @@ public:
     virtual ~Transition();
 
     void Inicializar();
-    
+    void Clear() override;
+
     void Update(sf::Time elapsedTime);
     void Render(float interpolation, sf::Time elapsedTime);
 

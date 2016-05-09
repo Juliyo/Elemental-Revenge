@@ -48,6 +48,7 @@ Heal::Heal(): Collisionable((Entity*)this) {
     SetScaleAnimation(0.5f,0.5f);
     
     setCD(5.f);
+    setCast(1.f);
 }
 Heal::~Heal() {
 }

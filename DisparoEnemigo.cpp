@@ -55,7 +55,7 @@ DisparoEnemigo::DisparoEnemigo(): Collisionable((Entity*)this) {
     animationInicio->addFrame(sf::IntRect(456, 740, 152, 148));
     animationInicio->addFrame(sf::IntRect(608, 740, 152, 148));
     
-    animationFin->setSpriteSheet("resources/Textures/fuegoMuriendo.png");
+    animationFin->setSpriteSheet("resources/Textures/fuegoMuriendoAzul.png");
     
     animationFin->addFrame(sf::IntRect(0,0,172,159));
     animationFin->addFrame(sf::IntRect(172,0,172,159));
@@ -72,12 +72,10 @@ DisparoEnemigo::DisparoEnemigo(): Collisionable((Entity*)this) {
     Render::SetScaleAnimation(0.2, 0.2);
     SetRectangleColision(0,0,30,29);
     CreateBody();
-    //Render::GetSpriteAnimated().setColor(sf::Color::Black);
+    setDamage(1.f);
+    //Render::GetSpriteAnimated().setColor(sf::Color::Blue);
     SetEstado(Estado::ID::Vivo);
     explosionTiempo = new Reloj();
-    
-    
-    
 }
 
 DisparoEnemigo::~DisparoEnemigo() {
@@ -114,8 +112,8 @@ void DisparoEnemigo::CreateBody() {
     fixtureDef.shape = &circleShape;
     fixtureDef.density = 1.0f;
     fixtureDef.friction = 1.0f;
-    fixtureDef.filter.categoryBits = Filtro::_entityCategory::HECHIZO;
-    fixtureDef.filter.maskBits = Filtro::_entityCategory::ENEMIGO | Filtro::_entityCategory::BOUNDARY;
+    fixtureDef.filter.categoryBits = Filtro::_entityCategory::DISPAROENE;
+    fixtureDef.filter.maskBits = Filtro::_entityCategory::BOUNDARY | Filtro::_entityCategory::PLAYER;
     body->CreateFixture(&fixtureDef);
 }
 
@@ -127,26 +125,30 @@ std::string DisparoEnemigo::getClassName() {
 
 void DisparoEnemigo::Disparar(sf::Vector2f vector,sf::Vector2f vectorPlayer) {
 
-    
+    body->SetActive(true);
+    SetEstado(Estado::ID::Vivo);
     PhysicsState::SetPosition(vector);
     body->SetTransform(tmx::SfToBoxVec(vector),0);
-    
+    currentAnimation = &animationInicio;
+    Render::SetOriginAnimatedSprite(76, 74);
+    Render::SetFrameTime(sf::seconds(0.02f));
+    Render::SetScaleAnimation(0.2, 0.2);
     float angleShot = atan2(vectorPlayer.y-vector.y, vectorPlayer.x-vector.x);
     angleshot2 = angleShot; //so it goes in a straight line
     
 }
 
-void DisparoEnemigo::RenderDisparo(float interpolation) {
+/*void DisparoEnemigo::RenderDisparo(float interpolation) {
 
     Draw(GetPreviousPosition(), GetPosition(), interpolation);
-}
+}*/
 
 
 void DisparoEnemigo::Update2(sf::Vector2f velocity, sf::Time elapsedTime) {
     SetSpeed(velocity);
     //sf::Vector2f movement(0.f, 0.f);
      //Hay que setear al BodyDef el vector velocidad que hallamos calculado
-    body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(velocity)*450.f));
+    body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(velocity)*250.f));
     //Actualizamos la posicion del player con la posicion del bodyDef
     SetPosition(tmx::BoxToSfVec(body->GetPosition()));
 }

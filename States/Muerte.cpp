@@ -34,6 +34,11 @@ Muerte::Muerte() {
     
 }
 
+void Muerte::Clear() {
+
+}
+
+
 void Muerte::Inicializar() {
 
     int anchoVentana = 1700;
