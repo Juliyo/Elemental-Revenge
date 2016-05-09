@@ -214,7 +214,8 @@ std::vector<Nodo*>* PathFinding::encontrarNodosAdyacentes(Nodo *nodoActual, Nodo
 std::vector<sf::Vector2i>* PathFinding::buscaCamino(sf::Vector2f posenemigo, sf::Vector2f posjugador) {
     listaAbierta.clear();
     listaCerrada.clear();
-
+    listaActuales.clear();
+std::vector<sf::Vector2i> *mejorCamino = new std::vector<sf::Vector2i>();
     Nodo *nodoFinal = new Nodo(NULL, NULL, posjugador, 0);
     Nodo *nodoInicial = new Nodo(NULL, nodoFinal, posenemigo, 0);
 
@@ -223,12 +224,13 @@ std::vector<sf::Vector2i>* PathFinding::buscaCamino(sf::Vector2f posenemigo, sf:
     while (listaAbierta.size() > 0) {
         
         Nodo *nodoActual = listaAbierta.at(listaAbierta.size() - 1);
+        listaActuales.push_back(nodoActual);
         if (listaCerrada.size() > 300) {
             nodoFinal = listaAbierta.at(listaAbierta.size() - 1);
         }
 
         if (nodoActual->esIgual(nodoFinal)) {
-            std::vector<sf::Vector2i> *mejorCamino = new std::vector<sf::Vector2i>();
+            
             // std::cout<<"Tamano de listaabierta: "<<listaAbierta.size()<<std::endl;
             while (nodoActual != NULL) {
                 auto it = mejorCamino->begin();
@@ -236,9 +238,9 @@ std::vector<sf::Vector2i>* PathFinding::buscaCamino(sf::Vector2f posenemigo, sf:
                 nodoActual = nodoActual->NodoPadre;
             }
             
-            return mejorCamino;
+            break;
         }
-        delete listaAbierta.back(),listaAbierta.pop_back();
+        listaAbierta.pop_back();
         std::vector<Nodo*> *nodosAdyacentes = encontrarNodosAdyacentes(nodoActual, nodoFinal);
         for (int i = 0; i < nodosAdyacentes->size(); i++) {
             //std::cout<<"tam nodos adyaccentes "<<nodosAdyacentes->size()<<"Num de iteracion= "<<i<<std::endl;
@@ -263,19 +265,26 @@ std::vector<sf::Vector2i>* PathFinding::buscaCamino(sf::Vector2f posenemigo, sf:
         
         listaCerrada.push_back(nodoActual->GetCasilla());
         delete nodosAdyacentes;
-        delete nodoActual;
+        //delete nodoActual;
 
     }
 
     while (!listaAbierta.empty()) {
         delete listaAbierta.back(), listaAbierta.pop_back();
     }
+        while (!listaActuales.empty()) {
+        delete listaActuales.back(), listaActuales.pop_back();
+    }
+    while (!listaCerrada.empty()) {
+         listaCerrada.pop_back();
+    }
+    
     listaCerrada.clear();
     delete nodoInicial;
     
     delete nodoFinal;
 
-    return NULL;
+    return mejorCamino;
 
 }
 
@@ -295,6 +304,7 @@ std::vector<sf::Vector2i>* PathFinding::buscaCamino2(sf::Vector2f posenemigo, sf
     while (listaAbierta.size() > 0) {
 
         Nodo *nodoActual = listaAbierta.at(listaAbierta.size() - 1);
+        
         if (nodoActual->esIgual(nodoFinal)) {
             std::vector<sf::Vector2i> *mejorCamino = new std::vector<sf::Vector2i>();
             // std::cout<<"Tamano de listaabierta: "<<listaAbierta.size()<<std::endl;
@@ -331,6 +341,7 @@ std::vector<sf::Vector2i>* PathFinding::buscaCamino2(sf::Vector2f posenemigo, sf
     while (!listaAbierta.empty()) {
         delete listaAbierta.back(), listaAbierta.pop_back();
     }
+
     listaCerrada.clear();
     delete nodoInicial;
 
