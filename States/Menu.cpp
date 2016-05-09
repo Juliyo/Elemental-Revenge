@@ -403,7 +403,7 @@ void Menu::cargarAnimacionesMenu() {
 
         texturaAnimation.setSmooth(true);
 
-        animationMenu->setSpriteSheet("resources/MenuInicio/SpritesheetMenu.ogg");
+        animationMenu->setSpriteSheet("resources/MenuInicio/SpritesheetMenu.png");
         animationMenu->addFrame(sf::IntRect(0, 0, 800, 336));
         animationMenu->addFrame(sf::IntRect(800, 0, 800, 336));
         animationMenu->addFrame(sf::IntRect(0, 336, 800, 336));

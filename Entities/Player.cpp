@@ -513,8 +513,6 @@ int Player::restaVida(int a) {
             SoundManager *sonido = SoundManager::Instance();
             sonido->play("resources/Sounds/Damage.wav");
             damaged.restart();
-
-
     }
 
     if(vida==0){
