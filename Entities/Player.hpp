@@ -80,7 +80,7 @@ public:
 
     //Fuego
     hFireBasic *hFuegoBasico;
-    std::vector<sf::CircleShape*> *shapesFuego; 
+    std::vector<hFireBasic*> *disparosFuego;
     hFireAdvanced *hFuegoAvanzado;
     
     

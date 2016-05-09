@@ -21,6 +21,7 @@ class hFireBasic : public Hechizo, public Collisionable {
 public:
     hFireBasic();
     virtual ~hFireBasic();
+    void Clear();
     void CreateBody() override;
     std::string getClassName() override;
     

@@ -76,6 +76,7 @@ std::string hFireAdvanced::getClassName() {
 
 
 hFireAdvanced::~hFireAdvanced() {
+    //delete rectColision;
 }
 
 void hFireAdvanced::cast(sf::Vector2f posicion) {

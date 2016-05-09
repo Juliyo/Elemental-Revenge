@@ -70,7 +70,10 @@ Player::~Player() {
     delete hAguaAvanzado;
     delete hAguaBasico;
     delete hFuegoAvanzado;
-    delete hFuegoBasico;
+    
+    for(int i=0; i<15;i++){
+        hFuegoBasico[i].Clear();
+    }
     delete hRayoAvanzado;
     delete hRayoBasico;
     
@@ -90,7 +93,10 @@ std::string Player::getClassName() {
 
 void Player::Inicializar(float posX, float posY, float speedX, float speedY, float maxSpeedX, float maxSpeedY) {
     /*Reservamos memoria para los punteros de Animation*/
-    shapesFuego = new std::vector<sf::CircleShape*>();
+    disparosFuego = new std::vector<hFireBasic*>();
+    for(int i=0;i<15;i++){
+        disparosFuego->push_back(new hFireBasic());
+    }
     walkingAnimationDown = new Animation();
     walkingAnimationLeft = new Animation();
     walkingAnimationRight = new Animation();
@@ -134,8 +140,6 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     hRayoBasico = new hRayBasic();
     hRayoAvanzado = new hRayAdvanced();
 
-
-    hFuegoBasico = new hFireBasic[15];
     hFuegoAvanzado = new hFireAdvanced();
 
 
@@ -656,25 +660,25 @@ void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time e
         }
         if ((clockCDFire.getTiempo() + cdFuegoBasicoPausa) > CDFire || primercastFuego == true) {
             primercastFuego = false;
-            hFuegoBasico[contFuego].SetEstado(Estado::ID::Vivo);
-            hFuegoBasico[contFuego].body->SetActive(true);
-            hFuegoBasico[contFuego].cast(sf::Vector2f(getPosition()));
+            disparosFuego->at(contFuego)->SetEstado(Estado::ID::Vivo);
+            disparosFuego->at(contFuego)->body->SetActive(true);
+            disparosFuego->at(contFuego)->cast(sf::Vector2f(getPosition()));
             castFire.restart();
         }
         contFuego++;
     }
-    for (int aux = 0; aux <= 14; aux++) {
+    for (int aux = 0; aux < disparosFuego->size(); aux++) {
         //Si la bala esta viva updateamos su movimiento
-        if (hFuegoBasico[aux].GetEstado() == Estado::ID::Vivo) {
-            movement2.x = (4 * cos(hFuegoBasico[aux].angleshot2) * 10.0f);
-            movement2.y = (4 * sin(hFuegoBasico[aux].angleshot2) * 10.0f);
-            hFuegoBasico[aux].Update2(movement2, elapsedTime);
+        if (disparosFuego->at(aux)->GetEstado() == Estado::ID::Vivo) {
+            movement2.x = (4 * cos(disparosFuego->at(aux)->angleshot2) * 10.0f);
+            movement2.y = (4 * sin(disparosFuego->at(aux)->angleshot2) * 10.0f);
+            disparosFuego->at(aux)->Update2(movement2, elapsedTime);
             //shapesFuego->at(aux)->setPosition(tmx::BoxToSfVec(hFuegoBasico[aux].body->GetPosition()));
-        } else if (hFuegoBasico[aux].GetEstado() == Estado::ID::Muriendo) {
+        } else if (disparosFuego->at(aux)->GetEstado() == Estado::ID::Muriendo) {
             //Ademadas hacemos que su cuerpo no interactue
-            hFuegoBasico[aux].body->SetActive(false);
+            disparosFuego->at(aux)->body->SetActive(false);
             //Si la bala esta desapareciendo comprobamos hasta que desaparezca
-            hFuegoBasico[aux].ComprobarSiMuerto();
+            disparosFuego->at(aux)->ComprobarSiMuerto();
         }
 
     }
@@ -906,18 +910,18 @@ void Player::renderFuegoAvanzado(sf::Time elapsedTime, float interpolation) {
 
 void Player::renderFuegoBasico(sf::Time elapsedTime, float interpolation) {
 
-    for (int aux = 0; aux <= 14; aux++) {
+    for (int aux = 0; aux < disparosFuego->size(); aux++) {
 
-        if (hFuegoBasico[aux].GetEstado() == Estado::ID::Vivo) {
-            hFuegoBasico[aux].PlayAnimation(*hFuegoBasico[aux].currentAnimation);
-            hFuegoBasico[aux].UpdateAnimation(elapsedTime);
-            hFuegoBasico[aux].DrawAnimation(hFuegoBasico[aux].GetPreviousPosition(), hFuegoBasico[aux].GetPosition(), interpolation);
-        } else if (hFuegoBasico[aux].GetEstado() == Estado::ID::Muriendo) {
-            hFuegoBasico[aux].PlayAnimation(*hFuegoBasico[aux].currentAnimation);
-            hFuegoBasico[aux].UpdateAnimation(elapsedTime);
-            hFuegoBasico[aux].DrawAnimationWithOut(hFuegoBasico[aux].GetRenderPosition());
+        if (disparosFuego->at(aux)->GetEstado() == Estado::ID::Vivo) {
+            disparosFuego->at(aux)->PlayAnimation(*disparosFuego->at(aux)->currentAnimation);
+            disparosFuego->at(aux)->UpdateAnimation(elapsedTime);
+            disparosFuego->at(aux)->DrawAnimation(disparosFuego->at(aux)->GetPreviousPosition(), disparosFuego->at(aux)->GetPosition(), interpolation);
+        } else if (disparosFuego->at(aux)->GetEstado() == Estado::ID::Muriendo) {
+            disparosFuego->at(aux)->PlayAnimation(*disparosFuego->at(aux)->currentAnimation);
+            disparosFuego->at(aux)->UpdateAnimation(elapsedTime);
+            disparosFuego->at(aux)->DrawAnimationWithOut(disparosFuego->at(aux)->GetRenderPosition());
         } else {
-            hFuegoBasico[aux].StopAnimation();
+            disparosFuego->at(aux)->StopAnimation();
             //hFuegoBasico[aux].DrawAnimationWithOut(hFuegoBasico[aux].GetRenderPosition());
         }
 

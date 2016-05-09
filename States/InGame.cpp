@@ -32,17 +32,7 @@ InGame::InGame() {
     motor = Motor2D::Instance();
 
 
-    pathfingind = new PathFinding();
-    SoundManager::Instance()->load();
-    colaEnemigos = new std::deque<Enemigo*>();
-    
-    level = new Level();
 
-    video = new Video("resources/Videos/nubes/nube", 30, 495, 500, 0, sf::Vector2f(0.8, 1.4), true, sf::Vector2f(1280, 720));
-    physicWorld = new b2World(tmx::SfToBoxVec(sf::Vector2f(0.f, 0.f)));
-    ct = new ContactListener();
-    physicWorld->SetContactListener(ct);
-    //physicWorld->SetContactFilter(ct);
 
 }
 
@@ -50,35 +40,33 @@ InGame::InGame(const InGame& orig) {
 }
 
 InGame::~InGame() {
-    
-    
+
+
 }
 
 void InGame::Clear() {
     printf("Clear1\n");
-while(!caster->empty()){
+    while (!caster->empty()) {
         delete caster->back(), caster->pop_back();
     }
     delete caster;
     printf("Clear2\n");
-     while(!colaEnemigos->empty()){
+    while (!colaEnemigos->empty()) {
         delete colaEnemigos->back(), colaEnemigos->pop_back();
     }
     delete colaEnemigos;
     printf("Clear2.5\n");
-    
+
     /*while(!melee->empty()){
         delete melee->back(), melee->pop_back();
     }*/
-    
+
     delete melee;
     printf("Clear3\n");
-    
+
     delete ct;
     delete level;
     printf("Clear4\n");
-    delete mInstance;
-    delete music;
     printf("Clear5\n");
     delete pathfingind;
     delete physicWorld;
@@ -89,6 +77,17 @@ while(!caster->empty()){
 }
 
 void InGame::Inicializar() {
+    pathfingind = new PathFinding();
+
+    colaEnemigos = new std::deque<Enemigo*>();
+
+    level = new Level();
+
+    video = new Video("resources/Videos/nubes/nube", 30, 495, 500, 0, sf::Vector2f(0.8, 1.4), true, sf::Vector2f(1280, 720));
+    physicWorld = new b2World(tmx::SfToBoxVec(sf::Vector2f(0.f, 0.f)));
+    ct = new ContactListener();
+    physicWorld->SetContactListener(ct);
+
     player = new Player();
     melee = new std::vector<Melee*>();
     caster = new std::vector<Caster*>();
@@ -388,18 +387,18 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
                 caster->at(i)->UpdateEnemyAnimation(x2, y2);
                 caster->at(i)->CambiarVectorVelocidad();
                 for (int j = 0; j < 5; j++) {
-                if (caster->at(i)->disparo[j].GetEstado() == Estado::ID::Vivo) {
-                    caster->at(i)->disparo[j].PlayAnimation(*caster->at(i)->disparo[j].currentAnimation);
-                    caster->at(i)->disparo[j].UpdateAnimation(elapsedTime);
-                    caster->at(i)->disparo[j].DrawAnimation(caster->at(i)->disparo[j].GetPreviousPosition(), caster->at(i)->disparo[j].GetPosition(), interpolation);
-                } else if (caster->at(i)->disparo[j].GetEstado() == Estado::ID::Muriendo) {
-                    caster->at(i)->disparo[j].PlayAnimation(*caster->at(i)->disparo[j].currentAnimation);
-                    caster->at(i)->disparo[j].UpdateAnimation(elapsedTime);
-                    caster->at(i)->disparo[j].DrawAnimationWithOut(caster->at(i)->disparo[j].GetRenderPosition());
-                }else{
-                    caster->at(i)->disparo[j].StopAnimation();
+                    if (caster->at(i)->disparos->at(j)->GetEstado() == Estado::ID::Vivo) {
+                        caster->at(i)->disparos->at(j)->PlayAnimation(*caster->at(i)->disparos->at(j)->currentAnimation);
+                        caster->at(i)->disparos->at(j)->UpdateAnimation(elapsedTime);
+                        caster->at(i)->disparos->at(j)->DrawAnimation(caster->at(i)->disparos->at(j)->GetPreviousPosition(), caster->at(i)->disparos->at(j)->GetPosition(), interpolation);
+                    } else if (caster->at(i)->disparos->at(j)->GetEstado() == Estado::ID::Muriendo) {
+                        caster->at(i)->disparos->at(j)->PlayAnimation(*caster->at(i)->disparos->at(j)->currentAnimation);
+                        caster->at(i)->disparos->at(j)->UpdateAnimation(elapsedTime);
+                        caster->at(i)->disparos->at(j)->DrawAnimationWithOut(caster->at(i)->disparos->at(j)->GetRenderPosition());
+                    } else {
+                        caster->at(i)->disparos->at(j)->StopAnimation();
+                    }
                 }
-            }
                 caster->at(i)->DrawWithInterpolation(interpolation);
             } else {
                 caster->at(i)->DrawAnimationWithOut(caster->at(i)->GetRenderPosition());
@@ -412,7 +411,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
         }
 
     }
-    
+
     player->renderFuegoBasico(elapsedTime, interpolation);
 
     if (StateStack::Instance()->currentState == States::ID::InGame && cambioInGame2Pausa == false) {

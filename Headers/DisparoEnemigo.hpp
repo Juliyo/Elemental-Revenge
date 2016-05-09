@@ -35,7 +35,7 @@ public:
     void CreateBody() override;
     std::string getClassName() override;
     
-    
+    void Clear();
     void Disparar(sf::Vector2f vector,sf::Vector2f vectorPlayer);
     void RenderDisparo(float interpolation);
     

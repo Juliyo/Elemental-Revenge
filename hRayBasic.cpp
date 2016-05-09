@@ -91,7 +91,11 @@ hRayBasic::hRayBasic(): Collisionable((Entity*)this) {
 
 
 hRayBasic::~hRayBasic() {
-
+    PrimeraAnimacion=NULL;
+    animation=NULL;
+    animationDurante=NULL;
+    currentAnimation=NULL;
+    //delete rectColision;
 }
 
 std::string hRayBasic::getClassName() {

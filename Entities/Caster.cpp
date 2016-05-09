@@ -20,6 +20,16 @@ Caster::Caster() : Collisionable((Entity*)this) {
 }
 
 Caster::~Caster() {
+    walkingAnimationDown = NULL;
+    walkingAnimationLeft = NULL;
+    walkingAnimationRight = NULL;
+    walkingAnimationUp = NULL;
+    animationMuerte = NULL;
+    
+    while(!disparos->empty()){
+        delete disparos->back(), disparos->pop_back();
+    }
+    delete disparos;
 }
 
 void Caster::Inicializar(float posX, float posY, Tipo::Caster tipo, float speedX, float speedY, float maxSpeedX, float maxSpeedY) {
@@ -30,7 +40,10 @@ void Caster::Inicializar(float posX, float posY, Tipo::Caster tipo, float speedX
     walkingAnimationRight = new Animation();
     walkingAnimationUp = new Animation();
     animationMuerte = new Animation();
-    disparo = new DisparoEnemigo[15];
+    disparos = new std::vector<DisparoEnemigo*>();
+    for(int i=0;i<5;i++){
+        disparos->push_back(new DisparoEnemigo());
+    }
 
     if (tipo == Tipo::Caster::Mago) {
         //8 Maximo
@@ -280,22 +293,22 @@ void Caster::updateDisparoEnemigo(bool disparado, sf::Time elapsedTime, float x4
         if (clockCdDisparo.getTiempo() > CdDisparo || primercastDisparo == true) {
             primercastDisparo = false;
             clockCdDisparo.restart();
-            disparo[numDisparo].Disparar(sf::Vector2f(getPosition()), sf::Vector2f(x4, y4));
+            disparos->at(numDisparo)->Disparar(sf::Vector2f(getPosition()), sf::Vector2f(x4, y4));
             castDisparo.restart();
         }
         numDisparo++;
     }
-    for (int aux = 0; aux < 5; aux++) {
+    for (int aux = 0; aux < disparos->size(); aux++) {
         //Si la bala esta viva updateamos su movimiento
-        if (disparo[aux].GetEstado() == Estado::ID::Vivo) {
-            movement2.x = (40 * cos(disparo[aux].angleshot2) * 10.0f);
-            movement2.y = (40 * sin(disparo[aux].angleshot2) * 10.0f);
-            disparo[aux].Update2(movement2, elapsedTime);
-        } else if (disparo[aux].GetEstado() == Estado::ID::Muriendo) {
+        if (disparos->at(aux)->GetEstado() == Estado::ID::Vivo) {
+            movement2.x = (40 * cos(disparos->at(aux)->angleshot2) * 10.0f);
+            movement2.y = (40 * sin(disparos->at(aux)->angleshot2) * 10.0f);
+            disparos->at(aux)->Update2(movement2, elapsedTime);
+        } else if (disparos->at(aux)->GetEstado() == Estado::ID::Muriendo) {
             //Ademadas hacemos que su cuerpo no interactue
-            disparo[aux].body->SetActive(false);
+            disparos->at(aux)->body->SetActive(false);
             //Si la bala esta desapareciendo comprobamos hasta que desaparezca
-            disparo[aux].ComprobarSiMuerto();
+            disparos->at(aux)->ComprobarSiMuerto();
         }
 
     }

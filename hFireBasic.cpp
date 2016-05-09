@@ -120,7 +120,21 @@ std::string hFireBasic::getClassName() {
 
 
 hFireBasic::~hFireBasic() {
+    animationFin=NULL;
+    animationInicio=NULL;
+    currentAnimation=NULL;
+    explosionTiempo=NULL;
+    //delete rectColision;
+    
 }
+
+void hFireBasic::Clear() {
+    animationFin=NULL;
+    animationInicio=NULL;
+    currentAnimation=NULL;
+    explosionTiempo=NULL;
+}
+
 
 void hFireBasic::cast(sf::Vector2f posicion) {
     SoundManager *sonido = SoundManager::Instance();
