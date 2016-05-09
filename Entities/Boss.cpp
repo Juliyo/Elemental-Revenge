@@ -105,7 +105,12 @@ void Boss::Inicializar(float posX, float posY,float speedX, float speedY, float 
     walkingAnimationRight = new Animation();
     walkingAnimationUp = new Animation();
     
-    disparo = new AtaqueBossA[50];
+    disparo = new std::vector<AtaqueBossA*>();
+    
+    for(int i=0;i<200;i++){
+        disparo->push_back(new AtaqueBossA());
+    }
+    
     rayo = new AtaqueBossB;
     espiral = new AtaqueBossC[150];
     
@@ -127,17 +132,17 @@ void Boss::Inicializar(float posX, float posY,float speedX, float speedY, float 
 
 
 
-    walkingAnimationLeft->setSpriteSheet("resources/Textures/ninjapeq.png");
-    walkingAnimationLeft->addFrame(sf::IntRect(0, 0, 34, 32));
-    walkingAnimationLeft->addFrame(sf::IntRect(34, 0, 34, 32));
-    walkingAnimationLeft->addFrame(sf::IntRect(68, 0, 34, 32));
-    walkingAnimationLeft->addFrame(sf::IntRect(102, 0, 34, 32));
+    walkingAnimationLeft->setSpriteSheet("resources/Textures/boss.png");
+    walkingAnimationLeft->addFrame(sf::IntRect(0, 76, 60, 76));
+    walkingAnimationLeft->addFrame(sf::IntRect(60, 76, 60, 76));
+    walkingAnimationLeft->addFrame(sf::IntRect(120, 76, 60, 76));
+    walkingAnimationLeft->addFrame(sf::IntRect(180, 76, 60, 76));
 
-    walkingAnimationRight->setSpriteSheet("resources/Textures/ninjapeq.png");
-    walkingAnimationRight->addFrame(sf::IntRect(0, 0, 34, 32));
-    walkingAnimationRight->addFrame(sf::IntRect(34, 0, 34, 32));
-    walkingAnimationRight->addFrame(sf::IntRect(68, 0, 34, 32));
-    walkingAnimationRight->addFrame(sf::IntRect(102, 0, 34, 32));
+    walkingAnimationRight->setSpriteSheet("resources/Textures/boss.png");
+    walkingAnimationRight->addFrame(sf::IntRect(0, 0, 60, 76));
+    walkingAnimationRight->addFrame(sf::IntRect(60, 0, 60, 76));
+    walkingAnimationRight->addFrame(sf::IntRect(120, 0, 60, 76));
+    walkingAnimationRight->addFrame(sf::IntRect(180, 0, 60, 76));
 
 
     walkingAnimationUp->setSpriteSheet("resources/Textures/ninjapeq.png");
@@ -147,7 +152,7 @@ void Boss::Inicializar(float posX, float posY,float speedX, float speedY, float 
     walkingAnimationUp->addFrame(sf::IntRect(102, 0, 34, 32));
 
 
-    currentAnimation = &walkingAnimationDown;
+    currentAnimation = &walkingAnimationLeft;
     Render::InicializarAnimatedSprite(sf::seconds(0.075f), true, false);
     PhysicsState::SetPosition(posX, posY);
     PhysicsState::SetSpeed(speedX, speedY);
@@ -166,38 +171,47 @@ void Boss::Inicializar(float posX, float posY,float speedX, float speedY, float 
 
 void Boss::renderAtaqueA(sf::Time elapsedTime, float interpolation) {
 
-    for (int aux = 0; aux <= 49; aux++) {
-        disparo[aux].PlayAnimation(disparo[aux].animationAtaque);
-        disparo[aux].UpdateAnimation(elapsedTime);
-        disparo[aux].DrawAnimation(disparo[aux].GetPreviousPosition(),disparo[aux].GetPosition(), interpolation);
+    for (int k = 150; k <= 199; k++) {
+        disparo->at(k)->PlayAnimation(disparo->at(k)->animationAtaque);
+        disparo->at(k)->UpdateAnimation(elapsedTime);
+        disparo->at(k)->DrawAnimation(disparo->at(k)->GetPreviousPosition(),disparo->at(k)->GetPosition(), interpolation);
+
 
     }
 }
 
 void Boss::renderAtaqueB(sf::Time elapsedTime, float interpolation) {
 
-    if(castDisparo.getTiempo()<2.5f){
-        motor->draw(rayo->disparo);
-
-    }else{
         
-        
-        rayo->PlayAnimation(rayo->animationAtaque);
+        rayo->PlayAnimation(*rayo->currentAnimation);
         rayo->UpdateAnimation(elapsedTime);
         rayo->DrawAnimation(rayo->GetPreviousPosition(),rayo->GetPosition(), interpolation);
 
-     }
+     
 }
 
 void Boss::renderAtaqueC(sf::Time elapsedTime, float interpolation) {
 
     
-        for (int aux = 0; aux <= 149; aux++) {
+     if(espiral->ClockResetEspiral.getTiempo()<espiral->cdResetEspiral){
 
-        espiral[aux].PlayAnimation(espiral->animationAtaque);
-        espiral[aux].UpdateAnimation(elapsedTime);
-        espiral[aux].DrawAnimation(espiral->GetPreviousPosition(),espiral->GetPosition(), interpolation);
+         //printf("numBolas: %d\n", numBolasEspiral);
+    
+        for (int p = 0; p <= numBolasEspiral; p++) {
+            if(p!=0){
+        espiral[p].PlayAnimation(espiral->animationAtaque);
+        espiral[p].UpdateAnimation(elapsedTime);
+        espiral[p].DrawAnimation(espiral->GetPreviousPosition(),espiral->GetPosition(), interpolation);
+        espiral[p+50].PlayAnimation(espiral->animationAtaque);
+        espiral[p+50].UpdateAnimation(elapsedTime);
+        espiral[p+50].DrawAnimation(espiral->GetPreviousPosition(),espiral->GetPosition(), interpolation);
+        espiral[p+100].PlayAnimation(espiral->animationAtaque);
+        espiral[p+100].UpdateAnimation(elapsedTime);
+        espiral[p+100].DrawAnimation(espiral->GetPreviousPosition(),espiral->GetPosition(), interpolation);
+            }
         }
+        
+     }
 }
 
 
@@ -292,7 +306,7 @@ void Boss::UpdateEnemyAnimation(int x, int y) {
    // 3 -> Derecha
    // 4 -> Izquierda
    
-   if (abs(y) > abs(x) && y <= 0) {
+   /*if (abs(y) > abs(x) && y <= 0) {
        cuadrante = 1;
        currentAnimation = &walkingAnimationUp;
    } else if (abs(y) > abs(x) && y > 0) {
@@ -304,7 +318,16 @@ void Boss::UpdateEnemyAnimation(int x, int y) {
    } else {
        currentAnimation = &walkingAnimationLeft;
        cuadrante = 4;
-   }
+   }*/
+        if (x > 0) {
+        currentAnimation = &walkingAnimationRight;
+        cuadrante = 3;
+    } else {
+        currentAnimation = &walkingAnimationLeft;
+        cuadrante = 4;
+    }
+    
+    
 }
 
 void Boss::UpdateAnimation(sf::Time elapsedTime) {
@@ -323,22 +346,22 @@ void Boss::updateAtaqueBossA(bool disparado, sf::Time elapsedTime,float x4,float
         
         if (disparado) {
             
-            if (numDisparo == 49) {
-                numDisparo = 0;
+            if (numDisparo == 199) {
+                numDisparo = 150;
             }
             
             if (clockCdDisparo.getTiempo() > CdDisparo || primercastDisparo == true) {
                 primercastDisparo = false;
                 clockCdDisparo.restart();
-                disparo[numDisparo].Disparar(sf::Vector2f(getPosition()),sf::Vector2f(x4,y4));
+                disparo->at(numDisparo)->Disparar(sf::Vector2f(getPosition()),sf::Vector2f(x4,y4));
                 castDisparo.restart();
             }
             numDisparo++;
         }
-        for (int aux = 0; aux <= 49; aux++) {
-            movement2.x = (40 * cos(disparo[aux].angleshot2) * 10.0f);
-            movement2.y = (40 * sin(disparo[aux].angleshot2) * 10.0f);
-            disparo[aux].Update2(movement2, elapsedTime);
+        for (int aux = 150; aux <= 199; aux++) {
+            movement2.x = (40 * cos(disparo->at(aux)->angleshot2) * 10.0f);
+            movement2.y = (40 * sin(disparo->at(aux)->angleshot2) * 10.0f);
+            disparo->at(aux)->Update2(movement2, elapsedTime);
         }
 
 }
@@ -350,22 +373,31 @@ void Boss::updateAtaqueBossB(bool disparado, sf::Time elapsedTime,float x4,float
 
         sf::Vector2f movement2(0.f, 0.f);
         
+        
+    if(castDisparoRayo.getTiempo()>2.5f){
+        rayo->currentAnimation=&rayo->animationAtaque;
+    }
+    else{
+        rayo->currentAnimation=&rayo->animationDiana;
+    }
+        
+        
         if (disparado) {
             
 
-            if (clockCdDisparo.getTiempo() > CdDisparoRayo || primercastDisparo == true) {
-                primercastDisparo = false;
-                clockCdDisparo.restart();
+            if (clockCdDisparoRayo.getTiempo() > CdDisparoRayo || primercastDisparoRayo == true) {
+                primercastDisparoRayo = false;
+                clockCdDisparoRayo.restart();
                 rayo->Disparar(sf::Vector2f(getPosition()),sf::Vector2f(x4,y4));
                 rayo->posCaida=sf::Vector2f(x4,y4);
                 rayo->disparo.setPosition(x4,y4);
-                castDisparo.restart();
+                castDisparoRayo.restart();
             }
 
         }
         
 
-        if(castDisparo.getTiempo()<1.0f){
+        if(castDisparoRayo.getTiempo()<1.0f){
         
             rayo->SetPosition(rayo->posCaida);
         }
@@ -380,13 +412,15 @@ void Boss::updateAtaqueBossB(bool disparado, sf::Time elapsedTime,float x4,float
 void Boss::updateAtaqueBossC(bool disparado, sf::Time elapsedTime,float x4,float y4) {
 
         sf::Vector2f movement2(0.f, 0.f);
+
+        if(espiral->ClockResetEspiral.getTiempo()<espiral->cdResetEspiral){
         
         if (disparado) {
 
-            if (clockCdDisparo.getTiempo() > CdDisparoEspiral) {
+            if (clockCdDisparoEspiral.getTiempo() > CdDisparoEspiral) {
                // espiral->SetPosition(getPosition().x-10, getPosition().y-60);
-                primercastDisparo = false;
-                
+                primercastDisparoEspiral = false;
+
                 ///LINEA 1 DE BOLAS
                 if(setOriginEspiral<2){
                 espiral[0].SetPosition(getPosition().x, getPosition().y);
@@ -396,7 +430,7 @@ void Boss::updateAtaqueBossC(bool disparado, sf::Time elapsedTime,float x4,float
                 else{
                 numBolasEspiral++;
                 espiral[numBolasEspiral].SetPosition(getPosition().x, getPosition().y);
-                espiral[numBolasEspiral].SetOriginAnimation(espiral[numBolasEspiral-1].GetSpriteAnimated().getOrigin().x-320,espiral[numBolasEspiral-1].GetSpriteAnimated().getOrigin().y);
+                espiral[numBolasEspiral].SetOriginAnimation(espiral[numBolasEspiral-1].GetSpriteAnimated().getOrigin().x-360,espiral[numBolasEspiral-1].GetSpriteAnimated().getOrigin().y);
                 }
                 
                 ///LINEA 2 DE BOLAS   
@@ -408,7 +442,7 @@ void Boss::updateAtaqueBossC(bool disparado, sf::Time elapsedTime,float x4,float
                 else{
                 numBolasEspiral2++;
                 espiral[50+numBolasEspiral2].SetPosition(getPosition().x, getPosition().y);
-                espiral[50+numBolasEspiral2].SetOriginAnimation(espiral[50+numBolasEspiral2-1].GetSpriteAnimated().getOrigin().x-320,espiral[50+numBolasEspiral-1].GetSpriteAnimated().getOrigin().y);
+                espiral[50+numBolasEspiral2].SetOriginAnimation(espiral[50+numBolasEspiral2-1].GetSpriteAnimated().getOrigin().x-360,espiral[50+numBolasEspiral-1].GetSpriteAnimated().getOrigin().y);
                 }
                 
                 
@@ -422,13 +456,13 @@ void Boss::updateAtaqueBossC(bool disparado, sf::Time elapsedTime,float x4,float
                 else{
                 numBolasEspiral3++;
                 espiral[100+numBolasEspiral3].SetPosition(getPosition().x, getPosition().y);
-                espiral[numBolasEspiral3+100].SetOriginAnimation(espiral[100+numBolasEspiral3-1].GetSpriteAnimated().getOrigin().x-320,espiral[100+numBolasEspiral3-1].GetSpriteAnimated().getOrigin().y);
+                espiral[numBolasEspiral3+100].SetOriginAnimation(espiral[100+numBolasEspiral3-1].GetSpriteAnimated().getOrigin().x-360,espiral[100+numBolasEspiral3-1].GetSpriteAnimated().getOrigin().y);
                 }
                 
                 
-                clockCdDisparo.restart();
+                clockCdDisparoEspiral.restart();
                 //espiral->Disparar(sf::Vector2f(getPosition()),sf::Vector2f(x4,y4));
-                castDisparo.restart();
+                castDisparoEspiral.restart();
             }
             
             for(int i=0; i<=numBolasEspiral;i++){
@@ -532,7 +566,31 @@ void Boss::updateAtaqueBossC(bool disparado, sf::Time elapsedTime,float x4,float
             
             
         }
+        }else{
+            
+            if(espiral->ClockResetEspiral.getTiempo()>(espiral->cdResetEspiral)){
+                    for(int i=0; i<50;i++){
+                     rotacion[i]=0;
+                    }
+                    for(int i=50; i<100;i++){
+                        rotacion2[i]=120;
+                    }
+                    for(int i=100; i<150;i++){
+                        rotacion3[i]=240;
+                    }
+                    
 
+                primercastDisparoEspiral=true;
+                setOriginEspiral=0;
+                setOriginEspiral2=0;
+                setOriginEspiral3=0;
+                numBolasEspiral=0;
+                numBolasEspiral2=0;
+                numBolasEspiral3=0;
+                espiral->ClockResetEspiral.restart();
+            }
+            
+        }
 
 }
 

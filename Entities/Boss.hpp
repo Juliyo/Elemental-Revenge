@@ -62,10 +62,15 @@ public:
     int numDisparo=0;
         Motor2D *motor;
 
-    Reloj castDisparo; //Variable de clase para el casteo
+    Reloj castDisparo; //Variable de clase para el casteoum
+    Reloj castDisparoRayo; //Variable de clase para el casteo
+    Reloj castDisparoEspiral; //Variable de clase para el casteo
+
     Reloj clockCdDisparo; 
+    Reloj clockCdDisparoRayo; 
+    Reloj clockCdDisparoEspiral; 
     float CdDisparo = 2.5f;
-    float CdDisparoRayo = 5.0f;
+    float CdDisparoRayo = 2.9f;
     float CdDisparoEspiral = 10.0f;
     
     int rotacion[50];
@@ -73,6 +78,8 @@ public:
     int rotacion3[50];
 
     bool primercastDisparo; //Variable de clase para el primer casteo
+    bool primercastDisparoRayo; //Variable de clase para el primer casteo
+    bool primercastDisparoEspiral; //Variable de clase para el primer casteo
     int setOriginEspiral=0;
     int setOriginEspiral2=0;
     int setOriginEspiral3=0;
@@ -81,7 +88,9 @@ public:
     int numBolasEspiral2=0;
     int numBolasEspiral3=0;
     
-    AtaqueBossA *disparo;
+    
+    std::vector<AtaqueBossA*> *disparo;
+    //AtaqueBossA *disparo;
     AtaqueBossB *rayo;
     AtaqueBossC *espiral;
     

@@ -35,7 +35,6 @@ public:
     
     void Update2(sf::Vector2f velocity, sf::Time elapsedTime);
 
-    sf::CircleShape disparo;
     
     
     void Disparar(sf::Vector2f vector,sf::Vector2f vectorPlayer);

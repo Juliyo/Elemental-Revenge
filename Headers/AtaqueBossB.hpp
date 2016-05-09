@@ -29,6 +29,9 @@ public:
     
     
     Animation *animationAtaque;
+    Animation *animationDiana;
+    Animation **currentAnimation;
+
     Motor2D *motor;
 
     float angleshot2=0.0f;

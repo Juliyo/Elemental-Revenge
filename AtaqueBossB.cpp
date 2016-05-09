@@ -21,42 +21,53 @@ AtaqueBossB::AtaqueBossB() {
 
 
     animationAtaque = new Animation();
+    animationDiana = new Animation();
+    
+    animationDiana->setSpriteSheet("resources/Textures/diana.png");
+    animationDiana->addFrame(sf::IntRect(0, 0, 108, 61));
 
-
-    animationAtaque->setSpriteSheet("resources/Textures/sprite-agua.png");
-    animationAtaque->addFrame(sf::IntRect(735, 0, 147, 147));
-    animationAtaque->addFrame(sf::IntRect(735, 147, 147, 147));
-    animationAtaque->addFrame(sf::IntRect(735, 294, 147, 147));
-    animationAtaque->addFrame(sf::IntRect(735, 441, 147, 147));
-    animationAtaque->addFrame(sf::IntRect(735, 588, 147, 147));
-    animationAtaque->addFrame(sf::IntRect(588, 0, 147, 147));
-    animationAtaque->addFrame(sf::IntRect(588, 147, 147, 147));
-    animationAtaque->addFrame(sf::IntRect(588, 294, 147, 147));
-    animationAtaque->addFrame(sf::IntRect(588, 441, 147, 147));
-    animationAtaque->addFrame(sf::IntRect(588, 588, 147, 147));
-    animationAtaque->addFrame(sf::IntRect(441, 0, 147, 147));
-    animationAtaque->addFrame(sf::IntRect(441, 147, 147, 147));
-    animationAtaque->addFrame(sf::IntRect(441, 294, 147, 147));
-    animationAtaque->addFrame(sf::IntRect(441, 441, 147, 147));
-    animationAtaque->addFrame(sf::IntRect(441, 588, 147, 147));
-    animationAtaque->addFrame(sf::IntRect(294, 0, 147, 147));
-    animationAtaque->addFrame(sf::IntRect(294, 147, 147, 147));
-    animationAtaque->addFrame(sf::IntRect(294, 294, 147, 147));
-    animationAtaque->addFrame(sf::IntRect(294, 441, 147, 147));
-    animationAtaque->addFrame(sf::IntRect(294, 588, 147, 147));
-    animationAtaque->addFrame(sf::IntRect(147, 0, 147, 147));
-    animationAtaque->addFrame(sf::IntRect(147, 147, 147, 147));
-    animationAtaque->addFrame(sf::IntRect(147, 294, 147, 147));
-    animationAtaque->addFrame(sf::IntRect(147, 441, 147, 147));
-    animationAtaque->addFrame(sf::IntRect(147, 588, 147, 147));
-    animationAtaque->addFrame(sf::IntRect(0, 0, 147, 147));
-    animationAtaque->addFrame(sf::IntRect(0, 147, 147, 147));
-    animationAtaque->addFrame(sf::IntRect(0, 294, 147, 147));
-    animationAtaque->addFrame(sf::IntRect(0, 441, 147, 147));
-    animationAtaque->addFrame(sf::IntRect(0, 588, 147, 147));
+animationAtaque->setSpriteSheet("resources/Textures/rayo.png");
+    
+    animationAtaque->addFrame(sf::IntRect(0,0,960,582));
+    animationAtaque->addFrame(sf::IntRect(960,0,960,582));
+    animationAtaque->addFrame(sf::IntRect(960*2,0,960,582));
+    animationAtaque->addFrame(sf::IntRect(960*3,0,960,582));
+    animationAtaque->addFrame(sf::IntRect(960*4,0,960,582));
+    
+    animationAtaque->addFrame(sf::IntRect(0,582,960,582));
+    animationAtaque->addFrame(sf::IntRect(960,582,960,582));
+    animationAtaque->addFrame(sf::IntRect(960*2,582,960,582));
+    animationAtaque->addFrame(sf::IntRect(960*3,582,960,582));
+    animationAtaque->addFrame(sf::IntRect(960*4,582,960,582));
+    
+    animationAtaque->addFrame(sf::IntRect(0,582*2,960,582));
+    animationAtaque->addFrame(sf::IntRect(960,582*2,960,582));
+    animationAtaque->addFrame(sf::IntRect(960*2,582*2,960,582));
+    animationAtaque->addFrame(sf::IntRect(960*3,582*2,960,582));
+    animationAtaque->addFrame(sf::IntRect(960*4,582*2,960,582));
+    
+    animationAtaque->addFrame(sf::IntRect(0,582*3,960,582));
+    animationAtaque->addFrame(sf::IntRect(960,582*3,960,582));
+    animationAtaque->addFrame(sf::IntRect(960*2,582*3,960,582));
+    animationAtaque->addFrame(sf::IntRect(960*3,582*3,960,582));
+    animationAtaque->addFrame(sf::IntRect(960*4,582*3,960,582));
+    
+    animationAtaque->addFrame(sf::IntRect(0,582*4,960,582));
+    animationAtaque->addFrame(sf::IntRect(960,582*4,960,582));
+    animationAtaque->addFrame(sf::IntRect(960*2,582*4,960,582));
+    animationAtaque->addFrame(sf::IntRect(960*3,582*4,960,582));
+    animationAtaque->addFrame(sf::IntRect(960*4,582*4,960,582));
+    
+    animationAtaque->addFrame(sf::IntRect(0,582*5,960,582));
+    animationAtaque->addFrame(sf::IntRect(960,582*5,960,582));
+    animationAtaque->addFrame(sf::IntRect(960*2,582*5,960,582));
+    animationAtaque->addFrame(sf::IntRect(960*3,582*5,960,582));
+    animationAtaque->addFrame(sf::IntRect(960*4,582*5,960,582));
     InicializarAnimatedSprite(sf::seconds(0.5f / 29), true, false);
     SetOriginAnimatedSprite(0, 147 / 2);
     SetScale(0.5f, 0.5f);
+    
+    currentAnimation = &animationDiana;
     
     
     disparo.setFillColor(sf::Color::Red);

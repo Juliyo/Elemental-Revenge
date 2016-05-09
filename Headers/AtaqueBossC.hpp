@@ -30,6 +30,8 @@ public:
     
     Animation *animationAtaque;
     Motor2D *motor;
+    Reloj ClockResetEspiral;
+    float cdResetEspiral=70.0f;
 
     float angleshot2=0.0f;
     
