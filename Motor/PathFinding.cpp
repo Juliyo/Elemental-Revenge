@@ -280,19 +280,20 @@ std::vector<sf::Vector2i>* PathFinding::buscaCamino(sf::Vector2f posenemigo, sf:
                 //if (std::find(listaAbierta.begin(), listaAbierta.end(),nodosAdyacentes->at(i))) { //si esta en la lista entra en el if
                 if (BuscarNodoEnListaAbierta(nodosAdyacentes->at(i))) {
                     if (nodosAdyacentes->at(i)->costoG >= nodoActual->costoG) {
+                        delete nodosAdyacentes->at(i);
                         continue;
                     }
                 }
-                //                for(int j=0;j<listaAbierta.size();j++){
-                //                    if(listaAbierta.at(j)->operator ==(*nodosAdyacentes->at(i))){
-                //                        continue;
-                //                    }
-                //                }
+
                 adicionarNodoAListaAbierta(nodosAdyacentes->at(i));
 
+            }else{
+                delete nodosAdyacentes->at(i);
             }
 
         }
+        
+        delete nodosAdyacentes;
         listaCerrada.push_back(nodoActual->GetCasilla());
         //printf("Dentro del While \n");
 

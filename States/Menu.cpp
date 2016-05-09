@@ -48,7 +48,7 @@ void Menu::Inicializar() {
     srand(time(NULL));
 
     random = rand() % 3; // v1 in the range 0 to 99
-    SoundManager::Instance()->load();
+    
     Music *music = Music::Instance();
     music->Stop();
     music->Load(MUSICA::ID::Menu);

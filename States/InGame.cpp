@@ -80,7 +80,7 @@ void InGame::Inicializar() {
     pathfingind = new PathFinding();
 
     colaEnemigos = new std::deque<Enemigo*>();
-
+    SoundManager::Instance()->load();
     level = new Level();
 
     video = new Video("resources/Videos/nubes/nube", 30, 495, 500, 0, sf::Vector2f(0.8, 1.4), true, sf::Vector2f(1280, 720));
@@ -122,7 +122,7 @@ void InGame::Inicializar() {
         exit(0);
     }
     std::cout<<"AQUI LLEGO "<<std::endl;
-    level->LoadMap(Niveles::ID::Level3);
+    level->LoadMap(Niveles::ID::Level1);
     std::cout<<"HIJO "<<std::endl;
     level->map->CreateMelees();
     std::cout<<"DE LA GRAN"<<std::endl;
@@ -636,31 +636,33 @@ void InGame::primerosDeLaCola() {
     while (ite < 6) {
         if (colaEnemigos->size() > 0) {
             if ((colaEnemigos->at(0)->distancia < 500 && colaEnemigos->at(0)->getClassName() == "Melee")) {
+                colaEnemigos->at(0)->posiblecamino = nullptr;
                 colaEnemigos->at(0)->posiblecamino = pathfingind->buscaCamino(colaEnemigos->at(0)->GetPosition(), player->GetPosition());
                 if (colaEnemigos->at(0)->bueno) {
+                    //delete colaEnemigos->at(0)->camino;
                     colaEnemigos->at(0)->camino = colaEnemigos->at(0)->posiblecamino;
                     colaEnemigos->at(0)->nodoactual = 0;
                 }
-
-
                 colaEnemigos->at(0)->bueno = !colaEnemigos->at(0)->bueno;
             } else if ((colaEnemigos->at(0)->distancia < 700 && colaEnemigos->at(0)->getClassName() == "Caster")) {
-
+                //colaEnemigos->at(0)->posiblecamino->clear();
                 colaEnemigos->at(0)->posiblecamino = pathfingind->buscaCamino2(colaEnemigos->at(0)->GetPosition(), player->GetPosition());
                 if (colaEnemigos->at(0)->bueno) {
+                    //delete colaEnemigos->at(0)->camino;
                     colaEnemigos->at(0)->camino = colaEnemigos->at(0)->posiblecamino;
                     colaEnemigos->at(0)->nodoactual = 0;
                 }
 
 
                 colaEnemigos->at(0)->bueno = !colaEnemigos->at(0)->bueno;
+                ite--;
             }
-            ite--;
+            
             colaEnemigos->at(0)->encola = false;
             colaEnemigos->pop_front();
             ite++;
         } else {
-            ite = 10;
+            break;
         }
 
     }

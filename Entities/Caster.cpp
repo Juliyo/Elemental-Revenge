@@ -209,20 +209,6 @@ void Caster::Update(const sf::Time elapsedTime, float x1, float x2, float multip
 
         shapesDebug.clear();
 
-
-        if (camino != NULL) {
-            for (int i = 0; i < camino->size(); i++) {
-
-                sf::RectangleShape shape;
-                shape.setPosition(sf::Vector2f(camino->at(i).x * 24, camino->at(i).y * 24));
-                shape.setSize(sf::Vector2f(24, 24));
-                shape.setOrigin(12.f, 12.f);
-                shape.setFillColor(color);
-
-                shapesDebug.push_back(shape);
-
-            }
-        }
     }
     // }
 

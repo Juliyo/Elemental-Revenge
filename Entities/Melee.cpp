@@ -243,24 +243,8 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2, float multipl
 
         inicio.restart();
 
-        shapesDebug.clear();
 
 
-        if (camino != NULL) {
-            for (int i = 0; i < camino->size(); i++) {
-                //std::cout << "Nodo " << i << " " << camino->at(i).x << "," << camino->at(i).y << "    Meta " << ceil(world->player->GetPosition().x/24) << "," << ceil(world->player->GetPosition().y/24) << std::endl;
-                sf::RectangleShape shape;
-                shape.setPosition(sf::Vector2f(camino->at(i).x * 24, camino->at(i).y * 24));
-                shape.setSize(sf::Vector2f(24, 24));
-                shape.setOrigin(12.f, 12.f);
-                shape.setFillColor(color);
-
-                shapesDebug.push_back(shape);
-                //std::cout<<"Camino        "<<i<<": "<<camino->at(i).x<<","<<camino->at(i).y<<std::endl;
-                //if(i<posiblecamino->size())
-                //std::cout<<"Psible Camino "<<i<<": "<<posiblecamino->at(i).x<<","<<posiblecamino->at(i).y<<std::endl;
-            }
-        }
     }
     // }
     //Hay que setear al BodyDef el vector velocidad que hallamos calculado
