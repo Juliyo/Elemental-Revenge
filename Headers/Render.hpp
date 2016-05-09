@@ -40,7 +40,7 @@ public:
         void SetOrigin(float x,float y){sprite.setOrigin(x,y);}; 
         void SetOriginAnimatedSprite(float x,float y){ animatedSprite.setOrigin(x,y); };
         void SetRotation(float angle){ animatedSprite.setRotation(angle); };
-        void SetScale(float x, float y){ animatedSprite.setScale(x,y); };
+        void SetScale(float x, float y){ sprite.setScale(x,y); };
 	Sprite &GetSprite() { return sprite; }
         AnimatedSprite &GetSpriteAnimated() { return animatedSprite; }
 	sf::Vector2f GetRenderPosition() const { return renderPos; }

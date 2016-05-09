@@ -158,6 +158,9 @@ public:
     
     Reloj invulnerable;
     Reloj damaged;
+    
+    float damageTaken = 0;
+    int numContactos = 0;
 
 private:
 

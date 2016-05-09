@@ -470,7 +470,7 @@ void Menu::cargarAnimacionesMenu() {
 
         InicializarAnimatedSprite(sf::seconds(3.f), true, false);
 
-        SetScale(0.85, 0.7);
+        SetScaleAnimation(0.85, 0.7);
     }
 
     if (random == 2) {

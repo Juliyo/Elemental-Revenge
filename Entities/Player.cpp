@@ -31,7 +31,7 @@ void Player::CreateBody() {
 }
 
 Player::Player() : Collisionable((Entity*)this) {
-    shapesFuego = new std::vector<sf::CircleShape*>();
+    
 }
 
 Player::~Player() {
@@ -44,7 +44,7 @@ std::string Player::getClassName() {
 
 void Player::Inicializar(float posX, float posY, float speedX, float speedY, float maxSpeedX, float maxSpeedY) {
     /*Reservamos memoria para los punteros de Animation*/
-
+shapesFuego = new std::vector<sf::CircleShape*>();
     walkingAnimationDown = new Animation();
     walkingAnimationLeft = new Animation();
     walkingAnimationRight = new Animation();
@@ -446,6 +446,11 @@ void Player::Update(const sf::Time elapsedTime) {
         ActiveShader(false);
         SetEstado(Estado::ID::Vivo);
     }
+    //Si hay un enemigo colisionando contigo restas vida
+    
+    if (numContactos > 0) {
+            restaVida(damageTaken);
+    }
     //Hay que setear al BodyDef el vector velocidad que hayamos calculado
     body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(movement) * Player::GetVelocity()));
     //Actualizamos la posicion del player con la posicion del bodyDef
@@ -498,18 +503,18 @@ int Player::getVida() {
 }
 
 int Player::restaVida(int a) {
-    if (invulnerable.getTiempo() > 0.25f && (vida - a) >= 0) {
+    if (invulnerable.getTiempo() > 0.5f && (vida - a) >= 0) {
+            vida -= a;
+            hud->updateHud(vida);
+            invulnerable.restart();
+            SetEstado(Estado::ID::Damaged);
+            ActiveShader(true);
+            //Render::GetSpriteAnimated().setColor(sf::Color(255,255,0,255));
+            SoundManager *sonido = SoundManager::Instance();
+            sonido->play("resources/Sounds/Damage.wav");
+            damaged.restart();
 
-        vida -= a;
 
-        hud->updateHud(vida);
-        invulnerable.restart();
-        SetEstado(Estado::ID::Damaged);
-        ActiveShader(true);
-        //Render::GetSpriteAnimated().setColor(sf::Color(255,255,0,255));
-        SoundManager *sonido = SoundManager::Instance();
-        sonido->play("resources/Sounds/Damage.wav");
-        damaged.restart();
     }
 
     if(vida==0){
@@ -619,7 +624,7 @@ void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time e
             movement2.x = (4 * cos(hFuegoBasico[aux].angleshot2) * 10.0f);
             movement2.y = (4 * sin(hFuegoBasico[aux].angleshot2) * 10.0f);
             hFuegoBasico[aux].Update2(movement2, elapsedTime);
-            shapesFuego->at(aux)->setPosition(tmx::BoxToSfVec(hFuegoBasico[aux].body->GetPosition()));
+            //shapesFuego->at(aux)->setPosition(tmx::BoxToSfVec(hFuegoBasico[aux].body->GetPosition()));
         } else if (hFuegoBasico[aux].GetEstado() == Estado::ID::Muriendo) {
             //Ademadas hacemos que su cuerpo no interactue
             hFuegoBasico[aux].body->SetActive(false);
@@ -643,9 +648,9 @@ void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time e
             hFuegoAvanzado->lanzado = true;
             castFire2.restart();
 
-            /*hFuegoAvanzado->actualSize.x = 0.3;
+            hFuegoAvanzado->actualSize.x = 0.3;
             hFuegoAvanzado->actualSize.y = 0.3;
-            hFuegoAvanzado->SetScale(0.3, 0.3);*/
+            hFuegoAvanzado->SetScale(0.3, 0.3);
             hFuegoAvanzado->cast(sf::Vector2f(getPosition()));
 
         }
@@ -819,7 +824,7 @@ void Player::renderRayo(sf::Time elapsedTime, float interpolation) {
 void Player::renderFuego(sf::Time elapsedTime, float interpolation) {
     if (hFuegoAvanzado->tiempoCast.getTiempo() < hFuegoAvanzado->getCast() && hFuegoAvanzado->lanzado == true) {
         if (hFuegoAvanzado->tiempoCast.getTiempo() > 0.4) {
-            // hFuegoAvanzado->SetScale(1.0, 1.0);
+            hFuegoAvanzado->SetScale(1.0, 1.0);
 
         }
         hFuegoAvanzado->DrawWithInterpolation(interpolation, GetPreviousPosition(), GetPosition());
@@ -868,9 +873,9 @@ void Player::renderFuego(sf::Time elapsedTime, float interpolation) {
 
     if (castFire2.getTiempo() < 0.4f) {
         SetFrameTime(sf::seconds(0.05f));
-        /*hFuegoAvanzado->SetScale(hFuegoAvanzado->actualSize.x * 1.1, hFuegoAvanzado->actualSize.y * 1.1);
+        hFuegoAvanzado->SetScale(hFuegoAvanzado->actualSize.x * 1.1, hFuegoAvanzado->actualSize.y * 1.1);
         hFuegoAvanzado->actualSize.x *= 1.05;
-        hFuegoAvanzado->actualSize.y *= 1.05;*/
+        hFuegoAvanzado->actualSize.y *= 1.05;
         //switch
         switch (cuadrante) {
             case 1:
@@ -891,9 +896,9 @@ void Player::renderFuego(sf::Time elapsedTime, float interpolation) {
     }
     
     
-//        for(int i=0;i < shapesFuego->size();i++){
-//        Motor2D::Instance()->draw(*shapesFuego->at(i));
-//    }
+        for(int i=0;i < shapesFuego->size();i++){
+        Motor2D::Instance()->draw(*shapesFuego->at(i));
+    }
     
 }
 

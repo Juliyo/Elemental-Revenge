@@ -157,7 +157,13 @@ void InGame::Update(sf::Time elapsedTime) {
 //                    std::cerr << "ERROR DE MIERDAAAAA Out of Range error: " << oor.what() << '\n';
 //                }
         //NUEVO
-
+//        try{
+//        for(int i=0;player->shapesFuego->size();i++){
+//            player->shapesFuego->at(i)->setPosition(player->GetPosition());
+//        }
+//        } catch (const std::out_of_range& oor) {
+//                    std::cerr << "ERROR DE MIERDAAAAA Out of Range error: " << oor.what() << '\n';
+//                }
         //**************************ENEMIGOS CASTER**********************//
 
         for (std::vector<Caster*>::iterator it = caster->begin(); it != caster->end(); ++it) {
@@ -318,7 +324,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
 
     //Renderiza el mapa
     level->render();
-
+    player->renderFuego(elapsedTime, interpolation);
     //****************************RENDER ENEMIGOS MELEE************************************//
     for (int i = 0; i < melee->size(); i++) {
         melee->at(i)->PlayAnimation(*melee->at(i)->currentAnimation);
@@ -401,7 +407,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     //****************************RAYO************************************
     player->renderRayo(elapsedTime, interpolation);
     //****************************FUEGO************************************
-    player->renderFuego(elapsedTime, interpolation);
+    
     //****************************AGUA************************************
     player->renderAgua(elapsedTime, interpolation);
     //*********************HEAL**********************************

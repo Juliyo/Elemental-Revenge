@@ -68,7 +68,7 @@ hRayAdvanced::hRayAdvanced(): Collisionable((Entity*)this) {
 
     currentAnimation = &animationDurante;
     InicializarAnimatedSprite(sf::seconds(1.f/29),true,false);
-    SetScale(0.6f,0.6f);
+    SetScaleAnimation(0.6f,0.6f);
     SetOriginAnimatedSprite(475,392);
     
 }

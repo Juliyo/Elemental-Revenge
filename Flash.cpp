@@ -76,7 +76,7 @@ Flash::Flash(int animation) {
 
             InicializarAnimatedSprite(sf::seconds(0.05f), true, false);
             SetOriginAnimatedSprite(200 / 2, 112 / 2);
-            SetScale(0.7f,0.7f);
+            SetScaleAnimation(0.7f,0.7f);
             setCD(5.f);
             break;
     }

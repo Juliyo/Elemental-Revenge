@@ -45,7 +45,7 @@ Heal::Heal(): Collisionable((Entity*)this) {
    
     InicializarAnimatedSprite(sf::seconds(0.025f),true,false);
     SetOriginAnimatedSprite(70,100);
-    SetScale(0.5f,0.5f);
+    SetScaleAnimation(0.5f,0.5f);
     
     setCD(5.f);
 }

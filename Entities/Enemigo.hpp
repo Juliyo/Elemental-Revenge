@@ -39,7 +39,6 @@ public:
     bool encola=false;
     float distancia=900;
     
-protected:
     float GetDamage() const {
         return damage;
     }
@@ -47,6 +46,9 @@ protected:
     void SetDamage(float damage) {
         this->damage = damage;
     }
+    
+protected:
+    
 
     int GetVida() const {
         return vida;

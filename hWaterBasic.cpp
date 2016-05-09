@@ -61,7 +61,7 @@ hWaterBasic::hWaterBasic(): Collisionable((Entity*)this) {
     animation->addFrame(sf::IntRect(0, 588, 147, 147));
     InicializarAnimatedSprite(sf::seconds(0.5f / 29), true, false);
     SetOriginAnimatedSprite(0, 147 / 2);
-    SetScale(0.5f, 0.5f);
+    SetScaleAnimation(0.5f, 0.5f);
     setCD(3.0f);
 }
 

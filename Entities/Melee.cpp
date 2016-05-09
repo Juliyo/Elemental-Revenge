@@ -124,6 +124,7 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, flo
         PhysicsState::SetSpeed(speedX, speedY);
         Enemigo::SetVelocity(150);
         Enemigo::SetVida(2);
+        Enemigo::SetDamage(2);
         PhysicsState::SetMaxSpeed(maxSpeedX, maxSpeedY);
         Render::SetOriginAnimatedSprite(11, 10);
         SetOriginColision(20, 17);
@@ -155,6 +156,7 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, flo
         PhysicsState::SetSpeed(speedX, speedY);
         Enemigo::SetVelocity(150);
         Enemigo::SetVida(5);
+        Enemigo::SetDamage(1);
         PhysicsState::SetMaxSpeed(maxSpeedX, maxSpeedY);
         Render::SetOriginAnimatedSprite(17, 16);
         SetOriginColision(17, 16);

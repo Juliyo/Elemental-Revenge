@@ -19,10 +19,10 @@ void hFireAdvanced::CreateBody() {
     
     //Creamos un objeto dinamico
     //bodyDef = new b2BodyDef();
-    bodyDef.type = b2_dynamicBody; 
+    bodyDef.type = b2_staticBody; 
     bodyDef.position = (tmx::SfToBoxVec(entity->GetPosition()));
     bodyDef.fixedRotation = true;
-    //bodyDef.bullet = true;
+    bodyDef.bullet = true;
     //Añadimos el objeto al mundo
     body = physicWorld->CreateBody(&bodyDef);
     body->SetUserData(this);
@@ -31,10 +31,10 @@ void hFireAdvanced::CreateBody() {
     //circleShape = new b2CircleShape();
     circleShape.m_radius = tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f);
     sf::CircleShape *rs = new sf::CircleShape();
-    rs->setPosition(entity->GetPosition());
+    rs->setPosition(InGame::Instance()->player->GetPosition().x,InGame::Instance()->player->GetPosition().y*-1);
     rs->setRadius(rectColision->GetWidth() / 2.f);
     rs->setFillColor(sf::Color::Transparent);
-    rs->setOutlineColor(sf::Color::Red);
+    rs->setOutlineColor(sf::Color::Blue);
     rs->setOrigin(rectColision->GetWidth() / 2.f,rectColision->GetHeight() / 2.f);
     rs->setOutlineThickness(2);
     
@@ -46,6 +46,7 @@ void hFireAdvanced::CreateBody() {
     fixtureDef.shape = &circleShape;
     fixtureDef.density = 1.0f;
     fixtureDef.friction = 1.0f;
+    fixtureDef.restitution = 0.7f;
     fixtureDef.filter.categoryBits = Filtro::_entityCategory::HECHIZO;
     fixtureDef.filter.maskBits = Filtro::_entityCategory::ENEMIGO | Filtro::_entityCategory::BOUNDARY;
     body->CreateFixture(&fixtureDef);
@@ -56,15 +57,15 @@ hFireAdvanced::hFireAdvanced(): Collisionable((Entity*)this) {
 
     SetTexture("resources/Textures/girofuego.png");
     SetOrigin(125, 124);
-    SetScaleAnimation(0.1, 0.1);
+    SetScale(0.1, 0.1);
     SetPosition(-10000, -10000);
     setCD(5.f);
     setCast(2.f);
-    hDamage = 5;
-    //actualSize = sf::Vector2f(0.3, 0.3);
+    hDamage = 0;
+    actualSize = sf::Vector2f(0.3, 0.3);
     primerCast = true;
-    SetRectangleColision(0,0,250*0.1,248*0.1);
-    SetOriginColision(250*0.1/2,248*0.1/2);
+    SetRectangleColision(0,0,250,248);
+    SetOriginColision(250/2,248/2);
     
     CreateBody();
 
@@ -86,6 +87,7 @@ void hFireAdvanced::cast(sf::Vector2f posicion) {
     hSprite.setPosition(posicion.x, posicion.y);
     body->SetTransform(tmx::SfToBoxVec(posicion),0);
     hSprite.setRotation(90);
+    InGame::Instance()->player->shapesFuego->at(0)->setPosition(posicion.x,posicion.y);
 
 }
 
