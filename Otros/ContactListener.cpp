@@ -127,6 +127,32 @@ void ContactListener::BeginContact(b2Contact* contact) {
             hFireAdvanced *f = static_cast<hFireAdvanced*> (fixtureA->GetBody()->GetUserData());
             m->RestarVida(f->getDamage());
         }
+    }else if(claseA == "hWaterBasic"){
+        hWaterBasic *w = static_cast<hWaterBasic*> (fixtureB->GetBody()->GetUserData());
+        b2Vec2 toTarget = fixtureB->GetBody()->GetPosition() - fixtureA->GetBody()->GetPosition();
+            toTarget.Normalize();
+            b2Vec2 desiredVel = 0.08f * toTarget;
+            fixtureB->GetBody()->ApplyLinearImpulse(desiredVel,fixtureB->GetBody()->GetWorldCenter(), true);
+        if(claseB == "Melee"){
+            Melee *m = static_cast<Melee*> (fixtureB->GetBody()->GetUserData());
+            m->RestarVida(w->getDamage());
+        }else if(claseB == "Caster"){
+            Caster *m = static_cast<Caster*> (fixtureB->GetBody()->GetUserData());
+            m->RestarVida(w->getDamage());
+        }
+    }else if(claseA == "hWaterAdvanced"){
+        hWaterBasic *w = static_cast<hWaterBasic*> (fixtureB->GetBody()->GetUserData());
+        b2Vec2 toTarget = fixtureB->GetBody()->GetPosition() - fixtureA->GetBody()->GetPosition();
+            toTarget.Normalize();
+            b2Vec2 desiredVel = 0.09f * toTarget;
+            fixtureB->GetBody()->ApplyLinearImpulse(desiredVel,fixtureB->GetBody()->GetWorldCenter(), true);
+        if(claseB == "Melee"){
+            Melee *m = static_cast<Melee*> (fixtureB->GetBody()->GetUserData());
+            m->RestarVida(w->getDamage());
+        }else if(claseB == "Caster"){
+            Caster *m = static_cast<Caster*> (fixtureB->GetBody()->GetUserData());
+            m->RestarVida(w->getDamage());
+        }
     }
 }
 void ContactListener::EndContact(b2Contact* contact) { 

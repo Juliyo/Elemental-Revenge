@@ -17,9 +17,45 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Mouse.hpp>
 #include <math.h>
+#include "States/InGame.hpp"
 
 void hRayBasic::CreateBody() {
-
+    physicWorld = InGame::Instance()->physicWorld;
+    
+    //Creamos un objeto dinamico
+    //bodyDef = new b2BodyDef();
+    bodyDef.type = b2_staticBody; 
+    bodyDef.position = (tmx::SfToBoxVec(entity->GetPosition()));
+    bodyDef.fixedRotation = true;
+    bodyDef.bullet = true;
+    //Añadimos el objeto al mundo
+    body = physicWorld->CreateBody(&bodyDef);
+    body->SetUserData(this);
+    //Se crea una shape, le damos las dimensiones pasandole la mitad del ancho y la mitad del alto
+    //del BoundingBox
+    //circleShape = new b2CircleShape();
+    shape.SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f));
+    //circleShape.m_radius = tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f);
+    /*sf::CircleShape *rs = new sf::CircleShape();
+    rs->setPosition(InGame::Instance()->player->GetPosition().x,InGame::Instance()->player->GetPosition().y*-1);
+    rs->setRadius(rectColision->GetWidth() / 2.f);
+    rs->setFillColor(sf::Color::Transparent);
+    rs->setOutlineColor(sf::Color::Blue);
+    rs->setOrigin(rectColision->GetWidth() / 2.f,rectColision->GetHeight() / 2.f);
+    rs->setOutlineThickness(2);
+    
+    InGame::Instance()->player->shapesFuego->push_back(rs);*/
+    //shape = new b2PolygonShape();
+    //shape.SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f));
+    //Objeto que le da las propiedades fisicas al bodyDef
+    //fixtureDef = new b2FixtureDef();
+    fixtureDef.shape = &shape;
+    fixtureDef.density = 1.0f;
+    fixtureDef.friction = 1.0f;
+    fixtureDef.restitution = 0.7f;
+    fixtureDef.filter.categoryBits = Filtro::_entityCategory::HECHIZO;
+    fixtureDef.filter.maskBits = Filtro::_entityCategory::ENEMIGO;
+    body->CreateFixture(&fixtureDef);
 }
 
 hRayBasic::hRayBasic(): Collisionable((Entity*)this) {
@@ -29,6 +65,7 @@ hRayBasic::hRayBasic(): Collisionable((Entity*)this) {
     animationDurante = new Animation();
     PrimeraAnimacion = new Animation();
     setCD(5);
+    hDamage = 3;
     setCast(3);
     if (!hTexture.loadFromFile("resources/Textures/RayoSpriteSheet.png")) {
 
@@ -87,6 +124,8 @@ hRayBasic::hRayBasic(): Collisionable((Entity*)this) {
     currentAnimation = &PrimeraAnimacion;
     InicializarAnimatedSprite(sf::seconds(0.5f / 8), true, false);
     SetOriginAnimatedSprite(40, -30);
+    Collisionable::SetOriginColision(40,-30);
+    CreateBody();
 }
 
 
@@ -95,7 +134,7 @@ hRayBasic::~hRayBasic() {
 }
 
 std::string hRayBasic::getClassName() {
-
+    return "hRayBasic";
 }
 
 void hRayBasic::cast(sf::Vector2f posicion) {
@@ -108,9 +147,9 @@ void hRayBasic::cast(sf::Vector2f posicion) {
     sound.play();
 */
     if(primeraVez){
-    SoundManager *sonido = SoundManager::Instance();
-    sonido->play("resources/Sounds/Rbasico.wav");
-    primeraVez=false;
+        SoundManager *sonido = SoundManager::Instance();
+        sonido->play("resources/Sounds/Rbasico.wav");
+        primeraVez=false;
     }
 
     draw = true;
@@ -118,7 +157,7 @@ void hRayBasic::cast(sf::Vector2f posicion) {
 
     angleShot = (angleShot * 180 / 3.14) + 270;
     SetAngle(angleshot2, angleShot);
-
+    body->SetTransform(tmx::SfToBoxVec(posicion),angleShot);
 
     angleshot2 = angleShot; //so it goes in a straight line
 }
@@ -130,7 +169,7 @@ void hRayBasic::stopSound() {
 
 
 void hRayBasic::DrawWithInterpolation(float interpolation, const sf::Vector2f &posPrev, const sf::Vector2f &posNew) {
-    std::cout<<"Llega"<<std::endl;
+    //std::cout<<"Llega"<<std::endl;
     DrawAnimation(posPrev, posNew, interpolation, &anglePrev, &angleNew);
 }
 void hRayBasic::update(){

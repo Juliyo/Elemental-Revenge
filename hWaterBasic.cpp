@@ -35,7 +35,7 @@ void hWaterBasic::CreateBody() {
     //Se crea una shape, le damos las dimensiones pasandole la mitad del ancho y la mitad del alto
     //del BoundingBox
     //circleShape = new b2CircleShape();
-    circleShape.m_radius = tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f);
+    circleShape.m_radius = tmx::SfToBoxFloat(rectColision->GetWidth());
     sf::CircleShape *rs = new sf::CircleShape();
     rs->setPosition(entity->GetPosition());
     rs->setRadius(rectColision->GetWidth() / 2.f);
@@ -52,7 +52,7 @@ void hWaterBasic::CreateBody() {
     fixtureDef.density = 1.0f;
     fixtureDef.friction = 1.0f;
     fixtureDef.filter.categoryBits = Filtro::_entityCategory::HECHIZO;
-    fixtureDef.filter.maskBits = Filtro::_entityCategory::ENEMIGO | Filtro::_entityCategory::BOUNDARY;
+    fixtureDef.filter.maskBits = Filtro::_entityCategory::ENEMIGO | Filtro::_entityCategory::HECHIZO;
     body->CreateFixture(&fixtureDef);
 }
 
@@ -92,8 +92,13 @@ hWaterBasic::hWaterBasic(): Collisionable((Entity*)this) {
     animation->addFrame(sf::IntRect(0, 441, 147, 147));
     animation->addFrame(sf::IntRect(0, 588, 147, 147));
     InicializarAnimatedSprite(sf::seconds(0.5f / 29), true, false);
-    SetOriginAnimatedSprite(0, 147 / 2);
+    SetOriginAnimatedSprite(0, 74);
     SetScaleAnimation(0.5f, 0.5f);
+    
+    Collisionable::SetOriginColision(0,(74*0.5));
+    Collisionable::SetRectangleColision(13*0.5,18*0.5,113*0.5,107*0.5);
+    
+    CreateBody();
     setCD(3.0f);
 }
 
@@ -118,6 +123,7 @@ void hWaterBasic::cast(sf::Vector2f posicion, Hud *hud, float cdAguaBasicoPausa)
         angleshot2 = angleShot;
         //Ponemos el sprite en la posicion del jugador y separado un distancia del jugador
         SetPosition(posicion.x + 10 * cos(angleshot2) * 1.0f, posicion.y + 20 * sin(angleshot2) * 1.0f);
+        body->SetTransform(tmx::SfToBoxVec(sf::Vector2f(posicion.x + 10 * cos(angleshot2) * 1.0f, posicion.y + 20 * sin(angleshot2) * 1.0f)),0);
         tiempoCast.restart();
         dibujar = true;
         SetAngle2(angleShot * 180 / 3.14);
@@ -132,12 +138,16 @@ void hWaterBasic::DrawWithInterpolation(float interpolation) {
 
 void hWaterBasic::Update(sf::Vector2f velocity, sf::Time elapsedTime, float playerV) {
     Player *player = InGame::Instance()->player;
+    sf::Vector2f posicionAgua = tmx::BoxToSfVec(player->body->GetPosition());
+    sf::Vector2f posAgua(posicionAgua.x + 10 * cos(angleshot2) * 1.0f,posicionAgua.y + 20 * sin(angleshot2) * 1.0f);
     /**Hay que normalizar la velocidad**/
     /*sf::Vector2f nVelocity = Util::Normalize(velocity);
     SetSpeed(velocity);
     PhysicsState::Update(elapsedTime);*/
-    sf::Vector2f posicionAgua = tmx::BoxToSfVec(player->body->GetPosition());
-    SetPosition(sf::Vector2f(posicionAgua.x + 10 * cos(angleshot2) * 1.0f,posicionAgua.y + 20 * sin(angleshot2) * 1.0f));
+   
+    SetPosition(posAgua);
+    body->SetTransform(tmx::SfToBoxVec(posAgua),0);
+    
 }
 
 void hWaterBasic::setDibujar(bool NuevoDibujar) {
