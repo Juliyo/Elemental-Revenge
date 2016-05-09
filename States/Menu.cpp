@@ -39,6 +39,10 @@ Menu::Menu(const Menu& orig) {
 Menu::~Menu() {
 }
 
+void Menu::Clear() {
+
+}
+
 void Menu::Inicializar() {
     srand(time(NULL));
 

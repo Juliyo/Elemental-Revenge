@@ -37,6 +37,7 @@ public:
     virtual ~Menu();
 
     void Inicializar();
+    void Clear() override;
 
     void Render(float interpolation, sf::Time elapsedTime);
     void Update(sf::Time elapsedTime);

@@ -35,7 +35,53 @@ Player::Player() : Collisionable((Entity*)this) {
 }
 
 Player::~Player() {
-    delete hud;
+    
+    printf("player 1\n");
+    Muerto=NULL;
+    animationMuerte=NULL;
+    castingAnimationDownAgua=NULL;
+    castingAnimationDownFuego=NULL;
+    castingAnimationDownRayo=NULL;
+    castingAnimationUpAgua=NULL;
+    castingAnimationUpFuego=NULL;
+    castingAnimationUpRayo=NULL;
+    castingAnimationRightAgua=NULL;
+    castingAnimationRightFuego=NULL;
+    castingAnimationRightRayo=NULL;
+    castingAnimationLeftAgua=NULL;
+    castingAnimationLeftFuego=NULL;
+    castingAnimationLeftRayo=NULL;
+    
+    printf("player 2\n");
+    currentAnimation=NULL;
+    delete flash;
+    delete flash2;
+    printf("player 3\n");
+    fuego2AnimationDown=NULL;
+    fuego2AnimationLeft=NULL;
+    fuego2AnimationRight=NULL;
+    fuego2AnimationUp=NULL;
+    printf("player 4\n");
+    fuegoAnimationDown=NULL;
+    fuegoAnimationLeft=NULL;
+    fuegoAnimationRight=NULL;
+    fuegoAnimationUp=NULL;
+    printf("player 5\n");
+    delete hAguaAvanzado;
+    delete hAguaBasico;
+    delete hFuegoAvanzado;
+    delete hFuegoBasico;
+    delete hRayoAvanzado;
+    delete hRayoBasico;
+    
+    delete hHeal;
+    printf("player 6\n");
+    healingAnimationDown=NULL;
+    healingAnimationLeft=NULL;
+    healingAnimationRight=NULL;
+    healingAnimationUp=NULL;
+   // delete hud;
+    
 }
 
 std::string Player::getClassName() {

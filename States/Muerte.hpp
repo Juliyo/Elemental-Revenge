@@ -28,6 +28,8 @@ public:
     //void Update(sf::Time elapsedTime);
     void render(float interpolation, sf::Time elapsedTime);
     void updateView();
+    void Clear() override;
+
     
         void Render(float interpolation, sf::Time elapsedTime);
     void Update(sf::Time timeElapsed);

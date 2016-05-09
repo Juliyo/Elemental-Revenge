@@ -35,33 +35,10 @@ InGame::InGame() {
     pathfingind = new PathFinding();
     SoundManager::Instance()->load();
     colaEnemigos = new std::deque<Enemigo*>();
-    /* pause = Pause::Instance();
-     muerte = Muerte::Instance();*/
-
-
-    /* sf::ContextSettings settings;
-     settings.antialiasingLevel = 8;*/
-
-
-    //player->SetScale(0.7,0.7);
-    // motor->setZoom(0.3f); //1=vista del mundo(nuestra pantalla)
-
-    //updateView();
-
-    //mapa = new Map();
-    /*motor->setCenterForView(1, 900,850);
-    motor->SetView(1);*/
+    
     level = new Level();
 
     video = new Video("resources/Videos/nubes/nube", 30, 495, 500, 0, sf::Vector2f(0.8, 1.4), true, sf::Vector2f(1280, 720));
-    /*musica = new sf::Music();
-    musica->openFromFile("resources/Sounds/InGame.ogg");
-    musica->setVolume(50);
-        
-    musica2 = new sf::Music();
-    musica2->openFromFile("resources/Sounds/Magicka2.ogg");
-    musica2->setVolume(50);*/
-    //Inicializar();
     physicWorld = new b2World(tmx::SfToBoxVec(sf::Vector2f(0.f, 0.f)));
     ct = new ContactListener();
     physicWorld->SetContactListener(ct);
@@ -73,6 +50,42 @@ InGame::InGame(const InGame& orig) {
 }
 
 InGame::~InGame() {
+    
+    
+}
+
+void InGame::Clear() {
+    printf("Clear1\n");
+while(!caster->empty()){
+        delete caster->back(), caster->pop_back();
+    }
+    delete caster;
+    printf("Clear2\n");
+     while(!colaEnemigos->empty()){
+        delete colaEnemigos->back(), colaEnemigos->pop_back();
+    }
+    delete colaEnemigos;
+    printf("Clear2.5\n");
+    
+    /*while(!melee->empty()){
+        delete melee->back(), melee->pop_back();
+    }*/
+    
+    delete melee;
+    printf("Clear3\n");
+    
+    delete ct;
+    delete level;
+    printf("Clear4\n");
+    delete mInstance;
+    delete music;
+    printf("Clear5\n");
+    delete pathfingind;
+    delete physicWorld;
+    printf("Clear6\n");
+    delete player;
+    delete video;
+    printf("Clear7\n");
 }
 
 void InGame::Inicializar() {

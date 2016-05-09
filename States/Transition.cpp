@@ -49,6 +49,11 @@ Transition::Transition(const Transition& orig) {
 Transition::~Transition() {
 }
 
+void Transition::Clear() {
+
+}
+
+
 void Transition::Inicializar() {
     video->Inicializar();
     //Carga XML
@@ -191,12 +196,14 @@ void Transition::Update(sf::Time elapsedTime) {
                 drawNextLevel = false;
                 buttonPressed = false;
                 InGame::Instance()->level->LoadMap(static_cast<Niveles::ID>(level));
+                
                 StateStack::Instance()->SetCurrentState(States::ID::InGame);
                     Music *music = Music::Instance();
                     music->Stop();
                     music->Load(MUSICA::ID::Mapa1);
                     music->Play();
                 level++;
+                printf("Se supone que llego a la ultima linea de Ingame");
             }
         }
 

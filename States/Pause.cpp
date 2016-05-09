@@ -14,6 +14,7 @@
 #include <string>
 #include "Pause.hpp"
 #include "StateStack.hpp"
+#include "InGame.hpp"
 
 Pause::Pause() {
     motor = Motor2D::Instance();
@@ -39,6 +40,11 @@ Pause::Pause(const Pause& orig) {
 
 Pause::~Pause() {
 }
+
+void Pause::Clear() {
+
+}
+
 
 void Pause::Inicializar() {
     tecladoActivo = false;
@@ -351,6 +357,7 @@ void Pause::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         }
         
         if (selectedItemIndexPausa == 2) {
+             StateStack::Instance()->GetState(States::ID::InGame)->Clear();
              StateStack::Instance()->SetCurrentState(States::ID::Menu);
         }
         if (selectedItemIndexPausa == 3) {

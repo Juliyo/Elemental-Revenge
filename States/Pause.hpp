@@ -31,6 +31,7 @@ public:
 
     void Render(float interpolation, sf::Time elapsedTime);
     void Update(sf::Time timeElapsed);
+    void Clear() override;
 
     
     void HandleEvents(sf::Event& event);
