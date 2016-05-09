@@ -18,7 +18,7 @@ DisparoEnemigo::DisparoEnemigo(): Collisionable((Entity*)this) {
     animationInicio = new Animation();
     animationFin = new Animation();
     
-    animationInicio->setSpriteSheet("resources/Textures/FuegoSpriteSheet.png");
+    animationInicio->setSpriteSheet("resources/Textures/FuegoSpriteSheetAzul.png");
     animationInicio->addFrame(sf::IntRect(0, 0, 152, 148));
     animationInicio->addFrame(sf::IntRect(152, 0, 152, 148));
     animationInicio->addFrame(sf::IntRect(304, 0, 152, 148));

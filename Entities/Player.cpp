@@ -418,7 +418,7 @@ shapesFuego = new std::vector<sf::CircleShape*>();
     currentAnimation = &walkingAnimationDown;
 
     InicializarAnimatedSprite(sf::seconds(0.075f), true, false);
-    SetPosition(posX, posY);
+    SetPosition(posX, -posY);
     SetSpeed(speedX, speedY);
     SetMaxSpeed(maxSpeedX, maxSpeedY);
     SetOriginAnimatedSprite(32, 40);
@@ -504,7 +504,7 @@ int Player::getVida() {
 
 int Player::restaVida(int a) {
     if (invulnerable.getTiempo() > 0.5f && (vida - a) >= 0) {
-            vida -= a;
+            //vida -= a;
             hud->updateHud(vida);
             invulnerable.restart();
             SetEstado(Estado::ID::Damaged);
