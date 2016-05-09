@@ -92,7 +92,7 @@ public:
     std::vector<AtaqueBossA*> *disparo;
     //AtaqueBossA *disparo;
     AtaqueBossB *rayo;
-    AtaqueBossC *espiral;
+    std::vector<AtaqueBossC*> *espiral;
     
     Animation **currentAnimation;
     Animation *walkingAnimationDown;
