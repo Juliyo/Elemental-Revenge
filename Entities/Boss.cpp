@@ -378,10 +378,12 @@ void Boss::updateAtaqueBossB(bool disparado, sf::Time elapsedTime,float x4,float
         sf::Vector2f movement2(0.f, 0.f);
         
         
-    if(castDisparoRayo.getTiempo()>2.5f){
+    if(castDisparoRayo.getTiempo()>1.5f){
+        rayo->SetOriginAnimatedSprite(340,392);
         rayo->currentAnimation=&rayo->animationAtaque;
     }
     else{
+        rayo->SetOriginAnimatedSprite(54,30);
         rayo->currentAnimation=&rayo->animationDiana;
     }
         

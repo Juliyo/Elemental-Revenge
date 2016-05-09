@@ -69,8 +69,8 @@ public:
     Reloj clockCdDisparo; 
     Reloj clockCdDisparoRayo; 
     Reloj clockCdDisparoEspiral; 
-    float CdDisparo = 2.5f;
-    float CdDisparoRayo = 2.9f;
+    float CdDisparo = 1.5f;
+    float CdDisparoRayo = 2.35f;
     float CdDisparoEspiral = 10.0f;
     
     int rotacion[50];

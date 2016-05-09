@@ -26,7 +26,7 @@ AtaqueBossB::AtaqueBossB() {
     animationDiana->setSpriteSheet("resources/Textures/diana.png");
     animationDiana->addFrame(sf::IntRect(0, 0, 108, 61));
 
-animationAtaque->setSpriteSheet("resources/Textures/rayo.png");
+animationAtaque->setSpriteSheet("resources/Textures/rayorojo.png");
     
     animationAtaque->addFrame(sf::IntRect(0,0,960,582));
     animationAtaque->addFrame(sf::IntRect(960,0,960,582));
@@ -63,9 +63,9 @@ animationAtaque->setSpriteSheet("resources/Textures/rayo.png");
     animationAtaque->addFrame(sf::IntRect(960*2,582*5,960,582));
     animationAtaque->addFrame(sf::IntRect(960*3,582*5,960,582));
     animationAtaque->addFrame(sf::IntRect(960*4,582*5,960,582));
-    InicializarAnimatedSprite(sf::seconds(0.5f / 29), true, false);
-    SetOriginAnimatedSprite(0, 147 / 2);
-    SetScale(0.5f, 0.5f);
+    InicializarAnimatedSprite(sf::seconds(1.f/29),true,false);
+    SetScale(0.6f,0.6f);
+    SetOriginAnimatedSprite(54,30);
     
     currentAnimation = &animationDiana;
     
