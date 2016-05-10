@@ -37,6 +37,8 @@ Caster::~Caster() {
 void Caster::Inicializar(float posX, float posY, Tipo::Caster tipo, float speedX, float speedY, float maxSpeedX, float maxSpeedY) {
     /*Reservamos memoria para los punteros de Animation*/
     m_tipo = tipo;
+    numContactos = 0;
+    damageTaken = 0;
     walkingAnimationDown = new Animation();
     walkingAnimationLeft = new Animation();
     walkingAnimationRight = new Animation();
