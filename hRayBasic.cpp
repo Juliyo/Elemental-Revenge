@@ -171,43 +171,12 @@ void hRayBasic::cast(sf::Vector2f posicion) {
     angleShot = (angleShot * 180 / 3.14) + 270;
     SetAngle(angleshot2, angleShot);
     body->SetTransform( tmx::SfToBoxVec(posicion), tmx::SfToBoxAngle(angleshot2));
-    //body->SetTransform(tmx::SfToBoxVec(posicion),tmx::SfToBoxAngle(angleShot));
-    //rotateObject(body,tmx::BoxToSfFloat(body->GetPosition().x),tmx::BoxToSfFloat(body->GetPosition().y),rectColision->GetWidth(),rectColision->GetHeight(),angleShot,100);
     SetPosition(tmx::BoxToSfVec(body->GetPosition()));
     angleshot2 = angleShot; //so it goes in a straight line
     InGame::Instance()->rs->setPosition(tmx::BoxToSfVec(body->GetPosition()));
     InGame::Instance()->rs->setRotation(tmx::BoxToSfAngle(body->GetAngle())-270);
 
 }
-
-void hRayBasic::rotateObject(b2Body *body, float x1, float y1, float width1, float height1, float rotation,float PPM){
- 
-        float DEGTORAD = 0.0174532925199432957f;
-        // Top left corner of object
-        sf::Vector2f pos((x1) / PPM, (y1 + height1) / PPM);
-        // angle of rotation in radians
-        float angle = DEGTORAD * (rotation);
-        // half of diagonal for rectangular object
-        float radius = (float) ((std::sqrt(
-                (width1 * width1 + height1 * height1)) / 2.f) / PPM);
-        // Angle at diagonal of rectangular object
-        double theta = (std::tanh(height1 / width1) * DEGTORAD);
- 
-                 // Finding new position if rotation was with respect to top-left corner of object.  
-        // X=x+ radius*cos(theta-angle)+(h/2)cos(90+angle)
-        // Y= y+radius*sin(theta-angle)-(h/2)sin(90+angle)
-        pos.x += (float) (radius * std::cos(-angle + theta));
-        pos.y += (float) (radius * std::sin(-angle + theta));
-        pos.x += (float) ((height1 / PPM / 2) * std::cos(90 * DEGTORAD+ angle));
-        pos.y +=(float) (-(height1 / PPM / 2) * std::sin(90* DEGTORAD + angle));
-        // transform the body
-        b2Vec2 vecPos;
-        vecPos.x=pos.x;
-        vecPos.y=pos.y;
-        body->SetTransform(vecPos,-angle);
- 
-}
-
 
 void hRayBasic::stopSound() {
     SoundManager *sonido = SoundManager::Instance();

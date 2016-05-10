@@ -79,7 +79,9 @@ private:
 
     int selectedItemIndexPausa;
     sf::Font fontPausa;
-    Text *menuPausa;
+    //Text *menuPausa;
+    std::vector<Text*> *menuPausa;
+    
     Text *textoPausa;
     sf::Color colorAzul;
     

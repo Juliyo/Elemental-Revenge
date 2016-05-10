@@ -136,7 +136,6 @@ void ContactListener::BeginContact(b2Contact* contact) {
             m->RestarVida(f->getDamage());
         }
     } else if (claseA == "hWaterBasic") {
-
         if (claseB == "Melee") {
             hWaterBasic *w = static_cast<hWaterBasic*> (fixtureA->GetBody()->GetUserData());
             b2Vec2 toTarget = fixtureB->GetBody()->GetPosition() - fixtureA->GetBody()->GetPosition();

@@ -15,6 +15,7 @@
 #include "../States/InGame.hpp"
 #include "../Headers/Util.hpp"
 #include "../Otros/tmxHelper.hpp"
+#include "../States/InGame.hpp"
 
 Caster::Caster() : Collisionable((Entity*)this) {
 }
@@ -310,6 +311,7 @@ void Caster::RestarVida(int a) {
        // std::cout<<"CAMBIO LA ANIMACION A MUERTEEEEEEEEEEEEEEE\n"<<std::endl;
        // std::cout<<"CAMBIO LA ANIMACION A MUERTEEEEEEEEEEEEEEE\n"<<std::endl;
        // std::cout<<"CAMBIO LA ANIMACION A MUERTEEEEEEEEEEEEEEE\n"<<std::endl;
+        InGame::Instance()->level->map->numEnemigos--;
         currentAnimation = &animationMuerte;
         SetEstado(Estado::ID::Muriendo);
     }

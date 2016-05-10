@@ -15,6 +15,7 @@
 #include "../States/InGame.hpp"
 #include "../Headers/Util.hpp"
 #include "../Otros/tmxHelper.hpp"
+#include "../States/InGame.hpp"
 
 Melee::Melee() : Collisionable((Entity*)this) {
     SetVida(2);
@@ -330,6 +331,7 @@ void Melee::RestarVida(int a) {
     }
     if(GetVida() <= 0){
         currentAnimation = &animationMuerte;
+        InGame::Instance()->level->map->numEnemigos--;
         SetEstado(Estado::ID::Muriendo);
     }
 }

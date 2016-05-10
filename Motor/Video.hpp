@@ -28,7 +28,8 @@ public:
     bool getDibujar();
     bool getLooped();
 private:
-    Sprite *frames;
+    std::vector<Sprite*> *frames;
+    //Sprite *frames;
     std::string mRuta;
     int numFrames;
     int current_frame;

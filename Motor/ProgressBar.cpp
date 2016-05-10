@@ -57,7 +57,7 @@ ProgressBar::ProgressBar(const ProgressBar& orig) {
 }
 
 ProgressBar::~ProgressBar() {
-    delete m;
+    
 }
 
 void ProgressBar::update(sf::Time elapsedTime) {

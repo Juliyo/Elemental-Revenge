@@ -22,14 +22,7 @@ LoadingState::LoadingState() {
     
     //motor->setCenterForView(3, 650, 350);
 
-    spriteRelleno = new Sprite();
-    spriteFondo = new Sprite();
-    mouseSprite = new Sprite();
-    cargando = new Text();
-    mensaje = new Text();
     
-    reloj1 = new Reloj();
-    video = new Video("resources/Videos/solaire/frame-",36,500,500,1,sf::Vector2f(1,1),true,sf::Vector2f(960,512));
     
 }
 
@@ -40,10 +33,26 @@ LoadingState::~LoadingState() {
 }
 
 void LoadingState::Clear() {
-
+    delete cargando;
+    delete loadingTask;
+    delete mensaje;
+    delete mouseSprite;
+    delete reloj1;
+    delete spriteFondo;
+    delete spriteRelleno;
+    delete video;
 }
 
 void LoadingState::Inicializar() {
+    
+    spriteRelleno = new Sprite();
+    spriteFondo = new Sprite();
+    mouseSprite = new Sprite();
+    cargando = new Text();
+    mensaje = new Text();
+    
+    reloj1 = new Reloj();
+    video = new Video("resources/Videos/solaire/frame-",36,500,500,1,sf::Vector2f(1,1),true,sf::Vector2f(960,512));
     video->Inicializar();
     //Carga texturas
     try {

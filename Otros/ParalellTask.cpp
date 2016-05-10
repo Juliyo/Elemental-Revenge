@@ -52,6 +52,7 @@ bool ended = false;
         }
         if (mElapsedTime.getElapsedTime().asSeconds() >= 5.f && loading) {
             ended = true;
+            
             StateStack::Instance()->SetCurrentState(States::ID::Transition);
         }
 

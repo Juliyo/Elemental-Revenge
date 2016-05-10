@@ -20,6 +20,27 @@ Muerte::Muerte() {
     motor = Motor2D::Instance();
     
 
+
+    
+    //Estado de Ingame
+
+    
+}
+
+void Muerte::Clear() {
+    animation=NULL;
+    delete mouseSprite;
+    delete spriteFondo;
+    delete spriteFondoOpciones;
+    delete spritePersonaje;
+    delete spriteRelleno;
+    delete textoMuerte;
+}
+
+
+void Muerte::Inicializar() {
+    
+    
     animation = new Animation(); //para el fondo SOLO declarado
     
     spriteRelleno = new Sprite();
@@ -28,18 +49,6 @@ Muerte::Muerte() {
     spriteFondoOpciones = new Sprite();
     mouseSprite = new Sprite();
     textoMuerte = new Text();
-    
-    //Estado de Ingame
-
-    
-}
-
-void Muerte::Clear() {
-
-}
-
-
-void Muerte::Inicializar() {
 
     int anchoVentana = 1700;
     int altoVentana = 1700;
