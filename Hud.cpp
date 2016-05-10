@@ -334,30 +334,17 @@ Hud::~Hud() {
     delete rSombra;
     
     //Agua
-    printf("Hud 1\n");
     delete aguaBueno;
-     printf("Hud 2\n");
     delete aBlanco;
-     printf("Hud 3\n");
     delete aGlare;
-     printf("Hud 4\n");
-     printf("Hud 5\n");
     delete aSombra;
-     printf("Hud 6\n");
 
     //Fuego
     delete fuegoBueno;
-     printf("Hud 7\n");
     delete fBlanco;
-     printf("Hud 8\n");
     delete fGlare;
-     printf("Hud 9\n");
     delete fRayo;
-     printf("Hud 10\n");
     delete fSombra;
-     printf("Hud 11\n");
     delete mCds;
-     printf("Hud 12\n");
     delete mCoolDowns;
-     printf("Hud 13\n");
 }

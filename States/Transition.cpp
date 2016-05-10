@@ -214,14 +214,24 @@ void Transition::Update(sf::Time elapsedTime) {
                 printf("Antes de cambiar de mapa");
                 InGame::Instance()->level->LoadMap(static_cast<Niveles::ID>(level));
 /*****************ESTO HACE FALTA PERO CUANDO VAYAN LOS DELETES*******************/
-//                    std::cout<<"HIJO 222"<<std::endl;
-//    InGame::Instance()->level->map->CreateMelees();
-//    std::cout<<"DE LA GRAN2222"<<std::endl;
-//    InGame::Instance()->level->map->CreateCasters();
-//    std::cout<<"PUTAA 222"<<std::endl;
-//    InGame::Instance()->level->map->CreatePlayer();
-//    std::cout<<"HOSTIA YA 222"<<std::endl;
+                if(level>1){
+                    b2Body* nuevoBody=InGame::Instance()->physicWorld->GetBodyList();
+                    while(nuevoBody->GetNext()!=NULL){
+                        InGame::Instance()->physicWorld->DestroyBody(nuevoBody);
+                       // nuevoBody = nuevoBody->GetNext();
+                    }
+                    
+//                    InGame::Instance()->physicWorld = new b2World(tmx::SfToBoxVec(sf::Vector2f(0.f, 0.f)));
+//                    InGame::Instance()->physicWorld->SetContactListener(InGame::Instance()->ct);
 
+                    InGame::Instance()->level->map->CreateMelees();
+
+                    InGame::Instance()->level->map->CreateCasters();
+
+                    InGame::Instance()->level->map->CreatePlayer();
+
+                }
+                
                 StateStack::Instance()->SetCurrentState(States::ID::InGame);
 
                     Music *music = Music::Instance();

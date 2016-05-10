@@ -77,6 +77,7 @@ void InGame::Clear() {
 }
 
 void InGame::Inicializar() {
+    printf("-------------------OSTIA PUTA YA INICIALIZO INGAME----------------------\n");
     pathfingind = new PathFinding();
 
     colaEnemigos = new std::deque<Enemigo*>();
@@ -314,7 +315,10 @@ void InGame::Update(sf::Time elapsedTime) {
 
         StateStack::Instance()->SetCurrentState(States::ID::Muerte);
     }
-
+    //printf("Numero de enemigos: %d\n",level->map->numEnemigos);
+    if(level->map->numEnemigos==0){
+        StateStack::Instance()->SetCurrentState(States::ID::Transition);
+    }
 }
 
 void InGame::Render(float interpolation, sf::Time elapsedTime) {
