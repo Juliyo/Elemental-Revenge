@@ -12,9 +12,23 @@
  */
 
 #include "../Headers/hRayAdvanced.hpp"
+#include "../States/InGame.hpp"
 
 void hRayAdvanced::CreateBody() {
-
+    physicWorld = InGame::Instance()->physicWorld;
+    bodyDef.type = b2_dynamicBody; 
+    bodyDef.position = (tmx::SfToBoxVec(entity->GetPosition()));
+    bodyDef.fixedRotation = true;
+    body = physicWorld->CreateBody(&bodyDef);
+    body->SetUserData(this);
+    shape.SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth()/2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f));
+    fixtureDef.shape = &shape;
+    fixtureDef.density = 1.0f;
+    fixtureDef.friction = 1.0f;
+    fixtureDef.restitution = 0.7f;
+    fixtureDef.filter.categoryBits = Filtro::_entityCategory::HECHIZO;
+    fixtureDef.filter.maskBits = Filtro::_entityCategory::ENEMIGO;
+    body->CreateFixture(&fixtureDef);
 }
 
 hRayAdvanced::hRayAdvanced(): Collisionable((Entity*)this) {
@@ -70,11 +84,14 @@ hRayAdvanced::hRayAdvanced(): Collisionable((Entity*)this) {
     InicializarAnimatedSprite(sf::seconds(1.f/29),true,false);
     SetScaleAnimation(0.6f,0.6f);
     SetOriginAnimatedSprite(475,392);
-    
+    SetOriginColision(475,392);
+    SetRectangleColision(0,0,960*0.6,582*0.6);
+    CreateBody();
+    setDamage(4.f);
 }
 
 std::string hRayAdvanced::getClassName() {
-
+    return "hRayAdvanced";
 }
 
 hRayAdvanced::~hRayAdvanced() {
@@ -86,14 +103,15 @@ hRayAdvanced::~hRayAdvanced() {
 void hRayAdvanced::cast(sf::Vector2f posicion, Hud *hud, float cdRayoAvanzadoPausa) {
 
     if((clockCd.getTiempo()+cdRayoAvanzadoPausa) > getCD() || primerCast){
+        body->SetActive(true);
         SoundManager *sonido = SoundManager::Instance();
         sonido->play("resources/Sounds/Ravanzado.wav");
         primerCast=false;
         draw=true;
-        
-        hSprite.setPosition(Motor2D::Instance()->getMousePosition().x,Motor2D::Instance()->getMousePosition().y);
+        sf::Vector2f pos(Motor2D::Instance()->getMousePosition().x,Motor2D::Instance()->getMousePosition().y);
+        hSprite.setPosition(pos.x,pos.y);
+        body->SetTransform(tmx::SfToBoxVec(pos),0);
         tiempoCast.restart();
-
     }
 }
 void hRayAdvanced::DrawWithOutInterpolation(){

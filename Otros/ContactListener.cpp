@@ -221,6 +221,17 @@ void ContactListener::BeginContact(b2Contact* contact) {
             m->numContactos++;
             m->damageTaken = f->getDamage();
         }
+    }else if(claseA == "hRayAdvanced"){
+        hRayAdvanced *h = static_cast<hRayAdvanced*> (fixtureA->GetBody()->GetUserData());
+        if(claseB == "Melee"){
+            Melee *m = static_cast<Melee*> (fixtureB->GetBody()->GetUserData());
+            m->RestarVida(h->getDamage());
+            
+        }else if(claseB == "Caster"){
+            Caster *m = static_cast<Caster*> (fixtureA->GetBody()->GetUserData());
+            m->RestarVida(h->getDamage());
+            
+        }
     }
 
 }
