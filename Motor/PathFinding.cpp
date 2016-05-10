@@ -127,7 +127,7 @@ std::vector<sf::Vector2i>* PathFinding::buscaCamino(sf::Vector2f posenemigo, sf:
         
         Nodo *nodoActual = listaAbierta.at(listaAbierta.size() - 1);
         listaActuales.push_back(nodoActual);
-        if (listaCerrada.size() > 300) {
+        if (listaCerrada.size() > 400) {
             nodoFinal = listaAbierta.at(listaAbierta.size() - 1);
         }
 

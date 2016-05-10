@@ -72,7 +72,7 @@ DisparoEnemigo::DisparoEnemigo(): Collisionable((Entity*)this) {
     Render::SetScaleAnimation(0.2, 0.2);
     SetRectangleColision(0,0,30,29);
     CreateBody();
-    setDamage(1.f);
+    setDamage(3.f);
     //Render::GetSpriteAnimated().setColor(sf::Color::Blue);
     SetEstado(Estado::ID::Vivo);
     explosionTiempo = new Reloj();

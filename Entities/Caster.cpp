@@ -136,8 +136,9 @@ void Caster::Inicializar(float posX, float posY, Tipo::Caster tipo, float speedX
     Render::InicializarAnimatedSprite(sf::seconds(0.075f), true, false);
     PhysicsState::SetPosition(posX, posY);
     PhysicsState::SetSpeed(speedX, speedY);
-    Enemigo::SetVelocity(150);
+    Enemigo::SetVelocity(170);
     Enemigo::SetVida(2);
+    Enemigo::SetDamage(3);
     PhysicsState::SetMaxSpeed(maxSpeedX, maxSpeedY);
     Render::SetOriginAnimatedSprite(17, 16);
     SetOriginColision(17, 16);
