@@ -307,8 +307,10 @@ void Caster::RestarVida(int a) {
     if ((GetVida() - a) > 0) {
         SetVida(GetVida() - a);
         if (m_tipo == Tipo::Caster::Bandido) {
+            SoundManager::Instance()->setVolumen("resources/Sounds/bandithit.ogg",50);
             SoundManager::Instance()->play("resources/Sounds/bandithit.ogg");
         } else {
+            SoundManager::Instance()->setVolumen("resources/Sounds/necromancerhurt.ogg",50);
             SoundManager::Instance()->play("resources/Sounds/necromancerhurt.ogg");
         }
     } else {
@@ -319,8 +321,10 @@ void Caster::RestarVida(int a) {
         currentAnimation = &animationMuerte;
         SetEstado(Estado::ID::Muriendo);
         if (m_tipo == Tipo::Caster::Bandido) {
+            SoundManager::Instance()->setVolumen("resources/Sounds/banditdie.ogg",50);
             SoundManager::Instance()->play("resources/Sounds/banditdie.ogg");
         } else {
+            SoundManager::Instance()->setVolumen("resources/Sounds/necromancerdead.ogg",50);
             SoundManager::Instance()->play("resources/Sounds/necromancerdead.ogg");
         }
     }
