@@ -26,16 +26,66 @@ void Player::CreateBody() {
     fixtureDef.friction = 0.0f;
     //fixtureDef->filter.groupIndex = Filtro::_entityCategory::PLAYER;
     fixtureDef.filter.categoryBits = Filtro::_entityCategory::PLAYER;
-    fixtureDef.filter.maskBits = Filtro::_entityCategory::ENEMIGO | Filtro::_entityCategory::BOUNDARY;
+    fixtureDef.filter.maskBits = Filtro::_entityCategory::ENEMIGO | Filtro::_entityCategory::BOUNDARY | Filtro::_entityCategory::DISPAROENE;
     body->CreateFixture(&fixtureDef);
 }
 
 Player::Player() : Collisionable((Entity*)this) {
-    
+
 }
 
 Player::~Player() {
-    delete hud;
+    
+    printf("player 1\n");
+    Muerto=NULL;
+    animationMuerte=NULL;
+    castingAnimationDownAgua=NULL;
+    castingAnimationDownFuego=NULL;
+    castingAnimationDownRayo=NULL;
+    castingAnimationUpAgua=NULL;
+    castingAnimationUpFuego=NULL;
+    castingAnimationUpRayo=NULL;
+    castingAnimationRightAgua=NULL;
+    castingAnimationRightFuego=NULL;
+    castingAnimationRightRayo=NULL;
+    castingAnimationLeftAgua=NULL;
+    castingAnimationLeftFuego=NULL;
+    castingAnimationLeftRayo=NULL;
+    
+    printf("player 2\n");
+    currentAnimation=NULL;
+    delete flash;
+    delete flash2;
+    printf("player 3\n");
+    fuego2AnimationDown=NULL;
+    fuego2AnimationLeft=NULL;
+    fuego2AnimationRight=NULL;
+    fuego2AnimationUp=NULL;
+    printf("player 4\n");
+    fuegoAnimationDown=NULL;
+    fuegoAnimationLeft=NULL;
+    fuegoAnimationRight=NULL;
+    fuegoAnimationUp=NULL;
+    printf("player 5\n");
+    delete hAguaAvanzado;
+    delete hAguaBasico;
+    delete hFuegoAvanzado;
+    
+    while(!disparosFuego->empty()){
+        delete disparosFuego->back(), disparosFuego->pop_back();
+    }
+    delete disparosFuego;
+    delete hRayoAvanzado;
+    delete hRayoBasico;
+    
+    delete hHeal;
+    printf("player 6\n");
+    healingAnimationDown=NULL;
+    healingAnimationLeft=NULL;
+    healingAnimationRight=NULL;
+    healingAnimationUp=NULL;
+   // delete hud;
+    
 }
 
 std::string Player::getClassName() {
@@ -44,7 +94,10 @@ std::string Player::getClassName() {
 
 void Player::Inicializar(float posX, float posY, float speedX, float speedY, float maxSpeedX, float maxSpeedY) {
     /*Reservamos memoria para los punteros de Animation*/
-shapesFuego = new std::vector<sf::CircleShape*>();
+    disparosFuego = new std::vector<hFireBasic*>();
+    for(int i=0;i<15;i++){
+        disparosFuego->push_back(new hFireBasic());
+    }
     walkingAnimationDown = new Animation();
     walkingAnimationLeft = new Animation();
     walkingAnimationRight = new Animation();
@@ -83,13 +136,11 @@ shapesFuego = new std::vector<sf::CircleShape*>();
 
     animationMuerte = new Animation();
     Muerto = new Animation();
-    
+
 
     hRayoBasico = new hRayBasic();
     hRayoAvanzado = new hRayAdvanced();
 
-
-    hFuegoBasico = new hFireBasic[15];
     hFuegoAvanzado = new hFireAdvanced();
 
 
@@ -414,16 +465,16 @@ shapesFuego = new std::vector<sf::CircleShape*>();
     Muerto->addFrame(sf::IntRect(320, 1280, 64, 64));
 
 
-    
+
     currentAnimation = &walkingAnimationDown;
 
     InicializarAnimatedSprite(sf::seconds(0.075f), true, false);
-    SetPosition(posX, posY);
+    SetPosition(posX, -posY);
     SetSpeed(speedX, speedY);
     SetMaxSpeed(maxSpeedX, maxSpeedY);
     SetOriginAnimatedSprite(32, 40);
     SetOriginColision(32, 40);
-    
+
     //Cargamos shader del player para el colo
     LoadShader("resources/Shader/fs.frag");
     ActiveShader(false);
@@ -442,14 +493,14 @@ void Player::Update(const sf::Time elapsedTime) {
         if (isMovingRight)
             movement.x += GetVelocity();
     }
-    if(GetEstado() == Estado::Damaged && damaged.getTiempo() > 0.06f){
+    if (GetEstado() == Estado::Damaged && damaged.getTiempo() > 0.06f) {
         ActiveShader(false);
         SetEstado(Estado::ID::Vivo);
     }
     //Si hay un enemigo colisionando contigo restas vida
-    
+
     if (numContactos > 0) {
-            restaVida(damageTaken);
+        restaVida(damageTaken);
     }
     //Hay que setear al BodyDef el vector velocidad que hayamos calculado
     body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(movement) * Player::GetVelocity()));
@@ -457,7 +508,6 @@ void Player::Update(const sf::Time elapsedTime) {
     SetPosition(tmx::BoxToSfVec(body->GetPosition()));
 
 }
-
 
 void Player::Draw() {
     GetSprite().setPosition(GetPosition().x, GetPosition().y);
@@ -513,9 +563,10 @@ int Player::restaVida(int a) {
             SoundManager *sonido = SoundManager::Instance();
             sonido->play("resources/Sounds/Damage.wav");
             damaged.restart();
+
     }
 
-    if(vida==0){
+    if (vida == 0) {
         SetEstado(Estado::ID::Muriendo);
         relojMuriendo.restart();
         currentAnimation = &animationMuerte;
@@ -553,14 +604,14 @@ void Player::Colocar(sf::Vector2f NuevaPosicion) {
 
 bool Player::updateRayo(bool isShooting, bool RayoAvanzadoCast, float cdRayoBasicoPausa, float cdRayoAvanzadoPausa) {
 
-    bool k=false;
+    bool k = false;
 
     if (hRayoBasico->tiempoCast.getTiempo() > hRayoBasico->getCast() && aux == true) {
         isShooting = false;
         hRayoBasico->primerCast = false;
     }
 
-    if ((isShooting && (hRayoBasico->clockCd.getTiempo()+cdRayoBasicoPausa) > hRayoBasico->getCD()) || (isShooting && hRayoBasico->primerCast == true)) {//Entra si dispara y el tiempo de enfriamiento ha pasado
+    if ((isShooting && (hRayoBasico->clockCd.getTiempo() + cdRayoBasicoPausa) > hRayoBasico->getCD()) || (isShooting && hRayoBasico->primerCast == true)) {//Entra si dispara y el tiempo de enfriamiento ha pasado
         hRayoBasico->primerCast = false;
         if (aux == false) {//si es la primera vez que pulsa el boton
             hRayoBasico->tiempoCast.restart();
@@ -571,10 +622,10 @@ bool Player::updateRayo(bool isShooting, bool RayoAvanzadoCast, float cdRayoBasi
 
     } else {//entras si no disparas o si no ha pasado el tiempo de enfriamiento
         if (aux == true) {//entras si acabas de soltar el raton
-           // hRayoBasico->tiempoCd.restart();
+            // hRayoBasico->tiempoCd.restart();
             //if(hRayoBasico->primerCast)
             //hud->resetRayo1();
-                        k=true;
+            k = true;
 
             //}
             // std::cout<<"Inicio den CD"<<std::endl;
@@ -583,7 +634,7 @@ bool Player::updateRayo(bool isShooting, bool RayoAvanzadoCast, float cdRayoBasi
         hRayoBasico->draw = false;
     }
     //avanzado
-    if(RayoAvanzadoCast){
+    if (RayoAvanzadoCast) {
         hRayoAvanzado->cast(sf::Vector2f(getPosition()), hud, cdRayoAvanzadoPausa);
         printf("CD FUEGO DESDE PAUSA: %f\n", cdRayoAvanzadoPausa);
         printf("CD FUEGO CD NUEVO: %f\n", hRayoAvanzado->clockCd.getTiempo());
@@ -593,8 +644,8 @@ bool Player::updateRayo(bool isShooting, bool RayoAvanzadoCast, float cdRayoBasi
         hRayoAvanzado->draw = false;
         hRayoAvanzado->StopAnimation();
     }
-    
-    
+
+
     return k;
 }
 
@@ -607,39 +658,39 @@ void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time e
         if (contFuego == 14) {
             contFuego = 0;
         }
-        if ((clockCDFire.getTiempo()+cdFuegoBasicoPausa) > CDFire || primercastFuego == true) {
+        if ((clockCDFire.getTiempo() + cdFuegoBasicoPausa) > CDFire || primercastFuego == true) {
             primercastFuego = false;
-            hFuegoBasico[contFuego].SetEstado(Estado::ID::Vivo);
-            hFuegoBasico[contFuego].body->SetActive(true);
-            hFuegoBasico[contFuego].cast(sf::Vector2f(getPosition()));
+            disparosFuego->at(contFuego)->SetEstado(Estado::ID::Vivo);
+            disparosFuego->at(contFuego)->body->SetActive(true);
+            disparosFuego->at(contFuego)->cast(sf::Vector2f(getPosition()));
             castFire.restart();
         }
         contFuego++;
     }
-    for (int aux = 0; aux <= 14; aux++) {
+    for (int aux = 0; aux < disparosFuego->size(); aux++) {
         //Si la bala esta viva updateamos su movimiento
-        if (hFuegoBasico[aux].GetEstado() == Estado::ID::Vivo) {
-            movement2.x = (4 * cos(hFuegoBasico[aux].angleshot2) * 10.0f);
-            movement2.y = (4 * sin(hFuegoBasico[aux].angleshot2) * 10.0f);
-            hFuegoBasico[aux].Update2(movement2, elapsedTime);
+        if (disparosFuego->at(aux)->GetEstado() == Estado::ID::Vivo) {
+            movement2.x = (4 * cos(disparosFuego->at(aux)->angleshot2) * 10.0f);
+            movement2.y = (4 * sin(disparosFuego->at(aux)->angleshot2) * 10.0f);
+            disparosFuego->at(aux)->Update2(movement2, elapsedTime);
             //shapesFuego->at(aux)->setPosition(tmx::BoxToSfVec(hFuegoBasico[aux].body->GetPosition()));
-        } else if (hFuegoBasico[aux].GetEstado() == Estado::ID::Muriendo) {
+        } else if (disparosFuego->at(aux)->GetEstado() == Estado::ID::Muriendo) {
             //Ademadas hacemos que su cuerpo no interactue
-            hFuegoBasico[aux].body->SetActive(false);
+            disparosFuego->at(aux)->body->SetActive(false);
             //Si la bala esta desapareciendo comprobamos hasta que desaparezca
-            hFuegoBasico[aux].ComprobarSiMuerto();
+            disparosFuego->at(aux)->ComprobarSiMuerto();
         }
 
     }
 
 
     if (fuegoAdvancedCast) {
-       /* 
-        printf("CD FUEGO DESDE PAUSA: %f\n", cdFuegoAvanzadoPausa);
-        printf("CD FUEGO CD NUEVO: %f\n", hFuegoAvanzado->clockCd.getTiempo());
-        */
+        /* 
+         printf("CD FUEGO DESDE PAUSA: %f\n", cdFuegoAvanzadoPausa);
+         printf("CD FUEGO CD NUEVO: %f\n", hFuegoAvanzado->clockCd.getTiempo());
+         */
 
-        if ((hFuegoAvanzado->clockCd.getTiempo()+cdFuegoAvanzadoPausa) > hFuegoAvanzado->getCD() || hFuegoAvanzado->primerCast == true) {
+        if ((hFuegoAvanzado->clockCd.getTiempo() + cdFuegoAvanzadoPausa) > hFuegoAvanzado->getCD() || hFuegoAvanzado->primerCast == true) {
 
             hFuegoAvanzado->primerCast = false;
             hFuegoAvanzado->tiempoCast.restart();
@@ -656,7 +707,7 @@ void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time e
 
 }
 
-void Player::updateAgua(bool aguaBasicCast, bool aguaAdvancedCast, sf::Time elapsedTime, float cdAguaBasicoPausa,float cdAguaAvanzadoPausa) {
+void Player::updateAgua(bool aguaBasicCast, bool aguaAdvancedCast, sf::Time elapsedTime, float cdAguaBasicoPausa, float cdAguaAvanzadoPausa) {
     sf::Vector2f movement = tmx::BoxToSfVec(body->GetLinearVelocity());
     if (aguaBasicCast) {
         printf("CD AGUA DESDE PAUSA: %f\n", cdAguaBasicoPausa);
@@ -736,7 +787,7 @@ void Player::updateFlash(float cdFlashPausa) {
     if (isFlashing) {
         //Como el player se ha movido 'casteamos' la animacion del otro flash
         flash2->cast2(&flash->clockCd, cdFlashPausa);
-        sf::Vector2f prueba = flash->cast(sf::Vector2f(getPosition()), hud,cdFlashPausa);
+        sf::Vector2f prueba = flash->cast(sf::Vector2f(getPosition()), hud, cdFlashPausa);
         if (prueba.x != getPosition().x && prueba.y != getPosition().y) {
             Colocar(prueba);
         }
@@ -819,55 +870,17 @@ void Player::renderRayo(sf::Time elapsedTime, float interpolation) {
 
 }
 
-void Player::renderFuego(sf::Time elapsedTime, float interpolation) {
+void Player::renderFuegoAvanzado(sf::Time elapsedTime, float interpolation) {
     if (hFuegoAvanzado->tiempoCast.getTiempo() < hFuegoAvanzado->getCast() && hFuegoAvanzado->lanzado == true) {
         if (hFuegoAvanzado->tiempoCast.getTiempo() > 0.4) {
             hFuegoAvanzado->SetScale(1.0, 1.0);
-
+        }
+        if (hFuegoAvanzado->tiempoCast.getTiempo() > 0.1) {
+            hFuegoAvanzado->body->SetActive(false);
         }
         hFuegoAvanzado->DrawWithInterpolation(interpolation, GetPreviousPosition(), GetPosition());
+        //hFuegoAvanzado->body->SetTransform(body->GetPosition(),0);
     }
-    for (int aux = 0; aux <= 14; aux++) {
-
-        if (hFuegoBasico[aux].GetEstado() == Estado::ID::Vivo) {
-            hFuegoBasico[aux].PlayAnimation(*hFuegoBasico[aux].currentAnimation);
-            hFuegoBasico[aux].UpdateAnimation(elapsedTime);
-            hFuegoBasico[aux].DrawAnimation(hFuegoBasico[aux].GetPreviousPosition(), hFuegoBasico[aux].GetPosition(), interpolation);
-        } else if (hFuegoBasico[aux].GetEstado() == Estado::ID::Muriendo) {
-            hFuegoBasico[aux].PlayAnimation(*hFuegoBasico[aux].currentAnimation);
-            hFuegoBasico[aux].UpdateAnimation(elapsedTime);
-            hFuegoBasico[aux].DrawAnimationWithOut(hFuegoBasico[aux].GetRenderPosition());
-        } else {
-            hFuegoBasico[aux].StopAnimation();
-            //hFuegoBasico[aux].DrawAnimationWithOut(hFuegoBasico[aux].GetRenderPosition());
-        }
-
-    }
-//    for(int i=0;i < shapesFuego->size();i++){
-//        Motor2D::Instance()->draw(*shapesFuego->at(i));
-//    }
-    
-    if (castFire.getTiempo() < 0.45f) {
-        SetFrameTime(sf::seconds(0.075f));
-        //switch
-        switch (cuadrante) {
-            case 1:
-                currentAnimation = &fuegoAnimationUp;
-                break;
-            case 2:
-                currentAnimation = &fuegoAnimationDown;
-                break;
-            case 3:
-                currentAnimation = &fuegoAnimationRight;
-                break;
-            case 4:
-                currentAnimation = &fuegoAnimationLeft;
-                break;
-        }
-    } else {
-        SetFrameTime(sf::seconds(0.075f));
-    }
-
 
     if (castFire2.getTiempo() < 0.4f) {
         SetFrameTime(sf::seconds(0.05f));
@@ -892,12 +905,55 @@ void Player::renderFuego(sf::Time elapsedTime, float interpolation) {
     } else {
         SetFrameTime(sf::seconds(0.075f));
     }
-    
-    
-        for(int i=0;i < shapesFuego->size();i++){
-        Motor2D::Instance()->draw(*shapesFuego->at(i));
+
+}
+
+void Player::renderFuegoBasico(sf::Time elapsedTime, float interpolation) {
+
+    for (int aux = 0; aux < disparosFuego->size(); aux++) {
+
+        if (disparosFuego->at(aux)->GetEstado() == Estado::ID::Vivo) {
+            disparosFuego->at(aux)->PlayAnimation(*disparosFuego->at(aux)->currentAnimation);
+            disparosFuego->at(aux)->UpdateAnimation(elapsedTime);
+            disparosFuego->at(aux)->DrawAnimation(disparosFuego->at(aux)->GetPreviousPosition(), disparosFuego->at(aux)->GetPosition(), interpolation);
+        } else if (disparosFuego->at(aux)->GetEstado() == Estado::ID::Muriendo) {
+            disparosFuego->at(aux)->PlayAnimation(*disparosFuego->at(aux)->currentAnimation);
+            disparosFuego->at(aux)->UpdateAnimation(elapsedTime);
+            disparosFuego->at(aux)->DrawAnimationWithOut(disparosFuego->at(aux)->GetRenderPosition());
+        } else {
+            disparosFuego->at(aux)->StopAnimation();
+            //hFuegoBasico[aux].DrawAnimationWithOut(hFuegoBasico[aux].GetRenderPosition());
+        }
+
     }
-    
+    //    for(int i=0;i < shapesFuego->size();i++){
+    //        Motor2D::Instance()->draw(*shapesFuego->at(i));
+    //    }
+
+    if (castFire.getTiempo() < 0.45f) {
+        SetFrameTime(sf::seconds(0.075f));
+        //switch
+        switch (cuadrante) {
+            case 1:
+                currentAnimation = &fuegoAnimationUp;
+                break;
+            case 2:
+                currentAnimation = &fuegoAnimationDown;
+                break;
+            case 3:
+                currentAnimation = &fuegoAnimationRight;
+                break;
+            case 4:
+                currentAnimation = &fuegoAnimationLeft;
+                break;
+        }
+    } else {
+        SetFrameTime(sf::seconds(0.075f));
+    }
+
+
+
+
 }
 
 void Player::renderAgua(sf::Time elapsedTime, float interpolation) {
@@ -1011,7 +1067,7 @@ void Player::renderHeal(sf::Time elapsedTime, float interpolation) {
         }
         hHeal->UpdateAnimation(elapsedTime);
         //Muy importante el getCD
-        if (hHeal->tiempoCast.getTiempo() < hHeal->getCD()) {
+        if (hHeal->tiempoCast.getTiempo() < hHeal->getCast()) {
             sf::Vector2f zizu(33.f, 35.f);
             hHeal->DrawWithInterpolation(interpolation, (GetPreviousPosition() - zizu), (GetPosition() - zizu));
         } else {

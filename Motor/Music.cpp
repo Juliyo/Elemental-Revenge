@@ -41,8 +41,11 @@ Music::Music(){
 
 Music::~Music()
 {
-    delete mMusic; mMusic=NULL;
-    delete mFilenames; mFilenames=NULL;
+    delete mMusic; 
+    mMusic=NULL;
+    mFilenames->clear();
+    delete mFilenames; 
+    mFilenames=NULL;
 }
 
 void Music::Load(MUSICA::ID theme){

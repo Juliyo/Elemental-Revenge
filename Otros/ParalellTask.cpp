@@ -39,7 +39,7 @@ float ParalellTask::GetCompletion() {
 }
 
 void ParalellTask::RunTask() {
-    bool ended = false;
+bool ended = false;
     while (!ended) {
         sf::Lock lock(mMutex);
         if (!loading) {

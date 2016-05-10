@@ -20,6 +20,16 @@ Caster::Caster() : Collisionable((Entity*)this) {
 }
 
 Caster::~Caster() {
+    walkingAnimationDown = NULL;
+    walkingAnimationLeft = NULL;
+    walkingAnimationRight = NULL;
+    walkingAnimationUp = NULL;
+    animationMuerte = NULL;
+    
+    while(!disparos->empty()){
+        delete disparos->back(), disparos->pop_back();
+    }
+    delete disparos;
 }
 
 void Caster::Inicializar(float posX, float posY, Tipo::Caster tipo, float speedX, float speedY, float maxSpeedX, float maxSpeedY) {
@@ -30,12 +40,17 @@ void Caster::Inicializar(float posX, float posY, Tipo::Caster tipo, float speedX
     walkingAnimationRight = new Animation();
     walkingAnimationUp = new Animation();
     animationMuerte = new Animation();
-    disparo = new DisparoEnemigo[15];
+    disparos = new std::vector<DisparoEnemigo*>();
+    for(int i=0;i<5;i++){
+        disparos->push_back(new DisparoEnemigo());
+    }
 
     if (tipo == Tipo::Caster::Mago) {
-
-
-
+        //8 Maximo
+        //5 Minimo
+        int randNum = rand()%(8-5 + 1) + 5;
+        CdDisparo = (float)randNum;
+        
         walkingAnimationDown->setSpriteSheet("resources/Textures/ninjapeq.png");
         walkingAnimationDown->addFrame(sf::IntRect(0, 0, 34, 32));
         walkingAnimationDown->addFrame(sf::IntRect(34, 0, 34, 32));
@@ -71,7 +86,10 @@ void Caster::Inicializar(float posX, float posY, Tipo::Caster tipo, float speedX
 
 
     } else {
-
+        
+        int randNum = rand()%(8-5 + 1) + 5;
+        CdDisparo = (float)randNum;
+        
         walkingAnimationDown->setSpriteSheet("resources/Textures/ninjapeq.png");
         walkingAnimationDown->addFrame(sf::IntRect(0, 0, 34, 32));
         walkingAnimationDown->addFrame(sf::IntRect(34, 0, 34, 32));
@@ -148,14 +166,16 @@ void Caster::CreateBody() {
     //del BoundingBox
     //circleShape = new b2CircleShape();
     circleShape.m_radius = tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f);
-    sf::CircleShape *rs = new sf::CircleShape();
-    rs->setPosition(entity->GetPosition());
-    rs->setRadius(rectColision->GetWidth() / 2.f);
-    rs->setFillColor(sf::Color::Transparent);
-    rs->setOutlineColor(sf::Color::Red);
-    rs->setOrigin(rectColision->GetWidth() / 2.f, rectColision->GetHeight() / 2.f);
-    rs->setOutlineThickness(2);
-    InGame::Instance()->meleeShapes->push_back(rs);
+
+//    sf::CircleShape *rs = new sf::CircleShape();
+//    rs->setPosition(entity->GetPosition());
+//    rs->setRadius(rectColision->GetWidth() / 2.f);
+//    rs->setFillColor(sf::Color::Transparent);
+//    rs->setOutlineColor(sf::Color::Red);
+//    rs->setOrigin(rectColision->GetWidth() / 2.f, rectColision->GetHeight() / 2.f);
+//    rs->setOutlineThickness(2);
+//    InGame::Instance()->meleeShapes->push_back(rs);
+
     //shape = new b2PolygonShape();
     //shape.SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f));
     //Objeto que le da las propiedades fisicas al bodyDef
@@ -189,20 +209,6 @@ void Caster::Update(const sf::Time elapsedTime, float x1, float x2, float multip
 
         shapesDebug.clear();
 
-
-        if (camino != NULL) {
-            for (int i = 0; i < camino->size(); i++) {
-
-                sf::RectangleShape shape;
-                shape.setPosition(sf::Vector2f(camino->at(i).x * 24, camino->at(i).y * 24));
-                shape.setSize(sf::Vector2f(24, 24));
-                shape.setOrigin(12.f, 12.f);
-                shape.setFillColor(color);
-
-                shapesDebug.push_back(shape);
-
-            }
-        }
     }
     // }
 
@@ -266,22 +272,31 @@ void Caster::updateDisparoEnemigo(bool disparado, sf::Time elapsedTime, float x4
 
     if (disparado) {
 
-        if (numDisparo == 14) {
+        if (numDisparo == 4) {
             numDisparo = 0;
         }
 
         if (clockCdDisparo.getTiempo() > CdDisparo || primercastDisparo == true) {
             primercastDisparo = false;
             clockCdDisparo.restart();
-            disparo[numDisparo].Disparar(sf::Vector2f(getPosition()), sf::Vector2f(x4, y4));
+            disparos->at(numDisparo)->Disparar(sf::Vector2f(getPosition()), sf::Vector2f(x4, y4));
             castDisparo.restart();
         }
         numDisparo++;
     }
-    for (int aux = 0; aux <= 14; aux++) {
-        movement2.x = (40 * cos(disparo[aux].angleshot2) * 10.0f);
-        movement2.y = (40 * sin(disparo[aux].angleshot2) * 10.0f);
-        disparo[aux].Update2(movement2, elapsedTime);
+    for (int aux = 0; aux < disparos->size(); aux++) {
+        //Si la bala esta viva updateamos su movimiento
+        if (disparos->at(aux)->GetEstado() == Estado::ID::Vivo) {
+            movement2.x = (40 * cos(disparos->at(aux)->angleshot2) * 10.0f);
+            movement2.y = (40 * sin(disparos->at(aux)->angleshot2) * 10.0f);
+            disparos->at(aux)->Update2(movement2, elapsedTime);
+        } else if (disparos->at(aux)->GetEstado() == Estado::ID::Muriendo) {
+            //Ademadas hacemos que su cuerpo no interactue
+            disparos->at(aux)->body->SetActive(false);
+            //Si la bala esta desapareciendo comprobamos hasta que desaparezca
+            disparos->at(aux)->ComprobarSiMuerto();
+        }
+
     }
 
 }

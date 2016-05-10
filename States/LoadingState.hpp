@@ -26,7 +26,8 @@ public:
     virtual ~LoadingState();
     
     void Inicializar();
-    
+    void Clear() override;
+
     void HandleEvents(sf::Event& event);
 
     void Update(sf::Time elapsedTime);

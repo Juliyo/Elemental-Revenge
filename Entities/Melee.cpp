@@ -29,6 +29,7 @@ Melee::~Melee() {
     walkingAnimationUp = NULL;
     animationMuerte = NULL;
     paloninja=NULL;
+    paloninja2=NULL;
 
 }
 
@@ -47,14 +48,14 @@ void Melee::CreateBody() {
     //del BoundingBox
     //circleShape = new b2CircleShape();
     circleShape.m_radius = tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f);
-    sf::CircleShape *rs = new sf::CircleShape();
-    rs->setPosition(entity->GetPosition());
-    rs->setRadius(rectColision->GetWidth() / 2.f);
-    rs->setFillColor(sf::Color::Transparent);
-    rs->setOutlineColor(sf::Color::Red);
-    rs->setOrigin(rectColision->GetWidth() / 2.f, rectColision->GetHeight() / 2.f);
-    rs->setOutlineThickness(2);
-    InGame::Instance()->meleeShapes->push_back(rs);
+//    sf::CircleShape *rs = new sf::CircleShape();
+//    rs->setPosition(entity->GetPosition());
+//    rs->setRadius(rectColision->GetWidth() / 2.f);
+//    rs->setFillColor(sf::Color::Transparent);
+//    rs->setOutlineColor(sf::Color::Red);
+//    rs->setOrigin(rectColision->GetWidth() / 2.f, rectColision->GetHeight() / 2.f);
+//    rs->setOutlineThickness(2);
+//    InGame::Instance()->meleeShapes->push_back(rs);
     //shape = new b2PolygonShape();
     //shape.SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f));
     //Objeto que le da las propiedades fisicas al bodyDef
@@ -81,6 +82,9 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, flo
     walkingAnimationUp = new Animation();
     animationMuerte = new Animation();
     paloninja= new Animation();
+    paloninja2= new AnimatedSprite();
+    putopalodemierda = new Render();
+    
 
     if (tipo == Tipo::ID::Ninja) {
 
@@ -117,6 +121,9 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, flo
 
         animationMuerte->setSpriteSheet("resources/Textures/ninjaMuerto.png");
         animationMuerte->addFrame(sf::IntRect(0, 0, 43, 32));
+        
+        
+
         
         currentAnimation = &animationMuerte;
         Render::InicializarAnimatedSprite(sf::seconds(0.075f), true, false);
@@ -164,6 +171,22 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, flo
         SetScaleAnimation(1.7f,1.7f);
 
     }
+    
+        paloninja->setSpriteSheet("resources/Textures/paloninjaSheet.png");
+        paloninja->addFrame(sf::IntRect(79, 84, 81, 12));
+        paloninja->addFrame(sf::IntRect(0, 84, 89, 40));
+        paloninja->addFrame(sf::IntRect(55, 0, 60, 74));
+        paloninja->addFrame(sf::IntRect(0, 0, 15, 84));
+        paloninja->addFrame(sf::IntRect(15, 0, 40, 79));
+        paloninja->addFrame(sf::IntRect(115, 0, 74, 60));
+        paloninja->addFrame(sf::IntRect(160, 84, 81, 12));
+    
+        putopalodemierda->InicializarAnimatedSprite(sf::seconds(0.125f), true, false);
+        
+        
+        
+        
+        paloninja2->setAnimation(*paloninja);
     camino = NULL;
     posiblecamino = NULL;
     empujado = false;
@@ -219,25 +242,6 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2, float multipl
         //        bueno=!bueno;
 
         inicio.restart();
-
-        shapesDebug.clear();
-
-
-        if (camino != NULL) {
-            /*for (int i = 0; i < camino->size(); i++) {
-                //std::cout << "Nodo " << i << " " << camino->at(i).x << "," << camino->at(i).y << "    Meta " << ceil(world->player->GetPosition().x/24) << "," << ceil(world->player->GetPosition().y/24) << std::endl;
-                sf::RectangleShape shape;
-                shape.setPosition(sf::Vector2f(camino->at(i).x * 24, camino->at(i).y * 24));
-                shape.setSize(sf::Vector2f(24, 24));
-                shape.setOrigin(12.f, 12.f);
-                shape.setFillColor(color);
-
-                shapesDebug.push_back(shape);
-                //std::cout<<"Camino        "<<i<<": "<<camino->at(i).x<<","<<camino->at(i).y<<std::endl;
-                //if(i<posiblecamino->size())
-                //std::cout<<"Psible Camino "<<i<<": "<<posiblecamino->at(i).x<<","<<posiblecamino->at(i).y<<std::endl;
-            }*/
-        }
     }
     // }
     //Hay que setear al BodyDef el vector velocidad que hallamos calculado

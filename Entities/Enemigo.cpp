@@ -15,7 +15,6 @@
 
 Enemigo::Enemigo() {
     camino=NULL;
-    posiblecamino=NULL;
 }
 
 Enemigo::~Enemigo() {

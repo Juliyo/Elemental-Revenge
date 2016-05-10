@@ -207,108 +207,90 @@ std::vector<Nodo*>* PathFinding::encontrarNodosAdyacentes(Nodo *nodoActual, Nodo
     //    for(int j=0;j<nodosAdyacentes->size();j++){
     //        std::cout<<"Nodo "<<j<<" "<<nodosAdyacentes->at(j)->GetCasilla().x<<","<<nodosAdyacentes->at(j)->GetCasilla().y<<"    Meta    "<<nodoFinal->GetCasilla().x<<","<<nodoFinal->GetCasilla().y<<std::endl;
     //    }
+    colisiones = nullptr;
     return nodosAdyacentes;
 }
 
 std::vector<sf::Vector2i>* PathFinding::buscaCamino(sf::Vector2f posenemigo, sf::Vector2f posjugador) {
     listaAbierta.clear();
     listaCerrada.clear();
-    //listaAbiertaV.clear();
-
+    listaActuales.clear();
+std::vector<sf::Vector2i> *mejorCamino = new std::vector<sf::Vector2i>();
     Nodo *nodoFinal = new Nodo(NULL, NULL, posjugador, 0);
     Nodo *nodoInicial = new Nodo(NULL, nodoFinal, posenemigo, 0);
 
     adicionarNodoAListaAbierta(nodoInicial);
 
     while (listaAbierta.size() > 0) {
-        /*if(listaCerrada.size() > 20){
-           /* Nodo *nodoActual = listaAbierta.at(listaAbierta.size() - 1);
-            std::vector<sf::Vector2i> *mejorCamino = new std::vector<sf::Vector2i>();
-            while (nodoActual != NULL) {
-                auto it = mejorCamino->begin();
-                mejorCamino->insert(it, nodoActual->GetCasilla());
-                nodoActual = nodoActual->NodoPadre;
-            }
-            return mejorCamino;
-            return &listaCerrada;
-        }*/
-
+        
         Nodo *nodoActual = listaAbierta.at(listaAbierta.size() - 1);
-                if(listaCerrada.size()>200){
-                    
-            
-            nodoFinal=listaAbierta.at(listaAbierta.size() - 1);
+        listaActuales.push_back(nodoActual);
+        if (listaCerrada.size() > 300) {
+            nodoFinal = listaAbierta.at(listaAbierta.size() - 1);
         }
-//        if(listaAbierta.size() > 60){
-//            nodoFinal = nodoActual;
-//            if (nodoActual->esIgual(nodoFinal)) {
-//            std::vector<sf::Vector2i> *mejorCamino = new std::vector<sf::Vector2i>();
-//            while (nodoActual != NULL) {
-//                auto it = mejorCamino->begin();
-//                mejorCamino->insert(it, nodoActual->GetCasilla());
-//                nodoActual = nodoActual->NodoPadre;
-//            }
-//          
-//                return mejorCamino;
-//            
-//            
-//        }
-//        }
+
         if (nodoActual->esIgual(nodoFinal)) {
-            std::vector<sf::Vector2i> *mejorCamino = new std::vector<sf::Vector2i>();
+            
             // std::cout<<"Tamano de listaabierta: "<<listaAbierta.size()<<std::endl;
             while (nodoActual != NULL) {
                 auto it = mejorCamino->begin();
                 mejorCamino->insert(it, nodoActual->GetCasilla());
                 nodoActual = nodoActual->NodoPadre;
             }
-           
-            return mejorCamino;
+            
+            break;
         }
-        //auto it = listaAbierta.end();
         listaAbierta.pop_back();
-        //listaAbiertaV.pop_back();
         std::vector<Nodo*> *nodosAdyacentes = encontrarNodosAdyacentes(nodoActual, nodoFinal);
-        //esto es un for each
-        
-                //listaAbiertaV.clear();
-                //listaAbierta.clear();
         for (int i = 0; i < nodosAdyacentes->size(); i++) {
             //std::cout<<"tam nodos adyaccentes "<<nodosAdyacentes->size()<<"Num de iteracion= "<<i<<std::endl;
             if (std::find(listaCerrada.begin(), listaCerrada.end(), nodosAdyacentes->at(i)->GetCasilla()) == listaCerrada.end()) {
-                
+
                 //if (std::find(listaAbierta.begin(), listaAbierta.end(),nodosAdyacentes->at(i))) { //si esta en la lista entra en el if
                 if (BuscarNodoEnListaAbierta(nodosAdyacentes->at(i))) {
                     if (nodosAdyacentes->at(i)->costoG >= nodoActual->costoG) {
+                        delete nodosAdyacentes->at(i);
                         continue;
                     }
                 }
-//                for(int j=0;j<listaAbierta.size();j++){
-//                    if(listaAbierta.at(j)->operator ==(*nodosAdyacentes->at(i))){
-//                        continue;
-//                    }
-//                }
+
                 adicionarNodoAListaAbierta(nodosAdyacentes->at(i));
-                
+
+            }else{
+                delete nodosAdyacentes->at(i);
             }
 
         }
-        listaCerrada.push_back(nodoActual->GetCasilla());
-        //printf("Dentro del While \n");
         
+        
+        listaCerrada.push_back(nodoActual->GetCasilla());
+        delete nodosAdyacentes;
+        //delete nodoActual;
+
     }
-    
-    while(!listaAbierta.empty()){
+
+    while (!listaAbierta.empty()) {
         delete listaAbierta.back(), listaAbierta.pop_back();
     }
-    listaCerrada.clear();
+        while (!listaActuales.empty()) {
+        delete listaActuales.back(), listaActuales.pop_back();
+    }
+    while (!listaCerrada.empty()) {
+         listaCerrada.pop_back();
+    }
     
-    return NULL;
+    listaCerrada.clear();
+    delete nodoInicial;
+    
+    delete nodoFinal;
+
+    return mejorCamino;
 
 }
 
 
 //para los casters
+
 std::vector<sf::Vector2i>* PathFinding::buscaCamino2(sf::Vector2f posenemigo, sf::Vector2f posjugador) {
     listaAbierta.clear();
     listaCerrada.clear();
@@ -320,50 +302,20 @@ std::vector<sf::Vector2i>* PathFinding::buscaCamino2(sf::Vector2f posenemigo, sf
     adicionarNodoAListaAbierta(nodoInicial);
 
     while (listaAbierta.size() > 0) {
-        /*if(listaCerrada.size() > 20){
-           /* Nodo *nodoActual = listaAbierta.at(listaAbierta.size() - 1);
-            std::vector<sf::Vector2i> *mejorCamino = new std::vector<sf::Vector2i>();
-            while (nodoActual != NULL) {
-                auto it = mejorCamino->begin();
-                mejorCamino->insert(it, nodoActual->GetCasilla());
-                nodoActual = nodoActual->NodoPadre;
-            }
-            return mejorCamino;
-            return &listaCerrada;
-        }*/
 
         Nodo *nodoActual = listaAbierta.at(listaAbierta.size() - 1);
-//                if(listaCerrada.size()>19){
-//                    //std::cout<<"Tam lista cerrada "<<listaCerrada.size()<<std::endl;
-//            iteraciones=0;
-//            nodoFinal=listaAbierta.at(listaAbierta.size() - 1);
-//        }
-//        if(listaAbierta.size() > 60){
-//            nodoFinal = nodoActual;
-//            if (nodoActual->esIgual(nodoFinal)) {
-//            std::vector<sf::Vector2i> *mejorCamino = new std::vector<sf::Vector2i>();
-//            while (nodoActual != NULL) {
-//                auto it = mejorCamino->begin();
-//                mejorCamino->insert(it, nodoActual->GetCasilla());
-//                nodoActual = nodoActual->NodoPadre;
-//            }
-//          
-//                return mejorCamino;
-//            
-//            
-//        }
-//        }
+        
         if (nodoActual->esIgual(nodoFinal)) {
             std::vector<sf::Vector2i> *mejorCamino = new std::vector<sf::Vector2i>();
             // std::cout<<"Tamano de listaabierta: "<<listaAbierta.size()<<std::endl;
             while (nodoActual != NULL) {
                 auto it = mejorCamino->begin();
                 mejorCamino->insert(it, nodoActual->GetCasilla());
-               // std::cout<<"Camino Final: "<<nodoActual->GetCasilla().x<<","<<nodoActual->GetCasilla().y<<std::endl;
+                // std::cout<<"Camino Final: "<<nodoActual->GetCasilla().x<<","<<nodoActual->GetCasilla().y<<std::endl;
                 nodoActual = nodoActual->NodoPadre;
-                
+
             }
-           
+
             return mejorCamino;
         }
         //auto it = listaAbierta.end();
@@ -371,33 +323,31 @@ std::vector<sf::Vector2i>* PathFinding::buscaCamino2(sf::Vector2f posenemigo, sf
         //listaAbiertaV.pop_back();
         std::vector<Nodo*> *nodosAdyacentes = encontrarNodosAdyacentes(nodoActual, nodoFinal);
         //esto es un for each
-        
-                //listaAbiertaV.clear();
-                listaAbierta.clear();
+
+        //listaAbiertaV.clear();
+        listaAbierta.clear();
         for (int i = 0; i < nodosAdyacentes->size(); i++) {
             //std::cout<<"tam nodos adyaccentes "<<nodosAdyacentes->size()<<"Num de iteracion= "<<i<<std::endl;
             if (std::find(listaCerrada.begin(), listaCerrada.end(), nodosAdyacentes->at(i)->GetCasilla()) == listaCerrada.end()) {
-                
-                //if (std::find(listaAbierta.begin(), listaAbierta.end(),nodosAdyacentes->at(i))) { //si esta en la lista entra en el if
-//                if (BuscarNodoEnListaAbierta(nodosAdyacentes->at(i))) {
-//                    if (nodosAdyacentes->at(i)->costoG >= nodoActual->costoG) {
-//                        continue;
-//                    }
-//                }
-//                for(int j=0;j<listaAbierta.size();j++){
-//                    if(listaAbierta.at(j)->operator ==(*nodosAdyacentes->at(i))){
-//                        continue;
-//                    }
-//                }
                 adicionarNodoAListaAbierta(nodosAdyacentes->at(i));
-                
+            }else{
+                delete nodosAdyacentes->at(i);
             }
 
         }
+        delete nodosAdyacentes;
         listaCerrada.push_back(nodoActual->GetCasilla());
-        //printf("Dentro del While \n");
-        
     }
+    while (!listaAbierta.empty()) {
+        delete listaAbierta.back(), listaAbierta.pop_back();
+    }
+
+    listaCerrada.clear();
+    delete nodoInicial;
+
+    delete nodoFinal;
+    
+    
     return NULL;
 
 }

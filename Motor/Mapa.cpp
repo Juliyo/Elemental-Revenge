@@ -26,9 +26,10 @@
 
 using namespace std;
 
-Mapa::Mapa() : ml("resources/Mapas") {   //Ruta de la carpeta con los mapas
+Mapa::Mapa() : ml("resources/Mapas") { //Ruta de la carpeta con los mapas
 
 }
+
 Mapa::Mapa(const Mapa& orig) : ml("resources/Mapas") {
 }
 
@@ -56,12 +57,15 @@ void Mapa::createStaticMeshes() {
 }
 
 void Mapa::CreateMelees() {
+
+    InGame::Instance()->melee = new std::vector<Melee*>();
+
     std::vector<Melee*> *melees = InGame::Instance()->melee;
     const std::vector<tmx::MapLayer>& layers = ml.GetLayers();
     for (const auto& l : layers) {
         if (l.name == "Melees") //static bodies which make up the map geometry
         {
-            
+
             melees->reserve(l.objects.size());
             for (const auto& o : l.objects) {
                 int random = rand() % 2; // v1 in the range 0 to 99
@@ -78,7 +82,7 @@ void Mapa::CreateMelees() {
                     melee->CreateBody();
                     melees->push_back(melee);
                 }
-                
+
             }
         }
     }
@@ -99,6 +103,7 @@ void Mapa::render() {
 }
 
 // Devuelve una capa concreta del mapa
+
 const tmx::MapLayer& Mapa::GetLayer(const std::string& name) {
     const auto& layers = ml.GetLayers();
     for (const auto& l : layers) {
@@ -150,6 +155,8 @@ void Mapa::createCollisions() {
 }
 
 void Mapa::CreateCasters() {
+
+    InGame::Instance()->caster = new std::vector<Caster*>();
     std::vector<Caster*> *casters = InGame::Instance()->caster;
     const std::vector<tmx::MapLayer>& layers = ml.GetLayers();
     for (const auto& l : layers) {
@@ -162,6 +169,27 @@ void Mapa::CreateCasters() {
                 caster->SetRectangleColision(0, 0, 34, 34);
                 caster->CreateBody();
                 casters->push_back(caster);
+            }
+        }
+    }
+}
+
+void Mapa::CreatePlayer() {
+    InGame *world = InGame::Instance();
+    world->player = new Player();
+
+
+
+
+    const std::vector<tmx::MapLayer>& layers = ml.GetLayers();
+    for (const auto& l : layers) {
+        if (l.name == "Player") //static bodies which make up the map geometry
+        {
+            for (const auto& o : l.objects) {
+                world->player -> Inicializar(o.GetCentre().x, o.GetCentre().y);
+                world->player->SetRectangleColision(14, 12, 36, 52);
+                world->player->CreateBody();
+                world->player->SetEstado(Estado::ID::Vivo);
             }
         }
     }

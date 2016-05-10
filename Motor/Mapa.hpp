@@ -58,6 +58,7 @@ public:
     void createStaticMeshes();
     void CreateMelees();
     void CreateCasters();
+    void CreatePlayer();
 private:
     int mapaActual;
     tmx::MapLoader ml;

@@ -58,6 +58,8 @@ public:
     std::vector<sf::RectangleShape> shapesDebug;
     sf::Color color;
     Animation *paloninja;
+    AnimatedSprite *paloninja2;
+    Render *putopalodemierda;
     
     
 private:

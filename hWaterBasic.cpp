@@ -104,7 +104,8 @@ hWaterBasic::hWaterBasic(): Collisionable((Entity*)this) {
 
 
 hWaterBasic::~hWaterBasic() {
-    
+    animation=NULL;
+    //delete rectColision;
 }
 
 std::string hWaterBasic::getClassName() {

@@ -24,7 +24,7 @@ InGame* InGame::Instance() {
     if (mInstance == 0) {
         mInstance = new InGame();
     }
-
+    
     return mInstance;
 }
 
@@ -32,40 +32,7 @@ InGame::InGame() {
     motor = Motor2D::Instance();
 
 
-    pathfingind = new PathFinding();
-    SoundManager::Instance()->load();
-    colaEnemigos = new std::deque<Enemigo*>();
-    /* pause = Pause::Instance();
-     muerte = Muerte::Instance();*/
 
-
-    /* sf::ContextSettings settings;
-     settings.antialiasingLevel = 8;*/
-
-
-    //player->SetScale(0.7,0.7);
-    // motor->setZoom(0.3f); //1=vista del mundo(nuestra pantalla)
-
-    //updateView();
-
-    //mapa = new Map();
-    /*motor->setCenterForView(1, 900,850);
-    motor->SetView(1);*/
-    level = new Level();
-
-    video = new Video("resources/Videos/nubes/nube", 30, 495, 500, 0, sf::Vector2f(0.8, 1.4), true, sf::Vector2f(1280, 720));
-    /*musica = new sf::Music();
-    musica->openFromFile("resources/Sounds/InGame.ogg");
-    musica->setVolume(50);
-        
-    musica2 = new sf::Music();
-    musica2->openFromFile("resources/Sounds/Magicka2.ogg");
-    musica2->setVolume(50);*/
-    //Inicializar();
-    physicWorld = new b2World(tmx::SfToBoxVec(sf::Vector2f(0.f, 0.f)));
-    ct = new ContactListener();
-    physicWorld->SetContactListener(ct);
-    //physicWorld->SetContactFilter(ct);
 
 }
 
@@ -73,17 +40,58 @@ InGame::InGame(const InGame& orig) {
 }
 
 InGame::~InGame() {
+
+
+}
+
+void InGame::Clear() {
+    printf("Clear1\n");
+    while (!caster->empty()) {
+        delete caster->back(), caster->pop_back();
+    }
+    delete caster;
+    printf("Clear2\n");
+    while (!colaEnemigos->empty()) {
+        delete colaEnemigos->back(), colaEnemigos->pop_back();
+    }
+    delete colaEnemigos;
+    printf("Clear2.5\n");
+
+    /*while(!melee->empty()){
+        delete melee->back(), melee->pop_back();
+    }*/
+
+    delete melee;
+    printf("Clear3\n");
+
+    delete ct;
+    delete level;
+    printf("Clear4\n");
+    printf("Clear5\n");
+    delete pathfingind;
+    delete physicWorld;
+    printf("Clear6\n");
+    delete player;
+    delete video;
+    printf("Clear7\n");
 }
 
 void InGame::Inicializar() {
+    pathfingind = new PathFinding();
+
+    colaEnemigos = new std::deque<Enemigo*>();
+    
+    level = new Level();
+
+    video = new Video("resources/Videos/nubes/nube", 30, 495, 500, 0, sf::Vector2f(0.8, 1.4), true, sf::Vector2f(1280, 720));
+    physicWorld = new b2World(tmx::SfToBoxVec(sf::Vector2f(0.f, 0.f)));
+    ct = new ContactListener();
+    physicWorld->SetContactListener(ct);
+
     player = new Player();
-    player -> Inicializar(1000.f, -1000.f);
-    player->SetRectangleColision(14, 12, 36, 52);
-    player->CreateBody();
-    player->SetEstado(Estado::ID::Vivo);
     melee = new std::vector<Melee*>();
     caster = new std::vector<Caster*>();
-    meleeShapes = new std::vector<sf::CircleShape*>();
+    //meleeShapes = new std::vector<sf::CircleShape*>();
     /*melee->reserve(30);
     for (int i = 0; i < 30; i++) {
 
@@ -113,16 +121,22 @@ void InGame::Inicializar() {
         std::cout << "Excepcion: " << e.what() << std::endl;
         exit(0);
     }
+    std::cout<<"AQUI LLEGO "<<std::endl;
     level->LoadMap(Niveles::ID::Level1);
+    std::cout<<"HIJO "<<std::endl;
     level->map->CreateMelees();
+    std::cout<<"DE LA GRAN"<<std::endl;
     level->map->CreateCasters();
+    std::cout<<"PUTAA "<<std::endl;
+    level->map->CreatePlayer();
+    std::cout<<"HOSTIA YA "<<std::endl;
     video->Inicializar();
 }
 
 void InGame::Update(sf::Time elapsedTime) {
-    
-                                                 
-                     
+
+
+
 
 
     if (!firstTime) {
@@ -134,41 +148,57 @@ void InGame::Update(sf::Time elapsedTime) {
         primerosDeLaCola();
 
         //**************************ENEMIGOS MELEES**********************//
-          
+
         for (std::vector<Melee*>::iterator it = melee->begin(); it != melee->end(); ++it) {
             int x3 = player->getPosition().x - (*it)->getPosition().x;
             int y3 = player->getPosition().y - (*it)->getPosition().y;
-            
+
             if ((*it)->GetEstado() == Estado::ID::Vivo) {
                 (*it)->Update(elapsedTime, x3, y3, 1);
-                
-                
+
+                if((*it)->distancia<50){
+                    //(*it)->paloninja2->setPosition((*it)->getPosition());
+                    (*it)->putopalodemierda->PlayAnimation((*it)->paloninja);
+                    (*it)->putopalodemierda->UpdateAnimation(elapsedTime);        
+                }else{
+                    if((*it)->paloninja2->isPlaying()){
+                            (*it)->putopalodemierda->StopAnimation();
+                    }
+                             
+        
+                }
+
             } else if ((*it)->GetEstado() == Estado::ID::Muriendo) {
                 //Si acaba de morir lo borramos del mundo y lo matamos
                 (*it)->body->GetWorld()->DestroyBody((*it)->body);
                 (*it)->SetEstado(Estado::ID::Muerto);
             }
         }
-//        try {
-//        for (int i = 0; i < meleeShapes->size(); i++) {
-//            meleeShapes->at(i)->setPosition(tmx::BoxToSfVec(melee->at(i)->body->GetPosition()));
-//        }
-//                } catch (const std::out_of_range& oor) {
-//                    std::cerr << "ERROR DE MIERDAAAAA Out of Range error: " << oor.what() << '\n';
-//                }
+        //        try {
+        //        for (int i = 0; i < meleeShapes->size(); i++) {
+        //            meleeShapes->at(i)->setPosition(tmx::BoxToSfVec(melee->at(i)->body->GetPosition()));
+        //        }
+        //                } catch (const std::out_of_range& oor) {
+        //                    std::cerr << "ERROR DE MIERDAAAAA Out of Range error: " << oor.what() << '\n';
+        //                }
         //NUEVO
-//        try{
-//        for(int i=0;player->shapesFuego->size();i++){
-//            player->shapesFuego->at(i)->setPosition(player->GetPosition());
-//        }
-//        } catch (const std::out_of_range& oor) {
-//                    std::cerr << "ERROR DE MIERDAAAAA Out of Range error: " << oor.what() << '\n';
-//                }
+        //        try{
+        //        for(int i=0;player->shapesFuego->size();i++){
+        //            player->shapesFuego->at(i)->setPosition(player->GetPosition());
+        //        }
+        //        } catch (const std::out_of_range& oor) {
+        //                    std::cerr << "ERROR DE MIERDAAAAA Out of Range error: " << oor.what() << '\n';
+        //                }
         //**************************ENEMIGOS CASTER**********************//
 
         for (std::vector<Caster*>::iterator it = caster->begin(); it != caster->end(); ++it) {
             int x3 = player->getPosition().x - (*it)->getPosition().x;
             int y3 = player->getPosition().y - (*it)->getPosition().y;
+            if (sqrt(pow(x3, 2) + pow(y3, 2)) < 250) {
+                (*it)->updateDisparoEnemigo(true, elapsedTime, player->getPosition().x, player->getPosition().y);
+            } else {
+                (*it)->updateDisparoEnemigo(false, elapsedTime, player->getPosition().x, player->getPosition().y);
+            }
             if ((*it)->GetEstado() == Estado::ID::Vivo) {
                 (*it)->Update(elapsedTime, x3, y3, 1);
             } else if ((*it)->GetEstado() == Estado::ID::Muriendo) {
@@ -178,26 +208,12 @@ void InGame::Update(sf::Time elapsedTime) {
             }
         }
 
-
-        for (int i = 0; i < caster->size(); i++) {
-
-            float x4 = player->getPosition().x - caster->at(i)->getPosition().x;
-            float y4 = player->getPosition().y - caster->at(i)->getPosition().y;
-
-            if (sqrt(pow(x4, 2) + pow(y4, 2)) < 250) {
-                caster->at(i)->updateDisparoEnemigo(true, elapsedTime, player->getPosition().x, player->getPosition().y);
-            } else {
-                caster->at(i)->updateDisparoEnemigo(false, elapsedTime, player->getPosition().x, player->getPosition().y);
-            }
-
-        }
-
         ///
 
         //**************************RAYO**********************
-         bool k=false;
+        bool k = false;
         if (hActivo == 1) {
-            k=player->updateRayo(isShooting, rayoAdvancedCast, cdRayoBasicoPausa, cdRayoAvanzadoPausa);
+            k = player->updateRayo(isShooting, rayoAdvancedCast, cdRayoBasicoPausa, cdRayoAvanzadoPausa);
         }
 
         if ((player->hRayoAvanzado->clockCd.getTiempo() + cdRayoAvanzadoPausa) > player->hRayoAvanzado->getCD() && rayoAdvancedCast) {
@@ -209,14 +225,14 @@ void InGame::Update(sf::Time elapsedTime) {
             }
         }
 
-        if((player->hRayoBasico->clockCd.getTiempo()+cdRayoBasicoPausa) > player->hRayoBasico->getCD() && k){
+        if ((player->hRayoBasico->clockCd.getTiempo() + cdRayoBasicoPausa) > player->hRayoBasico->getCD() && k) {
 
-                player->hRayoBasico->clockCd.restart();
-                player->hud->resetRayo1();
-                 player->hRayoBasico->primeraVez=true;
-                 player->hRayoBasico->stopSound();
-            if(cdRayoBasicoPausa>0){
-                cdRayoBasicoPausa=0;
+            player->hRayoBasico->clockCd.restart();
+            player->hud->resetRayo1();
+            player->hRayoBasico->primeraVez = true;
+            player->hRayoBasico->stopSound();
+            if (cdRayoBasicoPausa > 0) {
+                cdRayoBasicoPausa = 0;
             }
         }
 
@@ -293,9 +309,9 @@ void InGame::Update(sf::Time elapsedTime) {
     firstTime = false;
 
     if (player->GetVida() == 0) {
-     SoundManager *sonido = SoundManager::Instance();
-    sonido->play("resources/Sounds/Muerte.wav");
-        
+        SoundManager *sonido = SoundManager::Instance();
+        sonido->play("resources/Sounds/Muerte.wav");
+
         StateStack::Instance()->SetCurrentState(States::ID::Muerte);
     }
 
@@ -324,10 +340,15 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
 
     //Renderiza el mapa
     level->render();
-    player->renderFuego(elapsedTime, interpolation);
+    player->renderFuegoAvanzado(elapsedTime, interpolation);
     //****************************RENDER ENEMIGOS MELEE************************************//
     for (int i = 0; i < melee->size(); i++) {
         melee->at(i)->PlayAnimation(*melee->at(i)->currentAnimation);
+        if(melee->at(i)->distancia<50 && melee->at(i)->GetEstado() == Estado::ID::Vivo){
+           
+            melee->at(i)->putopalodemierda->DrawAnimation(melee->at(i)->getPosition(),player->getPosition(),interpolation);
+        }
+        
         melee->at(i)->UpdateAnimation(elapsedTime);
         //Si estamos en Pause o Muerte render con interpolacion
         if (StateStack::Instance()->currentState != States::ID::Pause && StateStack::Instance()->currentState != States::ID::Muerte) {
@@ -337,8 +358,8 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
                 //if (melee->at(i)->GetEstado() == Estado::ID::Vivo){
                 melee->at(i)->UpdateEnemyAnimation(x2, y2);
                 melee->at(i)->CambiarVectorVelocidad();
- 
-               
+
+
                 melee->at(i)->DrawWithInterpolation(interpolation);
             } else {
                 melee->at(i)->DrawAnimationWithOut(melee->at(i)->GetRenderPosition());
@@ -359,13 +380,25 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     for (int i = 0; i < caster->size(); i++) {
         caster->at(i)->PlayAnimation(*caster->at(i)->currentAnimation);
         caster->at(i)->UpdateAnimation(elapsedTime);
-         if (StateStack::Instance()->currentState != States::ID::Pause && StateStack::Instance()->currentState != States::ID::Muerte) {
+        if (StateStack::Instance()->currentState != States::ID::Pause && StateStack::Instance()->currentState != States::ID::Muerte) {
             if (caster->at(i)->GetEstado() != Estado::ID::Muerto) {
                 int x2 = player->getPosition().x - caster->at(i)->getPosition().x;
                 int y2 = player->getPosition().y - caster->at(i)->getPosition().y;
                 caster->at(i)->UpdateEnemyAnimation(x2, y2);
                 caster->at(i)->CambiarVectorVelocidad();
-
+                for (int j = 0; j < 5; j++) {
+                    if (caster->at(i)->disparos->at(j)->GetEstado() == Estado::ID::Vivo) {
+                        caster->at(i)->disparos->at(j)->PlayAnimation(*caster->at(i)->disparos->at(j)->currentAnimation);
+                        caster->at(i)->disparos->at(j)->UpdateAnimation(elapsedTime);
+                        caster->at(i)->disparos->at(j)->DrawAnimation(caster->at(i)->disparos->at(j)->GetPreviousPosition(), caster->at(i)->disparos->at(j)->GetPosition(), interpolation);
+                    } else if (caster->at(i)->disparos->at(j)->GetEstado() == Estado::ID::Muriendo) {
+                        caster->at(i)->disparos->at(j)->PlayAnimation(*caster->at(i)->disparos->at(j)->currentAnimation);
+                        caster->at(i)->disparos->at(j)->UpdateAnimation(elapsedTime);
+                        caster->at(i)->disparos->at(j)->DrawAnimationWithOut(caster->at(i)->disparos->at(j)->GetRenderPosition());
+                    } else {
+                        caster->at(i)->disparos->at(j)->StopAnimation();
+                    }
+                }
                 caster->at(i)->DrawWithInterpolation(interpolation);
             } else {
                 caster->at(i)->DrawAnimationWithOut(caster->at(i)->GetRenderPosition());
@@ -378,6 +411,8 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
         }
 
     }
+
+    player->renderFuegoBasico(elapsedTime, interpolation);
 
     if (StateStack::Instance()->currentState == States::ID::InGame && cambioInGame2Pausa == false) {
         cambioInGame2Pausa = true;
@@ -407,7 +442,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     //****************************RAYO************************************
     player->renderRayo(elapsedTime, interpolation);
     //****************************FUEGO************************************
-    
+
     //****************************AGUA************************************
     player->renderAgua(elapsedTime, interpolation);
     //*********************HEAL**********************************
@@ -433,27 +468,6 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     //**************************************FLASH**************************
     player->renderFlash(elapsedTime, interpolation);
 
-
-    //**************************************Disparo Caster************************** 
-    for (int j = 0; j < caster->size(); j++) {
-        if (caster->at(j)->GetEstado() != Estado::ID::Muerto) {
-            for (int i = 0; i < 14; i++) {
-                caster->at(j)->disparo[i].RenderDisparo(interpolation);
-                if (caster->at(j)->disparo[i].GetEstado() == Estado::ID::Vivo) {
-                    caster->at(j)->disparo[i].PlayAnimation(*caster->at(j)->disparo[i].currentAnimation);
-                    caster->at(j)->disparo[i].UpdateAnimation(elapsedTime);
-                   caster->at(j)->disparo[i].DrawAnimation(caster->at(j)->disparo[i].GetPreviousPosition(), caster->at(j)->disparo[i].GetPosition(), interpolation);
-                } /*else if (hFuegoBasico[aux].GetEstado() == Estado::ID::Muriendo) {
-                    hFuegoBasico[aux].PlayAnimation(*hFuegoBasico[aux].currentAnimation);
-                    hFuegoBasico[aux].UpdateAnimation(elapsedTime);
-                    hFuegoBasico[aux].DrawAnimationWithOut(hFuegoBasico[aux].GetRenderPosition());
-                } else {
-                    hFuegoBasico[aux].StopAnimation();
-                    //hFuegoBasico[aux].DrawAnimationWithOut(hFuegoBasico[aux].GetRenderPosition());
-                }*/
-            }
-        }
-    }
     /////////////////////////////////
     motor->draw(*rs);
     motor->SetView(2); //vista del HUD
@@ -559,7 +573,7 @@ void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         player->hud->cambiaHechizo(hActivo + 1);
     } else if (key == sf::Keyboard::P) {
         SoundManager *sonido = SoundManager::Instance();
-    sonido->play("resources/Sounds/Pausa.wav");
+        sonido->play("resources/Sounds/Pausa.wav");
         StateStack::Instance()->SetCurrentState(States::ID::Pause);
 
     }
@@ -630,27 +644,26 @@ void InGame::primerosDeLaCola() {
                     colaEnemigos->at(0)->camino = colaEnemigos->at(0)->posiblecamino;
                     colaEnemigos->at(0)->nodoactual = 0;
                 }
-
-
                 colaEnemigos->at(0)->bueno = !colaEnemigos->at(0)->bueno;
-            }
-            else if ((colaEnemigos->at(0)->distancia < 700 && colaEnemigos->at(0)->getClassName() == "Caster")) {
-
+            } else if ((colaEnemigos->at(0)->distancia < 700 && colaEnemigos->at(0)->getClassName() == "Caster")) {
+                //colaEnemigos->at(0)->posiblecamino = nullptr;
                 colaEnemigos->at(0)->posiblecamino = pathfingind->buscaCamino2(colaEnemigos->at(0)->GetPosition(), player->GetPosition());
                 if (colaEnemigos->at(0)->bueno) {
+                    //colaEnemigos->at(0)->camino = nullptr;
                     colaEnemigos->at(0)->camino = colaEnemigos->at(0)->posiblecamino;
                     colaEnemigos->at(0)->nodoactual = 0;
                 }
-               
+
 
                 colaEnemigos->at(0)->bueno = !colaEnemigos->at(0)->bueno;
+                ite--;
             }
-             ite--;
+            
             colaEnemigos->at(0)->encola = false;
             colaEnemigos->pop_front();
             ite++;
         } else {
-            ite = 10;
+            break;
         }
 
     }

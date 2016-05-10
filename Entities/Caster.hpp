@@ -27,28 +27,28 @@ namespace Tipo {
     };
 }
 
-class Caster: public Enemigo, public Collisionable {
+class Caster : public Enemigo, public Collisionable {
 public:
     Caster();
     virtual ~Caster();
- void Inicializar(float posX, float posY, Tipo::Caster tipo,float speedX = 0.f, float speedY = 0.f, float maxSpeedX = 1000.f, float maxSpeedY = 1000.f);
-void Update(const sf::Time elapsedTime, float x1, float x2, float multiplicador);
-     void CreateBody() override;
-     std::string getClassName() override;
+    void Inicializar(float posX, float posY, Tipo::Caster tipo, float speedX = 0.f, float speedY = 0.f, float maxSpeedX = 1000.f, float maxSpeedY = 1000.f);
+    void Update(const sf::Time elapsedTime, float x1, float x2, float multiplicador);
+    void CreateBody() override;
+    std::string getClassName() override;
 
-     
-         void RestarVida(int a);
+
+    void RestarVida(int a);
     void CambiarVectorVelocidad();
 
-    
-    void updateDisparoEnemigo(bool disparado, sf::Time elapsedTime,float x4,float y4);
-    
+
+    void updateDisparoEnemigo(bool disparado, sf::Time elapsedTime, float x4, float y4);
+
     bool HandleMapCollisions(const sf::Time& elapsedTime);
 
     void Draw();
     void DrawWithInterpolation(float interpolation);
 
-    
+
     void UpdateEnemyAnimation(int x, int y);
     void PlayAnimation(Animation *animation);
     void UpdateAnimation(sf::Time elapsedTime);
@@ -58,35 +58,32 @@ void Update(const sf::Time elapsedTime, float x1, float x2, float multiplicador)
     bool empujado2;
     Reloj tiempoempujado;
     int cuadrante = 2;
-    
-    int numDisparo=0;
-    
+
+    int numDisparo = 0;
+
     Reloj castDisparo; //Variable de clase para el casteo
-    Reloj clockCdDisparo; 
-    float CdDisparo = 0.7f;
-    
+    Reloj clockCdDisparo;
+    float CdDisparo;
+
     bool primercastDisparo; //Variable de clase para el primer casteo
 
-    
-    DisparoEnemigo *disparo;
-    
+
+    //DisparoEnemigo *disparo;
+    std::vector<DisparoEnemigo*> *disparos;
+
     Animation **currentAnimation;
     Animation *walkingAnimationDown;
     Animation *walkingAnimationLeft;
     Animation *walkingAnimationRight;
     Animation *walkingAnimationUp;
-    
+
     Animation *animationMuerte;
     std::vector<sf::RectangleShape> shapesDebug;
     sf::Color color;
-    
-
-
-    
 private:
     Tipo::Caster m_tipo;
     sf::Texture texturaEnemigo;
-        Reloj inicio;
+    Reloj inicio;
 
 };
 

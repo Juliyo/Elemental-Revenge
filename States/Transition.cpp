@@ -49,6 +49,11 @@ Transition::Transition(const Transition& orig) {
 Transition::~Transition() {
 }
 
+void Transition::Clear() {
+
+}
+
+
 void Transition::Inicializar() {
     video->Inicializar();
     //Carga XML
@@ -191,12 +196,23 @@ void Transition::Update(sf::Time elapsedTime) {
                 drawNextLevel = false;
                 buttonPressed = false;
                 InGame::Instance()->level->LoadMap(static_cast<Niveles::ID>(level));
+/*****************ESTO HACE FALTA PERO CUANDO VAYAN LOS DELETES*******************/
+//                    std::cout<<"HIJO 222"<<std::endl;
+//    InGame::Instance()->level->map->CreateMelees();
+//    std::cout<<"DE LA GRAN2222"<<std::endl;
+//    InGame::Instance()->level->map->CreateCasters();
+//    std::cout<<"PUTAA 222"<<std::endl;
+//    InGame::Instance()->level->map->CreatePlayer();
+//    std::cout<<"HOSTIA YA 222"<<std::endl;
+
                 StateStack::Instance()->SetCurrentState(States::ID::InGame);
+
                     Music *music = Music::Instance();
                     music->Stop();
                     music->Load(MUSICA::ID::Mapa1);
                     music->Play();
                 level++;
+                printf("Se supone que llego a la ultima linea de Ingame");
             }
         }
 

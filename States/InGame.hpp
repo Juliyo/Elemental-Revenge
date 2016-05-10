@@ -48,6 +48,7 @@ public:
     void                        HandleEvents(sf::Event& event);
     void			handlePlayerInput(sf::Keyboard::Key key, bool isPressed);  // Maneja eventos
     void			handleMouseInput(sf::Mouse::Button button, bool isPressed);  // Maneja eventos
+    void Clear() override;
     
     void primerosDeLaCola();
     bool                        cambioInGame2Pausa=true;
@@ -77,7 +78,6 @@ public:
     sf::RectangleShape              *rs;
 private:
     
-    std::vector<bool>           *VectorBools;
     
     //Recursos
     sf::Texture texturaFondo;

@@ -39,6 +39,10 @@ LoadingState::LoadingState(const LoadingState& orig) {
 LoadingState::~LoadingState() {
 }
 
+void LoadingState::Clear() {
+
+}
+
 void LoadingState::Inicializar() {
     video->Inicializar();
     //Carga texturas

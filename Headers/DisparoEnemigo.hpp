@@ -35,13 +35,33 @@ public:
     void CreateBody() override;
     std::string getClassName() override;
     
-    
+    void Clear();
     void Disparar(sf::Vector2f vector,sf::Vector2f vectorPlayer);
     void RenderDisparo(float interpolation);
     
     Animation **currentAnimation;
     Animation *animationInicio;
     Animation *animationFin;
+    
+    void Colision(){
+        if(GetEstado() == Estado::Vivo){
+            //SetPosition(sf::Vector2f(0,0));
+            //body->SetTransform(tmx::SfToBoxVec(sf::Vector2f(0,0)),0);
+            explosionTiempo->restart();
+            currentAnimation = &animationFin;
+            Render::SetOriginAnimatedSprite(86, 79);
+            Render::SetFrameTime(sf::seconds(0.05));
+            Render::SetLooped(false);
+            Render::SetScaleAnimation(0.4, 0.4);
+            SetEstado(Estado::ID::Muriendo);
+        }
+    }
+
+    void ComprobarSiMuerto() {
+        if (explosionTiempo->getTiempo() > 0.25f) {
+            SetEstado(Estado::ID::Muerto);
+        }
+    }
     
 private:
     Reloj *explosionTiempo;
