@@ -70863,9 +70863,9 @@
   <object id="334" x="1080" y="456" width="48" height="72"/>
   <object id="377" x="1368" y="2692" width="188" height="284"/>
   <object id="381" x="1557" y="2474" width="105" height="289"/>
-  <object id="382" x="1625" y="2450" width="162" height="96"/>
+  <object id="382" x="1623" y="2449" width="162" height="96"/>
   <object id="383" x="1545" y="2900" width="333" height="108"/>
-  <object id="385" x="1803" y="2684" width="208" height="309"/>
+  <object id="385" x="1801" y="2688" width="208" height="309"/>
  </objectgroup>
  <objectgroup name="Melees">
   <object id="335" x="739" y="602" width="24" height="24"/>
