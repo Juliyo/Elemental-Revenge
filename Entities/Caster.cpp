@@ -87,7 +87,17 @@ void Caster::Inicializar(float posX, float posY, Tipo::Caster tipo, float speedX
         walkingAnimationUp->addFrame(sf::IntRect(68, 0, 34, 32));
         walkingAnimationUp->addFrame(sf::IntRect(102, 0, 34, 32));
 
-
+        PhysicsState::SetPosition(posX, posY);
+        PhysicsState::SetSpeed(speedX, speedY);
+        Enemigo::SetVelocity(170);
+        Enemigo::SetVida(2);
+        Enemigo::SetDamage(3);
+        PhysicsState::SetMaxSpeed(maxSpeedX, maxSpeedY);
+        Render::SetOriginAnimatedSprite(17, 16);
+        SetScaleAnimation(0.6, 0.6);
+        SetOriginColision(17*0.6, 16*0.6);
+        SetRectangleColision(0,0,34*0.6,34*0.6);
+        SetEstado(Estado::ID::Vivo);
 
     } else {
         
@@ -129,6 +139,17 @@ void Caster::Inicializar(float posX, float posY, Tipo::Caster tipo, float speedX
         walkingAnimationUp->addFrame(sf::IntRect(68, 0, 34, 32));
         walkingAnimationUp->addFrame(sf::IntRect(102, 0, 34, 32));
 
+        PhysicsState::SetPosition(posX, posY);
+        PhysicsState::SetSpeed(speedX, speedY);
+        Enemigo::SetVelocity(170);
+        Enemigo::SetVida(2);
+        Enemigo::SetDamage(3);
+        PhysicsState::SetMaxSpeed(maxSpeedX, maxSpeedY);
+        Render::SetOriginAnimatedSprite(17, 16);
+        SetOriginColision(17*2, 16*2);
+        SetRectangleColision(0,0,34*2,34*2);
+        SetEstado(Estado::ID::Vivo);
+        SetScaleAnimation(2, 2);
     }
 
 
@@ -136,22 +157,7 @@ void Caster::Inicializar(float posX, float posY, Tipo::Caster tipo, float speedX
     posiblecamino = NULL;
     currentAnimation = &animationMuerte;
     Render::InicializarAnimatedSprite(sf::seconds(0.075f), true, false);
-    PhysicsState::SetPosition(posX, posY);
-    PhysicsState::SetSpeed(speedX, speedY);
-    Enemigo::SetVelocity(170);
-    Enemigo::SetVida(2);
-    Enemigo::SetDamage(3);
-    PhysicsState::SetMaxSpeed(maxSpeedX, maxSpeedY);
-    Render::SetOriginAnimatedSprite(17, 16);
-    SetOriginColision(17, 16);
-    SetEstado(Estado::ID::Vivo);
-
-    if (tipo == Tipo::Caster::Mago) {
-        SetScaleAnimation(0.6, 0.6);
-    }
-    if (tipo == Tipo::Caster::Bandido) {
-        SetScaleAnimation(2, 2);
-    }
+    
     empujado = false;
     empujado2 = false;
     damaged = new Reloj();

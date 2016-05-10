@@ -36,22 +36,14 @@ void hRayBasic::CreateBody() {
     //circleShape = new b2CircleShape();
     shape.SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth()/2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f),tmx::SfToBoxVec(sf::Vector2f(0,rectColision->GetHeight()/2.f)),0);
     //circleShape.m_radius = tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f);
-    InGame::Instance()->rs = new sf::RectangleShape();
+    /*InGame::Instance()->rs = new sf::RectangleShape();
     InGame::Instance()->rs->setPosition(InGame::Instance()->player->GetPosition().x,InGame::Instance()->player->GetPosition().y*-1);
     InGame::Instance()->rs->setFillColor(sf::Color::Transparent);
     InGame::Instance()->rs->setOutlineColor(sf::Color::Blue);
     //InGame::Instance()->rs->setOrigin(40,-30);
     InGame::Instance()->rs->setOutlineThickness(2);
-    InGame::Instance()->rs->setSize(sf::Vector2f(445,89));
-    /*sf::CircleShape *rs = new sf::CircleShape();
-    rs->setPosition(InGame::Instance()->player->GetPosition().x,InGame::Instance()->player->GetPosition().y*-1);
-    rs->setRadius(rectColision->GetWidth() / 2.f);
-    rs->setFillColor(sf::Color::Transparent);
-    rs->setOutlineColor(sf::Color::Blue);
-    rs->setOrigin(rectColision->GetWidth() / 2.f,rectColision->GetHeight() / 2.f);
-    rs->setOutlineThickness(2);
-    
-    InGame::Instance()->player->shapesFuego->push_back(rs);*/
+    InGame::Instance()->rs->setSize(sf::Vector2f(445,89));*/
+
     //shape = new b2PolygonShape();
     //shape.SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f));
     //Objeto que le da las propiedades fisicas al bodyDef
@@ -175,8 +167,6 @@ void hRayBasic::cast(sf::Vector2f posicion) {
     body->SetTransform( tmx::SfToBoxVec(posicion), tmx::SfToBoxAngle(angleshot2));
     SetPosition(tmx::BoxToSfVec(body->GetPosition()));
     angleshot2 = angleShot; //so it goes in a straight line
-    InGame::Instance()->rs->setPosition(tmx::BoxToSfVec(body->GetPosition()));
-    InGame::Instance()->rs->setRotation(tmx::BoxToSfAngle(body->GetAngle())-270);
 
 }
 

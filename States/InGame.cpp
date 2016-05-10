@@ -455,7 +455,6 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     player->renderFlash(elapsedTime, interpolation);
 
     /////////////////////////////////
-    motor->draw(*rs);
     motor->SetView(2); //vista del HUD
     if (StateStack::Instance()->currentState == States::ID::Pause) {
         player -> hud->renderHud(elapsedTime, true);
