@@ -163,6 +163,7 @@ void hRayBasic::cast(sf::Vector2f posicion) {
         SoundManager *sonido = SoundManager::Instance();
         sonido->play("resources/Sounds/Rbasico.wav");
         primeraVez=false;
+       
     }
     
     draw = true;

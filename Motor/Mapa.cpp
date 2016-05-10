@@ -203,6 +203,7 @@ void Mapa::CreatePlayer() {
                 world->player->SetRectangleColision(14, 12, 36, 52);
                 world->player->CreateBody();
                 world->player->SetEstado(Estado::ID::Vivo);
+                world->player->hRayoBasico->clockCd.restart();
             }
         }
     }
