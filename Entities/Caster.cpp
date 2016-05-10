@@ -143,10 +143,10 @@ void Caster::Inicializar(float posX, float posY, Tipo::Caster tipo, float speedX
     SetEstado(Estado::ID::Vivo);
 
     if (tipo == Tipo::Caster::Mago) {
-        SetScaleAnimation(0.5, 0.5);
+        SetScaleAnimation(0.6, 0.6);
     }
     if (tipo == Tipo::Caster::Bandido) {
-        SetScaleAnimation(1.7, 1.7);
+        SetScaleAnimation(2, 2);
     }
     empujado = false;
     empujado2 = false;
