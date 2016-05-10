@@ -397,12 +397,10 @@ void Pause::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         
         if (selectedItemIndexPausa == 2) {
              StateStack::Instance()->GetState(States::ID::InGame)->Clear();
-             printf("WHAAAAAAT???\n");
              StateStack::Instance()->GetState(States::ID::Pause)->Clear();
-             printf("WHAAAAAAT???\n");
              StateStack::Instance()->GetState(States::ID::Muerte)->Clear();
-             printf("WHAAAAAAT???\n");
             StateStack::Instance()->GetState(States::ID::Transition)->Clear();
+            StateStack::Instance()->GetState(States::ID::Carga)->Clear();
              StateStack::Instance()->SetCurrentState(States::ID::Menu);
         }
         if (selectedItemIndexPausa == 3) {

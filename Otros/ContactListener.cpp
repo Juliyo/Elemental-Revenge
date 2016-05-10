@@ -146,7 +146,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
             hFireAdvanced *f = static_cast<hFireAdvanced*> (fixtureA->GetBody()->GetUserData());
             m->RestarVida(f->getDamage());
         }
-<<<<<<< HEAD
+
     }else if(claseA == "hWaterBasic"){
         hWaterBasic *w = static_cast<hWaterBasic*> (fixtureB->GetBody()->GetUserData());
         b2Vec2 toTarget = fixtureB->GetBody()->GetPosition() - fixtureA->GetBody()->GetPosition();
@@ -172,7 +172,8 @@ void ContactListener::BeginContact(b2Contact* contact) {
         }else if(claseB == "Caster"){
             Caster *m = static_cast<Caster*> (fixtureB->GetBody()->GetUserData());
             m->RestarVida(w->getDamage());
-=======
+        }
+
     }else if(claseA == "Kamehameha"){
         if(claseB == "Player"){
             Player *p = static_cast<Player*> (fixtureB->GetBody()->GetUserData());
@@ -189,7 +190,6 @@ void ContactListener::BeginContact(b2Contact* contact) {
             hFireBasic *f = static_cast<hFireBasic*> (fixtureB->GetBody()->GetUserData());
             m->RestarVida(f->getDamage());
             f->Colision();
->>>>>>> origin/Box2D
         }
     }
 }

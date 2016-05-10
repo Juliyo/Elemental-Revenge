@@ -331,9 +331,10 @@ Hud::~Hud() {
     delete rayoBueno;
     delete rBlanco;
     delete rGlare;
-    delete rRayo;
     delete rSombra;
+    
     //Agua
+    
     delete aguaBueno;
     delete aBlanco;
     delete aGlare;
