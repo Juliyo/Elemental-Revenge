@@ -344,10 +344,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     //****************************RENDER ENEMIGOS MELEE************************************//
     for (int i = 0; i < melee->size(); i++) {
         melee->at(i)->PlayAnimation(*melee->at(i)->currentAnimation);
-        if(melee->at(i)->distancia<50 && melee->at(i)->GetEstado() == Estado::ID::Vivo){
-           
-            melee->at(i)->putopalodemierda->DrawAnimation(melee->at(i)->getPosition(),player->getPosition(),interpolation);
-        }
+
         
         melee->at(i)->UpdateAnimation(elapsedTime);
         //Si estamos en Pause o Muerte render con interpolacion
