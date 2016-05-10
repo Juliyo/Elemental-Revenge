@@ -47,6 +47,10 @@ public:
         this->damage = damage;
     }
     
+    float damageTaken;
+    int numContactos;
+    Reloj invulnerable;
+    
 protected:
     
 
@@ -64,8 +68,6 @@ protected:
     void SetVelocity(float velocity) {
         this->velocity = velocity;
     }
-    protected:
-        Reloj invulnerable;
         
     private:
         int vida;

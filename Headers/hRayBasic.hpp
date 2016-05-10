@@ -28,6 +28,8 @@ public:
     std::string getClassName() override;
     void CreateBody() override;
 
+    void rotateObject(b2Body *body, float x1, float y1, float width1, float height1, float rotation,float PPM);
+    
     void stopSound();
     void update();
     

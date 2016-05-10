@@ -59,7 +59,9 @@ public:
     void CreateMelees();
     void CreateCasters();
     void CreatePlayer();
+    int numEnemigos=0;
 private:
+    
     int mapaActual;
     tmx::MapLoader ml;
     std::string nombreMapa;

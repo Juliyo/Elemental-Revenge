@@ -24,7 +24,7 @@ void hRayBasic::CreateBody() {
     
     //Creamos un objeto dinamico
     //bodyDef = new b2BodyDef();
-    bodyDef.type = b2_kinematicBody; 
+    bodyDef.type = b2_dynamicBody; 
     bodyDef.position = (tmx::SfToBoxVec(entity->GetPosition()));
     bodyDef.fixedRotation = true;
     //Añadimos el objeto al mundo
@@ -34,7 +34,7 @@ void hRayBasic::CreateBody() {
     //Se crea una shape, le damos las dimensiones pasandole la mitad del ancho y la mitad del alto
     //del BoundingBox
     //circleShape = new b2CircleShape();
-    shape.SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth()/2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f)/*,tmx::SfToBoxVec(sf::Vector2f(40,-30)),0*/);
+    shape.SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth()/2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f),tmx::SfToBoxVec(sf::Vector2f(0,rectColision->GetHeight()/2.f)),0);
     //circleShape.m_radius = tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f);
     InGame::Instance()->rs = new sf::RectangleShape();
     InGame::Instance()->rs->setPosition(InGame::Instance()->player->GetPosition().x,InGame::Instance()->player->GetPosition().y*-1);
@@ -72,7 +72,7 @@ hRayBasic::hRayBasic(): Collisionable((Entity*)this) {
     animationDurante = new Animation();
     PrimeraAnimacion = new Animation();
     setCD(5);
-    hDamage = 3;
+    
     setCast(3);
     if (!hTexture.loadFromFile("resources/Textures/RayoSpriteSheet.png")) {
 
@@ -131,10 +131,10 @@ hRayBasic::hRayBasic(): Collisionable((Entity*)this) {
     currentAnimation = &PrimeraAnimacion;
     InicializarAnimatedSprite(sf::seconds(0.5f / 8), true, false);
     SetOriginAnimatedSprite(40, -30);
-    Collisionable::SetOriginColision(40,-30);
-    
-    Collisionable::SetRectangleColision(0,0,89,445);
+    Collisionable::SetOriginColision(0,-30);
+    Collisionable::SetRectangleColision(0,0,50,445);
     CreateBody();
+    Hechizo::setDamage(1.f);
 }
 
 
@@ -151,7 +151,7 @@ std::string hRayBasic::getClassName() {
 }
 
 void hRayBasic::cast(sf::Vector2f posicion) {
-
+    body->SetActive(true);
       /*if(!buffer.loadFromFile("resources/Sounds/Pistola.wav")){
         exit(0);
     }
@@ -170,18 +170,19 @@ void hRayBasic::cast(sf::Vector2f posicion) {
 
     angleShot = (angleShot * 180 / 3.14) + 270;
     SetAngle(angleshot2, angleShot);
-    body->SetTransform(tmx::SfToBoxVec(posicion),0);
-    //body->
+
+    body->SetTransform( tmx::SfToBoxVec(posicion), tmx::SfToBoxAngle(angleshot2));
     SetPosition(tmx::BoxToSfVec(body->GetPosition()));
     angleshot2 = angleShot; //so it goes in a straight line
     InGame::Instance()->rs->setPosition(tmx::BoxToSfVec(body->GetPosition()));
-    InGame::Instance()->rs->setRotation(((angleShot-270)));
+    InGame::Instance()->rs->setRotation(tmx::BoxToSfAngle(body->GetAngle())-270);
 
 }
 
 void hRayBasic::stopSound() {
     SoundManager *sonido = SoundManager::Instance();
     sonido->stop("resources/Sounds/Rbasico.wav");
+    
 }
 
 

@@ -346,13 +346,12 @@ Hud::~Hud() {
     delete rayoBueno;
     delete rBlanco;
     delete rGlare;
-    delete rRayo;
     delete rSombra;
+    
     //Agua
     delete aguaBueno;
     delete aBlanco;
     delete aGlare;
-    delete aRayo;
     delete aSombra;
 
     //Fuego
@@ -364,6 +363,6 @@ Hud::~Hud() {
     
     delete mCds;
     delete m;
-
     delete curarBueno;
+
 }

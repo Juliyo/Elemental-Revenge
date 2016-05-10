@@ -112,6 +112,8 @@ hFireBasic::hFireBasic(): Collisionable((Entity*)this) {
     CreateBody();
     SetEstado(Estado::ID::Vivo);
     explosionTiempo = new Reloj();
+    
+    Hechizo::setDamage(1.f);
 }
 
 std::string hFireBasic::getClassName() {
@@ -134,7 +136,6 @@ void hFireBasic::Clear() {
     currentAnimation=NULL;
     explosionTiempo=NULL;
 }
-
 
 void hFireBasic::cast(sf::Vector2f posicion) {
     SoundManager *sonido = SoundManager::Instance();

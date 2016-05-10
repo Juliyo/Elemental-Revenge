@@ -15,6 +15,7 @@
 #include "../States/InGame.hpp"
 #include "../Headers/Util.hpp"
 #include "../Otros/tmxHelper.hpp"
+#include "../States/InGame.hpp"
 
 Melee::Melee() : Collisionable((Entity*)this) {
     SetVida(2);
@@ -63,6 +64,8 @@ std::string Melee::getClassName() {
 void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, float speedY, float maxSpeedX, float maxSpeedY) {
     /*Reservamos memoria para los punteros de Animation*/
     m_tipo = tipo;
+    numContactos = 0;
+    damageTaken = 0;
     walkingAnimationDown = new Animation();
     walkingAnimationLeft = new Animation();
     walkingAnimationRight = new Animation();
@@ -173,11 +176,15 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, flo
         
         
         
-        paloninja2->setAnimation(*paloninja);
+    paloninja2->setAnimation(*paloninja);
     camino = NULL;
     posiblecamino = NULL;
     empujado = false;
     empujado2 = false;
+    damaged = new Reloj();
+    //Cargamos shader del player para el colo
+    LoadShader("resources/Shader/fs.frag");
+    ActiveShader(false);
 }
 
 void Melee::CambiarVectorVelocidad() {
@@ -206,6 +213,14 @@ void Melee::CambiarVectorVelocidad() {
 void Melee::Update(const sf::Time elapsedTime, float x1, float x2, float multiplicador) {
     InGame* world = InGame::Instance();
     sf::Vector2f movement(0, 0);
+    if (GetEstado() == Estado::ID::Damaged && damaged->getTiempo() > 0.05f) {
+        ActiveShader(false);
+        SetEstado(Estado::ID::Vivo);
+    }
+    //Si hay un hechizo colisionando contigo restas vida
+    if (numContactos > 0) {
+        RestarVida(damageTaken);
+    }
     // if (inicio.getTiempo() > 0.5f) {
     float x = world->player->GetPosition().x - this->GetPosition().x;
     float y = world->player->GetPosition().y - this->GetPosition().y;
@@ -235,6 +250,7 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2, float multipl
     //body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(movement) * Enemigo::GetVelocity()));
     // FindPlayer(elapsedTime);
     //Actualizamos la posicion del player con la posicion del bodyDef
+    
     SetPosition(tmx::BoxToSfVec(body->GetPosition()));
 }
 
@@ -291,11 +307,18 @@ void Melee::StopAnimation() {
 }
 
 void Melee::RestarVida(int a) {
-    int vida = GetVida();
-    if ((GetVida() - a) > 0) {
+    
+    if (invulnerable.getTiempo() > 0.2f) {
+        invulnerable.restart();
+        std::cout<<a<<std::endl;
+        ActiveShader(true);
+        damaged->restart();
+        SetEstado(Estado::ID::Damaged);
         SetVida(GetVida() - a);
-    } else {
+    }
+    if(GetVida() <= 0){
         currentAnimation = &animationMuerte;
+        InGame::Instance()->level->map->numEnemigos--;
         SetEstado(Estado::ID::Muriendo);
     }
 }
