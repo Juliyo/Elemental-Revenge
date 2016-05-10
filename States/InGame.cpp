@@ -57,9 +57,9 @@ void InGame::Clear() {
     delete colaEnemigos;
     printf("Clear2.5\n");
 
-    /*while(!melee->empty()){
+    while(!melee->empty()){
         delete melee->back(), melee->pop_back();
-    }*/
+    }
 
     delete melee;
     printf("Clear3\n");

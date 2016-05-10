@@ -22,18 +22,7 @@ Transition::Transition() {
     
     motor->setCenterForView(4, 650, 350);
     
-    spriteOpcionA = new Sprite();
-    pregunta = new Sprite();
-    spriteOpcionB = new Sprite();
-    nextLevel = new Sprite();
-    spriteRelleno = new Sprite();
-    spriteFondo = new Sprite();
-    mouseSprite = new Sprite();
-    cruzeta1 = new Sprite();
-    cruzeta2 = new Sprite();
-    simbolo = new Sprite();
-    
-    video = new Video("resources/Videos/moltoFondaco/frame-", 9, 145, 110, 1, sf::Vector2f(1.7, 1.7));
+   
 
     /*musica = new sf::Music();
     musica->openFromFile("resources/Sounds/history.ogg");
@@ -50,11 +39,37 @@ Transition::~Transition() {
 }
 
 void Transition::Clear() {
+    delete cruzeta1;
+    delete cruzeta2;
+    delete currentNode;
+    delete firstNode;
+    delete mouseSprite;
+    delete nextLevel;
+    delete simbolo;
+    delete spriteFondo;
+    delete spriteOpcionA;
+    delete spriteOpcionB;
+    delete spriteRelleno;
+    delete video;
 
 }
 
 
 void Transition::Inicializar() {
+    
+     spriteOpcionA = new Sprite();
+    pregunta = new Sprite();
+    spriteOpcionB = new Sprite();
+    nextLevel = new Sprite();
+    spriteRelleno = new Sprite();
+    spriteFondo = new Sprite();
+    mouseSprite = new Sprite();
+    cruzeta1 = new Sprite();
+    cruzeta2 = new Sprite();
+    simbolo = new Sprite();
+    
+    video = new Video("resources/Videos/moltoFondaco/frame-", 9, 145, 110, 1, sf::Vector2f(1.7, 1.7));
+    
     video->Inicializar();
     //Carga XML
     
@@ -191,10 +206,12 @@ void Transition::Update(sf::Time elapsedTime) {
         }
         if (drawNextLevel) {
             if (nextLevel->getGlobalBounds().contains(mouseSprite->getPosition())) {
+                printf("Estoy donde se supone que cambias el estado a InGame");
                 changePregunta();
                 preguntaContestada = true;
                 drawNextLevel = false;
                 buttonPressed = false;
+                printf("Antes de cambiar de mapa");
                 InGame::Instance()->level->LoadMap(static_cast<Niveles::ID>(level));
 /*****************ESTO HACE FALTA PERO CUANDO VAYAN LOS DELETES*******************/
 //                    std::cout<<"HIJO 222"<<std::endl;
@@ -212,7 +229,7 @@ void Transition::Update(sf::Time elapsedTime) {
                     music->Load(MUSICA::ID::Mapa1);
                     music->Play();
                 level++;
-                printf("Se supone que llego a la ultima linea de Ingame");
+                printf("Se supone que llego a la ultima linea de Ingame\n");
             }
         }
 

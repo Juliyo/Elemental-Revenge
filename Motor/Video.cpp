@@ -19,7 +19,6 @@
 Video::Video(std::string ruta, int f, int x, int y, int tipo, sf::Vector2f scale, bool o, sf::Vector2f size) {
     mRuta=ruta;
     numFrames=f;
-    frames = new Sprite[numFrames];
     current_frame=0;
     dibujar=false;
 
@@ -30,43 +29,53 @@ Video::Video(std::string ruta, int f, int x, int y, int tipo, sf::Vector2f scale
     posX=x;
     posY=y;
     escala = scale;
+    
+     frames = new std::vector<Sprite*>();
+    for(int i=0;i<numFrames;i++){
+        frames->push_back(new Sprite());
+    }
 }
 
 Video::Video(const Video& orig) {
 }
 
 Video::~Video() {
-    
+    while(!frames->empty()){
+        delete frames->back(), frames->pop_back();
+    }
+    delete frames;
 }
 
 void Video::Inicializar() {
+
+     
     for(int i=0; i < numFrames;i++){
         if(extension == 0){
             if(setOrigin){
-                frames[i].setTexture(mRuta + toString(i) + ".png");
-                frames[i].setOrigin(origin.x,origin.y);
+                frames->at(i)->setTexture(mRuta + toString(i) + ".png");
+                 frames->at(i)->setOrigin(origin.x,origin.y);
             }else{
-                frames[i].setTexture(mRuta + toString(i) + ".png");
+                 frames->at(i)->setTexture(mRuta + toString(i) + ".png");
             }
             
         }else if(extension == 1){
             if(setOrigin){
-                frames[i].setTexture(mRuta + toString(i) + ".gif");
-                frames[i].setOrigin(origin.x,origin.y);
+                 frames->at(i)->setTexture(mRuta + toString(i) + ".gif");
+                 frames->at(i)->setOrigin(origin.x,origin.y);
             }else{
-                frames[i].setTexture(mRuta + toString(i) + ".gif");
+                 frames->at(i)->setTexture(mRuta + toString(i) + ".gif");
             }
         }
         
-        frames[i].setSmooth(true);
-        frames[i].setPosition(posX,posY);
-        frames[i].setScale(escala.x,escala.y);
+         frames->at(i)->setSmooth(true);
+         frames->at(i)->setPosition(posX,posY);
+         frames->at(i)->setScale(escala.x,escala.y);
     }
 }
 
 void Video::PlayVideo(){
     if(dibujar){
-        Motor2D::Instance()->draw(frames[current_frame]);
+        Motor2D::Instance()->draw( frames->at(current_frame));
         current_frame++;
         if(current_frame >= numFrames){
             current_frame=0;
@@ -74,7 +83,7 @@ void Video::PlayVideo(){
         }
         dibujar=false;
     }else{
-        Motor2D::Instance()->draw(frames[current_frame]);
+        Motor2D::Instance()->draw( frames->at(current_frame));
     }
 }
 
