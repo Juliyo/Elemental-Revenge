@@ -112,7 +112,6 @@ void hRayAdvanced::cast(sf::Vector2f posicion, Hud *hud, float cdRayoAvanzadoPau
         hSprite.setPosition(pos.x,pos.y);
         body->SetTransform(tmx::SfToBoxVec(pos),0);
         tiempoCast.restart();
-        
     }
 }
 void hRayAdvanced::DrawWithOutInterpolation(){

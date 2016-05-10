@@ -820,7 +820,7 @@ void Player::renderRayo(sf::Time elapsedTime, float interpolation) {
         hRayoAvanzado -> UpdateAnimation(elapsedTime);
         if (hRayoAvanzado->tiempoCast.getTiempo() < hRayoAvanzado->getCast()) {
             hRayoAvanzado->DrawWithOutInterpolation();
-
+            
         }
     } else {
         hRayoAvanzado->StopAnimation();
