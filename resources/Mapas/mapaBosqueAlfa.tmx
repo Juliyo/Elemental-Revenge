@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="130" height="136" tilewidth="24" tileheight="24" nextobjectid="416">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="130" height="136" tilewidth="24" tileheight="24" nextobjectid="426">
  <tileset firstgid="1" name="tilesetReboot2" tilewidth="24" tileheight="24" tilecount="2750" columns="50">
   <image source="tileset322.png" width="1211" height="1331"/>
  </tileset>
@@ -70867,14 +70867,13 @@
   <object id="383" x="1545" y="2900" width="333" height="108"/>
   <object id="385" x="1801" y="2688" width="208" height="309"/>
  </objectgroup>
- <objectgroup name="Melees">
+ <objectgroup name="Melees" visible="0">
   <object id="335" x="739" y="602" width="24" height="24"/>
   <object id="340" x="1154" y="671" width="24" height="24"/>
   <object id="341" x="998" y="577" width="24" height="24"/>
   <object id="342" x="621" y="1102" width="24" height="24"/>
   <object id="343" x="806" y="1255" width="24" height="24"/>
   <object id="344" x="633" y="1933" width="24" height="24"/>
-  <object id="345" x="705" y="2325" width="24" height="24"/>
   <object id="346" x="825" y="1677" width="24" height="24"/>
   <object id="347" x="1546" y="1198" width="24" height="24"/>
   <object id="348" x="1239" y="1220" width="24" height="24"/>
@@ -70909,10 +70908,7 @@
   <object id="399" x="918" y="2534" width="28" height="24"/>
   <object id="400" x="936" y="2440" width="22" height="32"/>
   <object id="401" x="684" y="2418" width="30" height="16"/>
-  <object id="402" x="704" y="2464" width="22" height="30"/>
   <object id="403" x="822" y="2336" width="22" height="18"/>
-  <object id="404" x="1020" y="2334" width="28" height="30"/>
-  <object id="405" x="932" y="2354" width="26" height="30"/>
   <object id="406" x="768" y="2226" width="28" height="30"/>
   <object id="407" x="642" y="2214" width="30" height="40"/>
   <object id="408" x="660" y="2122" width="24" height="28"/>
@@ -70923,6 +70919,16 @@
  </objectgroup>
  <objectgroup name="Casters">
   <object id="367" x="2157.58" y="1193.94" width="24.2424" height="27.2727"/>
+  <object id="416" x="1064" y="694" width="24" height="24"/>
+  <object id="417" x="548" y="1029" width="24" height="24"/>
+  <object id="418" x="832" y="1397" width="24" height="24"/>
+  <object id="419" x="760" y="1802" width="24" height="24"/>
+  <object id="420" x="1024" y="1982" width="24" height="24"/>
+  <object id="421" x="1001" y="2165" width="24" height="24"/>
+  <object id="422" x="1363" y="1793" width="24" height="24"/>
+  <object id="423" x="1799" y="1077" width="24" height="24"/>
+  <object id="424" x="2327" y="1778" width="24" height="24"/>
+  <object id="425" x="1950" y="2387" width="24" height="24"/>
  </objectgroup>
  <objectgroup name="Player">
   <object id="412" x="1578" y="2784" width="84" height="94"/>
