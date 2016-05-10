@@ -143,17 +143,17 @@ void InGame::Update(sf::Time elapsedTime) {
             float x4 = player->getPosition().x - boss->at(i)->getPosition().x;
             float y4 = player->getPosition().y - boss->at(i)->getPosition().y;
             
-            if(sqrt(pow(x4,2)+pow(y4,2))<250){
+            //if(sqrt(pow(x4,2)+pow(y4,2))<250){
                boss->at(i)->updateAtaqueBossA(true, elapsedTime, player->getPosition().x, player->getPosition().y);
                 boss->at(i)->updateAtaqueBossB(true, elapsedTime, player->getPosition().x, player->getPosition().y);
 
                 boss->at(i)->updateAtaqueBossC(true, elapsedTime, player->getPosition().x, player->getPosition().y);
-            }
-            else{
-               boss->at(i)->updateAtaqueBossA(false, elapsedTime, player->getPosition().x, player->getPosition().y);
-                boss->at(i)->updateAtaqueBossB(false, elapsedTime, player->getPosition().x, player->getPosition().y);
-                boss->at(i)->updateAtaqueBossC(false, elapsedTime, player->getPosition().x, player->getPosition().y);
-            }
+            //}
+            //else{
+            //   boss->at(i)->updateAtaqueBossA(false, elapsedTime, player->getPosition().x, player->getPosition().y);
+              //  boss->at(i)->updateAtaqueBossB(false, elapsedTime, player->getPosition().x, player->getPosition().y);
+              //  boss->at(i)->updateAtaqueBossC(false, elapsedTime, player->getPosition().x, player->getPosition().y);
+           // }
 
         }
         
