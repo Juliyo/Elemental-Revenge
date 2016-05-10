@@ -71,9 +71,10 @@ Player::~Player() {
     delete hAguaBasico;
     delete hFuegoAvanzado;
     
-    for(int i=0; i<15;i++){
-        hFuegoBasico[i].Clear();
+    while(!disparosFuego->empty()){
+        delete disparosFuego->back(), disparosFuego->pop_back();
     }
+    delete disparosFuego;
     delete hRayoAvanzado;
     delete hRayoBasico;
     

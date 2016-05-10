@@ -643,10 +643,10 @@ void InGame::primerosDeLaCola() {
                 }
                 colaEnemigos->at(0)->bueno = !colaEnemigos->at(0)->bueno;
             } else if ((colaEnemigos->at(0)->distancia < 700 && colaEnemigos->at(0)->getClassName() == "Caster")) {
-                colaEnemigos->at(0)->posiblecamino = nullptr;
+                //colaEnemigos->at(0)->posiblecamino = nullptr;
                 colaEnemigos->at(0)->posiblecamino = pathfingind->buscaCamino2(colaEnemigos->at(0)->GetPosition(), player->GetPosition());
                 if (colaEnemigos->at(0)->bueno) {
-                    colaEnemigos->at(0)->camino = nullptr;
+                    //colaEnemigos->at(0)->camino = nullptr;
                     colaEnemigos->at(0)->camino = colaEnemigos->at(0)->posiblecamino;
                     colaEnemigos->at(0)->nodoactual = 0;
                 }
