@@ -17,7 +17,7 @@ const float segStatistics = 0.5f; //segundos de refresco de las estadisticas
 Game::Game() {
     motor = Motor2D::Instance();
     motor->Inicializar();
-    motor->inicializarVentana("Hito 3 - Final", 1280, 720,Estilo::FULLSCREEN);
+    motor->inicializarVentana("Hito 3 - Final", 1280, 720,Estilo::DEFAULT);
 
     stateStack = StateStack::Instance();
 

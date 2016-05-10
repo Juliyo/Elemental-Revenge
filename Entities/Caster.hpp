@@ -80,6 +80,8 @@ public:
     Animation *animationMuerte;
     std::vector<sf::RectangleShape> shapesDebug;
     sf::Color color;
+    
+    Reloj damaged;
 private:
     Tipo::Caster m_tipo;
     sf::Texture texturaEnemigo;

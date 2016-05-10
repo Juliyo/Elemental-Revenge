@@ -198,6 +198,14 @@ void Caster::Update(const sf::Time elapsedTime, float x1, float x2, float multip
     // if (inicio.getTiempo() > 0.5f) {
     float x = world->player->GetPosition().x - this->GetPosition().x;
     float y = world->player->GetPosition().y - this->GetPosition().y;
+    if (GetEstado() == Estado::ID::Damaged && damaged.getTiempo() > 0.05f) {
+        ActiveShader(false);
+        SetEstado(Estado::ID::Vivo);
+    }
+    //Si hay un hechizo colisionando contigo restas vida
+    if (numContactos > 0) {
+        RestarVida(damageTaken);
+    }
     distancia = sqrt(pow(x, 2) + pow(y, 2));
     if (distancia < 700) {
 
@@ -305,8 +313,12 @@ void Caster::updateDisparoEnemigo(bool disparado, sf::Time elapsedTime, float x4
 }
 
 void Caster::RestarVida(int a) {
-    if ((GetVida() - a) > 0) {
+    if (invulnerable.getTiempo() > 0.2f) {
+        invulnerable.restart();
         SetVida(GetVida() - a);
+        ActiveShader(true);
+        damaged.restart();
+        SetEstado(Estado::ID::Damaged);
         if (m_tipo == Tipo::Caster::Bandido) {
             SoundManager::Instance()->setVolumen("resources/Sounds/bandithit.ogg",50);
             SoundManager::Instance()->play("resources/Sounds/bandithit.ogg");
@@ -314,7 +326,8 @@ void Caster::RestarVida(int a) {
             SoundManager::Instance()->setVolumen("resources/Sounds/necromancerhurt.ogg",50);
             SoundManager::Instance()->play("resources/Sounds/necromancerhurt.ogg");
         }
-    } else {
+    }
+    if(GetVida() <= 0){
        // std::cout<<"CAMBIO LA ANIMACION A MUERTEEEEEEEEEEEEEEE\n"<<std::endl;
        // std::cout<<"CAMBIO LA ANIMACION A MUERTEEEEEEEEEEEEEEE\n"<<std::endl;
        // std::cout<<"CAMBIO LA ANIMACION A MUERTEEEEEEEEEEEEEEE\n"<<std::endl;
