@@ -19,7 +19,6 @@
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/Audio.hpp>
 
-
 class hRayBasic:public Hechizo, public Collisionable {
 public:
     hRayBasic();

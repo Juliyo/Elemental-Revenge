@@ -74,6 +74,7 @@ public:
     std::vector<sf::CircleShape*> *meleeShapes;
     PathFinding                 *pathfingind;
     std::deque<Enemigo*>          *colaEnemigos;
+    sf::RectangleShape              *rs;
 private:
     
     std::vector<bool>           *VectorBools;

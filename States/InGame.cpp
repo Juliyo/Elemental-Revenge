@@ -455,6 +455,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
         }
     }
     /////////////////////////////////
+    motor->draw(*rs);
     motor->SetView(2); //vista del HUD
     if (StateStack::Instance()->currentState == States::ID::Pause) {
         player -> hud->renderHud(elapsedTime, true);
@@ -464,12 +465,13 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     if (!video -> getLooped()) {
         video -> PlayVideo();
     }
+    
     //Si el Pause está activo es el Pause el que hace el Display
     if (StateStack::Instance()->currentState != States::ID::Pause && StateStack::Instance()->currentState != States::ID::Muerte) {
         motor->SetView(1); //vista del juego
 
         motor->DrawMouse();
-
+        
         motor->display();
     }
 
@@ -478,6 +480,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
         player->SetEstado(Estado::ID::Muerto);
         player->currentAnimation = &player->Muerto;
     }
+    
 
 }
 

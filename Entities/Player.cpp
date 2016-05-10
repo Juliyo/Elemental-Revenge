@@ -504,7 +504,7 @@ int Player::getVida() {
 
 int Player::restaVida(int a) {
     if (invulnerable.getTiempo() > 0.5f && (vida - a) >= 0) {
-            vida -= a;
+            //vida -= a;
             hud->updateHud(vida);
             invulnerable.restart();
             SetEstado(Estado::ID::Damaged);

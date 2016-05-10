@@ -24,18 +24,25 @@ void hRayBasic::CreateBody() {
     
     //Creamos un objeto dinamico
     //bodyDef = new b2BodyDef();
-    bodyDef.type = b2_staticBody; 
+    bodyDef.type = b2_kinematicBody; 
     bodyDef.position = (tmx::SfToBoxVec(entity->GetPosition()));
     bodyDef.fixedRotation = true;
-    bodyDef.bullet = true;
     //Añadimos el objeto al mundo
     body = physicWorld->CreateBody(&bodyDef);
     body->SetUserData(this);
+    
     //Se crea una shape, le damos las dimensiones pasandole la mitad del ancho y la mitad del alto
     //del BoundingBox
     //circleShape = new b2CircleShape();
-    shape.SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f));
+    shape.SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth()/2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f)/*,tmx::SfToBoxVec(sf::Vector2f(40,-30)),0*/);
     //circleShape.m_radius = tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f);
+    InGame::Instance()->rs = new sf::RectangleShape();
+    InGame::Instance()->rs->setPosition(InGame::Instance()->player->GetPosition().x,InGame::Instance()->player->GetPosition().y*-1);
+    InGame::Instance()->rs->setFillColor(sf::Color::Transparent);
+    InGame::Instance()->rs->setOutlineColor(sf::Color::Blue);
+    //InGame::Instance()->rs->setOrigin(40,-30);
+    InGame::Instance()->rs->setOutlineThickness(2);
+    InGame::Instance()->rs->setSize(sf::Vector2f(445,89));
     /*sf::CircleShape *rs = new sf::CircleShape();
     rs->setPosition(InGame::Instance()->player->GetPosition().x,InGame::Instance()->player->GetPosition().y*-1);
     rs->setRadius(rectColision->GetWidth() / 2.f);
@@ -125,6 +132,8 @@ hRayBasic::hRayBasic(): Collisionable((Entity*)this) {
     InicializarAnimatedSprite(sf::seconds(0.5f / 8), true, false);
     SetOriginAnimatedSprite(40, -30);
     Collisionable::SetOriginColision(40,-30);
+    
+    Collisionable::SetRectangleColision(0,0,89,445);
     CreateBody();
 }
 
@@ -151,15 +160,44 @@ void hRayBasic::cast(sf::Vector2f posicion) {
         sonido->play("resources/Sounds/Rbasico.wav");
         primeraVez=false;
     }
-
+    
     draw = true;
     float angleShot = Motor2D::Instance()->getAngleShot(posicion);
 
     angleShot = (angleShot * 180 / 3.14) + 270;
     SetAngle(angleshot2, angleShot);
-    body->SetTransform(tmx::SfToBoxVec(posicion),angleShot);
-
+    body->SetTransform(tmx::SfToBoxVec(posicion),0);
+    body->
+    SetPosition(tmx::BoxToSfVec(body->GetPosition()));
     angleshot2 = angleShot; //so it goes in a straight line
+    InGame::Instance()->rs->setPosition(tmx::BoxToSfVec(body->GetPosition()));
+    InGame::Instance()->rs->setRotation(((angleShot-270)));
+
+}
+
+void hRayBasic::rotateObject(Body body, float x1, float y1, float width1, float height1, float rotation,float PPM){
+ 
+        float DEGTORAD = 0.0174532925199432957f;
+        // Top left corner of object
+        sf::Vector2f pos;
+        pos((x1) / PPM, (y1 + height1) / PPM);
+        // angle of rotation in radians
+        float angle = DEGTORAD * (rotation);
+        // half of diagonal for rectangular object
+        float radius = (float) ((std::sqrt(
+                (width1 * width1 + height1 * height1)) / 2f) / PPM);
+        // Angle at diagonal of rectangular object
+        double theta = (std::tanh(height1 / width1) * DEGTORAD);
+ 
+                 // Finding new position if rotation was with respect to top-left corner of object.  
+        // X=x+ radius*cos(theta-angle)+(h/2)cos(90+angle)
+        // Y= y+radius*sin(theta-angle)-(h/2)sin(90+angle)
+        pos.x = pos.x + 
+        pos = pos.add((float) (radius * Math.cos(-angle + theta)),(float) (radius * Math.sin(-angle + theta))).add((float) ((height1 / PPM / 2) * Math.cos(90 * DEGTORAD+ angle)),(float) (-(height1 / PPM / 2) * Math.sin(90* DEGTORAD + angle)));
+        // transform the body
+        body.setTransform(pos, -angle);
+ 
+    }
 }
 
 void hRayBasic::stopSound() {
