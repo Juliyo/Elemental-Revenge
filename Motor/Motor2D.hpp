@@ -26,7 +26,12 @@
 #endif
 #include <vector>
 
-
+namespace Estilo{
+   enum _styles{
+    DEFAULT = 0,
+    FULLSCREEN = 1
+}; 
+}
 class Motor2D {
 public:
     Motor2D();
@@ -58,7 +63,7 @@ public:
     void draw(const sf::Drawable& drawable, const sf::RenderStates& states = sf::RenderStates::Default);
     void display();
 
-    void inicializarVentana(std::string titulo, int ancho, int alto);
+    void inicializarVentana(std::string titulo, int ancho, int alto,Estilo::_styles estilo);
 
     bool isWindowOpen();
     void closeWindow();

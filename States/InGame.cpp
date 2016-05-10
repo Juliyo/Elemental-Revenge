@@ -121,24 +121,14 @@ void InGame::Inicializar() {
         std::cout << "Excepcion: " << e.what() << std::endl;
         exit(0);
     }
-    std::cout<<"AQUI LLEGO "<<std::endl;
     level->LoadMap(Niveles::ID::Level1);
-    std::cout<<"HIJO "<<std::endl;
     level->map->CreateMelees();
-    std::cout<<"DE LA GRAN"<<std::endl;
     level->map->CreateCasters();
-    std::cout<<"PUTAA "<<std::endl;
     level->map->CreatePlayer();
-    std::cout<<"HOSTIA YA "<<std::endl;
     video->Inicializar();
 }
 
 void InGame::Update(sf::Time elapsedTime) {
-
-
-
-
-
     if (!firstTime) {
 
         physicWorld->Step(elapsedTime.asSeconds(), 8, 4);
@@ -164,10 +154,7 @@ void InGame::Update(sf::Time elapsedTime) {
                     if((*it)->paloninja2->isPlaying()){
                             (*it)->putopalodemierda->StopAnimation();
                     }
-                             
-        
                 }
-
             } else if ((*it)->GetEstado() == Estado::ID::Muriendo) {
                 //Si acaba de morir lo borramos del mundo y lo matamos
                 (*it)->body->GetWorld()->DestroyBody((*it)->body);
@@ -344,10 +331,6 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     //****************************RENDER ENEMIGOS MELEE************************************//
     for (int i = 0; i < melee->size(); i++) {
         melee->at(i)->PlayAnimation(*melee->at(i)->currentAnimation);
-        if(melee->at(i)->distancia<50 && melee->at(i)->GetEstado() == Estado::ID::Vivo){
-           
-            melee->at(i)->putopalodemierda->DrawAnimation(melee->at(i)->getPosition(),player->getPosition(),interpolation);
-        }
         
         melee->at(i)->UpdateAnimation(elapsedTime);
         //Si estamos en Pause o Muerte render con interpolacion

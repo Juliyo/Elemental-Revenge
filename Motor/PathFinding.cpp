@@ -272,7 +272,7 @@ std::vector<sf::Vector2i> *mejorCamino = new std::vector<sf::Vector2i>();
     while (!listaAbierta.empty()) {
         delete listaAbierta.back(), listaAbierta.pop_back();
     }
-        while (!listaActuales.empty()) {
+    while (!listaActuales.empty()) {
         delete listaActuales.back(), listaActuales.pop_back();
     }
     while (!listaCerrada.empty()) {

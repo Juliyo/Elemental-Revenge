@@ -36,14 +36,14 @@ void hWaterBasic::CreateBody() {
     //del BoundingBox
     //circleShape = new b2CircleShape();
     circleShape.m_radius = tmx::SfToBoxFloat(rectColision->GetWidth());
-    sf::CircleShape *rs = new sf::CircleShape();
+    /*sf::CircleShape *rs = new sf::CircleShape();
     rs->setPosition(entity->GetPosition());
     rs->setRadius(rectColision->GetWidth() / 2.f);
     rs->setFillColor(sf::Color::Transparent);
     rs->setOutlineColor(sf::Color::Red);
     rs->setOrigin(rectColision->GetWidth() / 2.f,rectColision->GetHeight() / 2.f);
     rs->setOutlineThickness(2);
-    InGame::Instance()->player->shapesFuego->push_back(rs);
+    InGame::Instance()->player->shapesFuego->push_back(rs);*/
     //shape = new b2PolygonShape();
     //shape.SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f));
     //Objeto que le da las propiedades fisicas al bodyDef
@@ -97,7 +97,7 @@ hWaterBasic::hWaterBasic(): Collisionable((Entity*)this) {
     
     Collisionable::SetOriginColision(0,(74*0.5));
     Collisionable::SetRectangleColision(13*0.5,18*0.5,113*0.5,107*0.5);
-    
+    setDamage(2.f);
     CreateBody();
     setCD(3.0f);
 }

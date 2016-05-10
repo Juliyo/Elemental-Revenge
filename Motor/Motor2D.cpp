@@ -33,17 +33,18 @@ void Motor2D::Inicializar() {
     
 }
 
-void Motor2D::inicializarVentana(std::string titulo, int ancho, int alto) {
+void Motor2D::inicializarVentana(std::string titulo, int ancho, int alto,Estilo::_styles estilo) {
     anchoVentana = ancho;
     altoVentana = alto;
     mWindow = new sf::RenderWindow();
-    mWindow->create(sf::VideoMode(ancho, alto), titulo, sf::Style::Default);
+    if(estilo == Estilo::DEFAULT){
+        mWindow->create(sf::VideoMode(ancho, alto), titulo, sf::Style::Default);
+    }else{
+        mWindow->create(sf::VideoMode(ancho, alto), titulo, sf::Style::Fullscreen);
+    }
     mWindow->setFramerateLimit(60); //Establecemos maximo real de procesamiento (aunque trabajamos con 60)
     mWindow->setVerticalSyncEnabled(true);
     mWindow->setMouseCursorVisible(false);
-
-    //lightMapTexture.create(640, 480);
-    //lightmap.setTexture(lightMapTexture.getTexture());
 }
 
 Motor2D::Motor2D() {
