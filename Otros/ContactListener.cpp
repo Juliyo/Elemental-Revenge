@@ -99,6 +99,11 @@ void ContactListener::BeginContact(b2Contact* contact) {
             fixtureA->GetBody()->ApplyLinearImpulse(desiredVel, fixtureA->GetBody()->GetWorldCenter(), true);
             Melee *m = static_cast<Melee*> (fixtureA->GetBody()->GetUserData());
             m->RestarVida(w->getDamage());
+        }else if(claseB == "hWaterAdvanced"){
+            hWaterAdvanced *w = static_cast<hWaterAdvanced*> (fixtureB->GetBody()->GetUserData());
+            Melee *m = static_cast<Melee*> (fixtureA->GetBody()->GetUserData());
+            m->RestarVida(w->getDamage());
+            
         }
     }else if(claseA == "hFireBasic"){
         if(claseB == "Melee"){
@@ -321,6 +326,10 @@ void ContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldManifold
         if(claseB == "hFireAdvanced"){
             contact->SetEnabled(false);
         }else if(claseB == "hFireAdvanced"){
+            contact->SetEnabled(false);
+        }
+    }else if(claseA == "hRayAdvanced"){
+        if(claseB == "Melee" || claseB == "Caster"){
             contact->SetEnabled(false);
         }
     }
