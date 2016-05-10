@@ -16,6 +16,7 @@
 #include "../Headers/Util.hpp"
 #include "../Otros/tmxHelper.hpp"
 #include "../States/InGame.hpp"
+#include "../Motor/SoundManager.hpp"
 
 Caster::Caster() : Collisionable((Entity*)this) {
 }
@@ -303,10 +304,13 @@ void Caster::updateDisparoEnemigo(bool disparado, sf::Time elapsedTime, float x4
 }
 
 void Caster::RestarVida(int a) {
-
-    
     if ((GetVida() - a) > 0) {
-            SetVida(GetVida() - a);
+        SetVida(GetVida() - a);
+        if (m_tipo == Tipo::Caster::Bandido) {
+            SoundManager::Instance()->play("resources/Sounds/bandithit.ogg");
+        } else {
+            SoundManager::Instance()->play("resources/Sounds/necromancerhurt.ogg");
+        }
     } else {
        // std::cout<<"CAMBIO LA ANIMACION A MUERTEEEEEEEEEEEEEEE\n"<<std::endl;
        // std::cout<<"CAMBIO LA ANIMACION A MUERTEEEEEEEEEEEEEEE\n"<<std::endl;
@@ -314,6 +318,11 @@ void Caster::RestarVida(int a) {
         InGame::Instance()->level->map->numEnemigos--;
         currentAnimation = &animationMuerte;
         SetEstado(Estado::ID::Muriendo);
+        if (m_tipo == Tipo::Caster::Bandido) {
+            SoundManager::Instance()->play("resources/Sounds/banditdie.ogg");
+        } else {
+            SoundManager::Instance()->play("resources/Sounds/necromancerdead.ogg");
+        }
     }
 }
 

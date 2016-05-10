@@ -175,9 +175,9 @@ std::vector<sf::Vector2i>* PathFinding::buscaCamino(sf::Vector2f posenemigo, sf:
         delete listaAbierta.back(), listaAbierta.pop_back();
     }
 
-    while (!listaActuales.empty()) {
+   /* while (!listaActuales.empty()) {
         delete listaActuales.back(), listaActuales.pop_back();
-    }
+    }*/
     while (!listaCerrada.empty()) {
          listaCerrada.pop_back();
     }

@@ -47,6 +47,15 @@ void SoundManager::load() {
     sonidos->insert(std::make_pair("resources/Sounds/Favanzado.wav" , new Sound("resources/Sounds/Favanzado.wav")));
     sonidos->insert(std::make_pair("resources/Sounds/Ravanzado.wav" , new Sound("resources/Sounds/Ravanzado.wav")));
     sonidos->insert(std::make_pair("resources/Sounds/Aavanzado.wav" , new Sound("resources/Sounds/Aavanzado.wav")));
+    sonidos->insert(std::make_pair("resources/Sounds/assassindie.ogg" , new Sound("resources/Sounds/assassindie.ogg")));
+    sonidos->insert(std::make_pair("resources/Sounds/assassinhit.ogg" , new Sound("resources/Sounds/assassinhit.ogg")));
+    sonidos->insert(std::make_pair("resources/Sounds/banditdie.ogg" , new Sound("resources/Sounds/banditdie.ogg")));
+    sonidos->insert(std::make_pair("resources/Sounds/bandithit.ogg" , new Sound("resources/Sounds/bandithit.ogg")));
+    sonidos->insert(std::make_pair("resources/Sounds/necromancerdead.ogg" , new Sound("resources/Sounds/necromancerdead.ogg")));
+    sonidos->insert(std::make_pair("resources/Sounds/necromancerhurt.ogg" , new Sound("resources/Sounds/necromancerhurt.ogg")));
+    sonidos->insert(std::make_pair("resources/Sounds/portalclose.ogg" , new Sound("resources/Sounds/portalclose.ogg")));
+    sonidos->insert(std::make_pair("resources/Sounds/ratdie.ogg" , new Sound("resources/Sounds/ratdie.ogg")));
+    sonidos->insert(std::make_pair("resources/Sounds/rathit.ogg" , new Sound("resources/Sounds/rathit.ogg")));
     sonidos->insert(std::make_pair("resources/Sounds/flash.wav" , new Sound("resources/Sounds/flash.wav")));
 }
 

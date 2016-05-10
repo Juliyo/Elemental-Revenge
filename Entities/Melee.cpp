@@ -16,6 +16,7 @@
 #include "../Headers/Util.hpp"
 #include "../Otros/tmxHelper.hpp"
 #include "../States/InGame.hpp"
+#include "../Motor/SoundManager.hpp"
 
 Melee::Melee() : Collisionable((Entity*)this) {
     SetVida(2);
@@ -315,11 +316,21 @@ void Melee::RestarVida(int a) {
         damaged->restart();
         SetEstado(Estado::ID::Damaged);
         SetVida(GetVida() - a);
+        if(m_tipo == Tipo::ID::Rata){
+            SoundManager::Instance()->play("resources/Sounds/rathit.ogg");
+        }else{
+            SoundManager::Instance()->play("resources/Sounds/assassinhit.ogg");
+        }
     }
     if(GetVida() <= 0){
         currentAnimation = &animationMuerte;
         InGame::Instance()->level->map->numEnemigos--;
         SetEstado(Estado::ID::Muriendo);
+        if(m_tipo == Tipo::ID::Rata){
+            SoundManager::Instance()->play("resources/Sounds/ratdie.ogg");
+        }else{
+            SoundManager::Instance()->play("resources/Sounds/assassindie.ogg");
+        }
     }
 }
 
