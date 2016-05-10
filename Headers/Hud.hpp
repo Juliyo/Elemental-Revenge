@@ -56,6 +56,7 @@ private:
     Sprite       *rGlare;
     Sprite       *rRayo;
     Sprite       *rSombra;
+    Sprite       *rayoB;
     
     //Agua
     Sprite      *aguaBueno;
@@ -63,6 +64,7 @@ private:
     Sprite       *aGlare;
     Sprite       *aRayo;
     Sprite       *aSombra;
+    Sprite       *aguaB;
     
     //Fuego
     Sprite      *fuegoBueno;
@@ -70,6 +72,7 @@ private:
     Sprite       *fGlare;
     Sprite       *fRayo;
     Sprite       *fSombra;
+    Sprite       *fuegoB;
     
     //Flash
     

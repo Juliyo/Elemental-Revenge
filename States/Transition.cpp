@@ -259,6 +259,9 @@ void Transition::Update(sf::Time elapsedTime) {
                 InGame::Instance()->level->map->CreatePlayer();
                 std::cout << "HOSTIA YA 222" << std::endl;
 
+
+                }
+                
                 StateStack::Instance()->SetCurrentState(States::ID::InGame);
 
                 Music *music = Music::Instance();
@@ -270,7 +273,7 @@ void Transition::Update(sf::Time elapsedTime) {
             }
         }
 
-    }
+    
 
     sf::Vector2f mousePosition = motor->getMousePosition();
     if (drawOpciones) {

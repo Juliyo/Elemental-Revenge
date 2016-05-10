@@ -61,7 +61,7 @@ public:
     AnimatedSprite *paloninja2;
     Render *putopalodemierda;
     
-    
+    Reloj *damaged;
 private:
     Tipo::ID m_tipo;
     sf::Texture texturaEnemigo;

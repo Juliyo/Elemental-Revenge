@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="210" height="170" tilewidth="24" tileheight="24" nextobjectid="220">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="210" height="170" tilewidth="24" tileheight="24" nextobjectid="306">
  <tileset firstgid="1" name="tilesetAbandonada2New" tilewidth="24" tileheight="24" tilecount="960" columns="60">
   <image source="tilesetAbandonada2New.png" width="1440" height="384"/>
  </tileset>
@@ -214350,7 +214350,7 @@
  <objectgroup name="Player">
   <object id="150" x="2242.42" y="3390.91" width="66.6667" height="93.9394"/>
  </objectgroup>
- <objectgroup name="Melees" visible="0">
+ <objectgroup name="Melees">
   <object id="152" x="530.303" y="2327.27" width="36.3636" height="42.4242"/>
   <object id="153" x="527.273" y="2654.55" width="18.1818" height="24.2424"/>
   <object id="154" x="509.091" y="2921.21" width="24.2424" height="27.2727"/>
@@ -214376,6 +214376,34 @@
   <object id="184" x="4209.09" y="2360.61" width="30.303" height="48.4848"/>
   <object id="185" x="4527.27" y="2393.94" width="30.303" height="78.7879"/>
   <object id="186" x="4496.97" y="3375.76" width="21.2121" height="39.3939"/>
+  <object id="220" x="945.455" y="2378.79" width="24.2424" height="24.2424"/>
+  <object id="221" x="984.848" y="2572.73" width="33.3333" height="12.1212"/>
+  <object id="222" x="2245.45" y="2548.48" width="30.303" height="6.06061"/>
+  <object id="223" x="1775.76" y="2512.12" width="42.4242" height="15.1515"/>
+  <object id="224" x="2454.55" y="1706.06" width="21.2121" height="42.4242"/>
+  <object id="250" x="2245.45" y="2033.33" width="18.1818" height="18.1818"/>
+  <object id="251" x="2372.73" y="2036.36" width="24.2424" height="30.303"/>
+  <object id="252" x="2527.27" y="1406.06" width="57.5758" height="72.7273"/>
+  <object id="253" x="2090.91" y="1424.24" width="51.5152" height="36.3636"/>
+  <object id="254" x="939.394" y="1190.91" width="87.8788" height="54.5455"/>
+  <object id="255" x="1412.12" y="1521.21" width="39.3939" height="33.3333"/>
+  <object id="261" x="2354.55" y="936.364" width="42.4242" height="51.5152"/>
+  <object id="262" x="2300" y="1824.24" width="30.303" height="18.1818"/>
+  <object id="263" x="2303.03" y="1245.45" width="51.5152" height="57.5758"/>
+  <object id="264" x="1290.91" y="2527.27" width="51.5152" height="45.4545"/>
+  <object id="265" x="754.545" y="2648.48" width="45.4545" height="45.4545"/>
+  <object id="266" x="987.879" y="2712.12" width="51.5152" height="72.7273"/>
+  <object id="267" x="536.364" y="2087.88" width="33.3333" height="42.4242"/>
+  <object id="268" x="1003.03" y="2057.58" width="36.3636" height="57.5758"/>
+  <object id="269" x="1024.24" y="1354.55" width="39.3939" height="45.4545"/>
+  <object id="270" x="1218.18" y="1245.45" width="39.3939" height="54.5455"/>
+  <object id="271" x="2336.36" y="578.788" width="39.3939" height="39.3939"/>
+  <object id="272" x="2293.94" y="460.606" width="30.303" height="39.3939"/>
+  <object id="273" x="2518.18" y="569.697" width="30.303" height="48.4848"/>
+  <object id="274" x="2154.55" y="715.152" width="36.3636" height="24.2424"/>
+  <object id="275" x="2869.7" y="3106.06" width="39.3939" height="39.3939"/>
+  <object id="276" x="3166.67" y="3012.12" width="39.3939" height="63.6364"/>
+  <object id="277" x="3136.36" y="2760.61" width="33.3333" height="51.5152"/>
  </objectgroup>
  <objectgroup name="Casters">
   <object id="191" x="906.061" y="2233.33" width="24.2424" height="33.3333"/>
@@ -214387,5 +214415,37 @@
   <object id="212" x="3393.94" y="2769.7" width="33.3333" height="21.2121"/>
   <object id="214" x="3860.61" y="2757.58" width="30.303" height="24.2424"/>
   <object id="219" x="1403.03" y="3596.97" height="3.0303"/>
+  <object id="256" x="1487.88" y="1169.7" width="45.4545" height="51.5152"/>
+  <object id="257" x="1851.52" y="1181.82" width="36.3636" height="42.4242"/>
+  <object id="258" x="2712.12" y="1200" width="78.7879" height="39.3939"/>
+  <object id="259" x="2142.42" y="924.242" width="48.4848" height="48.4848"/>
+  <object id="260" x="2512.12" y="918.182" width="33.3333" height="33.3333"/>
+  <object id="278" x="3439.39" y="3109.09" width="42.4242" height="69.697"/>
+  <object id="280" x="3551.52" y="2915.15" width="57.5758" height="63.6364"/>
+  <object id="281" x="4169.7" y="3087.88" width="24.2424" height="72.7273"/>
+  <object id="282" x="4500" y="3096.97" width="45.4545" height="72.7273"/>
+  <object id="283" x="4196.97" y="3372.73" width="36.3636" height="60.6061"/>
+  <object id="284" x="2312.12" y="2166.67" width="60.6061" height="87.8788"/>
+  <object id="285" x="3312.12" y="1333.33" width="39.3939" height="51.5152"/>
+  <object id="286" x="3442.42" y="1493.94" width="60.6061" height="84.8485"/>
+  <object id="287" x="3469.7" y="1163.64" width="39.3939" height="69.697"/>
+  <object id="288" x="3460.61" y="963.636" width="45.4545" height="66.6667"/>
+  <object id="289" x="3224.24" y="1157.58" width="36.3636" height="63.6364"/>
+  <object id="290" x="2569.7" y="1612.12" width="33.3333" height="39.3939"/>
+  <object id="291" x="2309.09" y="1566.67" width="45.4545" height="57.5758"/>
+  <object id="292" x="4527.27" y="2757.58" width="33.3333" height="30.303"/>
+  <object id="293" x="1554.55" y="2518.18" width="57.5758" height="39.3939"/>
+  <object id="294" x="951.515" y="1006.06" width="39.3939" height="69.697"/>
+  <object id="295" x="1106.06" y="1554.55" width="57.5758" height="45.4545"/>
+  <object id="296" x="1327.27" y="1603.03" width="24.2424" height="18.1818"/>
+  <object id="297" x="1372.73" y="1315.15" width="15.1515" height="51.5152"/>
+  <object id="298" x="1351.52" y="1130.3" width="42.4242" height="48.4848"/>
+  <object id="299" x="1669.7" y="1175.76" width="33.3333" height="30.303"/>
+  <object id="300" x="2348.48" y="1136.36" width="48.4848" height="36.3636"/>
+  <object id="301" x="2518.18" y="1151.52" width="45.4545" height="27.2727"/>
+  <object id="302" x="2448.48" y="2339.39" width="33.3333" height="48.4848"/>
+  <object id="303" x="2469.7" y="2693.94" width="45.4545" height="39.3939"/>
+  <object id="304" x="1448.48" y="933.333" width="27.2727" height="39.3939"/>
+  <object id="305" x="4363.64" y="2860.61" width="51.5152" height="42.4242"/>
  </objectgroup>
 </map>

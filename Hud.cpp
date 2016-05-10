@@ -63,14 +63,14 @@ Hud::Hud(const Hud& orig) {
 void Hud::renderHud(sf::Time elapsedTime,bool inPause) {
 
     if(!inPause){
-    cRayo1->update(elapsedTime);
-    cRayo2->update(elapsedTime);
-    cAgua1->update(elapsedTime);
-    cAgua2->update(elapsedTime);
-    cFuego1->update(elapsedTime);
-    cFuego2->update(elapsedTime);
-    cCurar->update(elapsedTime);
-    cFlash->update(elapsedTime);
+        cRayo1->update(elapsedTime);
+        cRayo2->update(elapsedTime);
+        cAgua1->update(elapsedTime);
+        cAgua2->update(elapsedTime);
+        cFuego1->update(elapsedTime);
+        cFuego2->update(elapsedTime);
+        cCurar->update(elapsedTime);
+        cFlash->update(elapsedTime);
     }
     m->draw(barraVida);
     m->draw(sVida);
@@ -85,17 +85,29 @@ void Hud::renderHud(sf::Time elapsedTime,bool inPause) {
     cFlash->draw();
 
     m->draw(fBlanco);
-    m->draw(fuegoBueno);
+    if(activo==1){
+        m->draw(fuegoBueno);
+    }else{
+        m->draw(fuegoB);
+    }
     m->draw(fSombra);
     m->draw(fGlare);
 
     m->draw(rBlanco);
-    m->draw(rayoBueno);
+    if(activo==2){
+        m->draw(rayoBueno);
+    }else{
+        m->draw(rayoB);
+    }
     m->draw(rSombra);
     m->draw(rGlare);
 
     m->draw(aBlanco);
-    m->draw(aguaBueno);
+    if(activo==3){
+        m->draw(aguaBueno);
+    }else{
+        m->draw(aguaB);
+    }
     m->draw(aSombra);
     m->draw(aGlare);
     
@@ -111,19 +123,6 @@ void Hud::renderHud(sf::Time elapsedTime,bool inPause) {
 }
 
 void Hud::cambiaHechizo(int activar) {
-    switch (activo) {
-        case 3:
-
-            break;
-        case 2:
-
-            break;
-        case 1:
-
-            break;
-        default:
-            break;
-    }
     switch (activar) {
         case 3:
 
@@ -134,7 +133,7 @@ void Hud::cambiaHechizo(int activar) {
             activo = 2;
             break;
         case 1:
-
+            
             activo = 1;
             break;
         default:
@@ -147,20 +146,24 @@ void Hud::updateHud(float vidas) {
 }
 
 void Hud::cargarRayo() {
-
+    
+    rayoB = new Sprite();
     rBlanco = new Sprite();
     rayoBueno = new Sprite();
     rGlare = new Sprite();
     rSombra = new Sprite();
-
+    
+    rayoB->setTexture("resources/Textures/hud/rayoB.png",true);
+    rayoB->setOrigin(rayoB->getTextureSize().x / 2, rayoB->getTextureSize().y / 2);
+    rayoB->setPosition(500,910);
+    rayoB->setScale(0.3,0.4);
+    
     rBlanco->setTexture("resources/Textures/hud/blanco.png", true);
     rBlanco->setOrigin(rBlanco->getTextureSize().x / 2, rBlanco->getTextureSize().y / 2);
     rBlanco->setPosition(500, 910);
     rBlanco->setScale(0.3, 0.4);
     
-    printf("llego a textura del rayo HUD\n");
     rayoBueno->setTexture("resources/Textures/hud/rayo.png", true);
-    printf("termino a textura del rayo HUD\n");
     rayoBueno->setOrigin(rayoBueno->getTextureSize().x / 2, rayoBueno->getTextureSize().y / 2);
     rayoBueno->setPosition(500, 910);
     rayoBueno->setScale(0.3, 0.4);
@@ -178,18 +181,24 @@ void Hud::cargarRayo() {
 
 void Hud::cargarAgua() {
 
+    aguaB = new Sprite();
     aBlanco = new Sprite();
     aguaBueno = new Sprite();
     aGlare = new Sprite();
     aSombra = new Sprite();
 
+    aguaB->setTexture("resources/Textures/hud/aguaB.png",true);
+    aguaB->setOrigin(aguaB->getTextureSize().x/2,aguaB->getTextureSize().y/2);
+    aguaB->setPosition(600,910);
+    aguaB->setScale(0.3,0.4);
+    
     aBlanco->setTexture("resources/Textures/hud/blanco.png", true);
-    aBlanco->setOrigin(rBlanco->getTextureSize().x / 2, rBlanco->getTextureSize().y / 2);
+    aBlanco->setOrigin(aBlanco->getTextureSize().x / 2, aBlanco->getTextureSize().y / 2);
     aBlanco->setPosition(600, 910);
     aBlanco->setScale(0.3, 0.4);
 
     aguaBueno->setTexture("resources/Textures/hud/agua.png", true);
-    aguaBueno->setOrigin(rayoBueno->getTextureSize().x / 2, rayoBueno->getTextureSize().y / 2);
+    aguaBueno->setOrigin(aguaBueno->getTextureSize().x / 2, aguaBueno->getTextureSize().y / 2);
     aguaBueno->setPosition(600, 910);
     aguaBueno->setScale(0.3, 0.4);
 
@@ -265,11 +274,17 @@ void Hud::resetFlash() {
 
 
 void Hud::cargarFuego() {
+    fuegoB = new Sprite();
     fBlanco = new Sprite();
     fuegoBueno = new Sprite();
     fGlare = new Sprite();
     fSombra = new Sprite();
 
+    fuegoB->setTexture("resources/Textures/hud/fuegoB.png",true);
+    fuegoB->setOrigin(rBlanco->getTextureSize().x / 2, rBlanco->getTextureSize().y / 2);
+    fuegoB->setPosition(400,910);
+    fuegoB->setScale(0.3,0.4);
+    
     fBlanco->setTexture("resources/Textures/hud/blanco.png", true);
     fBlanco->setOrigin(rBlanco->getTextureSize().x / 2, rBlanco->getTextureSize().y / 2);
     fBlanco->setPosition(400, 910);
@@ -334,30 +349,20 @@ Hud::~Hud() {
     delete rSombra;
     
     //Agua
-    printf("Hud 1\n");
     delete aguaBueno;
-     printf("Hud 2\n");
     delete aBlanco;
-     printf("Hud 3\n");
     delete aGlare;
-     printf("Hud 4\n");
-     printf("Hud 5\n");
     delete aSombra;
-     printf("Hud 6\n");
 
     //Fuego
     delete fuegoBueno;
-     printf("Hud 7\n");
     delete fBlanco;
-     printf("Hud 8\n");
     delete fGlare;
-     printf("Hud 9\n");
     delete fRayo;
-     printf("Hud 10\n");
     delete fSombra;
-     printf("Hud 11\n");
+    
     delete mCds;
-     printf("Hud 12\n");
-    delete mCoolDowns;
-     printf("Hud 13\n");
+    delete m;
+    delete curarBueno;
+
 }

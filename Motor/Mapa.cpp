@@ -67,6 +67,7 @@ void Mapa::CreateMelees() {
         {
 
             melees->reserve(l.objects.size());
+            numEnemigos+=l.objects.size();
             for (const auto& o : l.objects) {
                 int random = rand() % 2; // v1 in the range 0 to 99
                 if (random == 0) {
@@ -82,7 +83,6 @@ void Mapa::CreateMelees() {
                     melee->CreateBody();
                     melees->push_back(melee);
                 }
-
             }
         }
     }
@@ -163,6 +163,7 @@ void Mapa::CreateCasters() {
         if (l.name == "Casters") //static bodies which make up the map geometry
         {
             casters->reserve(l.objects.size());
+            numEnemigos+=l.objects.size();
             for (const auto& o : l.objects) {
                 
                 
