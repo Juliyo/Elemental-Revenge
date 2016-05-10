@@ -824,6 +824,7 @@ void Player::renderRayo(sf::Time elapsedTime, float interpolation) {
         }
     } else {
         hRayoAvanzado->StopAnimation();
+        hRayoAvanzado->body->SetActive(false);
     }
     hRayoBasico->PlayAnimation(*hRayoBasico->currentAnimation);
     if (hRayoBasico->draw == true) {
