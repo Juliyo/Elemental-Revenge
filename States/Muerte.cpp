@@ -187,6 +187,9 @@ void Muerte::HandleEvents(sf::Event& event) {
 
 void Muerte::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
    if (key == sf::Keyboard::Space) {
+           textoMuerte->setScale(2,2);
+            escala=1;
+
        restartReloj=true;
              StateStack::Instance()->SetCurrentState(States::ID::Menu);
    }
