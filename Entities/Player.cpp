@@ -801,6 +801,7 @@ void Player::renderRayo(sf::Time elapsedTime, float interpolation) {
     hRayoAvanzado->PlayAnimation(*hRayoAvanzado-> currentAnimation); //Current animation es un puntero a puntero
     if (hRayoAvanzado->draw == true) {
         if (hRayoAvanzado->tiempoCast.getTiempo() < hRayoAvanzado->getCast()) {
+            
             //switch
             switch (cuadrante) {
                 case 1:
@@ -816,6 +817,8 @@ void Player::renderRayo(sf::Time elapsedTime, float interpolation) {
                     currentAnimation = &castingAnimationLeftRayo;
                     break;
             }
+        }else{
+            hRayoAvanzado->body->SetActive(false);
         }
         hRayoAvanzado -> UpdateAnimation(elapsedTime);
         if (hRayoAvanzado->tiempoCast.getTiempo() < hRayoAvanzado->getCast()) {

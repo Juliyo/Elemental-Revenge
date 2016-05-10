@@ -387,6 +387,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
                 caster->at(i)->DrawWithInterpolation(interpolation);
             } else {
                 caster->at(i)->DrawAnimationWithOut(caster->at(i)->GetRenderPosition());
+                caster->at(i)->currentAnimation = &caster->at(i)->animationMuerte;
             }
         } else { //Si no renderizamos sin interpolacion
             caster->at(i)->DrawAnimationWithOut(caster->at(i)->GetRenderPosition());
