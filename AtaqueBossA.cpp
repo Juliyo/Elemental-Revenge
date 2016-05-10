@@ -22,7 +22,7 @@ AtaqueBossA::AtaqueBossA() {
 
 
     animationAtaque = new Animation();
-    animationAtaque->setSpriteSheet("resources/Textures/FuegoSpriteSheet.png");
+    animationAtaque->setSpriteSheet("resources/Textures/FuegoSpriteSheetAzul.png");
     animationAtaque->addFrame(sf::IntRect(0, 0, 152, 148));
     animationAtaque->addFrame(sf::IntRect(152, 0, 152, 148));
     animationAtaque->addFrame(sf::IntRect(304, 0, 152, 148));
