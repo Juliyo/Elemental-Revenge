@@ -751,6 +751,8 @@ void Player::updateAgua(bool aguaBasicCast, bool aguaAdvancedCast, sf::Time elap
             enemigo[1].empujado = false;
         }
          */
+    }else{
+        hAguaBasico->body->SetActive(false);
     }
 
     sf::Vector2f movement4(0.f, 0.f);
@@ -874,12 +876,13 @@ void Player::renderFuegoAvanzado(sf::Time elapsedTime, float interpolation) {
     if (hFuegoAvanzado->tiempoCast.getTiempo() < hFuegoAvanzado->getCast() && hFuegoAvanzado->lanzado == true) {
         if (hFuegoAvanzado->tiempoCast.getTiempo() > 0.4) {
             hFuegoAvanzado->SetScale(1.0, 1.0);
+            
         }
-        if (hFuegoAvanzado->tiempoCast.getTiempo() > 0.1) {
-            hFuegoAvanzado->body->SetActive(false);
-        }
+        
         hFuegoAvanzado->DrawWithInterpolation(interpolation, GetPreviousPosition(), GetPosition());
-        //hFuegoAvanzado->body->SetTransform(body->GetPosition(),0);
+        hFuegoAvanzado->body->SetTransform(body->GetPosition(),0);
+    }else{
+        hFuegoAvanzado->body->SetActive(false);
     }
 
     if (castFire2.getTiempo() < 0.4f) {

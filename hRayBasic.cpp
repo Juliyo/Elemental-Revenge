@@ -24,7 +24,7 @@ void hRayBasic::CreateBody() {
     
     //Creamos un objeto dinamico
     //bodyDef = new b2BodyDef();
-    bodyDef.type = b2_kinematicBody; 
+    bodyDef.type = b2_dynamicBody; 
     bodyDef.position = (tmx::SfToBoxVec(entity->GetPosition()));
     bodyDef.fixedRotation = true;
     //Añadimos el objeto al mundo
@@ -34,7 +34,7 @@ void hRayBasic::CreateBody() {
     //Se crea una shape, le damos las dimensiones pasandole la mitad del ancho y la mitad del alto
     //del BoundingBox
     //circleShape = new b2CircleShape();
-    shape.SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth()/2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f)/*,tmx::SfToBoxVec(sf::Vector2f(40,-30)),0*/);
+    shape.SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth()/2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f),tmx::SfToBoxVec(sf::Vector2f(0,rectColision->GetHeight()/2.f)),0);
     //circleShape.m_radius = tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f);
     InGame::Instance()->rs = new sf::RectangleShape();
     InGame::Instance()->rs->setPosition(InGame::Instance()->player->GetPosition().x,InGame::Instance()->player->GetPosition().y*-1);
@@ -72,7 +72,7 @@ hRayBasic::hRayBasic(): Collisionable((Entity*)this) {
     animationDurante = new Animation();
     PrimeraAnimacion = new Animation();
     setCD(5);
-    hDamage = 3;
+    
     setCast(3);
     if (!hTexture.loadFromFile("resources/Textures/RayoSpriteSheet.png")) {
 
@@ -131,10 +131,10 @@ hRayBasic::hRayBasic(): Collisionable((Entity*)this) {
     currentAnimation = &PrimeraAnimacion;
     InicializarAnimatedSprite(sf::seconds(0.5f / 8), true, false);
     SetOriginAnimatedSprite(40, -30);
-    Collisionable::SetOriginColision(40,-30);
-    
-    Collisionable::SetRectangleColision(0,0,89,445);
+    Collisionable::SetOriginColision(0,-30);
+    Collisionable::SetRectangleColision(0,0,50,445);
     CreateBody();
+    Hechizo::setDamage(1.f);
 }
 
 
@@ -151,7 +151,7 @@ std::string hRayBasic::getClassName() {
 }
 
 void hRayBasic::cast(sf::Vector2f posicion) {
-
+    body->SetActive(true);
       /*if(!buffer.loadFromFile("resources/Sounds/Pistola.wav")){
         exit(0);
     }
@@ -170,43 +170,49 @@ void hRayBasic::cast(sf::Vector2f posicion) {
 
     angleShot = (angleShot * 180 / 3.14) + 270;
     SetAngle(angleshot2, angleShot);
-    body->SetTransform(tmx::SfToBoxVec(posicion),0);
-    body->
+    body->SetTransform( tmx::SfToBoxVec(posicion), tmx::SfToBoxAngle(angleshot2));
+    //body->SetTransform(tmx::SfToBoxVec(posicion),tmx::SfToBoxAngle(angleShot));
+    //rotateObject(body,tmx::BoxToSfFloat(body->GetPosition().x),tmx::BoxToSfFloat(body->GetPosition().y),rectColision->GetWidth(),rectColision->GetHeight(),angleShot,100);
     SetPosition(tmx::BoxToSfVec(body->GetPosition()));
     angleshot2 = angleShot; //so it goes in a straight line
     InGame::Instance()->rs->setPosition(tmx::BoxToSfVec(body->GetPosition()));
-    InGame::Instance()->rs->setRotation(((angleShot-270)));
+    InGame::Instance()->rs->setRotation(tmx::BoxToSfAngle(body->GetAngle())-270);
 
 }
 
-void hRayBasic::rotateObject(Body body, float x1, float y1, float width1, float height1, float rotation,float PPM){
+void hRayBasic::rotateObject(b2Body *body, float x1, float y1, float width1, float height1, float rotation,float PPM){
  
         float DEGTORAD = 0.0174532925199432957f;
         // Top left corner of object
-        sf::Vector2f pos;
-        pos((x1) / PPM, (y1 + height1) / PPM);
+        sf::Vector2f pos((x1) / PPM, (y1 + height1) / PPM);
         // angle of rotation in radians
         float angle = DEGTORAD * (rotation);
         // half of diagonal for rectangular object
         float radius = (float) ((std::sqrt(
-                (width1 * width1 + height1 * height1)) / 2f) / PPM);
+                (width1 * width1 + height1 * height1)) / 2.f) / PPM);
         // Angle at diagonal of rectangular object
         double theta = (std::tanh(height1 / width1) * DEGTORAD);
  
                  // Finding new position if rotation was with respect to top-left corner of object.  
         // X=x+ radius*cos(theta-angle)+(h/2)cos(90+angle)
         // Y= y+radius*sin(theta-angle)-(h/2)sin(90+angle)
-        pos.x = pos.x + 
-        pos = pos.add((float) (radius * Math.cos(-angle + theta)),(float) (radius * Math.sin(-angle + theta))).add((float) ((height1 / PPM / 2) * Math.cos(90 * DEGTORAD+ angle)),(float) (-(height1 / PPM / 2) * Math.sin(90* DEGTORAD + angle)));
+        pos.x += (float) (radius * std::cos(-angle + theta));
+        pos.y += (float) (radius * std::sin(-angle + theta));
+        pos.x += (float) ((height1 / PPM / 2) * std::cos(90 * DEGTORAD+ angle));
+        pos.y +=(float) (-(height1 / PPM / 2) * std::sin(90* DEGTORAD + angle));
         // transform the body
-        body.setTransform(pos, -angle);
+        b2Vec2 vecPos;
+        vecPos.x=pos.x;
+        vecPos.y=pos.y;
+        body->SetTransform(vecPos,-angle);
  
-    }
 }
+
 
 void hRayBasic::stopSound() {
     SoundManager *sonido = SoundManager::Instance();
     sonido->stop("resources/Sounds/Rbasico.wav");
+    
 }
 
 

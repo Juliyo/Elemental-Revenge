@@ -45,9 +45,8 @@ void hFireAdvanced::CreateBody() {
     fixtureDef.shape = &circleShape;
     fixtureDef.density = 1.0f;
     fixtureDef.friction = 1.0f;
-    fixtureDef.restitution = 0.7f;
     fixtureDef.filter.categoryBits = Filtro::_entityCategory::HECHIZO;
-    fixtureDef.filter.maskBits = Filtro::_entityCategory::ENEMIGO | Filtro::_entityCategory::BOUNDARY;
+    fixtureDef.filter.maskBits = Filtro::_entityCategory::ENEMIGO;
     body->CreateFixture(&fixtureDef);
 }
 
@@ -60,7 +59,7 @@ hFireAdvanced::hFireAdvanced(): Collisionable((Entity*)this) {
     SetPosition(-10000, -10000);
     setCD(5.f);
     setCast(2.f);
-    hDamage = 0;
+    Hechizo::setDamage(1.f);
     actualSize = sf::Vector2f(0.3, 0.3);
     primerCast = true;
     SetRectangleColision(0,0,250,248);
