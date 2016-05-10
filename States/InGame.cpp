@@ -24,7 +24,7 @@ InGame* InGame::Instance() {
     if (mInstance == 0) {
         mInstance = new InGame();
     }
-    
+
     return mInstance;
 }
 
@@ -57,7 +57,7 @@ void InGame::Clear() {
     delete colaEnemigos;
     printf("Clear2.5\n");
 
-    while(!melee->empty()){
+    while (!melee->empty()) {
         delete melee->back(), melee->pop_back();
     }
 
@@ -81,7 +81,7 @@ void InGame::Inicializar() {
     pathfingind = new PathFinding();
 
     colaEnemigos = new std::deque<Enemigo*>();
-    
+
     level = new Level();
 
     video = new Video("resources/Videos/nubes/nube", 30, 495, 500, 0, sf::Vector2f(0.8, 1.4), true, sf::Vector2f(1280, 720));
@@ -124,15 +124,15 @@ void InGame::Inicializar() {
         exit(0);
     }
 
-  //  std::cout<<"AQUI LLEGO "<<std::endl;
-   // level->LoadMap(Niveles::ID::Level1);
+    //  std::cout<<"AQUI LLEGO "<<std::endl;
+    // level->LoadMap(Niveles::ID::Level1);
     //std::cout<<"HIJO "<<std::endl;
-   //level->map->CreateMelees();
-   // std::cout<<"DE LA GRAN"<<std::endl;
-   // level->map->CreateCasters();
-   // std::cout<<"PUTAA "<<std::endl;
-   // level->map->CreatePlayer();
-  //  std::cout<<"HOSTIA YA "<<std::endl;
+    //level->map->CreateMelees();
+    // std::cout<<"DE LA GRAN"<<std::endl;
+    // level->map->CreateCasters();
+    // std::cout<<"PUTAA "<<std::endl;
+    // level->map->CreatePlayer();
+    //  std::cout<<"HOSTIA YA "<<std::endl;
 
     video->Inicializar();
 }
@@ -154,16 +154,6 @@ void InGame::Update(sf::Time elapsedTime) {
 
             if ((*it)->GetEstado() == Estado::ID::Vivo || (*it)->GetEstado() == Estado::ID::Damaged) {
                 (*it)->Update(elapsedTime, x3, y3, 1);
-
-                if((*it)->distancia<50){
-                    //(*it)->paloninja2->setPosition((*it)->getPosition());
-                    (*it)->putopalodemierda->PlayAnimation((*it)->paloninja);
-                    (*it)->putopalodemierda->UpdateAnimation(elapsedTime);        
-                }else{
-                    if((*it)->paloninja2->isPlaying()){
-                            (*it)->putopalodemierda->StopAnimation();
-                    }
-                }
             } else if ((*it)->GetEstado() == Estado::ID::Muriendo) {
                 //Si acaba de morir lo borramos del mundo y lo matamos
                 (*it)->body->GetWorld()->DestroyBody((*it)->body);
@@ -190,12 +180,13 @@ void InGame::Update(sf::Time elapsedTime) {
         for (std::vector<Caster*>::iterator it = caster->begin(); it != caster->end(); ++it) {
             int x3 = player->getPosition().x - (*it)->getPosition().x;
             int y3 = player->getPosition().y - (*it)->getPosition().y;
-            if (sqrt(pow(x3, 2) + pow(y3, 2)) < 250) {
-                (*it)->updateDisparoEnemigo(true, elapsedTime, player->getPosition().x, player->getPosition().y);
-            } else {
-                (*it)->updateDisparoEnemigo(false, elapsedTime, player->getPosition().x, player->getPosition().y);
-            }
-            if ((*it)->GetEstado() == Estado::ID::Vivo) {
+
+            if ((*it)->GetEstado() == Estado::ID::Vivo || (*it)->GetEstado() == Estado::ID::Damaged) {
+                if (sqrt(pow(x3, 2) + pow(y3, 2)) < 250) {
+                    (*it)->updateDisparoEnemigo(true, elapsedTime, player->getPosition().x, player->getPosition().y);
+                } else {
+                    (*it)->updateDisparoEnemigo(false, elapsedTime, player->getPosition().x, player->getPosition().y);
+                }
                 (*it)->Update(elapsedTime, x3, y3, 1);
             } else if ((*it)->GetEstado() == Estado::ID::Muriendo) {
                 //Si acaba de morir lo borramos del mundo y lo matamos
@@ -312,7 +303,7 @@ void InGame::Update(sf::Time elapsedTime) {
         StateStack::Instance()->SetCurrentState(States::ID::Muerte);
     }
     //printf("Numero de enemigos: %d\n",level->map->numEnemigos);
-    if(level->map->numEnemigos==0){
+    if (level->map->numEnemigos == 0) {
         StateStack::Instance()->SetCurrentState(States::ID::Transition);
     }
 }
@@ -473,13 +464,13 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     if (!video -> getLooped()) {
         video -> PlayVideo();
     }
-    
+
     //Si el Pause está activo es el Pause el que hace el Display
     if (StateStack::Instance()->currentState != States::ID::Pause && StateStack::Instance()->currentState != States::ID::Muerte) {
         motor->SetView(1); //vista del juego
 
         motor->DrawMouse();
-        
+
         motor->display();
     }
 
@@ -488,7 +479,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
         player->SetEstado(Estado::ID::Muerto);
         player->currentAnimation = &player->Muerto;
     }
-    
+
 
 }
 
@@ -599,11 +590,11 @@ void InGame::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
             aguaBasicCast = false;
             aguaAdvancedCast = false;
             if (button == sf::Mouse::Left) {//Traslaciones
-                
+
                 fuegoBasicCast = isPressed;
             }
             if (button == sf::Mouse::Right) { //Traslaciones
-                
+
                 fuegoAdvancedCast = isPressed;
             }
             break;
@@ -615,11 +606,11 @@ void InGame::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
             fuegoBasicCast = false;
             fuegoAdvancedCast = false;
             if (button == sf::Mouse::Left) {//Traslaciones
-                
+
                 aguaBasicCast = isPressed;
             }
             if (button == sf::Mouse::Right) { //Traslaciones
-                
+
                 aguaAdvancedCast = isPressed;
             }
             break;
@@ -631,7 +622,7 @@ void InGame::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
 void InGame::primerosDeLaCola() {
     int ite = 0;
     while (ite < 6) {
-        if (colaEnemigos->size() > 0 && colaEnemigos->at(0)!=NULL) {
+        if (colaEnemigos->size() > 0 && colaEnemigos->at(0) != NULL) {
             if ((colaEnemigos->at(0)->distancia < 500 && colaEnemigos->at(0)->getClassName() == "Melee")) {
                 colaEnemigos->at(0)->posiblecamino = pathfingind->buscaCamino(colaEnemigos->at(0)->GetPosition(), player->GetPosition());
                 if (colaEnemigos->at(0)->bueno) {
@@ -652,7 +643,7 @@ void InGame::primerosDeLaCola() {
                 colaEnemigos->at(0)->bueno = !colaEnemigos->at(0)->bueno;
                 ite--;
             }
-            
+
             colaEnemigos->at(0)->encola = false;
             colaEnemigos->pop_front();
             ite++;

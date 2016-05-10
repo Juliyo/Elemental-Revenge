@@ -152,6 +152,10 @@ void Caster::Inicializar(float posX, float posY, Tipo::Caster tipo, float speedX
     }
     empujado = false;
     empujado2 = false;
+    damaged = new Reloj();
+    //Cargamos shader del player para el colo
+    LoadShader("resources/Shader/fs.frag");
+    ActiveShader(false);
 }
 
 void Caster::CreateBody() {
@@ -198,7 +202,7 @@ void Caster::Update(const sf::Time elapsedTime, float x1, float x2, float multip
     // if (inicio.getTiempo() > 0.5f) {
     float x = world->player->GetPosition().x - this->GetPosition().x;
     float y = world->player->GetPosition().y - this->GetPosition().y;
-    if (GetEstado() == Estado::ID::Damaged && damaged.getTiempo() > 0.05f) {
+    if (GetEstado() == Estado::ID::Damaged && damaged->getTiempo() > 0.05f) {
         ActiveShader(false);
         SetEstado(Estado::ID::Vivo);
     }
@@ -317,7 +321,7 @@ void Caster::RestarVida(int a) {
         invulnerable.restart();
         SetVida(GetVida() - a);
         ActiveShader(true);
-        damaged.restart();
+        damaged->restart();
         SetEstado(Estado::ID::Damaged);
         if (m_tipo == Tipo::Caster::Bandido) {
             SoundManager::Instance()->setVolumen("resources/Sounds/bandithit.ogg",50);

@@ -81,7 +81,7 @@ public:
     std::vector<sf::RectangleShape> shapesDebug;
     sf::Color color;
     
-    Reloj damaged;
+    Reloj *damaged;
 private:
     Tipo::Caster m_tipo;
     sf::Texture texturaEnemigo;

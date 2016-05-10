@@ -133,7 +133,8 @@ void ContactListener::BeginContact(b2Contact* contact) {
         }else if(claseB == "Caster"){
             Caster *m = static_cast<Caster*> (fixtureB->GetBody()->GetUserData());
             hFireAdvanced *f = static_cast<hFireAdvanced*> (fixtureA->GetBody()->GetUserData());
-            m->RestarVida(f->getDamage());
+            m->numContactos++;
+            m->damageTaken = f->getDamage();
         }
     } else if (claseA == "hWaterBasic") {
         if (claseB == "Melee") {
@@ -188,6 +189,25 @@ void ContactListener::BeginContact(b2Contact* contact) {
             hFireBasic *f = static_cast<hFireBasic*> (fixtureB->GetBody()->GetUserData());
             m->RestarVida(f->getDamage());
             f->Colision();
+        }else if(claseB == "hFireAdvanced"){
+            Caster *m = static_cast<Caster*> (fixtureA->GetBody()->GetUserData());
+            hFireAdvanced *f = static_cast<hFireAdvanced*> (fixtureB->GetBody()->GetUserData());
+            
+            m->numContactos++;
+            m->damageTaken = f->getDamage();
+        }else if(claseB == "hRayBasic"){
+            Caster *m = static_cast<Caster*> (fixtureA->GetBody()->GetUserData());
+            hRayBasic *f = static_cast<hRayBasic*> (fixtureB->GetBody()->GetUserData());
+            m->numContactos++;
+            m->damageTaken = f->getDamage();
+        }else if(claseB == "hWaterBasic"){
+            hWaterBasic *w = static_cast<hWaterBasic*> (fixtureB->GetBody()->GetUserData());
+            b2Vec2 toTarget = fixtureA->GetBody()->GetPosition() - fixtureB->GetBody()->GetPosition();
+            toTarget.Normalize();
+            b2Vec2 desiredVel = 0.08f * toTarget;
+            fixtureA->GetBody()->ApplyLinearImpulse(desiredVel, fixtureA->GetBody()->GetWorldCenter(), true);
+            Caster *m = static_cast<Caster*> (fixtureA->GetBody()->GetUserData());
+            m->RestarVida(w->getDamage());
         }
     }else if(claseA == "hRayBasic"){
         if(claseB == "Melee"){
@@ -195,8 +215,14 @@ void ContactListener::BeginContact(b2Contact* contact) {
             hRayBasic *f = static_cast<hRayBasic*> (fixtureA->GetBody()->GetUserData());
             m->numContactos++;
             m->damageTaken = f->getDamage();
+        }else if(claseB == "Caster"){
+            Caster *m = static_cast<Caster*> (fixtureB->GetBody()->GetUserData());
+            hRayBasic *f = static_cast<hRayBasic*> (fixtureA->GetBody()->GetUserData());
+            m->numContactos++;
+            m->damageTaken = f->getDamage();
         }
     }
+
 }
 void ContactListener::EndContact(b2Contact* contact) { 
     std::string claseA = "";
@@ -229,10 +255,24 @@ void ContactListener::EndContact(b2Contact* contact) {
         if(claseB == "Melee"){
             Melee *m = static_cast<Melee*> (fixtureB->GetBody()->GetUserData());
             m->numContactos--;
+        }else if(claseB == "Caster"){
+            Caster *m = static_cast<Caster*> (fixtureB->GetBody()->GetUserData());
+            m->numContactos--;
         }
     }else if(claseA == "hRayBasic"){
         if(claseB == "Melee"){
             Melee *m = static_cast<Melee*> (fixtureB->GetBody()->GetUserData());
+            m->numContactos--;
+        }else if(claseB == "Caster"){
+            Caster *m = static_cast<Caster*> (fixtureB->GetBody()->GetUserData());
+            m->numContactos--;
+        }
+    }else if(claseA == "Caster"){
+        if(claseB == "hFireAdvanced"){
+            Caster *m = static_cast<Caster*> (fixtureA->GetBody()->GetUserData());
+            m->numContactos--;
+        } else if (claseB == "hRayBasic") {
+            Caster *m = static_cast<Caster*> (fixtureA->GetBody()->GetUserData());
             m->numContactos--;
         }
     }
@@ -244,24 +284,32 @@ void ContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldManifold
     std::string claseB = "";
     b2Fixture* fixtureA = contact->GetFixtureA();
     b2Fixture* fixtureB = contact->GetFixtureB();
-    if(fixtureA->GetBody()->GetUserData()){
+    if (fixtureA->GetBody()->GetUserData()) {
         claseA = static_cast<Entity*> (fixtureA->GetBody()->GetUserData())->getClassName();
     }
-    if(fixtureB->GetBody()->GetUserData()){
+    if (fixtureB->GetBody()->GetUserData()) {
         claseB = static_cast<Entity*> (fixtureB->GetBody()->GetUserData())->getClassName();
     }
-    if(claseA == "hRayBasic"){
-        if(claseB == "Melee"){
+    if (claseA == "hRayBasic") {
+        if (claseB == "Melee") {
             contact->SetEnabled(false);
         }
-    }else if(claseA == "Melee"){
-        if(claseB == "hRayBasic"){
+    } else if (claseA == "Melee") {
+        if (claseB == "hRayBasic") {
+            contact->SetEnabled(false);
+        } else if (claseB == "hFireAdvanced") {
+            contact->SetEnabled(false);
+        }
+    } else if (claseA == "hFireAdvanced") {
+        if (claseB == "Melee") {
+            contact->SetEnabled(false);
+        } else if (claseB == "Caster") {
+            contact->SetEnabled(false);
+        }
+    }else if(claseA == "Caster"){
+        if(claseB == "hFireAdvanced"){
             contact->SetEnabled(false);
         }else if(claseB == "hFireAdvanced"){
-           contact->SetEnabled(false);
-        }
-    }else if(claseA == "hFireAdvanced"){
-        if(claseB == "Melee"){
             contact->SetEnabled(false);
         }
     }
