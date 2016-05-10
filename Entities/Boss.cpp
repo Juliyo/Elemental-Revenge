@@ -163,8 +163,8 @@ void Boss::Inicializar(float posX, float posY,float speedX, float speedY, float 
     Enemigo::SetVelocity(100);
     Enemigo::SetVida(5);
     PhysicsState::SetMaxSpeed(maxSpeedX, maxSpeedY);
-    Render::SetOriginAnimatedSprite(17, 16);
-    SetOriginColision(17, 16);
+    Render::SetOriginAnimatedSprite(30, 38);
+    SetOriginColision(30, 38);
     
     
 
@@ -417,7 +417,6 @@ void Boss::updateAtaqueBossB(bool disparado, sf::Time elapsedTime,float x4,float
 
 void Boss::updateAtaqueBossC(bool disparado, sf::Time elapsedTime,float x4,float y4) {
 
-        sf::Vector2f movement2(0.f, 0.f);
 
         if(espiral->at(0)->ClockResetEspiral.getTiempo()<espiral->at(0)->cdResetEspiral){
         
@@ -430,7 +429,7 @@ void Boss::updateAtaqueBossC(bool disparado, sf::Time elapsedTime,float x4,float
                 ///LINEA 1 DE BOLAS
                 if(setOriginEspiral<2){
                 espiral->at(0)->SetPosition(getPosition().x, getPosition().y);
-                espiral->at(0)->SetOriginAnimation(getPosition().x-750, getPosition().y-750);
+                espiral->at(0)->SetOriginAnimation(GetSpriteAnimated().getOrigin().x,GetSpriteAnimated().getOrigin().y);
                 setOriginEspiral++;
                 }
                 else{
@@ -442,7 +441,7 @@ void Boss::updateAtaqueBossC(bool disparado, sf::Time elapsedTime,float x4,float
                 ///LINEA 2 DE BOLAS   
                 if(setOriginEspiral2<2){
                 espiral->at(50)->SetPosition(getPosition().x, getPosition().y);
-                espiral->at(50)->SetOriginAnimation(getPosition().x-750, getPosition().y-750);
+                espiral->at(50)->SetOriginAnimation(GetSpriteAnimated().getOrigin().x,GetSpriteAnimated().getOrigin().y);
                 setOriginEspiral2++;
                 }
                 else{
@@ -455,7 +454,7 @@ void Boss::updateAtaqueBossC(bool disparado, sf::Time elapsedTime,float x4,float
                 ///LINEA 3 DE BOLAS
                 if(setOriginEspiral3<2){
                 espiral->at(numBolasEspiral3+100)->SetPosition(getPosition().x, getPosition().y);
-                espiral->at(numBolasEspiral3+100)->SetOriginAnimation(getPosition().x-750, getPosition().y-750);
+                espiral->at(numBolasEspiral3+100)->SetOriginAnimation(GetSpriteAnimated().getOrigin().x, GetSpriteAnimated().getOrigin().y);
                 
                 setOriginEspiral3++;
                 }
@@ -478,28 +477,28 @@ void Boss::updateAtaqueBossC(bool disparado, sf::Time elapsedTime,float x4,float
             espiral->at(i)->SetPosition(getPosition().x, getPosition().y);
             
             if(rotacion[i]%360==45){
-                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+20,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+24,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
             }
             if(rotacion[i]%360==90){
-               espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+20,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+               espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+24,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
             }
             if(rotacion[i]%360==135){
-                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+20,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+24,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
             }
             if(rotacion[i]%360==180){
-                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+20,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+24,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
             }
             if(rotacion[i]%360==225){
-                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+20,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+24,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
             }
             if(rotacion[i]%360==270){
-                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+20,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+24,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
             }            
             if(rotacion[i]%360==315){
-                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+20,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+24,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
             }
             if(rotacion[i]%360==0){
-                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+20,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+24,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
             }
 
             }
@@ -511,28 +510,28 @@ void Boss::updateAtaqueBossC(bool disparado, sf::Time elapsedTime,float x4,float
             espiral->at(i)->SetPosition(getPosition().x, getPosition().y);
             
             if(rotacion2[i]%360==45){
-                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+20,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+24,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
             }
             if(rotacion2[i]%360==90){
-                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+20,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+24,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
             }
             if(rotacion2[i]%360==135){
-                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+20,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+24,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
             }
             if(rotacion2[i]%360==180){
-                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+20,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+24,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
             }
             if(rotacion2[i]%360==225){
-                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+20,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+24,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
             }
             if(rotacion2[i]%360==270){
-                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+20,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+24,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
             }            
             if(rotacion2[i]%360==315){
-                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+20,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+24,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
             }
             if(rotacion2[i]%360==0){
-                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+20,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+24,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
             }
 
             }
@@ -544,28 +543,28 @@ void Boss::updateAtaqueBossC(bool disparado, sf::Time elapsedTime,float x4,float
             espiral->at(i)->SetPosition(getPosition().x, getPosition().y);
             
             if(rotacion3[i]%360==45){
-                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+20,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+24,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
             }
             if(rotacion3[i]%360==90){
-                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+20,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+24,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
             }
             if(rotacion3[i]%360==135){
-                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+20,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+24,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
             }
             if(rotacion3[i]%360==180){
-                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+20,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+24,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
             }
             if(rotacion3[i]%360==225){
-                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+20,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+24,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
             }
             if(rotacion3[i]%360==270){
-                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+20,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+24,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
             }            
             if(rotacion3[i]%360==315){
-                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+20,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+24,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
             }
             if(rotacion3[i]%360==0){
-                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+20,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x+24,espiral->at(i)->GetSpriteAnimated().getOrigin().y);
             }
 
             }

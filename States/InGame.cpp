@@ -423,9 +423,9 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     motor->draw(mouseSprite);
     
     boss->at(0)->renderAtaqueA(elapsedTime, interpolation);
-    boss->at(0)->renderAtaqueB(elapsedTime, interpolation);
+   // boss->at(0)->renderAtaqueB(elapsedTime, interpolation);
 
-    boss->at(0)->renderAtaqueC(elapsedTime, interpolation);
+    //boss->at(0)->renderAtaqueC(elapsedTime, interpolation);
     
     motor->display();
 }
