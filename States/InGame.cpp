@@ -24,7 +24,7 @@ InGame* InGame::Instance() {
     if (mInstance == 0) {
         mInstance = new InGame();
     }
-
+    
     return mInstance;
 }
 
@@ -80,7 +80,7 @@ void InGame::Inicializar() {
     pathfingind = new PathFinding();
 
     colaEnemigos = new std::deque<Enemigo*>();
-    SoundManager::Instance()->load();
+    
     level = new Level();
 
     video = new Video("resources/Videos/nubes/nube", 30, 495, 500, 0, sf::Vector2f(0.8, 1.4), true, sf::Vector2f(1280, 720));
