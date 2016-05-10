@@ -19,10 +19,10 @@
 
 Transition::Transition() {
     motor = Motor2D::Instance();
-    
+
     motor->setCenterForView(4, 650, 350);
-    
-   
+
+
 
     /*musica = new sf::Music();
     musica->openFromFile("resources/Sounds/history.ogg");
@@ -54,10 +54,9 @@ void Transition::Clear() {
 
 }
 
-
 void Transition::Inicializar() {
-    
-     spriteOpcionA = new Sprite();
+
+    spriteOpcionA = new Sprite();
     pregunta = new Sprite();
     spriteOpcionB = new Sprite();
     nextLevel = new Sprite();
@@ -67,13 +66,13 @@ void Transition::Inicializar() {
     cruzeta1 = new Sprite();
     cruzeta2 = new Sprite();
     simbolo = new Sprite();
-    
+
     video = new Video("resources/Videos/moltoFondaco/frame-", 9, 145, 110, 1, sf::Vector2f(1.7, 1.7));
-    
+
     video->Inicializar();
     //Carga XML
-    
-    level=0;
+
+    level = 0;
     TiXmlDocument doc;
     doc.LoadFile("resources/historia.xml");
     TiXmlElement* pregunta1 = doc.FirstChildElement("pregunta");
@@ -100,7 +99,7 @@ void Transition::Inicializar() {
     }
     //Establecemos la raiz del arbol como el nodo actual
     currentNode = arbol->search(4);
-    
+
     //Carga texturas
     try {
         texPregunta.loadFromFile(arbol->search(4)->pregunta);
@@ -167,13 +166,12 @@ void Transition::Inicializar() {
     cruzeta2->setTexture(cruzeta);
     cruzeta2->setOrigin(cruzeta.getSize().x / 2, cruzeta.getSize().y / 2);
     cruzeta2->setScale(0.25, 0.25);
-    
+
     Music *music = Music::Instance();
     music->Stop();
     music->Load(MUSICA::ID::Transiciones);
     music->Play();
 }
-
 
 void Transition::Update(sf::Time elapsedTime) {
     video->setDibujar(true);
@@ -212,23 +210,62 @@ void Transition::Update(sf::Time elapsedTime) {
                 drawNextLevel = false;
                 buttonPressed = false;
                 printf("Antes de cambiar de mapa");
-                InGame::Instance()->level->LoadMap(static_cast<Niveles::ID>(level));
-/*****************ESTO HACE FALTA PERO CUANDO VAYAN LOS DELETES*******************/
-//                    std::cout<<"HIJO 222"<<std::endl;
-//    InGame::Instance()->level->map->CreateMelees();
-//    std::cout<<"DE LA GRAN2222"<<std::endl;
-//    InGame::Instance()->level->map->CreateCasters();
-//    std::cout<<"PUTAA 222"<<std::endl;
-//    InGame::Instance()->level->map->CreatePlayer();
-//    std::cout<<"HOSTIA YA 222"<<std::endl;
+                InGame::Instance()->physicWorld = new b2World(tmx::SfToBoxVec(sf::Vector2f(0.f, 0.f)));
+                InGame::Instance()->ct = new ContactListener();
+   InGame::Instance()->physicWorld->SetContactListener(InGame::Instance()->ct);
+  // InGame::Instance()->pathfingind = new PathFinding();
+
+                InGame::Instance()->level->LoadMap(static_cast<Niveles::ID> (level));
+
+                /*****************ESTO HACE FALTA PERO CUANDO VAYAN LOS DELETES*******************/
+                //borramos
+   
+                   if (InGame::Instance()->level->currentLevel!= Niveles::Level1) {
+                    while (!InGame::Instance()->caster->empty()) {
+                        //delete InGame::Instance()->caster->back(), InGame::Instance()->caster->pop_back();
+                        InGame::Instance()->caster->pop_back();
+                    }
+                    //delete InGame::Instance()->caster;
+                    printf("Clear2\n");
+                    while (!InGame::Instance()->colaEnemigos->empty()) {
+                        //delete InGame::Instance()->colaEnemigos->back(), InGame::Instance()->colaEnemigos->pop_back();
+                    InGame::Instance()->colaEnemigos->pop_back();
+                    }
+//                    delete InGame::Instance()->colaEnemigos;
+                    printf("Clear2.5\n");
+
+                    while (!InGame::Instance()->melee->empty()) {
+                        //delete InGame::Instance()->melee->back(), InGame::Instance()->melee->pop_back();
+                        InGame::Instance()->melee->pop_back();
+                    }
+                    printf("Clear6\n");
+                    delete InGame::Instance()->player;
+//    InGame::Instance()->physicWorld = new b2World(tmx::SfToBoxVec(sf::Vector2f(0.f, 0.f)));
+//    InGame::Instance()->ct = new ContactListener();
+//    InGame::Instance()->physicWorld->SetContactListener(InGame::Instance()->ct);
+//    InGame::Instance()->pathfingind = new PathFinding();
+                }
+   
+
+
+                //cargamos
+                
+                //InGame::Instance()->colaEnemigos=new std::deque<Enemigo*>();
+                std::cout << "HIJO 222" << std::endl;
+                InGame::Instance()->level->map->CreateMelees();
+                std::cout << "DE LA GRAN2222" << std::endl;
+                InGame::Instance()->level->map->CreateCasters();
+                std::cout << "PUTAA 222" << std::endl;
+                InGame::Instance()->level->map->CreatePlayer();
+                std::cout << "HOSTIA YA 222" << std::endl;
 
                 StateStack::Instance()->SetCurrentState(States::ID::InGame);
 
-                    Music *music = Music::Instance();
-                    music->Stop();
-                    music->Load(MUSICA::ID::Mapa1);
-                    music->Play();
-                level++;
+                Music *music = Music::Instance();
+                music->Stop();
+                music->Load(MUSICA::ID::Mapa1);
+                music->Play();
+                    level++; 
                 printf("Se supone que llego a la ultima linea de Ingame\n");
             }
         }
@@ -272,7 +309,7 @@ void Transition::Update(sf::Time elapsedTime) {
             spriteOpcionA->setColor(transparent);
             spriteOpcionB->setColor(transparent);
             cruzeta1->setColor(transparent);
-            
+
             simbolo->setColor(transparent);
             switch (currentNode->key_value) {
                 case 4:
@@ -675,9 +712,9 @@ void Transition::Update(sf::Time elapsedTime) {
 void Transition::changePregunta() {
     if (izq) {
         if (currentNode -> left == NULL) {
-            if(salir)
-            exit(0);
-            salir=true;
+            if (salir)
+                exit(0);
+            salir = true;
             izq = false;
         } else {
             //std::cout<<currentNode -> left -> pregunta <<std::endl;
@@ -687,9 +724,9 @@ void Transition::changePregunta() {
 
     } else {
         if (currentNode -> right == NULL) {
-            if(salir)
-            exit(0);
-            salir=true;
+            if (salir)
+                exit(0);
+            salir = true;
             der = false;
         } else {
             currentNode = currentNode -> right;
@@ -909,20 +946,21 @@ void Transition::updateView() {
 
 void Transition::HandleEvents(sf::Event& event) {
     switch (event.type) {
-        /*case sf::Event::KeyPressed:
-            handlePlayerInput(event.key.code,true);
-            break;
-        case sf::Event::KeyReleased:
-            handlePlayerInput(event.key.code,false);
-            break;*/
+            /*case sf::Event::KeyPressed:
+                handlePlayerInput(event.key.code,true);
+                break;
+            case sf::Event::KeyReleased:
+                handlePlayerInput(event.key.code,false);
+                break;*/
         case sf::Event::MouseButtonPressed:
-            handleMouseInput(event.mouseButton.button,true);
+            handleMouseInput(event.mouseButton.button, true);
             break;
         case sf::Event::MouseButtonReleased:
-            handleMouseInput(event.mouseButton.button,false);
+            handleMouseInput(event.mouseButton.button, false);
             break;
     }
 }
+
 void Transition::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
     if (button == sf::Mouse::Button::Left) {
         buttonPressed = isPressed;

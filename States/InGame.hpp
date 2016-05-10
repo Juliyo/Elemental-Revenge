@@ -76,6 +76,7 @@ public:
     PathFinding                 *pathfingind;
     std::deque<Enemigo*>          *colaEnemigos;
     sf::RectangleShape              *rs;
+    ContactListener             *ct;
 private:
     
     
@@ -109,7 +110,7 @@ private:
     int                         anterior=0;
     
     static InGame* mInstance;
-    ContactListener             *ct;
+    
 };
 
 #endif /* INGAME_HPP */

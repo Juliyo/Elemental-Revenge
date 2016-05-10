@@ -121,15 +121,15 @@ void InGame::Inicializar() {
         std::cout << "Excepcion: " << e.what() << std::endl;
         exit(0);
     }
-    std::cout<<"AQUI LLEGO "<<std::endl;
-    level->LoadMap(Niveles::ID::Level1);
-    std::cout<<"HIJO "<<std::endl;
-    level->map->CreateMelees();
-    std::cout<<"DE LA GRAN"<<std::endl;
-    level->map->CreateCasters();
-    std::cout<<"PUTAA "<<std::endl;
-    level->map->CreatePlayer();
-    std::cout<<"HOSTIA YA "<<std::endl;
+  //  std::cout<<"AQUI LLEGO "<<std::endl;
+   // level->LoadMap(Niveles::ID::Level1);
+    //std::cout<<"HIJO "<<std::endl;
+   //level->map->CreateMelees();
+   // std::cout<<"DE LA GRAN"<<std::endl;
+   // level->map->CreateCasters();
+   // std::cout<<"PUTAA "<<std::endl;
+   // level->map->CreatePlayer();
+  //  std::cout<<"HOSTIA YA "<<std::endl;
     video->Inicializar();
 }
 
@@ -602,11 +602,11 @@ void InGame::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
             aguaBasicCast = false;
             aguaAdvancedCast = false;
             if (button == sf::Mouse::Left) {//Traslaciones
-                printf("fuego basico \n");
+                
                 fuegoBasicCast = isPressed;
             }
             if (button == sf::Mouse::Right) { //Traslaciones
-                printf("fuego avanzado \n");
+                
                 fuegoAdvancedCast = isPressed;
             }
             break;
@@ -618,11 +618,11 @@ void InGame::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
             fuegoBasicCast = false;
             fuegoAdvancedCast = false;
             if (button == sf::Mouse::Left) {//Traslaciones
-                printf("Agua basico \n");
+                
                 aguaBasicCast = isPressed;
             }
             if (button == sf::Mouse::Right) { //Traslaciones
-                printf("Agua avanzado \n");
+                
                 aguaAdvancedCast = isPressed;
             }
             break;
@@ -634,7 +634,7 @@ void InGame::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
 void InGame::primerosDeLaCola() {
     int ite = 0;
     while (ite < 6) {
-        if (colaEnemigos->size() > 0) {
+        if (colaEnemigos->size() > 0 && colaEnemigos->at(0)!=NULL) {
             if ((colaEnemigos->at(0)->distancia < 500 && colaEnemigos->at(0)->getClassName() == "Melee")) {
                 colaEnemigos->at(0)->posiblecamino = pathfingind->buscaCamino(colaEnemigos->at(0)->GetPosition(), player->GetPosition());
                 if (colaEnemigos->at(0)->bueno) {

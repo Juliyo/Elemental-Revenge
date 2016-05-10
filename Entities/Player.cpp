@@ -84,7 +84,7 @@ Player::~Player() {
     healingAnimationLeft=NULL;
     healingAnimationRight=NULL;
     healingAnimationUp=NULL;
-    delete hud;
+    //delete hud;
     
 }
 

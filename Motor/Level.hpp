@@ -24,9 +24,10 @@ public:
     void LoadMap(Niveles::ID nivel);
     void render();
     Mapa *map;
+    Niveles::ID currentLevel;
 private:
     std::map<Niveles::ID,std::string> *mapNiveles;
-    Niveles::ID currentLevel;
+    
 };
 
 #endif /* LEVEL_HPP */
