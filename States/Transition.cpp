@@ -214,20 +214,22 @@ void Transition::Update(sf::Time elapsedTime) {
                 
                 StateStack::Instance()->SetCurrentState(States::ID::Carga);
                 StateStack::Instance()->GetState(States::ID::Carga)->Inicializar();
-                printf("Termino la segunda carga\n");
-                }
-                
-                //StateStack::Instance()->SetCurrentState(States::ID::InGame);
+
 
                 Music *music = Music::Instance();
                 music->Stop();
                 music->Load(MUSICA::ID::Mapa1);
                 music->Play();
-                    level++; 
-            }
-        }
 
-    
+                level++;
+                printf("Se supone que llego a la ultima linea de Ingame\n");
+            }
+
+
+        }
+    }
+
+
 
     sf::Vector2f mousePosition = motor->getMousePosition();
     if (drawOpciones) {

@@ -45,21 +45,17 @@ void Caster::Inicializar(float posX, float posY, Tipo::Caster tipo, float speedX
     walkingAnimationUp = new Animation();
     animationMuerte = new Animation();
     disparos = new std::vector<DisparoEnemigo*>();
-    for(int i=0;i<5;i++){
+    for(int i=0;i<2;i++){
         disparos->push_back(new DisparoEnemigo());
     }
 
     if (tipo == Tipo::Caster::Mago) {
         //8 Maximo
         //5 Minimo
-        int randNum = rand()%(8-5 + 1) + 5;
+        int randNum = rand()%(5-3 + 1) + 3;
         CdDisparo = (float)randNum;
         
-        walkingAnimationDown->setSpriteSheet("resources/Textures/ninjapeq.png");
-        walkingAnimationDown->addFrame(sf::IntRect(0, 0, 34, 32));
-        walkingAnimationDown->addFrame(sf::IntRect(34, 0, 34, 32));
-        walkingAnimationDown->addFrame(sf::IntRect(68, 0, 34, 32));
-        walkingAnimationDown->addFrame(sf::IntRect(102, 0, 34, 32));
+
 
 
 
@@ -81,23 +77,15 @@ void Caster::Inicializar(float posX, float posY, Tipo::Caster tipo, float speedX
         animationMuerte->addFrame(sf::IntRect(0, 138, 76, 40));
 
 
-        walkingAnimationUp->setSpriteSheet("resources/Textures/ninjapeq2.png");
-        walkingAnimationUp->addFrame(sf::IntRect(0, 0, 34, 32));
-        walkingAnimationUp->addFrame(sf::IntRect(34, 0, 34, 32));
-        walkingAnimationUp->addFrame(sf::IntRect(68, 0, 34, 32));
-        walkingAnimationUp->addFrame(sf::IntRect(102, 0, 34, 32));
+
 
 
     } else {
         
-        int randNum = rand()%(8-5 + 1) + 5;
+        int randNum = rand()%(5-3 + 1) + 3;
         CdDisparo = (float)randNum;
         
-        walkingAnimationDown->setSpriteSheet("resources/Textures/ninjapeq.png");
-        walkingAnimationDown->addFrame(sf::IntRect(0, 0, 34, 32));
-        walkingAnimationDown->addFrame(sf::IntRect(34, 0, 34, 32));
-        walkingAnimationDown->addFrame(sf::IntRect(68, 0, 34, 32));
-        walkingAnimationDown->addFrame(sf::IntRect(102, 0, 34, 32));
+
 
 
 
@@ -122,11 +110,6 @@ void Caster::Inicializar(float posX, float posY, Tipo::Caster tipo, float speedX
         animationMuerte->addFrame(sf::IntRect(0, 34, 19, 14));
 
 
-        walkingAnimationUp->setSpriteSheet("resources/Textures/ninjapeq2.png");
-        walkingAnimationUp->addFrame(sf::IntRect(0, 0, 34, 32));
-        walkingAnimationUp->addFrame(sf::IntRect(34, 0, 34, 32));
-        walkingAnimationUp->addFrame(sf::IntRect(68, 0, 34, 32));
-        walkingAnimationUp->addFrame(sf::IntRect(102, 0, 34, 32));
 
       
     }
@@ -142,9 +125,24 @@ void Caster::Inicializar(float posX, float posY, Tipo::Caster tipo, float speedX
     Enemigo::SetVida(2);
     Enemigo::SetDamage(3);
     PhysicsState::SetMaxSpeed(maxSpeedX, maxSpeedY);
-    
+    Render::SetOriginAnimatedSprite(17, 16);
+    SetOriginColision(17, 16);
+    SetRectangleColision(0, 0, 34, 34);
+    if(m_tipo == Tipo::Caster::Bandido){
+        SetScaleAnimation(2.0, 2.0);
+        Render::SetOriginAnimatedSprite(8, 8);
+        SetOriginColision(8*2.0, 8*2.0);
+        SetRectangleColision(0, 0, 17*2.0, 17*2.0);
+        SetEstado(Estado::ID::Vivo);
+    }else{
+        SetScaleAnimation(0.6, 0.6);
+        Render::SetOriginAnimatedSprite(34, 34);
+        SetOriginColision(34*0.6, 34*0.6);
+        SetEstado(Estado::ID::Vivo);
+        SetRectangleColision(0, 0, 67*0.6, 69*0.6);
+    }
 
-    if (tipo == Tipo::Caster::Mago) {
+    /*if (tipo == Tipo::Caster::Mago) {
         SetScaleAnimation(0.6, 0.6);
         Render::SetOriginAnimatedSprite(17, 16);
         SetOriginColision(17*0.6, 16*0.6);
@@ -157,7 +155,7 @@ void Caster::Inicializar(float posX, float posY, Tipo::Caster tipo, float speedX
         SetOriginColision(17*1.5, 16*1.5);
         SetRectangleColision(0, 0, 34*1.5, 34*1.5);
         SetEstado(Estado::ID::Vivo);
-    }
+    }*/
     
     empujado = false;
     empujado2 = false;
@@ -296,7 +294,7 @@ void Caster::updateDisparoEnemigo(bool disparado, sf::Time elapsedTime, float x4
 
     if (disparado) {
 
-        if (numDisparo == 4) {
+        if (numDisparo == 1) {
             numDisparo = 0;
         }
 
