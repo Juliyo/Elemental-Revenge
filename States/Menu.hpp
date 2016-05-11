@@ -15,7 +15,8 @@
 #define MENU2_HPP
 
 #include <random>   // rng
-
+#include <string>
+#include <sstream>
 #include "../States/State.hpp"
 #include "btree.hpp"
 #include "AnimatedSprite.hpp"
@@ -49,6 +50,9 @@ public:
     void MoveUp();
     void MoveDown();
     
+    void MoveRight();
+    void MoveLeft();
+
     sf::Vector2f getPosition();
 
     
@@ -70,8 +74,14 @@ public:
     sf::View mWorldView;
     sf::View mBackgroundView;
     sf::View mHud;
+    
+    int volumenMusica=5;
+    int volumenSonidos=5;
 
 private:
+    
+    template <typename T>
+std::string NumberToString(T pNumber);
     
     void cargarAnimacionesMenu();
     
@@ -113,7 +123,9 @@ private:
     sf::Font fontTitulo;
     Text *textTitulo;
 
-    Text menu[4];
+    Text menu[10];
+    Text audioMusica;
+    Text audioSonido;
 };
 
 #endif /* MENU_HPP */

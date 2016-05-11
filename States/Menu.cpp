@@ -26,7 +26,7 @@ Menu::Menu() {
     spriteRelleno = new Sprite();
     mouseSprite = new Sprite();
     titulo = new Sprite();
-    mancha = new Sprite[3];
+    mancha = new Sprite[6];
     
     textTitulo = new Text();
     
@@ -98,7 +98,7 @@ void Menu::Inicializar() {
     spriteRelleno->setTextRect(0, 0, 1024, 2048);
     spriteRelleno->setScale(1, 2);
 
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 5; i++) {
         mancha[i].setTexture(texturaMancha);
         mancha[i].setScale(0.3, 0.3);
     }
@@ -148,7 +148,47 @@ void Menu::Inicializar() {
     menu[3].setPosition(width / 2 + 100, height / (MAX_NUMBER_OF_ITEMS + 1) *1.5);
     menu[3].setStyle(1);
     menu[3].setScale(0.7, 0.7);
+    
+    
+    menu[4].setFont(font);
+    menu[4].setColor(sf::Color::White);
+    menu[4].setString("Audio");
+    menu[4].setPosition(580, 400);
+    menu[4].setScale(0.6, 0.6);
 
+    mancha[3].setScale(0.4, 0.3);
+    mancha[3].setPosition(540, 350);
+
+    
+        
+    menu[5].setFont(font);
+    menu[5].setColor(color);
+    menu[5].setString("Video");
+    menu[5].setPosition(580, 550);
+    menu[5].setScale(0.6, 0.6);
+
+    mancha[4].setScale(0.4, 0.3);
+    mancha[4].setPosition(540, 500);
+    
+            
+    menu[6].setFont(font);
+    menu[6].setColor(color);
+    menu[6].setString("Música");
+    menu[6].setPosition(580, 400);
+    menu[6].setScale(0.6, 0.6);
+    
+    
+    menu[7].setFont(font);
+    menu[7].setColor(color);
+    menu[7].setString("Sonidos");
+    menu[7].setPosition(580, 550);
+    menu[7].setScale(0.6, 0.6);
+    
+    audioMusica.setFont(font);
+    audioMusica.setColor(color);
+    audioMusica.setString(NumberToString(volumenMusica));
+    audioMusica.setPosition(620, 470);
+    
     textTitulo->setFont(fontTitulo);
     textTitulo->setColor(sf::Color::Black);
     textTitulo->setString("Elemental\n Revenge");
@@ -207,6 +247,9 @@ void Menu::Update(sf::Time elapsedTime) {
             }
         }
     }
+    else{
+        
+    }
 }
 
 void Menu::Render(float interpolation, sf::Time elapsedTime) {
@@ -250,19 +293,57 @@ void Menu::Render(float interpolation, sf::Time elapsedTime) {
         motor->draw(mancha[0]);
         motor->draw(mancha[1]);
         motor->draw(mancha[2]);
+
     }
     if (selectedItemIndex < 3) {
         for (int i = 0; i < MAX_NUMBER_OF_ITEMS; i++) {
             motor->draw(menu[i]);
         }
     } else {
+        if(selectedItemIndex<6){
+        motor->draw(mancha[4]);
+        motor->draw(mancha[3]);
         motor->draw(menu[3]);
+        motor->draw(menu[4]);
+        motor->draw(menu[5]);
+        }
+        else{
+            if(selectedItemIndex==6){
+            menu[3].setString("AUDIO");
+            motor->draw(menu[3]);
+            motor->draw(menu[6]);
+            motor->draw(menu[7]);
+            motor->draw(audioMusica);
+            }
+
+        }
     }
     motor->SetView(2);
     motor->SetView(3);
     motor->draw(mouseSprite);
     motor->display();
 }
+
+void Menu::MoveRight() {
+
+    if (selectedItemIndex == 6) {
+        if (volumenMusica < 10) {
+            volumenMusica++;
+            audioMusica.setString(NumberToString(volumenMusica));
+        }
+    }
+}
+
+void Menu::MoveLeft() {
+
+    if (selectedItemIndex == 6) {
+        if (volumenMusica > 0) {
+            volumenMusica--;
+            audioMusica.setString(NumberToString(volumenMusica));
+        }
+    }
+}
+
 
 void Menu::MoveUp() {
 
@@ -277,6 +358,21 @@ void Menu::MoveUp() {
             menu[selectedItemIndex].setColor(sf::Color::White);
 
         }
+    }
+    else{
+                if (selectedItemIndex == 4) {
+
+            menu[4].setColor(color);
+            selectedItemIndex++;
+            menu[5].setColor(sf::Color::White);
+                }
+                
+                else if (selectedItemIndex == 5) {
+
+            menu[5].setColor(color);
+            selectedItemIndex--;
+            menu[4].setColor(sf::Color::White);
+                }
     }
 }
 
@@ -294,7 +390,22 @@ void Menu::MoveDown() {
 
         }
     }
+else{
+                if (selectedItemIndex == 4) {
 
+                    
+            menu[4].setColor(color);
+            selectedItemIndex++;
+            menu[5].setColor(sf::Color::White);
+                }
+                
+                else if (selectedItemIndex == 5) {
+
+                menu[5].setColor(color);
+            selectedItemIndex--;
+            menu[4].setColor(sf::Color::White);
+                }
+    }
 }
 
 void Menu::HandleEvents(sf::Event& event) {
@@ -355,6 +466,18 @@ void Menu::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
             MoveDown();
         }
 
+    }else if (key == sf::Keyboard::D) {
+        if (!ratonSelecciona) {
+            tecladoActivo = true;
+            MoveRight();
+        }
+
+    }else if (key == sf::Keyboard::A) {
+        if (!ratonSelecciona) {
+            tecladoActivo = true;
+            MoveLeft();
+        }
+
     } else if (key == sf::Keyboard::Return) {
         
         if (selectedItemIndex == 0) {
@@ -363,14 +486,20 @@ void Menu::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
             StateStack::Instance()->GetState(States::ID::Carga)->Inicializar();
         }
         
-        if (selectedItemIndex == 1) {
-            selectedItemIndex = 3;
+        else if (selectedItemIndex == 1) {
+            selectedItemIndex = 4;
         }
-        if (selectedItemIndex == 2) {
+        
+        else if (selectedItemIndex == 2) {
             motor->closeWindow();
+        }
+        else if (selectedItemIndex == 4) {
+            selectedItemIndex = 6;
         }
 
     } else if (key == sf::Keyboard::Escape) {
+            menu[3].setString("OPCIONES");
+
         if (selectedItemIndex < 3) {
             // mWindow->close();
         } else {
@@ -513,4 +642,11 @@ void Menu::cargarAnimacionesMenu() {
         InicializarAnimatedSprite(sf::seconds(3.f), true, false);
 
     }
+}
+
+template<typename T>
+std::string Menu::NumberToString(T pNumber) {
+    std::ostringstream oOStrStream;
+    oOStrStream << pNumber;
+    return oOStrStream.str();
 }
