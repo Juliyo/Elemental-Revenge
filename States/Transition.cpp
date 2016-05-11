@@ -212,15 +212,15 @@ void Transition::Update(sf::Time elapsedTime) {
                 printf("Antes de cambiar de mapa");
                 InGame::Instance()->physicWorld = new b2World(tmx::SfToBoxVec(sf::Vector2f(0.f, 0.f)));
                 InGame::Instance()->ct = new ContactListener();
-   InGame::Instance()->physicWorld->SetContactListener(InGame::Instance()->ct);
-  // InGame::Instance()->pathfingind = new PathFinding();
+                InGame::Instance()->physicWorld->SetContactListener(InGame::Instance()->ct);
+                // InGame::Instance()->pathfingind = new PathFinding();
 
                 InGame::Instance()->level->LoadMap(static_cast<Niveles::ID> (level));
 
                 /*****************ESTO HACE FALTA PERO CUANDO VAYAN LOS DELETES*******************/
                 //borramos
-   
-                   if (InGame::Instance()->level->currentLevel!= Niveles::Level1) {
+
+                if (InGame::Instance()->level->currentLevel != Niveles::Level1) {
                     while (!InGame::Instance()->caster->empty()) {
                         //delete InGame::Instance()->caster->back(), InGame::Instance()->caster->pop_back();
                         InGame::Instance()->caster->pop_back();
@@ -229,9 +229,9 @@ void Transition::Update(sf::Time elapsedTime) {
                     printf("Clear2\n");
                     while (!InGame::Instance()->colaEnemigos->empty()) {
                         //delete InGame::Instance()->colaEnemigos->back(), InGame::Instance()->colaEnemigos->pop_back();
-                    InGame::Instance()->colaEnemigos->pop_back();
+                        InGame::Instance()->colaEnemigos->pop_back();
                     }
-//                    delete InGame::Instance()->colaEnemigos;
+                    //                    delete InGame::Instance()->colaEnemigos;
                     printf("Clear2.5\n");
 
                     while (!InGame::Instance()->melee->empty()) {
@@ -240,16 +240,16 @@ void Transition::Update(sf::Time elapsedTime) {
                     }
                     printf("Clear6\n");
                     delete InGame::Instance()->player;
-//    InGame::Instance()->physicWorld = new b2World(tmx::SfToBoxVec(sf::Vector2f(0.f, 0.f)));
-//    InGame::Instance()->ct = new ContactListener();
-//    InGame::Instance()->physicWorld->SetContactListener(InGame::Instance()->ct);
-//    InGame::Instance()->pathfingind = new PathFinding();
+                    //    InGame::Instance()->physicWorld = new b2World(tmx::SfToBoxVec(sf::Vector2f(0.f, 0.f)));
+                    //    InGame::Instance()->ct = new ContactListener();
+                    //    InGame::Instance()->physicWorld->SetContactListener(InGame::Instance()->ct);
+                    //    InGame::Instance()->pathfingind = new PathFinding();
                 }
-   
+
 
 
                 //cargamos
-                
+
                 //InGame::Instance()->colaEnemigos=new std::deque<Enemigo*>();
                 std::cout << "HIJO 222" << std::endl;
                 InGame::Instance()->level->map->CreateMelees();
@@ -258,22 +258,22 @@ void Transition::Update(sf::Time elapsedTime) {
                 std::cout << "PUTAA 222" << std::endl;
                 InGame::Instance()->level->map->CreatePlayer();
                 std::cout << "HOSTIA YA 222" << std::endl;
-
-
-                }
-                
+                InGame::Instance()->video->Inicializar();
                 StateStack::Instance()->SetCurrentState(States::ID::InGame);
 
                 Music *music = Music::Instance();
                 music->Stop();
                 music->Load(MUSICA::ID::Mapa1);
                 music->Play();
-                    level++; 
+                level++;
                 printf("Se supone que llego a la ultima linea de Ingame\n");
             }
-        }
 
-    
+
+        }
+    }
+
+
 
     sf::Vector2f mousePosition = motor->getMousePosition();
     if (drawOpciones) {

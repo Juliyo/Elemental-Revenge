@@ -213,6 +213,14 @@ void ContactListener::BeginContact(b2Contact* contact) {
             fixtureA->GetBody()->ApplyLinearImpulse(desiredVel, fixtureA->GetBody()->GetWorldCenter(), true);
             Caster *m = static_cast<Caster*> (fixtureA->GetBody()->GetUserData());
             m->RestarVida(w->getDamage());
+        }else if(claseB == "hRayAdvanced"){
+            hRayAdvanced *h = static_cast<hRayAdvanced*> (fixtureB->GetBody()->GetUserData());
+            Caster *m = static_cast<Caster*> (fixtureA->GetBody()->GetUserData());
+            m->RestarVida(h->getDamage());
+        }else if(claseB == "hWaterAdvanced"){
+             hWaterAdvanced *h = static_cast<hWaterAdvanced*> (fixtureB->GetBody()->GetUserData());
+            Caster *m = static_cast<Caster*> (fixtureA->GetBody()->GetUserData());
+            m->RestarVida(h->getDamage());
         }
     }else if(claseA == "hRayBasic"){
         if(claseB == "Melee"){
@@ -227,13 +235,15 @@ void ContactListener::BeginContact(b2Contact* contact) {
             m->damageTaken = f->getDamage();
         }
     }else if(claseA == "hRayAdvanced"){
-        hRayAdvanced *h = static_cast<hRayAdvanced*> (fixtureA->GetBody()->GetUserData());
+        
         if(claseB == "Melee"){
+            hRayAdvanced *h = static_cast<hRayAdvanced*> (fixtureA->GetBody()->GetUserData());
             Melee *m = static_cast<Melee*> (fixtureB->GetBody()->GetUserData());
             m->RestarVida(h->getDamage());
             
         }else if(claseB == "Caster"){
-            Caster *m = static_cast<Caster*> (fixtureA->GetBody()->GetUserData());
+            hRayAdvanced *h = static_cast<hRayAdvanced*> (fixtureA->GetBody()->GetUserData());
+            Caster *m = static_cast<Caster*> (fixtureB->GetBody()->GetUserData());
             m->RestarVida(h->getDamage());
             
         }
@@ -315,6 +325,8 @@ void ContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldManifold
             contact->SetEnabled(false);
         } else if (claseB == "hFireAdvanced") {
             contact->SetEnabled(false);
+        }else if(claseB == "hRayAdvanced"){
+            contact->SetEnabled(false);
         }
     } else if (claseA == "hFireAdvanced") {
         if (claseB == "Melee") {
@@ -327,9 +339,13 @@ void ContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldManifold
             contact->SetEnabled(false);
         }else if(claseB == "hFireAdvanced"){
             contact->SetEnabled(false);
+        }else if(claseB == "hRayAdvanced"){
+            contact->SetEnabled(false);
         }
     }else if(claseA == "hRayAdvanced"){
-        if(claseB == "Melee" || claseB == "Caster"){
+        if(claseB == "Melee"){
+            contact->SetEnabled(false);
+        }else if(claseB == "Caster"){
             contact->SetEnabled(false);
         }
     }
