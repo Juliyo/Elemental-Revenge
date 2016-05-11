@@ -15,21 +15,27 @@
 #define PARALELLTASK_HPP
 #include <SFML/System.hpp>
 #include "../Motor/Text.hpp"
+
+
 class ParalellTask {
 public:
     ParalellTask();
+    ParalellTask(int level);
     virtual ~ParalellTask();
     
     void			Execute(Text *texto);
     bool			IsFinished();
     float			GetCompletion();
+    void                        setLevel(int newLevel);
 private:
     void			RunTask();
+
     
     sf::Thread                  mThread;
+    
     sf::Clock                   mElapsedTime;
     sf::Mutex                   mMutex;
-    
+    int                         level=0;
     Text                        *mTexto;
     
     bool			mFinished;

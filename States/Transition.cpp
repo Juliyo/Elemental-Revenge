@@ -202,74 +202,28 @@ void Transition::Update(sf::Time elapsedTime) {
             //aguaSkillTransition();
             firstTime = true;
         }
-        if (drawNextLevel) {
+        if (drawNextLevel) { 
+                printf("TU FLIPAS\n");
             if (nextLevel->getGlobalBounds().contains(mouseSprite->getPosition())) {
-                printf("Estoy donde se supone que cambias el estado a InGame");
+                printf("Estoy donde se supone que cambias el estado a InGame\n");
                 changePregunta();
                 preguntaContestada = true;
                 drawNextLevel = false;
                 buttonPressed = false;
-                printf("Antes de cambiar de mapa");
-                InGame::Instance()->physicWorld = new b2World(tmx::SfToBoxVec(sf::Vector2f(0.f, 0.f)));
-                InGame::Instance()->ct = new ContactListener();
-   InGame::Instance()->physicWorld->SetContactListener(InGame::Instance()->ct);
-  // InGame::Instance()->pathfingind = new PathFinding();
-
-                InGame::Instance()->level->LoadMap(static_cast<Niveles::ID> (level));
-
-                /*****************ESTO HACE FALTA PERO CUANDO VAYAN LOS DELETES*******************/
-                //borramos
-   
-                   if (InGame::Instance()->level->currentLevel!= Niveles::Level1) {
-                    while (!InGame::Instance()->caster->empty()) {
-                        //delete InGame::Instance()->caster->back(), InGame::Instance()->caster->pop_back();
-                        InGame::Instance()->caster->pop_back();
-                    }
-                    //delete InGame::Instance()->caster;
-                    printf("Clear2\n");
-                    while (!InGame::Instance()->colaEnemigos->empty()) {
-                        //delete InGame::Instance()->colaEnemigos->back(), InGame::Instance()->colaEnemigos->pop_back();
-                    InGame::Instance()->colaEnemigos->pop_back();
-                    }
-//                    delete InGame::Instance()->colaEnemigos;
-                    printf("Clear2.5\n");
-
-                    while (!InGame::Instance()->melee->empty()) {
-                        //delete InGame::Instance()->melee->back(), InGame::Instance()->melee->pop_back();
-                        InGame::Instance()->melee->pop_back();
-                    }
-                    printf("Clear6\n");
-                    delete InGame::Instance()->player;
-//    InGame::Instance()->physicWorld = new b2World(tmx::SfToBoxVec(sf::Vector2f(0.f, 0.f)));
-//    InGame::Instance()->ct = new ContactListener();
-//    InGame::Instance()->physicWorld->SetContactListener(InGame::Instance()->ct);
-//    InGame::Instance()->pathfingind = new PathFinding();
-                }
-   
-
-
-                //cargamos
+                printf("Antes de cambiar de mapa\n");
                 
-                //InGame::Instance()->colaEnemigos=new std::deque<Enemigo*>();
-                std::cout << "HIJO 222" << std::endl;
-                InGame::Instance()->level->map->CreateMelees();
-                std::cout << "DE LA GRAN2222" << std::endl;
-                InGame::Instance()->level->map->CreateCasters();
-                std::cout << "PUTAA 222" << std::endl;
-                InGame::Instance()->level->map->CreatePlayer();
-                std::cout << "HOSTIA YA 222" << std::endl;
-
-
+                StateStack::Instance()->SetCurrentState(States::ID::Carga);
+                StateStack::Instance()->GetState(States::ID::Carga)->Inicializar();
+                printf("Termino la segunda carga\n");
                 }
                 
-                StateStack::Instance()->SetCurrentState(States::ID::InGame);
+                //StateStack::Instance()->SetCurrentState(States::ID::InGame);
 
                 Music *music = Music::Instance();
                 music->Stop();
                 music->Load(MUSICA::ID::Mapa1);
                 music->Play();
                     level++; 
-                printf("Se supone que llego a la ultima linea de Ingame\n");
             }
         }
 

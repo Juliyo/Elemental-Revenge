@@ -45,6 +45,7 @@ void LoadingState::Clear() {
 
 void LoadingState::Inicializar() {
     
+    
     spriteRelleno = new Sprite();
     spriteFondo = new Sprite();
     mouseSprite = new Sprite();
@@ -88,6 +89,7 @@ void LoadingState::Inicializar() {
     mensaje->setPosition(440,520);
     mensaje->setScale(0.6,0.6);
     
+    if(!loadingTask)
     loadingTask = new ParalellTask();
     
     loadingTask->Execute(mensaje);
