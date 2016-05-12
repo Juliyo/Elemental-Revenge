@@ -51,6 +51,8 @@ void Transition::Clear() {
     delete spriteOpcionB;
     delete spriteRelleno;
     delete video;
+    delete arbol;
+    delete pregunta;
 
 }
 

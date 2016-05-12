@@ -27,6 +27,7 @@ public:
     void setLooped(bool a);
     bool getDibujar();
     bool getLooped();
+    void ResetVideo();
 private:
     std::vector<Sprite*> *frames;
     //Sprite *frames;

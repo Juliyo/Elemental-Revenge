@@ -19,6 +19,8 @@ Level::Level(const Level& orig) {
 }
 
 Level::~Level() {
+    delete map;
+    delete mapNiveles;
 }
 
 void Level::CreateLevels() {

@@ -102,3 +102,7 @@ bool Video::getLooped() {
 void Video::setLooped(bool a) {
     looped=a;
 }
+
+void Video::ResetVideo() {
+    current_frame = 0;
+}

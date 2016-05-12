@@ -40,7 +40,26 @@ Menu::~Menu() {
 }
 
 void Menu::Clear() {
-
+    delete spriteFondoMenu;
+    spriteFondoMenu = nullptr;
+    
+    delete spriteFondo;
+    spriteFondo = nullptr;
+    
+    delete spriteRelleno;
+    spriteRelleno = nullptr;
+    
+    delete mouseSprite;
+    mouseSprite = nullptr;
+    
+    delete titulo;
+    titulo = nullptr;
+    
+    delete mancha;
+    mancha = nullptr;
+    
+    delete textTitulo;
+    textTitulo = nullptr;
 }
 
 void Menu::Inicializar() {

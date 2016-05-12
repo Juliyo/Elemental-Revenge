@@ -24,14 +24,26 @@ Melee::Melee() : Collisionable((Entity*)this) {
 
 Melee::~Melee() {
 
-    currentAnimation = NULL;
-    walkingAnimationDown = NULL;
-    walkingAnimationLeft = NULL;
-    walkingAnimationRight = NULL;
-    walkingAnimationUp = NULL;
-    animationMuerte = NULL;
-    paloninja=NULL;
-    paloninja2=NULL;
+    currentAnimation = nullptr;
+
+    delete walkingAnimationDown;
+    walkingAnimationDown = nullptr;
+
+    delete walkingAnimationLeft;
+    walkingAnimationLeft = nullptr;
+
+    delete walkingAnimationRight;
+    walkingAnimationRight = nullptr;
+
+    delete walkingAnimationUp;
+    walkingAnimationUp = nullptr;
+
+    delete animationMuerte;
+    animationMuerte = nullptr;
+    
+    delete damaged;
+    damaged = nullptr;
+
 
 }
 
@@ -72,10 +84,7 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, flo
     walkingAnimationRight = new Animation();
     walkingAnimationUp = new Animation();
     animationMuerte = new Animation();
-    paloninja= new Animation();
-    paloninja2= new AnimatedSprite();
-    putopalodemierda = new Render();
-    
+
 
     if (tipo == Tipo::ID::Ninja) {
 
@@ -112,10 +121,10 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, flo
 
         animationMuerte->setSpriteSheet("resources/Textures/ninjaMuerto.png");
         animationMuerte->addFrame(sf::IntRect(0, 0, 43, 32));
-        
-        
 
-        
+
+
+
         currentAnimation = &animationMuerte;
         Render::InicializarAnimatedSprite(sf::seconds(0.075f), true, false);
         PhysicsState::SetPosition(posX, posY);
@@ -147,7 +156,7 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, flo
 
         animationMuerte->setSpriteSheet("resources/Textures/ratas.png");
         animationMuerte->addFrame(sf::IntRect(0, 40, 25, 14));
-        
+
         currentAnimation = &animationMuerte;
         Render::InicializarAnimatedSprite(sf::seconds(0.075f), true, false);
         PhysicsState::SetPosition(posX, posY);
@@ -159,29 +168,13 @@ void Melee::Inicializar(float posX, float posY, Tipo::ID tipo, float speedX, flo
         Render::SetOriginAnimatedSprite(17, 16);
         SetOriginColision(17, 16);
         SetEstado(Estado::ID::Vivo);
-        SetScaleAnimation(1.7f,1.7f);
+        SetScaleAnimation(1.7f, 1.7f);
 
     }
     
-        paloninja->setSpriteSheet("resources/Textures/paloninjaSheet.png");
-        paloninja->addFrame(sf::IntRect(79, 84, 81, 12));
-        paloninja->addFrame(sf::IntRect(0, 84, 89, 40));
-        paloninja->addFrame(sf::IntRect(55, 0, 60, 74));
-        paloninja->addFrame(sf::IntRect(0, 0, 15, 84));
-        paloninja->addFrame(sf::IntRect(15, 0, 40, 79));
-        paloninja->addFrame(sf::IntRect(115, 0, 74, 60));
-        paloninja->addFrame(sf::IntRect(160, 84, 81, 12));
-    
-        putopalodemierda->InicializarAnimatedSprite(sf::seconds(0.125f), true, false);
-        
-        
-        
-        
-    paloninja2->setAnimation(*paloninja);
     camino = NULL;
     posiblecamino = NULL;
-    empujado = false;
-    empujado2 = false;
+    
     damaged = new Reloj();
     //Cargamos shader del player para el colo
     LoadShader("resources/Shader/fs.frag");
@@ -251,7 +244,7 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2, float multipl
     //body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(movement) * Enemigo::GetVelocity()));
     // FindPlayer(elapsedTime);
     //Actualizamos la posicion del player con la posicion del bodyDef
-    
+
     SetPosition(tmx::BoxToSfVec(body->GetPosition()));
 }
 
@@ -308,31 +301,31 @@ void Melee::StopAnimation() {
 }
 
 void Melee::RestarVida(int a) {
-    
+
     if (invulnerable.getTiempo() > 0.2f) {
         invulnerable.restart();
-        std::cout<<a<<std::endl;
+        std::cout << a << std::endl;
         ActiveShader(true);
         damaged->restart();
         SetEstado(Estado::ID::Damaged);
         SetVida(GetVida() - a);
-        if(m_tipo == Tipo::ID::Rata){
-            SoundManager::Instance()->setVolumen("resources/Sounds/rathit.ogg",SoundManager::Instance()->volumen);
+        if (m_tipo == Tipo::ID::Rata) {
+            SoundManager::Instance()->setVolumen("resources/Sounds/rathit.ogg", SoundManager::Instance()->volumen);
             SoundManager::Instance()->play("resources/Sounds/rathit.ogg");
-        }else{
-            SoundManager::Instance()->setVolumen("resources/Sounds/assassinhit.ogg",SoundManager::Instance()->volumen);
+        } else {
+            SoundManager::Instance()->setVolumen("resources/Sounds/assassinhit.ogg", SoundManager::Instance()->volumen);
             SoundManager::Instance()->play("resources/Sounds/assassinhit.ogg");
         }
     }
-    if(GetVida() <= 0){
+    if (GetVida() <= 0) {
         currentAnimation = &animationMuerte;
         InGame::Instance()->level->map->numEnemigos--;
         SetEstado(Estado::ID::Muriendo);
-        if(m_tipo == Tipo::ID::Rata){
-            SoundManager::Instance()->setVolumen("resources/Sounds/ratdie.ogg",SoundManager::Instance()->volumen);
+        if (m_tipo == Tipo::ID::Rata) {
+            SoundManager::Instance()->setVolumen("resources/Sounds/ratdie.ogg", SoundManager::Instance()->volumen);
             SoundManager::Instance()->play("resources/Sounds/ratdie.ogg");
-        }else{
-            SoundManager::Instance()->setVolumen("resources/Sounds/assassindie.ogg",SoundManager::Instance()->volumen);
+        } else {
+            SoundManager::Instance()->setVolumen("resources/Sounds/assassindie.ogg", SoundManager::Instance()->volumen);
             SoundManager::Instance()->play("resources/Sounds/assassindie.ogg");
         }
     }

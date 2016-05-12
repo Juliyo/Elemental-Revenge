@@ -34,12 +34,25 @@ LoadingState::~LoadingState() {
 
 void LoadingState::Clear() {
     delete cargando;
+    cargando = nullptr;
+    
     delete loadingTask;
+    loadingTask = nullptr;
+    
     delete mensaje;
+    mensaje = nullptr;
+    
     delete mouseSprite;
+    mouseSprite = nullptr;
+    
     delete reloj1;
+    reloj1 = nullptr;
+    
     delete spriteFondo;
-    delete video; 
+    spriteFondo = nullptr;
+    
+    delete video;
+    video = nullptr;
 }
 
 void LoadingState::Inicializar() {
@@ -85,7 +98,7 @@ void LoadingState::Inicializar() {
     
     mensaje->setFont("resources/Fonts/Minecraft.ttf");
     mensaje->setString("Historia++;");
-    mensaje->setPosition(440,520);
+    mensaje->setPosition(450,520);
     mensaje->setScale(0.6,0.6);
     
     

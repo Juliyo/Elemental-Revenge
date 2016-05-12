@@ -95,7 +95,8 @@ hWaterBasic::hWaterBasic(): Collisionable((Entity*)this) {
 
 
 hWaterBasic::~hWaterBasic() {
-    animation=NULL;
+    delete animation;
+    animation=nullptr;
     //delete rectColision;
 }
 

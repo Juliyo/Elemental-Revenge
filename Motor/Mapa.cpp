@@ -113,7 +113,7 @@ const tmx::MapLayer& Mapa::GetLayer(const std::string& name) {
 }
 
 Mapa::~Mapa() {
-
+    delete[] colisiones;
 
 }
 

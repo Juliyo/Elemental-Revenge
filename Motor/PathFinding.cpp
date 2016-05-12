@@ -183,9 +183,9 @@ std::vector<sf::Vector2i>* PathFinding::buscaCamino(sf::Vector2f posenemigo, sf:
     }
     
     listaCerrada.clear();
-    delete nodoInicial;
+    //delete nodoInicial;
     
-    delete nodoFinal;
+    //delete nodoFinal;
 
     return mejorCamino;
 

@@ -23,10 +23,9 @@ class Player : public Entity, public Collisionable {
 public:
     Player();
     virtual ~Player();
+    
     std::string getClassName() override;
     void CreateBody() override;
-
-
 
     void Inicializar(float posX, float posY, float speedX = 0.f, float speedY = 0.f, float maxSpeedX = 1000.f, float maxSpeedY = 1000.f);
     void Update(const sf::Time elapsedTime);
@@ -79,10 +78,12 @@ public:
     hRayAdvanced *hRayoAvanzado;
 
     //Fuego
-    hFireBasic *hFuegoBasico;
     std::vector<hFireBasic*> *disparosFuego;
     hFireAdvanced *hFuegoAvanzado;
     
+    ///Aguaa
+    hWaterBasic *hAguaBasico;
+    hWaterAdvanced *hAguaAvanzado;
     
     int contFuego = 0;
     Reloj clockCDFire; //Variable de clase para el cd
@@ -91,9 +92,7 @@ public:
     Reloj castFire2; //Variable de clase para el casteo
     bool primercastFuego; //Variable de clase para el primer casteo
 
-    ///Aguaa
-    hWaterBasic *hAguaBasico;
-    hWaterAdvanced *hAguaAvanzado;
+    
     Animation **currentAnimation;
     Animation *walkingAnimationDown;
     Animation *walkingAnimationLeft;

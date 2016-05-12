@@ -79,14 +79,19 @@ DisparoEnemigo::DisparoEnemigo(): Collisionable((Entity*)this) {
 }
 
 DisparoEnemigo::~DisparoEnemigo() {
+    delete animationFin;
+    animationFin = nullptr;
+    
+    delete animationInicio;
+    animationInicio=nullptr;
+    
+    currentAnimation=nullptr;
 }
 
-void DisparoEnemigo::Clear() {
-    animationFin=NULL;
-    animationInicio=NULL;
-    currentAnimation=NULL;
+/*void DisparoEnemigo::Clear() {
     
-}
+    
+}*/
 
 void DisparoEnemigo::CreateBody() {
     physicWorld = InGame::Instance()->physicWorld;

@@ -36,55 +36,120 @@ Player::Player() : Collisionable((Entity*)this) {
 
 Player::~Player() {
     
-    printf("player 1\n");
-    Muerto=NULL;
-    animationMuerte=NULL;
-    castingAnimationDownAgua=NULL;
-    castingAnimationDownFuego=NULL;
-    castingAnimationDownRayo=NULL;
-    castingAnimationUpAgua=NULL;
-    castingAnimationUpFuego=NULL;
-    castingAnimationUpRayo=NULL;
-    castingAnimationRightAgua=NULL;
-    castingAnimationRightFuego=NULL;
-    castingAnimationRightRayo=NULL;
-    castingAnimationLeftAgua=NULL;
-    castingAnimationLeftFuego=NULL;
-    castingAnimationLeftRayo=NULL;
+    delete Muerto;
+    Muerto=nullptr;
     
-    printf("player 2\n");
-    currentAnimation=NULL;
+    delete animationMuerte;
+    animationMuerte=NULL;
+    
+    
+    delete castingAnimationDownAgua;
+    castingAnimationDownAgua = nullptr;
+    
+    delete castingAnimationDownFuego;
+    castingAnimationDownFuego = nullptr;
+    
+    delete castingAnimationDownRayo;
+    castingAnimationDownRayo = nullptr;
+    
+    delete castingAnimationUpAgua;
+    castingAnimationUpAgua = nullptr;
+    
+    delete castingAnimationUpFuego;
+    castingAnimationUpFuego = nullptr;
+    
+    delete castingAnimationUpRayo;
+    castingAnimationUpRayo = nullptr;
+    
+    delete castingAnimationRightAgua;
+    castingAnimationRightAgua = nullptr;
+    
+    delete castingAnimationRightFuego;
+    castingAnimationRightFuego = nullptr;
+    
+    delete castingAnimationRightRayo;
+    castingAnimationRightRayo = nullptr;
+    
+    delete castingAnimationLeftAgua;
+    castingAnimationLeftAgua = nullptr;
+    
+    delete castingAnimationLeftFuego;
+    castingAnimationLeftFuego = nullptr;
+    
+    delete castingAnimationLeftRayo;
+    castingAnimationLeftRayo = nullptr;
+    
+    currentAnimation=nullptr;
+    
     delete flash;
+    flash = nullptr;
+    
     delete flash2;
-    printf("player 3\n");
-    fuego2AnimationDown=NULL;
-    fuego2AnimationLeft=NULL;
-    fuego2AnimationRight=NULL;
-    fuego2AnimationUp=NULL;
-    printf("player 4\n");
-    fuegoAnimationDown=NULL;
-    fuegoAnimationLeft=NULL;
-    fuegoAnimationRight=NULL;
-    fuegoAnimationUp=NULL;
-    printf("player 5\n");
+    flash2 = nullptr;
+    
+    delete fuego2AnimationDown;
+    fuego2AnimationDown = nullptr;
+    
+    delete fuego2AnimationLeft;
+    fuego2AnimationLeft = nullptr;
+    
+    delete fuego2AnimationRight;
+    fuego2AnimationRight = nullptr;
+    
+    delete fuego2AnimationUp;
+    fuego2AnimationUp = nullptr;
+    
+    delete fuegoAnimationDown;
+    fuegoAnimationDown = nullptr;
+    
+    delete fuegoAnimationLeft;
+    fuegoAnimationLeft = nullptr;
+    
+    delete fuegoAnimationRight;
+    fuegoAnimationRight = nullptr;
+    
+    delete fuegoAnimationUp;
+    fuegoAnimationUp = nullptr;
+    
+    //Hechizos
     delete hAguaAvanzado;
+    hAguaAvanzado = nullptr;
+    
     delete hAguaBasico;
+    hAguaBasico = nullptr;
+    
     delete hFuegoAvanzado;
+    hFuegoAvanzado = nullptr;
     
     while(!disparosFuego->empty()){
         delete disparosFuego->back(), disparosFuego->pop_back();
     }
+    
     delete disparosFuego;
+    disparosFuego = nullptr;
+    
     delete hRayoAvanzado;
+    hRayoAvanzado = nullptr;
+    
     delete hRayoBasico;
+    hRayoBasico = nullptr;
     
     delete hHeal;
-    printf("player 6\n");
-    healingAnimationDown=NULL;
-    healingAnimationLeft=NULL;
-    healingAnimationRight=NULL;
-    healingAnimationUp=NULL;
-    //delete hud;
+    hHeal = nullptr;
+    
+    delete healingAnimationDown;
+    healingAnimationDown = nullptr;
+    
+    delete healingAnimationLeft;
+    healingAnimationLeft = nullptr;
+    
+    delete healingAnimationRight;
+    healingAnimationRight = nullptr;
+    
+    delete healingAnimationUp;
+    healingAnimationUp = nullptr;
+    
+    delete hud;
     
 }
 

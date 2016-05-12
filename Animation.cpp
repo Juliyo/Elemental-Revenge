@@ -28,6 +28,10 @@ Animation::Animation() : m_texture(NULL)
     m_texture = new sf::Texture();
 }
 
+Animation::~Animation() {
+    delete m_texture;
+}
+
 void Animation::addFrame(sf::IntRect rect)
 {
     m_frames.push_back(rect);

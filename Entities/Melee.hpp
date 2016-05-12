@@ -45,21 +45,17 @@ public:
     void RestarVida(int a);
     void CambiarVectorVelocidad();
 
-    bool empujado;
-    bool empujado2;
-    Reloj tiempoempujado;
     int cuadrante = 2;
+    
     Animation **currentAnimation;
     Animation *walkingAnimationDown;
     Animation *walkingAnimationLeft;
     Animation *walkingAnimationRight;
     Animation *walkingAnimationUp;
     Animation *animationMuerte;
-    std::vector<sf::RectangleShape> shapesDebug;
+
     sf::Color color;
-    Animation *paloninja;
-    AnimatedSprite *paloninja2;
-    Render *putopalodemierda;
+
     
     Reloj *damaged;
 private:

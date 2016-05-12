@@ -122,20 +122,26 @@ std::string hFireBasic::getClassName() {
 
 
 hFireBasic::~hFireBasic() {
-    animationFin=NULL;
-    animationInicio=NULL;
-    currentAnimation=NULL;
-    explosionTiempo=NULL;
-    //delete rectColision;
+    delete animationFin;
+    animationFin = nullptr;
+    
+    delete animationInicio;
+    animationInicio = nullptr;
+    
+    currentAnimation=nullptr;
+    
+    delete explosionTiempo;
+    explosionTiempo = nullptr;
+
     
 }
 
-void hFireBasic::Clear() {
+/*void hFireBasic::Clear() {
     animationFin=NULL;
     animationInicio=NULL;
     currentAnimation=NULL;
     explosionTiempo=NULL;
-}
+}*/
 
 void hFireBasic::cast(sf::Vector2f posicion) {
     SoundManager *sonido = SoundManager::Instance();

@@ -55,7 +55,6 @@ public:
     Motor2D *motor;
     
 private:
-    AnimatedSprite *animatedSprite;
     Animation *animation;
     
     //Sprites

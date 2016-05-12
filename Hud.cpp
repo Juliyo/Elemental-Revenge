@@ -358,11 +358,12 @@ Hud::~Hud() {
     delete fuegoBueno;
     delete fBlanco;
     delete fGlare;
-    delete fRayo;
+    //delete fRayo;
     delete fSombra;
     
-    delete mCds;
-    delete m;
+    /*delete mCds;
+    delete m;*/
+    m = nullptr;
     delete curarBueno;
 
 }

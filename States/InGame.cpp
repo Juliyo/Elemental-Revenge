@@ -32,8 +32,6 @@ InGame::InGame() {
     motor = Motor2D::Instance();
 
 
-
-
 }
 
 InGame::InGame(const InGame& orig) {
@@ -45,36 +43,27 @@ InGame::~InGame() {
 }
 
 void InGame::Clear() {
-    printf("Clear1\n");
     while (!caster->empty()) {
         delete caster->back(), caster->pop_back();
     }
     delete caster;
-        printf("Clear2\n");
 
     while (!melee->empty()) {
         delete melee->back(), melee->pop_back();
     }
-
     delete melee;
-    printf("Clear2.5\n");
-    /*while (!colaEnemigos->empty()) {
-        delete colaEnemigos->back(), colaEnemigos->pop_back();
-    }
-    delete colaEnemigos;*/
 
-    printf("Clear3\n");
+    colaEnemigos->clear();
+    delete colaEnemigos;
 
     delete ct;
     delete level;
-    printf("Clear4\n");
-    printf("Clear5\n");
+
     delete pathfingind;
     delete physicWorld;
-    printf("Clear6\n");
+
     delete player;
     delete video;
-    printf("Clear7\n");
 }
 
 void InGame::Inicializar() {

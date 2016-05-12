@@ -22,6 +22,8 @@ Reloj::Reloj(const Reloj& orig) {
 }
 
 Reloj::~Reloj() {
+    delete reloj;
+    reloj = nullptr;
 }
 
 

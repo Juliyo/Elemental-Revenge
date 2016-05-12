@@ -83,6 +83,8 @@ Flash::Flash(int animation) {
 }
 
 Flash::~Flash() {
+    /*delete flashingAnimation;
+    delete flashingAnimation2;*/
 }
 
 std::string Flash::getClassName() {

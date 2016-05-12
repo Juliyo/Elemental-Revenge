@@ -22,11 +22,23 @@ Caster::Caster() : Collisionable((Entity*)this) {
 }
 
 Caster::~Caster() {
-    walkingAnimationDown = NULL;
-    walkingAnimationLeft = NULL;
-    walkingAnimationRight = NULL;
-    walkingAnimationUp = NULL;
-    animationMuerte = NULL;
+    delete walkingAnimationDown;
+    walkingAnimationDown = nullptr;
+    
+    delete walkingAnimationLeft;
+    walkingAnimationLeft = nullptr;
+    
+    delete walkingAnimationRight;
+    walkingAnimationRight = nullptr;
+    
+    delete walkingAnimationUp;
+    walkingAnimationUp = nullptr;
+    
+    delete animationMuerte;
+    animationMuerte = nullptr;
+    
+    delete damaged;
+    damaged = nullptr;
     
     while(!disparos->empty()){
         delete disparos->back(), disparos->pop_back();

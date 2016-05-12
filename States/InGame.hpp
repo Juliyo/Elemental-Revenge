@@ -72,10 +72,8 @@ public:
     Player			*player;
     std::vector<Melee*>         *melee;
     std::vector<Caster*>         *caster;
-    std::vector<sf::CircleShape*> *meleeShapes;
     PathFinding                 *pathfingind;
     std::deque<Enemigo*>          *colaEnemigos;
-    sf::RectangleShape              *rs;
     ContactListener             *ct;
 private:
     

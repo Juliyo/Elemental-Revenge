@@ -95,9 +95,10 @@ std::string hRayAdvanced::getClassName() {
 }
 
 hRayAdvanced::~hRayAdvanced() {
-    animationDurante=NULL;
-    currentAnimation=NULL;
-    //delete rectColision;
+    delete animationDurante;
+    animationDurante;
+    
+    currentAnimation=nullptr;
 }
 
 void hRayAdvanced::cast(sf::Vector2f posicion, Hud *hud, float cdRayoAvanzadoPausa) {

@@ -85,9 +85,11 @@ std::string hWaterAdvanced::getClassName() {
 }
 
 hWaterAdvanced::~hWaterAdvanced() {
-    animationDurante=NULL;
-    currentAnimation=NULL;
-    //delete rectColision;
+    delete animationDurante;
+    animationDurante = nullptr;
+    
+    currentAnimation=nullptr;
+    
 }
 
 void hWaterAdvanced::cast(sf::Vector2f posicion, Hud *hud, float cdAguaAvanzadoPausa) {

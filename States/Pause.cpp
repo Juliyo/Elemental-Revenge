@@ -18,10 +18,10 @@
 
 Pause::Pause() {
     motor = Motor2D::Instance();
-    
 
-    
-    
+
+
+
 }
 
 Pause::Pause(const Pause& orig) {
@@ -31,40 +31,38 @@ Pause::~Pause() {
 }
 
 void Pause::Clear() {
-    
-    printf("Clear Pausa 1\n");
-    delete animatedSprite;
-    printf("Clear Pausa 1\n");
-    animation=NULL;
-    printf("Clear Pausa 1\n");
-    
-    while(!menuPausa->empty()){
+
+    while (!menuPausa->empty()) {
         delete menuPausa->back(), menuPausa->pop_back();
     }
     delete menuPausa;
-    printf("Clear Pausa 1\n");
-    //delete menuPausa;
+
+
     delete textoPausa;
-    printf("Clear Pausa 1\n");
+    textoPausa = nullptr;
+
     delete mouseSprite;
-    printf("Clear Pausa 1\n");
+    mouseSprite = nullptr;
+
     delete spriteFondo;
-    printf("Clear Pausa 1\n");
+    spriteFondo = nullptr;
+
     delete spriteFondoOpciones;
-    printf("Clear Pausa 1\n");
+    spriteFondoOpciones = nullptr;
+
     delete spriteMancha;
-    printf("Clear Pausa 1\n");
+    spriteMancha = nullptr;
+
     delete spriteMancha2;
-    printf("Clear Pausa 1\n");
+    spriteMancha2 = nullptr;
+
     delete spritePersonaje;
-    printf("Clear Pausa 1\n");
-    //delete spriteRelleno;
-    
+    spritePersonaje = nullptr;
+
 }
 
-
 void Pause::Inicializar() {
-        selectedItemIndexPausa = 0;
+    selectedItemIndexPausa = 0;
 
     //Reserva memoria
     spriteRelleno = new Sprite();
@@ -75,12 +73,12 @@ void Pause::Inicializar() {
     spriteMancha2 = new Sprite();
     mouseSprite = new Sprite();
     textoPausa = new Text();
-    
+
     menuPausa = new std::vector<Text*>();
-    for(int i=0;i<15;i++){
+    for (int i = 0; i < 15; i++) {
         menuPausa->push_back(new Text());
     }
-    
+
     printf("Empiezo inicializar de pausa\n");
     tecladoActivo = false;
     ratonSelecciona = false;
@@ -105,16 +103,16 @@ void Pause::Inicializar() {
     }
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
-    
-printf("Empiezo inicializar el array del menu\n");
+
+    printf("Empiezo inicializar el array del menu\n");
     menuPausa->at(0)->setFont(fontPausa);
     menuPausa->at(0)->setColor(sf::Color::White);
     menuPausa->at(0)->setString("Reanudar");
     menuPausa->at(0)->setStyle(sf::Text::Bold);
     menuPausa->at(0)->setPosition(80, 825);
     menuPausa->at(0)->setScale(1.2, 1.2);
-    
-printf("Primera posicion del array, si es esto que le jodan al mundo\n");
+
+    printf("Primera posicion del array, si es esto que le jodan al mundo\n");
     menuPausa->at(1)->setFont(fontPausa);
     menuPausa->at(1)->setColor(colorAzul);
     menuPausa->at(1)->setString("Opciones");
@@ -127,7 +125,7 @@ printf("Primera posicion del array, si es esto que le jodan al mundo\n");
     menuPausa->at(2)->setColor(colorAzul);
     menuPausa->at(2)->setString("Salir");
     menuPausa->at(2)->setStyle(sf::Text::Bold);
-    menuPausa->at(2)->setPosition(750,850 );
+    menuPausa->at(2)->setPosition(750, 850);
     menuPausa->at(2)->setScale(1.8, 1.8);
 
     menuPausa->at(3)->setFont(fontPausa);
@@ -148,14 +146,14 @@ printf("Primera posicion del array, si es esto que le jodan al mundo\n");
     menuPausa->at(5)->setColor(colorAzul);
     menuPausa->at(5)->setString("Personalizar");
     menuPausa->at(5)->setStyle(sf::Text::Bold);
-    menuPausa->at(5)->setPosition(750,825 );
+    menuPausa->at(5)->setPosition(750, 825);
     menuPausa->at(5)->setScale(1, 1);
 
     menuPausa->at(6)->setFont(fontPausa);
     menuPausa->at(6)->setColor(colorAzul);
     menuPausa->at(6)->setString("Atrás");
     menuPausa->at(6)->setStyle(sf::Text::Bold);
-    menuPausa->at(6)->setPosition(750,900 );
+    menuPausa->at(6)->setPosition(750, 900);
     menuPausa->at(6)->setScale(1.2, 1.2);
 
     menuPausa->at(7)->setFont(fontPausa);
@@ -180,14 +178,14 @@ printf("Primera posicion del array, si es esto que le jodan al mundo\n");
     menuPausa->at(9)->setScale(1.2, 1.2);
 
     printf("Ultima posicion del array, si es esto que le jodan al mundo\n");
-    
+
     textoPausa->setFont(fontPausa);
     textoPausa->setColor(sf::Color::White);
-    textoPausa->setScale(2,2);
+    textoPausa->setScale(2, 2);
     textoPausa->setString("PAUSA");
     textoPausa->setPosition(30, 200);
     textoPausa->setStyle(sf::Text::Bold);
-    
+
     printf("Te odio 1\n");
 
     texturaFondo.setSmooth(true);
@@ -198,7 +196,7 @@ printf("Primera posicion del array, si es esto que le jodan al mundo\n");
     mouseSprite->setOrigin(64, 64);
 
     printf("Te odio 2\n");
-    
+
     texturaFondo.setSmooth(true);
     texturaFondo.setRepeated(1);
     spriteFondo->setTexture(texturaFondo);
@@ -209,7 +207,7 @@ printf("Primera posicion del array, si es esto que le jodan al mundo\n");
     spriteFondo->setColor(transparent);
 
     printf("Te odio 3\n");
-    
+
     spriteFondoOpciones->setTexture(texturaFondo);
     spriteFondoOpciones->setTextRect(0, 0, 500, 500);
     spriteFondoOpciones->setOrigin(250, 250);
@@ -218,78 +216,78 @@ printf("Primera posicion del array, si es esto que le jodan al mundo\n");
     spriteFondoOpciones->setColor(transparent);
 
     printf("Te odio 4\n");
-    
+
     spriteMancha->setTexture(texturaMancha);
     spriteMancha->setTextRect(0, 0, 1733, 1733);
-    spriteMancha->setPosition(-125,500);
+    spriteMancha->setPosition(-125, 500);
     spriteMancha->setScale(0.4, 0.4);
 
     printf("Te odio 5\n");
-    
+
     spriteMancha2->setTexture(texturaMancha);
     spriteMancha2->setTextRect(0, 0, 1733, 1733);
-    spriteMancha2->setPosition(500,500 );
+    spriteMancha2->setPosition(500, 500);
     spriteMancha2->setScale(0.4, 0.4);
 
     spritePersonaje->setTexture(texturaPersonaje);
     spritePersonaje->setTextRect(0, 0, 1733, 1733);
     spritePersonaje->setOrigin(0, 0);
-    spritePersonaje->setPosition(550,100 );
+    spritePersonaje->setPosition(550, 100);
     spritePersonaje->setScale(1.75, 1.75);
 
 
     spriteRelleno->setTexture(texturaRelleno);
     spriteRelleno->setTextRect(0, 0, 1024, 2048);
     spriteRelleno->setScale(1, 2);
-    
+
     printf("Termino inicializar de pausa\n");
 }
 
 void Pause::Update(sf::Time timeElapsed) {
     sf::Color color2(112, 112, 112);
-        if (motor->GetMouseSprite()->getGlobalBounds().intersects(menuPausa->at(0)->getGlobalBounds())) {
-            printf("entro en if 1");
-            ratonSelecciona = true;
-            if (!tecladoActivo) {
-                menuPausa->at(0)->setColor(sf::Color::White);
-                menuPausa->at(1)->setColor(color2);
-                menuPausa->at(2)->setColor(color2);
-                selectedItemIndexPausa = 0;
-            } else {
-                tecladoActivo = false;
-            }
-        } else if (motor->GetMouseSprite()->getGlobalBounds().intersects(menuPausa->at(1)->getGlobalBounds())) {
-            printf("entro en if 2");
-            ratonSelecciona = true;
-            if (!tecladoActivo) {
-                menuPausa->at(0)->setColor(color2);
-                menuPausa->at(1)->setColor(sf::Color::White);
-                menuPausa->at(2)->setColor(color2);
-                selectedItemIndexPausa = 1;
-            } else {
-                tecladoActivo = false;
-            }
-        } else if (motor->GetMouseSprite()->getGlobalBounds().intersects(menuPausa->at(2)->getGlobalBounds())) {
-           
-            ratonSelecciona = true;
-            if (!tecladoActivo) {
-                menuPausa->at(0)->setColor(color2);
-                menuPausa->at(1)->setColor(color2);
-                menuPausa->at(2)->setColor(sf::Color::White);
-
-                selectedItemIndexPausa = 2;
-            } else {
-                tecladoActivo = false;
-            }
+    if (motor->GetMouseSprite()->getGlobalBounds().intersects(menuPausa->at(0)->getGlobalBounds())) {
+        printf("entro en if 1");
+        ratonSelecciona = true;
+        if (!tecladoActivo) {
+            menuPausa->at(0)->setColor(sf::Color::White);
+            menuPausa->at(1)->setColor(color2);
+            menuPausa->at(2)->setColor(color2);
+            selectedItemIndexPausa = 0;
         } else {
-            ratonSelecciona = false;
-            if (!tecladoActivo) {
-                menuPausa->at(0)->setColor(color2);
-                menuPausa->at(1)->setColor(color2);
-                menuPausa->at(2)->setColor(color2);
-            }
+            tecladoActivo = false;
         }
-    
+    } else if (motor->GetMouseSprite()->getGlobalBounds().intersects(menuPausa->at(1)->getGlobalBounds())) {
+        printf("entro en if 2");
+        ratonSelecciona = true;
+        if (!tecladoActivo) {
+            menuPausa->at(0)->setColor(color2);
+            menuPausa->at(1)->setColor(sf::Color::White);
+            menuPausa->at(2)->setColor(color2);
+            selectedItemIndexPausa = 1;
+        } else {
+            tecladoActivo = false;
+        }
+    } else if (motor->GetMouseSprite()->getGlobalBounds().intersects(menuPausa->at(2)->getGlobalBounds())) {
+
+        ratonSelecciona = true;
+        if (!tecladoActivo) {
+            menuPausa->at(0)->setColor(color2);
+            menuPausa->at(1)->setColor(color2);
+            menuPausa->at(2)->setColor(sf::Color::White);
+
+            selectedItemIndexPausa = 2;
+        } else {
+            tecladoActivo = false;
+        }
+    } else {
+        ratonSelecciona = false;
+        if (!tecladoActivo) {
+            menuPausa->at(0)->setColor(color2);
+            menuPausa->at(1)->setColor(color2);
+            menuPausa->at(2)->setColor(color2);
+        }
+    }
+
 }
 
 void Pause::Render(float interpolation, sf::Time elapsedTime) {
@@ -350,22 +348,22 @@ void Pause::Render(float interpolation, sf::Time elapsedTime) {
     motor-> DrawMouse();
 
     motor->display();
-  //  motor->display();
+    //  motor->display();
 }
 
 void Pause::HandleEvents(sf::Event& event) {
     switch (event.type) {
         case sf::Event::KeyPressed:
-            handlePlayerInput(event.key.code,true);
+            handlePlayerInput(event.key.code, true);
             break;
         case sf::Event::KeyReleased:
-            handlePlayerInput(event.key.code,false);
+            handlePlayerInput(event.key.code, false);
             break;
         case sf::Event::MouseButtonPressed:
-            handleMouseInput(event.mouseButton.button,true);
+            handleMouseInput(event.mouseButton.button, true);
             break;
         case sf::Event::MouseButtonReleased:
-            handleMouseInput(event.mouseButton.button,false);
+            handleMouseInput(event.mouseButton.button, false);
             break;
     }
 }
@@ -377,90 +375,90 @@ void Pause::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
         }
     }
 }
+
 void Pause::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
-    if(isPressed==false){
-    if (key == sf::Keyboard::W) { //Esto lo hago para que cuando no estes presionando cambia a false
-        if (!ratonSelecciona) {
-            tecladoActivo = true;
-            MoveUp();
-        }
-    } else if (key == sf::Keyboard::S) {
-        if (!ratonSelecciona) {
-            tecladoActivo = true;
-            MoveDown();
-        }
-    } else if (key == sf::Keyboard::A) {
-        if (!ratonSelecciona) {
-            tecladoActivo = true;
-            MoveLeft();
-        }
-    } else if (key == sf::Keyboard::D) {
-        if (!ratonSelecciona) {
-            tecladoActivo = true;
-            MoveRight();
-        }
-    } else if (key == sf::Keyboard::Return) {
-        printf("%d\n",selectedItemIndexPausa);
-        if (selectedItemIndexPausa == 0) {
-             StateStack::Instance()->SetCurrentState(States::ID::InGame);
-        }
-        
-        if (selectedItemIndexPausa == 2) {
-             StateStack::Instance()->GetState(States::ID::InGame)->Clear();
-             printf("Se ha borrado InGame correctamente \n");
+    if (isPressed == false) {
+        if (key == sf::Keyboard::W) { //Esto lo hago para que cuando no estes presionando cambia a false
+            if (!ratonSelecciona) {
+                tecladoActivo = true;
+                MoveUp();
+            }
+        } else if (key == sf::Keyboard::S) {
+            if (!ratonSelecciona) {
+                tecladoActivo = true;
+                MoveDown();
+            }
+        } else if (key == sf::Keyboard::A) {
+            if (!ratonSelecciona) {
+                tecladoActivo = true;
+                MoveLeft();
+            }
+        } else if (key == sf::Keyboard::D) {
+            if (!ratonSelecciona) {
+                tecladoActivo = true;
+                MoveRight();
+            }
+        } else if (key == sf::Keyboard::Return) {
+            printf("%d\n", selectedItemIndexPausa);
+            if (selectedItemIndexPausa == 0) {
+                StateStack::Instance()->SetCurrentState(States::ID::InGame);
+            }
 
-             StateStack::Instance()->GetState(States::ID::Muerte)->Clear();
-             printf("Se ha borrado Muerte correctamente \n");
-            StateStack::Instance()->GetState(States::ID::Transition)->Clear();
-            printf("Se ha borrado Transicion correctamente \n");
-            StateStack::Instance()->GetState(States::ID::Carga)->Clear();
-            printf("Se ha borrado Carga correctamente \n");
-             StateStack::Instance()->GetState(States::ID::Pause)->Clear();
-             printf("Se ha borrado Pausa correctamente \n");
-             StateStack::Instance()->SetCurrentState(States::ID::Menu);
-        }
-        if (selectedItemIndexPausa == 3) {
-            selectedItemIndexPausa = 8;
-        }
-        if (selectedItemIndexPausa == 4) {
-            selectedItemIndexPausa = 9;
-        }
-        if (selectedItemIndexPausa == 5) {
-            selectedItemIndexPausa = 10;
-        }
+            if (selectedItemIndexPausa == 2) {
+                StateStack::Instance()->GetState(States::ID::InGame)->Clear();
 
-        if (selectedItemIndexPausa == 1) {
-            selectedItemIndexPausa = 3;
-        }
-    } else if (key == sf::Keyboard::Escape) {
-        if (selectedItemIndexPausa < 3) {
-            //mWindow->close();
-        }
-        if (selectedItemIndexPausa > 3 && selectedItemIndexPausa < 7) {
-            selectedItemIndexPausa = 1;
-        }
-        if (selectedItemIndexPausa >= 7) {
+                StateStack::Instance()->GetState(States::ID::Muerte)->Clear();
 
-            if (selectedItemIndexPausa == 8) {
+                StateStack::Instance()->GetState(States::ID::Transition)->Clear();
+
+                StateStack::Instance()->GetState(States::ID::Carga)->Clear();
+
+                StateStack::Instance()->GetState(States::ID::Pause)->Clear();
+
+                StateStack::Instance()->SetCurrentState(States::ID::Menu);
+            }
+            if (selectedItemIndexPausa == 3) {
+                selectedItemIndexPausa = 8;
+            }
+            if (selectedItemIndexPausa == 4) {
+                selectedItemIndexPausa = 9;
+            }
+            if (selectedItemIndexPausa == 5) {
+                selectedItemIndexPausa = 10;
+            }
+
+            if (selectedItemIndexPausa == 1) {
                 selectedItemIndexPausa = 3;
             }
-            if (selectedItemIndexPausa == 9) {
-                selectedItemIndexPausa = 4;
+        } else if (key == sf::Keyboard::Escape) {
+            if (selectedItemIndexPausa < 3) {
+                //mWindow->close();
             }
-            if (selectedItemIndexPausa == 10) {
+            if (selectedItemIndexPausa > 3 && selectedItemIndexPausa < 7) {
+                selectedItemIndexPausa = 1;
+            }
+            if (selectedItemIndexPausa >= 7) {
 
-                selectedItemIndexPausa = 5;
+                if (selectedItemIndexPausa == 8) {
+                    selectedItemIndexPausa = 3;
+                }
+                if (selectedItemIndexPausa == 9) {
+                    selectedItemIndexPausa = 4;
+                }
+                if (selectedItemIndexPausa == 10) {
+
+                    selectedItemIndexPausa = 5;
+                }
             }
         }
-    }
 
-    if (key == sf::Keyboard::Return) {
-        if (selectedItemIndexPausa == 6) {
-            selectedItemIndexPausa = 1;
-            menuPausa->at(6)->setColor(colorAzul);
-            menuPausa->at(3)->setColor(sf::Color::White);
+        if (key == sf::Keyboard::Return) {
+            if (selectedItemIndexPausa == 6) {
+                selectedItemIndexPausa = 1;
+                menuPausa->at(6)->setColor(colorAzul);
+                menuPausa->at(3)->setColor(sf::Color::White);
+            }
         }
-    }
     }
 }
 
@@ -498,7 +496,7 @@ void Pause::MoveDown() {
     } else {
         if (selectedItemIndexPausa + 1 <= 7) {
 
-           menuPausa->at(selectedItemIndexPausa)->setColor(colorAzul);
+            menuPausa->at(selectedItemIndexPausa)->setColor(colorAzul);
             selectedItemIndexPausa++;
             menuPausa->at(selectedItemIndexPausa)->setColor(sf::Color::White);
 
@@ -510,7 +508,7 @@ void Pause::MoveLeft() {
     if (selectedItemIndexPausa < 3) {
         if (selectedItemIndexPausa == 2) {
 
-           menuPausa->at(selectedItemIndexPausa)->setColor(colorAzul);
+            menuPausa->at(selectedItemIndexPausa)->setColor(colorAzul);
             selectedItemIndexPausa = 0;
             menuPausa->at(selectedItemIndexPausa)->setColor(sf::Color::White);
 
