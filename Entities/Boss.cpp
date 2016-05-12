@@ -223,6 +223,8 @@ void Boss::RestarVida(int a) {
         ActiveShader(true);
         damaged->restart();
         SetEstado(Estado::ID::Damaged);
+        SoundManager::Instance()->setVolumen("resources/Sounds/bandithit.ogg",SoundManager::Instance()->volumen);
+        SoundManager::Instance()->play("resources/Sounds/bandithit.ogg");
         /*if (m_tipo == Tipo::Caster::Bandido) {
            // SoundManager::Instance()->setVolumen("resources/Sounds/bandithit.ogg",SoundManager::Instance()->volumen);
             SoundManager::Instance()->play("resources/Sounds/bandithit.ogg");

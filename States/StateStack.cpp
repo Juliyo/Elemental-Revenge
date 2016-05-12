@@ -36,6 +36,10 @@ StateStack::StateStack(const StateStack& orig) {
 }
 
 StateStack::~StateStack() {
+    for(std::map<States::ID, State*>::iterator iterator = mapStates->begin(); iterator != mapStates->end(); iterator++) {
+        delete iterator->second;
+    }
+    delete mapStates;
 }
 
 void StateStack::CreateStates() {

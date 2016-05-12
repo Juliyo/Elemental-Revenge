@@ -25,9 +25,10 @@
 class Game {
 public:
     Game();
-    void run();
-    Player* GetPlayer();
+    virtual ~Game();
 
+    void run();
+    
 private:
 
     void processEvents(); // Captura y procesa eventos

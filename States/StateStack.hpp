@@ -21,7 +21,7 @@
 class StateStack {
 public:
     static StateStack* Instance();
-
+    
     void   CreateStates();
     State* GetState(States::ID id) const;
     State* GetCurrentState() const;

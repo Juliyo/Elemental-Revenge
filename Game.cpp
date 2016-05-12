@@ -30,6 +30,10 @@ Game::Game() {
 
 }
 
+Game::~Game() {
+    
+}
+
 /**************  METODOS PRINCIPALES **************/
 
 void Game::run() //Metodo principal
@@ -76,7 +80,9 @@ void Game::processEvents() //Captura y procesa eventos
     while (motor->pollEvent(event)) {
         stateStack->GetCurrentState()->HandleEvents(event);
         if (event.type == sf::Event::Closed){
+            //delete stateStack;
             motor->closeWindow();
+            //delete motor;
         }
         if(event.type == sf::Event::Resized){
 #ifdef _WIN32

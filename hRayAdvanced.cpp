@@ -35,7 +35,7 @@ hRayAdvanced::hRayAdvanced(): Collisionable((Entity*)this) {
     draw=false;
     animationDurante = new Animation();
     setCast(1);
-    setCD(20);
+    setCD(1);
     
     printf("llego a textura del rayo HRAYADVANCED\n");
     if(!hTexture.loadFromFile("resources/Textures/rayo.png")){
@@ -84,8 +84,8 @@ hRayAdvanced::hRayAdvanced(): Collisionable((Entity*)this) {
     InicializarAnimatedSprite(sf::seconds(1.f/29),true,false);
     SetScaleAnimation(0.6f,0.6f);
     SetOriginAnimatedSprite(475,392);
-    SetOriginColision(475,392);
-    SetRectangleColision(0,0,960*0.6,582*0.6);
+    SetOriginColision(475*0.6,392*0.6);
+    SetRectangleColision(397*0.6,332*0.6,176*0.6,113*0.6);
     CreateBody();
     setDamage(4.f);
 }
