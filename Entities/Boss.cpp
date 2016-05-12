@@ -138,7 +138,7 @@ void Boss::Inicializar(float posX, float posY,float speedX, float speedY, float 
     
     disparo = new std::vector<AtaqueBossA*>();
     
-    for(int i=0;i<200;i++){
+    for(int i=0;i<30;i++){
         disparo->push_back(new AtaqueBossA());
     }
     
@@ -206,7 +206,7 @@ void Boss::Inicializar(float posX, float posY,float speedX, float speedY, float 
 
 void Boss::renderAtaqueA(sf::Time elapsedTime, float interpolation) {
 
-    for (int k = 150; k <= 199; k++) {
+    for (int k = 0; k <= 29; k++) {
         disparo->at(k)->PlayAnimation(disparo->at(k)->animationAtaque);
         disparo->at(k)->UpdateAnimation(elapsedTime);
         disparo->at(k)->DrawAnimation(disparo->at(k)->GetPreviousPosition(),disparo->at(k)->GetPosition(), interpolation);
@@ -324,8 +324,8 @@ void Boss::updateAtaqueBossA(bool disparado, sf::Time elapsedTime,float x4,float
         
         if (disparado) {
             
-            if (numDisparo == 199) {
-                numDisparo = 150;
+            if (numDisparo == 29) {
+                numDisparo = 0;
             }
             
             if (clockCdDisparo.getTiempo() > CdDisparo || primercastDisparo == true) {
@@ -336,7 +336,7 @@ void Boss::updateAtaqueBossA(bool disparado, sf::Time elapsedTime,float x4,float
             }
             numDisparo++;
         }
-        for (int aux = 150; aux <= 199; aux++) {
+        for (int aux = 0; aux <= 29; aux++) {
             movement2.x = (40 * cos(disparo->at(aux)->angleshot2) * 10.0f);
             movement2.y = (40 * sin(disparo->at(aux)->angleshot2) * 10.0f);
             disparo->at(aux)->Update2(movement2, elapsedTime);
