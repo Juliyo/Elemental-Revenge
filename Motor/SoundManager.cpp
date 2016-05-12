@@ -77,3 +77,7 @@ void SoundManager::setVolumen(std::string ruta,float vol) {
     sf::Sound* sonido=it->second->getSound();
     sonido->setVolume(vol);
 }
+
+void SoundManager::VolumenMenu(float volu) {
+    volumen = volu;
+}

@@ -331,10 +331,10 @@ void Caster::RestarVida(int a) {
         damaged->restart();
         SetEstado(Estado::ID::Damaged);
         if (m_tipo == Tipo::Caster::Bandido) {
-            SoundManager::Instance()->setVolumen("resources/Sounds/bandithit.ogg",50);
+            SoundManager::Instance()->setVolumen("resources/Sounds/bandithit.ogg",SoundManager::Instance()->volumen);
             SoundManager::Instance()->play("resources/Sounds/bandithit.ogg");
         } else {
-            SoundManager::Instance()->setVolumen("resources/Sounds/necromancerhurt.ogg",50);
+            SoundManager::Instance()->setVolumen("resources/Sounds/necromancerhurt.ogg",SoundManager::Instance()->volumen);
             SoundManager::Instance()->play("resources/Sounds/necromancerhurt.ogg");
         }
     }
@@ -346,10 +346,10 @@ void Caster::RestarVida(int a) {
         currentAnimation = &animationMuerte;
         SetEstado(Estado::ID::Muriendo);
         if (m_tipo == Tipo::Caster::Bandido) {
-            SoundManager::Instance()->setVolumen("resources/Sounds/banditdie.ogg",50);
+            SoundManager::Instance()->setVolumen("resources/Sounds/banditdie.ogg",SoundManager::Instance()->volumen);
             SoundManager::Instance()->play("resources/Sounds/banditdie.ogg");
         } else {
-            SoundManager::Instance()->setVolumen("resources/Sounds/necromancerdead.ogg",50);
+            SoundManager::Instance()->setVolumen("resources/Sounds/necromancerdead.ogg",SoundManager::Instance()->volumen);
             SoundManager::Instance()->play("resources/Sounds/necromancerdead.ogg");
         }
     }

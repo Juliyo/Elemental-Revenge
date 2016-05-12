@@ -27,6 +27,10 @@ public:
     void play(std::string ruta);
     void stop(std::string ruta);
     void setVolumen(std::string ruta,float vol);
+    
+    void VolumenMenu(float volu);
+    
+    float volumen=50.f;
 private:
     static SoundManager* mInstance;
     std::map<std::string,Sound*> *sonidos;

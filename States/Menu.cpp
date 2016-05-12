@@ -172,7 +172,7 @@ void Menu::Inicializar() {
     
             
     menu[6].setFont(font);
-    menu[6].setColor(color);
+    menu[6].setColor(sf::Color::White);
     menu[6].setString("Música");
     menu[6].setPosition(580, 400);
     menu[6].setScale(0.6, 0.6);
@@ -188,6 +188,11 @@ void Menu::Inicializar() {
     audioMusica.setColor(color);
     audioMusica.setString(NumberToString(volumenMusica));
     audioMusica.setPosition(620, 470);
+    
+    audioSonido.setFont(font);
+    audioSonido.setColor(color);
+    audioSonido.setString(NumberToString(volumenSonidos));
+    audioSonido.setPosition(620, 620);
     
     textTitulo->setFont(fontTitulo);
     textTitulo->setColor(sf::Color::Black);
@@ -308,12 +313,13 @@ void Menu::Render(float interpolation, sf::Time elapsedTime) {
         motor->draw(menu[5]);
         }
         else{
-            if(selectedItemIndex==6){
+            if(selectedItemIndex==6 || selectedItemIndex==7){
             menu[3].setString("AUDIO");
             motor->draw(menu[3]);
             motor->draw(menu[6]);
             motor->draw(menu[7]);
             motor->draw(audioMusica);
+            motor->draw(audioSonido);
             }
 
         }
@@ -332,6 +338,13 @@ void Menu::MoveRight() {
             audioMusica.setString(NumberToString(volumenMusica));
         }
     }
+    
+    if (selectedItemIndex == 7) {
+        if (volumenSonidos < 10) {
+            volumenSonidos++;
+            audioSonido.setString(NumberToString(volumenSonidos));
+        }
+    }
 }
 
 void Menu::MoveLeft() {
@@ -340,6 +353,14 @@ void Menu::MoveLeft() {
         if (volumenMusica > 0) {
             volumenMusica--;
             audioMusica.setString(NumberToString(volumenMusica));
+        }
+    }
+    if (selectedItemIndex == 7) {
+        if (volumenSonidos > 0) {
+            volumenSonidos--;
+            audioSonido.setString(NumberToString(volumenSonidos));
+            SoundManager::Instance()->VolumenMenu(volumenSonidos*10);
+
         }
     }
 }
@@ -373,6 +394,20 @@ void Menu::MoveUp() {
             selectedItemIndex--;
             menu[4].setColor(sf::Color::White);
                 }
+                
+                else if (selectedItemIndex == 6) {
+
+                menu[6].setColor(color);
+            selectedItemIndex++;
+            menu[7].setColor(sf::Color::White);
+                }
+                
+                else if (selectedItemIndex == 7) {
+
+                menu[7].setColor(color);
+            selectedItemIndex--;
+            menu[6].setColor(sf::Color::White);
+                }
     }
 }
 
@@ -404,6 +439,20 @@ else{
                 menu[5].setColor(color);
             selectedItemIndex--;
             menu[4].setColor(sf::Color::White);
+                }
+                
+                else if (selectedItemIndex == 6) {
+
+                menu[6].setColor(color);
+            selectedItemIndex++;
+            menu[7].setColor(sf::Color::White);
+                }
+                
+                else if (selectedItemIndex == 7) {
+
+                menu[7].setColor(color);
+            selectedItemIndex--;
+            menu[6].setColor(sf::Color::White);
                 }
     }
 }
@@ -528,7 +577,7 @@ void Menu::updateView() {
 void Menu::cargarAnimacionesMenu() {
     if (random == 0) {
         SoundManager *sonido = SoundManager::Instance();
-        sonido->setVolumen("resources/Sounds/Cascada.ogg",20);
+        sonido->setVolumen("resources/Sounds/Cascada.ogg",SoundManager::Instance()->volumen);
         sonido->play("resources/Sounds/Cascada.ogg");
         if (!texturaAnimation.loadFromFile("resources/MenuInicio/SpritesheetMenu.png")) {
             std::cout << "Error cargando la textura: " << "resources/MenuInicio/SpritesheetMenu.png" << std::endl;
@@ -553,7 +602,7 @@ void Menu::cargarAnimacionesMenu() {
 
     if (random == 1) {
             SoundManager *sonido = SoundManager::Instance();
-            sonido->setVolumen("resources/Sounds/CasaFuego.ogg",20);
+            sonido->setVolumen("resources/Sounds/CasaFuego.ogg",SoundManager::Instance()->volumen);
              sonido->play("resources/Sounds/CasaFuego.ogg");
 
 
@@ -610,9 +659,10 @@ void Menu::cargarAnimacionesMenu() {
 
     if (random == 2) {
               SoundManager *sonido = SoundManager::Instance();
-              sonido->setVolumen("resources/Sounds/Truenos.ogg",20);
+              sonido->setVolumen("resources/Sounds/Truenos.ogg",SoundManager::Instance()->volumen);
              sonido->play("resources/Sounds/Truenos.ogg");
-//        EstadoActivo = true;
+
+             //        EstadoActivo = true;
         tecladoActivo = false;
         ratonSelecciona = false;
 
