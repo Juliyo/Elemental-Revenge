@@ -79,5 +79,13 @@ void SoundManager::setVolumen(std::string ruta,float vol) {
 }
 
 void SoundManager::VolumenMenu(float volu) {
-    volumen = volu;
+    
+    std::map<std::string,Sound*>::iterator it =sonidos->find("resources/Sounds/Cascada.ogg");
+    it->second->getSound()->setVolume(volu);
+     it =sonidos->find("resources/Sounds/CasaFuego.ogg");
+    it->second->getSound()->setVolume(volu);
+     it =sonidos->find("resources/Sounds/Truenos.ogg");
+    it->second->getSound()->setVolume(volu);
+     
+    //volumen = volu;
 }
