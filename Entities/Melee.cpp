@@ -314,8 +314,14 @@ void Melee::RestarVida(int a) {
         }
     }
     if (GetVida() <= 0) {
+        
         currentAnimation = &animationMuerte;
         InGame::Instance()->level->map->numEnemigos--;
+        if(InGame::Instance()->level->map->numEnemigos == 1){
+            /*InGame::Instance()->boss->Inicializar(InGame::Instance()->player->GetPosition().x, InGame::Instance()->player->GetPosition().y);
+            InGame::Instance()->boss->SetRectangleColision(0, 0, 37, 39);
+            InGame::Instance()->boss->CreateBody();*/
+        }
         SetEstado(Estado::ID::Muriendo);
         if (m_tipo == Tipo::ID::Rata) {
             //SoundManager::Instance()->setVolumen("resources/Sounds/ratdie.ogg", SoundManager::Instance()->volumen);
