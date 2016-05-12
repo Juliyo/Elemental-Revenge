@@ -18,10 +18,6 @@
 
 Pause::Pause() {
     motor = Motor2D::Instance();
-
-
-
-
 }
 
 Pause::Pause(const Pause& orig) {
@@ -158,9 +154,9 @@ void Pause::Inicializar() {
 
     menuPausa->at(7)->setFont(fontPausa);
     menuPausa->at(7)->setColor(colorAzul);
-    menuPausa->at(7)->setString("Cambiar volumen");
+    menuPausa->at(7)->setString("Volumen de la música");
     menuPausa->at(7)->setStyle(sf::Text::Bold);
-    menuPausa->at(7)->setPosition(300, 350);
+    menuPausa->at(7)->setPosition(250, 350);
     menuPausa->at(7)->setScale(1.2, 1.2);
 
     menuPausa->at(8)->setFont(fontPausa);
@@ -176,7 +172,21 @@ void Pause::Inicializar() {
     menuPausa->at(9)->setStyle(sf::Text::Bold);
     menuPausa->at(9)->setPosition(300, 350);
     menuPausa->at(9)->setScale(1.2, 1.2);
+    
+    menuPausa->at(10)->setFont(fontPausa);
+    menuPausa->at(10)->setColor(colorAzul);
+    menuPausa->at(10)->setString("Volumen de los sonidos");
+    menuPausa->at(10)->setStyle(sf::Text::Bold);
+    menuPausa->at(10)->setPosition(250, 650);
+    menuPausa->at(10)->setScale(1.2, 1.2);
 
+    /*menuPausa->at(11)->setFont(fontPausa);
+    menuPausa->at(11)->setColor(colorAzul);
+    menuPausa->at(11)->setString("Volumen de sonido");
+    menuPausa->at(11)->setStyle(sf::Text::Bold);
+    menuPausa->at(11)->setPosition(550, 500);
+    menuPausa->at(11)->setScale(1.2, 1.2);*/
+    
     printf("Ultima posicion del array, si es esto que le jodan al mundo\n");
 
     textoPausa->setFont(fontPausa);
@@ -291,6 +301,9 @@ void Pause::Update(sf::Time timeElapsed) {
 }
 
 void Pause::Render(float interpolation, sf::Time elapsedTime) {
+    
+                printf("%d\n", selectedItemIndexPausa);
+
     motor->draw(spriteFondo);
     if (selectedItemIndexPausa <= 7) {
         motor->draw(spritePersonaje);
@@ -318,12 +331,15 @@ void Pause::Render(float interpolation, sf::Time elapsedTime) {
     }
 
     if (selectedItemIndexPausa > 7) {
-        if (selectedItemIndexPausa == 8) {
+        if (selectedItemIndexPausa == 8 || selectedItemIndexPausa == 11) {
             textoPausa->setString("Opciones de audio");
             textoPausa->setScale(1.5, 1.5);
             for (int i = 7; i < 8; i++) {
                 motor->draw(*menuPausa->at(i));
             }
+            
+                motor->draw(*menuPausa->at(10));
+            
         }
         if (selectedItemIndexPausa == 9) {
             textoPausa->setString("Opciones de video");
@@ -419,6 +435,7 @@ void Pause::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
             }
             if (selectedItemIndexPausa == 3) {
                 selectedItemIndexPausa = 8;
+                menuPausa->at(7)->setColor(sf::Color::White);
             }
             if (selectedItemIndexPausa == 4) {
                 selectedItemIndexPausa = 9;
@@ -430,6 +447,7 @@ void Pause::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
             if (selectedItemIndexPausa == 1) {
                 selectedItemIndexPausa = 3;
             }
+            
         } else if (key == sf::Keyboard::Escape) {
             if (selectedItemIndexPausa < 3) {
                 //mWindow->close();
@@ -458,6 +476,8 @@ void Pause::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
                 menuPausa->at(6)->setColor(colorAzul);
                 menuPausa->at(3)->setColor(sf::Color::White);
             }
+            
+            
         }
     }
 }
@@ -480,6 +500,12 @@ void Pause::MoveUp() {
             menuPausa->at(selectedItemIndexPausa)->setColor(sf::Color::White);
 
         }
+        
+        else if(selectedItemIndexPausa==11){
+            selectedItemIndexPausa=8;
+            menuPausa->at(10)->setColor(colorAzul);
+            menuPausa->at(7)->setColor(sf::Color::White);
+        }
     }
 }
 
@@ -500,6 +526,11 @@ void Pause::MoveDown() {
             selectedItemIndexPausa++;
             menuPausa->at(selectedItemIndexPausa)->setColor(sf::Color::White);
 
+        }
+        else if(selectedItemIndexPausa==8){
+            selectedItemIndexPausa=11;
+            menuPausa->at(7)->setColor(colorAzul);
+            menuPausa->at(10)->setColor(sf::Color::White);
         }
     }
 }
