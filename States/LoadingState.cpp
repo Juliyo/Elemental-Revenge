@@ -51,8 +51,8 @@ void LoadingState::Clear() {
     delete spriteFondo;
     spriteFondo = nullptr;
     
-    //delete video;
-    //video = nullptr;
+    delete video;
+    video = nullptr;
 }
 
 void LoadingState::Inicializar() {

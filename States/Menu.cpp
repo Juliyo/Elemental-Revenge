@@ -563,8 +563,6 @@ void Menu::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
             sonido->stop("resources/Sounds/Truenos.ogg");
             
             StateStack::Instance()->SetCurrentState(States::ID::Carga);
-            StateStack::Instance()->GetState(States::ID::Carga)->Inicializar();
-            StateStack::Instance()->SetCurrentState(States::ID::Carga);
             StateStack::Instance()->GetState(States::ID::Carga)->level=0;
             StateStack::Instance()->GetState(States::ID::Carga)->Inicializar();
             
