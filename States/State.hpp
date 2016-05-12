@@ -43,6 +43,8 @@ public:
     Motor2D *motor;
 
     States::ID id;
+    
+    int level=0;
 
 };
 

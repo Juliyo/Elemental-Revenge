@@ -532,7 +532,9 @@ void Menu::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         if (selectedItemIndex == 0) {
 
             StateStack::Instance()->SetCurrentState(States::ID::Carga);
+            StateStack::Instance()->GetState(States::ID::Carga)->level=0;
             StateStack::Instance()->GetState(States::ID::Carga)->Inicializar();
+            
         }
         
         else if (selectedItemIndex == 1) {

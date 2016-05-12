@@ -39,8 +39,7 @@ void LoadingState::Clear() {
     delete mouseSprite;
     delete reloj1;
     delete spriteFondo;
-    delete spriteRelleno;
-    delete video;
+    delete video; 
 }
 
 void LoadingState::Inicializar() {
@@ -89,9 +88,11 @@ void LoadingState::Inicializar() {
     mensaje->setPosition(440,520);
     mensaje->setScale(0.6,0.6);
     
-    if(!loadingTask)
+    
+    if(level==0)
     loadingTask = new ParalellTask();
     
+    level++;
     loadingTask->Execute(mensaje);
 }
 

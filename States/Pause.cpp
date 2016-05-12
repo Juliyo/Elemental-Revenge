@@ -31,24 +31,34 @@ Pause::~Pause() {
 }
 
 void Pause::Clear() {
+    
+    printf("Clear Pausa 1\n");
     delete animatedSprite;
+    printf("Clear Pausa 1\n");
     animation=NULL;
+    printf("Clear Pausa 1\n");
     
     while(!menuPausa->empty()){
         delete menuPausa->back(), menuPausa->pop_back();
     }
     delete menuPausa;
-    
+    printf("Clear Pausa 1\n");
     //delete menuPausa;
     delete textoPausa;
-    
+    printf("Clear Pausa 1\n");
     delete mouseSprite;
+    printf("Clear Pausa 1\n");
     delete spriteFondo;
+    printf("Clear Pausa 1\n");
     delete spriteFondoOpciones;
+    printf("Clear Pausa 1\n");
     delete spriteMancha;
+    printf("Clear Pausa 1\n");
     delete spriteMancha2;
+    printf("Clear Pausa 1\n");
     delete spritePersonaje;
-    delete spriteRelleno;
+    printf("Clear Pausa 1\n");
+    //delete spriteRelleno;
     
 }
 
@@ -397,10 +407,16 @@ void Pause::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         
         if (selectedItemIndexPausa == 2) {
              StateStack::Instance()->GetState(States::ID::InGame)->Clear();
-             StateStack::Instance()->GetState(States::ID::Pause)->Clear();
+             printf("Se ha borrado InGame correctamente \n");
+
              StateStack::Instance()->GetState(States::ID::Muerte)->Clear();
+             printf("Se ha borrado Muerte correctamente \n");
             StateStack::Instance()->GetState(States::ID::Transition)->Clear();
+            printf("Se ha borrado Transicion correctamente \n");
             StateStack::Instance()->GetState(States::ID::Carga)->Clear();
+            printf("Se ha borrado Carga correctamente \n");
+             StateStack::Instance()->GetState(States::ID::Pause)->Clear();
+             printf("Se ha borrado Pausa correctamente \n");
              StateStack::Instance()->SetCurrentState(States::ID::Menu);
         }
         if (selectedItemIndexPausa == 3) {

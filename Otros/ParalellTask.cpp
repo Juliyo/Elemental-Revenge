@@ -72,6 +72,7 @@ void ParalellTask::RunTask() {
         }
 
     }else{
+            
                 mTexto->setString("Mapa++");
                 InGame::Instance()->physicWorld = new b2World(tmx::SfToBoxVec(sf::Vector2f(0.f, 0.f)));
                 InGame::Instance()->ct = new ContactListener();

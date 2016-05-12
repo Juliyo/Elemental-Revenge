@@ -50,18 +50,19 @@ void InGame::Clear() {
         delete caster->back(), caster->pop_back();
     }
     delete caster;
-    printf("Clear2\n");
-    while (!colaEnemigos->empty()) {
-        delete colaEnemigos->back(), colaEnemigos->pop_back();
-    }
-    delete colaEnemigos;
-    printf("Clear2.5\n");
+        printf("Clear2\n");
 
     while (!melee->empty()) {
         delete melee->back(), melee->pop_back();
     }
 
     delete melee;
+    printf("Clear2.5\n");
+    /*while (!colaEnemigos->empty()) {
+        delete colaEnemigos->back(), colaEnemigos->pop_back();
+    }
+    delete colaEnemigos;*/
+
     printf("Clear3\n");
 
     delete ct;
