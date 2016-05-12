@@ -145,17 +145,17 @@ void Boss::Inicializar(float posX, float posY,float speedX, float speedY, float 
     rayo = new AtaqueBossB;
     espiral = new std::vector<AtaqueBossC*>();
     
-    for(int i=0;i<150;i++){
+    for(int i=0;i<90;i++){
         espiral->push_back(new AtaqueBossC());
     }
     
-    for(int i=0; i<50;i++){
+    for(int i=0; i<30;i++){
         rotacion[i]=0;
     }
-    for(int i=50; i<100;i++){
+    for(int i=30; i<60;i++){
         rotacion2[i]=120;
     }
-    for(int i=100; i<150;i++){
+    for(int i=60; i<90;i++){
         rotacion3[i]=240;
     }
 
@@ -237,12 +237,12 @@ void Boss::renderAtaqueC(sf::Time elapsedTime, float interpolation) {
         espiral->at(p)->PlayAnimation(espiral->at(p)->animationAtaque);
         espiral->at(p)->UpdateAnimation(elapsedTime);
         espiral->at(p)->DrawAnimation(espiral->at(p)->GetPreviousPosition(),espiral->at(p)->GetPosition(), interpolation);
-        espiral->at(p+50)->PlayAnimation( espiral->at(p+50)->animationAtaque);
-         espiral->at(p+50)->UpdateAnimation(elapsedTime);
-         espiral->at(p+50)->DrawAnimation( espiral->at(p+50)->GetPreviousPosition(), espiral->at(p+50)->GetPosition(), interpolation);
-         espiral->at(p+100)->PlayAnimation(espiral->at(p+100)->animationAtaque);
-        espiral->at(p+100)->UpdateAnimation(elapsedTime);
-        espiral->at(p+100)->DrawAnimation(espiral->at(p+100)->GetPreviousPosition(),espiral->at(p+100)->GetPosition(), interpolation);
+        espiral->at(p+30)->PlayAnimation( espiral->at(p+30)->animationAtaque);
+         espiral->at(p+30)->UpdateAnimation(elapsedTime);
+         espiral->at(p+30)->DrawAnimation( espiral->at(p+30)->GetPreviousPosition(), espiral->at(p+30)->GetPosition(), interpolation);
+         espiral->at(p+60)->PlayAnimation(espiral->at(p+60)->animationAtaque);
+        espiral->at(p+60)->UpdateAnimation(elapsedTime);
+        espiral->at(p+60)->DrawAnimation(espiral->at(p+60)->GetPreviousPosition(),espiral->at(p+60)->GetPosition(), interpolation);
             }
         }
         
@@ -414,28 +414,28 @@ void Boss::updateAtaqueBossC(bool disparado, sf::Time elapsedTime,float x4,float
                 
                 ///LINEA 2 DE BOLAS   
                 if(setOriginEspiral2<2){
-                espiral->at(50)->SetPosition(getPosition().x, getPosition().y);
-                espiral->at(50)->SetOriginAnimation(GetSpriteAnimated().getOrigin().x,GetSpriteAnimated().getOrigin().y);
+                espiral->at(30)->SetPosition(getPosition().x, getPosition().y);
+                espiral->at(30)->SetOriginAnimation(GetSpriteAnimated().getOrigin().x,GetSpriteAnimated().getOrigin().y);
                 setOriginEspiral2++;
                 }
                 else{
                 numBolasEspiral2++;
-                espiral->at(numBolasEspiral2+50)->SetPosition(getPosition().x, getPosition().y);
-                espiral->at(numBolasEspiral2+50)->SetOriginAnimation(espiral->at(numBolasEspiral2+50-1)->GetSpriteAnimated().getOrigin().x-360,espiral->at(numBolasEspiral2+50-1)->GetSpriteAnimated().getOrigin().y);
+                espiral->at(numBolasEspiral2+30)->SetPosition(getPosition().x, getPosition().y);
+                espiral->at(numBolasEspiral2+30)->SetOriginAnimation(espiral->at(numBolasEspiral2+30-1)->GetSpriteAnimated().getOrigin().x-360,espiral->at(numBolasEspiral2+30-1)->GetSpriteAnimated().getOrigin().y);
                 }
                 
                 
                 ///LINEA 3 DE BOLAS
                 if(setOriginEspiral3<2){
-                espiral->at(numBolasEspiral3+100)->SetPosition(getPosition().x, getPosition().y);
-                espiral->at(numBolasEspiral3+100)->SetOriginAnimation(GetSpriteAnimated().getOrigin().x, GetSpriteAnimated().getOrigin().y);
+                espiral->at(numBolasEspiral3+60)->SetPosition(getPosition().x, getPosition().y);
+                espiral->at(numBolasEspiral3+60)->SetOriginAnimation(GetSpriteAnimated().getOrigin().x, GetSpriteAnimated().getOrigin().y);
                 
                 setOriginEspiral3++;
                 }
                 else{
                 numBolasEspiral3++;
-                espiral->at(numBolasEspiral3+100)->SetPosition(getPosition().x, getPosition().y);
-                espiral->at(numBolasEspiral3+100)->SetOriginAnimation(espiral->at(numBolasEspiral3+100-1)->GetSpriteAnimated().getOrigin().x-360,espiral->at(numBolasEspiral3+100)->GetSpriteAnimated().getOrigin().y);
+                espiral->at(numBolasEspiral3+60)->SetPosition(getPosition().x, getPosition().y);
+                espiral->at(numBolasEspiral3+60)->SetOriginAnimation(espiral->at(numBolasEspiral3+60-1)->GetSpriteAnimated().getOrigin().x-360,espiral->at(numBolasEspiral3+60)->GetSpriteAnimated().getOrigin().y);
                 }
                 
                 
@@ -477,7 +477,7 @@ void Boss::updateAtaqueBossC(bool disparado, sf::Time elapsedTime,float x4,float
 
             }
             
-            for(int i=50; i<=50+numBolasEspiral2;i++){
+            for(int i=30; i<=30+numBolasEspiral2;i++){
             //espiral->SetPosition(espiral->GetPosition().x-1,espiral->GetPosition().y-1);
             espiral->at(i)->SetRotation(rotacion2[i]);
             rotacion2[i]+=5;
@@ -510,7 +510,7 @@ void Boss::updateAtaqueBossC(bool disparado, sf::Time elapsedTime,float x4,float
 
             }
             
-            for(int i=100; i<=100+numBolasEspiral3;i++){
+            for(int i=60; i<=60+numBolasEspiral3;i++){
             //espiral->SetPosition(espiral->GetPosition().x-1,espiral->GetPosition().y-1);
             espiral->at(i)->SetRotation(rotacion3[i]);
             rotacion3[i]+=5;
@@ -548,13 +548,13 @@ void Boss::updateAtaqueBossC(bool disparado, sf::Time elapsedTime,float x4,float
         }else{
             
             if(espiral->at(0)->ClockResetEspiral.getTiempo()>(espiral->at(0)->cdResetEspiral)){
-                    for(int i=0; i<50;i++){
+                    for(int i=0; i<30;i++){
                      rotacion[i]=0;
                     }
-                    for(int i=50; i<100;i++){
+                    for(int i=30; i<60;i++){
                         rotacion2[i]=120;
                     }
-                    for(int i=100; i<150;i++){
+                    for(int i=60; i<90;i++){
                         rotacion3[i]=240;
                     }
                     

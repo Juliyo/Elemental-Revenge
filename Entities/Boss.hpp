@@ -76,9 +76,9 @@ public:
     float CdDisparoRayo = 2.35f;
     float CdDisparoEspiral = 10.0f;
     
-    int rotacion[50];
-    int rotacion2[50];
-    int rotacion3[50];
+    int rotacion[30];
+    int rotacion2[30];
+    int rotacion3[30];
 
     bool primercastDisparo; //Variable de clase para el primer casteo
     bool primercastDisparoRayo; //Variable de clase para el primer casteo

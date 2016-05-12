@@ -171,7 +171,7 @@ void InGame::Update(sf::Time elapsedTime) {
 
             boss->updateAtaqueBossA(true, elapsedTime, player->getPosition().x, player->getPosition().y);
             boss->updateAtaqueBossB(true, elapsedTime, player->getPosition().x, player->getPosition().y);
-            //boss->updateAtaqueBossC(true, elapsedTime, player->getPosition().x, player->getPosition().y);
+            boss->updateAtaqueBossC(true, elapsedTime, player->getPosition().x, player->getPosition().y);
 
             int x3 = player->getPosition().x - boss->getPosition().x;
             int y3 = player->getPosition().y - boss->getPosition().y;
@@ -357,7 +357,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
 
         boss->renderAtaqueA(elapsedTime, interpolation);
         boss->renderAtaqueB(elapsedTime, interpolation);
-        //boss->renderAtaqueC(elapsedTime, interpolation);
+        boss->renderAtaqueC(elapsedTime, interpolation);
     }
 
 
