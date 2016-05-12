@@ -310,10 +310,10 @@ void Melee::RestarVida(int a) {
         SetEstado(Estado::ID::Damaged);
         SetVida(GetVida() - a);
         if (m_tipo == Tipo::ID::Rata) {
-            SoundManager::Instance()->setVolumen("resources/Sounds/rathit.ogg", SoundManager::Instance()->volumen);
+            //SoundManager::Instance()->setVolumen("resources/Sounds/rathit.ogg", SoundManager::Instance()->volumen);
             SoundManager::Instance()->play("resources/Sounds/rathit.ogg");
         } else {
-            SoundManager::Instance()->setVolumen("resources/Sounds/assassinhit.ogg", SoundManager::Instance()->volumen);
+            //SoundManager::Instance()->setVolumen("resources/Sounds/assassinhit.ogg", SoundManager::Instance()->volumen);
             SoundManager::Instance()->play("resources/Sounds/assassinhit.ogg");
         }
     }
@@ -322,10 +322,10 @@ void Melee::RestarVida(int a) {
         InGame::Instance()->level->map->numEnemigos--;
         SetEstado(Estado::ID::Muriendo);
         if (m_tipo == Tipo::ID::Rata) {
-            SoundManager::Instance()->setVolumen("resources/Sounds/ratdie.ogg", SoundManager::Instance()->volumen);
+            //SoundManager::Instance()->setVolumen("resources/Sounds/ratdie.ogg", SoundManager::Instance()->volumen);
             SoundManager::Instance()->play("resources/Sounds/ratdie.ogg");
         } else {
-            SoundManager::Instance()->setVolumen("resources/Sounds/assassindie.ogg", SoundManager::Instance()->volumen);
+            //SoundManager::Instance()->setVolumen("resources/Sounds/assassindie.ogg", SoundManager::Instance()->volumen);
             SoundManager::Instance()->play("resources/Sounds/assassindie.ogg");
         }
     }

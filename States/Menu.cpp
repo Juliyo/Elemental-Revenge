@@ -552,7 +552,18 @@ void Menu::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
     } else if (key == sf::Keyboard::Return) {
         
         if (selectedItemIndex == 0) {
-
+                        SoundManager *sonido = SoundManager::Instance();
+            if(random==0)
+            sonido->stop("resources/Sounds/Cascada.ogg");
+            
+            if(random==1)
+            sonido->stop("resources/Sounds/CasaFuego.ogg");
+            
+            if(random==2)
+            sonido->stop("resources/Sounds/Truenos.ogg");
+            
+            StateStack::Instance()->SetCurrentState(States::ID::Carga);
+            StateStack::Instance()->GetState(States::ID::Carga)->Inicializar();
             StateStack::Instance()->SetCurrentState(States::ID::Carga);
             StateStack::Instance()->GetState(States::ID::Carga)->level=0;
             StateStack::Instance()->GetState(States::ID::Carga)->Inicializar();
@@ -601,7 +612,7 @@ void Menu::updateView() {
 void Menu::cargarAnimacionesMenu() {
     if (random == 0) {
         SoundManager *sonido = SoundManager::Instance();
-        sonido->setVolumen("resources/Sounds/Cascada.ogg",SoundManager::Instance()->volumen);
+       // sonido->setVolumen("resources/Sounds/Cascada.ogg",SoundManager::Instance()->volumen);
         sonido->play("resources/Sounds/Cascada.ogg");
         if (!texturaAnimation.loadFromFile("resources/MenuInicio/SpritesheetMenu.png")) {
             std::cout << "Error cargando la textura: " << "resources/MenuInicio/SpritesheetMenu.png" << std::endl;
@@ -626,7 +637,7 @@ void Menu::cargarAnimacionesMenu() {
 
     if (random == 1) {
             SoundManager *sonido = SoundManager::Instance();
-            sonido->setVolumen("resources/Sounds/CasaFuego.ogg",SoundManager::Instance()->volumen);
+            //sonido->setVolumen("resources/Sounds/CasaFuego.ogg",SoundManager::Instance()->volumen);
              sonido->play("resources/Sounds/CasaFuego.ogg");
 
 
@@ -683,7 +694,7 @@ void Menu::cargarAnimacionesMenu() {
 
     if (random == 2) {
               SoundManager *sonido = SoundManager::Instance();
-              sonido->setVolumen("resources/Sounds/Truenos.ogg",SoundManager::Instance()->volumen);
+              //sonido->setVolumen("resources/Sounds/Truenos.ogg",SoundManager::Instance()->volumen);
              sonido->play("resources/Sounds/Truenos.ogg");
 
              //        EstadoActivo = true;
