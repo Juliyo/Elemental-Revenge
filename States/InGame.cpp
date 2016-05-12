@@ -294,6 +294,10 @@ void InGame::Update(sf::Time elapsedTime) {
     }
     //printf("Numero de enemigos: %d\n",level->map->numEnemigos);
     if (level->map->numEnemigos == 0) {
+        Music *music = Music::Instance();
+                music->Stop();
+                music->Load(MUSICA::ID::Transiciones);
+                music->Play();
         StateStack::Instance()->SetCurrentState(States::ID::Transition);
     }
 }
@@ -508,6 +512,10 @@ void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         player->SetPosition(1420, 1230);
     } else if (key == sf::Keyboard::M) {
         //Si pulsamos la M pasamos de nivel
+        Music *music = Music::Instance();
+                music->Stop();
+                music->Load(MUSICA::ID::Transiciones);
+                music->Play();
         StateStack::Instance()->SetCurrentState(States::ID::Transition);
         player->isMovingDown = false;
         player->isMovingLeft = false;
