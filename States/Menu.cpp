@@ -355,6 +355,7 @@ void Menu::MoveRight() {
         if (volumenMusica < 10) {
             volumenMusica++;
             audioMusica.setString(NumberToString(volumenMusica));
+            Music::Instance()->SetVolume(volumenMusica*10);
         }
     }
     
@@ -373,6 +374,7 @@ void Menu::MoveLeft() {
         if (volumenMusica > 0) {
             volumenMusica--;
             audioMusica.setString(NumberToString(volumenMusica));
+            Music::Instance()->SetVolume(volumenMusica*10);
         }
     }
     if (selectedItemIndex == 7) {
