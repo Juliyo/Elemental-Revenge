@@ -31,7 +31,7 @@ public:
     std::string getClassName() override;
 
     void Inicializar(float posX, float posY, Tipo::ID tipo,float speedX = 0.f, float speedY = 0.f, float maxSpeedX = 1000.f, float maxSpeedY = 1000.f);
-    void Update(const sf::Time elapsedTime, float x1, float x2, float multiplicador);
+    void Update(const sf::Time elapsedTime);
     void CreateBody() override;
 
     void Draw();
@@ -56,14 +56,9 @@ public:
 
     sf::Color color;
 
-    
     Reloj *damaged;
 private:
     Tipo::ID m_tipo;
-    sf::Texture texturaEnemigo;
-    
-    Reloj inicio;
-    
 };
 
 #endif /* MELEE_HPP */

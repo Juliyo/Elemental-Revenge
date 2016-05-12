@@ -64,7 +64,7 @@ void Mapa::CreateBosses() {
         {
             for (const auto& o : l.objects) {
                 boss->Inicializar(o.GetCentre().x, -1*o.GetCentre().y);
-                boss->SetRectangleColision(0, 0, 37, 39);
+                boss->SetRectangleColision(0, 0, 60, 76);
                 boss->CreateBody();
             }
         }

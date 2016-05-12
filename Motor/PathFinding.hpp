@@ -51,26 +51,8 @@ private:
 
 
 
-    bool BuscarNodoEnListaAbierta(Nodo *nodo){
-        bool encontrado = false;
-        for(int i = 0; i < listaAbierta.size();i++){
-            if(listaAbierta.at(i)->esIgual(nodo) && listaAbierta.at(i)->costoG){
-                encontrado = true;
-                break;
-            }
-        }
-        return encontrado;
-    }
-    bool buscarCasilla(sf::Vector2i casilla){
-       bool encontrado=false;
-       for(int i=0;i<listaCerrada.size();i++){
-           if(listaCerrada.at(i).x==casilla.x && listaCerrada.at(i).y==casilla.y ){
-               encontrado==true;
-               break;
-           }
-       }
-       return encontrado;
-   }
+    bool BuscarNodoEnListaAbierta(Nodo *nodo);
+    bool buscarCasilla(sf::Vector2i casilla);
     
     //Nodo *NodoInicio;
     //Nodo *NodoFinal;

@@ -169,8 +169,6 @@ void Caster::Inicializar(float posX, float posY, Tipo::Caster tipo, float speedX
         SetEstado(Estado::ID::Vivo);
     }*/
     
-    empujado = false;
-    empujado2 = false;
     damaged = new Reloj();
     //Cargamos shader del player para el colo
     LoadShader("resources/Shader/fs.frag");
@@ -230,20 +228,6 @@ void Caster::Update(const sf::Time elapsedTime, float x1, float x2, float multip
         RestarVida(damageTaken);
     }
     distancia = sqrt(pow(x, 2) + pow(y, 2));
-    if (distancia < 700) {
-
-        if (!encola) {
-            world->colaEnemigos->push_back((Enemigo*)this);
-            encola = true;
-
-        }
-
-
-        inicio.restart();
-
-        shapesDebug.clear();
-
-    }
     // }
 
     SetPosition(tmx::BoxToSfVec(body->GetPosition()));

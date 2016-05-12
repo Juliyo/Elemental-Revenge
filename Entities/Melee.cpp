@@ -199,14 +199,11 @@ void Melee::CambiarVectorVelocidad() {
         }
         //Hay que setear al BodyDef el vector velocidad que hallamos calculado
         body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(movement) * Enemigo::GetVelocity()));
-
-        //std::cout<<x<<" , "<<y<<std::endl;
     }
 }
 
-void Melee::Update(const sf::Time elapsedTime, float x1, float x2, float multiplicador) {
+void Melee::Update(const sf::Time elapsedTime) {
     InGame* world = InGame::Instance();
-    sf::Vector2f movement(0, 0);
     if (GetEstado() == Estado::ID::Damaged && damaged->getTiempo() > 0.05f) {
         ActiveShader(false);
         SetEstado(Estado::ID::Vivo);
@@ -237,7 +234,6 @@ void Melee::Update(const sf::Time elapsedTime, float x1, float x2, float multipl
         //        
         //        bueno=!bueno;
 
-        inicio.restart();
     }
     // }
     //Hay que setear al BodyDef el vector velocidad que hallamos calculado

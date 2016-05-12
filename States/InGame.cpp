@@ -134,11 +134,9 @@ void InGame::Update(sf::Time elapsedTime) {
         //**************************ENEMIGOS MELEES**********************//
 
         for (std::vector<Melee*>::iterator it = melee->begin(); it != melee->end(); ++it) {
-            int x3 = player->getPosition().x - (*it)->getPosition().x;
-            int y3 = player->getPosition().y - (*it)->getPosition().y;
 
             if ((*it)->GetEstado() == Estado::ID::Vivo || (*it)->GetEstado() == Estado::ID::Damaged) {
-                (*it)->Update(elapsedTime, x3, y3, 1);
+                (*it)->Update(elapsedTime);
             } else if ((*it)->GetEstado() == Estado::ID::Muriendo) {
                 //Si acaba de morir lo borramos del mundo y lo matamos
                 (*it)->body->GetWorld()->DestroyBody((*it)->body);
@@ -164,20 +162,19 @@ void InGame::Update(sf::Time elapsedTime) {
                 (*it)->SetEstado(Estado::ID::Muerto);
             }
         }
+        
+        //**************************BOSS **********************//
         if (level->map->numEnemigos == 1) {
-
-            float x4 = player->getPosition().x - boss->getPosition().x;
-            float y4 = player->getPosition().y - boss->getPosition().y;
-
-            boss->updateAtaqueBossA(true, elapsedTime, player->getPosition().x, player->getPosition().y);
-            boss->updateAtaqueBossB(true, elapsedTime, player->getPosition().x, player->getPosition().y);
-            boss->updateAtaqueBossC(true, elapsedTime, player->getPosition().x, player->getPosition().y);
-
-            int x3 = player->getPosition().x - boss->getPosition().x;
-            int y3 = player->getPosition().y - boss->getPosition().y;
-            boss->Update(elapsedTime, x3, y3, 1);
-
-
+            if (boss->GetEstado() == Estado::ID::Vivo || boss->GetEstado() == Estado::ID::Damaged) {
+                boss->updateAtaqueBossA(true, elapsedTime, player->getPosition().x, player->getPosition().y);
+                boss->updateAtaqueBossB(true, elapsedTime, player->getPosition().x, player->getPosition().y);
+                boss->updateAtaqueBossC(true, elapsedTime, player->getPosition().x, player->getPosition().y);
+                boss->Update(elapsedTime);
+            } else if (boss->GetEstado() == Estado::ID::Muriendo) {
+                //Si acaba de morir lo borramos del mundo y lo matamos
+                boss->body->GetWorld()->DestroyBody(boss->body);
+                boss->SetEstado(Estado::ID::Muerto);
+            }
         }
 
         ///
@@ -349,15 +346,27 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     if (level->map->numEnemigos == 1) {
         boss->PlayAnimation(*boss->currentAnimation);
         boss->UpdateAnimation(elapsedTime);
-        boss->DrawWithInterpolation(interpolation);
-
-        int x2 = player->getPosition().x - boss->getPosition().x;
-        int y2 = player->getPosition().y - boss->getPosition().y;
-        boss->UpdateEnemyAnimation(x2, y2);
-
         boss->renderAtaqueA(elapsedTime, interpolation);
         boss->renderAtaqueB(elapsedTime, interpolation);
         boss->renderAtaqueC(elapsedTime, interpolation);
+        //Si estamos en Pause o Muerte render con interpolacion
+        if (StateStack::Instance()->currentState != States::ID::Pause && StateStack::Instance()->currentState != States::ID::Muerte) {
+            if (boss->GetEstado() != Estado::ID::Muerto) {
+                int x2 = player->getPosition().x - boss->getPosition().x;
+                int y2 = player->getPosition().y - boss->getPosition().y;
+                boss->UpdateEnemyAnimation(x2, y2);
+                boss->CambiarVectorVelocidad();
+                boss->DrawWithInterpolation(interpolation);
+            } else {
+                boss->DrawAnimationWithOut(boss->GetRenderPosition());
+                boss->currentAnimation = &boss->animationMuerte;
+            }
+        } else { //Si no renderizamos sin interpolacion
+            boss->DrawAnimationWithOut(boss->GetRenderPosition());
+            if (StateStack::Instance()->currentState == States::ID::Pause) {
+                boss->StopAnimation();
+            }
+        }
     }
 
 

@@ -16,6 +16,8 @@
 #include "../Entities/Player.hpp"
 #include "../Entities/Melee.hpp"
 #include "../Entities/Caster.hpp"
+#include "../Entities/Boss.hpp"
+#include "AtaqueBossA.hpp"
 
 ContactListener::ContactListener() {
 }
@@ -56,6 +58,11 @@ void ContactListener::BeginContact(b2Contact* contact) {
         }else if(claseB == "Kamehameha"){
             Player *p = static_cast<Player*> (fixtureA->GetBody()->GetUserData());
             DisparoEnemigo *d = static_cast<DisparoEnemigo*> (fixtureB->GetBody()->GetUserData());
+            p->restaVida(d->getDamage());
+            d->Colision();
+        }else if("AtaqueA"){
+            Player *p = static_cast<Player*> (fixtureA->GetBody()->GetUserData());
+            AtaqueBossA *d = static_cast<AtaqueBossA*> (fixtureB->GetBody()->GetUserData());
             p->restaVida(d->getDamage());
             d->Colision();
         }
@@ -105,6 +112,36 @@ void ContactListener::BeginContact(b2Contact* contact) {
             m->RestarVida(w->getDamage());
             
         }
+    }else if(claseA == "Boss"){
+        if(claseB == "hFireBasic"){
+            Boss *m = static_cast<Boss*> (fixtureA->GetBody()->GetUserData());
+            hFireBasic *f = static_cast<hFireBasic*> (fixtureB->GetBody()->GetUserData());
+            f->Colision();
+            m->RestarVida(f->getDamage());
+        }else if(claseB == "hFireAdvanced"){
+            Boss *m = static_cast<Boss*> (fixtureA->GetBody()->GetUserData());
+            hFireAdvanced *f = static_cast<hFireAdvanced*> (fixtureB->GetBody()->GetUserData());
+            
+            m->numContactos++;
+            m->damageTaken = f->getDamage();
+        }else if(claseB == "hRayBasic"){
+            Boss *m = static_cast<Boss*> (fixtureA->GetBody()->GetUserData());
+            hRayBasic *f = static_cast<hRayBasic*> (fixtureB->GetBody()->GetUserData());
+            m->numContactos++;
+            m->damageTaken = f->getDamage();
+        }else if(claseB == "hWaterBasic"){
+            hWaterBasic *w = static_cast<hWaterBasic*> (fixtureB->GetBody()->GetUserData());
+            b2Vec2 toTarget = fixtureA->GetBody()->GetPosition() - fixtureB->GetBody()->GetPosition();
+            toTarget.Normalize();
+            b2Vec2 desiredVel = 0.08f * toTarget;
+            fixtureA->GetBody()->ApplyLinearImpulse(desiredVel, fixtureA->GetBody()->GetWorldCenter(), true);
+            Boss *m = static_cast<Boss*> (fixtureA->GetBody()->GetUserData());
+            m->RestarVida(w->getDamage());
+        }else if(claseB == "hWaterAdvanced"){
+            hWaterAdvanced *w = static_cast<hWaterAdvanced*> (fixtureB->GetBody()->GetUserData());
+            Boss *m = static_cast<Boss*> (fixtureA->GetBody()->GetUserData());
+            m->RestarVida(w->getDamage());
+        }
     }else if(claseA == "hFireBasic"){
         if(claseB == "Melee"){
             Melee *m = static_cast<Melee*> (fixtureB->GetBody()->GetUserData());
@@ -118,6 +155,11 @@ void ContactListener::BeginContact(b2Contact* contact) {
             Caster *m = static_cast<Caster*> (fixtureB->GetBody()->GetUserData());
             hFireBasic *f = static_cast<hFireBasic*> (fixtureA->GetBody()->GetUserData());
             m->RestarVida(f->getDamage());
+            f->Colision();
+        }else if(claseB == "Boss"){
+            Boss *m = static_cast<Boss*> (fixtureB->GetBody()->GetUserData());
+            hFireBasic *f = static_cast<hFireBasic*> (fixtureA->GetBody()->GetUserData());
+            m->RestarVida(f->getDamage());
             
             f->Colision();
         }
@@ -128,6 +170,9 @@ void ContactListener::BeginContact(b2Contact* contact) {
         }else if(claseB == "Kamehameha"){
             DisparoEnemigo *d = static_cast<DisparoEnemigo*> (fixtureB->GetBody()->GetUserData());
             d->Colision();
+        }else if(claseB == "AtaqueA"){
+            AtaqueBossA *d = static_cast<AtaqueBossA*> (fixtureB->GetBody()->GetUserData());
+            d->Colision();
         }
     }else if(claseA == "hFireAdvanced"){
         if(claseB == "Melee"){
@@ -137,6 +182,11 @@ void ContactListener::BeginContact(b2Contact* contact) {
             m->damageTaken = f->getDamage();
         }else if(claseB == "Caster"){
             Caster *m = static_cast<Caster*> (fixtureB->GetBody()->GetUserData());
+            hFireAdvanced *f = static_cast<hFireAdvanced*> (fixtureA->GetBody()->GetUserData());
+            m->numContactos++;
+            m->damageTaken = f->getDamage();
+        }else if(claseB == "Boss"){
+            Boss *m = static_cast<Boss*> (fixtureB->GetBody()->GetUserData());
             hFireAdvanced *f = static_cast<hFireAdvanced*> (fixtureA->GetBody()->GetUserData());
             m->numContactos++;
             m->damageTaken = f->getDamage();
@@ -161,6 +211,14 @@ void ContactListener::BeginContact(b2Contact* contact) {
         } else if(claseB == "Kamehameha"){
             DisparoEnemigo *d = static_cast<DisparoEnemigo*> (fixtureB->GetBody()->GetUserData());
             d->Colision();
+        }else if(claseB == "Boss"){
+            hWaterBasic *w = static_cast<hWaterBasic*> (fixtureA->GetBody()->GetUserData());
+            b2Vec2 toTarget = fixtureB->GetBody()->GetPosition() - fixtureA->GetBody()->GetPosition();
+            toTarget.Normalize();
+            b2Vec2 desiredVel = 0.15f * toTarget;
+            fixtureB->GetBody()->ApplyLinearImpulse(desiredVel, fixtureB->GetBody()->GetWorldCenter(), true);
+            Boss *m = static_cast<Boss*> (fixtureB->GetBody()->GetUserData());
+            m->RestarVida(w->getDamage());
         }
     } else if (claseA == "hWaterAdvanced") {
         hWaterBasic *w = static_cast<hWaterBasic*> (fixtureB->GetBody()->GetUserData());
@@ -174,6 +232,9 @@ void ContactListener::BeginContact(b2Contact* contact) {
         }else if(claseB == "Caster"){
             Caster *m = static_cast<Caster*> (fixtureB->GetBody()->GetUserData());
             m->RestarVida(w->getDamage());
+        }else if(claseB == "Boss"){
+            Boss *m = static_cast<Boss*> (fixtureB->GetBody()->GetUserData());
+            m->RestarVida(w->getDamage());
         }
     }else if(claseA == "Kamehameha"){
         if(claseB == "Player"){
@@ -186,6 +247,19 @@ void ContactListener::BeginContact(b2Contact* contact) {
             d->Colision();
         }else if(claseB == "hWaterBasic"){
             DisparoEnemigo *d = static_cast<DisparoEnemigo*> (fixtureA->GetBody()->GetUserData());
+            d->Colision();
+        }
+    }else if(claseA == "AtaqueA"){
+        if(claseB == "Player"){
+            Player *p = static_cast<Player*> (fixtureB->GetBody()->GetUserData());
+            AtaqueBossA *d = static_cast<AtaqueBossA*> (fixtureA->GetBody()->GetUserData());
+            d->Colision();
+            p->restaVida(d->getDamage());
+        }else if(claseB == ""){
+            AtaqueBossA *d = static_cast<AtaqueBossA*> (fixtureA->GetBody()->GetUserData());
+            d->Colision();
+        }else if(claseB == "hWaterBasic"){
+            AtaqueBossA *d = static_cast<AtaqueBossA*> (fixtureA->GetBody()->GetUserData());
             d->Colision();
         }
     }else if(claseA == "Caster"){
@@ -233,6 +307,11 @@ void ContactListener::BeginContact(b2Contact* contact) {
             hRayBasic *f = static_cast<hRayBasic*> (fixtureA->GetBody()->GetUserData());
             m->numContactos++;
             m->damageTaken = f->getDamage();
+        }else if(claseB == "Boss"){
+            Boss *m = static_cast<Boss*> (fixtureB->GetBody()->GetUserData());
+            hRayBasic *f = static_cast<hRayBasic*> (fixtureA->GetBody()->GetUserData());
+            m->numContactos++;
+            m->damageTaken = f->getDamage();
         }
     }else if(claseA == "hRayAdvanced"){
         
@@ -246,6 +325,10 @@ void ContactListener::BeginContact(b2Contact* contact) {
             Caster *m = static_cast<Caster*> (fixtureB->GetBody()->GetUserData());
             m->RestarVida(h->getDamage());
             
+        }else if(claseB == "Boss"){
+            hRayAdvanced *h = static_cast<hRayAdvanced*> (fixtureA->GetBody()->GetUserData());
+            Boss *m = static_cast<Boss*> (fixtureB->GetBody()->GetUserData());
+            m->RestarVida(h->getDamage());
         }
     }
 
@@ -284,6 +367,9 @@ void ContactListener::EndContact(b2Contact* contact) {
         }else if(claseB == "Caster"){
             Caster *m = static_cast<Caster*> (fixtureB->GetBody()->GetUserData());
             m->numContactos--;
+        }else if(claseB == "Boss"){
+            Boss *m = static_cast<Boss*> (fixtureB->GetBody()->GetUserData());
+            m->numContactos--;
         }
     }else if(claseA == "hRayBasic"){
         if(claseB == "Melee"){
@@ -292,6 +378,9 @@ void ContactListener::EndContact(b2Contact* contact) {
         }else if(claseB == "Caster"){
             Caster *m = static_cast<Caster*> (fixtureB->GetBody()->GetUserData());
             m->numContactos--;
+        }else if(claseB == "Boss"){
+            Boss *m = static_cast<Boss*> (fixtureB->GetBody()->GetUserData());
+            m->numContactos--;
         }
     }else if(claseA == "Caster"){
         if(claseB == "hFireAdvanced"){
@@ -299,6 +388,14 @@ void ContactListener::EndContact(b2Contact* contact) {
             m->numContactos--;
         } else if (claseB == "hRayBasic") {
             Caster *m = static_cast<Caster*> (fixtureA->GetBody()->GetUserData());
+            m->numContactos--;
+        }
+    }else if(claseA == "Boss"){
+        if(claseB == "hFireAdvanced"){
+            Boss *m = static_cast<Boss*> (fixtureA->GetBody()->GetUserData());
+            m->numContactos--;
+        } else if (claseB == "hRayBasic") {
+            Boss *m = static_cast<Boss*> (fixtureA->GetBody()->GetUserData());
             m->numContactos--;
         }
     }
@@ -319,6 +416,10 @@ void ContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldManifold
     if (claseA == "hRayBasic") {
         if (claseB == "Melee") {
             contact->SetEnabled(false);
+        }else if(claseB == "Caster"){
+            contact->SetEnabled(false);
+        }else if(claseB == "Boss"){
+            contact->SetEnabled(false);
         }
     } else if (claseA == "Melee") {
         if (claseB == "hRayBasic") {
@@ -333,6 +434,8 @@ void ContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldManifold
             contact->SetEnabled(false);
         } else if (claseB == "Caster") {
             contact->SetEnabled(false);
+        }else if(claseB == "Boss"){
+            contact->SetEnabled(false);
         }
     }else if(claseA == "Caster"){
         if(claseB == "hFireAdvanced"){
@@ -346,6 +449,16 @@ void ContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldManifold
         if(claseB == "Melee"){
             contact->SetEnabled(false);
         }else if(claseB == "Caster"){
+            contact->SetEnabled(false);
+        }else if(claseB == "Boss"){
+            contact->SetEnabled(false);
+        }
+    }else if(claseA == "Boss"){
+        if(claseB == "hFireAdvanced"){
+            contact->SetEnabled(false);
+        }else if(claseB == "hFireAdvanced"){
+            contact->SetEnabled(false);
+        }else if(claseB == "hRayAdvanced"){
             contact->SetEnabled(false);
         }
     }

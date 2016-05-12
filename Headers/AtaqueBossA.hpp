@@ -16,34 +16,39 @@
 
 #include "SFML/Graphics/CircleShape.hpp"
 
-#include "Render.hpp"
-#include "PhysicsState.hpp"
+#include "../Headers/Hechizo.hpp"
+#include "../Motor/Collisionable.hpp"
 #include "../Motor/Motor2D.hpp"
 #include "Animation.hpp"
 
-class AtaqueBossA : public Render, public PhysicsState {
+
+class AtaqueBossA : public Hechizo, public Collisionable {
 public:
     AtaqueBossA();
-    AtaqueBossA(const AtaqueBossA& orig);
     virtual ~AtaqueBossA();
     
-    
+    void CreateBody() override;
+    std::string getClassName() override;    //AtaqueA
+
     Animation *animationAtaque;
+    Animation *animationFin;
+    Animation **currentAnimation;
+    
     Motor2D *motor;
 
     float angleshot2=0.0f;
     
     void Update2(sf::Vector2f velocity, sf::Time elapsedTime);
-
-    
     
     void Disparar(sf::Vector2f vector,sf::Vector2f vectorPlayer);
     void RenderDisparo(float interpolation);
     
-    
+    void Colision();
+
+    void ComprobarSiMuerto();
     
 private:
-
+    Reloj *explosionTiempo;
 };
 
 #endif /* DISPAROENEMIGO_HPP */

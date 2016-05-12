@@ -60,6 +60,7 @@ public:
     void ComprobarSiMuerto() {
         if (explosionTiempo->getTiempo() > 0.25f) {
             SetEstado(Estado::ID::Muerto);
+            body->SetActive(false);
         }
     }
     

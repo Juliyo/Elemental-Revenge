@@ -72,8 +72,8 @@ DisparoEnemigo::DisparoEnemigo(): Collisionable((Entity*)this) {
     Render::SetScaleAnimation(0.2, 0.2);
     SetRectangleColision(0,0,30,29);
     CreateBody();
+    
     setDamage(3.f);
-    //Render::GetSpriteAnimated().setColor(sf::Color::Blue);
     SetEstado(Estado::ID::Vivo);
     explosionTiempo = new Reloj();
 }
@@ -136,7 +136,6 @@ std::string DisparoEnemigo::getClassName() {
 
 
 void DisparoEnemigo::Disparar(sf::Vector2f vector,sf::Vector2f vectorPlayer) {
-
     body->SetActive(true);
     SetEstado(Estado::ID::Vivo);
     PhysicsState::SetPosition(vector);
