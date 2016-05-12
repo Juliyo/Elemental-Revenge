@@ -56,6 +56,21 @@ void Mapa::createStaticMeshes() {
     }
 }
 
+void Mapa::CreateBosses() {
+    Boss *boss = InGame::Instance()->boss;
+    const std::vector<tmx::MapLayer>& layers = ml.GetLayers();
+    for (const auto& l : layers) {
+        if (l.name == "Boss") //static bodies which make up the map geometry
+        {
+            for (const auto& o : l.objects) {
+                boss->Inicializar(o.GetCentre().x, -1*o.GetCentre().y);
+                boss->SetRectangleColision(0, 0, 37, 39);
+                boss->CreateBody();
+            }
+        }
+    }
+}
+
 void Mapa::CreateMelees() {
 
     InGame::Instance()->melee = new std::vector<Melee*>();

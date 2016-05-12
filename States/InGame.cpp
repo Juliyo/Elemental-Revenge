@@ -30,8 +30,6 @@ InGame* InGame::Instance() {
 
 InGame::InGame() {
     motor = Motor2D::Instance();
-
-
 }
 
 InGame::InGame(const InGame& orig) {
@@ -83,15 +81,12 @@ void InGame::Inicializar() {
     player = new Player();
     melee = new std::vector<Melee*>();
     caster = new std::vector<Caster*>();
-    //meleeShapes = new std::vector<sf::CircleShape*>();
-    /*melee->reserve(30);
-    for (int i = 0; i < 30; i++) {
 
-        melee->push_back(new Melee());
-        melee->at(i)->Inicializar(1000.f + i * 20, -1000.f + i * 20, Tipo::ID::Rata);
-        melee->at(i)->SetRectangleColision(0, 0, 37, 39);
-        melee->at(i)->CreateBody();
-    }*/
+    //Inicializar del boss
+    boss = new Boss();
+    /*VectorBools = new std::vector<bool>();
+    VectorBools->reserve(1);*/
+
 
 
     try {
@@ -150,21 +145,6 @@ void InGame::Update(sf::Time elapsedTime) {
                 (*it)->SetEstado(Estado::ID::Muerto);
             }
         }
-        //        try {
-        //        for (int i = 0; i < meleeShapes->size(); i++) {
-        //            meleeShapes->at(i)->setPosition(tmx::BoxToSfVec(melee->at(i)->body->GetPosition()));
-        //        }
-        //                } catch (const std::out_of_range& oor) {
-        //                    std::cerr << "ERROR DE MIERDAAAAA Out of Range error: " << oor.what() << '\n';
-        //                }
-        //NUEVO
-        //        try{
-        //        for(int i=0;player->shapesFuego->size();i++){
-        //            player->shapesFuego->at(i)->setPosition(player->GetPosition());
-        //        }
-        //        } catch (const std::out_of_range& oor) {
-        //                    std::cerr << "ERROR DE MIERDAAAAA Out of Range error: " << oor.what() << '\n';
-        //                }
         //**************************ENEMIGOS CASTER**********************//
 
         for (std::vector<Caster*>::iterator it = caster->begin(); it != caster->end(); ++it) {
@@ -183,6 +163,21 @@ void InGame::Update(sf::Time elapsedTime) {
                 (*it)->body->GetWorld()->DestroyBody((*it)->body);
                 (*it)->SetEstado(Estado::ID::Muerto);
             }
+        }
+        if (level->map->numEnemigos == 1) {
+
+            float x4 = player->getPosition().x - boss->getPosition().x;
+            float y4 = player->getPosition().y - boss->getPosition().y;
+
+            boss->updateAtaqueBossA(true, elapsedTime, player->getPosition().x, player->getPosition().y);
+            boss->updateAtaqueBossB(true, elapsedTime, player->getPosition().x, player->getPosition().y);
+            boss->updateAtaqueBossC(true, elapsedTime, player->getPosition().x, player->getPosition().y);
+
+            int x3 = player->getPosition().x - boss->getPosition().x;
+            int y3 = player->getPosition().y - boss->getPosition().y;
+            boss->Update(elapsedTime, x3, y3, 1);
+
+
         }
 
         ///
@@ -350,9 +345,20 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
             }
         }
     }
-    /* for(int i=0;i < meleeShapes->size();i++){
-         motor->draw(*meleeShapes->at(i));
-     }*/
+    //****************************RENDER DEL BOSS************************************//
+    if (level->map->numEnemigos == 1) {
+        boss->PlayAnimation(*boss->currentAnimation);
+        boss->UpdateAnimation(elapsedTime);
+        boss->DrawWithInterpolation(interpolation);
+
+        int x2 = player->getPosition().x - boss->getPosition().x;
+        int y2 = player->getPosition().y - boss->getPosition().y;
+        boss->UpdateEnemyAnimation(x2, y2);
+
+        boss->renderAtaqueA(elapsedTime, interpolation);
+        boss->renderAtaqueB(elapsedTime, interpolation);
+        boss->renderAtaqueC(elapsedTime, interpolation);
+    }
 
 
     //****************************RENDER ENEMIGOS CASTERS************************************//

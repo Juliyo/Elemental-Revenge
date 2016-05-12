@@ -27,6 +27,7 @@
 #include "../Entities/Player.hpp"
 #include "../Entities/Melee.hpp"
 #include "../Entities/Caster.hpp"
+#include "../Entities/Boss.hpp"
 #include <Box2D/Box2D.h>
 #include "../Otros/Dummy.hpp"
 #include "../Otros/ContactListener.hpp"
@@ -70,14 +71,14 @@ public:
     b2World                     *physicWorld;
     Video                       *video;
     Player			*player;
+    Boss                        *boss;
+    
     std::vector<Melee*>         *melee;
-    std::vector<Caster*>         *caster;
+    std::vector<Caster*>        *caster;
     PathFinding                 *pathfingind;
-    std::deque<Enemigo*>          *colaEnemigos;
+    std::deque<Enemigo*>        *colaEnemigos;
     ContactListener             *ct;
 private:
-    
-    
     //Recursos
     sf::Texture texturaFondo;
     sf::Texture texturaRelleno;

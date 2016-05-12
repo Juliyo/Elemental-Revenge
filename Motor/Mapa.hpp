@@ -59,6 +59,7 @@ public:
     void CreateMelees();
     void CreateCasters();
     void CreatePlayer();
+    void CreateBosses();
     int numEnemigos=0;
 private:
     
