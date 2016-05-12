@@ -187,6 +187,20 @@ void Pause::Inicializar() {
     menuPausa->at(11)->setPosition(550, 500);
     menuPausa->at(11)->setScale(1.2, 1.2);*/
     
+    
+    audioMusica.setFont(fontPausa);
+    audioMusica.setColor(sf::Color::White);
+    audioMusica.setString(NumberToString(volumenMusica));
+    audioMusica.setScale(3,3);
+    audioMusica.setPosition(500, 450);
+    
+    audioSonido.setFont(fontPausa);
+    audioSonido.setColor(colorAzul);
+    audioSonido.setString(NumberToString(volumenSonidos));
+    audioSonido.setScale(3,3);
+    audioSonido.setPosition(500, 800);
+    
+    
     printf("Ultima posicion del array, si es esto que le jodan al mundo\n");
 
     textoPausa->setFont(fontPausa);
@@ -337,7 +351,8 @@ void Pause::Render(float interpolation, sf::Time elapsedTime) {
             for (int i = 7; i < 8; i++) {
                 motor->draw(*menuPausa->at(i));
             }
-            
+                motor->draw(audioMusica);
+                motor->draw(audioSonido);
                 motor->draw(*menuPausa->at(10));
             
         }
@@ -504,6 +519,8 @@ void Pause::MoveUp() {
         else if(selectedItemIndexPausa==11){
             selectedItemIndexPausa=8;
             menuPausa->at(10)->setColor(colorAzul);
+            audioSonido.setColor(colorAzul);
+            audioMusica.setColor(sf::Color::White);
             menuPausa->at(7)->setColor(sf::Color::White);
         }
     }
@@ -530,7 +547,9 @@ void Pause::MoveDown() {
         else if(selectedItemIndexPausa==8){
             selectedItemIndexPausa=11;
             menuPausa->at(7)->setColor(colorAzul);
+            audioMusica.setColor(colorAzul);
             menuPausa->at(10)->setColor(sf::Color::White);
+            audioSonido.setColor(sf::Color::White);
         }
     }
 }
@@ -556,6 +575,22 @@ void Pause::MoveLeft() {
             menuPausa->at(selectedItemIndexPausa)->setColor(colorAzul);
             selectedItemIndexPausa = 4;
             menuPausa->at(selectedItemIndexPausa)->setColor(sf::Color::White);
+        }
+    }
+    
+    if (selectedItemIndexPausa == 8) {
+        if (volumenMusica > 0) {
+            volumenMusica--;
+            audioMusica.setString(NumberToString(volumenMusica));
+            Music::Instance()->SetVolume(volumenMusica*10);
+        }
+    }
+    if (selectedItemIndexPausa == 11) {
+        if (volumenSonidos > 0) {
+            volumenSonidos--;
+            audioSonido.setString(NumberToString(volumenSonidos));
+            SoundManager::Instance()->VolumenMenu(volumenSonidos*10);
+
         }
     }
 }
@@ -584,7 +619,30 @@ void Pause::MoveRight() {
         }
 
     }
+    
+    if (selectedItemIndexPausa == 8) {
+        if (volumenMusica < 10) {
+            volumenMusica++;
+            audioMusica.setString(NumberToString(volumenMusica));
+            Music::Instance()->SetVolume(volumenMusica*10);
+        }
+    }
+    
+    if (selectedItemIndexPausa == 11) {
+        if (volumenSonidos < 10) {
+            volumenSonidos++;
+            audioSonido.setString(NumberToString(volumenSonidos));
+            SoundManager::Instance()->VolumenMenu(volumenSonidos*10);
+        }
+    }
+    
 }
 
 
 
+template<typename T>
+std::string Pause::NumberToString(T pNumber) {
+    std::ostringstream oOStrStream;
+    oOStrStream << pNumber;
+    return oOStrStream.str();
+}

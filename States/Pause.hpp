@@ -18,6 +18,10 @@
 #include "AnimatedSprite.hpp"
 #include "../Motor/Motor2D.hpp"
 #include "../Motor/Text.hpp"
+#include <string>
+#include <sstream>
+#include <iostream>
+
 
 #define MAX_NUMBER_OF_ITEMS 3   
 
@@ -54,7 +58,18 @@ public:
     
     Motor2D *motor;
     
+        
+    int volumenMusica=5;
+    int volumenSonidos=5;
+    
 private:
+    
+    Text audioMusica;
+    Text audioSonido;
+    
+    template <typename T>
+std::string NumberToString(T pNumber);
+    
     Animation *animation;
     
     //Sprites
