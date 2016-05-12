@@ -15,6 +15,7 @@
 #include <SFML/System/Lock.hpp>
 #include "../States/StateStack.hpp"
 #include "../States/InGame.hpp"
+#include "../Motor/Music.hpp"
 #include <iostream>
 #include <functional>
 
@@ -101,6 +102,18 @@ void ParalellTask::RunTask() {
                 
             if (mElapsedTime.getElapsedTime().asSeconds() >= 3.f && loading) {
             ended = true;
+            
+             Music *music = Music::Instance();
+                music->Stop();
+                if (level==1)
+                music->Load(MUSICA::ID::Mapa1);
+                if (level==2)
+                music->Load(MUSICA::ID::Mapa2);
+                if (level==3)
+                music->Load(MUSICA::ID::Mapa3);
+                
+                music->Play();
+                
             this->level++;  
             StateStack::Instance()->SetCurrentState(States::ID::InGame);
         }

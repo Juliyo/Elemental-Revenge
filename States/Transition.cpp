@@ -216,10 +216,7 @@ void Transition::Update(sf::Time elapsedTime) {
                 StateStack::Instance()->GetState(States::ID::Carga)->Inicializar();
 
 
-                Music *music = Music::Instance();
-                music->Stop();
-                music->Load(MUSICA::ID::Mapa1);
-                music->Play();
+               
 
                 level++;
                 printf("Se supone que llego a la ultima linea de Ingame\n");
