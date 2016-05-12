@@ -338,15 +338,7 @@ void Caster::RestarVida(int a) {
        // std::cout<<"CAMBIO LA ANIMACION A MUERTEEEEEEEEEEEEEEE\n"<<std::endl;
        // std::cout<<"CAMBIO LA ANIMACION A MUERTEEEEEEEEEEEEEEE\n"<<std::endl;
        // std::cout<<"CAMBIO LA ANIMACION A MUERTEEEEEEEEEEEEEEE\n"<<std::endl;
-        
         InGame::Instance()->level->map->numEnemigos--;
-        
-        if(InGame::Instance()->level->map->numEnemigos == 1){
-            /*InGame::Instance()->boss->Inicializar(InGame::Instance()->player->GetPosition().x, InGame::Instance()->player->GetPosition().y);
-            InGame::Instance()->boss->SetRectangleColision(0, 0, 37, 39);
-            InGame::Instance()->boss->CreateBody();*/
-        }
-        
         currentAnimation = &animationMuerte;
         SetEstado(Estado::ID::Muriendo);
         if (m_tipo == Tipo::Caster::Bandido) {

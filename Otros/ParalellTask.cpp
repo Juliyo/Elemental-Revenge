@@ -99,7 +99,7 @@ void ParalellTask::RunTask() {
             InGame::Instance()->level->map->CreateMelees();
             InGame::Instance()->level->map->CreateCasters();
             InGame::Instance()->level->map->CreatePlayer();
-            //InGame::Instance()->level->map->CreateBosses();
+            InGame::Instance()->level->map->CreateBosses();
 
             if (mElapsedTime.getElapsedTime().asSeconds() >= 3.f && loading) {
             ended = true;
