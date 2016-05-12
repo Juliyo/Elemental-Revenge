@@ -362,6 +362,7 @@ void Menu::MoveRight() {
         if (volumenSonidos < 10) {
             volumenSonidos++;
             audioSonido.setString(NumberToString(volumenSonidos));
+            SoundManager::Instance()->VolumenMenu(volumenSonidos*10);
         }
     }
 }
