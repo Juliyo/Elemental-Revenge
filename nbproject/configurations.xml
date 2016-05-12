@@ -225,7 +225,17 @@
       </item>
       <item path="Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="AtaqueBossA.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="AtaqueBossB.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="AtaqueBossC.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="DisparoEnemigo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Entities/Boss.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Entities/Boss.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Entities/Caster.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -254,6 +264,12 @@
       <item path="Headers/AnimatedSprite.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Animation.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/AtaqueBossA.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/AtaqueBossB.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/AtaqueBossC.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/DisparoEnemigo.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -472,7 +488,17 @@
       </item>
       <item path="Animation.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="AtaqueBossA.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="AtaqueBossB.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="AtaqueBossC.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="DisparoEnemigo.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Entities/Boss.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Entities/Boss.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Entities/Caster.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -501,6 +527,12 @@
       <item path="Headers/AnimatedSprite.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/Animation.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/AtaqueBossA.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/AtaqueBossB.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/AtaqueBossC.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/DisparoEnemigo.hpp" ex="false" tool="3" flavor2="0">
       </item>
