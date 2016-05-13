@@ -14,28 +14,30 @@
 #ifndef ATAQUEBOSSC_HPP
 #define ATAQUEBOSSC_HPP
 
-#include "SFML/Graphics/CircleShape.hpp"
 
-#include "Render.hpp"
-#include "PhysicsState.hpp"
+#include "../Headers/Hechizo.hpp"
+#include "../Motor/Collisionable.hpp"
 #include "../Motor/Motor2D.hpp"
 #include "Animation.hpp"
 
-class AtaqueBossC : public Render, public PhysicsState {
+class AtaqueBossC : public Hechizo, public Collisionable {
 public:
     AtaqueBossC();
-    AtaqueBossC(const AtaqueBossC& orig);
     virtual ~AtaqueBossC();
     
-    
+    void CreateBody() override;
+    std::string getClassName() override;
+
     Animation *animationAtaque;
+    Animation *animationFin;
+    Animation **currentAnimation;
+    
     Motor2D *motor;
     Reloj ClockResetEspiral;
     float cdResetEspiral=100.0f;
 
     float angleshot2=0.0f;
-    
-    void Update2(sf::Vector2f velocity, sf::Time elapsedTime);
+   
 
     sf::CircleShape disparo;
     
@@ -43,10 +45,13 @@ public:
     void Disparar(sf::Vector2f vector,sf::Vector2f vectorPlayer);
     void RenderDisparo(float interpolation);
     
+    void Colision();
+    void ComprobarSiMuerto();
+    
     
     
 private:
-
+    Reloj *explosionTiempo;
 };
 
 #endif /* DISPAROENEMIGO_HPP */

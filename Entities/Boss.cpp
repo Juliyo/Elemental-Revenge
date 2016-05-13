@@ -149,15 +149,39 @@ void Boss::renderAtaqueC(sf::Time elapsedTime, float interpolation) {
 
         for (int p = 0; p <= numBolasEspiral; p++) {
             if (p != 0) {
-                espiral->at(p)->PlayAnimation(espiral->at(p)->animationAtaque);
-                espiral->at(p)->UpdateAnimation(elapsedTime);
-                espiral->at(p)->DrawAnimation(espiral->at(p)->GetPreviousPosition(), espiral->at(p)->GetPosition(), interpolation);
-                espiral->at(p + 30)->PlayAnimation(espiral->at(p + 30)->animationAtaque);
-                espiral->at(p + 30)->UpdateAnimation(elapsedTime);
-                espiral->at(p + 30)->DrawAnimation(espiral->at(p + 30)->GetPreviousPosition(), espiral->at(p + 30)->GetPosition(), interpolation);
-                espiral->at(p + 60)->PlayAnimation(espiral->at(p + 60)->animationAtaque);
-                espiral->at(p + 60)->UpdateAnimation(elapsedTime);
-                espiral->at(p + 60)->DrawAnimation(espiral->at(p + 60)->GetPreviousPosition(), espiral->at(p + 60)->GetPosition(), interpolation);
+                if (espiral->at(p)->GetEstado() == Estado::ID::Vivo) {
+                    espiral->at(p)->PlayAnimation(espiral->at(p)->animationAtaque);
+                    espiral->at(p)->UpdateAnimation(elapsedTime);
+                    espiral->at(p)->DrawAnimation(espiral->at(p)->GetPreviousPosition(), espiral->at(p)->GetPosition(), interpolation);
+                } else if (espiral->at(p)->GetEstado() == Estado::ID::Muriendo) {
+                    espiral->at(p)->PlayAnimation(*disparo->at(p)->currentAnimation);
+                    espiral->at(p)->UpdateAnimation(elapsedTime);
+                    espiral->at(p)->DrawAnimationWithOut(disparo->at(p)->GetRenderPosition());
+                } else {
+                    espiral->at(p)->StopAnimation();
+                }
+                if (espiral->at(p+30)->GetEstado() == Estado::ID::Vivo) {
+                    espiral->at(p+30)->PlayAnimation(espiral->at(p+30)->animationAtaque);
+                    espiral->at(p+30)->UpdateAnimation(elapsedTime);
+                    espiral->at(p+30)->DrawAnimation(espiral->at(p+30)->GetPreviousPosition(), espiral->at(p+30)->GetPosition(), interpolation);
+                } else if (espiral->at(p+30)->GetEstado() == Estado::ID::Muriendo) {
+                    espiral->at(p+30)->PlayAnimation(*disparo->at(p+30)->currentAnimation);
+                    espiral->at(p+30)->UpdateAnimation(elapsedTime);
+                    espiral->at(p+30)->DrawAnimationWithOut(disparo->at(p+30)->GetRenderPosition());
+                } else {
+                    espiral->at(p+30)->StopAnimation();
+                }
+                if (espiral->at(p+60)->GetEstado() == Estado::ID::Vivo) {
+                    espiral->at(p+60)->PlayAnimation(espiral->at(p+60)->animationAtaque);
+                    espiral->at(p+60)->UpdateAnimation(elapsedTime);
+                    espiral->at(p+60)->DrawAnimation(espiral->at(p+60)->GetPreviousPosition(), espiral->at(p+60)->GetPosition(), interpolation);
+                } else if (espiral->at(p+60)->GetEstado() == Estado::ID::Muriendo) {
+                    espiral->at(p+60)->PlayAnimation(*disparo->at(p+60)->currentAnimation);
+                    espiral->at(p+60)->UpdateAnimation(elapsedTime);
+                    espiral->at(p+60)->DrawAnimationWithOut(disparo->at(p+60)->GetRenderPosition());
+                } else {
+                    espiral->at(p+60)->StopAnimation();
+                }
             }
         }
 
@@ -395,37 +419,89 @@ void Boss::updateAtaqueBossC(bool disparado, sf::Time elapsedTime, float x4, flo
 
                 ///LINEA 1 DE BOLAS
                 if (setOriginEspiral < 2) {
-                    espiral->at(0)->SetPosition(getPosition().x, getPosition().y);
-                    espiral->at(0)->SetOriginAnimation(GetSpriteAnimated().getOrigin().x, GetSpriteAnimated().getOrigin().y);
-                    setOriginEspiral++;
+                    if (espiral->at(0)->GetEstado() == Estado::ID::Vivo) {
+                        espiral->at(0)->SetPosition(getPosition().x, getPosition().y);
+                        espiral->at(0)->body->SetTransform(tmx::SfToBoxVec(sf::Vector2f(getPosition().x, getPosition().y)),0);
+                        espiral->at(0)->SetOriginAnimation(GetSpriteAnimated().getOrigin().x, GetSpriteAnimated().getOrigin().y);
+                        setOriginEspiral++;
+                    }else{
+                        //Ademadas hacemos que su cuerpo no interactue
+                        espiral->at(0)->body->SetActive(false);
+                        //Si la bala esta desapareciendo comprobamos hasta que desaparezca
+                        espiral->at(0)->ComprobarSiMuerto();
+                    }
+                    
                 } else {
-                    numBolasEspiral++;
-                    espiral->at(numBolasEspiral)->SetPosition(getPosition().x, getPosition().y);
-                    espiral->at(numBolasEspiral)->SetOriginAnimation(espiral->at(numBolasEspiral - 1)->GetSpriteAnimated().getOrigin().x - 360, espiral->at(numBolasEspiral - 1)->GetSpriteAnimated().getOrigin().y);
+                    if (espiral->at(0)->GetEstado() == Estado::ID::Vivo) {
+                        numBolasEspiral++;
+                        espiral->at(numBolasEspiral)->body->SetTransform(tmx::SfToBoxVec(sf::Vector2f(getPosition().x, getPosition().y)), 0);
+                        espiral->at(numBolasEspiral)->SetPosition(getPosition().x, getPosition().y);
+                        espiral->at(numBolasEspiral)->SetOriginAnimation(espiral->at(numBolasEspiral - 1)->GetSpriteAnimated().getOrigin().x - 360, espiral->at(numBolasEspiral - 1)->GetSpriteAnimated().getOrigin().y);
+                    } else {
+                        //Ademadas hacemos que su cuerpo no interactue
+                        espiral->at(numBolasEspiral)->body->SetActive(false);
+                        //Si la bala esta desapareciendo comprobamos hasta que desaparezca
+                        espiral->at(numBolasEspiral)->ComprobarSiMuerto();
+                    }
+                    
                 }
 
                 ///LINEA 2 DE BOLAS   
                 if (setOriginEspiral2 < 2) {
-                    espiral->at(30)->SetPosition(getPosition().x, getPosition().y);
-                    espiral->at(30)->SetOriginAnimation(GetSpriteAnimated().getOrigin().x, GetSpriteAnimated().getOrigin().y);
-                    setOriginEspiral2++;
+                    if (espiral->at(30)->GetEstado() == Estado::ID::Vivo) {
+                        espiral->at(30)->body->SetTransform(tmx::SfToBoxVec(sf::Vector2f(getPosition().x, getPosition().y)),0);
+                        espiral->at(30)->SetPosition(getPosition().x, getPosition().y);
+                        espiral->at(30)->SetOriginAnimation(GetSpriteAnimated().getOrigin().x, GetSpriteAnimated().getOrigin().y);
+                        setOriginEspiral2++;
+                    }else{
+                        //Ademadas hacemos que su cuerpo no interactue
+                        espiral->at(30)->body->SetActive(false);
+                        //Si la bala esta desapareciendo comprobamos hasta que desaparezca
+                        espiral->at(30)->ComprobarSiMuerto();
+                    }
+                    
                 } else {
-                    numBolasEspiral2++;
-                    espiral->at(numBolasEspiral2 + 30)->SetPosition(getPosition().x, getPosition().y);
-                    espiral->at(numBolasEspiral2 + 30)->SetOriginAnimation(espiral->at(numBolasEspiral2 + 30 - 1)->GetSpriteAnimated().getOrigin().x - 360, espiral->at(numBolasEspiral2 + 30 - 1)->GetSpriteAnimated().getOrigin().y);
+                    if (espiral->at(numBolasEspiral2 + 30)->GetEstado() == Estado::ID::Vivo) {
+                        numBolasEspiral2++;
+                        espiral->at(numBolasEspiral2 + 30)->body->SetTransform(tmx::SfToBoxVec(sf::Vector2f(getPosition().x, getPosition().y)),0);
+                        espiral->at(numBolasEspiral2 + 30)->SetPosition(getPosition().x, getPosition().y);
+                        espiral->at(numBolasEspiral2 + 30)->SetOriginAnimation(espiral->at(numBolasEspiral2 + 30 - 1)->GetSpriteAnimated().getOrigin().x - 360, espiral->at(numBolasEspiral2 + 30 - 1)->GetSpriteAnimated().getOrigin().y);
+                    }else{
+                        //Ademadas hacemos que su cuerpo no interactue
+                        espiral->at(numBolasEspiral2 + 30)->body->SetActive(false);
+                        //Si la bala esta desapareciendo comprobamos hasta que desaparezca
+                        espiral->at(numBolasEspiral2 + 30)->ComprobarSiMuerto();
+                    }
+                    
                 }
 
 
                 ///LINEA 3 DE BOLAS
                 if (setOriginEspiral3 < 2) {
-                    espiral->at(numBolasEspiral3 + 60)->SetPosition(getPosition().x, getPosition().y);
-                    espiral->at(numBolasEspiral3 + 60)->SetOriginAnimation(GetSpriteAnimated().getOrigin().x, GetSpriteAnimated().getOrigin().y);
-
+                    if (espiral->at(numBolasEspiral3 + 60)->GetEstado() == Estado::ID::Vivo) {
+                        espiral->at(numBolasEspiral3 + 60)->body->SetTransform(tmx::SfToBoxVec(sf::Vector2f(getPosition().x, getPosition().y)), 0);
+                        espiral->at(numBolasEspiral3 + 60)->SetPosition(getPosition().x, getPosition().y);
+                        espiral->at(numBolasEspiral3 + 60)->SetOriginAnimation(GetSpriteAnimated().getOrigin().x, GetSpriteAnimated().getOrigin().y);
+                    } else {
+                        //Ademadas hacemos que su cuerpo no interactue
+                        espiral->at(numBolasEspiral3 + 60)->body->SetActive(false);
+                        //Si la bala esta desapareciendo comprobamos hasta que desaparezca
+                        espiral->at(numBolasEspiral3 + 60)->ComprobarSiMuerto();
+                    }
                     setOriginEspiral3++;
                 } else {
-                    numBolasEspiral3++;
-                    espiral->at(numBolasEspiral3 + 60)->SetPosition(getPosition().x, getPosition().y);
-                    espiral->at(numBolasEspiral3 + 60)->SetOriginAnimation(espiral->at(numBolasEspiral3 + 60 - 1)->GetSpriteAnimated().getOrigin().x - 360, espiral->at(numBolasEspiral3 + 60)->GetSpriteAnimated().getOrigin().y);
+                    if (espiral->at(numBolasEspiral3 + 60)->GetEstado() == Estado::ID::Vivo) {
+                        numBolasEspiral3++;
+                        espiral->at(numBolasEspiral3 + 60)->body->SetTransform(tmx::SfToBoxVec(sf::Vector2f(getPosition().x, getPosition().y)),0);
+                        espiral->at(numBolasEspiral3 + 60)->SetPosition(getPosition().x, getPosition().y);
+                        espiral->at(numBolasEspiral3 + 60)->SetOriginAnimation(espiral->at(numBolasEspiral3 + 60 - 1)->GetSpriteAnimated().getOrigin().x - 360, espiral->at(numBolasEspiral3 + 60)->GetSpriteAnimated().getOrigin().y);
+                
+                    }else{
+                        //Ademadas hacemos que su cuerpo no interactue
+                        espiral->at(numBolasEspiral3 + 60)->body->SetActive(false);
+                        //Si la bala esta desapareciendo comprobamos hasta que desaparezca
+                        espiral->at(numBolasEspiral3 + 60)->ComprobarSiMuerto();
+                    }
                 }
 
 
@@ -436,100 +512,124 @@ void Boss::updateAtaqueBossC(bool disparado, sf::Time elapsedTime, float x4, flo
 
             for (int i = 0; i <= numBolasEspiral; i++) {
                 //espiral->SetPosition(espiral->GetPosition().x-1,espiral->GetPosition().y-1);
-                espiral->at(i)->SetRotation(rotacion[i]);
-                rotacion[i] += 5;
-                espiral->at(i)->SetPosition(getPosition().x, getPosition().y);
+                if (espiral->at(i)->GetEstado() == Estado::ID::Vivo) {
+                    espiral->at(i)->SetRotation(rotacion[i]);
+                    rotacion[i] += 5;
+                    espiral->at(i)->SetPosition(getPosition().x, getPosition().y);
+                    espiral->at(i)->body->SetTransform(tmx::SfToBoxVec(sf::Vector2f(getPosition().x, getPosition().y)), 0);
+                    if (rotacion[i] % 360 == 45) {
+                        espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                    }
+                    if (rotacion[i] % 360 == 90) {
+                        espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                    }
+                    if (rotacion[i] % 360 == 135) {
+                        espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                    }
+                    if (rotacion[i] % 360 == 180) {
+                        espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                    }
+                    if (rotacion[i] % 360 == 225) {
+                        espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                    }
+                    if (rotacion[i] % 360 == 270) {
+                        espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                    }
+                    if (rotacion[i] % 360 == 315) {
+                        espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                    }
+                    if (rotacion[i] % 360 == 0) {
+                        espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                    }
+                } else {
+                        //Ademadas hacemos que su cuerpo no interactue
+                        espiral->at(i)->body->SetActive(false);
+                        //Si la bala esta desapareciendo comprobamos hasta que desaparezca
+                        espiral->at(i)->ComprobarSiMuerto();
+                }
 
-                if (rotacion[i] % 360 == 45) {
-                    espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
-                }
-                if (rotacion[i] % 360 == 90) {
-                    espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
-                }
-                if (rotacion[i] % 360 == 135) {
-                    espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
-                }
-                if (rotacion[i] % 360 == 180) {
-                    espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
-                }
-                if (rotacion[i] % 360 == 225) {
-                    espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
-                }
-                if (rotacion[i] % 360 == 270) {
-                    espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
-                }
-                if (rotacion[i] % 360 == 315) {
-                    espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
-                }
-                if (rotacion[i] % 360 == 0) {
-                    espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
-                }
 
             }
 
             for (int i = 30; i <= 30 + numBolasEspiral2; i++) {
-                //espiral->SetPosition(espiral->GetPosition().x-1,espiral->GetPosition().y-1);
-                espiral->at(i)->SetRotation(rotacion2[i]);
-                rotacion2[i] += 5;
-                espiral->at(i)->SetPosition(getPosition().x, getPosition().y);
+                if (espiral->at(i)->GetEstado() == Estado::ID::Vivo) {
+                    espiral->at(i)->SetRotation(rotacion2[i]);
+                    rotacion2[i] += 5;
+                    espiral->at(i)->SetPosition(getPosition().x, getPosition().y);
+                    espiral->at(i)->body->SetTransform(tmx::SfToBoxVec(sf::Vector2f(getPosition().x, getPosition().y)), 0);
 
-                if (rotacion2[i] % 360 == 45) {
-                    espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                    if (rotacion2[i] % 360 == 45) {
+                        espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                    }
+                    if (rotacion2[i] % 360 == 90) {
+                        espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                    }
+                    if (rotacion2[i] % 360 == 135) {
+                        espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                    }
+                    if (rotacion2[i] % 360 == 180) {
+                        espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                    }
+                    if (rotacion2[i] % 360 == 225) {
+                        espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                    }
+                    if (rotacion2[i] % 360 == 270) {
+                        espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                    }
+                    if (rotacion2[i] % 360 == 315) {
+                        espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                    }
+                    if (rotacion2[i] % 360 == 0) {
+                        espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                    }
+                } else {
+                        //Ademadas hacemos que su cuerpo no interactue
+                        espiral->at(i)->body->SetActive(false);
+                        //Si la bala esta desapareciendo comprobamos hasta que desaparezca
+                        espiral->at(i)->ComprobarSiMuerto();
                 }
-                if (rotacion2[i] % 360 == 90) {
-                    espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
-                }
-                if (rotacion2[i] % 360 == 135) {
-                    espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
-                }
-                if (rotacion2[i] % 360 == 180) {
-                    espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
-                }
-                if (rotacion2[i] % 360 == 225) {
-                    espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
-                }
-                if (rotacion2[i] % 360 == 270) {
-                    espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
-                }
-                if (rotacion2[i] % 360 == 315) {
-                    espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
-                }
-                if (rotacion2[i] % 360 == 0) {
-                    espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
-                }
+
 
             }
 
             for (int i = 60; i <= 60 + numBolasEspiral3; i++) {
-                //espiral->SetPosition(espiral->GetPosition().x-1,espiral->GetPosition().y-1);
-                espiral->at(i)->SetRotation(rotacion3[i]);
-                rotacion3[i] += 5;
-                espiral->at(i)->SetPosition(getPosition().x, getPosition().y);
+                if (espiral->at(i)->GetEstado() == Estado::ID::Vivo) {
+                    espiral->at(i)->SetRotation(rotacion3[i]);
+                    rotacion3[i] += 5;
+                    espiral->at(i)->SetPosition(getPosition().x, getPosition().y);
+                    espiral->at(i)->body->SetTransform(tmx::SfToBoxVec(sf::Vector2f(getPosition().x, getPosition().y)), 0);
 
-                if (rotacion3[i] % 360 == 45) {
-                    espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                    if (rotacion3[i] % 360 == 45) {
+                        espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                    }
+                    if (rotacion3[i] % 360 == 90) {
+                        espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                    }
+                    if (rotacion3[i] % 360 == 135) {
+                        espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                    }
+                    if (rotacion3[i] % 360 == 180) {
+                        espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                    }
+                    if (rotacion3[i] % 360 == 225) {
+                        espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                    }
+                    if (rotacion3[i] % 360 == 270) {
+                        espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                    }
+                    if (rotacion3[i] % 360 == 315) {
+                        espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                    }
+                    if (rotacion3[i] % 360 == 0) {
+                        espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
+                    }
+                } else {
+                        //Ademadas hacemos que su cuerpo no interactue
+                        espiral->at(i)->body->SetActive(false);
+                        //Si la bala esta desapareciendo comprobamos hasta que desaparezca
+                        espiral->at(i)->ComprobarSiMuerto();
                 }
-                if (rotacion3[i] % 360 == 90) {
-                    espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
-                }
-                if (rotacion3[i] % 360 == 135) {
-                    espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
-                }
-                if (rotacion3[i] % 360 == 180) {
-                    espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
-                }
-                if (rotacion3[i] % 360 == 225) {
-                    espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
-                }
-                if (rotacion3[i] % 360 == 270) {
-                    espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
-                }
-                if (rotacion3[i] % 360 == 315) {
-                    espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
-                }
-                if (rotacion3[i] % 360 == 0) {
-                    espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
-                }
+                
 
             }
 

@@ -168,7 +168,7 @@ void InGame::Update(sf::Time elapsedTime) {
             if (boss->GetEstado() == Estado::ID::Vivo || boss->GetEstado() == Estado::ID::Damaged) {
                 boss->updateAtaqueBossA(true, elapsedTime, player->getPosition().x, player->getPosition().y);
                 boss->updateAtaqueBossB(true, elapsedTime, player->getPosition().x, player->getPosition().y);
-                boss->updateAtaqueBossC(true, elapsedTime, player->getPosition().x, player->getPosition().y);
+                //boss->updateAtaqueBossC(true, elapsedTime, player->getPosition().x, player->getPosition().y);
                 boss->Update(elapsedTime);
             } else if (boss->GetEstado() == Estado::ID::Muriendo) {
                 //Si acaba de morir lo borramos del mundo y lo matamos

@@ -25,7 +25,6 @@ void hRayAdvanced::CreateBody() {
     fixtureDef.shape = &shape;
     fixtureDef.density = 1.0f;
     fixtureDef.friction = 1.0f;
-    fixtureDef.restitution = 0.7f;
     fixtureDef.filter.categoryBits = Filtro::_entityCategory::HECHIZO;
     fixtureDef.filter.maskBits = Filtro::_entityCategory::ENEMIGO;
     body->CreateFixture(&fixtureDef);
