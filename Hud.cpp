@@ -11,6 +11,32 @@
 #include "AnimatedSprite.hpp"
 #include <iomanip>
 
+Hud::Hud() {
+        m = Motor2D::Instance();
+
+        printf("SE HA CARGADO BIEN EL HUD DEL BOSS\n");
+
+    std::string ruta = "resources/Textures/hudHealthBar.png";
+    std::string ruta2 = "resources/Textures/barraVida.png";
+    
+    
+    
+    barraVida.setTexture(ruta);
+    barraVida.setScale(0.6f, 0.7f);
+    barraVida.setSmooth(false);
+    barraVida.setPosition(450, 300);
+
+    sVida.setTexture(ruta2);
+    sVida.setSmooth(false);
+    sVida.setRepeated(false);
+    sVida.setScale(0.6f, 0.7f);
+    sVida.setPosition(450 + (130 * 0.6), 300 + (30 * 0.7));
+
+    sVida.setTextRect(130, 30, (289 - 130), 58);
+
+}
+
+
 Hud::Hud(Reloj *cds, float *coolDowns) {
     m = Motor2D::Instance();
     mCds = cds;
@@ -120,6 +146,14 @@ void Hud::renderHud(sf::Time elapsedTime,bool inPause) {
     m->draw(flashBueno);
     m->draw(flSombra);
     m->draw(flGlare);
+}
+
+
+void Hud::renderHudBoss(sf::Time elapsedTime) {
+
+
+    m->draw(barraVida);
+    m->draw(sVida);
 }
 
 void Hud::cambiaHechizo(int activar) {

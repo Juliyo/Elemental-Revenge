@@ -115,6 +115,8 @@ void Boss::Inicializar(float posX, float posY, float speedX, float speedY, float
     
     numContactos = 0;
     damageTaken = 0;
+    
+    hud = new Hud();
 }
 
 void Boss::renderAtaqueA(sf::Time elapsedTime, float interpolation) {

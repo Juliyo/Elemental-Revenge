@@ -15,7 +15,7 @@
 #define BOSS_HPP
 
 #include "Enemigo.hpp"
-
+#include "Hud.hpp"
 #include "../Headers/AtaqueBossA.hpp"
 #include "../Headers/AtaqueBossB.hpp"
 #include "../Headers/AtaqueBossC.hpp"
@@ -106,6 +106,8 @@ public:
     //Variables colisiones
     Reloj *damaged;
     
+    
+    Hud *hud;
 private:
     
 };

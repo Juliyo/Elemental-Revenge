@@ -21,9 +21,11 @@
 class Hud {
 public:
     Hud(Reloj *cds, float *coolDowns);
+    Hud();
     Hud(const Hud& orig);
     virtual ~Hud();
     void renderHud(sf::Time elapsedTime,bool inPause);
+    void renderHudBoss(sf::Time elapsedTime);
     sf::FloatRect viewBounds;
     sf::Vector2f position;
     void updateHud(float vidas);
