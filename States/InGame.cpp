@@ -350,7 +350,6 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
         boss->renderAtaqueA(elapsedTime, interpolation);
         boss->renderAtaqueB(elapsedTime, interpolation);
         boss->renderAtaqueC(elapsedTime, interpolation);
-        boss->hud->renderHudBoss(elapsedTime);
 
         //Si estamos en Pause o Muerte render con interpolacion
         if (StateStack::Instance()->currentState != States::ID::Pause && StateStack::Instance()->currentState != States::ID::Muerte) {
@@ -468,7 +467,10 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
 
     /////////////////////////////////
     motor->SetView(2); //vista del HUD
-    boss->hud->renderHudBoss(elapsedTime);
+    
+    if (level->map->numEnemigos == 1) {
+        boss->hud->renderHudBoss(elapsedTime);
+    }
     if (StateStack::Instance()->currentState == States::ID::Pause) {
         player -> hud->renderHud(elapsedTime, true);
     } else {
