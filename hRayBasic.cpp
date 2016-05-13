@@ -126,7 +126,7 @@ hRayBasic::hRayBasic(): Collisionable((Entity*)this) {
     Collisionable::SetOriginColision(0,-30);
     Collisionable::SetRectangleColision(0,0,50,445);
     CreateBody();
-    Hechizo::setDamage(1.f);
+    Hechizo::setDamage(0.5f);
 }
 
 

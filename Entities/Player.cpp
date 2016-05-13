@@ -160,7 +160,7 @@ std::string Player::getClassName() {
 void Player::Inicializar(float posX, float posY, float speedX, float speedY, float maxSpeedX, float maxSpeedY) {
     /*Reservamos memoria para los punteros de Animation*/
     disparosFuego = new std::vector<hFireBasic*>();
-    for(int i=0;i<15;i++){
+    for(int i=0;i<35;i++){
         disparosFuego->push_back(new hFireBasic());
     }
     walkingAnimationDown = new Animation();
@@ -730,7 +730,7 @@ void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time e
 
     if (fuegoBasicCast) {
 
-        if (contFuego == 14) {
+        if (contFuego == disparosFuego->size()-1) {
             contFuego = 0;
         }
         if ((clockCDFire.getTiempo() + cdFuegoBasicoPausa) > CDFire || primercastFuego == true) {

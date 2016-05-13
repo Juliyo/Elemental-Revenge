@@ -319,7 +319,7 @@ void Caster::updateDisparoEnemigo(bool disparado, sf::Time elapsedTime, float x4
 
 }
 
-void Caster::RestarVida(int a) {
+void Caster::RestarVida(float a) {
     if (invulnerable.getTiempo() > 0.2f) {
         invulnerable.restart();
         SetVida(GetVida() - a);

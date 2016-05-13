@@ -53,12 +53,11 @@ public:
     
 protected:
     
-
-    int GetVida() const {
+    float GetVida() const {
         return vida;
     }
 
-    void SetVida(int vida) {
+    void SetVida(float vida) {
         this->vida = vida;
     }
     float GetVelocity() const {
@@ -70,7 +69,7 @@ protected:
     }
         
     private:
-        int vida;
+        float vida;
         float damage;
         float velocity;
 };

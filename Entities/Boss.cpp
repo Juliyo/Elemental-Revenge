@@ -312,7 +312,7 @@ void Boss::CambiarVectorVelocidad() {
     body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(movement) * Enemigo::GetVelocity()));
 }
 
-void Boss::RestarVida(int a) {
+void Boss::RestarVida(float a) {
     
     if (invulnerable.getTiempo() > 0.2f) {
         invulnerable.restart();

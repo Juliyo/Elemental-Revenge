@@ -296,11 +296,10 @@ void Melee::StopAnimation() {
     Render::StopAnimation();
 }
 
-void Melee::RestarVida(int a) {
+void Melee::RestarVida(float a) {
 
     if (invulnerable.getTiempo() > 0.2f) {
         invulnerable.restart();
-        std::cout << a << std::endl;
         ActiveShader(true);
         damaged->restart();
         SetEstado(Estado::ID::Damaged);

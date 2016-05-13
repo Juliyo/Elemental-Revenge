@@ -107,7 +107,7 @@ public:
     Animation *animationMuerte;
     
     
-    void RestarVida(int a);
+    void RestarVida(float a);
     void CambiarVectorVelocidad();
     
     //Variables colisiones

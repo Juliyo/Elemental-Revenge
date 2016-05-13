@@ -113,7 +113,7 @@ hFireBasic::hFireBasic(): Collisionable((Entity*)this) {
     SetEstado(Estado::ID::Vivo);
     explosionTiempo = new Reloj();
     
-    Hechizo::setDamage(1.f);
+    Hechizo::setDamage(0.5f);
 }
 
 std::string hFireBasic::getClassName() {
@@ -155,8 +155,6 @@ void hFireBasic::cast(sf::Vector2f posicion) {
     float angleShot = Motor2D::Instance()->getAngleShot(posicion);
     angleshot2 = angleShot; //so it goes in a straight line
     body->SetTransform(tmx::SfToBoxVec(posicion),0);
-    hDamage = 1;
-    //SetRotationAnimation(angleShot * 180 / 3.14);
 }
 
 void hFireBasic::DrawWithInterpolation(float interpolation) {

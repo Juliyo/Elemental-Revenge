@@ -37,7 +37,7 @@ public:
     std::string getClassName() override;
 
 
-    void RestarVida(int a);
+    void RestarVida(float a);
     void CambiarVectorVelocidad();
 
 

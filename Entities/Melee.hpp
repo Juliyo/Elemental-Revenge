@@ -42,7 +42,7 @@ public:
     void UpdateAnimation(sf::Time elapsedTime);
     void StopAnimation();
     
-    void RestarVida(int a);
+    void RestarVida(float a);
     void CambiarVectorVelocidad();
 
     int cuadrante = 2;
