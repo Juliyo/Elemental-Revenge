@@ -87,7 +87,7 @@ public:
     
     int contFuego = 0;
     Reloj clockCDFire; //Variable de clase para el cd
-    float CDFire = 0.12f;
+    float CDFire = 0.20f;
     Reloj castFire; //Variable de clase para el casteo
     Reloj castFire2; //Variable de clase para el casteo
     bool primercastFuego; //Variable de clase para el primer casteo

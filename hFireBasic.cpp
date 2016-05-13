@@ -113,7 +113,7 @@ hFireBasic::hFireBasic(): Collisionable((Entity*)this) {
     SetEstado(Estado::ID::Vivo);
     explosionTiempo = new Reloj();
     
-    Hechizo::setDamage(0.5f);
+    Hechizo::setDamage(0.7f);
 }
 
 std::string hFireBasic::getClassName() {

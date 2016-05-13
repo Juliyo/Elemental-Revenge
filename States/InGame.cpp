@@ -391,6 +391,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
                 int x2 = player->getPosition().x - caster->at(i)->getPosition().x;
                 int y2 = player->getPosition().y - caster->at(i)->getPosition().y;
                 caster->at(i)->UpdateEnemyAnimation(x2, y2);
+                
                 caster->at(i)->CambiarVectorVelocidad();
                 for (int j = 0; j < 2; j++) {
                     if (caster->at(i)->disparos->at(j)->GetEstado() == Estado::ID::Vivo) {

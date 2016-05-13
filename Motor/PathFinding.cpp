@@ -205,7 +205,7 @@ std::vector<sf::Vector2i>* PathFinding::buscaCaminoBoss(sf::Vector2f posenemigo,
         
         Nodo *nodoActual = listaAbierta.at(listaAbierta.size() - 1);
         listaActuales.push_back(nodoActual);
-        if (listaCerrada.size() > 650) {
+        if (listaCerrada.size() > 450) {
             nodoFinal = listaAbierta.at(listaAbierta.size() - 1);
         }
 
@@ -253,9 +253,9 @@ std::vector<sf::Vector2i>* PathFinding::buscaCaminoBoss(sf::Vector2f posenemigo,
         delete listaAbierta.back(), listaAbierta.pop_back();
     }
 
-   /* while (!listaActuales.empty()) {
+    while (!listaActuales.empty()) {
         delete listaActuales.back(), listaActuales.pop_back();
-    }*/
+    }
     while (!listaCerrada.empty()) {
          listaCerrada.pop_back();
     }
@@ -322,9 +322,9 @@ std::vector<sf::Vector2i>* PathFinding::buscaCamino2(sf::Vector2f posenemigo, sf
     }
 
     listaCerrada.clear();
-    delete nodoInicial;
+    //delete nodoInicial;
 
-    delete nodoFinal;
+    //delete nodoFinal;
     
     
     return NULL;
