@@ -100,7 +100,7 @@ void AtaqueBossD::CreateBody() {
     fixtureDef.shape = &circleShape;
     fixtureDef.density = 1.0f;
     fixtureDef.friction = 1.0f;
-    fixtureDef.filter.categoryBits = Filtro::_entityCategory::HECHIZO;
+    fixtureDef.filter.categoryBits = Filtro::_entityCategory::DISPAROENE;
     fixtureDef.filter.maskBits = Filtro::_entityCategory::PLAYER | Filtro::_entityCategory::BOUNDARY;
     body->CreateFixture(&fixtureDef);
 }
@@ -117,6 +117,7 @@ void AtaqueBossD::cast(sf::Vector2f pos, int numeroBola) {
     Render::SetOriginAnimatedSprite(76, 74);
     Render::SetFrameTime(sf::seconds(0.02f));
     Render::SetScaleAnimation(0.2, 0.2);
+    SetEstado(Estado::ID::Vivo);
     SetPosition(pos);
     float angleShot = numeroBola * 36.f;
     angleshot2 = angleShot; //so it goes in a straight line

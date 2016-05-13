@@ -366,8 +366,8 @@ void ContactListener::BeginContact(b2Contact* contact) {
         }
     }else if (claseA == "AtaqueD"){
         if (claseB == "") {
-        AtaqueBossD *d = static_cast<AtaqueBossD*> (fixtureA->GetBody()->GetUserData());
-        d->Colision();
+            AtaqueBossD *d = static_cast<AtaqueBossD*> (fixtureA->GetBody()->GetUserData());
+            d->Colision();
         }else if(claseB=="Player"){
             AtaqueBossD *d = static_cast<AtaqueBossD*> (fixtureA->GetBody()->GetUserData());
             Player *p = static_cast<Player*> (fixtureB->GetBody()->GetUserData());
