@@ -433,9 +433,15 @@ void Boss::updateAtaqueBossB(bool disparado, sf::Time elapsedTime, float x4, flo
     if (castDisparoRayo.getTiempo() > 1.5f) {
         rayo->SetOriginAnimatedSprite(340, 392);
         rayo->currentAnimation = &rayo->animationAtaque;
+        rayo->marca=false;
+       rayo->relojitomagico.restart();
+        rayo->body->SetActive(false);
     } else {
         rayo->SetOriginAnimatedSprite(54, 30);
         rayo->currentAnimation = &rayo->animationDiana;
+       
+        rayo->marca=true;
+        rayo->body->SetActive(true);
     }
 
 
@@ -447,12 +453,14 @@ void Boss::updateAtaqueBossB(bool disparado, sf::Time elapsedTime, float x4, flo
             rayo->posCaida = sf::Vector2f(x4, y4);
             rayo->disparo.setPosition(x4, y4);
             castDisparoRayo.restart();
+            
         }
     }
     
     if (castDisparoRayo.getTiempo() < 1.0f) {
 
         rayo->SetPosition(rayo->posCaida);
+        //rayo->body->SetTransform(rayo->posCaida,0);
     }
 
 }

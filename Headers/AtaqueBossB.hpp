@@ -16,24 +16,31 @@
 
 #include "SFML/Graphics/CircleShape.hpp"
 
-#include "Render.hpp"
-#include "PhysicsState.hpp"
+#include "../Headers/Hechizo.hpp"
+#include "../Motor/Collisionable.hpp"
 #include "../Motor/Motor2D.hpp"
 #include "Animation.hpp"
 
-class AtaqueBossB : public Render, public PhysicsState {
+
+class AtaqueBossB  : public Hechizo, public Collisionable {
 public:
     AtaqueBossB();
-    AtaqueBossB(const AtaqueBossB& orig);
+
     virtual ~AtaqueBossB();
     
+    std::string getClassName() override;
+    void CreateBody() override;
+    
+    
+   
+    void DrawWithOutInterpolation();
     
     Animation *animationAtaque;
     Animation *animationDiana;
     Animation **currentAnimation;
 
     Motor2D *motor;
-
+    
     float angleshot2=0.0f;
     
     void Update2(sf::Vector2f velocity, sf::Time elapsedTime);
@@ -41,7 +48,8 @@ public:
     sf::CircleShape disparo;
     
     sf::Vector2f posCaida;
-    
+    bool marca=true;
+    Reloj relojitomagico;
     
     void Disparar(sf::Vector2f vector,sf::Vector2f vectorPlayer);
     void RenderDisparo(float interpolation);

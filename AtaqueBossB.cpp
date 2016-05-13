@@ -12,8 +12,25 @@
  */
 
 #include "AtaqueBossB.hpp"
+#include "../States/InGame.hpp"
 
-AtaqueBossB::AtaqueBossB() {
+void AtaqueBossB::CreateBody() {
+    physicWorld = InGame::Instance()->physicWorld;
+    bodyDef.type = b2_dynamicBody; 
+    bodyDef.position = (tmx::SfToBoxVec(entity->GetPosition()));
+    bodyDef.fixedRotation = true;
+    body = physicWorld->CreateBody(&bodyDef);
+    body->SetUserData(this);
+    shape.SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth()/2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f));
+    fixtureDef.shape = &shape;
+    fixtureDef.density = 1.0f;
+    fixtureDef.friction = 1.0f;
+    fixtureDef.filter.categoryBits = Filtro::_entityCategory::DISPAROENE;
+    fixtureDef.filter.maskBits = Filtro::_entityCategory::PLAYER;
+    body->CreateFixture(&fixtureDef);
+}
+
+AtaqueBossB::AtaqueBossB() : Collisionable((Entity*)this) {
     
     motor = Motor2D::Instance();
     
@@ -69,14 +86,19 @@ animationAtaque->setSpriteSheet("resources/Textures/rayorojo.png");
     
     currentAnimation = &animationDiana;
     
+    InicializarAnimatedSprite(sf::seconds(1.f/29),true,false);
+    SetScaleAnimation(0.6f,0.6f);
+    SetOriginAnimatedSprite(475,392);
+    Collisionable::SetOriginColision(475*0.6,392*0.6);
+    Collisionable::SetRectangleColision(397*0.6,332*0.6,176*0.6,113*0.6);
+    CreateBody();
+    setDamage(4.f);
     
     disparo.setFillColor(sf::Color::Red);
     disparo.setRadius(30);
     
 }
 
-AtaqueBossB::AtaqueBossB(const AtaqueBossB& orig) {
-}
 
 AtaqueBossB::~AtaqueBossB() {
 }
@@ -87,7 +109,8 @@ void AtaqueBossB::Disparar(sf::Vector2f vector,sf::Vector2f vectorPlayer) {
 
     posCaida=vectorPlayer;
     
-    
+    body->SetTransform(tmx::SfToBoxVec(posCaida),0);
+    body->SetActive(false);
   /*  float angleShot = atan2(vectorPlayer.y-vector.y, vectorPlayer.x-vector.x);
     angleshot2 = angleShot; //so it goes in a straight line
     SetRotation(angleshot2);*/
@@ -103,4 +126,8 @@ void AtaqueBossB::RenderDisparo(float interpolation) {
 void AtaqueBossB::Update2(sf::Vector2f velocity, sf::Time elapsedTime) {
     SetSpeed(velocity);
     PhysicsState::Update(elapsedTime);
+}
+
+std::string AtaqueBossB::getClassName() {
+    return "AtaqueB";
 }
