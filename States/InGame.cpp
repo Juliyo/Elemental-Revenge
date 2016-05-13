@@ -354,7 +354,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     }
 
     //****************************RENDER DEL BOSS************************************//
-    if (level->map->numEnemigos == 0 && boss->GetEstado() == Estado::ID::Vivo) {
+    if (level->map->numEnemigos == 0 && boss->GetEstado() == Estado::ID::Vivo || boss->GetEstado() == Estado::ID::Damaged) {
         boss->PlayAnimation(*boss->currentAnimation);
         boss->UpdateAnimation(elapsedTime);
         boss->renderAtaqueA(elapsedTime, interpolation);
