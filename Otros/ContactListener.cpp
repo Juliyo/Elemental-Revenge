@@ -29,6 +29,7 @@ ContactListener::~ContactListener() {
 }
 
 void ContactListener::BeginContact(b2Contact* contact) {
+    
     std::string claseA = "";
     std::string claseB = "";
     b2Fixture* fixtureA = contact->GetFixtureA();
@@ -41,6 +42,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
     }
     
     if(claseA == "Player"){
+        
         if(claseB == "Melee"){
             Player *p = static_cast<Player*> (fixtureA->GetBody()->GetUserData());
             if(p->invulnerable.getTiempo() > 0.5f){
@@ -60,11 +62,15 @@ void ContactListener::BeginContact(b2Contact* contact) {
             DisparoEnemigo *d = static_cast<DisparoEnemigo*> (fixtureB->GetBody()->GetUserData());
             p->restaVida(d->getDamage());
             d->Colision();
-        }else if("AtaqueA"){
+        }else if(claseB =="AtaqueA"){
             Player *p = static_cast<Player*> (fixtureA->GetBody()->GetUserData());
             AtaqueBossA *d = static_cast<AtaqueBossA*> (fixtureB->GetBody()->GetUserData());
             p->restaVida(d->getDamage());
             d->Colision();
+        }else if(claseB =="Boss"){
+             Player *p = static_cast<Player*> (fixtureA->GetBody()->GetUserData());
+            
+            p->restaVida(8);
         }
     }else if(claseA == "Melee"){
         if(claseB == "Player"){
