@@ -19,6 +19,7 @@
 #include "../Headers/AtaqueBossA.hpp"
 #include "../Headers/AtaqueBossB.hpp"
 #include "../Headers/AtaqueBossC.hpp"
+#include "../Headers/AtaqueBossD.hpp"
 
 #include "../Motor/Collisionable.hpp"
 
@@ -40,6 +41,7 @@ public:
     void updateAtaqueBossA(bool disparado, sf::Time elapsedTime,float x4,float y4);
     void updateAtaqueBossB(bool disparado, sf::Time elapsedTime,float x4,float y4);
     void updateAtaqueBossC(bool disparado, sf::Time elapsedTime,float x4,float y4);
+    void updateAtaqueBossD(bool disparado, sf::Time elapsedTime);
    
 
     void Draw();
@@ -53,6 +55,7 @@ public:
     void renderAtaqueA(sf::Time elapsedTime, float interpolation);
     void renderAtaqueB(sf::Time elapsedTime, float interpolation);
     void renderAtaqueC(sf::Time elapsedTime, float interpolation);
+    void renderAtaqueD(sf::Time elapsedTime, float interpolation);
     
     bool empujado;
     bool empujado2;
@@ -93,6 +96,9 @@ public:
     //AtaqueBossA *disparo;
     AtaqueBossB *rayo;
     std::vector<AtaqueBossC*> *espiral;
+    std::vector<AtaqueBossD*> *circuloFuego;
+    Reloj ataqueD;
+    float cdAtaqueD = 15.f;
     
     Animation **currentAnimation;
     Animation *walkingAnimationRight;

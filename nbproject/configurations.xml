@@ -96,6 +96,8 @@
       <itemPath>AtaqueBossA.cpp</itemPath>
       <itemPath>AtaqueBossB.cpp</itemPath>
       <itemPath>AtaqueBossC.cpp</itemPath>
+      <itemPath>AtaqueBossD.cpp</itemPath>
+      <itemPath>Headers/AtaqueBossD.hpp</itemPath>
       <itemPath>DisparoEnemigo.cpp</itemPath>
       <itemPath>Flash.cpp</itemPath>
       <itemPath>Game.cpp</itemPath>
@@ -407,6 +409,8 @@
       </item>
       <item path="AtaqueBossC.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="AtaqueBossD.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="DisparoEnemigo.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Entities/Boss.cpp" ex="false" tool="1" flavor2="0">
@@ -446,6 +450,8 @@
       <item path="Headers/AtaqueBossB.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/AtaqueBossC.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/AtaqueBossD.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/DisparoEnemigo.hpp" ex="false" tool="3" flavor2="0">
       </item>
@@ -670,6 +676,8 @@
       </item>
       <item path="AtaqueBossC.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="AtaqueBossD.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="DisparoEnemigo.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Entities/Boss.cpp" ex="false" tool="1" flavor2="0">
@@ -709,6 +717,8 @@
       <item path="Headers/AtaqueBossB.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/AtaqueBossC.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Headers/AtaqueBossD.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Headers/DisparoEnemigo.hpp" ex="false" tool="3" flavor2="0">
       </item>

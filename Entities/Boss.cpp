@@ -15,6 +15,7 @@
 #include "../States/InGame.hpp"
 #include "../Headers/Util.hpp"
 #include "../Otros/tmxHelper.hpp"
+#include "AtaqueBossD.hpp"
 
 Boss::Boss() : Collisionable((Entity*)this) {
 }
@@ -57,6 +58,11 @@ void Boss::Inicializar(float posX, float posY, float speedX, float speedY, float
     walkingAnimationLeft = new Animation();
     walkingAnimationRight = new Animation();
     animationMuerte = new Animation();
+    
+    circuloFuego = new std::vector<AtaqueBossD*>();
+    for(int i = 0; i<10; i++){
+        circuloFuego->push_back(new AtaqueBossD());
+    }
     
     disparo = new std::vector<AtaqueBossA*>();
 
@@ -109,6 +115,7 @@ void Boss::Inicializar(float posX, float posY, float speedX, float speedY, float
     SetEstado(Estado::ID::Vivo);
 
     damaged = new Reloj();
+    
     //Cargamos shader del player para el colo
     LoadShader("resources/Shader/fs.frag");
     ActiveShader(false);
@@ -139,6 +146,22 @@ void Boss::renderAtaqueB(sf::Time elapsedTime, float interpolation) {
     rayo->PlayAnimation(*rayo->currentAnimation);
     rayo->UpdateAnimation(elapsedTime);
     rayo->DrawAnimation(rayo->GetPreviousPosition(), rayo->GetPosition(), interpolation);
+}
+
+void Boss::renderAtaqueD(sf::Time elapsedTime, float interpolation) {
+    for (int i = 0; i < circuloFuego->size(); i++) {
+        if (circuloFuego->at(i)->GetEstado() == Estado::ID::Vivo) {
+            circuloFuego->at(i)->PlayAnimation(*circuloFuego->at(i)->currentAnimation);
+            circuloFuego->at(i)->UpdateAnimation(elapsedTime);
+            circuloFuego->at(i)->DrawAnimation(circuloFuego->at(i)->GetPreviousPosition(), circuloFuego->at(i)->GetPosition(), interpolation);
+        } else if (circuloFuego->at(i)->GetEstado() == Estado::ID::Muriendo) {
+            circuloFuego->at(i)->PlayAnimation(*circuloFuego->at(i)->currentAnimation);
+            circuloFuego->at(i)->UpdateAnimation(elapsedTime);
+            circuloFuego->at(i)->DrawAnimationWithOut(circuloFuego->at(i)->GetRenderPosition());
+        } else {
+            circuloFuego->at(i)->StopAnimation();
+        }
+    }
 }
 
 void Boss::renderAtaqueC(sf::Time elapsedTime, float interpolation) {
@@ -343,6 +366,32 @@ void Boss::StopAnimation() {
     Render::StopAnimation();
 }
 
+void Boss::updateAtaqueBossD(bool disparado, sf::Time elapsedTime) {
+    if (ataqueD.getTiempo() > cdAtaqueD) {
+        for (int i = 0; i < circuloFuego->size(); i++) {
+            circuloFuego->at(i)->cast(GetPosition(), i);
+            castDisparo.restart();
+
+        }
+        ataqueD.restart();
+    }
+    for(int i = 0; i<circuloFuego->size();i++){
+        sf::Vector2f movement2(0.f, 0.f);
+        if (circuloFuego->at(i)->GetEstado() == Estado::ID::Vivo) {
+            movement2.x = (40 * cos(circuloFuego->at(i)->angleshot2) * 10.0f);
+            movement2.y = (40 * sin(circuloFuego->at(i)->angleshot2) * 10.0f);
+            circuloFuego->at(i)->Update2(movement2, elapsedTime);
+        } else if (circuloFuego->at(i)->GetEstado() == Estado::ID::Muriendo) {
+            //Ademadas hacemos que su cuerpo no interactue
+            circuloFuego->at(i)->body->SetActive(false);
+            //Si la bala esta desapareciendo comprobamos hasta que desaparezca
+            circuloFuego->at(i)->ComprobarSiMuerto();
+        }
+    }
+    
+    
+}
+
 void Boss::updateAtaqueBossA(bool disparado, sf::Time elapsedTime, float x4, float y4) {
 
     sf::Vector2f movement2(0.f, 0.f);
@@ -420,8 +469,9 @@ void Boss::updateAtaqueBossC(bool disparado, sf::Time elapsedTime, float x4, flo
                 ///LINEA 1 DE BOLAS
                 if (setOriginEspiral < 2) {
                     if (espiral->at(0)->GetEstado() == Estado::ID::Vivo) {
-                        espiral->at(0)->SetPosition(getPosition().x, getPosition().y);
+                        
                         espiral->at(0)->body->SetTransform(tmx::SfToBoxVec(sf::Vector2f(getPosition().x, getPosition().y)),0);
+                        espiral->at(0)->SetPosition(tmx::BoxToSfVec(body->GetPosition()));
                         espiral->at(0)->SetOriginAnimation(GetSpriteAnimated().getOrigin().x, GetSpriteAnimated().getOrigin().y);
                         setOriginEspiral++;
                     }else{
@@ -435,7 +485,7 @@ void Boss::updateAtaqueBossC(bool disparado, sf::Time elapsedTime, float x4, flo
                     if (espiral->at(0)->GetEstado() == Estado::ID::Vivo) {
                         numBolasEspiral++;
                         espiral->at(numBolasEspiral)->body->SetTransform(tmx::SfToBoxVec(sf::Vector2f(getPosition().x, getPosition().y)), 0);
-                        espiral->at(numBolasEspiral)->SetPosition(getPosition().x, getPosition().y);
+                        espiral->at(0)->SetPosition(tmx::BoxToSfVec(body->GetPosition()));
                         espiral->at(numBolasEspiral)->SetOriginAnimation(espiral->at(numBolasEspiral - 1)->GetSpriteAnimated().getOrigin().x - 360, espiral->at(numBolasEspiral - 1)->GetSpriteAnimated().getOrigin().y);
                     } else {
                         //Ademadas hacemos que su cuerpo no interactue
@@ -450,7 +500,7 @@ void Boss::updateAtaqueBossC(bool disparado, sf::Time elapsedTime, float x4, flo
                 if (setOriginEspiral2 < 2) {
                     if (espiral->at(30)->GetEstado() == Estado::ID::Vivo) {
                         espiral->at(30)->body->SetTransform(tmx::SfToBoxVec(sf::Vector2f(getPosition().x, getPosition().y)),0);
-                        espiral->at(30)->SetPosition(getPosition().x, getPosition().y);
+                        espiral->at(0)->SetPosition(tmx::BoxToSfVec(body->GetPosition()));
                         espiral->at(30)->SetOriginAnimation(GetSpriteAnimated().getOrigin().x, GetSpriteAnimated().getOrigin().y);
                         setOriginEspiral2++;
                     }else{
@@ -464,7 +514,7 @@ void Boss::updateAtaqueBossC(bool disparado, sf::Time elapsedTime, float x4, flo
                     if (espiral->at(numBolasEspiral2 + 30)->GetEstado() == Estado::ID::Vivo) {
                         numBolasEspiral2++;
                         espiral->at(numBolasEspiral2 + 30)->body->SetTransform(tmx::SfToBoxVec(sf::Vector2f(getPosition().x, getPosition().y)),0);
-                        espiral->at(numBolasEspiral2 + 30)->SetPosition(getPosition().x, getPosition().y);
+                        espiral->at(0)->SetPosition(tmx::BoxToSfVec(body->GetPosition()));
                         espiral->at(numBolasEspiral2 + 30)->SetOriginAnimation(espiral->at(numBolasEspiral2 + 30 - 1)->GetSpriteAnimated().getOrigin().x - 360, espiral->at(numBolasEspiral2 + 30 - 1)->GetSpriteAnimated().getOrigin().y);
                     }else{
                         //Ademadas hacemos que su cuerpo no interactue
@@ -480,7 +530,7 @@ void Boss::updateAtaqueBossC(bool disparado, sf::Time elapsedTime, float x4, flo
                 if (setOriginEspiral3 < 2) {
                     if (espiral->at(numBolasEspiral3 + 60)->GetEstado() == Estado::ID::Vivo) {
                         espiral->at(numBolasEspiral3 + 60)->body->SetTransform(tmx::SfToBoxVec(sf::Vector2f(getPosition().x, getPosition().y)), 0);
-                        espiral->at(numBolasEspiral3 + 60)->SetPosition(getPosition().x, getPosition().y);
+                        espiral->at(0)->SetPosition(tmx::BoxToSfVec(body->GetPosition()));
                         espiral->at(numBolasEspiral3 + 60)->SetOriginAnimation(GetSpriteAnimated().getOrigin().x, GetSpriteAnimated().getOrigin().y);
                     } else {
                         //Ademadas hacemos que su cuerpo no interactue
@@ -493,7 +543,7 @@ void Boss::updateAtaqueBossC(bool disparado, sf::Time elapsedTime, float x4, flo
                     if (espiral->at(numBolasEspiral3 + 60)->GetEstado() == Estado::ID::Vivo) {
                         numBolasEspiral3++;
                         espiral->at(numBolasEspiral3 + 60)->body->SetTransform(tmx::SfToBoxVec(sf::Vector2f(getPosition().x, getPosition().y)),0);
-                        espiral->at(numBolasEspiral3 + 60)->SetPosition(getPosition().x, getPosition().y);
+                        espiral->at(0)->SetPosition(tmx::BoxToSfVec(body->GetPosition()));
                         espiral->at(numBolasEspiral3 + 60)->SetOriginAnimation(espiral->at(numBolasEspiral3 + 60 - 1)->GetSpriteAnimated().getOrigin().x - 360, espiral->at(numBolasEspiral3 + 60)->GetSpriteAnimated().getOrigin().y);
                 
                     }else{
@@ -515,8 +565,9 @@ void Boss::updateAtaqueBossC(bool disparado, sf::Time elapsedTime, float x4, flo
                 if (espiral->at(i)->GetEstado() == Estado::ID::Vivo) {
                     espiral->at(i)->SetRotation(rotacion[i]);
                     rotacion[i] += 5;
-                    espiral->at(i)->SetPosition(getPosition().x, getPosition().y);
                     espiral->at(i)->body->SetTransform(tmx::SfToBoxVec(sf::Vector2f(getPosition().x, getPosition().y)), 0);
+                    espiral->at(0)->SetPosition(tmx::BoxToSfVec(body->GetPosition()));
+                    
                     if (rotacion[i] % 360 == 45) {
                         espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
                     }
@@ -555,9 +606,10 @@ void Boss::updateAtaqueBossC(bool disparado, sf::Time elapsedTime, float x4, flo
                 if (espiral->at(i)->GetEstado() == Estado::ID::Vivo) {
                     espiral->at(i)->SetRotation(rotacion2[i]);
                     rotacion2[i] += 5;
-                    espiral->at(i)->SetPosition(getPosition().x, getPosition().y);
+                    
                     espiral->at(i)->body->SetTransform(tmx::SfToBoxVec(sf::Vector2f(getPosition().x, getPosition().y)), 0);
-
+                    espiral->at(0)->SetPosition(tmx::BoxToSfVec(body->GetPosition()));
+                    
                     if (rotacion2[i] % 360 == 45) {
                         espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
                     }
@@ -596,9 +648,9 @@ void Boss::updateAtaqueBossC(bool disparado, sf::Time elapsedTime, float x4, flo
                 if (espiral->at(i)->GetEstado() == Estado::ID::Vivo) {
                     espiral->at(i)->SetRotation(rotacion3[i]);
                     rotacion3[i] += 5;
-                    espiral->at(i)->SetPosition(getPosition().x, getPosition().y);
+                    
                     espiral->at(i)->body->SetTransform(tmx::SfToBoxVec(sf::Vector2f(getPosition().x, getPosition().y)), 0);
-
+                    espiral->at(0)->SetPosition(tmx::BoxToSfVec(body->GetPosition()));
                     if (rotacion3[i] % 360 == 45) {
                         espiral->at(i)->SetOriginAnimation(espiral->at(i)->GetSpriteAnimated().getOrigin().x + 24, espiral->at(i)->GetSpriteAnimated().getOrigin().y);
                     }

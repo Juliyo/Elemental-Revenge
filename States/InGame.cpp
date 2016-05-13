@@ -169,7 +169,9 @@ void InGame::Update(sf::Time elapsedTime) {
                 boss->updateAtaqueBossA(true, elapsedTime, player->getPosition().x, player->getPosition().y);
                 boss->updateAtaqueBossB(true, elapsedTime, player->getPosition().x, player->getPosition().y);
                 //boss->updateAtaqueBossC(true, elapsedTime, player->getPosition().x, player->getPosition().y);
+                boss->updateAtaqueBossD(true, elapsedTime);
                 boss->Update(elapsedTime);
+                
             } else if (boss->GetEstado() == Estado::ID::Muriendo) {
                 //Si acaba de morir lo borramos del mundo y lo matamos
                 boss->body->GetWorld()->DestroyBody(boss->body);
@@ -350,7 +352,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
         boss->renderAtaqueA(elapsedTime, interpolation);
         boss->renderAtaqueB(elapsedTime, interpolation);
         boss->renderAtaqueC(elapsedTime, interpolation);
-
+        boss->renderAtaqueD(elapsedTime, interpolation);
         //Si estamos en Pause o Muerte render con interpolacion
         if (StateStack::Instance()->currentState != States::ID::Pause && StateStack::Instance()->currentState != States::ID::Muerte) {
             if (boss->GetEstado() != Estado::ID::Muerto) {
