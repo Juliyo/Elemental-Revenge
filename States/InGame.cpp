@@ -126,8 +126,15 @@ void InGame::Update(sf::Time elapsedTime) {
     if (!firstTime) {
 
         physicWorld->Step(elapsedTime.asSeconds(), 8, 4);
-
-        player -> Update(elapsedTime);
+        if(player->GetEstado() == Estado::ID::Vivo || player->GetEstado() == Estado::ID::Damaged){
+            player -> Update(elapsedTime);
+        }else if(player->relojMuriendo.getTiempo() > 1.f && player->GetEstado() == Estado::ID::Muriendo){
+            player->SetEstado(Estado::ID::Muerto);
+            player->currentAnimation = &player->Muerto;
+            SoundManager *sonido = SoundManager::Instance();
+            sonido->play("resources/Sounds/Muerte.wav");
+            StateStack::Instance()->SetCurrentState(States::ID::Muerte);
+        }
 
         primerosDeLaCola();
 
@@ -280,12 +287,7 @@ void InGame::Update(sf::Time elapsedTime) {
 
     firstTime = false;
 
-    if (player->GetVida() == 0) {
-        SoundManager *sonido = SoundManager::Instance();
-        sonido->play("resources/Sounds/Muerte.wav");
-
-        StateStack::Instance()->SetCurrentState(States::ID::Muerte);
-    }
+  
     //printf("Numero de enemigos: %d\n",level->map->numEnemigos);
     if (level->map->numEnemigos == 0) {
         Music *music = Music::Instance();
@@ -491,11 +493,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
         motor->display();
     }
 
-    if (player->relojMuriendo.getTiempo() > 0.7f && player->GetEstado() == Estado::ID::Muriendo) {
-
-        player->SetEstado(Estado::ID::Muerto);
-        player->currentAnimation = &player->Muerto;
-    }
+    
 
 
 }

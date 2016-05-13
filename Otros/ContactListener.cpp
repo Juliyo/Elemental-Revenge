@@ -42,7 +42,6 @@ void ContactListener::BeginContact(b2Contact* contact) {
     }
 
     if (claseA == "Player") {
-
         if (claseB == "Melee") {
             Player *p = static_cast<Player*> (fixtureA->GetBody()->GetUserData());
             if (p->invulnerable.getTiempo() > 0.5f) {
@@ -74,17 +73,19 @@ void ContactListener::BeginContact(b2Contact* contact) {
         } else if (claseB == "AtaqueB") {
             AtaqueBossB *d = static_cast<AtaqueBossB*> (fixtureB->GetBody()->GetUserData());
             
-            if(d->relojitomagico.getTiempo()>0.5){
-                printf("ENTROOO AQUII AL CONTACTO CON B \n\n");
+           // if(d->relojitomagico.getTiempo()>0.5){
+                //printf("ENTROOO AQUII AL CONTACTO CON B \n\n");
                 Player *p = static_cast<Player*> (fixtureA->GetBody()->GetUserData());
                 //AtaqueBossB *d = static_cast<AtaqueBossB*> (fixtureB->GetBody()->GetUserData());
                 p->restaVida(d->getDamage()); 
-            }
+
+            
         } else if (claseB == "AtaqueD") {
             Player *p = static_cast<Player*> (fixtureA->GetBody()->GetUserData());
             AtaqueBossD *d = static_cast<AtaqueBossD*> (fixtureB->GetBody()->GetUserData());
             p->restaVida(d->getDamage());
             d->Colision();
+
         }
     } else if (claseA == "Melee") {
         if (claseB == "Player") {

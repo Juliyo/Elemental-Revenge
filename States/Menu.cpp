@@ -26,7 +26,7 @@ Menu::Menu() {
     spriteRelleno = new Sprite();
     mouseSprite = new Sprite();
     titulo = new Sprite();
-    mancha = new Sprite[6];
+    mancha = new Sprite[10];
     
     textTitulo = new Text();
     
@@ -117,7 +117,7 @@ void Menu::Inicializar() {
     spriteRelleno->setTextRect(0, 0, 1024, 2048);
     spriteRelleno->setScale(1, 2);
 
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 7; i++) {
         mancha[i].setTexture(texturaMancha);
         mancha[i].setScale(0.3, 0.3);
     }
@@ -189,7 +189,13 @@ void Menu::Inicializar() {
     mancha[4].setScale(0.4, 0.3);
     mancha[4].setPosition(540, 500);
     
-            
+           
+    mancha[5].setScale(0.4, 0.3);
+    mancha[5].setPosition(540, 350);
+    
+    mancha[6].setScale(0.4, 0.3);
+    mancha[6].setPosition(540, 500);
+    
     menu[6].setFont(font);
     menu[6].setColor(sf::Color::White);
     menu[6].setString("Música");
@@ -207,7 +213,7 @@ void Menu::Inicializar() {
     menu[8].setColor(sf::Color::White);
     menu[8].setString("Cambiar modo");
     menu[8].setPosition(580, 400);
-    menu[8].setScale(0.6, 0.6);
+    menu[8].setScale(0.5, 0.5);
     
     audioMusica.setFont(font);
     audioMusica.setColor(color);
@@ -345,6 +351,8 @@ void Menu::Render(float interpolation, sf::Time elapsedTime) {
         }
         else{
             if(selectedItemIndex==6 || selectedItemIndex==7){
+            motor->draw(mancha[5]);
+            motor->draw(mancha[6]);
             menu[3].setString("AUDIO");
             motor->draw(menu[3]);
             motor->draw(menu[6]);
@@ -354,6 +362,7 @@ void Menu::Render(float interpolation, sf::Time elapsedTime) {
             }
             else{
             if(selectedItemIndex==8){
+            motor->draw(mancha[5]);
             menu[3].setString("Video");
             motor->draw(menu[3]);
             motor->draw(menu[8]);
@@ -438,13 +447,17 @@ void Menu::MoveUp() {
                 
                 else if (selectedItemIndex == 6) {
 
-                menu[6].setColor(color);
+                    menu[6].setColor(color);
             selectedItemIndex++;
+            audioSonido.setColor(sf::Color::White);
+            audioMusica.setColor(color);
             menu[7].setColor(sf::Color::White);
                 }
                 
                 else if (selectedItemIndex == 7) {
 
+                    audioMusica.setColor(sf::Color::White);
+            audioSonido.setColor(color);
                 menu[7].setColor(color);
             selectedItemIndex--;
             menu[6].setColor(sf::Color::White);
@@ -490,6 +503,8 @@ else{
                 else if (selectedItemIndex == 6) {
 
                 menu[6].setColor(color);
+            audioSonido.setColor(sf::Color::White);
+            audioMusica.setColor(color);
             selectedItemIndex++;
             menu[7].setColor(sf::Color::White);
                 }
@@ -497,6 +512,8 @@ else{
                 else if (selectedItemIndex == 7) {
 
                 menu[7].setColor(color);
+            audioMusica.setColor(sf::Color::White);
+            audioSonido.setColor(color);
             selectedItemIndex--;
             menu[6].setColor(sf::Color::White);
                 }
@@ -605,6 +622,8 @@ void Menu::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
             motor->closeWindow();
         }
         else if (selectedItemIndex == 4) {
+            menu[6].setColor(sf::Color::White);
+            audioMusica.setColor(sf::Color::White);
             selectedItemIndex = 6;
         }
         else if (selectedItemIndex == 5) {
