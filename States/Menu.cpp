@@ -500,6 +500,11 @@ else{
             selectedItemIndex--;
             menu[6].setColor(sf::Color::White);
                 }
+              else if (selectedItemIndex == 8) {
+            
+            modoVideo.setColor(color);
+            modoVideo.setColor(sf::Color::White);
+                }
     }
 }
 
@@ -606,14 +611,23 @@ void Menu::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
             selectedItemIndex = 8;
         }
         else if (selectedItemIndex == 8) {
-            if(motor->getEstilo().compare("ventana")==0){
-                motor->inicializarVentana("Hito 3 - Final", 1280, 720,Estilo::FULLSCREEN);
-        }
-        if(motor->getEstilo().compare("pantalla completa")==0){
-                motor->inicializarVentana("Hito 3 - Final", 1280, 720,Estilo::DEFAULT);
+            
+            if(isPressed==false){
+   
+        if(motor->getEstilo()=="ventana"){
+                motor->cambiarEstilo(1);
+                modoVideo.setString("Salir de modo "+motor->getEstilo());
+                modoVideo.setScale(0.3,0.3);
+                
+        }else{
+        if(motor->getEstilo()=="pantalla completa"){
+                motor->cambiarEstilo(0);
+                modoVideo.setString("Salir de modo "+motor->getEstilo());
+                modoVideo.setScale(0.4,0.4);
         }
     }
-
+            }
+        }
     } else if (key == sf::Keyboard::Escape) {
             menu[3].setString("OPCIONES");
 
