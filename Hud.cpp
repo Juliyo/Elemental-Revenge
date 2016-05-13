@@ -16,21 +16,21 @@ Hud::Hud() {
 
         printf("SE HA CARGADO BIEN EL HUD DEL BOSS\n");
 
-    std::string ruta = "resources/Textures/hudHealthBar.png";
-    std::string ruta2 = "resources/Textures/barraVida.png";
+    std::string ruta = "resources/Textures/hud/BarraVidaBossVacia.png";
+    std::string ruta2 = "resources/Textures/hud/BarraVidaBoss.png";
     
     
     
     barraVida.setTexture(ruta);
     barraVida.setScale(0.6f, 0.7f);
     barraVida.setSmooth(false);
-    barraVida.setPosition(450, 300);
+    barraVida.setPosition(250, 800);
 
     sVida.setTexture(ruta2);
     sVida.setSmooth(false);
     sVida.setRepeated(false);
     sVida.setScale(0.6f, 0.7f);
-    sVida.setPosition(450 + (130 * 0.6), 300 + (30 * 0.7));
+    sVida.setPosition(250 + (130 * 0.6), 800 + (30 * 0.7));
 
     sVida.setTextRect(130, 30, (289 - 130), 58);
 
