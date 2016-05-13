@@ -184,7 +184,6 @@ void Hud::updateHudBoss(float vidas) {
 
 }
 
-
 void Hud::cargarRayo() {
     
     rayoB = new Sprite();
