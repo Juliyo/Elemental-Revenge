@@ -98,7 +98,7 @@ public:
     std::vector<AtaqueBossC*> *espiral;
     std::vector<AtaqueBossD*> *circuloFuego;
     Reloj ataqueD;
-    float cdAtaqueD = 15.f;
+    float cdAtaqueD = 8.f;
     
     Animation **currentAnimation;
     Animation *walkingAnimationRight;

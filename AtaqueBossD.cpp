@@ -118,6 +118,7 @@ void AtaqueBossD::cast(sf::Vector2f pos, int numeroBola) {
     Render::SetFrameTime(sf::seconds(0.02f));
     Render::SetScaleAnimation(0.2, 0.2);
     SetEstado(Estado::ID::Vivo);
+    body->SetActive(true);
     SetPosition(pos);
     float angleShot = numeroBola * 36.f;
     angleshot2 = angleShot; //so it goes in a straight line

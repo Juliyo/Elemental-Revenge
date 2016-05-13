@@ -106,8 +106,8 @@ void Boss::Inicializar(float posX, float posY, float speedX, float speedY, float
     Render::InicializarAnimatedSprite(sf::seconds(0.075f), true, false);
     PhysicsState::SetPosition(posX, posY);
     PhysicsState::SetSpeed(speedX, speedY);
-    Enemigo::SetVelocity(100);
-    Enemigo::SetVida(50);
+    Enemigo::SetVelocity(130);
+    Enemigo::SetVida(125);
 
     PhysicsState::SetMaxSpeed(maxSpeedX, maxSpeedY);
     Render::SetOriginAnimatedSprite(30, 38);
