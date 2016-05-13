@@ -26,7 +26,7 @@ void Player::CreateBody() {
     fixtureDef.friction = 0.0f;
     //fixtureDef->filter.groupIndex = Filtro::_entityCategory::PLAYER;
     fixtureDef.filter.categoryBits = Filtro::_entityCategory::PLAYER;
-    fixtureDef.filter.maskBits = Filtro::_entityCategory::ENEMIGO | Filtro::_entityCategory::BOUNDARY | Filtro::_entityCategory::DISPAROENE;
+    fixtureDef.filter.maskBits = Filtro::_entityCategory::ENEMIGO | Filtro::_entityCategory::BOUNDARY | Filtro::_entityCategory::DISPAROENE | Filtro::_entityCategory::BOSS;
     body->CreateFixture(&fixtureDef);
 }
 

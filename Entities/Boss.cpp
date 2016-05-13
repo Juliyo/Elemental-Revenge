@@ -30,24 +30,20 @@ void Boss::CreateBody() {
     physicWorld = InGame::Instance()->physicWorld;
 
     //Creamos un objeto dinamico
-    //bodyDef = new b2BodyDef();
     bodyDef.type = b2_dynamicBody;
-    bodyDef.position.Set(tmx::SfToBoxFloat(entity->GetPosition().x), tmx::SfToBoxFloat(entity->GetPosition().y));
+    bodyDef.position = (tmx::SfToBoxVec(entity->GetPosition()));
     bodyDef.fixedRotation = true;
     //Añadimos el objeto al mundo
     body = physicWorld->CreateBody(&bodyDef);
     body->SetUserData(this);
     //Se crea una shape, le damos las dimensiones pasandole la mitad del ancho y la mitad del alto
     //del BoundingBox
-    //shape = new b2PolygonShape();
-    shape.SetAsBox(tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f), tmx::SfToBoxFloat(rectColision->GetHeight() / 2.f));
-    //Objeto que le da las propiedades fisicas al bodyDef
-    //fixtureDef = new b2FixtureDef();
-    fixtureDef.shape = &shape;
-    fixtureDef.density = 1.0f;
+    circleShape.m_radius = tmx::SfToBoxFloat(rectColision->GetWidth() / 2.f);
+
+    fixtureDef.shape = &circleShape;
+    fixtureDef.density = 0.25f;
     fixtureDef.friction = 0.0f;
-    //fixtureDef->filter.groupIndex = Filtro::_entityCategory::PLAYER;
-    fixtureDef.filter.categoryBits = Filtro::_entityCategory::ENEMIGO;
+    fixtureDef.filter.categoryBits = Filtro::_entityCategory::BOSS;
     fixtureDef.filter.maskBits = Filtro::_entityCategory::BOUNDARY | Filtro::_entityCategory::PLAYER | Filtro::_entityCategory::HECHIZO;
     body->CreateFixture(&fixtureDef);
 }
@@ -217,6 +213,7 @@ void Boss::CambiarVectorVelocidad() {
 }
 
 void Boss::RestarVida(int a) {
+    
     if (invulnerable.getTiempo() > 0.2f) {
         invulnerable.restart();
         SetVida(GetVida() - a);

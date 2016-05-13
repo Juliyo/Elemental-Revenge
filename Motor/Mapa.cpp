@@ -63,7 +63,7 @@ void Mapa::CreateBosses() {
         if (l.name == "Boss") //static bodies which make up the map geometry
         {
             for (const auto& o : l.objects) {
-                boss->Inicializar(o.GetCentre().x, -1*o.GetCentre().y);
+                boss->Inicializar(o.GetCentre().x, o.GetCentre().y);
                 boss->SetRectangleColision(0, 0, 60, 76);
                 boss->CreateBody();
             }
