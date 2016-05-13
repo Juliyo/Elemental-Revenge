@@ -36,12 +36,12 @@ hRayAdvanced::hRayAdvanced(): Collisionable((Entity*)this) {
     setCast(1);
     setCD(1);
     
-    printf("llego a textura del rayo HRAYADVANCED\n");
+   
     if(!hTexture.loadFromFile("resources/Textures/rayo.png")){
         exit(0);
     }
     animationDurante->setSpriteSheet("resources/Textures/rayo.png");
-    printf("termino a textura del rayo HRAYADVANCED\n");
+   
     
     animationDurante->addFrame(sf::IntRect(0,0,960,582));
     animationDurante->addFrame(sf::IntRect(960,0,960,582));

@@ -37,7 +37,7 @@ Music::Music(){
     mMusic->setVolume(ultVol);
     currentTheme = MUSICA::Menu;
     isPlaying = false;
-    printf("Termino constructor\n");
+    
 }
 
 Music::~Music()

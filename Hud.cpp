@@ -14,7 +14,7 @@
 Hud::Hud() {
         m = Motor2D::Instance();
 
-        printf("SE HA CARGADO BIEN EL HUD DEL BOSS\n");
+       
 
     std::string ruta = "resources/Textures/hud/BarraVidaBossVacia.png";
     std::string ruta2 = "resources/Textures/hud/BarraVidaBoss.png";
@@ -180,7 +180,7 @@ void Hud::updateHud(float vidas) {
 }
 
 void Hud::updateHudBoss(float vidas) {
-        sVida.setTextRect(0, 0, 1000/(50/vidas), 74);
+        sVida.setTextRect(0, 0, 1000/(125/vidas), 74);
 
 }
 

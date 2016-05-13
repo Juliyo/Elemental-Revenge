@@ -65,7 +65,7 @@ void InGame::Clear() {
 }
 
 void InGame::Inicializar() {
-    printf("-------------------OSTIA PUTA YA INICIALIZO INGAME----------------------\n");
+    
     pathfingind = new PathFinding();
 
     colaEnemigos = new std::deque<Enemigo*>();
@@ -254,7 +254,7 @@ void InGame::Update(sf::Time elapsedTime) {
             player->heal();
         } else {
             if (hActivo == 3) {
-                printf("Desactivo Heal \n paso a anterior:%d\n", anterior);
+               
                 hActivo = anterior;
             }
 
@@ -264,12 +264,11 @@ void InGame::Update(sf::Time elapsedTime) {
         if (hActivo == 4)
             player->updateFlash(cdFlashPausa);
         if (hActivo == 4 && !player->isFlashing) {
-            printf("Desactivo Flash \n paso a anterior:%d\n", anterior);
+          
             hActivo = anterior;
         }
         if ((player->flash->clockCd.getTiempo() + cdFlashPausa) > player->flash->getCD() && hActivo == 4) {
-            printf("CD Flash DESDE PAUSA: %f\n", cdFlashPausa);
-            printf("CD Flash CD NUEVO: %f\n", player->flash->clockCd.getTiempo());
+
             player->flash->clockCd.restart();
             player->hud->resetFlash();
             if (cdFlashPausa > 0) {
@@ -288,7 +287,7 @@ void InGame::Update(sf::Time elapsedTime) {
     firstTime = false;
 
   
-    //printf("Numero de enemigos: %d\n",level->map->numEnemigos);
+    
     if (level->map->numEnemigos == 0) {
         Music *music = Music::Instance();
                 music->Stop();
@@ -593,11 +592,11 @@ void InGame::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
             aguaBasicCast = false;
             aguaAdvancedCast = false;
             if (button == sf::Mouse::Button::Left) {
-                printf("Rayo basico \n");
+               
                 isShooting = isPressed;
             }
             if (button == sf::Mouse::Button::Right) {
-                printf("Rayo avanzado \n");
+                
                 rayoAdvancedCast = isPressed;
             }
             break;

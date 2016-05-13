@@ -75,7 +75,7 @@ void Pause::Inicializar() {
         menuPausa->push_back(new Text());
     }
 
-    printf("Empiezo inicializar de pausa\n");
+    
     tecladoActivo = false;
     ratonSelecciona = false;
     float width = 1500;
@@ -100,7 +100,7 @@ void Pause::Inicializar() {
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
 
-    printf("Empiezo inicializar el array del menu\n");
+    
     menuPausa->at(0)->setFont(fontPausa);
     menuPausa->at(0)->setColor(sf::Color::White);
     menuPausa->at(0)->setString("Reanudar");
@@ -108,7 +108,7 @@ void Pause::Inicializar() {
     menuPausa->at(0)->setPosition(80, 825);
     menuPausa->at(0)->setScale(1.2, 1.2);
 
-    printf("Primera posicion del array, si es esto que le jodan al mundo\n");
+   
     menuPausa->at(1)->setFont(fontPausa);
     menuPausa->at(1)->setColor(colorAzul);
     menuPausa->at(1)->setString("Opciones");
@@ -201,7 +201,7 @@ void Pause::Inicializar() {
     audioSonido.setPosition(500, 800);
     
     
-    printf("Ultima posicion del array, si es esto que le jodan al mundo\n");
+   
 
     textoPausa->setFont(fontPausa);
     textoPausa->setColor(sf::Color::White);
@@ -210,7 +210,7 @@ void Pause::Inicializar() {
     textoPausa->setPosition(30, 200);
     textoPausa->setStyle(sf::Text::Bold);
 
-    printf("Te odio 1\n");
+   
 
     texturaFondo.setSmooth(true);
     texturaFondo.setRepeated(1);
@@ -219,7 +219,7 @@ void Pause::Inicializar() {
     mouseSprite->setPosition(20, 20);
     mouseSprite->setOrigin(64, 64);
 
-    printf("Te odio 2\n");
+   
 
     texturaFondo.setSmooth(true);
     texturaFondo.setRepeated(1);
@@ -230,7 +230,7 @@ void Pause::Inicializar() {
     transparent.a = 125;
     spriteFondo->setColor(transparent);
 
-    printf("Te odio 3\n");
+   
 
     spriteFondoOpciones->setTexture(texturaFondo);
     spriteFondoOpciones->setTextRect(0, 0, 500, 500);
@@ -239,14 +239,14 @@ void Pause::Inicializar() {
     transparent.a = 200;
     spriteFondoOpciones->setColor(transparent);
 
-    printf("Te odio 4\n");
+    
 
     spriteMancha->setTexture(texturaMancha);
     spriteMancha->setTextRect(0, 0, 1733, 1733);
     spriteMancha->setPosition(-125, 500);
     spriteMancha->setScale(0.4, 0.4);
 
-    printf("Te odio 5\n");
+    
 
     spriteMancha2->setTexture(texturaMancha);
     spriteMancha2->setTextRect(0, 0, 1733, 1733);
@@ -264,13 +264,13 @@ void Pause::Inicializar() {
     spriteRelleno->setTextRect(0, 0, 1024, 2048);
     spriteRelleno->setScale(1, 2);
 
-    printf("Termino inicializar de pausa\n");
+   
 }
 
 void Pause::Update(sf::Time timeElapsed) {
     sf::Color color2(112, 112, 112);
     if (motor->GetMouseSprite()->getGlobalBounds().intersects(menuPausa->at(0)->getGlobalBounds())) {
-        printf("entro en if 1");
+        
         ratonSelecciona = true;
         if (!tecladoActivo) {
             menuPausa->at(0)->setColor(sf::Color::White);
@@ -281,7 +281,7 @@ void Pause::Update(sf::Time timeElapsed) {
             tecladoActivo = false;
         }
     } else if (motor->GetMouseSprite()->getGlobalBounds().intersects(menuPausa->at(1)->getGlobalBounds())) {
-        printf("entro en if 2");
+        
         ratonSelecciona = true;
         if (!tecladoActivo) {
             menuPausa->at(0)->setColor(color2);
@@ -316,7 +316,7 @@ void Pause::Update(sf::Time timeElapsed) {
 
 void Pause::Render(float interpolation, sf::Time elapsedTime) {
     
-                printf("%d\n", selectedItemIndexPausa);
+               
 
     motor->draw(spriteFondo);
     if (selectedItemIndexPausa <= 7) {
@@ -430,7 +430,7 @@ void Pause::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
                 MoveRight();
             }
         } else if (key == sf::Keyboard::Return) {
-            printf("%d\n", selectedItemIndexPausa);
+          
             if (selectedItemIndexPausa == 0) {
                 StateStack::Instance()->SetCurrentState(States::ID::InGame);
             }

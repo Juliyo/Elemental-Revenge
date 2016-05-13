@@ -80,7 +80,7 @@ hFireAdvanced::~hFireAdvanced() {
 
 void hFireAdvanced::cast(sf::Vector2f posicion) {
     body->SetActive(true);
-    printf("llego me cago en todo\n");
+    
     SoundManager *sonido = SoundManager::Instance();
     sonido->play("resources/Sounds/Favanzado.wav");
     hSprite.setPosition(posicion.x, posicion.y);

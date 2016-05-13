@@ -205,14 +205,14 @@ void Transition::Update(sf::Time elapsedTime) {
             firstTime = true;
         }
         if (drawNextLevel) { 
-                printf("TU FLIPAS\n");
+                
             if (nextLevel->getGlobalBounds().contains(mouseSprite->getPosition())) {
-                printf("Estoy donde se supone que cambias el estado a InGame\n");
+                
                 changePregunta();
                 preguntaContestada = true;
                 drawNextLevel = false;
                 buttonPressed = false;
-                printf("Antes de cambiar de mapa\n");
+                
                 
                 StateStack::Instance()->SetCurrentState(States::ID::Carga);
                 StateStack::Instance()->GetState(States::ID::Carga)->Inicializar();
@@ -221,7 +221,7 @@ void Transition::Update(sf::Time elapsedTime) {
                
 
                 level++;
-                printf("Se supone que llego a la ultima linea de Ingame\n");
+                
             }
 
 

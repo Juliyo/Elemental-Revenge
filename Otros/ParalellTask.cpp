@@ -50,10 +50,10 @@ void ParalellTask::setLevel(int newLevel) {
 
 void ParalellTask::RunTask() {
 
-    //printf("Dime que llegas o reviento algo\n");
+
     bool ended = false;
     while (!ended) {
-        //printf("Dime que llegas o reviento algo\n");
+       
         sf::Lock lock(mMutex);
         if (level == 0) {
 

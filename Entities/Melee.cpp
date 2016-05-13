@@ -222,7 +222,7 @@ void Melee::Update(const sf::Time elapsedTime) {
         if (!encola) {
             world->colaEnemigos->push_back((Enemigo*)this);
             encola = true;
-            //printf("METO ENEMIGO A LA COLA\n");
+           
             // std::cout<<"cola size: "<<world->colaMelees->size()<<std::endl;
         }
 

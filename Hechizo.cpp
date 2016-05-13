@@ -85,7 +85,7 @@ void Hechizo::aumentaLVL(int lvl, float cd, float cast, float dmg) {
 void Hechizo::aumentaLVL() {
     int i=0;
     if(i==0){
-            printf("Subo de nivel \n");
+            
     
         hLVL += 1;
     
@@ -97,7 +97,7 @@ void Hechizo::aumentaLVL() {
     
        
         hDamage += 2;
-    printf("nivel %d \n",hLVL);
+    
     i++;
     }
 

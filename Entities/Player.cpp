@@ -712,8 +712,7 @@ bool Player::updateRayo(bool isShooting, bool RayoAvanzadoCast, float cdRayoBasi
     //avanzado
     if (RayoAvanzadoCast) {
         hRayoAvanzado->cast(sf::Vector2f(getPosition()), hud, cdRayoAvanzadoPausa);
-        printf("CD FUEGO DESDE PAUSA: %f\n", cdRayoAvanzadoPausa);
-        printf("CD FUEGO CD NUEVO: %f\n", hRayoAvanzado->clockCd.getTiempo());
+
     }
 
     if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && hRayoAvanzado->clockCd.getTiempo() > hRayoBasico->getCast()) {
@@ -761,10 +760,6 @@ void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time e
 
 
     if (fuegoAdvancedCast) {
-        /* 
-         printf("CD FUEGO DESDE PAUSA: %f\n", cdFuegoAvanzadoPausa);
-         printf("CD FUEGO CD NUEVO: %f\n", hFuegoAvanzado->clockCd.getTiempo());
-         */
 
         if ((hFuegoAvanzado->clockCd.getTiempo() + cdFuegoAvanzadoPausa) > hFuegoAvanzado->getCD() || hFuegoAvanzado->primerCast == true) {
 
@@ -786,8 +781,7 @@ void Player::updateFuego(bool fuegoBasicCast, bool fuegoAdvancedCast, sf::Time e
 void Player::updateAgua(bool aguaBasicCast, bool aguaAdvancedCast, sf::Time elapsedTime, float cdAguaBasicoPausa, float cdAguaAvanzadoPausa) {
     sf::Vector2f movement = tmx::BoxToSfVec(body->GetLinearVelocity());
     if (aguaBasicCast) {
-        printf("CD AGUA DESDE PAUSA: %f\n", cdAguaBasicoPausa);
-        printf("CD AGUA CD NUEVO: %f\n", hAguaBasico->clockCd.getTiempo());
+
         hAguaBasico->cast(sf::Vector2f(getPosition()), hud, cdAguaBasicoPausa);
     }
     if (hAguaBasico->tiempoCast.getTiempo() < 0.5f && hAguaBasico->dibujar == true) {

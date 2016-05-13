@@ -74,7 +74,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
             AtaqueBossB *d = static_cast<AtaqueBossB*> (fixtureB->GetBody()->GetUserData());
             
            // if(d->relojitomagico.getTiempo()>0.5){
-                //printf("ENTROOO AQUII AL CONTACTO CON B \n\n");
+                
                 Player *p = static_cast<Player*> (fixtureA->GetBody()->GetUserData());
                 //AtaqueBossB *d = static_cast<AtaqueBossB*> (fixtureB->GetBody()->GetUserData());
                 p->restaVida(d->getDamage()); 
@@ -357,7 +357,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
     } else if (claseA == "AtaqueB") {
         
         if (claseB == "Player") {
-            printf("ENTROOO AQUII AL CONTACTO CON B22222 \n\n");
+       
             AtaqueBossB *d = static_cast<AtaqueBossB*> (fixtureA->GetBody()->GetUserData());
             Player *p = static_cast<Player*> (fixtureB->GetBody()->GetUserData());
 

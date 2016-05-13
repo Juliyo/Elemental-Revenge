@@ -38,7 +38,7 @@ void PathFinding::adicionarNodoAListaAbierta(Nodo *nodo) {
 }
 
 std::vector<Nodo*>* PathFinding::encontrarNodosAdyacentes(Nodo *nodoActual, Nodo *nodoFinal) {
-    //printf("Encontrar Nodos Adyaccentes Inicio Metodo \n");
+    
     std::vector<Nodo*> *nodosAdyacentes = new std::vector<Nodo*>();
     int X = nodoActual->GetCasilla().x;
     int Y = nodoActual->GetCasilla().y;

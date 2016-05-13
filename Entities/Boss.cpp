@@ -168,7 +168,7 @@ void Boss::renderAtaqueC(sf::Time elapsedTime, float interpolation) {
 
     if (espiral->at(0)->ClockResetEspiral.getTiempo() < espiral->at(0)->cdResetEspiral) {
 
-        //printf("numBolas: %d\n", numBolasEspiral);
+ 
 
         for (int p = 0; p <= numBolasEspiral; p++) {
             if (p != 0) {
