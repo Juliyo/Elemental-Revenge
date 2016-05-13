@@ -203,6 +203,12 @@ void Menu::Inicializar() {
     menu[7].setPosition(580, 550);
     menu[7].setScale(0.6, 0.6);
     
+    menu[8].setFont(font);
+    menu[8].setColor(sf::Color::White);
+    menu[8].setString("Cambiar modo");
+    menu[8].setPosition(580, 400);
+    menu[8].setScale(0.6, 0.6);
+    
     audioMusica.setFont(font);
     audioMusica.setColor(color);
     audioMusica.setString(NumberToString(volumenMusica));
@@ -212,6 +218,12 @@ void Menu::Inicializar() {
     audioSonido.setColor(color);
     audioSonido.setString(NumberToString(volumenSonidos));
     audioSonido.setPosition(620, 620);
+    
+    modoVideo.setFont(font);
+    modoVideo.setColor(color);
+    modoVideo.setString("Salir de modo "+motor->getEstilo());
+    modoVideo.setPosition(540, 500);
+    modoVideo.setScale(0.4, 0.4);
     
     textTitulo->setFont(fontTitulo);
     textTitulo->setColor(sf::Color::Black);
@@ -340,7 +352,14 @@ void Menu::Render(float interpolation, sf::Time elapsedTime) {
             motor->draw(audioMusica);
             motor->draw(audioSonido);
             }
-
+            else{
+            if(selectedItemIndex==8){
+            menu[3].setString("Video");
+            motor->draw(menu[3]);
+            motor->draw(menu[8]);
+            motor->draw(modoVideo);
+            }
+            }
         }
     }
     motor->SetView(2);
@@ -429,6 +448,11 @@ void Menu::MoveUp() {
                 menu[7].setColor(color);
             selectedItemIndex--;
             menu[6].setColor(sf::Color::White);
+                }
+                else if (selectedItemIndex == 8) {
+
+            modoVideo.setColor(color);
+            modoVideo.setColor(sf::Color::White);
                 }
     }
 }
@@ -578,6 +602,17 @@ void Menu::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         else if (selectedItemIndex == 4) {
             selectedItemIndex = 6;
         }
+        else if (selectedItemIndex == 5) {
+            selectedItemIndex = 8;
+        }
+        else if (selectedItemIndex == 8) {
+            if(motor->getEstilo().compare("ventana")==0){
+                motor->inicializarVentana("Hito 3 - Final", 1280, 720,Estilo::FULLSCREEN);
+        }
+        if(motor->getEstilo().compare("pantalla completa")==0){
+                motor->inicializarVentana("Hito 3 - Final", 1280, 720,Estilo::DEFAULT);
+        }
+    }
 
     } else if (key == sf::Keyboard::Escape) {
             menu[3].setString("OPCIONES");

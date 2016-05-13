@@ -62,7 +62,7 @@ public:
     void draw(Sprite **sp);
     void draw(const sf::Drawable& drawable, const sf::RenderStates& states = sf::RenderStates::Default);
     void display();
-
+    std::string getEstilo();
     void inicializarVentana(std::string titulo, int ancho, int alto,Estilo::_styles estilo);
 
     bool isWindowOpen();
@@ -80,6 +80,7 @@ public:
     void UpdateMouse();
     void DrawMouse();
 private:
+    std::string estiloActual;
     int anchoVentana;
     int altoVentana;
     static Motor2D *mInstance;

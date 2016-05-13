@@ -39,12 +39,14 @@ void Motor2D::inicializarVentana(std::string titulo, int ancho, int alto,Estilo:
     mWindow = new sf::RenderWindow();
     if(estilo == Estilo::DEFAULT){
         mWindow->create(sf::VideoMode(ancho, alto), titulo, sf::Style::Default);
+        estiloActual="ventana";
     }else{
         mWindow->create(sf::VideoMode(ancho, alto), titulo, sf::Style::Fullscreen);
+        estiloActual="pantalla completa";
     }
     mWindow->setFramerateLimit(60); //Establecemos maximo real de procesamiento (aunque trabajamos con 60)
     mWindow->setVerticalSyncEnabled(true);
-    mWindow->setMouseCursorVisible(false);
+    mWindow->setMouseCursorVisible(false);        
 }
 
 Motor2D::Motor2D() {
@@ -101,6 +103,10 @@ void Motor2D::clear() {
 
 void Motor2D::display() {
     mWindow->display();
+}
+
+std::string Motor2D::getEstilo() {
+    return estiloActual;
 }
 
 sf::Vector2f Motor2D::getMousePosition() {

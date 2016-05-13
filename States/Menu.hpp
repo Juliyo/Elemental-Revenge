@@ -126,6 +126,7 @@ std::string NumberToString(T pNumber);
     Text menu[10];
     Text audioMusica;
     Text audioSonido;
+    Text modoVideo;
 };
 
 #endif /* MENU_HPP */
