@@ -80,10 +80,11 @@ void ContactListener::BeginContact(b2Contact* contact) {
                 //AtaqueBossB *d = static_cast<AtaqueBossB*> (fixtureB->GetBody()->GetUserData());
                 p->restaVida(d->getDamage()); 
             }
-
-            
-
-            //d->Colision();
+        } else if (claseB == "AtaqueD") {
+            Player *p = static_cast<Player*> (fixtureA->GetBody()->GetUserData());
+            AtaqueBossD *d = static_cast<AtaqueBossD*> (fixtureB->GetBody()->GetUserData());
+            p->restaVida(d->getDamage());
+            d->Colision();
         }
     } else if (claseA == "Melee") {
         if (claseB == "Player") {
@@ -191,6 +192,9 @@ void ContactListener::BeginContact(b2Contact* contact) {
             d->Colision();
         } else if (claseB == "AtaqueA") {
             AtaqueBossA *d = static_cast<AtaqueBossA*> (fixtureB->GetBody()->GetUserData());
+            d->Colision();
+        } else if (claseB == "AtaqueD") {
+            AtaqueBossD *d = static_cast<AtaqueBossD*> (fixtureB->GetBody()->GetUserData());
             d->Colision();
         }
     } else if (claseA == "hFireAdvanced") {
@@ -358,6 +362,16 @@ void ContactListener::BeginContact(b2Contact* contact) {
 
             //d->Colision();
             p->restaVida(d->getDamage());
+        }
+    }else if (claseA == "AtaqueD"){
+        if (claseB == "") {
+        AtaqueBossD *d = static_cast<AtaqueBossD*> (fixtureA->GetBody()->GetUserData());
+        d->Colision();
+        }else if(claseB=="Player"){
+            AtaqueBossD *d = static_cast<AtaqueBossD*> (fixtureA->GetBody()->GetUserData());
+            Player *p = static_cast<Player*> (fixtureB->GetBody()->GetUserData());
+            p->restaVida(d->getDamage());
+            d->Colision();
         }
     }
 

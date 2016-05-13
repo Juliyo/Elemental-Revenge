@@ -101,7 +101,7 @@ void AtaqueBossD::CreateBody() {
     fixtureDef.density = 1.0f;
     fixtureDef.friction = 1.0f;
     fixtureDef.filter.categoryBits = Filtro::_entityCategory::HECHIZO;
-    fixtureDef.filter.maskBits = Filtro::_entityCategory::ENEMIGO | Filtro::_entityCategory::BOUNDARY;
+    fixtureDef.filter.maskBits = Filtro::_entityCategory::PLAYER | Filtro::_entityCategory::BOUNDARY;
     body->CreateFixture(&fixtureDef);
 }
 
