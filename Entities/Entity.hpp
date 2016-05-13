@@ -35,7 +35,8 @@ namespace Estado {
         Vivo,
         Muerto,
         Muriendo,
-        Damaged
+        Damaged,
+        Sleeping
     };
 }
 

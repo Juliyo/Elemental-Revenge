@@ -170,8 +170,15 @@ void InGame::Update(sf::Time elapsedTime) {
             }
         }
         
+        
         //**************************BOSS **********************//
-        if (level->map->numEnemigos == 1) {
+        
+        
+        if(level->map->numEnemigos == 0 && boss->GetEstado() == Estado::ID::Sleeping){
+            std::cout<<"Entro al Spawn?"<<std::endl;
+            boss->Spawn();
+        }
+        if (level->map->numEnemigos == 0) {
             if (boss->GetEstado() == Estado::ID::Vivo || boss->GetEstado() == Estado::ID::Damaged) {
                 boss->updateAtaqueBossA(true, elapsedTime, player->getPosition().x, player->getPosition().y);
                 boss->updateAtaqueBossB(true, elapsedTime, player->getPosition().x, player->getPosition().y);
@@ -288,7 +295,7 @@ void InGame::Update(sf::Time elapsedTime) {
 
   
     
-    if (level->map->numEnemigos == 0) {
+    if (level->map->numEnemigos == 0 && boss->GetEstado() == Estado::ID::Muerto) {
         Music *music = Music::Instance();
                 music->Stop();
                 music->Load(MUSICA::ID::Transiciones);
@@ -347,7 +354,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     }
 
     //****************************RENDER DEL BOSS************************************//
-    if (level->map->numEnemigos == 1) {
+    if (level->map->numEnemigos == 0 && boss->GetEstado() == Estado::ID::Vivo) {
         boss->PlayAnimation(*boss->currentAnimation);
         boss->UpdateAnimation(elapsedTime);
         boss->renderAtaqueA(elapsedTime, interpolation);
@@ -471,7 +478,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     /////////////////////////////////
     motor->SetView(2); //vista del HUD
     
-    if (level->map->numEnemigos == 1) {
+    if (level->map->numEnemigos == 0 && boss->GetEstado() == Estado::ID::Vivo || boss->GetEstado() == Estado::ID::Damaged) {
         boss->hud->renderHudBoss(elapsedTime);
     }
     if (StateStack::Instance()->currentState == States::ID::Pause) {

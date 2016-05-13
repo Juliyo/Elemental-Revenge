@@ -316,6 +316,9 @@ void Melee::RestarVida(int a) {
     if (GetVida() <= 0) {
         currentAnimation = &animationMuerte;
         InGame::Instance()->level->map->numEnemigos--;
+        
+        
+        
         SetEstado(Estado::ID::Muriendo);
         if (m_tipo == Tipo::ID::Rata) {
             //SoundManager::Instance()->setVolumen("resources/Sounds/ratdie.ogg", SoundManager::Instance()->volumen);

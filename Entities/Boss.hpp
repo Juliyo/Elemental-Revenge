@@ -36,7 +36,8 @@ public:
 
     void CreateBody() override;
     std::string getClassName() override;
-
+    
+    void Spawn();
     
     void updateAtaqueBossA(bool disparado, sf::Time elapsedTime,float x4,float y4);
     void updateAtaqueBossB(bool disparado, sf::Time elapsedTime,float x4,float y4);

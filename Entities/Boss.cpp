@@ -112,7 +112,7 @@ void Boss::Inicializar(float posX, float posY, float speedX, float speedY, float
     PhysicsState::SetMaxSpeed(maxSpeedX, maxSpeedY);
     Render::SetOriginAnimatedSprite(30, 38);
     SetOriginColision(30, 38);
-    SetEstado(Estado::ID::Vivo);
+    SetEstado(Estado::ID::Sleeping);
 
     damaged = new Reloj();
     
@@ -125,6 +125,57 @@ void Boss::Inicializar(float posX, float posY, float speedX, float speedY, float
     
     hud = new Hud();
 }
+
+void Boss::Spawn() {
+    sf::Vector2f playerPos = InGame::Instance()->player->GetPosition();
+    int **colisiones = InGame::Instance()->level->map->colisiones;
+
+    int casillaPx = round(playerPos.x / 24);
+    int casillaPy = round(playerPos.y / 24);
+    
+    int height = InGame::Instance()->level->map->_height;
+    int width = InGame::Instance()->level->map->_width;
+    int tileAncho = 24;
+    int tileAlto = 24;
+
+    bool condicion = casillaPy >= 0 && casillaPx >= 0 && casillaPy < height && casillaPx < width;
+    
+   
+    sf::Vector2f posBoss;
+    posBoss.x = (casillaPx+5)*24;
+    posBoss.y = (casillaPy+5)*24;
+    if (condicion && colisiones[casillaPy - 5][casillaPx - 5] != 0 ) {
+        posBoss.x = (casillaPx - 5)*24;
+        posBoss.y = (casillaPy - 5)*24;
+    } else if (condicion && colisiones[casillaPy - 5][casillaPx] != 0) {
+        posBoss.x = (casillaPx)*24;
+        posBoss.y = (casillaPy - 5)*24;
+    } else if (condicion && colisiones[casillaPy - 5][casillaPx + 5] != 0) {
+        posBoss.x = (casillaPx + 5)*24;
+        posBoss.y = (casillaPy - 5)*24;
+    } else if (condicion && colisiones[casillaPy][casillaPx + 5] != 0) {
+        posBoss.x = (casillaPx + 5)*24;
+        posBoss.y = (casillaPy)*24;
+    } else if (condicion && colisiones[casillaPy + 5][casillaPx + 5] != 0) {
+        posBoss.x = (casillaPx + 5)*24;
+        posBoss.y = (casillaPy + 5)*24;
+    } else if (condicion && colisiones[casillaPy + 5][casillaPx] != 0) {
+        posBoss.x = (casillaPx)*24;
+        posBoss.y = (casillaPy + 5)*24;
+    } else if (condicion && colisiones[casillaPy + 5][casillaPx - 5] != 0) {
+        posBoss.x = (casillaPx - 5)*24;
+        posBoss.y = (casillaPy + 5)*24;
+    } else if (condicion && colisiones[casillaPy][casillaPx - 5] != 0) {
+        posBoss.x = (casillaPx - 5)*24;
+        posBoss.y = (casillaPy)*24;
+    }
+
+    body->SetTransform(tmx::SfToBoxVec(posBoss), 0);
+    std::cout<<"Muevo al Boss..."<<std::endl;
+    SetEstado(Estado::ID::Vivo);
+    std::cout<<"Cambio Estado..."<<std::endl;
+}
+
 
 void Boss::renderAtaqueA(sf::Time elapsedTime, float interpolation) {
     for (int i = 0; i <= 29; i++) {
