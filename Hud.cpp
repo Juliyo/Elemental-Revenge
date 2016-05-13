@@ -180,10 +180,8 @@ void Hud::updateHud(float vidas) {
 }
 
 void Hud::updateHudBoss(float vidas) {
-        sVida.setTextRect(0, 0, 1000/(50/vidas), 74);
-
+        sVida.setTextRect(0, 0, 1000/(125/vidas), 74);
 }
-
 
 void Hud::cargarRayo() {
     
