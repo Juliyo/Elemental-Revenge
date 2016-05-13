@@ -434,14 +434,14 @@ void Boss::updateAtaqueBossB(bool disparado, sf::Time elapsedTime, float x4, flo
         rayo->SetOriginAnimatedSprite(340, 392);
         rayo->currentAnimation = &rayo->animationAtaque;
         rayo->marca=false;
-       rayo->relojitomagico.restart();
-        rayo->body->SetActive(false);
+        rayo->relojitomagico.restart();
+        rayo->body->SetActive(true);
     } else {
         rayo->SetOriginAnimatedSprite(54, 30);
         rayo->currentAnimation = &rayo->animationDiana;
        
         rayo->marca=true;
-        rayo->body->SetActive(true);
+        //rayo->body->SetActive(false);
     }
 
 

@@ -558,7 +558,7 @@ void Player::Update(const sf::Time elapsedTime) {
         if (isMovingRight)
             movement.x += GetVelocity();
     }
-    if (GetEstado() == Estado::Damaged && damaged.getTiempo() > 0.06f) {
+    if (GetEstado() == Estado::ID::Damaged && damaged.getTiempo() > 0.06f) {
         ActiveShader(false);
         SetEstado(Estado::ID::Vivo);
     }
@@ -618,11 +618,14 @@ int Player::getVida() {
 }
 
 int Player::restaVida(int a) {
-    if (invulnerable.getTiempo() > 0.5f && (vida - a) >= 0) {
+    if (invulnerable.getTiempo() > 0.5f) {
             vida -= a;
             hud->updateHud(vida);
             invulnerable.restart();
-            SetEstado(Estado::ID::Damaged);
+            if(GetEstado() != Estado::ID::Muriendo){
+                SetEstado(Estado::ID::Damaged);
+            }
+            
             ActiveShader(true);
             //Render::GetSpriteAnimated().setColor(sf::Color(255,255,0,255));
             SoundManager *sonido = SoundManager::Instance();
@@ -630,10 +633,18 @@ int Player::restaVida(int a) {
             damaged.restart();
 
     }
-
-    if (vida == 0) {
+    std::cout<<"Vida player "<<vida<<std::endl;
+    if(GetEstado() == Estado::ID::Muriendo){
+        std::cout<<"Muriendo"<<std::endl;
+    }else if(GetEstado() == Estado::ID::Damaged){
+        std::cout<<"Damaged"<<std::endl;
+    }else if(GetEstado() == Estado::ID::Muerto){
+        std::cout<<"Muerto"<<std::endl;
+    }
+    if (vida <= 0) {
         SetEstado(Estado::ID::Muriendo);
         relojMuriendo.restart();
+        ActiveShader(false);
         currentAnimation = &animationMuerte;
     }
 
