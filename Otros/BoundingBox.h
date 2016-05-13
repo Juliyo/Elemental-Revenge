@@ -76,7 +76,7 @@ public:
     }
 
 protected:
-    sf::FloatRect* bounding;
+    sf::FloatRect* bounding=nullptr;
 };
 
 #endif /* BOUNDINGBOX_H */

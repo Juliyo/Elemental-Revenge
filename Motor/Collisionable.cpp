@@ -25,8 +25,8 @@ Collisionable::Collisionable(Entity* ent) {
 }
 
 Collisionable::~Collisionable() {
-    delete rectColision;
-    rectColision = NULL;
+    //delete rectColision;
+    //rectColision = NULL;
 }
 
 void Collisionable::CreateDynamicBody() {
