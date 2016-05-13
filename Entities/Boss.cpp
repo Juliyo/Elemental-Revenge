@@ -219,6 +219,7 @@ void Boss::RestarVida(int a) {
     if (invulnerable.getTiempo() > 0.2f) {
         invulnerable.restart();
         SetVida(GetVida() - a);
+        hud->updateHudBoss(GetVida());
         ActiveShader(true);
         damaged->restart();
         SetEstado(Estado::ID::Damaged);

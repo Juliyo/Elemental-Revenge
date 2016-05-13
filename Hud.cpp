@@ -24,15 +24,15 @@ Hud::Hud() {
     barraVida.setTexture(ruta);
     barraVida.setScale(0.6f, 0.7f);
     barraVida.setSmooth(false);
-    barraVida.setPosition(250, 800);
+    barraVida.setPosition(200, 800);
 
     sVida.setTexture(ruta2);
     sVida.setSmooth(false);
     sVida.setRepeated(false);
     sVida.setScale(0.6f, 0.7f);
-    sVida.setPosition(250 + (130 * 0.6), 800 + (30 * 0.7));
+    sVida.setPosition(200, 800);
 
-    sVida.setTextRect(130, 30, (289 - 130), 58);
+    sVida.setTextRect(0, 0, 1000, 74);
 
 }
 
@@ -178,6 +178,12 @@ void Hud::cambiaHechizo(int activar) {
 void Hud::updateHud(float vidas) {
     sVida.setTextRect(130, 30, (289 - 130) / (15 / vidas), 58);
 }
+
+void Hud::updateHudBoss(float vidas) {
+        sVida.setTextRect(0, 0, 1000/(50/vidas), 74);
+
+}
+
 
 void Hud::cargarRayo() {
     

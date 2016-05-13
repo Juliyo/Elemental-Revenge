@@ -29,6 +29,7 @@ public:
     sf::FloatRect viewBounds;
     sf::Vector2f position;
     void updateHud(float vidas);
+    void updateHudBoss(float vidas);
     void cambiaHechizo(int activar);
     void resetRayo2();
     void resetRayo1();
