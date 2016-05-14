@@ -175,7 +175,6 @@ void InGame::Update(sf::Time elapsedTime) {
         
         
         if(level->map->numEnemigos == 0 && boss->GetEstado() == Estado::ID::Sleeping){
-            std::cout<<"Entro al Spawn?"<<std::endl;
             boss->Spawn();
         }
         if (level->map->numEnemigos == 0) {
@@ -295,12 +294,9 @@ void InGame::Update(sf::Time elapsedTime) {
     }
 
     firstTime = false;
-
-  
-    
     if (level->map->numEnemigos == 0 && boss->GetEstado() == Estado::ID::Muerto ) {
+        
         if(esperaNivel.getTiempo() > 2.f){
-            std::cout<<"Cambio"<<std::endl;
             Music *music = Music::Instance();
             music->Stop();
             music->Load(MUSICA::ID::Transiciones);
@@ -366,7 +362,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
         boss->UpdateAnimation(elapsedTime);
         boss->renderAtaqueA(elapsedTime, interpolation);
         boss->renderAtaqueB(elapsedTime, interpolation);
-        boss->renderAtaqueC(elapsedTime, interpolation);
+        //boss->renderAtaqueC(elapsedTime, interpolation);
         boss->renderAtaqueD(elapsedTime, interpolation);
         //Si estamos en Pause o Muerte render con interpolacion
         if (StateStack::Instance()->currentState != States::ID::Pause && StateStack::Instance()->currentState != States::ID::Muerte) {

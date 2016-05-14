@@ -71,11 +71,11 @@ void Boss::Inicializar(float posX, float posY, float speedX, float speedY, float
     }
 
     rayo = new AtaqueBossB;
-    espiral = new std::vector<AtaqueBossC*>();
+    /*espiral = new std::vector<AtaqueBossC*>();
 
     for (int i = 0; i < 90; i++) {
         espiral->push_back(new AtaqueBossC());
-    }
+    }*/
 
     for (int i = 0; i < 30; i++) {
         rotacion[i] = 0;
@@ -337,7 +337,6 @@ void Boss::RestarVida(float a) {
         }*/
     }
     if(GetVida() <= 0){
-        InGame::Instance()->level->map->numEnemigos--;
         currentAnimation = &animationMuerte;
         SetEstado(Estado::ID::Muriendo);
         /*if (m_tipo == Tipo::Caster::Bandido) {
