@@ -179,7 +179,6 @@ void InGame::Update(sf::Time elapsedTime) {
         }
         if (level->map->numEnemigos == 0) {
             if (boss->GetEstado() == Estado::ID::Vivo || boss->GetEstado() == Estado::ID::Damaged) {
-                
                 boss->updateAtaqueBossA(true, elapsedTime, player->getPosition().x, player->getPosition().y);
                 boss->updateAtaqueBossB(true, elapsedTime, player->getPosition().x, player->getPosition().y);
                 //boss->updateAtaqueBossC(true, elapsedTime, player->getPosition().x, player->getPosition().y);
@@ -189,8 +188,6 @@ void InGame::Update(sf::Time elapsedTime) {
             } else if (boss->GetEstado() == Estado::ID::Muriendo) {
                 //Si acaba de morir lo borramos del mundo y lo matamos
                 boss->body->GetWorld()->DestroyBody(boss->body);
-                esperaNivel.restart();
-                //boss->body->SetActive(false);
                 boss->SetEstado(Estado::ID::Muerto);
             }
         }
