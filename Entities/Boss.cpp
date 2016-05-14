@@ -87,19 +87,23 @@ void Boss::Inicializar(float posX, float posY, float speedX, float speedY, float
         rotacion3[i] = 240;
     }
 
-    walkingAnimationLeft->setSpriteSheet("resources/Textures/boss.png");
-    walkingAnimationLeft->addFrame(sf::IntRect(0, 76, 60, 76));
-    walkingAnimationLeft->addFrame(sf::IntRect(60, 76, 60, 76));
-    walkingAnimationLeft->addFrame(sf::IntRect(120, 76, 60, 76));
-    walkingAnimationLeft->addFrame(sf::IntRect(180, 76, 60, 76));
+    walkingAnimationLeft->setSpriteSheet("resources/Textures/robotBossIzquierda.png");
+    walkingAnimationLeft->addFrame(sf::IntRect(0, 0, 141, 96));
+    walkingAnimationLeft->addFrame(sf::IntRect(0, 96, 141, 96));
+    walkingAnimationLeft->addFrame(sf::IntRect(141, 96, 141, 96));
+    walkingAnimationLeft->addFrame(sf::IntRect(0, 192, 141, 96));
+    walkingAnimationLeft->addFrame(sf::IntRect(141, 192, 141, 96));
+    walkingAnimationLeft->addFrame(sf::IntRect(0, 288, 141, 96));
 
-    walkingAnimationRight->setSpriteSheet("resources/Textures/boss.png");
-    walkingAnimationRight->addFrame(sf::IntRect(0, 0, 60, 76));
-    walkingAnimationRight->addFrame(sf::IntRect(60, 0, 60, 76));
-    walkingAnimationRight->addFrame(sf::IntRect(120, 0, 60, 76));
-    walkingAnimationRight->addFrame(sf::IntRect(180, 0, 60, 76));
+    walkingAnimationRight->setSpriteSheet("resources/Textures/robotBossDerecha.png");
+    walkingAnimationRight->addFrame(sf::IntRect(0, 0, 141, 96));
+    walkingAnimationRight->addFrame(sf::IntRect(0, 96, 141, 96));
+    walkingAnimationRight->addFrame(sf::IntRect(141, 96, 141, 96));
+    walkingAnimationRight->addFrame(sf::IntRect(0, 192, 141, 96));
+    walkingAnimationRight->addFrame(sf::IntRect(141, 192, 141, 96));
+    walkingAnimationRight->addFrame(sf::IntRect(0, 288, 141, 96));
     
-    animationMuerte->setSpriteSheet("resources/Textures/boss.png");
+    animationMuerte->setSpriteSheet("resources/Textures/robotBossDerecha.png");
     animationMuerte->addFrame(sf::IntRect(0, 76*2, 60, 76));
 
     currentAnimation = &walkingAnimationLeft;
@@ -110,8 +114,9 @@ void Boss::Inicializar(float posX, float posY, float speedX, float speedY, float
     Enemigo::SetVida(20);
 
     PhysicsState::SetMaxSpeed(maxSpeedX, maxSpeedY);
-    Render::SetOriginAnimatedSprite(30, 38);
-    SetOriginColision(30, 38);
+    Render::SetOriginAnimatedSprite(70, 48);
+    SetOriginColision(70, 48);
+    SetRectangleColision(0,0,141,96);
     SetEstado(Estado::ID::Sleeping);
 
     damaged = new Reloj();
@@ -342,7 +347,7 @@ void Boss::RestarVida(float a) {
             //SoundManager::Instance()->setVolumen("resources/Sounds/necromancerdead.ogg",SoundManager::Instance()->volumen);
             SoundManager::Instance()->play("resources/Sounds/necromancerdead.ogg");
         }*/
-        InGame::Instance()->esperaNivel.restart();
+        
     }
 }
 
