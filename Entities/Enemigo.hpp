@@ -17,6 +17,7 @@
 #include "Entity.hpp"
 
 
+
 class Enemigo : public Entity{
 public:    
     Enemigo();

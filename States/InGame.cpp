@@ -162,7 +162,7 @@ void InGame::Update(sf::Time elapsedTime) {
                 } else {
                     (*it)->updateDisparoEnemigo(false, elapsedTime, player->getPosition().x, player->getPosition().y);
                 }
-                (*it)->Update(elapsedTime, x3, y3, 1);
+                (*it)->Update(elapsedTime);
             } else if ((*it)->GetEstado() == Estado::ID::Muriendo) {
                 //Si acaba de morir lo borramos del mundo y lo matamos
                 (*it)->body->GetWorld()->DestroyBody((*it)->body);
@@ -295,12 +295,15 @@ void InGame::Update(sf::Time elapsedTime) {
 
   
     
-    if (level->map->numEnemigos == 0 && boss->GetEstado() == Estado::ID::Muerto) {
-        Music *music = Music::Instance();
-                music->Stop();
-                music->Load(MUSICA::ID::Transiciones);
-                music->Play();
-        StateStack::Instance()->SetCurrentState(States::ID::Transition);
+    if (level->map->numEnemigos == 0 && boss->GetEstado() == Estado::ID::Muerto ) {
+        if(esperaNivel.getTiempo() > 4.f){
+            Music *music = Music::Instance();
+            music->Stop();
+            music->Load(MUSICA::ID::Transiciones);
+            music->Play();
+            StateStack::Instance()->SetCurrentState(States::ID::Transition);
+        }
+        
     }
 }
 
@@ -392,7 +395,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
                 int y2 = player->getPosition().y - caster->at(i)->getPosition().y;
                 caster->at(i)->UpdateEnemyAnimation(x2, y2);
                 
-                caster->at(i)->CambiarVectorVelocidad();
+                
                 for (int j = 0; j < 2; j++) {
                     if (caster->at(i)->disparos->at(j)->GetEstado() == Estado::ID::Vivo) {
                         caster->at(i)->disparos->at(j)->PlayAnimation(*caster->at(i)->disparos->at(j)->currentAnimation);
@@ -406,6 +409,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
                         caster->at(i)->disparos->at(j)->StopAnimation();
                     }
                 }
+                caster->at(i)->CambiarVectorVelocidad();
                 caster->at(i)->DrawWithInterpolation(interpolation);
             } else {
                 caster->at(i)->DrawAnimationWithOut(caster->at(i)->GetRenderPosition());
@@ -651,14 +655,17 @@ void InGame::primerosDeLaCola() {
         if (colaEnemigos->size() > 0 && colaEnemigos->at(0) != NULL) {
             if ((colaEnemigos->at(0)->distancia < 500 && colaEnemigos->at(0)->getClassName() == "Melee")) {
                 colaEnemigos->at(0)->posiblecamino = pathfingind->buscaCamino(colaEnemigos->at(0)->GetPosition(), player->GetPosition());
+                 
                 if (colaEnemigos->at(0)->bueno) {
                     colaEnemigos->at(0)->camino = colaEnemigos->at(0)->posiblecamino;
                     colaEnemigos->at(0)->nodoactual = 0;
                 }
                 colaEnemigos->at(0)->bueno = !colaEnemigos->at(0)->bueno;
             } else if ((colaEnemigos->at(0)->distancia < 700 && colaEnemigos->at(0)->getClassName() == "Caster")) {
+                std::cout<<"Entro aqui"<<std::endl;
                 //colaEnemigos->at(0)->posiblecamino = nullptr;
                 colaEnemigos->at(0)->posiblecamino = pathfingind->buscaCamino2(colaEnemigos->at(0)->GetPosition(), player->GetPosition());
+
                 if (colaEnemigos->at(0)->bueno) {
                     //colaEnemigos->at(0)->camino = nullptr;
                     colaEnemigos->at(0)->camino = colaEnemigos->at(0)->posiblecamino;

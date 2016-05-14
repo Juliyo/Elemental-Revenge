@@ -213,7 +213,7 @@ void Caster::CreateBody() {
     body->CreateFixture(&fixtureDef);
 }
 
-void Caster::Update(const sf::Time elapsedTime, float x1, float x2, float multiplicador) {
+void Caster::Update(const sf::Time elapsedTime) {
     InGame* world = InGame::Instance();
     sf::Vector2f movement(0, 0);
     // if (inicio.getTiempo() > 0.5f) {
@@ -227,8 +227,15 @@ void Caster::Update(const sf::Time elapsedTime, float x1, float x2, float multip
     if (numContactos > 0) {
         RestarVida(damageTaken);
     }
+
     distancia = sqrt(pow(x, 2) + pow(y, 2));
-    // }
+    if (distancia < 700) {
+        if (!encola) {
+            world->colaEnemigos->push_back((Enemigo*)this);
+            encola = true;
+
+        }
+    }
 
     SetPosition(tmx::BoxToSfVec(body->GetPosition()));
 }

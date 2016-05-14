@@ -144,7 +144,7 @@ public:
     bool isMovingDown;
     bool isMovingRight;
     bool isMovingLeft;
-    bool cantMove = false;
+    bool cantMove = true;
 
     //heal
     Heal *hHeal;

@@ -25,7 +25,13 @@
 
 #include "../Motor/Motor2D.hpp"
 
-
+namespace Jefe{
+    enum T{
+        Escorpion,
+        Lujchol,
+        Algo
+    };
+}
 class Boss : public Enemigo, public Collisionable {
 public:
     Boss();
@@ -64,7 +70,7 @@ public:
     int cuadrante = 2;
     
     int numDisparo=0;
-        Motor2D *motor;
+    Motor2D *motor;
 
     Reloj castDisparo; //Variable de clase para el casteoum
     Reloj castDisparoRayo; //Variable de clase para el casteo
@@ -106,14 +112,43 @@ public:
     Animation *walkingAnimationLeft;
     Animation *animationMuerte;
     
+    void CambiarBoss(Jefe::T boss){
+        if(boss == Jefe::T::Lujchol){
+            walkingAnimationLeft->setSpriteSheet("resources/Textures/boss.png");
+            walkingAnimationLeft->addFrame(sf::IntRect(0, 76, 60, 76));
+            walkingAnimationLeft->addFrame(sf::IntRect(60, 76, 60, 76));
+            walkingAnimationLeft->addFrame(sf::IntRect(120, 76, 60, 76));
+            walkingAnimationLeft->addFrame(sf::IntRect(180, 76, 60, 76));
+
+            walkingAnimationRight->setSpriteSheet("resources/Textures/boss.png");
+            walkingAnimationRight->addFrame(sf::IntRect(0, 0, 60, 76));
+            walkingAnimationRight->addFrame(sf::IntRect(60, 0, 60, 76));
+            walkingAnimationRight->addFrame(sf::IntRect(120, 0, 60, 76));
+            walkingAnimationRight->addFrame(sf::IntRect(180, 0, 60, 76));
+
+            animationMuerte->setSpriteSheet("resources/Textures/boss.png");
+            animationMuerte->addFrame(sf::IntRect(0, 76*2, 60, 76));
+            
+            currentAnimation = &walkingAnimationLeft;
+            Enemigo::SetVelocity(130);
+            Enemigo::SetVida(125);
+            
+            SetRectangleColision(0, 0, 60, 76);
+            Render::SetOriginAnimatedSprite(30, 38);
+            SetOriginColision(30, 38);
+            SetEstado(Estado::ID::Sleeping);
+
+    
+        }else if(boss == Jefe::T::Algo){
+            
+        }
+    }
     
     void RestarVida(float a);
     void CambiarVectorVelocidad();
     
     //Variables colisiones
     Reloj *damaged;
-    
-    
     Hud *hud;
 private:
     

@@ -539,6 +539,11 @@ void Player::Inicializar(float posX, float posY, float speedX, float speedY, flo
     SetMaxSpeed(maxSpeedX, maxSpeedY);
     SetOriginAnimatedSprite(32, 40);
     SetOriginColision(32, 40);
+    
+    isMovingUp = false;
+    isMovingDown = false;
+    isMovingRight = false;
+    isMovingLeft = false;
 
     //Cargamos shader del player para el colo
     LoadShader("resources/Shader/fs.frag");

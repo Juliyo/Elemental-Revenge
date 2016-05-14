@@ -165,7 +165,7 @@ void hFireBasic::Update2(sf::Vector2f velocity, sf::Time elapsedTime) {
     SetSpeed(velocity);
     //sf::Vector2f movement(0.f, 0.f);
      //Hay que setear al BodyDef el vector velocidad que hallamos calculado
-    body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(velocity)*450.f));
+    body->SetLinearVelocity(tmx::SfToBoxVec(Util::Normalize(velocity)*550.f));
     //Actualizamos la posicion del player con la posicion del bodyDef
     SetPosition(tmx::BoxToSfVec(body->GetPosition()));
     //Update(elapsedTime);

@@ -34,7 +34,7 @@ hRayAdvanced::hRayAdvanced(): Collisionable((Entity*)this) {
     draw=false;
     animationDurante = new Animation();
     setCast(1);
-    setCD(1);
+    setCD(20.f);
     
    
     if(!hTexture.loadFromFile("resources/Textures/rayo.png")){

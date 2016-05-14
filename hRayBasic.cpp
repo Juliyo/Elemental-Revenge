@@ -63,7 +63,7 @@ hRayBasic::hRayBasic(): Collisionable((Entity*)this) {
     animation = new Animation();
     animationDurante = new Animation();
     PrimeraAnimacion = new Animation();
-    setCD(5);
+    setCD(3);
     
     setCast(3);
     if (!hTexture.loadFromFile("resources/Textures/RayoSpriteSheet.png")) {
@@ -126,7 +126,7 @@ hRayBasic::hRayBasic(): Collisionable((Entity*)this) {
     Collisionable::SetOriginColision(0,-30);
     Collisionable::SetRectangleColision(0,0,50,445);
     CreateBody();
-    Hechizo::setDamage(0.5f);
+    Hechizo::setDamage(0.8f);
 }
 
 

@@ -78,6 +78,8 @@ public:
     PathFinding                 *pathfingind;
     std::deque<Enemigo*>        *colaEnemigos;
     ContactListener             *ct;
+    
+    Reloj esperaNivel;
 private:
     //Recursos
     sf::Texture texturaFondo;
@@ -107,6 +109,7 @@ private:
     //heal
     bool                        isHealing = false;
     int                         anterior=0;
+    
     
     static InGame* mInstance;
     

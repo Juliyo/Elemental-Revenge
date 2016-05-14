@@ -107,7 +107,7 @@ void Boss::Inicializar(float posX, float posY, float speedX, float speedY, float
     PhysicsState::SetPosition(posX, posY);
     PhysicsState::SetSpeed(speedX, speedY);
     Enemigo::SetVelocity(130);
-    Enemigo::SetVida(125);
+    Enemigo::SetVida(20);
 
     PhysicsState::SetMaxSpeed(maxSpeedX, maxSpeedY);
     Render::SetOriginAnimatedSprite(30, 38);
@@ -342,6 +342,7 @@ void Boss::RestarVida(float a) {
             //SoundManager::Instance()->setVolumen("resources/Sounds/necromancerdead.ogg",SoundManager::Instance()->volumen);
             SoundManager::Instance()->play("resources/Sounds/necromancerdead.ogg");
         }*/
+        InGame::Instance()->esperaNivel.restart();
     }
 }
 

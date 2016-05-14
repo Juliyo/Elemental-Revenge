@@ -32,7 +32,7 @@ public:
     Caster();
     virtual ~Caster();
     void Inicializar(float posX, float posY, Tipo::Caster tipo, float speedX = 0.f, float speedY = 0.f, float maxSpeedX = 1000.f, float maxSpeedY = 1000.f);
-    void Update(const sf::Time elapsedTime, float x1, float x2, float multiplicador);
+    void Update(const sf::Time elapsedTime);
     void CreateBody() override;
     std::string getClassName() override;
 
