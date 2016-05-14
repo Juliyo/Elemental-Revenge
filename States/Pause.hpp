@@ -66,6 +66,7 @@ private:
     
     Text audioMusica;
     Text audioSonido;
+    Text modoVideo;
     
     template <typename T>
 std::string NumberToString(T pNumber);

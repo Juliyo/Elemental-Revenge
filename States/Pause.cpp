@@ -75,7 +75,7 @@ void Pause::Inicializar() {
         menuPausa->push_back(new Text());
     }
 
-    
+
     tecladoActivo = false;
     ratonSelecciona = false;
     float width = 1500;
@@ -100,7 +100,7 @@ void Pause::Inicializar() {
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
 
-    
+
     menuPausa->at(0)->setFont(fontPausa);
     menuPausa->at(0)->setColor(sf::Color::White);
     menuPausa->at(0)->setString("Reanudar");
@@ -108,7 +108,7 @@ void Pause::Inicializar() {
     menuPausa->at(0)->setPosition(80, 825);
     menuPausa->at(0)->setScale(1.2, 1.2);
 
-   
+
     menuPausa->at(1)->setFont(fontPausa);
     menuPausa->at(1)->setColor(colorAzul);
     menuPausa->at(1)->setString("Opciones");
@@ -172,7 +172,7 @@ void Pause::Inicializar() {
     menuPausa->at(9)->setStyle(sf::Text::Bold);
     menuPausa->at(9)->setPosition(300, 350);
     menuPausa->at(9)->setScale(1.2, 1.2);
-    
+
     menuPausa->at(10)->setFont(fontPausa);
     menuPausa->at(10)->setColor(colorAzul);
     menuPausa->at(10)->setString("Volumen de los sonidos");
@@ -186,22 +186,22 @@ void Pause::Inicializar() {
     menuPausa->at(11)->setStyle(sf::Text::Bold);
     menuPausa->at(11)->setPosition(550, 500);
     menuPausa->at(11)->setScale(1.2, 1.2);*/
-    
-    
+
+
     audioMusica.setFont(fontPausa);
     audioMusica.setColor(sf::Color::White);
     audioMusica.setString(NumberToString(volumenMusica));
-    audioMusica.setScale(3,3);
+    audioMusica.setScale(3, 3);
     audioMusica.setPosition(500, 450);
-    
+
     audioSonido.setFont(fontPausa);
     audioSonido.setColor(colorAzul);
     audioSonido.setString(NumberToString(volumenSonidos));
-    audioSonido.setScale(3,3);
+    audioSonido.setScale(3, 3);
     audioSonido.setPosition(500, 800);
-    
-    
-   
+
+
+
 
     textoPausa->setFont(fontPausa);
     textoPausa->setColor(sf::Color::White);
@@ -210,7 +210,10 @@ void Pause::Inicializar() {
     textoPausa->setPosition(30, 200);
     textoPausa->setStyle(sf::Text::Bold);
 
-   
+    modoVideo.setFont(fontPausa);
+    modoVideo.setColor(sf::Color::White);
+    modoVideo.setString("Salir de modo " + motor->getEstilo());
+    modoVideo.setPosition(540, 500);
 
     texturaFondo.setSmooth(true);
     texturaFondo.setRepeated(1);
@@ -219,7 +222,7 @@ void Pause::Inicializar() {
     mouseSprite->setPosition(20, 20);
     mouseSprite->setOrigin(64, 64);
 
-   
+
 
     texturaFondo.setSmooth(true);
     texturaFondo.setRepeated(1);
@@ -230,7 +233,7 @@ void Pause::Inicializar() {
     transparent.a = 125;
     spriteFondo->setColor(transparent);
 
-   
+
 
     spriteFondoOpciones->setTexture(texturaFondo);
     spriteFondoOpciones->setTextRect(0, 0, 500, 500);
@@ -239,14 +242,14 @@ void Pause::Inicializar() {
     transparent.a = 200;
     spriteFondoOpciones->setColor(transparent);
 
-    
+
 
     spriteMancha->setTexture(texturaMancha);
     spriteMancha->setTextRect(0, 0, 1733, 1733);
     spriteMancha->setPosition(-125, 500);
     spriteMancha->setScale(0.4, 0.4);
 
-    
+
 
     spriteMancha2->setTexture(texturaMancha);
     spriteMancha2->setTextRect(0, 0, 1733, 1733);
@@ -264,13 +267,13 @@ void Pause::Inicializar() {
     spriteRelleno->setTextRect(0, 0, 1024, 2048);
     spriteRelleno->setScale(1, 2);
 
-   
+
 }
 
 void Pause::Update(sf::Time timeElapsed) {
     sf::Color color2(112, 112, 112);
     if (motor->GetMouseSprite()->getGlobalBounds().intersects(menuPausa->at(0)->getGlobalBounds())) {
-        
+
         ratonSelecciona = true;
         if (!tecladoActivo) {
             menuPausa->at(0)->setColor(sf::Color::White);
@@ -281,7 +284,7 @@ void Pause::Update(sf::Time timeElapsed) {
             tecladoActivo = false;
         }
     } else if (motor->GetMouseSprite()->getGlobalBounds().intersects(menuPausa->at(1)->getGlobalBounds())) {
-        
+
         ratonSelecciona = true;
         if (!tecladoActivo) {
             menuPausa->at(0)->setColor(color2);
@@ -315,8 +318,8 @@ void Pause::Update(sf::Time timeElapsed) {
 }
 
 void Pause::Render(float interpolation, sf::Time elapsedTime) {
-    
-               
+
+
 
     motor->draw(spriteFondo);
     if (selectedItemIndexPausa <= 7) {
@@ -351,10 +354,10 @@ void Pause::Render(float interpolation, sf::Time elapsedTime) {
             for (int i = 7; i < 8; i++) {
                 motor->draw(*menuPausa->at(i));
             }
-                motor->draw(audioMusica);
-                motor->draw(audioSonido);
-                motor->draw(*menuPausa->at(10));
-            
+            motor->draw(audioMusica);
+            motor->draw(audioSonido);
+            motor->draw(*menuPausa->at(10));
+
         }
         if (selectedItemIndexPausa == 9) {
             textoPausa->setString("Opciones de video");
@@ -363,6 +366,7 @@ void Pause::Render(float interpolation, sf::Time elapsedTime) {
             for (int i = 8; i < 9; i++) {
                 motor->draw(*menuPausa->at(i));
             }
+            motor->draw(modoVideo);
         }
         if (selectedItemIndexPausa == 10) {
             textoPausa->setString("Personalizar");
@@ -372,6 +376,8 @@ void Pause::Render(float interpolation, sf::Time elapsedTime) {
                 motor->draw(*menuPausa->at(i));
             }
         }
+
+
     }
     motor->draw(*textoPausa);
     motor->SetView(1); //vista del juego
@@ -430,7 +436,22 @@ void Pause::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
                 MoveRight();
             }
         } else if (key == sf::Keyboard::Return) {
-          
+
+            if (selectedItemIndexPausa == 9) {
+                if (motor->getEstilo() == "ventana") {
+                    motor->cambiarEstilo(1);
+                    modoVideo.setString("Salir de modo " + motor->getEstilo());
+                    modoVideo.setScale(0.8,0.8);
+
+                } else {
+                    if (motor->getEstilo() == "pantalla completa") {
+                        motor->cambiarEstilo(0);
+                        modoVideo.setString("Salir de modo " + motor->getEstilo());
+                         modoVideo.setScale(1,1);
+                    }
+                }
+            }
+
             if (selectedItemIndexPausa == 0) {
                 StateStack::Instance()->SetCurrentState(States::ID::InGame);
             }
@@ -448,6 +469,7 @@ void Pause::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
 
                 StateStack::Instance()->SetCurrentState(States::ID::Menu);
             }
+
             if (selectedItemIndexPausa == 3) {
                 selectedItemIndexPausa = 8;
                 menuPausa->at(7)->setColor(sf::Color::White);
@@ -462,7 +484,8 @@ void Pause::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
             if (selectedItemIndexPausa == 1) {
                 selectedItemIndexPausa = 3;
             }
-            
+
+
         } else if (key == sf::Keyboard::Escape) {
             if (selectedItemIndexPausa < 3) {
                 //mWindow->close();
@@ -491,8 +514,8 @@ void Pause::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
                 menuPausa->at(6)->setColor(colorAzul);
                 menuPausa->at(3)->setColor(sf::Color::White);
             }
-            
-            
+
+
         }
     }
 }
@@ -514,10 +537,8 @@ void Pause::MoveUp() {
             selectedItemIndexPausa--;
             menuPausa->at(selectedItemIndexPausa)->setColor(sf::Color::White);
 
-        }
-        
-        else if(selectedItemIndexPausa==11){
-            selectedItemIndexPausa=8;
+        } else if (selectedItemIndexPausa == 11) {
+            selectedItemIndexPausa = 8;
             menuPausa->at(10)->setColor(colorAzul);
             audioSonido.setColor(colorAzul);
             audioMusica.setColor(sf::Color::White);
@@ -543,9 +564,8 @@ void Pause::MoveDown() {
             selectedItemIndexPausa++;
             menuPausa->at(selectedItemIndexPausa)->setColor(sf::Color::White);
 
-        }
-        else if(selectedItemIndexPausa==8){
-            selectedItemIndexPausa=11;
+        } else if (selectedItemIndexPausa == 8) {
+            selectedItemIndexPausa = 11;
             menuPausa->at(7)->setColor(colorAzul);
             audioMusica.setColor(colorAzul);
             menuPausa->at(10)->setColor(sf::Color::White);
@@ -577,19 +597,19 @@ void Pause::MoveLeft() {
             menuPausa->at(selectedItemIndexPausa)->setColor(sf::Color::White);
         }
     }
-    
+
     if (selectedItemIndexPausa == 8) {
         if (volumenMusica > 0) {
             volumenMusica--;
             audioMusica.setString(NumberToString(volumenMusica));
-            Music::Instance()->SetVolume(volumenMusica*10);
+            Music::Instance()->SetVolume(volumenMusica * 10);
         }
     }
     if (selectedItemIndexPausa == 11) {
         if (volumenSonidos > 0) {
             volumenSonidos--;
             audioSonido.setString(NumberToString(volumenSonidos));
-            SoundManager::Instance()->VolumenMenu(volumenSonidos*10);
+            SoundManager::Instance()->VolumenMenu(volumenSonidos * 10);
 
         }
     }
@@ -619,26 +639,24 @@ void Pause::MoveRight() {
         }
 
     }
-    
+
     if (selectedItemIndexPausa == 8) {
         if (volumenMusica < 10) {
             volumenMusica++;
             audioMusica.setString(NumberToString(volumenMusica));
-            Music::Instance()->SetVolume(volumenMusica*10);
+            Music::Instance()->SetVolume(volumenMusica * 10);
         }
     }
-    
+
     if (selectedItemIndexPausa == 11) {
         if (volumenSonidos < 10) {
             volumenSonidos++;
             audioSonido.setString(NumberToString(volumenSonidos));
-            SoundManager::Instance()->VolumenMenu(volumenSonidos*10);
+            SoundManager::Instance()->VolumenMenu(volumenSonidos * 10);
         }
     }
-    
+
 }
-
-
 
 template<typename T>
 std::string Pause::NumberToString(T pNumber) {
