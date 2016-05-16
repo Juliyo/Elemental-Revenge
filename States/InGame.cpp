@@ -499,10 +499,6 @@ if (StateStack::Instance()->currentState != States::ID::Pause && StateStack::Ins
 
         motor->display();
     }
-
-    
-
-
 }
 
 void InGame::HandleEvents(sf::Event& event) {
@@ -645,7 +641,6 @@ void InGame::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
             }
             break;
         }
-
     }
 }
 
@@ -670,22 +665,16 @@ void InGame::primerosDeLaCola() {
                     colaEnemigos->at(0)->camino = colaEnemigos->at(0)->posiblecamino;
                     colaEnemigos->at(0)->nodoactual = 0;
                 }
-
-
                 colaEnemigos->at(0)->bueno = !colaEnemigos->at(0)->bueno;
                 ite--;
             }
-
             colaEnemigos->at(0)->encola = false;
             colaEnemigos->pop_front();
             ite++;
         } else {
             break;
         }
-
     }
-    
-
 }
 
 void InGame::killAllEnemies(){
