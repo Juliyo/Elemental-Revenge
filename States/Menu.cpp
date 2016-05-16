@@ -179,7 +179,7 @@ void Menu::Inicializar() {
     menu->at(2)->setFont(font);
     menu->at(2)->setColor(color);
     menu->at(2)->setString("Salir");
-    menu->at(2)->setPosition(580, 570);
+    menu->at(2)->setPosition(580, 585);
     mancha[2].setPosition(540, 540);
 
     menu->at(2)->setStyle(1);
