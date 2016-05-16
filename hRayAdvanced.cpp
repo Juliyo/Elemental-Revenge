@@ -83,7 +83,7 @@ hRayAdvanced::hRayAdvanced(): Collisionable((Entity*)this) {
     //SetScaleAnimation(0.6f,0.6f);
     SetOriginAnimatedSprite(240,145);
     SetOriginColision(240,145);
-    SetRectangleColision(120,163,274,378);
+    SetRectangleColision(171,170,138,32);
     CreateBody();
     setDamage(4.f);
 }

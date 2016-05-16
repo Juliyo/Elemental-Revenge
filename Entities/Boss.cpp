@@ -144,28 +144,28 @@ void Boss::Spawn() {
     sf::Vector2f posBoss;
     posBoss.x = (casillaPx+5)*24;
     posBoss.y = (casillaPy+5)*24;
-    if (condicion && colisiones[casillaPy - 5][casillaPx - 5] != 0 ) {
+    if (condicion && colisiones[casillaPy - 5][casillaPx - 5] != 1 ) {
         posBoss.x = (casillaPx - 5)*24;
         posBoss.y = (casillaPy - 5)*24;
-    } else if (condicion && colisiones[casillaPy - 5][casillaPx] != 0) {
+    } else if (condicion && colisiones[casillaPy - 5][casillaPx] != 1) {
         posBoss.x = (casillaPx)*24;
         posBoss.y = (casillaPy - 5)*24;
-    } else if (condicion && colisiones[casillaPy - 5][casillaPx + 5] != 0) {
+    } else if (condicion && colisiones[casillaPy - 5][casillaPx + 5] != 1) {
         posBoss.x = (casillaPx + 5)*24;
         posBoss.y = (casillaPy - 5)*24;
-    } else if (condicion && colisiones[casillaPy][casillaPx + 5] != 0) {
+    } else if (condicion && colisiones[casillaPy][casillaPx + 5] != 1) {
         posBoss.x = (casillaPx + 5)*24;
         posBoss.y = (casillaPy)*24;
-    } else if (condicion && colisiones[casillaPy + 5][casillaPx + 5] != 0) {
+    } else if (condicion && colisiones[casillaPy + 5][casillaPx + 5] != 1) {
         posBoss.x = (casillaPx + 5)*24;
         posBoss.y = (casillaPy + 5)*24;
-    } else if (condicion && colisiones[casillaPy + 5][casillaPx] != 0) {
+    } else if (condicion && colisiones[casillaPy + 5][casillaPx] != 1) {
         posBoss.x = (casillaPx)*24;
         posBoss.y = (casillaPy + 5)*24;
-    } else if (condicion && colisiones[casillaPy + 5][casillaPx - 5] != 0) {
+    } else if (condicion && colisiones[casillaPy + 5][casillaPx - 5] != 1) {
         posBoss.x = (casillaPx - 5)*24;
         posBoss.y = (casillaPy + 5)*24;
-    } else if (condicion && colisiones[casillaPy][casillaPx - 5] != 0) {
+    } else if (condicion && colisiones[casillaPy][casillaPx - 5] != 1) {
         posBoss.x = (casillaPx - 5)*24;
         posBoss.y = (casillaPy)*24;
     }
