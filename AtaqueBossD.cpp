@@ -55,7 +55,7 @@ AtaqueBossD::AtaqueBossD(): Collisionable((Entity*)this){
 //    animationInicio->addFrame(sf::IntRect(456, 740, 152, 148));
 //    animationInicio->addFrame(sf::IntRect(608, 740, 152, 148));
     
-    animationFin->setSpriteSheet("resources/Textures/fuegoMuriendo.png");
+    animationFin->setSpriteSheet("resources/Textures/fuegoMuriendoAzul.png");
     
     animationFin->addFrame(sf::IntRect(0,0,172,159));
     animationFin->addFrame(sf::IntRect(172,0,172,159));
