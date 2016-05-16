@@ -343,6 +343,10 @@ void Menu::Update(sf::Time elapsedTime) {
         }
     }
         else{
+        if (selectedItemIndex >= 6 && selectedItemIndex<=7) {
+            ratonSelecciona=false;
+        }
+        else{
             if (selectedItemIndex ==8) {
                 if (mouseSprite->getGlobalBounds().intersects(modoVideo.getGlobalBounds())) {
             ratonSelecciona = true;
@@ -361,7 +365,7 @@ void Menu::Update(sf::Time elapsedTime) {
             }
         }
     }
-
+    }
 }
 
 void Menu::Render(float interpolation, sf::Time elapsedTime) {
@@ -373,6 +377,7 @@ void Menu::Render(float interpolation, sf::Time elapsedTime) {
     motor->SetView(3);
 
     updateView();
+    //motor->UpdateMouseAndView();
     
     motor->draw(rectanguloFondo);
     motor->draw(spriteFondo);
@@ -770,6 +775,7 @@ void Menu::updateView() {
     position.y = std::max(position.y, viewBounds.top);
     position.y = std::min(position.y, viewBounds.height + viewBounds.top);
     mouseSprite->setPosition(position.x, position.y);
+    
 
     motor->setSizeForView(3, 640, 480);
     motor->SetView(3);

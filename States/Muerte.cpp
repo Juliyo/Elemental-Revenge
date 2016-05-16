@@ -191,13 +191,13 @@ void Muerte::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
             escala=1;
 
        restartReloj=true;
-       StateStack::Instance()->GetState(States::ID::InGame)->Clear();
+             StateStack::Instance()->GetState(States::ID::InGame)->Clear();
              StateStack::Instance()->GetState(States::ID::Pause)->Clear();
              StateStack::Instance()->GetState(States::ID::Muerte)->Clear();
-            StateStack::Instance()->GetState(States::ID::Transition)->Clear();
-            StateStack::Instance()->GetState(States::ID::Carga)->Clear();
-                StateStack::Instance()->GetState(States::ID::Menu)->Clear();
-                StateStack::Instance()->GetState(States::ID::Menu)->Inicializar();
+             StateStack::Instance()->GetState(States::ID::Transition)->Clear();
+             StateStack::Instance()->GetState(States::ID::Carga)->Clear();
+             StateStack::Instance()->GetState(States::ID::Menu)->Clear();
+             StateStack::Instance()->GetState(States::ID::Menu)->Inicializar();
              StateStack::Instance()->SetCurrentState(States::ID::Menu);
    }
 }
