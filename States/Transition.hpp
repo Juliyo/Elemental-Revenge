@@ -103,6 +103,8 @@ private:
     bool pulsado = false;
     bool Bcruzeta = false;
     bool salir=false;
+    
+    bool segundoMapa;
 
 };
 

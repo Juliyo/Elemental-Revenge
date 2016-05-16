@@ -292,7 +292,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         cruzeta1->setColor(transparent);
                         simbolo->setColor(transparent);
                         mejora = 'a';
-
+                        InGame::Instance()->level->map->segundaRespuesta = false;
                     } else {
                         if (!texPregunta.loadFromFile(currentNode->respuesta2)) {
                             std::cout << "Error cargando respuesta2" << std::endl;
@@ -314,6 +314,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         cruzeta1->setColor(transparent);
                         simbolo->setColor(transparent);
                         mejora = 'f';
+                        InGame::Instance()->level->map->segundaRespuesta = true;
                     }
                     break;
                 case 2:
@@ -321,7 +322,6 @@ void Transition::Update(sf::Time elapsedTime) {
                         if (!texPregunta.loadFromFile(currentNode->respuesta1)) {
                             std::cout << "Error cargando respuesta1" << std::endl;
                         }
-
                         pregunta->setTexture(texPregunta);
                         pregunta->setScale(0.5, 0.5);
                         pregunta->setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);
@@ -339,7 +339,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         cruzeta1->setColor(transparent);
                         simbolo->setColor(transparent);
                         mejora = 'a';
-
+                        
                     } else {
                         if (!texPregunta.loadFromFile(currentNode->respuesta2)) {
                             std::cout << "Error cargando respuesta2" << std::endl;
@@ -368,7 +368,7 @@ void Transition::Update(sf::Time elapsedTime) {
                         if (!texPregunta.loadFromFile(currentNode->respuesta1)) {
                             std::cout << "Error cargando respuesta1" << std::endl;
                         }
-
+                        level++;
                         pregunta->setTexture(texPregunta);
                         pregunta->setScale(0.50, 0.50);
                         pregunta->setOrigin(texPregunta.getSize().x / 2, texPregunta.getSize().y / 2);

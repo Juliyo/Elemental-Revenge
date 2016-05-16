@@ -61,6 +61,8 @@ public:
     void CreatePlayer();
     void CreateBosses();
     int numEnemigos=0;
+    
+    bool segundaRespuesta;
 private:
     
     int mapaActual;

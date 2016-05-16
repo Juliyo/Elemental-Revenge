@@ -22,7 +22,6 @@
 ParalellTask::ParalellTask() : mThread(&ParalellTask::RunTask, this), mFinished(false), loading(false) {
 }
 
-
 ParalellTask::~ParalellTask() {
     delete mTexto;
 }
@@ -53,7 +52,7 @@ void ParalellTask::RunTask() {
 
     bool ended = false;
     while (!ended) {
-       
+
         sf::Lock lock(mMutex);
         if (level == 0) {
 
@@ -78,7 +77,18 @@ void ParalellTask::RunTask() {
             InGame::Instance()->physicWorld = new b2World(tmx::SfToBoxVec(sf::Vector2f(0.f, 0.f)));
             InGame::Instance()->ct = new ContactListener();
             InGame::Instance()->physicWorld->SetContactListener(InGame::Instance()->ct);
+            //Si vamos a pasar al segundo nivel pero hemos elegido la ruta de la derecha cargamos el tercer mapa
+            if(level - 1 == 1 && InGame::Instance()->level->map->segundaRespuesta){
+                level++;
+            }
+            //Si vamos a pasar al tercer nivel pero hemos elegido la ruta de la izquierda cargamos el cuarto mapa
+            if(level - 1 == 2 && !InGame::Instance()->level->map->segundaRespuesta){
+                level++;
+            }
+            std::cout<<"Mapa a cargar: "<<level - 1<<std::endl;
             InGame::Instance()->level->LoadMap(static_cast<Niveles::ID> (level - 1));
+            
+            
 
             if (level > 1) {
                 if (InGame::Instance()->level->currentLevel != Niveles::Level1) {
@@ -102,29 +112,29 @@ void ParalellTask::RunTask() {
             InGame::Instance()->level->map->CreateBosses();
 
             if (mElapsedTime.getElapsedTime().asSeconds() >= 3.f && loading) {
-            ended = true;
-            
-             Music *music = Music::Instance();
+                ended = true;
+
+                Music *music = Music::Instance();
                 music->Stop();
-                if (level==1)
-                music->Load(MUSICA::ID::Mapa1);
-                if (level==2)
-                music->Load(MUSICA::ID::Mapa2);
-                if (level==3)
-                music->Load(MUSICA::ID::Mapa3);
-                
+                if (level == 1)
+                    music->Load(MUSICA::ID::Mapa1);
+                if (level == 2)
+                    music->Load(MUSICA::ID::Mapa2);
+                if (level == 3)
+                    music->Load(MUSICA::ID::Mapa3);
+
                 music->Play();
-                
-            this->level++;  
-            StateStack::Instance()->SetCurrentState(States::ID::InGame);
-        }
-        std::cout << "Termino metodo con level" << level << std::endl;
+
+                this->level++;
+                StateStack::Instance()->SetCurrentState(States::ID::InGame);
+            }
+            std::cout << "Termino metodo con level" << level << std::endl;
         }
     }
-    
-        sf::Lock lock(mMutex);
-        mFinished = true;
-        
+
+    sf::Lock lock(mMutex);
+    mFinished = true;
+
 }
 
 

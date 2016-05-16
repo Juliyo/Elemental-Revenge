@@ -263,8 +263,6 @@ void InGame::Update(sf::Time elapsedTime) {
                
                 hActivo = anterior;
             }
-
-
         }
         //******************************FLASH********************************************** 
         if (hActivo == 4)
