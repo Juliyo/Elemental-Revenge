@@ -57,7 +57,7 @@ void Music::Load(MUSICA::ID theme){
 	if (!mMusic->openFromFile(filename))
 		throw std::string("Music " + filename + " could not be loaded.");
         else
-            printf("La musica ha cargado correctamente\n");
+            //printf("La musica ha cargado correctamente\n");
     
 }
 
@@ -78,7 +78,7 @@ void Music::SetVolume(float volume){
     if(volume < 0.f || volume > 100.f)
         throw std::string("Debes introducir un valor entre 0 y 100");
     
-    std::cout << "Vol: " << mMusic->getVolume() << std::endl;
+   // std::cout << "Vol: " << mMusic->getVolume() << std::endl;
     
     if(volume != 0.f)
         ultVol = volume;

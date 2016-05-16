@@ -130,7 +130,7 @@ void ParalellTask::RunTask() {
                 this->level++;
                 StateStack::Instance()->SetCurrentState(States::ID::InGame);
             }
-            std::cout << "Termino metodo con level" << level << std::endl;
+           // std::cout << "Termino metodo con level" << level << std::endl;
         }
     }
 

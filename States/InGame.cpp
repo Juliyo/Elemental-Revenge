@@ -297,7 +297,7 @@ void InGame::Update(sf::Time elapsedTime) {
             StateStack::Instance()->SetCurrentState(States::ID::Transition);
         }
     }
-    std::cout<<"Enemigos: "<<level->map->numEnemigos<<std::endl;
+    //std::cout<<"Enemigos: "<<level->map->numEnemigos<<std::endl;
 }
 
 void InGame::Render(float interpolation, sf::Time elapsedTime) {

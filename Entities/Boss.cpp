@@ -177,9 +177,9 @@ void Boss::Spawn() {
     }
 
     body->SetTransform(tmx::SfToBoxVec(posBoss), 0);
-    std::cout<<"Muevo al Boss..."<<std::endl;
+    //std::cout<<"Muevo al Boss..."<<std::endl;
     SetEstado(Estado::ID::Vivo);
-    std::cout<<"Cambio Estado..."<<std::endl;
+    //std::cout<<"Cambio Estado..."<<std::endl;
 }
 
 

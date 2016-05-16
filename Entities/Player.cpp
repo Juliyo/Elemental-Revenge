@@ -638,14 +638,14 @@ int Player::restaVida(int a) {
             damaged.restart();
 
     }
-    std::cout<<"Vida player "<<vida<<std::endl;
-    if(GetEstado() == Estado::ID::Muriendo){
-        std::cout<<"Muriendo"<<std::endl;
-    }else if(GetEstado() == Estado::ID::Damaged){
-        std::cout<<"Damaged"<<std::endl;
-    }else if(GetEstado() == Estado::ID::Muerto){
-        std::cout<<"Muerto"<<std::endl;
-    }
+    //std::cout<<"Vida player "<<vida<<std::endl;
+//    if(GetEstado() == Estado::ID::Muriendo){
+//        std::cout<<"Muriendo"<<std::endl;
+//    }else if(GetEstado() == Estado::ID::Damaged){
+//        std::cout<<"Damaged"<<std::endl;
+//    }else if(GetEstado() == Estado::ID::Muerto){
+//        std::cout<<"Muerto"<<std::endl;
+//    }
     if (vida <= 0) {
         SetEstado(Estado::ID::Muriendo);
         relojMuriendo.restart();
