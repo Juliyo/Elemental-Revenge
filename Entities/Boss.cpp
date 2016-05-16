@@ -127,6 +127,12 @@ void Boss::Inicializar(float posX, float posY, float speedX, float speedY, float
 }
 
 void Boss::Spawn() {
+    
+    Music *music = Music::Instance();
+    music->Stop();
+    music->Load(MUSICA::ID::Boss);
+    music->Play();
+    
     sf::Vector2f playerPos = InGame::Instance()->player->GetPosition();
     int **colisiones = InGame::Instance()->level->map->colisiones;
 

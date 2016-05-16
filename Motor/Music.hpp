@@ -25,7 +25,8 @@ namespace MUSICA
                 Transiciones=1,
                 Mapa1=2,
                 Mapa2=3,
-                Mapa3=4
+                Mapa3=4,
+                Boss=5
         };
 }
 

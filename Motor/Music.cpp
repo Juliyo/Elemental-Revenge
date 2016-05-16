@@ -31,6 +31,7 @@ Music::Music(){
     mFilenames->insert(std::make_pair(MUSICA::Mapa1 , "resources/Sounds/Magicka2.ogg"));
     mFilenames->insert(std::make_pair(MUSICA::Mapa2 , "resources/Sounds/Creepy.ogg"));
     mFilenames->insert(std::make_pair(MUSICA::Mapa3 , "resources/Sounds/Mapa3.wav"));
+    mFilenames->insert(std::make_pair(MUSICA::Boss, "resources/Sounds/Boss.ogg"));
     
     ultVol = 100.f;
     
