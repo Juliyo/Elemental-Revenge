@@ -45,51 +45,52 @@ AtaqueBossB::AtaqueBossB() : Collisionable((Entity*)this) {
 
     animationAtaque->setSpriteSheet("resources/Textures/rayorojo.png");
 
-    
-        animationAtaque->addFrame(sf::IntRect(0,0,480,291));
-    animationAtaque->addFrame(sf::IntRect(480,0,480,291));
-    animationAtaque->addFrame(sf::IntRect(960,0,480,291));
-    animationAtaque->addFrame(sf::IntRect(1440,0,480,291));
+    animationAtaque->addFrame(sf::IntRect(0, 0, 960, 582));
+    animationAtaque->addFrame(sf::IntRect(960, 0, 960, 582));
+    animationAtaque->addFrame(sf::IntRect(960 * 2, 0, 960, 582));
+    animationAtaque->addFrame(sf::IntRect(960 * 3, 0, 960, 582));
+    animationAtaque->addFrame(sf::IntRect(960 * 4, 0, 960, 582));
 
-    animationAtaque->addFrame(sf::IntRect(0,291,480,291));
-    animationAtaque->addFrame(sf::IntRect(480,291,480,291));
-    animationAtaque->addFrame(sf::IntRect(960,291,480,291));
-    animationAtaque->addFrame(sf::IntRect(1440,291,480,291));
+    animationAtaque->addFrame(sf::IntRect(0, 582, 960, 582));
+    animationAtaque->addFrame(sf::IntRect(960, 582, 960, 582));
+    animationAtaque->addFrame(sf::IntRect(960 * 2, 582, 960, 582));
+    animationAtaque->addFrame(sf::IntRect(960 * 3, 582, 960, 582));
+    animationAtaque->addFrame(sf::IntRect(960 * 4, 582, 960, 582));
 
-    animationAtaque->addFrame(sf::IntRect(0,582,480,291));
-    animationAtaque->addFrame(sf::IntRect(480,582,480,291));
-    animationAtaque->addFrame(sf::IntRect(960,582,480,291));
-    animationAtaque->addFrame(sf::IntRect(1440,582,480,291));
+    animationAtaque->addFrame(sf::IntRect(0, 582 * 2, 960, 582));
+    animationAtaque->addFrame(sf::IntRect(960, 582 * 2, 960, 582));
+    animationAtaque->addFrame(sf::IntRect(960 * 2, 582 * 2, 960, 582));
+    animationAtaque->addFrame(sf::IntRect(960 * 3, 582 * 2, 960, 582));
+    animationAtaque->addFrame(sf::IntRect(960 * 4, 582 * 2, 960, 582));
 
-    animationAtaque->addFrame(sf::IntRect(0,873,480,291));
-    animationAtaque->addFrame(sf::IntRect(480,873,480,291));
-    animationAtaque->addFrame(sf::IntRect(960,873,480,291));
-    animationAtaque->addFrame(sf::IntRect(1440,873,480,291));
+    animationAtaque->addFrame(sf::IntRect(0, 582 * 3, 960, 582));
+    animationAtaque->addFrame(sf::IntRect(960, 582 * 3, 960, 582));
+    animationAtaque->addFrame(sf::IntRect(960 * 2, 582 * 3, 960, 582));
+    animationAtaque->addFrame(sf::IntRect(960 * 3, 582 * 3, 960, 582));
+    animationAtaque->addFrame(sf::IntRect(960 * 4, 582 * 3, 960, 582));
 
-    animationAtaque->addFrame(sf::IntRect(0,1164,480,291));
-    animationAtaque->addFrame(sf::IntRect(480,1164,480,291));
-    animationAtaque->addFrame(sf::IntRect(960,1164,480,291));
-    animationAtaque->addFrame(sf::IntRect(1440,1164,480,291));
-    
-    animationAtaque->addFrame(sf::IntRect(0,1455,480,291));
-    animationAtaque->addFrame(sf::IntRect(480,1455,480,291));
-    animationAtaque->addFrame(sf::IntRect(960,1455,480,291));
-    animationAtaque->addFrame(sf::IntRect(1440,1455,480,291));
-    
-    animationAtaque->addFrame(sf::IntRect(0,1746,480,291));
-    animationAtaque->addFrame(sf::IntRect(480,1746,480,291));
-    animationAtaque->addFrame(sf::IntRect(960,1746,480,291));
-    animationAtaque->addFrame(sf::IntRect(1440,1746,480,291));
+    animationAtaque->addFrame(sf::IntRect(0, 582 * 4, 960, 582));
+    animationAtaque->addFrame(sf::IntRect(960, 582 * 4, 960, 582));
+    animationAtaque->addFrame(sf::IntRect(960 * 2, 582 * 4, 960, 582));
+    animationAtaque->addFrame(sf::IntRect(960 * 3, 582 * 4, 960, 582));
+    animationAtaque->addFrame(sf::IntRect(960 * 4, 582 * 4, 960, 582));
+
+    animationAtaque->addFrame(sf::IntRect(0, 582 * 5, 960, 582));
+    animationAtaque->addFrame(sf::IntRect(960, 582 * 5, 960, 582));
+    animationAtaque->addFrame(sf::IntRect(960 * 2, 582 * 5, 960, 582));
+    animationAtaque->addFrame(sf::IntRect(960 * 3, 582 * 5, 960, 582));
+    animationAtaque->addFrame(sf::IntRect(960 * 4, 582 * 5, 960, 582));
     InicializarAnimatedSprite(sf::seconds(1.f / 29), true, false);
-    //SetScale(0.6f, 0.6f);
+    SetScale(0.6f, 0.6f);
     SetOriginAnimatedSprite(54, 30);
 
     currentAnimation = &animationDiana;
 
     InicializarAnimatedSprite(sf::seconds(1.f / 29), true, false);
-    SetOriginAnimatedSprite(240,145);
-    SetOriginColision(240,145);
-    SetRectangleColision(171,170,138,32);
+    SetScaleAnimation(0.6f, 0.6f);
+    SetOriginAnimatedSprite(475, 392);
+    Collisionable::SetOriginColision(475 * 0.6, 392 * 0.6);
+    Collisionable::SetRectangleColision(397 * 0.6, 332 * 0.6, 176 * 0.6, 113 * 0.6);
     CreateBody();
     setDamage(4.f);
 
