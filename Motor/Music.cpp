@@ -56,8 +56,7 @@ void Music::Load(MUSICA::ID theme){
 
 	if (!mMusic->openFromFile(filename))
 		throw std::string("Music " + filename + " could not be loaded.");
-        else
-            //printf("La musica ha cargado correctamente\n");
+        
     
 }
 
