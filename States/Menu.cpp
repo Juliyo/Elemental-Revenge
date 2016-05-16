@@ -253,7 +253,7 @@ void Menu::Inicializar() {
     modoVideo.setColor(color);
     modoVideo.setString("Salir de modo "+motor->getEstilo());
     modoVideo.setPosition(540, 500);
-    modoVideo.setScale(0.4, 0.4);
+    modoVideo.setScale(0.3, 0.3);
     
     textTitulo->setFont(fontTitulo);
     textTitulo->setColor(sf::Color::Black);

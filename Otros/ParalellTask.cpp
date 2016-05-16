@@ -121,6 +121,8 @@ void ParalellTask::RunTask() {
                 if (level == 2)
                     music->Load(MUSICA::ID::Mapa2);
                 if (level == 3)
+                    music->Load(MUSICA::ID::Mapa2);
+                if (level == 4)
                     music->Load(MUSICA::ID::Mapa3);
 
                 music->Play();
