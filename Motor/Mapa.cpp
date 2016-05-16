@@ -34,6 +34,7 @@ Mapa::Mapa(const Mapa& orig) : ml("resources/Mapas") {
 }
 
 void Mapa::mapLoader(std::string mapName) {
+    numEnemigos = 0;
     world = InGame::Instance()->physicWorld;
     nombreMapa = "resources/Mapas/" + mapName;
     ml.Load(mapName);
@@ -210,10 +211,7 @@ void Mapa::CreateCasters() {
 void Mapa::CreatePlayer() {
     InGame *world = InGame::Instance();
     world->player = new Player();
-
-
-
-
+    
     const std::vector<tmx::MapLayer>& layers = ml.GetLayers();
     for (const auto& l : layers) {
         if (l.name == "Player") //static bodies which make up the map geometry

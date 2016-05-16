@@ -33,6 +33,7 @@ void Level::CreateLevels() {
 void Level::LoadMap(Niveles::ID nivel) {
     std::map<Niveles::ID, std::string>::iterator it = mapNiveles->find(nivel);
     map->mapLoader(it->second);
+    
     currentLevel = nivel;
 }
 

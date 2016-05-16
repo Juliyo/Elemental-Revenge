@@ -297,6 +297,7 @@ void InGame::Update(sf::Time elapsedTime) {
             StateStack::Instance()->SetCurrentState(States::ID::Transition);
         }
     }
+    std::cout<<"Enemigos: "<<level->map->numEnemigos<<std::endl;
 }
 
 void InGame::Render(float interpolation, sf::Time elapsedTime) {
@@ -528,7 +529,7 @@ void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         player->isMovingLeft = isPressed;
     } else if (key == sf::Keyboard::D) {
         player->isMovingRight = isPressed;
-    }else if(key == sf::Keyboard::K && level->currentLevel != Niveles::ID::Level4){
+    }else if(key == sf::Keyboard::K /*&& level->currentLevel != Niveles::ID::Level4*/){
         sf::Thread thread(&InGame::killAllEnemies,this);
         thread.launch();
         //thread.join();
