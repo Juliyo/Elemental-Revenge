@@ -149,8 +149,8 @@ void Pause::Inicializar() {
     menuPausa->at(6)->setColor(colorAzul);
     menuPausa->at(6)->setString("Atrás");
     menuPausa->at(6)->setStyle(sf::Text::Bold);
-    menuPausa->at(6)->setPosition(750, 900);
-    menuPausa->at(6)->setScale(1.2, 1.2);
+    menuPausa->at(6)->setPosition(750, 850);
+    menuPausa->at(6)->setScale(1.8, 1.8);
 
     menuPausa->at(7)->setFont(fontPausa);
     menuPausa->at(7)->setColor(colorAzul);
@@ -343,7 +343,9 @@ void Pause::Render(float interpolation, sf::Time elapsedTime) {
         textoPausa->setString("OPCIONES");
         textoPausa->setScale(4, 4);
         for (int i = 3; i < 7; i++) {
+            if(i!=5){
             motor->draw(*menuPausa->at(i));
+            }
         }
     }
 
@@ -532,10 +534,12 @@ void Pause::MoveUp() {
         }
     } else {
         if (selectedItemIndexPausa - 1 >= 3 && selectedItemIndexPausa <= 7) {
-
+            
+            if(selectedItemIndexPausa!=6){
             menuPausa->at(selectedItemIndexPausa)->setColor(colorAzul);
             selectedItemIndexPausa--;
             menuPausa->at(selectedItemIndexPausa)->setColor(sf::Color::White);
+            }
 
         } else if (selectedItemIndexPausa == 11) {
             selectedItemIndexPausa = 8;
@@ -560,10 +564,11 @@ void Pause::MoveDown() {
     } else {
         if (selectedItemIndexPausa + 1 <= 7) {
 
+            if(selectedItemIndexPausa!=6 && selectedItemIndexPausa!=4){
             menuPausa->at(selectedItemIndexPausa)->setColor(colorAzul);
             selectedItemIndexPausa++;
             menuPausa->at(selectedItemIndexPausa)->setColor(sf::Color::White);
-
+            }
         } else if (selectedItemIndexPausa == 8) {
             selectedItemIndexPausa = 11;
             menuPausa->at(7)->setColor(colorAzul);
@@ -629,7 +634,7 @@ void Pause::MoveRight() {
 
         if (selectedItemIndexPausa == 3) {
             menuPausa->at(selectedItemIndexPausa)->setColor(colorAzul);
-            selectedItemIndexPausa = 5;
+            selectedItemIndexPausa = 6;
             menuPausa->at(selectedItemIndexPausa)->setColor(sf::Color::White);
         }
         if (selectedItemIndexPausa == 4) {
