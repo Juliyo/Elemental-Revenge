@@ -25,35 +25,7 @@ DisparoEnemigo::DisparoEnemigo(): Collisionable((Entity*)this) {
     animationInicio->addFrame(sf::IntRect(456, 0, 152, 148));
     animationInicio->addFrame(sf::IntRect(608, 0, 152, 148));
 
-    animationInicio->addFrame(sf::IntRect(0, 148, 152, 148));
-    animationInicio->addFrame(sf::IntRect(152, 148, 152, 148));
-    animationInicio->addFrame(sf::IntRect(304, 148, 152, 148));
-    animationInicio->addFrame(sf::IntRect(456, 148, 152, 148));
-    animationInicio->addFrame(sf::IntRect(608, 148, 152, 148));
-
-    animationInicio->addFrame(sf::IntRect(0, 296, 152, 148));
-    animationInicio->addFrame(sf::IntRect(152, 296, 152, 148));
-    animationInicio->addFrame(sf::IntRect(304, 296, 152, 148));
-    animationInicio->addFrame(sf::IntRect(456, 296, 152, 148));
-    animationInicio->addFrame(sf::IntRect(608, 296, 152, 148));
-
-    animationInicio->addFrame(sf::IntRect(0, 444, 152, 148));
-    animationInicio->addFrame(sf::IntRect(152, 444, 152, 148));
-    animationInicio->addFrame(sf::IntRect(304, 444, 152, 148));
-    animationInicio->addFrame(sf::IntRect(456, 444, 152, 148));
-    animationInicio->addFrame(sf::IntRect(608, 444, 152, 148));
-
-    animationInicio->addFrame(sf::IntRect(0, 592, 152, 148));
-    animationInicio->addFrame(sf::IntRect(152, 592, 152, 148));
-    animationInicio->addFrame(sf::IntRect(304, 592, 152, 148));
-    animationInicio->addFrame(sf::IntRect(456, 592, 152, 148));
-    animationInicio->addFrame(sf::IntRect(608, 592, 152, 148));
-
-    animationInicio->addFrame(sf::IntRect(0, 740, 152, 148));
-    animationInicio->addFrame(sf::IntRect(152, 740, 152, 148));
-    animationInicio->addFrame(sf::IntRect(304, 740, 152, 148));
-    animationInicio->addFrame(sf::IntRect(456, 740, 152, 148));
-    animationInicio->addFrame(sf::IntRect(608, 740, 152, 148));
+    
     
     animationFin->setSpriteSheet("resources/Textures/fuegoMuriendoAzul.png");
     
