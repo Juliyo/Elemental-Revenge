@@ -279,11 +279,9 @@ void InGame::Update(sf::Time elapsedTime) {
                 cdFlashPausa = 0;
             }
         }
-
         if (!video -> getLooped()) {
             video->setDibujar(true);
         }
-
     } else {
         hActivo = 0;
     }
@@ -298,10 +296,7 @@ void InGame::Update(sf::Time elapsedTime) {
             music->Play();
             StateStack::Instance()->SetCurrentState(States::ID::Transition);
         }
-        
     }
-    std::cout<<"Num Casters: "<<caster->size()<<std::endl;
-    std::cout<<"Num Melees: "<<melee->size()<<std::endl;
 }
 
 void InGame::Render(float interpolation, sf::Time elapsedTime) {
@@ -537,7 +532,7 @@ void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         player->isMovingLeft = isPressed;
     } else if (key == sf::Keyboard::D) {
         player->isMovingRight = isPressed;
-    }else if(key == sf::Keyboard::K){
+    }else if(key == sf::Keyboard::K && level->currentLevel != Niveles::ID::Level4){
         sf::Thread thread(&InGame::killAllEnemies,this);
         thread.launch();
         //thread.join();

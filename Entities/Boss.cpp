@@ -107,7 +107,7 @@ void Boss::Inicializar(float posX, float posY, float speedX, float speedY, float
     PhysicsState::SetPosition(posX, posY);
     PhysicsState::SetSpeed(speedX, speedY);
     Enemigo::SetVelocity(130);
-    Enemigo::SetVida(20);
+    Enemigo::SetVida(125);
 
     PhysicsState::SetMaxSpeed(maxSpeedX, maxSpeedY);
     Render::SetOriginAnimatedSprite(30, 38);
