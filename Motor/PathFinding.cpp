@@ -281,7 +281,9 @@ std::vector<sf::Vector2i>* PathFinding::buscaCamino2(sf::Vector2f posenemigo, sf
 
         Nodo *nodoActual = listaAbierta.at(listaAbierta.size() - 1);
         listaActuales.push_back(nodoActual);
-        
+        if (listaCerrada.size() > 250) {
+            nodoFinal = listaAbierta.at(listaAbierta.size() - 1);
+        }
         if (nodoActual->esIgual(nodoFinal)) {
             std::vector<sf::Vector2i> *mejorCamino = new std::vector<sf::Vector2i>();
             // std::cout<<"Tamano de listaabierta: "<<listaAbierta.size()<<std::endl;
