@@ -17,7 +17,7 @@
 #include "Muerte.hpp"
 #include "StateStack.hpp"
 #include "../Motor/SoundManager.hpp"
-
+#include <thread>
 InGame* InGame::mInstance = 0;
 
 InGame* InGame::Instance() {
@@ -300,6 +300,8 @@ void InGame::Update(sf::Time elapsedTime) {
         }
         
     }
+    std::cout<<"Num Casters: "<<caster->size()<<std::endl;
+    std::cout<<"Num Melees: "<<melee->size()<<std::endl;
 }
 
 void InGame::Render(float interpolation, sf::Time elapsedTime) {
@@ -536,7 +538,9 @@ void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
     } else if (key == sf::Keyboard::D) {
         player->isMovingRight = isPressed;
     }else if(key == sf::Keyboard::K){
-        killAllEnemies();
+        sf::Thread thread(&InGame::killAllEnemies,this);
+        thread.launch();
+        //thread.join();
     }else if (key == sf::Keyboard::G && isPressed) {
         player->hRayoBasico->aumentaLVL();
     } else if (key == sf::Keyboard::H && isPressed) {
@@ -691,14 +695,14 @@ void InGame::primerosDeLaCola() {
 
 void InGame::killAllEnemies(){
       int i = 0;
-      for (i = 0;i<caster->size();i++){
+      for (i = 0;i<caster->size();++i){
           if(caster->at(i)->GetEstado() == Estado::ID::Vivo){
-              caster->at(i)->RestarVida(200);
+              caster->at(i)->RestarVida(10);
           }
       }
-      for(i=0;i<melee->size();i++){
+      for(i=0;i<melee->size();++i){
           if(melee->at(i)->GetEstado() == Estado::ID::Vivo){
-              melee->at(i)->RestarVida(200);
+              melee->at(i)->RestarVida(10);
           }
       }
 }

@@ -29,7 +29,7 @@ AtaqueBossA::AtaqueBossA(): Collisionable((Entity*)this) {
     animationAtaque->addFrame(sf::IntRect(456, 0, 152, 148));
     animationAtaque->addFrame(sf::IntRect(608, 0, 152, 148));
 
-    animationAtaque->addFrame(sf::IntRect(0, 148, 152, 148));
+    /*animationAtaque->addFrame(sf::IntRect(0, 148, 152, 148));
     animationAtaque->addFrame(sf::IntRect(152, 148, 152, 148));
     animationAtaque->addFrame(sf::IntRect(304, 148, 152, 148));
     animationAtaque->addFrame(sf::IntRect(456, 148, 152, 148));
@@ -57,7 +57,7 @@ AtaqueBossA::AtaqueBossA(): Collisionable((Entity*)this) {
     animationAtaque->addFrame(sf::IntRect(152, 740, 152, 148));
     animationAtaque->addFrame(sf::IntRect(304, 740, 152, 148));
     animationAtaque->addFrame(sf::IntRect(456, 740, 152, 148));
-    animationAtaque->addFrame(sf::IntRect(608, 740, 152, 148));
+    animationAtaque->addFrame(sf::IntRect(608, 740, 152, 148));*/
     
     animationFin->setSpriteSheet("resources/Textures/fuegoMuriendoAzul.png");
     animationFin->addFrame(sf::IntRect(0,0,172,159));

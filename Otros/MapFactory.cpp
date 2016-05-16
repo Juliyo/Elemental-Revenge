@@ -16,7 +16,7 @@
 
 std::string MapFactory::CreateLevel(Niveles::ID id) {
     if (id == Niveles::Level1) {
-        std::string m = "mansionV2.tmx";
+        std::string m = "mapaBosqueAlfa.tmx";
         return m;
     } else if (id == Niveles::Level2) {
         std::string m = "LVL22.tmx";
@@ -25,7 +25,8 @@ std::string MapFactory::CreateLevel(Niveles::ID id) {
         std::string m = "CasaAbandonadaV2.tmx";
         return m;
     } else if (id == Niveles::Level4) {
-        std::string m = "mapaBosqueAlfa.tmx";
+        std::string m = "mansionV2.tmx";
+        
         return m;
     }
 }
