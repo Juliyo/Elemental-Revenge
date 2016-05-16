@@ -533,7 +533,9 @@ void InGame::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         player->isMovingLeft = isPressed;
     } else if (key == sf::Keyboard::D) {
         player->isMovingRight = isPressed;
-    } else if (key == sf::Keyboard::G && isPressed) {
+    }else if(key == sf::Keyboard::K){
+        killAllEnemies();
+    }else if (key == sf::Keyboard::G && isPressed) {
         player->hRayoBasico->aumentaLVL();
     } else if (key == sf::Keyboard::H && isPressed) {
         player->hRayoAvanzado->aumentaLVL();
@@ -681,5 +683,20 @@ void InGame::primerosDeLaCola() {
         }
 
     }
+    
 
+}
+
+void InGame::killAllEnemies(){
+      int i = 0;
+      for (i = 0;i<caster->size();i++){
+          if(caster->at(i)->GetEstado() == Estado::ID::Vivo){
+              caster->at(i)->RestarVida(200);
+          }
+      }
+      for(i=0;i<melee->size();i++){
+          if(melee->at(i)->GetEstado() == Estado::ID::Vivo){
+              melee->at(i)->RestarVida(200);
+          }
+      }
 }

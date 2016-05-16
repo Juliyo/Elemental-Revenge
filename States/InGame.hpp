@@ -109,7 +109,7 @@ private:
     //heal
     bool                        isHealing = false;
     int                         anterior=0;
-    
+    void                        killAllEnemies();
     
     static InGame* mInstance;
     
