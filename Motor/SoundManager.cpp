@@ -46,6 +46,7 @@ void SoundManager::load() {
     sonidos->insert(std::make_pair("resources/Sounds/Abasico.wav" , new Sound("resources/Sounds/Abasico.wav")));
     sonidos->insert(std::make_pair("resources/Sounds/Favanzado.wav" , new Sound("resources/Sounds/Favanzado.wav")));
     sonidos->insert(std::make_pair("resources/Sounds/Ravanzado.wav" , new Sound("resources/Sounds/Ravanzado.wav")));
+    sonidos->insert(std::make_pair("resources/Sounds/RavanzadoBoss.wav" , new Sound("resources/Sounds/RavanzadoBoss.wav")));
     sonidos->insert(std::make_pair("resources/Sounds/Aavanzado.wav" , new Sound("resources/Sounds/Aavanzado.wav")));
     sonidos->insert(std::make_pair("resources/Sounds/assassindie.ogg" , new Sound("resources/Sounds/assassindie.ogg")));
     sonidos->insert(std::make_pair("resources/Sounds/assassinhit.ogg" , new Sound("resources/Sounds/assassinhit.ogg")));

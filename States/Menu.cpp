@@ -775,7 +775,7 @@ void Menu::updateView() {
     position.y = std::max(position.y, viewBounds.top);
     position.y = std::min(position.y, viewBounds.height + viewBounds.top);
     mouseSprite->setPosition(position.x, position.y);
-    
+    //printf("Posicion del raton %f,%f\n",position.x,position.y);
 
     motor->setSizeForView(3, 640, 480);
     motor->SetView(3);

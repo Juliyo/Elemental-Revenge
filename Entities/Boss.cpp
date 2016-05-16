@@ -454,6 +454,8 @@ void Boss::updateAtaqueBossA(bool disparado, sf::Time elapsedTime, float x4, flo
         }
 
         if (clockCdDisparo.getTiempo() > CdDisparo || primercastDisparo == true) {
+            SoundManager *sonido = SoundManager::Instance();
+        sonido->play("resources/Sounds/Fbasico.wav");
             primercastDisparo = false;
             clockCdDisparo.restart();
             disparo->at(numDisparo)->Disparar(sf::Vector2f(getPosition()), sf::Vector2f(x4, y4));
@@ -482,12 +484,16 @@ void Boss::updateAtaqueBossB(bool disparado, sf::Time elapsedTime, float x4, flo
     sf::Vector2f movement2(0.f, 0.f);
 
     if (castDisparoRayo.getTiempo() > 1.5f) {
+        
+        
+
         rayo->SetOriginAnimatedSprite(340, 392);
         rayo->currentAnimation = &rayo->animationAtaque;
         rayo->marca=false;
         rayo->relojitomagico.restart();
         rayo->body->SetActive(true);
     } else {
+
         rayo->SetOriginAnimatedSprite(54, 30);
         rayo->currentAnimation = &rayo->animationDiana;
        
@@ -498,6 +504,8 @@ void Boss::updateAtaqueBossB(bool disparado, sf::Time elapsedTime, float x4, flo
 
     if (disparado) {
         if (clockCdDisparoRayo.getTiempo() > CdDisparoRayo || primercastDisparoRayo == true) {
+         SoundManager *sonido = SoundManager::Instance();
+        sonido->play("resources/Sounds/RavanzadoBoss.wav");
             primercastDisparoRayo = false;
             clockCdDisparoRayo.restart();
             rayo->Disparar(sf::Vector2f(getPosition()), sf::Vector2f(x4, y4));

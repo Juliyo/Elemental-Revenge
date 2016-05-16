@@ -325,7 +325,10 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
 
     //Renderiza el mapa
     level->render();
+    
+    if (StateStack::Instance()->currentState != States::ID::Pause && StateStack::Instance()->currentState != States::ID::Muerte)
     player->renderFuegoAvanzado(elapsedTime, interpolation);
+    
     //****************************RENDER ENEMIGOS MELEE************************************//
     for (int i = 0; i < melee->size(); i++) {
         melee->at(i)->PlayAnimation(*melee->at(i)->currentAnimation);
@@ -355,10 +358,12 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
     if (level->map->numEnemigos == 0 && boss->GetEstado() == Estado::ID::Vivo || boss->GetEstado() == Estado::ID::Damaged) {
         boss->PlayAnimation(*boss->currentAnimation);
         boss->UpdateAnimation(elapsedTime);
+        if (StateStack::Instance()->currentState != States::ID::Pause && StateStack::Instance()->currentState != States::ID::Muerte) {
         boss->renderAtaqueA(elapsedTime, interpolation);
         boss->renderAtaqueB(elapsedTime, interpolation);
         //boss->renderAtaqueC(elapsedTime, interpolation);
         boss->renderAtaqueD(elapsedTime, interpolation);
+        }
         //Si estamos en Pause o Muerte render con interpolacion
         if (StateStack::Instance()->currentState != States::ID::Pause && StateStack::Instance()->currentState != States::ID::Muerte) {
             if (boss->GetEstado() != Estado::ID::Muerto) {
@@ -418,7 +423,7 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
         }
 
     }
-
+    if (StateStack::Instance()->currentState != States::ID::Pause && StateStack::Instance()->currentState != States::ID::Muerte) 
     player->renderFuegoBasico(elapsedTime, interpolation);
 
     if (StateStack::Instance()->currentState == States::ID::InGame && cambioInGame2Pausa == false) {
@@ -445,16 +450,15 @@ void InGame::Render(float interpolation, sf::Time elapsedTime) {
 
         cambioInGame2Pausa = false;
     }
-
+if (StateStack::Instance()->currentState != States::ID::Pause && StateStack::Instance()->currentState != States::ID::Muerte) {
     //****************************RAYO************************************
     player->renderRayo(elapsedTime, interpolation);
     //****************************FUEGO************************************
-
     //****************************AGUA************************************
     player->renderAgua(elapsedTime, interpolation);
     //*********************HEAL**********************************
     player->renderHeal(elapsedTime, interpolation);
-
+}
     //****************************RENDER PLAYER************************************//
     player -> PlayAnimation(*player -> currentAnimation);
     if ((!player->isMovingDown && !player->isMovingLeft && !player->isMovingRight && !player->isMovingUp) && player->castFire.getTiempo() > 0.45f && player->castFire2.getTiempo() > 0.4f) {
