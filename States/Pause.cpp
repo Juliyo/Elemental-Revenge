@@ -469,7 +469,7 @@ void Pause::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
 
                 StateStack::Instance()->GetState(States::ID::Pause)->Clear();
                 
-               // StateStack::Instance()->GetState(States::ID::Menu)->Clear();
+               StateStack::Instance()->GetState(States::ID::Menu)->Clear();
                 
                 StateStack::Instance()->GetState(States::ID::Menu)->Inicializar();
 
