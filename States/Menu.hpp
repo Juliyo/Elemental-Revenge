@@ -87,7 +87,6 @@ std::string NumberToString(T pNumber);
     
     bool tecladoActivo;
     bool ratonSelecciona;
-
     
 
     //Animations
@@ -123,7 +122,9 @@ std::string NumberToString(T pNumber);
     sf::Font fontTitulo;
     Text *textTitulo;
 
-    Text menu[10];
+    //Text menu[10];
+    
+    std::vector<Text*> *menu;
     Text audioMusica;
     Text audioSonido;
     Text modoVideo;

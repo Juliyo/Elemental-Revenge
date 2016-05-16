@@ -15,21 +15,17 @@
 #include "StateStack.hpp"
 #include "../Motor/SoundManager.hpp"
 #include "../Motor/Music.hpp"
+#include <iostream>
+#include <string>
 
 
 Menu::Menu() {
     
     motor = Motor2D::Instance();
     
-    spriteFondoMenu = new Sprite();
-    spriteFondo = new Sprite();
-    spriteRelleno = new Sprite();
-    mouseSprite = new Sprite();
-    titulo = new Sprite();
-    mancha = new Sprite[10];
-    
-    textTitulo = new Text();
-    
+
+    SoundManager::Instance()->load();
+
    
 }
 
@@ -40,6 +36,13 @@ Menu::~Menu() {
 }
 
 void Menu::Clear() {
+    
+        while (!menu->empty()) {
+        delete menu->back(), menu->pop_back();
+    }
+        
+    delete menu;
+    
     delete spriteFondoMenu;
     spriteFondoMenu = nullptr;
     
@@ -60,25 +63,28 @@ void Menu::Clear() {
     
     delete textTitulo;
     textTitulo = nullptr;
+    
+    
+    
+    
+
 }
 
 void Menu::Inicializar() {
     
-    srand(time(NULL));
-
-    random = rand() % 3; // v1 in the range 0 to 99
-    
-    SoundManager::Instance()->load();
-    Music *music = Music::Instance();
-    music->Stop();
-    music->Load(MUSICA::ID::Menu);
-    music->Play();
-    
-    cargarAnimacionesMenu();
-
-   // EstadoActivo = true;
-
-    try {
+    spriteFondoMenu = new Sprite();
+    spriteFondo = new Sprite();
+    spriteRelleno = new Sprite();
+    mouseSprite = new Sprite();
+    titulo = new Sprite();
+    mancha = new Sprite[10];
+            menu = new std::vector<Text*>();
+    for (int i = 0; i < 9; i++) {
+        menu->push_back(new Text());
+    }
+    textTitulo = new Text();
+        
+        try {
         texturaRelleno.loadFromFile("resources/Textures/background.png");
         texturaFondo.loadFromFile("resources/Textures/fondo.png");
         texturaFondoMenu.loadFromFile("resources/Textures/Fondo-menu-principal.png");
@@ -96,8 +102,25 @@ void Menu::Inicializar() {
         exit(0);
     }
     
+    
     texturaFondo.setSmooth(true);
     texturaFondo.setRepeated(1);
+
+    srand(time(NULL));
+
+    random = rand() % 3; // v1 in the range 0 to 99
+    
+    
+    Music *music = Music::Instance();
+    music->Stop();
+    music->Load(MUSICA::ID::Menu);
+    music->Play();
+    
+    cargarAnimacionesMenu();
+
+   // EstadoActivo = true;
+
+
     spriteFondo->setTexture(texturaFondo);
     
     mouseSprite->setTexture(mouseTexture);
@@ -105,6 +128,7 @@ void Menu::Inicializar() {
     mouseSprite->setPosition(20, 20);
     mouseSprite->setOrigin(64, 64);
 
+   
     spriteFondoMenu->setTexture(texturaFondoMenu);
     spriteFondoMenu->setScale(1.4, 1);
     spriteFondoMenu->setPosition(0, 330);
@@ -125,6 +149,8 @@ void Menu::Inicializar() {
     titulo->setTexture(texturaTitulo);
     titulo->setPosition(250, 450);
 
+    
+   
     float width = 900;
     float height = 900;
     sf::Color color(112, 112, 112);
@@ -133,58 +159,56 @@ void Menu::Inicializar() {
     titulo->setPosition(190, 420);
     titulo->setScale(0.23, 0.23);
 
-
-    menu[0].setFont(font);
-    menu[0].setColor(sf::Color::White);
-    menu[0].setString("Jugar");
-    menu[0].setPosition(580, 410);
+    menu->at(0)->setFont(font);
+    menu->at(0)->setColor(sf::Color::White);
+    menu->at(0)->setString("Jugar");
+    menu->at(0)->setPosition(580, 410);
     mancha[0].setPosition(540, 370);
-    menu[0].setStyle(1);
-    menu[0].setScale(0.7, 0.7);
+    menu->at(0)->setStyle(1);
+    menu->at(0)->setScale(0.7, 0.7);
 
-    menu[1].setFont(font);
-    menu[1].setColor(color);
-    menu[1].setString("Opciones");
-    menu[1].setPosition(580, 490);
+    menu->at(1)->setFont(font);
+    menu->at(1)->setColor(color);
+    menu->at(1)->setString("Opciones");
+    menu->at(1)->setPosition(580, 490);
     mancha[1].setScale(0.4, 0.3);
     mancha[1].setPosition(540, 450);
+    menu->at(1)->setStyle(1);
+    menu->at(1)->setScale(0.7, 0.7);
 
-    menu[1].setStyle(1);
-    menu[1].setScale(0.7, 0.7);
-
-    menu[2].setFont(font);
-    menu[2].setColor(color);
-    menu[2].setString("Salir");
-    menu[2].setPosition(580, 570);
+    menu->at(2)->setFont(font);
+    menu->at(2)->setColor(color);
+    menu->at(2)->setString("Salir");
+    menu->at(2)->setPosition(580, 570);
     mancha[2].setPosition(540, 540);
 
-    menu[2].setStyle(1);
-    menu[2].setScale(0.7, 0.7);
+    menu->at(2)->setStyle(1);
+    menu->at(2)->setScale(0.7, 0.7);
 
-    menu[3].setFont(font);
-    menu[3].setColor(sf::Color::White);
-    menu[3].setString("OPCIONES");
-    menu[3].setPosition(width / 2 + 100, height / (MAX_NUMBER_OF_ITEMS + 1) *1.5);
-    menu[3].setStyle(1);
-    menu[3].setScale(0.7, 0.7);
+    menu->at(3)->setFont(font);
+    menu->at(3)->setColor(sf::Color::White);
+    menu->at(3)->setString("OPCIONES");
+    menu->at(3)->setPosition(width / 2 + 100, height / (MAX_NUMBER_OF_ITEMS + 1) *1.5);
+    menu->at(3)->setStyle(1);
+    menu->at(3)->setScale(0.7, 0.7);
     
     
-    menu[4].setFont(font);
-    menu[4].setColor(sf::Color::White);
-    menu[4].setString("Audio");
-    menu[4].setPosition(580, 400);
-    menu[4].setScale(0.6, 0.6);
+    menu->at(4)->setFont(font);
+    menu->at(4)->setColor(sf::Color::White);
+    menu->at(4)->setString("Audio");
+    menu->at(4)->setPosition(580, 400);
+    menu->at(4)->setScale(0.6, 0.6);
 
     mancha[3].setScale(0.4, 0.3);
     mancha[3].setPosition(540, 350);
 
     
         
-    menu[5].setFont(font);
-    menu[5].setColor(color);
-    menu[5].setString("Video");
-    menu[5].setPosition(580, 550);
-    menu[5].setScale(0.6, 0.6);
+    menu->at(5)->setFont(font);
+    menu->at(5)->setColor(color);
+    menu->at(5)->setString("Video");
+    menu->at(5)->setPosition(580, 550);
+    menu->at(5)->setScale(0.6, 0.6);
 
     mancha[4].setScale(0.4, 0.3);
     mancha[4].setPosition(540, 500);
@@ -196,24 +220,24 @@ void Menu::Inicializar() {
     mancha[6].setScale(0.4, 0.3);
     mancha[6].setPosition(540, 500);
     
-    menu[6].setFont(font);
-    menu[6].setColor(sf::Color::White);
-    menu[6].setString("Música");
-    menu[6].setPosition(580, 400);
-    menu[6].setScale(0.6, 0.6);
+    menu->at(6)->setFont(font);
+    menu->at(6)->setColor(sf::Color::White);
+    menu->at(6)->setString("Música");
+    menu->at(6)->setPosition(580, 400);
+    menu->at(6)->setScale(0.6, 0.6);
     
     
-    menu[7].setFont(font);
-    menu[7].setColor(color);
-    menu[7].setString("Sonidos");
-    menu[7].setPosition(580, 550);
-    menu[7].setScale(0.6, 0.6);
+    menu->at(7)->setFont(font);
+    menu->at(7)->setColor(color);
+    menu->at(7)->setString("Sonidos");
+    menu->at(7)->setPosition(580, 550);
+    menu->at(7)->setScale(0.6, 0.6);
     
-    menu[8].setFont(font);
-    menu[8].setColor(sf::Color::White);
-    menu[8].setString("Cambiar modo");
-    menu[8].setPosition(580, 400);
-    menu[8].setScale(0.5, 0.5);
+    menu->at(8)->setFont(font);
+    menu->at(8)->setColor(sf::Color::White);
+    menu->at(8)->setString("Cambiar modo");
+    menu->at(8)->setPosition(580, 400);
+    menu->at(8)->setScale(0.5, 0.5);
     
     audioMusica.setFont(font);
     audioMusica.setColor(color);
@@ -239,7 +263,6 @@ void Menu::Inicializar() {
     textTitulo->setStyle(1);
 
     selectedItemIndex = 0;
-
 }
 
 sf::Vector2f Menu::getPosition() {
@@ -247,34 +270,34 @@ sf::Vector2f Menu::getPosition() {
 }
 
 void Menu::Update(sf::Time elapsedTime) {
+    sf::Color color(112, 112, 112);
     if (selectedItemIndex < 3) {
-        sf::Color color(112, 112, 112);
-        if (mouseSprite->getGlobalBounds().intersects(menu[0].getGlobalBounds())) {
+        if (mouseSprite->getGlobalBounds().intersects(menu->at(0)->getGlobalBounds())) {
             ratonSelecciona = true;
             if (!tecladoActivo) {
-                menu[0].setColor(sf::Color::White);
-                menu[1].setColor(color);
-                menu[2].setColor(color);
+                menu->at(0)->setColor(sf::Color::White);
+                menu->at(1)->setColor(color);
+                menu->at(2)->setColor(color);
                 selectedItemIndex = 0;
             } else {
                 tecladoActivo = false;
             }
-        } else if (mouseSprite->getGlobalBounds().intersects(menu[1].getGlobalBounds())) {
+        } else if (mouseSprite->getGlobalBounds().intersects(menu->at(1)->getGlobalBounds())) {
             ratonSelecciona = true;
             if (!tecladoActivo) {
-                menu[0].setColor(color);
-                menu[1].setColor(sf::Color::White);
-                menu[2].setColor(color);
+                menu->at(0)->setColor(color);
+                menu->at(1)->setColor(sf::Color::White);
+                menu->at(2)->setColor(color);
                 selectedItemIndex = 1;
             } else {
                 tecladoActivo = false;
             }
-        } else if (mouseSprite->getGlobalBounds().intersects(menu[2].getGlobalBounds())) {
+        } else if (mouseSprite->getGlobalBounds().intersects(menu->at(2)->getGlobalBounds())) {
             ratonSelecciona = true;
             if (!tecladoActivo) {
-                menu[0].setColor(color);
-                menu[1].setColor(color);
-                menu[2].setColor(sf::Color::White);
+                menu->at(0)->setColor(color);
+                menu->at(1)->setColor(color);
+                menu->at(2)->setColor(sf::Color::White);
 
                 selectedItemIndex = 2;
             } else {
@@ -283,15 +306,62 @@ void Menu::Update(sf::Time elapsedTime) {
         } else {
             ratonSelecciona = false;
             if (!tecladoActivo) {
-                menu[0].setColor(color);
-                menu[1].setColor(color);
-                menu[2].setColor(color);
+                menu->at(0)->setColor(color);
+                menu->at(1)->setColor(color);
+                menu->at(2)->setColor(color);
             }
         }
     }
     else{
-        
+        if (selectedItemIndex >= 3 && selectedItemIndex<=5) {
+        if (mouseSprite->getGlobalBounds().intersects(menu->at(4)->getGlobalBounds())) {
+            ratonSelecciona = true;
+            if (!tecladoActivo) {
+                menu->at(4)->setColor(sf::Color::White);
+                menu->at(5)->setColor(color);
+                selectedItemIndex = 4;
+            } else {
+                tecladoActivo = false;
+            }
+        }
+        else if (mouseSprite->getGlobalBounds().intersects(menu->at(5)->getGlobalBounds())) {
+            ratonSelecciona = true;
+            if (!tecladoActivo) {
+                menu->at(4)->setColor(color);
+                menu->at(5)->setColor(sf::Color::White);
+                selectedItemIndex = 5;
+            } else {
+                tecladoActivo = false;
+            }
+        }
+        else{
+            ratonSelecciona = false;
+            if (!tecladoActivo) {
+                menu->at(4)->setColor(color);
+                menu->at(5)->setColor(color);
+            }
+        }
     }
+        else{
+            if (selectedItemIndex ==8) {
+                if (mouseSprite->getGlobalBounds().intersects(modoVideo.getGlobalBounds())) {
+            ratonSelecciona = true;
+            if (!tecladoActivo) {
+                modoVideo.setColor(sf::Color::White);
+            } else {
+                tecladoActivo = false;
+            }
+        }
+                        else{
+            ratonSelecciona = false;
+            if (!tecladoActivo) {
+                modoVideo.setColor(color);
+            }
+        }
+            }
+        }
+    }
+
 }
 
 void Menu::Render(float interpolation, sf::Time elapsedTime) {
@@ -302,8 +372,8 @@ void Menu::Render(float interpolation, sf::Time elapsedTime) {
     motor->draw(spriteRelleno);
     motor->SetView(3);
 
-    
     updateView();
+    
     motor->draw(rectanguloFondo);
     motor->draw(spriteFondo);
 
@@ -339,41 +409,42 @@ void Menu::Render(float interpolation, sf::Time elapsedTime) {
     }
     if (selectedItemIndex < 3) {
         for (int i = 0; i < MAX_NUMBER_OF_ITEMS; i++) {
-            motor->draw(menu[i]);
+            motor->draw(*menu->at(i));
         }
     } else {
         if(selectedItemIndex<6){
         motor->draw(mancha[4]);
         motor->draw(mancha[3]);
-        motor->draw(menu[3]);
-        motor->draw(menu[4]);
-        motor->draw(menu[5]);
+        motor->draw(*menu->at(3));
+        motor->draw(*menu->at(4));
+        motor->draw(*menu->at(5));
         }
         else{
             if(selectedItemIndex==6 || selectedItemIndex==7){
             motor->draw(mancha[5]);
             motor->draw(mancha[6]);
-            menu[3].setString("AUDIO");
-            motor->draw(menu[3]);
-            motor->draw(menu[6]);
-            motor->draw(menu[7]);
+            menu->at(3)->setString("AUDIO");
+            motor->draw(*menu->at(3));
+            motor->draw(*menu->at(6));
+            motor->draw(*menu->at(7));
             motor->draw(audioMusica);
             motor->draw(audioSonido);
             }
             else{
             if(selectedItemIndex==8){
             motor->draw(mancha[5]);
-            menu[3].setString("Video");
-            motor->draw(menu[3]);
-            motor->draw(menu[8]);
+            menu->at(3)->setString("Video");
+            motor->draw(*menu->at(3));
+            motor->draw(*menu->at(8));
             motor->draw(modoVideo);
             }
             }
         }
     }
-    motor->SetView(2);
-    motor->SetView(3);
+   // motor->SetView(2);
+   // motor->SetView(3);
     motor->draw(mouseSprite);
+    motor->DrawMouse();
     motor->display();
 }
 
@@ -424,43 +495,43 @@ void Menu::MoveUp() {
 
         if (selectedItemIndex - 1 >= 0) {
 
-            menu[selectedItemIndex].setColor(color);
+            menu->at(selectedItemIndex)->setColor(color);
             selectedItemIndex--;
-            menu[selectedItemIndex].setColor(sf::Color::White);
+            menu->at(selectedItemIndex)->setColor(sf::Color::White);
 
         }
     }
     else{
                 if (selectedItemIndex == 4) {
 
-            menu[4].setColor(color);
+            menu->at(4)->setColor(color);
             selectedItemIndex++;
-            menu[5].setColor(sf::Color::White);
+            menu->at(5)->setColor(sf::Color::White);
                 }
                 
                 else if (selectedItemIndex == 5) {
 
-            menu[5].setColor(color);
+            menu->at(5)->setColor(color);
             selectedItemIndex--;
-            menu[4].setColor(sf::Color::White);
+            menu->at(4)->setColor(sf::Color::White);
                 }
                 
                 else if (selectedItemIndex == 6) {
 
-                    menu[6].setColor(color);
+                    menu->at(6)->setColor(color);
             selectedItemIndex++;
             audioSonido.setColor(sf::Color::White);
             audioMusica.setColor(color);
-            menu[7].setColor(sf::Color::White);
+            menu->at(7)->setColor(sf::Color::White);
                 }
                 
                 else if (selectedItemIndex == 7) {
 
                     audioMusica.setColor(sf::Color::White);
             audioSonido.setColor(color);
-                menu[7].setColor(color);
+                menu->at(7)->setColor(color);
             selectedItemIndex--;
-            menu[6].setColor(sf::Color::White);
+            menu->at(6)->setColor(sf::Color::White);
                 }
                 else if (selectedItemIndex == 8) {
 
@@ -478,9 +549,9 @@ void Menu::MoveDown() {
 
         if (selectedItemIndex + 1 < MAX_NUMBER_OF_ITEMS) {
 
-            menu[selectedItemIndex].setColor(color);
+            menu->at(selectedItemIndex)->setColor(color);
             selectedItemIndex++;
-            menu[selectedItemIndex].setColor(sf::Color::White);
+            menu->at(selectedItemIndex)->setColor(sf::Color::White);
 
         }
     }
@@ -488,34 +559,34 @@ else{
                 if (selectedItemIndex == 4) {
 
                     
-            menu[4].setColor(color);
+            menu->at(4)->setColor(color);
             selectedItemIndex++;
-            menu[5].setColor(sf::Color::White);
+            menu->at(5)->setColor(sf::Color::White);
                 }
                 
                 else if (selectedItemIndex == 5) {
 
-                menu[5].setColor(color);
+                menu->at(5)->setColor(color);
             selectedItemIndex--;
-            menu[4].setColor(sf::Color::White);
+            menu->at(4)->setColor(sf::Color::White);
                 }
                 
                 else if (selectedItemIndex == 6) {
 
-                menu[6].setColor(color);
+                menu->at(6)->setColor(color);
             audioSonido.setColor(sf::Color::White);
             audioMusica.setColor(color);
             selectedItemIndex++;
-            menu[7].setColor(sf::Color::White);
+            menu->at(7)->setColor(sf::Color::White);
                 }
                 
                 else if (selectedItemIndex == 7) {
 
-                menu[7].setColor(color);
+                menu->at(7)->setColor(color);
             audioMusica.setColor(sf::Color::White);
             audioSonido.setColor(color);
             selectedItemIndex--;
-            menu[6].setColor(sf::Color::White);
+            menu->at(6)->setColor(sf::Color::White);
                 }
               else if (selectedItemIndex == 8) {
             
@@ -562,6 +633,39 @@ void Menu::handleMouseInput(sf::Mouse::Button button, bool isPressed) {
             StateStack::Instance()->SetCurrentState(States::ID::Carga);
             StateStack::Instance()->GetState(States::ID::Carga)->Inicializar();
         }
+                else if (selectedItemIndex == 1) {
+            selectedItemIndex = 4;
+        }
+        
+        else if (selectedItemIndex == 2) {
+            motor->closeWindow();
+        }
+        else if (selectedItemIndex == 4) {
+            menu->at(6)->setColor(sf::Color::White);
+            audioMusica.setColor(sf::Color::White);
+            selectedItemIndex = 6;
+        }
+        else if (selectedItemIndex == 5) {
+            selectedItemIndex = 8;
+        }
+        else if (selectedItemIndex == 8) {
+            
+            if(isPressed==false){
+   
+        if(motor->getEstilo()=="ventana"){
+                motor->cambiarEstilo(1);
+                modoVideo.setString("Salir de modo "+motor->getEstilo());
+                modoVideo.setScale(0.3,0.3);
+                
+        }else{
+        if(motor->getEstilo()=="pantalla completa"){
+                motor->cambiarEstilo(0);
+                modoVideo.setString("Salir de modo "+motor->getEstilo());
+                modoVideo.setScale(0.4,0.4);
+        }
+    }
+            }
+        }
         if (selectedItemIndex == 2) {
             motor->closeWindow();
         }
@@ -584,16 +688,13 @@ void Menu::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
         }
 
     }else if (key == sf::Keyboard::D) {
-        if (!ratonSelecciona) {
             tecladoActivo = true;
             MoveRight();
-        }
 
     }else if (key == sf::Keyboard::A) {
-        if (!ratonSelecciona) {
             tecladoActivo = true;
             MoveLeft();
-        }
+
 
     } else if (key == sf::Keyboard::Return) {
         
@@ -622,7 +723,7 @@ void Menu::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
             motor->closeWindow();
         }
         else if (selectedItemIndex == 4) {
-            menu[6].setColor(sf::Color::White);
+            menu->at(6)->setColor(sf::Color::White);
             audioMusica.setColor(sf::Color::White);
             selectedItemIndex = 6;
         }
@@ -648,7 +749,7 @@ void Menu::handlePlayerInput(sf::Keyboard::Key key, bool isPressed) {
             }
         }
     } else if (key == sf::Keyboard::Escape) {
-            menu[3].setString("OPCIONES");
+            menu->at(3)->setString("OPCIONES");
 
         if (selectedItemIndex < 3) {
             // mWindow->close();
