@@ -23,7 +23,7 @@ void PhysicsState::SetPosition(float pos_x, float pos_y)
 
 void PhysicsState::SetPosition(sf::Vector2f pos)
 {
-	posPrev = pos;
+	posPrev = posNew;
 	posNew = pos;
 }
 
@@ -49,16 +49,113 @@ void PhysicsState::SetMaxSpeed(sf::Vector2f maxSpeed)
 	this->maxSpeed = maxSpeed;
 }
 
-
+sf::Vector2f PhysicsState::GetNextPosition(sf::Time elapsedTime) const {
+    return posNew + speed * elapsedTime.asSeconds();
+}
 void PhysicsState::Update(sf::Time elapsedTime)
 {
 
-	/*  COLISIONES  */
-	
 	posPrev = posNew;
         posNew += speed * elapsedTime.asSeconds();
         
 }
+/*void PhysicsState::Update(sf::Time elapsedTime, Map *mapa){
+     sf::Vector2f nextPos = GetNextPosition(elapsedTime);
+    int top=(int)nextPos.y-16;
+    int bot=(int)nextPos.y+16;
+    int left=(int)nextPos.x-16;
+    int right=(int)nextPos.x+16;
+    int left_right = (left+right)/2;
+    int top_bot = (top+bot)/2;
+    top=top/16;
+    bot=bot/16;
+    left=left/16;
+    right=right/16;
+    left_right=left_right/16;
+    top_bot=top_bot/16;
+    
+     sf::Vector2f speed2 = speed;
+    if (mapa->_tilemap[3][top][left_right] != 0 && mapa->_tilemap[3][top_bot][left] != 0) {
+        posPrev = posNew;
+    }else if (mapa->_tilemap[3][top][left_right] != 0 && mapa->_tilemap[3][top_bot][right] != 0) {
+        posPrev = posNew;
+    }else if (mapa->_tilemap[3][bot][left_right] != 0 && mapa->_tilemap[3][top_bot][left] != 0) {
+        posPrev = posNew;
+    }else if (mapa->_tilemap[3][bot][left_right] != 0 && mapa->_tilemap[3][top_bot][right] != 0) {
+        posPrev = posNew;
+    }else if (mapa->_tilemap[3][top][left_right] != 0) {
+        if(speed2.y<0){
+               speed2.y=0;  
+             }
+             posPrev = posNew;
+             posNew += speed2 * elapsedTime.asSeconds();
+    }else if (mapa->_tilemap[3][bot][left_right] != 0) {
+         if(speed2.y>0){
+               speed2.y=0;  
+             }
+             posPrev = posNew;
+             posNew += speed2 * elapsedTime.asSeconds();
+    }else if (mapa->_tilemap[3][top_bot][left] != 0) {
+        if(speed2.x<0){
+               speed2.x=0;  
+             }
+             posPrev = posNew;
+             posNew += speed2 * elapsedTime.asSeconds();
+    }else if (mapa->_tilemap[3][top_bot][right] != 0) {
+                if(speed2.x>0){
+               speed2.x=0;  
+             }
+             posPrev = posNew;
+             posNew += speed2 * elapsedTime.asSeconds();
+    }else if (mapa->_tilemap[3][top][left] != 0 && mapa->_tilemap[3][top_bot][left] == 0 && mapa->_tilemap[3][top][left_right] == 0) {
+             if(speed2.y<0){
+               speed2.y=0;  
+             }
+             if(speed2.x<0){
+               speed2.x=0;  
+             }
+             posPrev = posNew;
+             posNew += speed2 * elapsedTime.asSeconds();
+
+    }else if (mapa->_tilemap[3][top][right] != 0 && mapa->_tilemap[3][top_bot][right] == 0 && mapa->_tilemap[3][top][left_right] == 0) {
+             if(speed2.y<0){
+               speed2.y=0;  
+             }
+             if(speed2.x>0){
+               speed2.x=0;  
+             }
+             posPrev = posNew;
+             posNew += speed2 * elapsedTime.asSeconds();
+
+             posPrev = posNew;
+    } else if (mapa->_tilemap[3][bot][left] != 0 && mapa->_tilemap[3][top_bot][left] == 0 && mapa->_tilemap[3][bot][left_right] == 0) {
+             if(speed2.y>0){
+               speed2.y=0;  
+             }
+             if(speed2.x<0){
+               speed2.x=0;  
+             }
+             posPrev = posNew;
+             posNew += speed2 * elapsedTime.asSeconds();
+             
+
+    }else if (mapa->_tilemap[3][bot][right] != 0 && mapa->_tilemap[3][top_bot][right] == 0 && mapa->_tilemap[3][bot][left_right] == 0) {
+             if(speed2.y>0){
+               speed2.y=0;  
+             }
+             if(speed2.x>0){
+               speed2.x=0;  
+             }
+             posPrev = posNew;
+             posNew += speed2 * elapsedTime.asSeconds();
+
+             posPrev = posNew;
+    } else{
+        posPrev = posNew;
+        posNew += speed * elapsedTime.asSeconds();
+    }
+     
+}*/
 
 
 /*
@@ -67,3 +164,7 @@ void PhysicsState::SetAcceleration(float acc_x, float acc_y)
 	acceleration_ = sf::Vector2f(acc_x, acc_y);
 }
  * */
+void PhysicsState::SetAngle(float angleP, float angleN){
+    anglePrev = angleP;
+    angleNew = angleN;
+}

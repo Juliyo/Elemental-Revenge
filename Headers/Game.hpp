@@ -4,52 +4,43 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "Player.hPP"
+#include "../Entities/Player.hpp"
+//#include "InGame.hpp"
+//#include "Transition.hpp"
+#include "Carga2.hpp"
+#include "../Motor/Motor2D.hpp"
+#include "../Motor/Reloj.hpp"
+#include "Muerte.hpp"
+//#include "../"
 
-class Game : private sf::NonCopyable
-{
+#include "../States/State.hpp"
+#include "../States/StateStack.hpp"
+
+#include <cmath>
+#include <math.h>
+#ifdef _WIN32
+#include <Windows.h>
+#endif
+
+class Game {
 public:
     Game();
-    void			run();
-    
-    
-private:
-    void			processEvents();  // Captura y procesa eventos
-    void			update(sf::Time elapsedTime);
-    void			render(float interpolation);
-    void			handlePlayerInput(sf::Keyboard::Key key, bool isPressed);  // Maneja eventos
-    void                        updateView();
+    virtual ~Game();
+
+    void run();
     
 private:
-    static const sf::Time	timePerFrame;
-	
-    
-    //Recursos
-    sf::Texture                 texturaFondo;
-    sf::Sprite                  spriteFondo;
-    sf::Font                    contFonts;
-    
-    //Graficos
-    sf::RenderWindow		mWindow;
-    sf::View                    mWorldView;
-    Player			player;
-    
-    //Estadisticas
-    sf::Text			mStatisticsText;
-    
-    float                       interpolation;
-	
-    //Eventos
-    bool			isMovingUp;
-    bool			isMovingDown;
-    bool			isMovingRight;
-    bool			isMovingLeft;
-    bool			firstTime;
-    bool			isInterpolating;
+
+    void processEvents(); // Captura y procesa eventos
+    void update(sf::Time elapsedTime);
+    void render(float interpolation, sf::Time elapsedTime);
+    Motor2D *motor;
+
+private:
+    static const sf::Time timePerFrame;
+    StateStack *stateStack;
+    float interpolation;
 };
-
-
-
 #endif
 
 

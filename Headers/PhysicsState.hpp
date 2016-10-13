@@ -9,6 +9,7 @@
 #define	PHYSICSSTATE_HPP
 
 #include <SFML/Graphics.hpp>
+#include "../Motor/Mapa.hpp"
 
 class PhysicsState {
 public:
@@ -29,18 +30,20 @@ public:
 	void SetMaxSpeed(float speed_x, float speed_y);
 	void SetMaxSpeed(sf::Vector2f maxSpeed);
 	void Update(sf::Time elapsedTime);
-	
+        void SetAngle(float angleP, float angleN);
+        float anglePrev;
+        float angleNew;
 	/*
 	sf::Vector2f GetPreviousVelocity() const { return previousvelocity_; }
 	sf::Vector2f GetAcceleration() const { return acceleration_; }
 	void SetAcceleration(float acc_x, float acc_y);
 	 */
-	
 private:
 	sf::Vector2f posPrev;
 	sf::Vector2f posNew;
 	sf::Vector2f speed;
 	sf::Vector2f maxSpeed;
+
 	
 	
 	/*sf::Vector2f previousvelocity_;

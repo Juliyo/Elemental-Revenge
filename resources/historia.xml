@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pregunta id="4">
+resources/TextoPreguntas/p1.png
+</pregunta>
+<respuesta1>
+resources/TextoPreguntas/r11.png
+</respuesta1>
+<respuesta2>
+resources/TextoPreguntas/r12.png
+</respuesta2>
+
+<pregunta id="2">
+resources/TextoPreguntas/p2.png
+</pregunta>
+
+<respuesta1>
+resources/TextoPreguntas/r21.png
+</respuesta1>
+
+<respuesta2>
+resources/TextoPreguntas/r22.png
+</respuesta2>
+
+<pregunta id="6">
+resources/TextoPreguntas/p3.png
+</pregunta>
+
+<respuesta1>
+resources/TextoPreguntas/r31.png
+</respuesta1>
+
+<respuesta2>
+resources/TextoPreguntas/r32.png
+</respuesta2>
+
+<pregunta id="1">
+resources/TextoPreguntas/p4.png
+</pregunta>
+
+<respuesta1>
+resources/TextoPreguntas/r41.png
+</respuesta1>
+
+<respuesta2>
+resources/TextoPreguntas/r42.png
+</respuesta2>
+
+<pregunta id="3">
+resources/TextoPreguntas/p5.png
+</pregunta>
+
+<respuesta1>
+resources/TextoPreguntas/r51.png
+</respuesta1>
+
+<respuesta2>
+resources/TextoPreguntas/r52.png
+</respuesta2>
+
+<pregunta id="5">
+resources/TextoPreguntas/p6.png
+</pregunta>
+
+<respuesta1>
+resources/TextoPreguntas/r61.png
+</respuesta1>
+
+<respuesta2>
+resources/TextoPreguntas/r62.png
+</respuesta2>
+<pregunta id="7">
+resources/TextoPreguntas/p7.png
+</pregunta>
+
+<respuesta1>
+resources/TextoPreguntas/r71.png
+</respuesta1>
+
+<respuesta2>
+resources/TextoPreguntas/r72.png
+</respuesta2>
